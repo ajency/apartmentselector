@@ -7,26 +7,34 @@ $(".add-rooms").live('click', function(e) {
 
 		form_id = $(this).attr('form-id') 
 
+		count = parseInt($(this).attr('count-of-rooms'))
+
+		count++;
+
+		$(this).attr('count-of-rooms',count);
+
 		field_store_entry_data = $(this).attr('store-entry-data') ;   
 
-		$(e.target).parent().append("<div class='form-container bordered' store-entry-data='"+field_store_entry_data+"'  ><a href='javascript:void(0)'form-id='"+form_id+"' class='show-add-form' >Add Details</a></div>") 
+		$(e.target).parent().append("<div class='form-container bordered' store-entry-data='"+field_store_entry_data+"'   ><a href='javascript:void(0)'form-id='"+form_id+"' class='show-add-form' room-no="+count+">Add Details</a></div>") 
 		
 
 
 });
 
 $( ".show_sub_form" ).each(function( e ) {
-
+ 
 	var _this = this
 
-	form_id =  ($('option:selected', $(this)).attr('form-id')) 
+	get_form_id = $('option:selected', $(this)).attr('form-id');
+ 
+	form_id =  (get_form_id==""|| get_form_id == undefined)? $(this).attr('form-id') :get_form_id;
 
 	sort_order_key = ($(this).attr('sort-on-key')==undefined || "") ?"":$(this).attr('sort-on-key') ;
 
 	field_store_entry_data = $(this).attr('store-entry-data') ;
 
-	entry_ids = $("#"+field_store_entry_data).val();
- 
+	entry_ids =  $(this).parent().parent().find( "."+field_store_entry_data).val();
+  
  	if(entry_ids!="" &&  entry_ids !=undefined ){ 
 	   
    		display_form_view(form_id,entry_ids,_this,sort_order_key);
@@ -161,12 +169,12 @@ $(".unit_type").live('change', function(e) {
 if($(_e.target).parent().find("input[name='id']").length==0){
 	if(form_id != prev_selected_value ){
 
-				$('#'+$(_e.target).parent().attr('store-entry-data')).val("")
+			$(_e.target).parent().parent().parent().find("."+$(_e.target).parent().attr('store-entry-data')).val("")
 
 			}
 			else{
 
-					entries = $('#'+$(_e.target).parent().attr('store-entry-data')).val();
+					entries = $(_e.target).parent().parent().parent().find("."+$(_e.target).parent().attr('store-entry-data')).val();
 
 					if(entries!="" && entries!=undefined){
 						entries = entries.split(",")
@@ -180,8 +188,8 @@ if($(_e.target).parent().find("input[name='id']").length==0){
 
 					entries.join(",")
 			}
-
-				 $('#'+$(_e.target).parent().attr('store-entry-data')).val(entries)
+ 
+ 			$(_e.target).parent().parent().parent().find("."+$(_e.target).parent().attr('store-entry-data')).val(entries)
 		 
 
 }
@@ -189,7 +197,7 @@ if($(_e.target).parent().find("input[name='id']").length==0){
 		
 
 		
-			 $(_e.target).parent().html(response.entry_html)
+			  $(_e.target).parent().html(response.entry_html)
 			  
 			  
 
@@ -224,6 +232,10 @@ $(".show-add-form").live('click', function(e) {
 	floor_no =  $(e.target).attr('floor-no') 
  
 
+	room_no =  $(e.target).attr('room-no') 
+
+	console.log(room_no)
+
 	$.post(AJAXURL,{
 		action : 'fetch_form',
 		form_id :  form_id,   
@@ -239,6 +251,10 @@ $(".show-add-form").live('click', function(e) {
 		if(floor_no!="" && floor_no!=undefined){
 			 
 			parent.find(".floor_no").val(floor_no)
+		}
+			if(room_no!="" && room_no!=undefined){
+			 
+			parent.find(".room_no").val(room_no)
 		}
 			  
 

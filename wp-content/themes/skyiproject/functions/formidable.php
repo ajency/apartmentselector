@@ -31,7 +31,7 @@ function frm_form_fields_customize($field, $field_name){
  							 
  							// echo FrmProEntriesController::get_field_value_shortcode(array('field_id' => $sub_entry_holder_field_id, 'entry_id' => $entry_id));
  						   ?>   
-							<select name="<?php echo $field_name ?>" form-id="<?php echo $opt['data'];?>" field-id="<?php echo $field['id'];?>" id="room_type" <?php do_action('frm_field_input_html', $field) ?> store-entry-data="field_room_type_entry_id" selected-value = "<?php echo $field['value']?>" class="show_sub_form">
+							<select name="<?php echo $field_name ?>" form-id="<?php echo $opt['data'];?>" field-id="<?php echo $field['id'];?>" id="room_type" <?php do_action('frm_field_input_html', $field) ?> store-entry-data="room_type_entry_id" selected-value = "<?php echo $field['value']?>" class="show_sub_form">
 							<option value="" form-id="">Select</option> 
 							<?php    
 
@@ -54,7 +54,7 @@ function frm_form_fields_customize($field, $field_name){
  		break;
  		case "unittype":
  						   ?>   
-							<select form-id="25" class="unit_type show_sub_form" name="<?php echo $field_name ?>" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> store-entry-data="field_unit_type_entry_id" selected-value = "<?php echo $field['value']?>"  sort-on-key="floor_no">
+							<select form-id="25" class="unit_type show_sub_form" name="<?php echo $field_name ?>" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> store-entry-data="unit_type_entry_id" selected-value = "<?php echo $field['value']?>"  sort-on-key="floor_no">
 							      
 							<option value="">Select</option>  <?php    
 
@@ -72,7 +72,7 @@ function frm_form_fields_customize($field, $field_name){
 
  		case "addrooms": 
  		?>
- 						<div style="display:inline"><input type="button" name="add_rooms" class="add-rooms" value="+" form-id="23" store-entry-data="room_variant_entry_id" sort-on-key="room_no"></div>
+ 						<input type="button" name="add_rooms" class="add-rooms show_sub_form" value="+" form-id="23" store-entry-data="room_variant_entry_id" sort-on-key="room_no" count-of-rooms="0">
  						<?php
 
 
@@ -100,9 +100,9 @@ function ajax_fetch_form_views(){
 
  	if($sort_order_key !=""){
 
-		$query = "select item_id from ".$wpdb->prefix."frm_item_metas where field_id = (select id from ".$wpdb->prefix."frm_fields where field_key = 'floor_no' ) and meta_value in (".$entry_ids.") order by meta_value";
+		$query = "select item_id from ".$wpdb->prefix."frm_item_metas where field_id = (select id from ".$wpdb->prefix."frm_fields where field_key = '".$sort_order_key."' ) and meta_value in (".$entry_ids.") order by meta_value";
 	
-
+echo $query;
 		$results = $wpdb->get_results($query,ARRAY_A);
 	 
 		$entry_ids = array();
@@ -121,7 +121,7 @@ function ajax_fetch_form_views(){
  	}
  	 
 	foreach($entry_ids as $entry_id){
-
+var_dump($entry_id);
 		$form_htmls[] = form_entry_view($entry_id,$form_id);
 
 	}
@@ -234,6 +234,18 @@ function add_input_class($classes, $field){
 
  	case "floor_no":
  		$classes .= ' floor_no';
+ 	break;
+ 	case "room_no":
+ 		$classes .= ' room_no';
+ 	break;
+ 	case "room_type_entry_id":
+ 		$classes .= ' room_type_entry_id';
+ 	break;
+ 	case "unit_type_entry_id":
+ 		$classes .= ' unit_type_entry_id';
+ 	break;
+ 	case "room_variant_entry_id":
+ 		$classes .= ' room_variant_entry_id';
  	break;
 
  	default:
