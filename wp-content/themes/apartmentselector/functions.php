@@ -6,6 +6,32 @@
  * @subpackage apartmentselector
  * @since      apartmentselector 0.0.1
  */
+//load the common file having commonly containing funtions
+require_once (get_template_directory().'/functions/common.php');
+
+//load the init file
+require_once (get_template_directory().'/functions/init.php');
+
+//load the functions for formidable plugin hooks
+require_once (get_template_directory().'/functions/formidable.php');
+
+//load the functions related to rooms
+require_once (get_template_directory().'/functions/rooms.php');
+
+//load the functions related to unit
+require_once (get_template_directory().'/functions/unit.php');
+
+//formatted echo using pre tags can be used to echo out data for testing purpose
+
+function formatted_echo($data){
+
+    echo "<pre>";
+
+    print_r($data);
+
+    echo "</pre>";
+
+}
 
 function apartmentselector_theme_setup() {
 
