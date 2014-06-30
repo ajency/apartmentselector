@@ -123,9 +123,9 @@ if ( !is_development_environment() ) {
         $module = get_module_name();
 
         if ( is_single_page_app( $module ) )
-            $path = get_template_directory_uri() . "/production/spa/{$module}.spa.min.js";
+            $path = get_template_directory_uri() . "/production/{$module}.spa.min.js";
         else
-            $path = get_template_directory_uri() . "/production/js/{$module}.scripts.min.js";
+            $path = get_template_directory_uri() . "/production/{$module}.scripts.min.js";
 
         wp_enqueue_script( "$module-script",
             $path,
@@ -142,7 +142,7 @@ if ( !is_development_environment() ) {
         $module = get_module_name();
 
         wp_enqueue_style( "$module-style",
-            get_template_directory_uri() . "/production/css/{$module}.styles.min.css",
+            get_template_directory_uri() . "/production/{$module}.styles.min.css",
             array(),
             get_current_version(),
             "all" );
