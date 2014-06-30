@@ -32,7 +32,8 @@
 </head>
 <body>
 
-<!-- TODO: Add your Single page app regions here -->
+<!-- #header-region -->
+<div id="header-region"></div>
 
 <?php wp_footer(); ?>
 </body>
