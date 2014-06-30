@@ -2,7 +2,7 @@
 /**
  * Template Name: apartmentselector-template
  *
- * @author suraj@ajency.in
+ * @author     suraj@ajency.in
  * @package    WordPress
  */
 ?>

@@ -9,8 +9,8 @@ module.exports = (grunt) ->
         exec :
             themeJS :
                 command : 'coffee -w -c -b ../js/'
-            SPAJS :
-                command : 'coffee -w -c -b ../SPA/'
+            spaJS :
+                command : 'coffee -w -c -b ../spa/'
             compileall :
                 command : 'coffee -c -b ../../'
 
@@ -36,7 +36,7 @@ module.exports = (grunt) ->
                 jshintignore : '.jshintignore'
                 reporter : require 'jshint-stylish'
             themeJS : []
-            SPAJS : []
+            spaJS : []
 
         # CoffeeLint
         coffeelint :
@@ -45,9 +45,9 @@ module.exports = (grunt) ->
             themeCoffee :
                 files :
                     src : ["../js/*.coffee", "../js/**/*.coffee"]
-            SPACoffee :
+            spaCoffee :
                 files :
-                    src : ["../SPA/*.coffee", "../SPA/**/*.coffee"]
+                    src : ["../spa/*.coffee", "../spa/**/*.coffee"]
 
 
         # PHP Code Sniffer
@@ -85,9 +85,9 @@ module.exports = (grunt) ->
                 browsers : ['PhantomJS']
                 singleRun : true
             themeJS :
-                configFile : "../js/tests/karma.conf.js"
-            SPAJS :
-                configFile : "../SPA/tests/karma.conf.js"
+                configFile : "../js/spec/karma.conf.js"
+            spaJS :
+                configFile : "../spa/spec/karma.conf.js"
 
 
         # "TODO" list
@@ -107,8 +107,8 @@ module.exports = (grunt) ->
                 src : ["../*.php", "../**/*.php"]
             themeJSTODO :
                 src : ["../js/*.coffee", "../js/**/*.coffee"]
-            SPATODO :
-                src : ["../SPA/*.coffee", "../SPA/**/*.coffee"]
+            spaTODO :
+                src : ["../spa/*.coffee", "../spa/**/*.coffee"]
 
 
         # Less => Css
@@ -132,7 +132,7 @@ module.exports = (grunt) ->
         # Clean production folder before new files are copied over
         clean :
             prevBuilds :
-                src : ["../css/*.styles.min.css", "../js/*.scripts.min.js", "../SPA/*.spa.min.js"]
+                src : ["../css/*.styles.min.css", "../js/src/*.scripts.min.js", "../spa/src/*.spa.min.js"]
                 options :
                     force : true
             production :
@@ -156,7 +156,7 @@ module.exports = (grunt) ->
                         dest : "../production/js/"
                     ),
                     (
-                        cwd : "../SPA"
+                        cwd : "../spa"
                         src : [ "*.spa.min.js"]
                         dest : "../production/spa/"
                     )
@@ -191,8 +191,8 @@ module.exports = (grunt) ->
 
     # Requirejs Optimizer
     # Optimizes the requirejs modules with r.js
-    grunt.registerTask "themeSPAOptimize", "Optimize the SPA JS files", ->
-        files = grunt.file.expand "../SPA/*.spa.js"
+    grunt.registerTask "themespaOptimize", "Optimize the spa JS files", ->
+        files = grunt.file.expand "../spa/*.spa.js"
 
         if files.length is 0
             grunt.log.write "No files to optimize"
@@ -213,7 +213,7 @@ module.exports = (grunt) ->
     # create the subtasks for the require js optimizer
     getRequireJSTasks = (files, pattern)->
         subTasks = {}
-        folderName = if pattern is 'scripts' then 'js' else 'SPA'
+        folderName = if pattern is 'scripts' then 'js' else 'spa'
         originalExtension = "#{pattern}.js"
         optimizedExtension = "#{pattern}.min.js"
         files.map (file)->
@@ -241,6 +241,6 @@ module.exports = (grunt) ->
     # helper commands to run series of tasks
     grunt.registerTask "validate", ["lesslint", "coffeelint" , "jshint", "phpcs"]
     grunt.registerTask "runtests", ["karma", "phpunit"]
-    grunt.registerTask "optimize", ["less", "themeJSOptimize", "themeSPAOptimize"]
-    grunt.registerTask "build", [ "themeJSOptimize", "themeSPAOptimize", "less", "clean:production", "copyto", "clean:prevBuilds"]
+    grunt.registerTask "optimize", ["less", "themeJSOptimize", "themespaOptimize"]
+    grunt.registerTask "build", [ "themeJSOptimize", "themespaOptimize", "less", "clean:production", "copyto", "clean:prevBuilds"]
     grunt.registerTask "deploy", ["validate", "runtests", "optimize", "clean", "copyto", "notify:readyToDeploy"]
