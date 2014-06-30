@@ -64,7 +64,7 @@ function frm_form_fields_customize($field, $field_name){
 							 
 							 ?>
 							<option value="<?php echo $opt['id']; ?>" <?php
-							if (FrmAppHelper::check_selected($field['value'], $opt['id'])) echo ' selected="selected"'; ?>   no-of-floors="<?php echo $opt['no_of_floors'];?>" form-id="25" ><?php echo ($opt['name'] == '') ? ' ' : $opt['name']; ?></option>
+							if (FrmAppHelper::check_selected($field['value'], $opt['id'])) echo ' selected="selected"'; ?>   no-of-forms="<?php echo $opt['no_of_floors'];?>" form-id="25" ><?php echo ($opt['name'] == '') ? ' ' : $opt['name']; ?></option>
 							    <?php } ?>
 							</select>
 							<?php 
