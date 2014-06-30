@@ -154,15 +154,15 @@ module.exports = function(grunt) {
           {
             cwd: "../css",
             src: ["*.styles.min.css"],
-            dest: "../production/css/"
+            dest: "../production/"
           }, {
-            cwd: "../js",
+            cwd: "../js/src",
             src: ["*.scripts.min.js"],
-            dest: "../production/js/"
+            dest: "../production/"
           }, {
-            cwd: "../spa",
+            cwd: "../spa/src",
             src: ["*.spa.min.js"],
-            dest: "../production/spa/"
+            dest: "../production/"
           }
         ]
       }
@@ -178,7 +178,7 @@ module.exports = function(grunt) {
   require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
   grunt.registerTask("themeJSOptimize", "Optimize the theme JS files", function() {
     var files, subTasks;
-    files = grunt.file.expand("../js/*.scripts.js");
+    files = grunt.file.expand("../js/src/*.scripts.js");
     if (files.length === 0) {
       grunt.log.write("No files to optimize");
       return;
@@ -189,7 +189,7 @@ module.exports = function(grunt) {
   });
   grunt.registerTask("themespaOptimize", "Optimize the spa JS files", function() {
     var files, subTasks;
-    files = grunt.file.expand("../spa/*.spa.js");
+    files = grunt.file.expand("../spa/src/*.spa.js");
     if (files.length === 0) {
       grunt.log.write("No files to optimize");
       return;
@@ -200,26 +200,27 @@ module.exports = function(grunt) {
   });
   grunt.registerTask("gitCommit", "Commit production files", function() {});
   getRequireJSTasks = function(files, pattern) {
-    var file, folderName, name, optimizedExtension, originalExtension, subTasks;
+    var folderPath, optimizedExtension, originalExtension, subTasks;
     subTasks = {};
-    folderName = pattern === 'scripts' ? 'js' : 'spa';
+    folderPath = pattern === 'scripts' ? 'js/src' : 'spa/src';
     originalExtension = "" + pattern + ".js";
     optimizedExtension = "" + pattern + ".min.js";
     files.map(function(file) {
-      var config;
-      return config = {
-        baseUrl: "../" + folderName + "/",
-        mainConfigFile: "../" + folderName + "/require.config.js",
-        name: "../" + folderName + "/bower_components/almond/almond.js",
+      var config, name;
+      file = file.replace("../" + folderPath + "/", "");
+      config = {
+        baseUrl: "../" + folderPath,
+        mainConfigFile: "../" + folderPath + "/require.config.js",
+        name: "bower_components/almond/almond",
         include: [file],
-        out: file.replace(originalExtension, optimizedExtension),
-        findNestedDependencies: true
+        out: "../" + folderPath + "/" + (file.replace(originalExtension, optimizedExtension)),
+        findNestedDependencies: true,
+        optimize: 'none'
       };
+      name = file.replace("." + pattern + ".js", "");
+      subTasks[name] = {};
+      return subTasks[name]["options"] = config;
     });
-    file = file.replace("../" + folderName + "/", "");
-    name = file.replace("." + pattern + ".js", "");
-    subTasks[name] = {};
-    subTasks[name]["options"] = config;
     return subTasks;
   };
   grunt.registerTask("compile", "Compile coffee file watcher", function(args) {
@@ -228,6 +229,6 @@ module.exports = function(grunt) {
   grunt.registerTask("validate", ["lesslint", "coffeelint", "jshint", "phpcs"]);
   grunt.registerTask("runtests", ["karma", "phpunit"]);
   grunt.registerTask("optimize", ["less", "themeJSOptimize", "themespaOptimize"]);
-  grunt.registerTask("build", ["themeJSOptimize", "themespaOptimize", "less", "clean:production", "copyto", "clean:prevBuilds"]);
+  grunt.registerTask("build", ["themeJSOptimize", "less", "clean:production", "copyto", "clean:prevBuilds"]);
   return grunt.registerTask("deploy", ["validate", "runtests", "optimize", "clean", "copyto", "notify:readyToDeploy"]);
 };
