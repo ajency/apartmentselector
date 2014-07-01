@@ -1,8 +1,8 @@
 define ['jquery'],(jQuery)->
 
     jQuery(document).ready ($) ->
+        #display
         DisplayFormVIew = (FormId, EntryIds, Element) ->
-            console.log("FormId"+FormId)
             $.post AJAXURL,
                 action: "fetch_form_views"
                 form_id: FormId
@@ -19,14 +19,12 @@ define ['jquery'],(jQuery)->
                 NoOfForms = (if ($("option:selected", $(Element)).attr("no-of-forms") isnt `undefined`) then $("option:selected", $(Element)).attr("no-of-forms") else 0);
 
                 NoOfForms = (if ($(Element).attr("no-of-forms") isnt `undefined` && NoOfForms is 0) then $(Element).attr("no-of-forms") else NoOfForms) - i ;
-                console.log NoOfForms
                 AddDetailsLink( Element,NoOfForms  )
 
             return
         AddDetailsLink = (Element, NoOfForms) ->
             FormId = $(Element).attr("form-id")
             FieldStoreEntryData = $(Element).attr("store-entry-data")
-            console.log(FieldStoreEntryData)
             I = 1
             while I <= NoOfForms
                 $(Element).parent().append "<div class='form-container bordered' store-entry-data='" + FieldStoreEntryData + "'   ><a href='javascript:void(0)'form-id='" + FormId + "' class='show-add-form' store-entry-data='" + FieldStoreEntryData + "' >Add Details</a></div>"
@@ -40,8 +38,6 @@ define ['jquery'],(jQuery)->
             if sub_forms.length is 0
                 sub_forms = $(e.target).prev().children().children('.frm_form_fields').children().children().find(".form-container")
                 parent = $(e.target).prev().children().children('.frm_form_fields').children().children()
-            #console.log( $(e.target).prev().children().children('.frm_form_fields').children().children().find(".form-container"))
-            console.log "sub_forms"+sub_forms.length
             if sub_forms.length isnt 0
                 entries = []
                 StoreEntryData = ""
@@ -49,22 +45,16 @@ define ['jquery'],(jQuery)->
                     StoreEntryData = $(val).attr("store-entry-data")
                     entries[$(val).attr("form-no")] = $(val).attr("entry-id")
                     return
-                console.log(entries)
                 SaveEntries = []
-                console.log(entries.length)
                 Object.keys(entries).length == entries.length;
-
-                console.log(entries)
                 $.each entries, (i, val) ->
                     SaveEntries.push val  if val != `undefined`
                     return
-                console.log(SaveEntries)
 
                 parent.children("."+StoreEntryData).val(SaveEntries)
 
         $(".frm_submit").remove()
         $(document).on "click", ".add-rooms",(e) ->
-            console.log($(this).parent().children('.form-container').length)
             form_id = $(this).attr("form-id")
             FormNo = parseInt($(this).parent().children('.form-container').length)+ 1
             field_store_entry_data = $(this).attr("store-entry-data")
@@ -178,15 +168,12 @@ define ['jquery'],(jQuery)->
                 parent = $(_e.target).parent()
                 parent.html response
                 $(".frm_submit").remove()
-                console.log parent.find(".show_sub_form")
                 parent.find(".show_sub_form").each (e) ->
                     _this = this
                     get_form_id = $("option:selected", $(this)).attr("form-id")
                     form_id = (if (get_form_id is "" or get_form_id is `undefined`) then $(this).attr("form-id") else get_form_id)
                     field_store_entry_data = $(this).attr("store-entry-data")
                     entry_ids = $(this).parent().parent().find("." + field_store_entry_data).val()
-                    console.log(form_id)
-                    console.log(entry_ids)
                     DisplayFormVIew form_id, entry_ids, _this  if entry_ids isnt "" and entry_ids isnt `undefined`
                     return
 

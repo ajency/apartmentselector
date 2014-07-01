@@ -3,7 +3,6 @@ define(['jquery'], function(jQuery) {
   return jQuery(document).ready(function($) {
     var AddDetailsLink, DisplayFormVIew, GetSubFormEntries;
     DisplayFormVIew = function(FormId, EntryIds, Element) {
-      console.log("FormId" + FormId);
       $.post(AJAXURL, {
         action: "fetch_form_views",
         form_id: FormId,
@@ -20,7 +19,6 @@ define(['jquery'], function(jQuery) {
         }
         NoOfForms = ($("option:selected", $(Element)).attr("no-of-forms") !== undefined ? $("option:selected", $(Element)).attr("no-of-forms") : 0);
         NoOfForms = ($(Element).attr("no-of-forms") !== undefined && NoOfForms === 0 ? $(Element).attr("no-of-forms") : NoOfForms) - i;
-        console.log(NoOfForms);
         return AddDetailsLink(Element, NoOfForms);
       });
     };
@@ -28,7 +26,6 @@ define(['jquery'], function(jQuery) {
       var FieldStoreEntryData, FormId, I;
       FormId = $(Element).attr("form-id");
       FieldStoreEntryData = $(Element).attr("store-entry-data");
-      console.log(FieldStoreEntryData);
       I = 1;
       while (I <= NoOfForms) {
         $(Element).parent().append("<div class='form-container bordered' store-entry-data='" + FieldStoreEntryData + "'   ><a href='javascript:void(0)'form-id='" + FormId + "' class='show-add-form' store-entry-data='" + FieldStoreEntryData + "' >Add Details</a></div>");
@@ -44,7 +41,6 @@ define(['jquery'], function(jQuery) {
         sub_forms = $(e.target).prev().children().children('.frm_form_fields').children().children().find(".form-container");
         parent = $(e.target).prev().children().children('.frm_form_fields').children().children();
       }
-      console.log("sub_forms" + sub_forms.length);
       if (sub_forms.length !== 0) {
         entries = [];
         StoreEntryData = "";
@@ -52,24 +48,19 @@ define(['jquery'], function(jQuery) {
           StoreEntryData = $(val).attr("store-entry-data");
           entries[$(val).attr("form-no")] = $(val).attr("entry-id");
         });
-        console.log(entries);
         SaveEntries = [];
-        console.log(entries.length);
         Object.keys(entries).length === entries.length;
-        console.log(entries);
         $.each(entries, function(i, val) {
           if (val !== undefined) {
             SaveEntries.push(val);
           }
         });
-        console.log(SaveEntries);
         return parent.children("." + StoreEntryData).val(SaveEntries);
       }
     };
     $(".frm_submit").remove();
     $(document).on("click", ".add-rooms", function(e) {
       var FormNo, field_store_entry_data, form_id;
-      console.log($(this).parent().children('.form-container').length);
       form_id = $(this).attr("form-id");
       FormNo = parseInt($(this).parent().children('.form-container').length) + 1;
       field_store_entry_data = $(this).attr("store-entry-data");
@@ -184,7 +175,6 @@ define(['jquery'], function(jQuery) {
         parent = $(_e.target).parent();
         parent.html(response);
         $(".frm_submit").remove();
-        console.log(parent.find(".show_sub_form"));
         parent.find(".show_sub_form").each(function(e) {
           var entry_ids, field_store_entry_data, get_form_id, _this;
           _this = this;
@@ -192,8 +182,6 @@ define(['jquery'], function(jQuery) {
           form_id = (get_form_id === "" || get_form_id === undefined ? $(this).attr("form-id") : get_form_id);
           field_store_entry_data = $(this).attr("store-entry-data");
           entry_ids = $(this).parent().parent().find("." + field_store_entry_data).val();
-          console.log(form_id);
-          console.log(entry_ids);
           if (entry_ids !== "" && entry_ids !== undefined) {
             DisplayFormVIew(form_id, entry_ids, _this);
           }
