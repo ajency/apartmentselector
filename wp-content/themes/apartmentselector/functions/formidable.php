@@ -100,7 +100,7 @@ function ajax_fetch_form_views(){
  	 
 	foreach($entry_ids as $entry_id){
  
-		$form_htmls[] = form_entry_view($entry_id,$form_id);
+		$form_htmls[] = array('entry_id'=>$entry_id, 'form_html'=>form_entry_view($entry_id,$form_id));
 
 	}
 
@@ -212,13 +212,13 @@ function add_input_class($classes, $field){
 
  
  	case "room_type_entry_id":
- 		$classes .= ' room_type_entry_id';
+ 		$classes .= ' room_type_entry_id sub_forms';
  	break;
  	case "unit_type_entry_id":
- 		$classes .= ' unit_type_entry_id';
+ 		$classes .= ' unit_type_entry_id sub_forms';
  	break;
  	case "room_variant_entry_id":
- 		$classes .= ' room_variant_entry_id';
+ 		$classes .= ' room_variant_entry_id sub_forms';
  	break;
 
  	default:
