@@ -2,6 +2,7 @@ define ['jquery'],(jQuery)->
 
     jQuery(document).ready ($) ->
         DisplayFormVIew = (FormId, EntryIds, Element) ->
+            console.log("FormId"+FormId)
             $.post AJAXURL,
                 action: "fetch_form_views"
                 form_id: FormId
@@ -93,7 +94,7 @@ define ['jquery'],(jQuery)->
                 DisplayFormVIew form_id, entry_id, $(e.target)
             else
                 $(e.target).parent().find(".form-container").remove()
-                $(e.target).parent().append "<div class='form-container bordered' store-entry-data='" + field_store_entry_data + "'  ><a href='javascript:void(0)'form-id='" + form_id + "' class='show-add-form' >Add Details</a></div>"
+                $(e.target).parent().append "<div class='form-container bordered' store-entry-data='" + field_store_entry_data + "' form-no=1 ><a href='javascript:void(0)'form-id='" + form_id + "' class='show-add-form' >Add Details</a></div>"
             return
 
         $(document).on "change", ".unit_type",(e) ->
@@ -125,7 +126,9 @@ define ['jquery'],(jQuery)->
                 data: data
             , (response) ->
 
-
+                if response.entry_id is false
+                    alert("error saving the entry")
+                    return
                 $(_e.target).parent().attr('entry-id',response.entry_id)
                 $(_e.target).parent().html response.entry_html
             return
@@ -137,7 +140,7 @@ define ['jquery'],(jQuery)->
                 action: "save_entry"
                 data: data
             , (response) ->
-                window.location.href = SITEURL + "/listing/?form_id="+$("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val()
+                #window.location.href = SITEURL + "/listing/?form_id="+$("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val()
                 return
 
             return
@@ -175,12 +178,15 @@ define ['jquery'],(jQuery)->
                 parent = $(_e.target).parent()
                 parent.html response
                 $(".frm_submit").remove()
+                console.log parent.find(".show_sub_form")
                 parent.find(".show_sub_form").each (e) ->
                     _this = this
                     get_form_id = $("option:selected", $(this)).attr("form-id")
                     form_id = (if (get_form_id is "" or get_form_id is `undefined`) then $(this).attr("form-id") else get_form_id)
                     field_store_entry_data = $(this).attr("store-entry-data")
                     entry_ids = $(this).parent().parent().find("." + field_store_entry_data).val()
+                    console.log(form_id)
+                    console.log(entry_ids)
                     DisplayFormVIew form_id, entry_ids, _this  if entry_ids isnt "" and entry_ids isnt `undefined`
                     return
 

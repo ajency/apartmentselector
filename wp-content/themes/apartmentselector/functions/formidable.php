@@ -4,6 +4,9 @@
 funtion to add custom fields to formidable
 */
 
+/*
+function add_custom_fields() called on formidable hook frm_pro_available_fields to add custom fields to formidable form buider
+*/
 function add_custom_fields($fields){
  
 	$fields['unittype']= __('Unit Type', 'formidable')  ;
@@ -17,6 +20,9 @@ function add_custom_fields($fields){
 }
 add_filter("frm_pro_available_fields","add_custom_fields",10,1);
 
+/*
+function frm_form_fields_customize() called on formidable hook frm_form_fields to generate html for custom fields
+*/
 
 
 function frm_form_fields_customize($field, $field_name){
@@ -142,51 +148,51 @@ add_action('wp_ajax_fetch_form','ajax_fetch_form');
 
 
 function ajax_save_entry(){
- 
- $item_meta = array();
-$id =0;
-foreach($_REQUEST['data'] as $datavalue){
- 
- if(strpos ( $datavalue["name"], "item_meta[")!==false){
 
- 	$datavalue["name"] = str_replace("item_meta[","",$datavalue["name"]);
+    $item_meta = array();
+    $id =0;
+    foreach($_REQUEST['data'] as $datavalue){
 
- 	$datavalue["name"] = str_replace("]","",$datavalue["name"]);
+     if(strpos ( $datavalue["name"], "item_meta[")!==false){
 
- 	$item_meta[$datavalue["name"]] = $datavalue["value"];
- }
- else{
- 	 $$datavalue["name"]  = $datavalue["value"];
- }
+        $datavalue["name"] = str_replace("item_meta[","",$datavalue["name"]);
 
-  
-}
- 
-global $frm_entry, $user_ID;
+        $datavalue["name"] = str_replace("]","",$datavalue["name"]);
 
-if($id==0){
-	$entry_id = $frm_entry->create(array( 
-  'form_id' => $form_id, //change 5 to your form id
-  'item_key' => $item_key, //change entry to a dynamic value if you would like
-  'frm_user_id' => $user_ID, //change $user_ID to the id of the user of your choice (optional)
-  'item_meta' => $item_meta,
-));
-}else{
- 
-	 $frm_entry->update($id,array( 
-  'form_id' => $form_id, //change 5 to your form id
-  'item_key' => $item_key, //change entry to a dynamic value if you would like
-  'frm_user_id' => $user_ID, //change $user_ID to the id of the user of your choice (optional)
-  'item_meta' => $item_meta,
-));
-	 $entry_id = $id;
-}
+        $item_meta[$datavalue["name"]] = $datavalue["value"];
+     }
+     else{
+         $$datavalue["name"]  = $datavalue["value"];
+     }
 
- 	$entry_html = form_entry_view($entry_id,$form_id);
-	$response = json_encode( array('entry_html'=>$entry_html,'entry_id'=>$entry_id));
-	header( "Content-Type: application/json" );
-	echo $response;
-	exit;
+
+    }
+
+    global $frm_entry, $user_ID;
+
+    if($id==0){
+        $entry_id = $frm_entry->create(array(
+      'form_id' => $form_id, //change 5 to your form id
+      'item_key' => $item_key, //change entry to a dynamic value if you would like
+      'frm_user_id' => $user_ID, //change $user_ID to the id of the user of your choice (optional)
+      'item_meta' => $item_meta,
+    ));
+    }else{
+
+         $frm_entry->update($id,array(
+      'form_id' => $form_id, //change 5 to your form id
+      'item_key' => $item_key, //change entry to a dynamic value if you would like
+      'frm_user_id' => $user_ID, //change $user_ID to the id of the user of your choice (optional)
+      'item_meta' => $item_meta,
+    ));
+         $entry_id = $id;
+    }
+
+        $entry_html = form_entry_view($entry_id,$form_id);
+        $response = json_encode( array('entry_html'=>$entry_html,'entry_id'=>$entry_id));
+        header( "Content-Type: application/json" );
+        echo $response;
+        exit;
 }
 add_action('wp_ajax_save_entry','ajax_save_entry');
 
@@ -246,6 +252,12 @@ function add_input_class($classes, $field){
 }
 
 add_filter('frm_field_classes', 'add_input_class', 10, 2);
+
+
+add_filter('frm_validate_field_entry', 'your_custom_validation', 20, 3);
+function your_custom_validation($errors, $field, $value){
+    formatted_echo($errors) ;
+}
 
 
 

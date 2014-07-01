@@ -3,6 +3,7 @@ define(['jquery'], function(jQuery) {
   return jQuery(document).ready(function($) {
     var AddDetailsLink, DisplayFormVIew, GetSubFormEntries;
     DisplayFormVIew = function(FormId, EntryIds, Element) {
+      console.log("FormId" + FormId);
       $.post(AJAXURL, {
         action: "fetch_form_views",
         form_id: FormId,
@@ -101,7 +102,7 @@ define(['jquery'], function(jQuery) {
         DisplayFormVIew(form_id, entry_id, $(e.target));
       } else {
         $(e.target).parent().find(".form-container").remove();
-        $(e.target).parent().append("<div class='form-container bordered' store-entry-data='" + field_store_entry_data + "'  ><a href='javascript:void(0)'form-id='" + form_id + "' class='show-add-form' >Add Details</a></div>");
+        $(e.target).parent().append("<div class='form-container bordered' store-entry-data='" + field_store_entry_data + "' form-no=1 ><a href='javascript:void(0)'form-id='" + form_id + "' class='show-add-form' >Add Details</a></div>");
       }
     });
     $(document).on("change", ".unit_type", function(e) {
@@ -135,6 +136,10 @@ define(['jquery'], function(jQuery) {
         action: "save_entry",
         data: data
       }, function(response) {
+        if (response.entry_id === false) {
+          alert("error saving the entry");
+          return;
+        }
         $(_e.target).parent().attr('entry-id', response.entry_id);
         return $(_e.target).parent().html(response.entry_html);
       });
@@ -146,9 +151,7 @@ define(['jquery'], function(jQuery) {
       $.post(AJAXURL, {
         action: "save_entry",
         data: data
-      }, function(response) {
-        window.location.href = SITEURL + "/listing/?form_id=" + $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val();
-      });
+      }, function(response) {});
     });
     $(document).on("click", ".show-add-form", function(e) {
       var form_id, _e;
@@ -181,6 +184,7 @@ define(['jquery'], function(jQuery) {
         parent = $(_e.target).parent();
         parent.html(response);
         $(".frm_submit").remove();
+        console.log(parent.find(".show_sub_form"));
         parent.find(".show_sub_form").each(function(e) {
           var entry_ids, field_store_entry_data, get_form_id, _this;
           _this = this;
@@ -188,6 +192,8 @@ define(['jquery'], function(jQuery) {
           form_id = (get_form_id === "" || get_form_id === undefined ? $(this).attr("form-id") : get_form_id);
           field_store_entry_data = $(this).attr("store-entry-data");
           entry_ids = $(this).parent().parent().find("." + field_store_entry_data).val();
+          console.log(form_id);
+          console.log(entry_ids);
           if (entry_ids !== "" && entry_ids !== undefined) {
             DisplayFormVIew(form_id, entry_ids, _this);
           }
