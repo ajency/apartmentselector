@@ -1,0 +1,254 @@
+/*
+Theme Name:     Skyi Site
+Theme URI:      http://ajency.in/
+Description:    Layout for Skyi Site
+Author:         Jarryd for Ajency.in
+Author URI:     http://ajency.in/
+Template:       skyi
+Version:        0.1.0
+*/
+
+/**** Colors ****/
+@color-white: #ffffff;
+@color-dark : #1B1E24;
+@color-green: #0aa699;
+@color-blue: #00acec;
+@color-yellow: #FDD01C ;
+@color-red: #f35958;
+@color-grey: #8b91a0;
+@color-black: #1b1e24;
+@color-purple: #852b99;
+@color-orange: #F28428;
+
+/**** Clearfix ****/
+.clearfix {
+    *zoom: 1;
+	&:after, &:before {
+		clear: both;
+		content: "";
+		display: table;
+	}
+}
+
+.booking {
+	background: @color-white;
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+}
+
+.navbar-inverse {
+	background: @color-orange;
+}
+
+.page-container {
+	padding-top: 60px !important;
+}
+
+.grid-container {
+	max-width: 1164px;
+	margin: 1rem auto;
+	padding: 0 20px;
+	.clearfix;
+	.grid-link {
+		border: 1px solid #999;
+	    box-shadow: 0 0 0 3px lighten(@color-grey, 35%) inset, 2px 3px 0 lighten(@color-orange, 35%);
+	    display: table;
+	    height: 100%;
+	    padding: 10px;
+	    position: relative;
+	    text-transform: uppercase;
+	    width: 100%;
+	    color: @color-grey;
+	    &:hover, &.selected {
+	    	border: 3px solid @color-orange;
+		    box-shadow: 2px 3px 0 lighten(@color-orange, 35%);
+		    padding: 8px;
+		    text-decoration: none;
+	    }
+	}
+
+	/**** Block Type 1 ****/
+	.grid-block-1 {
+		display: inline;
+		float: left;
+	    width: 48.2394%;
+		margin-right: 3.52113%;
+	    margin-bottom: 20px;
+	    height: 68px;
+	    background: @color-white;
+	    color: @color-grey;
+	    .grid-link {
+		    .grid-text-wrap {
+		    	display: table-cell;
+			    font-size: 1rem;
+			    line-height: 14px;
+			    vertical-align: middle;
+			    .grid-main-title {
+			    	display: block;
+				    line-height: 14px;
+				    padding: 2px 0;
+				    color: @color-orange;
+				    font-weight: 700;
+			    }
+		    }
+	    }
+	    &:nth-child(even) {
+	    	float: right;
+	    	margin-right: 0;
+	    }
+	    @media (min-width: 768px) and (max-width: 979px) { 
+	    	width: 31.4917%;
+	    	margin-right: 2.76243%;
+	    	float: left;
+	    	height: 88px;
+	    	.grid-link {
+	    		.grid-text-wrap {
+	    			font-size: 1.2rem;
+	    			line-height: 18px;
+	    		}
+	    	}
+	    	&:nth-child(even) {
+	    		margin-right: 2.76243%;
+	    		float: left;
+	    	}
+	    	&:nth-child(3n) {
+	    		float: right;
+	    		margin-right: 0;
+	    	}
+	    }
+	    @media (min-width: 980px) {
+			margin-right: 1.66113%;
+    		width: 15.2824%;
+    		float: left;
+    		height: 88px;
+    		.grid-link {
+	    		.grid-text-wrap {
+	    			font-size: 1.2rem;
+	    			line-height: 18px;
+	    		}
+	    	}
+    		&:nth-child(even), &:nth-child(3n) {
+	    		margin-right: 1.66113%;
+    			float: left;
+	    	}
+    		&:nth-child(6n) {
+	    		float: right;
+	    		margin-right: 0;
+	    	}
+		}
+	}
+
+	/**** Block Type 2 ****/
+	.grid-block-2 {
+		margin-bottom: 10px;
+		.grid-link {
+			.grid-text-wrap {
+				height: 90px;
+				position: relative;
+				.grid-main-title {
+					font-size: 1rem;
+				    font-style: normal;
+				    font-weight: 700;
+				    left: 12px;
+				    line-height: 16px;
+				    margin: 0;
+				    position: absolute;
+				    top: 12px;
+				    white-space: nowrap;
+				}
+				.grid-sub-title {
+					display: block;
+					font-size: 4.5rem;
+				    font-style: normal;
+				    font-weight: 100;
+				    line-height: 88px;
+				    text-align: center;
+				    color: @color-orange;
+				}
+			}
+		}
+		@media (min-width: 768px) {
+			float: left;
+		    margin-right: 2.76243%;
+		    width: 31.4917%;
+		    .grid-link{
+		    	.grid-text-wrap {
+		    		height: 220px;
+		    		.grid-main-title {
+		    			font-size: 1.5rem;
+					    left: 22px;
+					    top: 18px;
+		    		}
+		    		.grid-sub-title {
+		    			font-size: 9rem;
+					    line-height: 203px;
+					    margin-top: 15px;
+					    width: 100%;
+		    		}
+		    	}
+		    }
+		    &:nth-child(3n) {
+		    	float: right;
+    			margin-right: 0;
+		    }
+		}
+	}
+
+	/**** Block Type 3 ****/
+	.grid-block-3 {
+		float: left;
+	    margin: 0 1.77305% 1.77305% 0;
+	    padding: 1px;
+	    width: 12.766%;
+	    .grid-link {
+		    .grid-text-wrap {
+		    	height: 0;
+			    padding-bottom: 166.667%;
+			    position: relative;
+			    text-align: center;
+			    transition: color 250ms ease-out 0s;
+			    width: 100%;
+		    	.grid-main-title {
+		    		display: none;
+		    		font-size: 1.1rem;
+				    font-style: normal;
+				    font-weight: 500;
+				    line-height: 16px;
+				    position: absolute;
+				    top: 4%;
+				    width: 100%;
+		    	}
+		    	.grid-sub-title {
+		    		font-size: 2.1rem;
+				    font-style: normal;
+				    font-weight: 100;
+				    left: 0;
+				    line-height: 24px;
+				    margin-top: -12px;
+				    position: absolute;
+				    top: 50%;
+				    width: 100%;
+		    	}
+		    }
+	    }
+	    &:nth-child(7n) {
+	    	margin-right: 0;
+	    }
+	    @media (min-width: 768px) {
+	    	.grid-link {
+	    		.grid-text-wrap {
+	    			padding-bottom: 112px;
+	    			.grid-main-title {
+		    			display: block;
+		    			font-size: 1rem;
+		    		}
+		    		.grid-sub-title {
+		    			font-size: 2.5rem;
+					    line-height: 40px;
+					    margin-top: -20px;
+		    		}
+	    		}
+	    	}
+	    }
+	}
+}
