@@ -24,6 +24,10 @@ module.exports = ( grunt ) ->
          themeLess :
             src : [ "../css/*.less", "../css/**/*.less" ]
 
+      githooks :
+         all :
+            'pre-commit' : 'themeJSOptimize'
+
 
    # JS Linting
    # JSHint is a program that flags suspicious usage in programs written in JavaScript.
@@ -140,7 +144,7 @@ module.exports = ( grunt ) ->
                force : true
 
 
-      # Copy all production resources to "production" folder
+   # Copy all production resources to "production" folder
       copyto :
          production :
             files : [
@@ -162,7 +166,7 @@ module.exports = ( grunt ) ->
             ]
 
 
-      # Cross OS notifier
+   # Cross OS notifier
       notify :
          readyToDeploy :
             options :
@@ -219,7 +223,6 @@ module.exports = ( grunt ) ->
       optimizedExtension = "#{pattern}.min.js"
 
       files.map ( file )->
-
          file = file.replace "../#{folderPath}/", ""
 
          config =
@@ -248,5 +251,5 @@ module.exports = ( grunt ) ->
    grunt.registerTask "runtests", [ "karma", "phpunit" ]
    grunt.registerTask "optimize", [ "less", "themeJSOptimize", "themespaOptimize" ]
    grunt.registerTask "build",
-     [ "themeJSOptimize",  "less", "clean:production", "copyto", "clean:prevBuilds" ]
+     [ "themeJSOptimize", "less", "clean:production", "copyto", "clean:prevBuilds" ]
    grunt.registerTask "deploy", [ "validate", "runtests", "optimize", "clean", "copyto", "notify:readyToDeploy" ]

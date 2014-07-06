@@ -25,6 +25,11 @@ module.exports = function(grunt) {
         src: ["../css/*.less", "../css/**/*.less"]
       }
     },
+    githooks: {
+      all: {
+        'pre-commit': 'themeJSOptimize'
+      }
+    },
     jshint: {
       options: {
         jshintrc: '.jshintrc',

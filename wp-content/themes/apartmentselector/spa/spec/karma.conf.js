@@ -18,7 +18,7 @@ module.exports = function (config) {
             'spec/test-main.js',
             { pattern: 'src/**/*.js', included: false },
             { pattern: 'spec/javascripts/helpers/**/*.js', included: false },
-            { pattern: 'spec/javascripts/specs/**/*.jspec.js', included: false }
+            { pattern: 'spec/javascripts/**/*.jspec.js', included: false }
         ],
 
         // list of files to exclude
@@ -53,7 +53,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS', 'Chrome'],
+        browsers: ['PhantomJS'],
 
         // disable weird "no timestamp" warning
         client: {
