@@ -17,6 +17,7 @@ module.exports = function (config) {
             'src/require.config.js',
             'spec/test-main.js',
             { pattern: 'src/**/*.js', included: false },
+            { pattern: 'spec/javascripts/fixtures/**/*.js', included: false },
             { pattern: 'spec/javascripts/helpers/**/*.js', included: false },
             { pattern: 'spec/javascripts/**/*.jspec.js', included: false }
         ],

@@ -1,9 +1,7 @@
-define ['underscore','jasminejquery'], ( _ )->
+
+define [ 'underscore', 'spec/javascripts/fixtures/json/flats', 'jasminejquery' ], ( _ , flats )->
 
    describe 'apartment selectors filters', ->
 
-      fixtures = loadJSONFixtures 'flats.json'
-      alert fixtures['flats.json']
-      data = fixtures['flats.json']
       it 'must have 10 records', ->
-         expect(_.size data.flats).toBe 10
+         expect( _.size flats ).toBe 1
