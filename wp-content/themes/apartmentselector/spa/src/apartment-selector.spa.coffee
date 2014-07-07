@@ -6,11 +6,7 @@ require [ 'extm' ], ( Extm )->
    App.addRegions
          headerRegion : '#header-region'
 
-   class V extends Marionette.ItemView
 
-      template : 'hello world'
 
    App.start()
 
-   App.getRegion 'headerRegion'
-      .show new V

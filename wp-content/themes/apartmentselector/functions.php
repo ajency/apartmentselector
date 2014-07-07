@@ -21,6 +21,9 @@ require_once (get_template_directory().'/functions/rooms.php');
 //load the functions related to unit
 require_once (get_template_directory().'/functions/unit.php');
 
+//load all the classes//
+require_once (get_template_directory().'/classes/autoload.php');
+
 //formatted echo using pre tags can be used to echo out data for testing purpose
 
 function formatted_echo($data){
