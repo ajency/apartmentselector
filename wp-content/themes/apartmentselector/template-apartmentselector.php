@@ -35,8 +35,11 @@
 <!-- #header-region -->
 <div id="header-region"></div>
 
-<!-- #screen-one-region -->
-<div id="screen-one-region"></div>
+<!-- filter-region -->
+<div id="filter-region"></div>
+
+<!-- main-region -->
+<div id="main-region"></div>
 
 <!-- footer-region -->
 <div id="footer-region"></div>
