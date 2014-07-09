@@ -11,9 +11,9 @@ define(['marionette'], function(Marionette) {
       return UnitTypeView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitTypeView.prototype.tagName = 'li';
+    UnitTypeView.prototype.className = "grid-block-1";
 
-    UnitTypeView.prototype.template = '{{name}}';
+    UnitTypeView.prototype.template = '<a class="grid-link" ><div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> </div></a>';
 
     UnitTypeView.prototype.events = {
       'click': 'unitTypeSelected'
@@ -33,11 +33,11 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<p>SOme Test above</p> <ul class="unit-type-view"></ul>';
+    ScreenOneView.prototype.template = '<div class="grid-container"></div>';
 
     ScreenOneView.prototype.childView = UnitTypeView;
 
-    ScreenOneView.prototype.childViewContainer = '.unit-type-view';
+    ScreenOneView.prototype.childViewContainer = '.grid-container';
 
     return ScreenOneView;
 
