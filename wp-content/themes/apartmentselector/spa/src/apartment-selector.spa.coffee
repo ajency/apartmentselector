@@ -7,18 +7,26 @@ define 'plugin-loader', [], ->
 # add your marionette apps here
 define 'apps-loader', [], ->
 
-# add your entities here
-define 'entitites-loader', [], ->
-
 # set all plugins for this page here
-require [ 'plugin-loader', 'extm', 'entitites-loader', 'apps-loader' ], ( plugins, Extm )->
+require ['spec/javascripts/fixtures/json/flats'
+         'spec/javascripts/fixtures/json/views'
+         'spec/javascripts/fixtures/json/buildings'
+         'spec/javascripts/fixtures/json/unitvariants'
+         'plugin-loader'
+         'extm'
+         'apps-loader' ], ( flats, views, buildings, unitvariants, plugins, Extm )->
 
-   # global application object
-   window.App = new Extm.Application
+            # global application object
+            window.App = new Extm.Application
 
-   # add your application main regions here
-   App.addRegions
-      headerRegion : '#header-region'
+            # add your application main regions here
+            App.addRegions
+               headerRegion : '#header-region'
 
-   # start application
-   App.start()
+            App.store.push 'flat', flats
+            App.store.push 'view', views
+            App.store.push 'building', buildings
+            App.store.push 'unit_variant', unitvariants
+
+            # start application
+            App.start()

@@ -3,12 +3,14 @@ define('plugin-loader', [], function() {});
 
 define('apps-loader', [], function() {});
 
-define('entitites-loader', [], function() {});
-
-require(['plugin-loader', 'extm', 'entitites-loader', 'apps-loader'], function(plugins, Extm) {
+require(['spec/javascripts/fixtures/json/flats', 'spec/javascripts/fixtures/json/views', 'spec/javascripts/fixtures/json/buildings', 'spec/javascripts/fixtures/json/unitvariants', 'plugin-loader', 'extm', 'apps-loader'], function(flats, views, buildings, unitvariants, plugins, Extm) {
   window.App = new Extm.Application;
   App.addRegions({
     headerRegion: '#header-region'
   });
+  App.store.push('flat', flats);
+  App.store.push('view', views);
+  App.store.push('building', buildings);
+  App.store.push('unit_variant', unitvariants);
   return App.start();
 });
