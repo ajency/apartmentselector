@@ -4,18 +4,22 @@
 # add your required plugins here.
 define 'plugin-loader', [], ->
 
-# add your marionette apps here
-define 'apps-loader', [ 'src/apps/footer/footer-controller' ], ->
+    # add your marionette apps here
+define 'apps-loader', [
+    'src/apps/footer/footer-controller'
+    'src/apps/header/header-controller'
+    'src/apps/screen-one/screen-one-controller'
+], ->
 
-# set all plugins for this page here
+    # set all plugins for this page here
 require [ 'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/views'
           'spec/javascripts/fixtures/json/buildings'
           'spec/javascripts/fixtures/json/unitvariants'
-          'spec/javascripts/fixtures/json/unitvariants'
+          'spec/javascripts/fixtures/json/unittypes'
           'plugin-loader'
           'extm'
-          'apps-loader' ], ( units, views, buildings, unitvariants,unittypes,plugins, Extm )->
+          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes, plugins, Extm )->
 
     # global application object
     window.App = new Extm.Application
@@ -24,7 +28,8 @@ require [ 'spec/javascripts/fixtures/json/units'
     App.addRegions
         headerRegion : '#header-region'
         footerRegion : '#footer-region'
-        screenOneRegion : '#screen-one-region'
+        filterRegion : '#filter-region'
+        mainRegion : '#main-region'
 
     App.store.push 'unit', units
     App.store.push 'view', views
@@ -33,10 +38,15 @@ require [ 'spec/javascripts/fixtures/json/units'
     App.store.push 'unit_type', unittypes
 
     # load static apps
-    App.addStaticApps [
+    staticApps = [
         [ 'footer', App.footerRegion ]
         [ 'header', App.headerRegion ]
     ]
+
+    if App.getCurrentRoute() is ''
+        staticApps.push [ 'screen:one', App.mainRegion ]
+
+    App.addStaticApps staticApps
 
     # start application
     App.start()
