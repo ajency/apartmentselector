@@ -17,7 +17,7 @@ requirejs.config
       jasminejquery : 'src/bower_components/jasmine-jquery/lib/jasmine-jquery'
       jqueryvalidate : 'src/bower_components/jquery.validation/dist/jquery.validate'
       plupload : 'src/bower_components/plupload/js/plupload.full.min'
-      async : 'bower_components/async/lib/async'
+      async : 'src/bower_components/async/lib/async'
       bootstraptour : 'src/bower_components/bootstrap-tour/build/js/bootstrap-tour.js'
       underscorestring : 'src/bower_components/underscore.string/lib/underscore.string'
       jqueryvalidate : 'src/bower_components/jquery.validation/dist/jquery.validate'
