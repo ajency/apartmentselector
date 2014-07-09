@@ -1,5 +1,5 @@
 
-define [ 'underscore', 'spec/javascripts/fixtures/json/flats', 'jasminejquery' ], ( _ , flats )->
+define [ 'underscore', 'spec/javascripts/fixtures/json/flats' ], ( _ , flats )->
 
    describe 'apartment selectors filters', ->
 

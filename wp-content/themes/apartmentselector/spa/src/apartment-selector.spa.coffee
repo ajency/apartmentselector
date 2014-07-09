@@ -1,16 +1,32 @@
+# all modules will start with 'src/'.
+# eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
+
+# add your required plugins here.
+define 'plugin-loader', [], ->
+
+# add your marionette apps here
+define 'apps-loader', [], ->
+
 # set all plugins for this page here
-require [ 'extm' ], ( Extm )->
+require ['spec/javascripts/fixtures/json/flats'
+         'spec/javascripts/fixtures/json/views'
+         'spec/javascripts/fixtures/json/buildings'
+         'spec/javascripts/fixtures/json/unitvariants'
+         'plugin-loader'
+         'extm'
+         'apps-loader' ], ( flats, views, buildings, unitvariants, plugins, Extm )->
 
-   window.App = new Extm.Application
+            # global application object
+            window.App = new Extm.Application
 
-   App.addRegions
-         headerRegion : '#header-region'
+            # add your application main regions here
+            App.addRegions
+               headerRegion : '#header-region'
 
-   class V extends Marionette.ItemView
+            App.store.push 'flat', flats
+            App.store.push 'view', views
+            App.store.push 'building', buildings
+            App.store.push 'unit_variant', unitvariants
 
-      template : 'hello world'
-
-   App.start()
-
-   App.getRegion 'headerRegion'
-      .show new V
+            # start application
+            App.start()
