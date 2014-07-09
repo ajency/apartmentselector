@@ -1,22 +1,25 @@
 define [ 'marionette' ], ( Marionette )->
-    class UnitTypeView extends Marionette.ItemView
+   class UnitTypeView extends Marionette.ItemView
 
-        className : "grid-block-1"
+      className : "grid-block-1"
 
-        template : '<a class="grid-link" ><div class="grid-text-wrap">
+      template : '<a href="#" class="grid-link" >
+                        <div class="grid-text-wrap">
                             <span class="grid-main-title">{{name}}</span>
-                            </div></a>'
+                        </div>
+                     </a>'
 
-        events :
-            'click' : 'unitTypeSelected'
+      events :
+         'click' : 'unitTypeSelected'
 
-        unitTypeSelected : ( evt )->
-            @trigger 'unit:type:clicked', @model.get 'id'
+      unitTypeSelected : ( evt )->
+         evt.preventDefault()
+         @trigger 'unit:type:clicked', @model.get 'id'
 
-    class ScreenOneView extends Marionette.CompositeView
+   class ScreenOneView extends Marionette.CompositeView
 
-        template : '<div class="grid-container"></div>'
+      template : '<div class="grid-container"></div>'
 
-        childView : UnitTypeView
+      childView : UnitTypeView
 
-        childViewContainer : '.grid-container'
+      childViewContainer : '.grid-container'

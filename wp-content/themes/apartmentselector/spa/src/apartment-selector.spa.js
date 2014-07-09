@@ -17,8 +17,9 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
   App.store.push('building', buildings);
   App.store.push('unit_variant', unitvariants);
   App.store.push('unit_type', unittypes);
-  staticApps = [['footer', App.footerRegion], ['header', App.headerRegion]];
-  if (App.getCurrentRoute() === '') {
+  staticApps = [['footer', App.footerRegion]];
+  if (window.location.hash === '') {
+    staticApps.push(['header', App.headerRegion]);
     staticApps.push(['screen:one', App.mainRegion]);
   }
   App.addStaticApps(staticApps);

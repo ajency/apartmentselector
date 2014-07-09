@@ -13,13 +13,14 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.className = "grid-block-1";
 
-    UnitTypeView.prototype.template = '<a class="grid-link" ><div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> </div></a>';
+    UnitTypeView.prototype.template = '<a href="#" class="grid-link" > <div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> </div> </a>';
 
     UnitTypeView.prototype.events = {
       'click': 'unitTypeSelected'
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
+      evt.preventDefault();
       return this.trigger('unit:type:clicked', this.model.get('id'));
     };
 
