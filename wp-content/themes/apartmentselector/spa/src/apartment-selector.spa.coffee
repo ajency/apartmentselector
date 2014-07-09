@@ -19,6 +19,7 @@ require [ 'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/unittypes'
           'plugin-loader'
           'extm'
+          'src/classes/ap-store'
           'apps-loader' ], ( units, views, buildings, unitvariants, unittypes, plugins, Extm )->
 
    # global application object

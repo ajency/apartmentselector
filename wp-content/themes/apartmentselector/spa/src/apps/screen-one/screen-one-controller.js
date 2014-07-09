@@ -14,7 +14,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     }
 
     ScreenOneController.prototype.initialize = function() {
-      this.store().find('unit_type');
+      this._promises.push(App.store.getUnitTypes());
       return this.wait();
     };
 

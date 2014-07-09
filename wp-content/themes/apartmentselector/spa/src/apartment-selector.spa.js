@@ -3,7 +3,7 @@ define('plugin-loader', [], function() {});
 
 define('apps-loader', ['src/apps/footer/footer-controller', 'src/apps/header/header-controller', 'src/apps/screen-one/screen-one-controller'], function() {});
 
-require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json/views', 'spec/javascripts/fixtures/json/buildings', 'spec/javascripts/fixtures/json/unitvariants', 'spec/javascripts/fixtures/json/unittypes', 'plugin-loader', 'extm', 'apps-loader'], function(units, views, buildings, unitvariants, unittypes, plugins, Extm) {
+require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json/views', 'spec/javascripts/fixtures/json/buildings', 'spec/javascripts/fixtures/json/unitvariants', 'spec/javascripts/fixtures/json/unittypes', 'plugin-loader', 'extm', 'src/classes/ap-store', 'apps-loader'], function(units, views, buildings, unitvariants, unittypes, plugins, Extm) {
   var staticApps;
   window.App = new Extm.Application;
   App.addRegions({

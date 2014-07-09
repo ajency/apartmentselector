@@ -4,7 +4,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
    class ScreenOneController extends Extm.RegionController
 
       initialize : ->
-         @store().find 'unit_type'
+         @_promises.push App.store.getUnitTypes()
          @wait()
 
       onComplete : ( unitTypesCollection )->
