@@ -5,7 +5,8 @@
 define 'plugin-loader', [], ->
 
 # add your marionette apps here
-define 'apps-loader', [ 'src/apps/footer/footer-controller' ], ->
+define 'apps-loader', [ 'src/apps/footer/footer-controller'
+                        'src/apps/header/header-controller'], ->
 
 # set all plugins for this page here
 require [ 'spec/javascripts/fixtures/json/units'

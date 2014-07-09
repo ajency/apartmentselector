@@ -30,7 +30,7 @@
     <?php wp_head(); ?>
 
 </head>
-<body>
+<body class="booking">
 
 <!-- #header-region -->
 <div id="header-region"></div>
