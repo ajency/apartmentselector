@@ -35,6 +35,12 @@
 <!-- #header-region -->
 <div id="header-region"></div>
 
+<!-- #screen-one-region -->
+<div id="screen-one-region"></div>
+
+<!-- footer-region -->
+<div id="footer-region"></div>
+
 <?php wp_footer(); ?>
 </body>
 </html>
