@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "spin": "~1.1.6",
-    "extm": "~0.0.7",
+    "extm": "~0.0.8",
     "async": "~0.9.0"
   }
 }

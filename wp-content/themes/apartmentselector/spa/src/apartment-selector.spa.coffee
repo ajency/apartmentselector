@@ -4,40 +4,48 @@
 # add your required plugins here.
 define 'plugin-loader', [], ->
 
-# add your marionette apps here
-define 'apps-loader', [ 'src/apps/footer/footer-controller' ], ->
+   # add your marionette apps here
+define 'apps-loader', [
+                        'src/apps/footer/footer-controller'
+                        'src/apps/screen-one/screen-one-controller'
+                     ], ->
 
-# set all plugins for this page here
+   # set all plugins for this page here
 require [ 'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/views'
           'spec/javascripts/fixtures/json/buildings'
           'spec/javascripts/fixtures/json/unitvariants'
-          'spec/javascripts/fixtures/json/unitvariants'
+          'spec/javascripts/fixtures/json/unittypes'
           'plugin-loader'
           'extm'
-          'apps-loader' ], ( units, views, buildings, unitvariants,unittypes,plugins, Extm )->
+          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes, plugins, Extm )->
 
-    # global application object
-    window.App = new Extm.Application
+   # global application object
+   window.App = new Extm.Application
 
-    # add your application main regions here
-    App.addRegions
-        headerRegion : '#header-region'
-        footerRegion : '#footer-region'
-        screenOneRegion : '#screen-one-region'
+   # add your application main regions here
+   App.addRegions
+      headerRegion : '#header-region'
+      footerRegion : '#footer-region'
+      filterRegion : '#filter-region'
+      mainRegion : '#main-region'
 
-    App.store.push 'unit', units
-    App.store.push 'view', views
-    App.store.push 'building', buildings
-    App.store.push 'unit_variant', unitvariants
-    App.store.push 'unit_type', unittypes
+   App.store.push 'unit', units
+   App.store.push 'view', views
+   App.store.push 'building', buildings
+   App.store.push 'unit_variant', unitvariants
+   App.store.push 'unit_type', unittypes
 
-    # load static apps
-    App.addStaticApps [
-        [ 'footer', App.footerRegion ]
-        [ 'header', App.headerRegion ]
-    ]
+   # load static apps
+   staticApps = [
+      [ 'footer', App.footerRegion ]
+   ]
 
-    # start application
-    App.start()
+   if App.getCurrentRoute() is ''
+      staticApps.push [ 'screen:one', App.mainRegion ]
+
+   App.addStaticApps staticApps
+
+   # start application
+   App.start()
 
