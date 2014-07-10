@@ -19,7 +19,7 @@ define ->
             id : 3,
             name : "UnitVariant3",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "100"
 
         )
 
@@ -27,7 +27,7 @@ define ->
             id : 4,
             name : "UnitVariant4",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "500"
 
         )
 
@@ -35,7 +35,7 @@ define ->
             id : 5,
             name : "UnitVariant5",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "300"
 
         )
 
@@ -43,7 +43,7 @@ define ->
             id : 6,
             name : "UnitVariant6",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "600"
 
         )
 
@@ -51,7 +51,7 @@ define ->
             id : 7,
             name : "UnitVariant7",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "700"
 
         )
 
@@ -59,7 +59,7 @@ define ->
             id : 8,
             name : "UnitVariant8",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "250"
 
         )
 
@@ -67,7 +67,7 @@ define ->
             id : 9,
             name : "UnitVariant9",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "450"
 
         )
 
@@ -75,7 +75,7 @@ define ->
             id : 10,
             name : "UnitVariant10",
             carpetarea : 1,
-            sellablearea : "400"
+            sellablearea : "750"
 
         )
 
