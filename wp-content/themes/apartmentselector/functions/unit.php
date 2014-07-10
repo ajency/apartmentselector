@@ -23,3 +23,19 @@ function get_unit_types($ids=array())
 	}
 	return $unit_types;
 }
+
+
+
+
+function add_default_unit_status(){
+
+    $default_unit_status = array();
+
+    $default_unit_status[] = array("master_type"	=>"unit-status","value"=>"Sold","data"=>"");
+
+    $default_unit_status[] = array("master_type"	=>"unit-status","value"=>"Available","data"=>"");
+
+    $return = set_defaults_data($default_unit_status);
+
+    return;
+}

@@ -29,6 +29,11 @@ function do_init_routines(){
 
 	add_default_room_types();
 
+    add_default_building_exterior_sides();
+
+    add_default_unit_status();
+
+    add_default_views();
 }
 add_action('init','do_init_routines');
 

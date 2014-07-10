@@ -21,6 +21,12 @@ require_once (get_template_directory().'/functions/rooms.php');
 //load the functions related to unit
 require_once (get_template_directory().'/functions/unit.php');
 
+//load the functions related to unit type
+require_once (get_template_directory().'/functions/unit-type.php');
+
+//load the functions related to building
+require_once (get_template_directory().'/functions/building.php');
+
 //load all the classes//
 require_once (get_template_directory().'/classes/autoload.php');
 
