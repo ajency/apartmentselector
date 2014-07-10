@@ -51,7 +51,7 @@ function add_default_views(){
 function extra_building_fields($tag){
 
     $term_id = $tag->term_id;
-    
+
     $building_ext_view = maybe_unserialize(get_option( "building_".$term_id."_ext_view",true));
 
 
@@ -226,4 +226,26 @@ function get_views($id = 0){
 
     return get_default_data('views',$id);
 
+}
+
+/* get building taxonomy items ,if by id then id should be passed*/
+
+function get_buildings($ids=array())
+{
+
+    $unit_types = array();
+
+    $categories = get_terms( 'building', array(
+        'hide_empty' => 0,
+        'include'	=> $ids
+    ) );
+
+    foreach($categories as $category){
+
+        $building_ext_view = get_option( "building_".$category->term_id."_ext_view",true);
+
+        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"building_ext_view"=>$building_ext_view);
+
+    }
+    return $buildings;
 }

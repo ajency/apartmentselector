@@ -36,7 +36,7 @@ function register_post_type_unit(){
 					'has_archive' => true,
 					'hierarchical' => false,
 					'menu_position' => null, 
-					'supports' => array( 'title', 'editor', 'thumbnail','custom-fields')
+					'supports' => array( 'title', 'editor', 'thumbnail')
 				);
 
 
