@@ -30,10 +30,19 @@
     <?php wp_head(); ?>
 
 </head>
-<body>
+<body class="booking">
 
 <!-- #header-region -->
-<div id="header-region"></div>
+<div id="header-region"></div><br/><br/><br/>
+
+<!-- filter-region -->
+<div id="filter-region"></div>
+
+<!-- main-region -->
+<div id="main-region"></div>
+
+<!-- footer-region -->
+<div id="footer-region"></div>
 
 <?php wp_footer(); ?>
 </body>
