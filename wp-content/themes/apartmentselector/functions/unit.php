@@ -33,14 +33,14 @@ function add_default_unit_status(){
 
 function add_unit_metaboxes() {
 
-    add_meta_box('units_add_variants', 'Add Variants', 'add_variants', 'unit', 'normal', 'default');
+    add_meta_box('units_add_variant', 'Add Variant', 'add_variant', 'unit', 'normal', 'default');
 
 }
 
 add_action( 'add_meta_boxes', 'add_unit_metaboxes' );
 
 // The Event Location Metabox
-function add_variants() {
+function add_variant() {
     global $post;
     // Noncename needed to verify where the data originated
 
