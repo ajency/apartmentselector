@@ -6,6 +6,7 @@ define [ 'marionette' ], ( Marionette )->
       template : '<a href="#" class="grid-link" >
                         <div class="grid-text-wrap">
                             <span class="grid-main-title">{{name}}</span>
+                             <span class="grid-sub-title">{{min_value}} - {{max_value}}</span>
                         </div>
                      </a>'
 

@@ -28,7 +28,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype.unitTypeClicked = function(childView, unitTypeId) {
-      return App.navigate("#/filter/unittype:" + unitTypeId);
+      return App.navigate("#/screen-two/unittype:" + unitTypeId);
     };
 
     return ScreenOneController;

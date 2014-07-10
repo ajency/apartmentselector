@@ -2,9 +2,49 @@
 define(['underscore', 'extm', 'async'], function(_, Extm, async) {
   return _.extend(Extm.Store.prototype, {
     getUnitTypes: function(available) {
+      var NewUnitCollection, max_coll, modelArray, unitCollection, unitTypeModel;
       if (available == null) {
         available = true;
       }
+      unitCollection = "";
+      unitTypeModel = "";
+      NewUnitCollection = "";
+      modelArray = Array();
+      max_coll = Array();
+      return App.store.find('unit', {
+        status: "Available"
+      }).then(function(result) {
+        unitCollection = result;
+        unitCollection.each(function(item) {
+          return App.store.find('unit_type', item.get('unitType')).then(function(result) {
+            unitTypeModel = result;
+            return App.store.find('unit', {
+              unitType: unitTypeModel.get('id')
+            }).then(function(result) {
+              NewUnitCollection = result;
+              return NewUnitCollection.each(function(unit) {
+                var variantModel;
+                max_coll = Array();
+                variantModel = "";
+                return App.store.find('unit_variant', unit.get('unitVariant')).then(function(result) {
+                  var max_val, min_val;
+                  variantModel = result;
+                  max_coll.push(variantModel.get('sellablearea'));
+                  max_val = Math.max(max_coll);
+                  min_val = Math.min(max_coll);
+                  unitTypeModel.set({
+                    'max_value': max_val,
+                    'min_value': min_val
+                  });
+                  return modelArray.push(unitTypeModel);
+                });
+              });
+            });
+          });
+        });
+        unitCollection.reset(modelArray);
+        return unitCollection;
+      });
     },
     getBuildingModel: function(buildingId) {}
   });
