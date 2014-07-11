@@ -80,3 +80,11 @@ function get_default_data($master_type,$id=0){
 
 
 }
+
+
+function test_methods(){
+
+      //  formatted_echo(get_unit_status());
+
+}
+//add_action('wp_loaded','test_methods');

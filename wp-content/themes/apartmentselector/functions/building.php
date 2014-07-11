@@ -306,18 +306,19 @@ function get_views($id = 0){
 function get_buildings($ids=array())
 {
 
-    $unit_types = array();
 
     $categories = get_terms( 'building', array(
         'hide_empty' => 0,
         'include'	=> $ids
     ) );
-
     foreach($categories as $category){
 
-        $building_facings = get_option( "building_".$category->term_id."_facings",true);
 
-        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"building_facings"=>$building_facings);
+        //$building_facings = get_option( "building_".$category->term_id."_facings_view",true);
+
+        $building_phase = get_option( "building_".$category->term_id."_phase",true);
+
+        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"building_phase"=>$building_phase);
 
     }
     return $buildings;

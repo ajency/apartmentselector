@@ -223,3 +223,64 @@ function get_unit_type_by_unit_variant($unit_variant=0){
 
     return $unit_type;
 }
+
+
+
+/*get unit variants by unit type*/
+function get_unit_variants(){
+
+    global $frm_entry;
+
+    $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
+
+
+
+    $unit_variants = array();
+    foreach($results as $result){
+        $unit_variants[] = array('id'=>$result->id ,'name'=>$result->metas['name'] ,'carpet_area'=>$result->metas['carpet_area'] ,'sellable_area'=>$result->metas['sellable_area']);
+    }
+
+    return $unit_variants;
+}
+
+
+
+/*get all units*/
+function get_units(){
+
+    $results = get_posts(array(
+
+                'post_type'=>'unit'
+
+                )
+    );
+
+    $units = array();
+
+    foreach($results as $result){
+
+        $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
+
+        $unit_building =   get_post_meta($result->ID, 'building', true);
+
+        $floor =   get_post_meta($result->ID, 'floor', true);
+
+        $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
+
+        $unit_status =   get_post_meta($result->ID, 'unit_status', true);
+
+        $unit_type = get_unit_type_by_unit_variant($unit_variant);
+
+        $units[] = array(   'id'=>$result->ID,
+                            'name'=>$result->post_title,
+                            'unit_type'=>$unit_type,
+                            'unit_variant'=>$unit_variant,
+                            'building'=>$unit_building,
+                            'floor'=>$floor,
+                            'status'=>$unit_status,
+                        );
+
+    }
+
+    return $units;
+}
