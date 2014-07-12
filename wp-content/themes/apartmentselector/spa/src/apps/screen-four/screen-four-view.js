@@ -13,7 +13,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourView.prototype.className = "grid-block-1";
 
-    ScreenFourView.prototype.template = '<a href="#"  class="grid-link"   > <div class="grid-text-wrap"     > <span class="grid-main-title">Four</span> <span class="grid-sub-title"></span> </div> </a>';
+    ScreenFourView.prototype.template = '<a href="#"  class="grid-link"   > <div class="grid-text-wrap"     > <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{unit_type_name}}</span> <span class="grid-sub-title">{{unit_variant_name}}</span> <span class="grid-sub-title">{{view_name}}</span> </div> </a>';
 
     return ScreenFourView;
 

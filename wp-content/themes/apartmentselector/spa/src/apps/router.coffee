@@ -17,19 +17,19 @@ define [ 'marionette'], ( Marionette )->
     RouterAPI =
     #Start Sub App
         show :(id,budget)->
+            msgbus.showApp 'header'
+            .insideRegion  App.mainRegion
+                .withOptions({unittypeid:id})
             msgbus.showApp 'screen:two'
                 .insideRegion  App.mainRegion
                 .withOptions({unittypeid:id})
 
         showUnits:(unitypeid,range,buildingid)->
-            console.log range
-
             msgbus.showApp 'screen:three'
             .insideRegion  App.mainRegion
                 .withOptions({unitypeid:unitypeid,range:range,buildingid:buildingid})
 
         showSelectedUnit:(unit,unittypeid,range,size)->
-            console.log "hiiiiiiiiiiiiiiiiii"
             msgbus.showApp 'screen:four'
             .insideRegion  App.mainRegion
                 .withOptions({unit:unit,unitypeid:unittypeid,range:range,size:size})

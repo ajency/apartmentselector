@@ -23,12 +23,14 @@ define(['marionette'], function(Marionette) {
   staticApps = [];
   RouterAPI = {
     show: function(id, budget) {
+      msgbus.showApp('header').insideRegion(App.mainRegion).withOptions({
+        unittypeid: id
+      });
       return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions({
         unittypeid: id
       });
     },
     showUnits: function(unitypeid, range, buildingid) {
-      console.log(range);
       return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions({
         unitypeid: unitypeid,
         range: range,
@@ -36,7 +38,6 @@ define(['marionette'], function(Marionette) {
       });
     },
     showSelectedUnit: function(unit, unittypeid, range, size) {
-      console.log("hiiiiiiiiiiiiiiiiii");
       return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions({
         unit: unit,
         unitypeid: unittypeid,

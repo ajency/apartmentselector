@@ -4,11 +4,13 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
     class ScreenFourController extends Extm.RegionController
 
         initialize :(opt)->
+            console.log opt
+            @_promises.push App.store.getSingleUnit opt.unit
             @wait()
 
-        onComplete :->
-            console.log "aaaaaaaaaaaaaaaaaaa"
+        onComplete :(model)->
             screenFourView = new ScreenFourView
+                model : model
 
 
             @show screenFourView

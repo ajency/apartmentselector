@@ -11,7 +11,10 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       return HeaderController.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderController.prototype.initialize = function() {
+    HeaderController.prototype.initialize = function(opt) {
+      if (opt == null) {
+        opt = {};
+      }
       return this.wait();
     };
 

@@ -6,10 +6,12 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<a href="#"  class="grid-link"   >
                                             <div class="grid-text-wrap"     >
-                                                <span class="grid-main-title">Four</span>
-                                                 <span class="grid-sub-title"></span>
+                                                <span class="grid-main-title">{{name}}</span>
+                                                 <span class="grid-sub-title">{{unit_type_name}}</span>
+                                                  <span class="grid-sub-title">{{unit_variant_name}}</span>
+                                                    <span class="grid-sub-title">{{view_name}}</span>
 
-                                                </div>
+                                                                </div>
                                          </a>'
 
 
