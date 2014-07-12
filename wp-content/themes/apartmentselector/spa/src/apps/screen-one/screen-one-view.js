@@ -20,8 +20,10 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
+      var budget;
       evt.preventDefault();
-      return this.trigger('unit:type:clicked', this.model.get('id'));
+      budget = 'NotSet';
+      return this.trigger('unit:type:clicked', this.model.get('id'), budget);
     };
 
     return UnitTypeView;

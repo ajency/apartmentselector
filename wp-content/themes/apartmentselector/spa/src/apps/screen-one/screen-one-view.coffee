@@ -15,7 +15,8 @@ define [ 'marionette' ], ( Marionette )->
 
       unitTypeSelected : ( evt )->
          evt.preventDefault()
-         @trigger 'unit:type:clicked', @model.get 'id'
+         budget = 'NotSet'
+         @trigger 'unit:type:clicked', @model.get('id'), budget
 
    class ScreenOneView extends Marionette.CompositeView
 
