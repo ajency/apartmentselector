@@ -23,7 +23,7 @@ define(['marionette'], function(Marionette) {
   staticApps = [];
   RouterAPI = {
     show: function(id, budget) {
-      msgbus.showApp('header').insideRegion(App.mainRegion).withOptions({
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({
         unittypeid: id
       });
       return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions({
@@ -31,16 +31,27 @@ define(['marionette'], function(Marionette) {
       });
     },
     showUnits: function(unitypeid, range, buildingid) {
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({
+        unittypeid: unitypeid,
+        range: range,
+        buildingid: buildingid
+      });
       return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions({
-        unitypeid: unitypeid,
+        unittypeid: unitypeid,
         range: range,
         buildingid: buildingid
       });
     },
     showSelectedUnit: function(unit, unittypeid, range, size) {
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({
+        unit: unit,
+        unittypeid: unittypeid,
+        range: range,
+        size: size
+      });
       return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions({
         unit: unit,
-        unitypeid: unittypeid,
+        unittypeid: unittypeid,
         range: range,
         size: size
       });

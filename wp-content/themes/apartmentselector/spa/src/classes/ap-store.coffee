@@ -360,6 +360,22 @@ define [ 'underscore', 'extm', 'async' ], ( _, Extm, async ) ->
 
             )
 
+        getHeaderView:(opt= {})->
+            console.log opt
+            Model = Backbone.Model.extend({})
+            modelnew = new Model()
+            console.log opt.unittypeid
+            if opt == ""
+                modelnew.set 'name', 'Skyi Apartment Selector'
+            App.store.find('unit_type',parseInt(opt.unittypeid )).then( (result)->
+                modelnew.set 'unittype' , result.get 'name'
+                modelnew.set 'range' , opt.range
+                modelnew.set 'size' , opt.size
+
+            )
+            modelnew
+
+
 
 
 

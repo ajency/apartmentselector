@@ -4,7 +4,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
     class ScreenThreeController extends Extm.RegionController
 
         initialize :(opt)->
-            @_promises.push App.store.getAllUnits(opt.buildingid,opt.unitypeid,opt.range)
+            @_promises.push App.store.getAllUnits(opt.buildingid,opt.unittypeid,opt.range)
             @wait()
 
         onComplete :(unitCollection)->

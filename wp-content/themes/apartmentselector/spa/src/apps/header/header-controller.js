@@ -15,11 +15,17 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       if (opt == null) {
         opt = {};
       }
+      this._promises.push(App.store.getHeaderView(opt));
       return this.wait();
     };
 
-    HeaderController.prototype.onComplete = function() {
-      return this.show(new HeaderView);
+    HeaderController.prototype.onComplete = function(model) {
+      var headerView;
+      console.log(model);
+      headerView = new HeaderView({
+        model: model
+      });
+      return this.show(headerView);
     };
 
     return HeaderController;

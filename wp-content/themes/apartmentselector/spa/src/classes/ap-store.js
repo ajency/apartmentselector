@@ -292,6 +292,25 @@ define(['underscore', 'extm', 'async'], function(_, Extm, async) {
           });
         });
       });
+    },
+    getHeaderView: function(opt) {
+      var Model, modelnew;
+      if (opt == null) {
+        opt = {};
+      }
+      console.log(opt);
+      Model = Backbone.Model.extend({});
+      modelnew = new Model();
+      console.log(opt.unittypeid);
+      if (opt === "") {
+        modelnew.set('name', 'Skyi Apartment Selector');
+      }
+      App.store.find('unit_type', parseInt(opt.unittypeid)).then(function(result) {
+        modelnew.set('unittype', result.get('name'));
+        modelnew.set('range', opt.range);
+        return modelnew.set('size', opt.size);
+      });
+      return modelnew;
     }
   });
 });

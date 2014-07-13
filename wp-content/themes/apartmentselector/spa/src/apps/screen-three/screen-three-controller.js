@@ -14,7 +14,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     }
 
     ScreenThreeController.prototype.initialize = function(opt) {
-      this._promises.push(App.store.getAllUnits(opt.buildingid, opt.unitypeid, opt.range));
+      this._promises.push(App.store.getAllUnits(opt.buildingid, opt.unittypeid, opt.range));
       return this.wait();
     };
 
