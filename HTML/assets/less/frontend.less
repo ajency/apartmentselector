@@ -48,6 +48,7 @@ Version:        0.1.0
 	max-width: 1164px;
 	margin: 1rem auto;
 	padding: 0 20px;
+	text-align: center;
 	.clearfix;
 	.grid-link {
 		border: 1px solid #999;
@@ -69,11 +70,13 @@ Version:        0.1.0
 
 	/**** Block Type 1 ****/
 	.grid-block-1 {
-		display: inline;
-		float: left;
-	    width: 48.2394%;
+		display: inline-block;
+		text-align: left;
+		// display: inline;
+		// float: left;
+	    width: 47.2394%;
 		margin-right: 3.52113%;
-	    margin-bottom: 20px;
+	    margin-bottom: 10px;
 	    height: 68px;
 	    background: @color-white;
 	    color: @color-grey;
@@ -90,16 +93,21 @@ Version:        0.1.0
 				    color: @color-orange;
 				    font-weight: 700;
 			    }
+			    .grid-sub-title{
+			    	text-transform: lowercase;
+			    	font-size: 0.8rem;
+			    }
 		    }
 	    }
 	    &:nth-child(even) {
-	    	float: right;
+	    	// float: right;
 	    	margin-right: 0;
 	    }
 	    @media (min-width: 768px) and (max-width: 979px) { 
 	    	width: 31.4917%;
 	    	margin-right: 2.76243%;
-	    	float: left;
+	    	margin-bottom: 20px;
+	    	// float: left;
 	    	height: 88px;
 	    	.grid-link {
 	    		.grid-text-wrap {
@@ -108,18 +116,19 @@ Version:        0.1.0
 	    		}
 	    	}
 	    	&:nth-child(even) {
-	    		margin-right: 2.76243%;
-	    		float: left;
+	    		// margin-right: 2.76243%;
+	    		margin-right: 0;
+	    		// float: left;
 	    	}
 	    	&:nth-child(3n) {
-	    		float: right;
-	    		margin-right: 0;
+	    		// float: right;
+	    		// margin-right: 0;
 	    	}
 	    }
 	    @media (min-width: 980px) {
 			margin-right: 1.66113%;
     		width: 15.2824%;
-    		float: left;
+    		// float: left;
     		height: 88px;
     		.grid-link {
 	    		.grid-text-wrap {
@@ -129,10 +138,14 @@ Version:        0.1.0
 	    	}
     		&:nth-child(even), &:nth-child(3n) {
 	    		margin-right: 1.66113%;
-    			float: left;
+    			// float: left;
 	    	}
     		&:nth-child(6n) {
-	    		float: right;
+	    		// float: right;
+	    		margin-right: 0;
+	    	}
+	    	&:last-child {
+	    		// float: right;
 	    		margin-right: 0;
 	    	}
 		}
