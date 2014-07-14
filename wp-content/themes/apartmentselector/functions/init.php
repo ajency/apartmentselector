@@ -36,6 +36,7 @@ function do_init_routines(){
     add_default_views();
 
     add_default_phases();
+
 }
 add_action('init','do_init_routines');
 

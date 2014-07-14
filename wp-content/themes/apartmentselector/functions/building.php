@@ -107,7 +107,7 @@ function extra_building_fields($tag){
                                     }
 
                                     ?>
-                                    <td width="50%"><input style="width:5%" type="checkbox"  name="facing-views-<?php echo $buiding_facing['id'];?>[]" value="<?php echo $view["id"];?>"><?php echo $view["value"];?></td>
+                                    <td width="50%"><input style="width:5%" type="checkbox"  name="facing-views-<?php echo $buiding_facing['id'];?>[]" value="<?php echo $view["id"];?>"><?php echo $view["name"];?></td>
                                     <?php
                                     $c++;
                                     if($c==3){
@@ -144,7 +144,7 @@ function extra_building_fields($tag){
                 foreach ($phases as $phase){
 
                     ?>
-                    <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['value']?></option>
+                    <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['name']?></option>
                 <?php } ?>
             </select>
         </div>
@@ -178,7 +178,7 @@ function extra_building_fields($tag){
                         }
 
                         ?>
-                        <td width="25%"><input style="width:5%" type="checkbox"  name="facing-views-<?php echo $buiding_facing['id'];?>[]" value="<?php echo $view["id"];?>" <?php if(is_array($building_facings_view[$buiding_facing['id']])){ if(in_array($view["id"],$building_facings_view[$buiding_facing['id']])){ echo "checked"; }}?>><?php echo $view["value"];?></td>
+                        <td width="25%"><input style="width:5%" type="checkbox"  name="facing-views-<?php echo $buiding_facing['id'];?>[]" value="<?php echo $view["id"];?>" <?php if(is_array($building_facings_view[$buiding_facing['id']])){ if(in_array($view["id"],$building_facings_view[$buiding_facing['id']])){ echo "checked"; }}?>><?php echo $view["name"];?></td>
                         <?php
                         $c++;
                         if($c==5){
@@ -217,7 +217,7 @@ function extra_building_fields($tag){
                         foreach ($phases as $phase){
 
                             ?>
-                            <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['value']?></option>
+                            <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['name']?></option>
                         <?php } ?>
                     </select>
                 </div>

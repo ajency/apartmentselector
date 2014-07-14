@@ -133,7 +133,7 @@ function add_variant() {
                      foreach($unit_statuses as $unit_status_item){
                          ?>
 
-                         <option value="<?php echo $unit_status_item["id"];?>" <?php if($unit_status==$unit_status_item["id"]){ echo "selected"; }?>><?php echo $unit_status_item["value"];?></option>
+                         <option value="<?php echo $unit_status_item["id"];?>" <?php if($unit_status==$unit_status_item["id"]){ echo "selected"; }?>><?php echo $unit_status_item["name"];?></option>
 
                          <?php
                      }
@@ -154,9 +154,7 @@ add_action( 'admin_enqueue_scripts', 'unit_enqueue_scripts' );
 
 function save_unit($post_id, $post){
 
-    if ( !wp_verify_nonce( $_POST['pagemeta_add_variant'], plugin_basename(__FILE__) )) {
-        return $post->ID;
-    }
+
 
     if($post->post_type!="unit"){
         return $post->ID;
@@ -188,7 +186,6 @@ function ajax_get_unit_variants(){
 
     $unit_variants = get_unit_variants_by_unit_type($unit_type);
 
-
     $response = json_encode( $unit_variants );
 
     header( "Content-Type: application/json" );
@@ -205,7 +202,7 @@ function get_unit_variants_by_unit_type($unit_type=0){
 
     global $wpdb;
 
-    $query = "  SELECT  ITEMMASTERNAME.meta_value as variant_name, ITEMMASTERNAME.item_id variant_id FROM ".$wpdb->prefix."frm_items ITEMS JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERUNITTYPE ON ITEMS.id = ITEMMASTERUNITTYPE.item_id AND ITEMMASTERUNITTYPE.meta_value = '".$unit_type."' AND ITEMMASTERUNITTYPE.field_id = (select id from ".$wpdb->prefix."frm_fields where `type` = 'unittype' and form_id = 24) AND ITEMS.form_id = 24 JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERNAME ON ITEMMASTERUNITTYPE.item_id = ITEMMASTERNAME.item_id AND ITEMMASTERNAME.field_id = (select id from ".$wpdb->prefix."frm_fields where `field_key` = 'unit-variant-name' and form_id = 24) ";
+    $query = "  SELECT  ITEMMASTERNAME.meta_value as variant_name, ITEMMASTERNAME.item_id variant_id FROM ".$wpdb->prefix."frm_items ITEMS JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERUNITTYPE ON ITEMS.id = ITEMMASTERUNITTYPE.item_id AND ITEMMASTERUNITTYPE.meta_value = '".$unit_type."' AND ITEMMASTERUNITTYPE.field_id = (select id from ".$wpdb->prefix."frm_fields where `type` = 'unittype' and form_id = 24) AND ITEMS.form_id = 24 JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERNAME ON ITEMMASTERUNITTYPE.item_id = ITEMMASTERNAME.item_id AND ITEMMASTERNAME.field_id = (select id from ".$wpdb->prefix."frm_fields where `field_key` = 'name' and form_id = 24) ";
 
     $unit_variants = $wpdb->get_results( $query,ARRAY_A);
 
@@ -284,3 +281,49 @@ function get_units(){
 
     return $units;
 }
+
+
+function ajax_save_apartment(){
+
+    $msg = "";
+    $data  = "";
+    $error = false;
+
+             if(empty($_REQUEST['apartment_id'])){
+
+                 // Create post object
+                 $unit = array(
+                     'post_title'    => $_REQUEST["flat_no"],
+                     'post_status'   => 'publish',
+                     'post_type'   => 'unit',
+                 );
+
+// Insert the post into the database
+                 $apartment_id = wp_insert_post( $unit );
+
+                if(is_wp_error($apartment_id)) {
+
+                    $error = true;
+
+                    $msg = "Error Creating Apartment!";
+
+                 }
+                 $msg = "Apartment Created Successfully!";
+
+             }
+            else{
+
+
+                $msg = "Apartment Updated Successfully!";
+            }
+
+
+$response = json_encode( array('msg'=>$msg,'error'=>$error,'data'=> array('apartment_id'=>$apartment_id)) );
+
+header( "Content-Type: application/json" );
+
+echo $response;
+
+exit;
+}
+add_action('wp_ajax_save_apartment','ajax_save_apartment');
