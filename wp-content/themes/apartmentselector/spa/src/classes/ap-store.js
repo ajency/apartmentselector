@@ -294,16 +294,16 @@ define(['underscore', 'extm', 'async'], function(_, Extm, async) {
       });
     },
     getHeaderView: function(opt) {
-      var Model, modelnew;
+      var Model, count, modelnew;
       if (opt == null) {
         opt = {};
       }
       console.log(opt);
       Model = Backbone.Model.extend({});
       modelnew = new Model();
-      console.log(opt.unittypeid);
-      if (opt === "") {
-        modelnew.set('name', 'Skyi Apartment Selector');
+      count = Object.keys(opt).length;
+      if (count === 1) {
+        modelnew.set('name', 'Select Your Preference');
       }
       App.store.find('unit_type', parseInt(opt.unittypeid)).then(function(result) {
         modelnew.set('unittype', result.get('name'));
