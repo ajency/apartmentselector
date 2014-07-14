@@ -17,7 +17,7 @@ html, body, .vs-container {
 .vs-header {
 	z-index: 200;
 	margin: 0 auto;
-	padding: 2em;
+	padding: 2em 2em 1em;
 	width: 80%;
 	text-align: center;
 	-webkit-backface-visibility: hidden;
@@ -218,8 +218,8 @@ html, body, .vs-container {
 .vs-container.vs-move-left .vs-current,
 .vs-container.vs-move-left .vs-right,
 .vs-container.vs-move-left .vs-right-outer {
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
 	-webkit-transform: translate3d(-100%,0,0);
 	transform: translate3d(-100%,0,0);
 }
@@ -228,23 +228,23 @@ html, body, .vs-container {
 .vs-container.vs-move-right .vs-left-outer,
 .vs-container.vs-move-right .vs-current,
 .vs-container.vs-move-right .vs-right {
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
 	-webkit-transform: translate3d(100%,0,0);
 	transform: translate3d(100%,0,0);
 }
 
-/*.vs-sidenav div {
+.vs-sidenav div {
 	position: fixed;
 	top: 0;
 	z-index: 500;
-	width: 10%;
+	width: 12%;
 	height: 100%;
 	background: rgba(0,0,0,0.3);
 	cursor: pointer;
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
-}*/
+}
 
 .vs-sidenav div:hover {
 	background: rgba(0,0,0,0.2);
@@ -263,17 +263,14 @@ html, body, .vs-container {
 	position: relative;
 	margin: auto;
 	padding: 1em 0;
-	width: 95%;
+	width: 90%;
 	text-align: left;
 	font-size: 1.5em;
 }
 
 .vs-content h2 {
 	position: relative;
-	margin: 30px 0 40px;
 	color: #f28428;
-	font-weight: 700;
-	font-size: 3em;
 }
 
 .vs-content .col {
@@ -309,9 +306,9 @@ html, body, .vs-container {
 		width: 85%;
 	}
 
-	.vs-content h2 {
+	/*.vs-content h2 {
 		font-size: 1.8em;
-	}
+	}*/
 
 	.vs-nav li a {
 		width: 160px;

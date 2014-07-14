@@ -7,6 +7,16 @@ Author URI:     http://ajency.in/
 Template:       skyi
 Version:        0.1.0
 */
+.vs-sidenav div {
+  top: 130px;
+}
+.vs-nav li a {
+  color: #1b1e24;
+  font-weight: 500;
+}
+.vs-nav .vs-nav-current a {
+  color: #f28428;
+}
 @media (min-width: 768px) and (max-width: 959px), (min-width: 1024px) and (max-width: 1199px) {
   .width5 {
     width: 5%;
