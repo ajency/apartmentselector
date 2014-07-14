@@ -15,7 +15,7 @@ define(function() {
       name: "AO2",
       unitType: 2,
       unitVariant: 3,
-      building: 2,
+      building: 3,
       floor: 2,
       view: 2,
       status: "Available"
@@ -105,7 +105,7 @@ define(function() {
       name: "AO12",
       unitType: 12,
       unitVariant: 12,
-      building: 12,
+      building: 1,
       floor: 12,
       view: 12,
       status: "Blocked"

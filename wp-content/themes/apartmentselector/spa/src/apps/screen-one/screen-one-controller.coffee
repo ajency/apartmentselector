@@ -15,7 +15,10 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
          @show screenOneView
 
-      unitTypeClicked : ( childView, unitTypeId )=>
-         App.navigate "#/screen-two/unittype:#{unitTypeId}"
+      unitTypeClicked : ( childView, unitTypeId,budget )=>
+         App.navigate "#screen-two/unittype/#{unitTypeId}/budget/#{budget}" , trigger : true
 
    msgbus.registerController 'screen:one', ScreenOneController
+
+
+
