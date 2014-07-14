@@ -13,15 +13,17 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.className = "grid-block-1";
 
-    UnitTypeView.prototype.template = '<a href="#" class="grid-link" > <div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{min_value}} - {{max_value}}</span> </div> </a>';
+    UnitTypeView.prototype.template = '<a class="grid-link" href="step2.html"> <div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{min_value}} to {{max_value}} (sq. ft.)</span> </div> </a>';
 
     UnitTypeView.prototype.events = {
       'click': 'unitTypeSelected'
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
+      var budget;
       evt.preventDefault();
-      return this.trigger('unit:type:clicked', this.model.get('id'));
+      budget = 'NotSet';
+      return this.trigger('unit:type:clicked', this.model.get('id'), budget);
     };
 
     return UnitTypeView;
@@ -35,6 +37,8 @@ define(['marionette'], function(Marionette) {
     }
 
     ScreenOneView.prototype.template = '<div class="grid-container"></div>';
+
+    ScreenOneView.prototype.className = 'page-container row-fluid';
 
     ScreenOneView.prototype.childView = UnitTypeView;
 
