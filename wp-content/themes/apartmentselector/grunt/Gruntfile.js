@@ -207,18 +207,18 @@ module.exports = function(grunt) {
   getRequireJSTasks = function(files, pattern) {
     var folderPath, optimizedExtension, originalExtension, subTasks;
     subTasks = {};
-    folderPath = pattern === 'scripts' ? 'js/src' : 'spa/src';
+    folderPath = pattern === 'scripts' ? 'js' : 'spa';
     originalExtension = "" + pattern + ".js";
     optimizedExtension = "" + pattern + ".min.js";
     files.map(function(file) {
       var config, name;
-      file = file.replace("../" + folderPath + "/", "");
+      file = file.replace("../" + folderPath + "/src/", "");
       config = {
         baseUrl: "../" + folderPath,
-        mainConfigFile: "../" + folderPath + "/require.config.js",
-        name: "bower_components/almond/almond",
-        include: [file],
-        out: "../" + folderPath + "/" + (file.replace(originalExtension, optimizedExtension)),
+        mainConfigFile: "../" + folderPath + "/src/require.config.js",
+        name: "src/bower_components/almond/almond",
+        include: ["src/" + file],
+        out: "../" + folderPath + "/src/" + (file.replace(originalExtension, optimizedExtension)),
         findNestedDependencies: true,
         optimize: 'none'
       };

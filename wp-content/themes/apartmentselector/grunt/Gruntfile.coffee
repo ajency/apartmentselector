@@ -218,20 +218,20 @@ module.exports = ( grunt ) ->
    getRequireJSTasks = ( files, pattern )->
       subTasks = {}
 
-      folderPath = if pattern is 'scripts' then 'js/src' else 'spa/src'
+      folderPath = if pattern is 'scripts' then 'js' else 'spa'
 
       originalExtension = "#{pattern}.js"
       optimizedExtension = "#{pattern}.min.js"
 
       files.map ( file )->
-         file = file.replace "../#{folderPath}/", ""
+         file = file.replace "../#{folderPath}/src/", ""
 
          config =
             baseUrl : "../#{folderPath}"
-            mainConfigFile : "../#{folderPath}/require.config.js"
-            name : "bower_components/almond/almond"
-            include : [ file ]
-            out : "../#{folderPath}/#{file.replace originalExtension, optimizedExtension}"
+            mainConfigFile : "../#{folderPath}/src/require.config.js"
+            name : "src/bower_components/almond/almond"
+            include : [ "src/#{file}" ]
+            out : "../#{folderPath}/src/#{file.replace originalExtension, optimizedExtension}"
             findNestedDependencies : true
             optimize : 'none' # uncomment for testing minified JS
 
