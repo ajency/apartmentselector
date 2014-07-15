@@ -150,7 +150,7 @@ if ( !is_development_environment() ) {
 
     }
 
-   // add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_script' );
+    add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_script' );
 
     function apartmentselector_production_enqueue_styles() {
 
@@ -164,7 +164,7 @@ if ( !is_development_environment() ) {
 
     }
 
-   // add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_styles' );
+    add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_styles' );
 }
 
 
