@@ -1,4 +1,5 @@
 <?php
+
 /**
  * apartmentselector functions file
  *
@@ -105,6 +106,7 @@ if ( is_development_environment() ) {
             TRUE);
 
 
+
         wp_enqueue_script( "$module-script",
             get_template_directory_uri() . "/{$folder_path}/{$module}.{$pattern}.js",
             array( "require-config" ) );
@@ -116,7 +118,7 @@ if ( is_development_environment() ) {
         wp_localize_script( "requirejs", "_WPNONCE", wp_create_nonce( 'media-form' ) );
     }
 
-   // add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_scripts' );
+    add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_scripts' );
 
     function apartmentselector_dev_enqueue_styles() {
 
@@ -126,7 +128,7 @@ if ( is_development_environment() ) {
 
     }
 
-   // add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
+    add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
 }
 
 if ( !is_development_environment() ) {
