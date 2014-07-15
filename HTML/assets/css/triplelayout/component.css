@@ -17,7 +17,7 @@ html, body, .vs-container {
 .vs-header {
 	z-index: 200;
 	margin: 0 auto;
-	padding: 2em 2em 1em;
+	padding: 50px 2em 1em;
 	width: 80%;
 	text-align: center;
 	-webkit-backface-visibility: hidden;
@@ -70,7 +70,7 @@ html, body, .vs-container {
 	position: relative;
 	display: inline-block;
 	margin: 0 10px;
-	padding: 10px 0;
+	padding: 20px 0;
 	outline: none;
 	border-top: 2px solid transparent;
 	border-bottom: 2px solid transparent;
@@ -79,7 +79,7 @@ html, body, .vs-container {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-weight: 700;
-	font-size: 1.5em;
+	font-size: 2em;
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
 }
@@ -161,6 +161,7 @@ html, body, .vs-container {
 	overflow: hidden;
 	min-height: 100%;
 	width: 100%;
+	background-color: #f8f8f8;
 }
 
 .vs-wrapper > section {
@@ -194,7 +195,7 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-left {
-	left: -70%; /* 80 - 10 */
+	left: -72%; /* 80 - 10 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-left-outer {
@@ -207,7 +208,7 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-right {
-	left: 90%; /* 80 + 10 */
+	left: 92%; /* 80 + 10 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-right-outer {
@@ -238,7 +239,7 @@ html, body, .vs-container {
 	position: fixed;
 	top: 0;
 	z-index: 500;
-	width: 12%;
+	width: 8%;
 	height: 100%;
 	background: rgba(0,0,0,0.3);
 	cursor: pointer;
@@ -262,10 +263,10 @@ html, body, .vs-container {
 .vs-content {
 	position: relative;
 	margin: auto;
-	padding: 1em 0;
-	width: 90%;
+	padding: 20px 0 0;
+	width: 96%;
 	text-align: left;
-	font-size: 1.5em;
+	/*font-size: 1.5em;*/
 }
 
 .vs-content h2 {
@@ -275,7 +276,7 @@ html, body, .vs-container {
 
 .vs-content .col {
 	margin: 0 auto;
-	color: #893027;
+	/*color: #893027;*/
 	text-align: justify;
 	line-height: 1.4;
 	-webkit-column-width: 30%;
