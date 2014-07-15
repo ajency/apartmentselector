@@ -99,9 +99,6 @@ function apartmentselector_backend_enqueue_scripts(){
                 get_template_directory_uri() . "/js/backend/jquery.tablesorter.widgets-filter-formatter.min.js",
                 array( "jquery" ), false, true );
 
-            wp_enqueue_script( 'jui-theme-switch',
-                get_template_directory_uri() . "/js/backend/jquery.jui_theme_switch.min.js",
-                array( "jquery" ), false, true );
 
 
         }
@@ -128,21 +125,23 @@ function apartmentselector_backend_enqueue_styles() {
 
     if(in_array($post->post_name,$array_backend_pages)){
         wp_enqueue_style( "pace-theme-flash", get_template_directory_uri() . "/css/backend/css/pace-theme-flash.css" );
-        wp_enqueue_style( "bootstrap-tagsinput", get_template_directory_uri() . "/css/backend/css/bootstrap-tagsinput.css" );
-        wp_enqueue_style( "jquery.sidr.light", get_template_directory_uri() . "/css/backend/css/jquery.sidr.light.css" );
+     wp_enqueue_style( "bootstrap-tagsinput", get_template_directory_uri() . "/css/backend/css/bootstrap-tagsinput.css" );
+         wp_enqueue_style( "jquery.sidr.light", get_template_directory_uri() . "/css/backend/css/jquery.sidr.light.css" );
         wp_enqueue_style( "bootstrap.min", get_template_directory_uri() . "/css/backend/css/bootstrap.min.css" );
-        wp_enqueue_style( "bootstrap-theme.min", get_template_directory_uri() . "/css/backend/css/bootstrap-theme.min.css" );
-        wp_enqueue_style( "font-awesome", get_template_directory_uri() . "/css/backend/css/font-awesome.css" );
-        wp_enqueue_style( "animate.min", get_template_directory_uri() . "/css/backend/css/animate.min.css" );
-        wp_enqueue_style( "style", get_template_directory_uri() . "/css/backend/css/style.css" );
+         wp_enqueue_style( "bootstrap-theme.min", get_template_directory_uri() . "/css/backend/css/bootstrap-theme.min.css" );
+         wp_enqueue_style( "font-awesome", get_template_directory_uri() . "/css/backend/css/font-awesome.css" );
+         wp_enqueue_style( "animate.min", get_template_directory_uri() . "/css/backend/css/animate.min.css" );
+       wp_enqueue_style( "style", get_template_directory_uri() . "/css/backend/css/style.css" );
         wp_enqueue_style( "responsive", get_template_directory_uri() . "/css/backend/css/responsive.css" );
-        wp_enqueue_style( "custom-icon-set", get_template_directory_uri() . "/css/backend/css/custom-icon-set.css" );
+         wp_enqueue_style( "custom-icon-set", get_template_directory_uri() . "/css/backend/css/custom-icon-set.css" );
         wp_enqueue_style( "custom", get_template_directory_uri() . "/css/backend/css/custom.css" );
 
         ///load unit.js if any of the specifed is loaded
         if(in_array($post->post_name,array('apartments'))){
+
+            wp_enqueue_style( "tablesorter-custom", get_template_directory_uri() . "/css/backend/css/tablesorter-custom.css" );
             wp_enqueue_style( "filter-formatter", get_template_directory_uri() . "/css/backend/css/filter.formatter.css" );
-            wp_enqueue_style( "theme-jui", get_template_directory_uri() . "/css/backend/css/theme.jui.css" );
+
         }
     }
 

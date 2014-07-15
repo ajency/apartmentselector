@@ -91,7 +91,7 @@ jQuery(document).ready(function($) {
                                 // jQuery UI slider options
                                 values : [1, 12],
                                 min : 1,
-                                max : 160
+                                max : 12
                             });
                         },
 

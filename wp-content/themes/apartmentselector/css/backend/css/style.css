@@ -2427,7 +2427,6 @@ input[type="file"] {
 }
 
 select {
-  width: 220px;
   background-color: #ffffff;
   background-image: none !important;
   border: 1px solid #e5e5e5;
