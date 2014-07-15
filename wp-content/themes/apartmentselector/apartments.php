@@ -133,10 +133,10 @@
                                         <thead>
                                         <tr>
                                           <th style="width:10%">Flat No</th>
-                                            <th style="width:20%" >Status</th>
-                                            <th style="width:20%">Unit Type</th>
-                                            <th style="width:20%">Unit Variant</th>
-                                            <th style="width:20">Building</th> 
+                                            <th style="width:20%" class="filter-select" data-placeholder="All" >Status</th>
+                                            <th style="width:20%"  class="filter-select" data-placeholder="All">Unit Type</th>
+                                            <th style="width:20%"  class="filter-select" data-placeholder="All">Unit Variant</th>
+                                            <th style="width:20" class="filter-select"  data-placeholder="All" >Building</th>
                                             <th style="width:10%">Floor</th>
                                         </tr>
                                         </thead>
