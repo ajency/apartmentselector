@@ -55,12 +55,12 @@ define(['marionette'], function(Marionette) {
       return ScreenTwoView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoView.prototype.template = '<div class="grid-container"><div class="grid-block-1"><a  id="data1" class="grid-link"  data-value="0" > Low </a></div> <div class="grid-block-1"><a   id="data2" class="grid-link"  data-value="1" > Medium </a></div> <div class="grid-block-1"><a  id="data3" class="grid-link"  data-value="2" > High </a></div></div><button type="button"  name="submit" id="submit" value="submit" ></button>';
+    ScreenTwoView.prototype.template = '<div id="vs-container" class="vs-container"> <header class="vs-header"> <h1>Sliding Triple View Layout <span>with Visible Adjoining Sections</span></h1> <ul class="vs-nav"> <li><a id="data0" class="image" href="#section-0" data-value="0">Low</a></li> <li><a id="data1" class="image"  href="#section-1" data-value="1">Medium</a></li> <li><a id="data2" class="image" href="#section-2" data-value="2">High</a></li> </ul> </header><div class="vs-wrapper"> <section id="section-0"> <div id="content0" class="vs-content"> <!-- content --> </div> </section> <section id="section-1"><div id="content1" class="vs-content"> <!-- content --> </div></section> <section id="section-2"><div id="content2" class="vs-content"> <!-- content --> </div></section> <!-- ... --> </div>';
 
     ScreenTwoView.prototype.childView = UnitTypeChildView;
 
     ScreenTwoView.prototype.events = {
-      'click .grid-link': 'imageslider'
+      'click .image': 'imageslider'
     };
 
     ScreenTwoView.prototype.imageslider = function(e) {
@@ -70,8 +70,7 @@ define(['marionette'], function(Marionette) {
       images = ['http://farm4.static.flickr.com/3219/2431886567_c92821aede_o.jpg', 'http://farm1.static.flickr.com/37/85684217_526797a103_o.jpg', 'http://farm5.static.flickr.com/4080/4906820567_63fb82fa85_b.jpg'];
       q = img_val;
       w = 0;
-      console.log(images.length);
-      while (w < 2) {
+      while (w < 1) {
         if (images.length === q) {
           q = 0;
         }
@@ -79,13 +78,11 @@ define(['marionette'], function(Marionette) {
         w++;
         q++;
       }
-      console.log(myArray);
-      return $.preload(myArray, 2, function(last) {
+      return $.preload(myArray, 1, function(last) {
         var i;
-        console.log(this.length);
         i = 0;
         while (i < this.length) {
-          $('<img height="200" src="' + this[i] + '" alt="" />').appendTo('body');
+          $('<img height="200" src="' + this[i] + '" alt="" />').appendTo('div#content' + img_val);
           i++;
         }
         if (last) {

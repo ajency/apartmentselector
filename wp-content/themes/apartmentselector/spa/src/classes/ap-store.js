@@ -282,7 +282,7 @@ define(['underscore', 'extm', 'async'], function(_, Extm, async) {
       return App.store.find('unit', parseInt(unit)).then(function(result) {
         unit = result;
         return App.store.find('unit_variant', unit.get('unitVariant')).then(function(result) {
-          unit.set('unit_variant_name', result.get('name'));
+          unit.set('unit_variant_name', result.get('sellablearea'));
           return App.store.find('unit_type', unit.get('unitType')).then(function(result) {
             unit.set('unit_type_name', result.get('name'));
             return App.store.find('view', unit.get('view')).then(function(result) {
