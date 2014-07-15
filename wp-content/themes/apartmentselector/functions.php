@@ -27,8 +27,12 @@ require_once (get_template_directory().'/functions/unit-type.php');
 //load the functions related to building
 require_once (get_template_directory().'/functions/building.php');
 
+//load backend styles and scripts//
+require_once (get_template_directory().'/functions/backend-scripts-styles.php');
+
 //load all the classes//
 require_once (get_template_directory().'/classes/autoload.php');
+
 
 //formatted echo using pre tags can be used to echo out data for testing purpose
 
@@ -112,7 +116,7 @@ if ( is_development_environment() ) {
         wp_localize_script( "requirejs", "_WPNONCE", wp_create_nonce( 'media-form' ) );
     }
 
-    add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_scripts' );
+   // add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_scripts' );
 
     function apartmentselector_dev_enqueue_styles() {
 
@@ -122,7 +126,7 @@ if ( is_development_environment() ) {
 
     }
 
-    add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
+   // add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
 }
 
 if ( !is_development_environment() ) {
@@ -144,7 +148,7 @@ if ( !is_development_environment() ) {
 
     }
 
-    add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_script' );
+   // add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_script' );
 
     function apartmentselector_production_enqueue_styles() {
 
@@ -158,7 +162,7 @@ if ( !is_development_environment() ) {
 
     }
 
-    add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_styles' );
+   // add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_styles' );
 }
 
 
