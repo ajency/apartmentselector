@@ -21,10 +21,8 @@ requirejs.config
         underscorestring : 'src/bower_components/underscore.string/lib/underscore.string'
         extm : 'src/bower_components/extm/lib/extm.amd'
         preload : 'src/bower_components/preload/jquery.preload'
-        modernizr : 'src/bower_components/preload/modernizr.custom'
-        classie : 'src/bower_components/preload/classie'
-        hammer : 'src/bower_components/preload/hammer.min'
-        main : 'src/bower_components/preload/main'
+
+
 
     shim :
         jquery : [ 'underscore' ]
@@ -44,7 +42,4 @@ requirejs.config
             exports : 'plupload'
 
         preload : [ 'jquery' ]
-        modernizr : [ 'jquery' ]
-        classie : [ 'jquery' ]
-        hammer : [ 'jquery' ]
-        main : [ 'jquery' ]
+
