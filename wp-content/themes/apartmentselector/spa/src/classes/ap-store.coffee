@@ -343,7 +343,7 @@ define [ 'underscore', 'extm', 'async' ], ( _, Extm, async ) ->
             App.store.find('unit',parseInt(unit)).then( (result)->
                 unit = result
                 App.store.find('unit_variant',unit.get('unitVariant')).then( (result)->
-                    unit.set 'unit_variant_name' , result.get 'name'
+                    unit.set 'unit_variant_name' , result.get 'sellablearea'
                     App.store.find('unit_type',unit.get('unitType')).then( (result)->
                         unit.set 'unit_type_name' , result.get 'name'
                         App.store.find('view',unit.get('view')).then( (result)->

@@ -49,12 +49,16 @@ define [ 'marionette' ], ( Marionette )->
                         </ul>
                     </header><div class="vs-wrapper">
                 <section id="section-0">
-                    <div class="vs-content">
+                    <div id="content0" class="vs-content">
                         <!-- content -->
                     </div>
                 </section>
-                <section id="section-1"><!-- ... --></section>
-                <section id="section-2"><!-- ... --></section>
+                <section id="section-1"><div id="content1" class="vs-content">
+                                <!-- content -->
+                            </div></section>
+                <section id="section-2"><div id="content2" class="vs-content">
+                                <!-- content -->
+                            </div></section>
                 <!-- ... -->
             </div>'
 
@@ -77,7 +81,6 @@ define [ 'marionette' ], ( Marionette )->
             ]
             q = img_val
             w = 0
-            console.log images.length
             while w < 1
                 if images.length == q
                     q =0
@@ -86,15 +89,13 @@ define [ 'marionette' ], ( Marionette )->
                 q++
 
 
-            console.log myArray
             $.preload(myArray, 1, (last)->
-                console.log this.length
                 i = 0
 
 
 
                 while i < this.length
-                    $('<img height="200" src="' +this[i] + '" alt="" />').appendTo('section#section-'+img_val)
+                    $('<img height="200" src="' +this[i] + '" alt="" />').appendTo('div#content'+img_val)
                     i++
 
 
