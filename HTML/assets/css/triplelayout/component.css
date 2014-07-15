@@ -174,10 +174,10 @@ html, body, .vs-container {
 .vs-triplelayout .vs-wrapper > section {
 	position: absolute;
 	top: 0;
-	left: 10%;
+	left: 8%;
 	visibility: hidden;
 	padding: 0 0 100px;
-	width: 80%;
+	width: 84%;
 	-webkit-backface-visibility: hidden;
 }
 
@@ -195,11 +195,11 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-left {
-	left: -72%; /* 80 - 10 */
+	left: -76%; /* 8 - 84 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-left-outer {
-	left: -150%; /* - 70 - 80 */
+	left: -160%; /* - 76 - 84 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-current {
@@ -208,11 +208,11 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-right {
-	left: 92%; /* 80 + 10 */
+	left: 92%; /* 84 + 8 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-right-outer {
-	left: 170%; /* 90 + 80 */
+	left: 176%; /* 92 + 84 */
 }
 
 .vs-container.vs-move-left .vs-left,
@@ -279,7 +279,7 @@ html, body, .vs-container {
 	/*color: #893027;*/
 	text-align: justify;
 	line-height: 1.4;
-	-webkit-column-width: 30%;
+	/*-webkit-column-width: 30%;
 	-moz-column-width: 30%;
 	column-width: 30%;
 	-webkit-column-count: 3;
@@ -287,7 +287,7 @@ html, body, .vs-container {
 	column-count: 3;
 	-webkit-column-gap: 1%;
 	-moz-column-gap: 1%;
-	column-gap: 1%;
+	column-gap: 1%;*/
 }
 
 .vs-content p {
@@ -316,12 +316,12 @@ html, body, .vs-container {
 	}
 
 	.vs-content .col {
-		-webkit-column-width: 50%;
+		/*-webkit-column-width: 50%;
 		-moz-column-width: 50%;
 		column-width: 50%;
 		-webkit-column-count: 2;
 		-moz-column-count: 2;
-		column-count: 2;
+		column-count: 2;*/
 	}
 }
 
