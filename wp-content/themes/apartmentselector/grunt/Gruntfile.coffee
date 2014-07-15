@@ -146,6 +146,7 @@ module.exports = ( grunt ) ->
 
    # Copy all production resources to "production" folder
       copyto :
+
          production :
             files : [
                (
@@ -251,5 +252,5 @@ module.exports = ( grunt ) ->
    grunt.registerTask "runtests", [ "karma", "phpunit" ]
    grunt.registerTask "optimize", [ "less", "themeJSOptimize", "themespaOptimize" ]
    grunt.registerTask "build",
-     [ "themeJSOptimize", "less", "clean:production", "copyto", "clean:prevBuilds" ]
+     [ "themeJSOptimize","themespaOptimize", "less", "clean:production", "copyto", "clean:prevBuilds" ]
    grunt.registerTask "deploy", [ "validate", "runtests", "optimize", "clean", "copyto", "notify:readyToDeploy" ]

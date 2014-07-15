@@ -234,6 +234,6 @@ module.exports = function(grunt) {
   grunt.registerTask("validate", ["lesslint", "coffeelint", "jshint", "phpcs"]);
   grunt.registerTask("runtests", ["karma", "phpunit"]);
   grunt.registerTask("optimize", ["less", "themeJSOptimize", "themespaOptimize"]);
-  grunt.registerTask("build", ["themeJSOptimize", "less", "clean:production", "copyto", "clean:prevBuilds"]);
+  grunt.registerTask("build", ["themeJSOptimize", "themespaOptimize", "less", "clean:production", "copyto", "clean:prevBuilds"]);
   return grunt.registerTask("deploy", ["validate", "runtests", "optimize", "clean", "copyto", "notify:readyToDeploy"]);
 };
