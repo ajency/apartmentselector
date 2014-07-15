@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['preload'], ->
+define 'plugin-loader', ['preload','modernizr','classie','hammer','main'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
