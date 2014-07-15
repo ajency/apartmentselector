@@ -10,7 +10,8 @@ vendor
 .htaccess
 .idea
 
-
+# Ignore config
+wp-config.php
 
 # ignore wordpress unit tests
 /tests
