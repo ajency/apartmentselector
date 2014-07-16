@@ -455,10 +455,14 @@ iframe{
 	// height: 120px;
 	.budget{
 		text-align: center;
-		padding: 40px 0;
+		padding: 10px 0;
 		font-size: 25px;
 		font-weight: 500;
-		box-shadow: 0 0 0 2px lighten(@color-grey, 30%) inset;
+		color: @color-orange;
+		&:first-child{
+			color: @color-grey;
+		}
+		//box-shadow: 0 0 0 2px lighten(@color-grey, 30%) inset;
 	}
 	.slick-prev, .slick-next{
 		width: 40px;
@@ -488,8 +492,7 @@ iframe{
 	.budgetSelect{
 		width: 120px;
 		.budget{
-			padding: 30px 0;
-			font-size: 16px;
+			font-size: 18px;
 		}
 		.slick-prev, .slick-next{
 			width: 30px;
