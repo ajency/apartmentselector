@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="text-center"> <h3>{{name}}</h3><h3>{{unittype}} {{range}} {{size}}</h3></div>';
+    HeaderView.prototype.template = '<div class="text-center"> <h3 class="text-white">{{name}}</h3><h3 class="text-white">{{unittype}} {{range}} {{size}}</h3></div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 
