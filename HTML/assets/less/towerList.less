@@ -1,0 +1,101 @@
+
+.towerTable{
+	position:relative;
+	width: 90%;
+	max-width: 700px;
+	margin: auto;
+
+	.tableHeader{
+		width: 100px;
+		position: absolute;
+		left: 24%;
+		top: 75px;
+		z-index: 999;
+		// background-color: lighten(@color-grey, 37%);
+		// border: 1px solid lighten(@color-grey, 30%);
+
+		ul{
+			list-style-type: none;
+			padding: 0;
+			li{
+				height: 80px;				
+				cursor: pointer;
+				a{
+					color: @color-grey;
+				}
+			}
+		} 
+	}
+
+	.tableBody{
+		.vs-header{
+			padding: 0 5px 1em;
+			.vs-nav{
+				height: 35px;
+				li a{
+					font-size: 12px;
+					padding: 0 0 5px;
+					border-top: 0;
+				}
+				li.vs-nav-current a{
+					font-size: 22px;
+				}
+			}
+		}
+
+		.vs-container{
+			position: static;
+		}
+
+		.vs-wrapper {
+			& > section {
+				left: 10%;
+				width: 80%;
+				padding: 0;
+			}
+			.vs-content{
+				width: 65%;
+				& > div{
+					margin-bottom: 15px;
+					border-bottom: 1px solid lighten(@color-grey, 30%) ;
+				}
+
+				.flatNos{
+					padding: 10px;
+					width: 90px;
+					margin: 0 0 10px auto;
+					background-color: lighten(@color-grey, 45%);
+					border: 1px solid lighten(@color-grey, 30%);
+					font-size: 20px;
+					font-weight: 600;
+				}
+			}
+	        .vs-left {
+	            left: -70%;
+	        }
+	        .vs-left-outer {
+	            left: -150%;
+	        }
+	        .vs-current {
+	            position: relative;
+	            z-index: 100;
+	        }
+	        .vs-right {
+	            left: 90%;
+	        }
+	        .vs-right-outer {
+	            left: 170%;
+	        }
+	    }
+
+	    .vs-sidenav div {
+	    	display: block;
+	    	position: absolute;
+	    	top: auto;
+	    	bottom: 0;
+	    	height: 84%;
+			width: 20%;
+		}
+	}
+}
+

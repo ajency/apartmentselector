@@ -7,6 +7,102 @@ Author URI:     http://ajency.in/
 Template:       skyi
 Version:        0.1.0
 */
+.vs-sidenav div {
+  top: 204px;
+}
+.vs-nav li a {
+  color: #1b1e24;
+  font-weight: 500;
+}
+.vs-nav .vs-nav-current a {
+  color: #f28428;
+}
+.towerTable {
+  position: relative;
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+}
+.towerTable .tableHeader {
+  width: 100px;
+  position: absolute;
+  left: 24%;
+  top: 75px;
+  z-index: 999;
+}
+.towerTable .tableHeader ul {
+  list-style-type: none;
+  padding: 0;
+}
+.towerTable .tableHeader ul li {
+  height: 80px;
+  cursor: pointer;
+}
+.towerTable .tableHeader ul li a {
+  color: #8b91a0;
+}
+.towerTable .tableBody .vs-header {
+  padding: 0 5px 1em;
+}
+.towerTable .tableBody .vs-header .vs-nav {
+  height: 35px;
+}
+.towerTable .tableBody .vs-header .vs-nav li a {
+  font-size: 12px;
+  padding: 0 0 5px;
+  border-top: 0;
+}
+.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a {
+  font-size: 22px;
+}
+.towerTable .tableBody .vs-container {
+  position: static;
+}
+.towerTable .tableBody .vs-wrapper > section {
+  left: 10%;
+  width: 80%;
+  padding: 0;
+}
+.towerTable .tableBody .vs-wrapper .vs-content {
+  width: 65%;
+}
+.towerTable .tableBody .vs-wrapper .vs-content > div {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #dfe1e5;
+}
+.towerTable .tableBody .vs-wrapper .vs-content .flatNos {
+  padding: 10px;
+  width: 90px;
+  margin: 0 0 10px auto;
+  background-color: #ffffff;
+  border: 1px solid #dfe1e5;
+  font-size: 20px;
+  font-weight: 600;
+}
+.towerTable .tableBody .vs-wrapper .vs-left {
+  left: -70%;
+}
+.towerTable .tableBody .vs-wrapper .vs-left-outer {
+  left: -150%;
+}
+.towerTable .tableBody .vs-wrapper .vs-current {
+  position: relative;
+  z-index: 100;
+}
+.towerTable .tableBody .vs-wrapper .vs-right {
+  left: 90%;
+}
+.towerTable .tableBody .vs-wrapper .vs-right-outer {
+  left: 170%;
+}
+.towerTable .tableBody .vs-sidenav div {
+  display: block;
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  height: 84%;
+  width: 20%;
+}
 @media (min-width: 768px) and (max-width: 959px), (min-width: 1024px) and (max-width: 1199px) {
   .width5 {
     width: 5%;
@@ -344,7 +440,7 @@ Version:        0.1.0
 iframe {
   margin: 50px auto 0;
   display: block;
-  width: 320px;
+  width: 520px;
 }
 .header {
   position: static;
