@@ -174,10 +174,12 @@ html, body, .vs-container {
 .vs-triplelayout .vs-wrapper > section {
 	position: absolute;
 	top: 0;
-	left: 8%;
+	/*left: 8%;*/
+	left: 0%;
 	visibility: hidden;
 	padding: 0 0 100px;
-	width: 84%;
+	/*width: 84%;*/
+	width: 100%;
 	-webkit-backface-visibility: hidden;
 }
 
@@ -195,11 +197,11 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-left {
-	left: -76%; /* 8 - 84 */
+	left: -100%; /* 8 - 84 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-left-outer {
-	left: -160%; /* - 76 - 84 */
+	left: -200%; /* - 76 - 84 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-current {
@@ -208,11 +210,11 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-right {
-	left: 92%; /* 84 + 8 */
+	left: 100%; /* 84 + 8 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-right-outer {
-	left: 176%; /* 92 + 84 */
+	left: 200%; /* 92 + 84 */
 }
 
 .vs-container.vs-move-left .vs-left,
@@ -245,6 +247,7 @@ html, body, .vs-container {
 	cursor: pointer;
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
+	display: none;
 }
 
 .vs-sidenav div:hover {
@@ -325,7 +328,12 @@ html, body, .vs-container {
 	}
 }
 
-@media screen and (max-width: 45.25em) {
+@media screen and (max-width: 767px) {
+
+	.vs-header{
+		padding: 30px 0 1em;
+		width: 95%;
+	}
 
 	.vs-container > header h1 {
 		margin-bottom: 0;
@@ -339,9 +347,14 @@ html, body, .vs-container {
 		font-size: 80%;
 	}
 
+	.vs-triplelayout .vs-nav{
+		height: 60px;
+	}
+
 	.vs-triplelayout .vs-nav li a {
 		width: auto;
-		font-size: 70%;
+		font-size: 100%;
+		padding: 10px 0;
 	}
 
 	.vs-wrapper > section {
