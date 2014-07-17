@@ -29,6 +29,14 @@ function do_init_routines(){
 
 	add_default_room_types();
 
+    add_default_facings();
+
+    add_default_unit_status();
+
+    add_default_views();
+
+    add_default_phases();
+
 }
 add_action('init','do_init_routines');
 

@@ -15,7 +15,6 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       if (opt == null) {
         opt = {};
       }
-      this._promises.push(App.store.getHeaderView(opt));
       return this.wait();
     };
 

@@ -146,6 +146,7 @@ module.exports = ( grunt ) ->
 
    # Copy all production resources to "production" folder
       copyto :
+
          production :
             files : [
                (
@@ -217,20 +218,20 @@ module.exports = ( grunt ) ->
    getRequireJSTasks = ( files, pattern )->
       subTasks = {}
 
-      folderPath = if pattern is 'scripts' then 'js/src' else 'spa/src'
+      folderPath = if pattern is 'scripts' then 'js' else 'spa'
 
       originalExtension = "#{pattern}.js"
       optimizedExtension = "#{pattern}.min.js"
 
       files.map ( file )->
-         file = file.replace "../#{folderPath}/", ""
+         file = file.replace "../#{folderPath}/src/", ""
 
          config =
             baseUrl : "../#{folderPath}"
-            mainConfigFile : "../#{folderPath}/require.config.js"
-            name : "bower_components/almond/almond"
-            include : [ file ]
-            out : "../#{folderPath}/#{file.replace originalExtension, optimizedExtension}"
+            mainConfigFile : "../#{folderPath}/src/require.config.js"
+            name : "src/bower_components/almond/almond"
+            include : [ "src/#{file}" ]
+            out : "../#{folderPath}/src/#{file.replace originalExtension, optimizedExtension}"
             findNestedDependencies : true
             optimize : 'none' # uncomment for testing minified JS
 
@@ -251,5 +252,5 @@ module.exports = ( grunt ) ->
    grunt.registerTask "runtests", [ "karma", "phpunit" ]
    grunt.registerTask "optimize", [ "less", "themeJSOptimize", "themespaOptimize" ]
    grunt.registerTask "build",
-     [ "themeJSOptimize", "less", "clean:production", "copyto", "clean:prevBuilds" ]
+     [ "themeJSOptimize","themespaOptimize", "less", "clean:production", "copyto", "clean:prevBuilds" ]
    grunt.registerTask "deploy", [ "validate", "runtests", "optimize", "clean", "copyto", "notify:readyToDeploy" ]

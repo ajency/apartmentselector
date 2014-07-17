@@ -37,6 +37,9 @@ define(function() {
     }, {
       id: 12,
       name: "UnitType12"
+    }, {
+      id: 69,
+      name: "UnitTType69"
     }
   ];
 });

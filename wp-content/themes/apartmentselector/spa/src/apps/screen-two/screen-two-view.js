@@ -2,7 +2,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['marionette'], function(Marionette) {
+define(['extm', 'marionette'], function(Extm, Marionette) {
   var ScreenTwoView, UnitTypeChildView, UnitTypeView;
   UnitTypeView = (function(_super) {
     __extends(UnitTypeView, _super);
@@ -11,9 +11,7 @@ define(['marionette'], function(Marionette) {
       return UnitTypeView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitTypeView.prototype.className = "grid-block-1";
-
-    UnitTypeView.prototype.template = '<a href="#"  class="grid-link"  data-value="{{range}}" > <div class="grid-text-wrap"  id="{{buildingid}}{{name}}"   > <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{low_min_val}} - {{low_max_val}}</span> </div> </a>';
+    UnitTypeView.prototype.template = '<section id="tower1"> <div class="vs-content"> <div class="text-center"> <div class="flatNos">05</div> </div> <div class="text-center"> <div class="flatNos">05</div> </div> <div class="text-center"> <div class="flatNos">05</div> </div> </div> </section>';
 
     UnitTypeView.prototype.events = {
       'click ': 'typeOfUnitSelected'
@@ -34,11 +32,11 @@ define(['marionette'], function(Marionette) {
       return UnitTypeChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitTypeChildView.prototype.template = '<div class="grid-container">{{buildingname}}</div>';
+    UnitTypeChildView.prototype.template = '<a href="#tower1">{{buildingname}}</a>';
 
-    UnitTypeChildView.prototype.childView = UnitTypeView;
+    UnitTypeChildView.prototype.tagName = 'ul';
 
-    UnitTypeChildView.prototype.childViewContainer = '.grid-container';
+    UnitTypeChildView.prototype.clasName = 'vs-nav';
 
     UnitTypeChildView.prototype.initialize = function() {
       console.log(this.model.get('units'));
@@ -55,9 +53,14 @@ define(['marionette'], function(Marionette) {
       return ScreenTwoView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoView.prototype.template = '<div id="vs-container" class="vs-container"> <header class="vs-header"> <h1>Sliding Triple View Layout <span>with Visible Adjoining Sections</span></h1> <ul class="vs-nav"> <li><a id="data0" class="image" href="#section-0" data-value="0">Low</a></li> <li><a id="data1" class="image"  href="#section-1" data-value="1">Medium</a></li> <li><a id="data2" class="image" href="#section-2" data-value="2">High</a></li> </ul> </header><div class="vs-wrapper"> <section id="section-0"> <div id="content0" class="vs-content"> <!-- content --> </div> </section> <section id="section-1"><div id="content1" class="vs-content"> <!-- content --> </div></section> <section id="section-2"><div id="content2" class="vs-content"> <!-- content --> </div></section> <!-- ... --> </div>';
+    ScreenTwoView.prototype.template = '<h3 class="text-center introTxt">We have <span class="bold">100 options</span> for 1BHK <br><small>Just select your floors to get started</small></h3> <div class="towerTable"><div class="tableHeader"> <ul> <li><a href="#modal"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal"><span class="bold">MIDRISE</span><br>15-11 Floors</a></li> <li><a href="#modal"><span class="bold">LOWRISE</span><br>15-11 Floors</a></li> </ul> </div><div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header"></header> <ul class="vs-nav" id="building-region"></ul><div id="unit-region" class="vs-wrapper"></div></div></div>';
 
-    ScreenTwoView.prototype.childView = UnitTypeChildView;
+    ScreenTwoView.prototype.className = 'page-container row-fluid';
+
+    ScreenTwoView.prototype.regions = {
+      buildingRegion: '#building-region',
+      unitRegion: '#unit-region'
+    };
 
     ScreenTwoView.prototype.events = {
       'click .image': 'imageslider'
@@ -93,5 +96,5 @@ define(['marionette'], function(Marionette) {
 
     return ScreenTwoView;
 
-  })(Marionette.CompositeView);
+  })(Marionette.LayoutView);
 });

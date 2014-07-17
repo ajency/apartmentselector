@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['preload','modernizr','classie','hammer'], ->
+define 'plugin-loader', ['preload'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -40,19 +40,94 @@ require [ 'spec/javascripts/fixtures/json/units'
         mainRegion : '#main-region'
 
 
+    App.store =
+        'unit' : new Backbone.Collection units
+        'view' : new Backbone.Collection  views
+        'building' : new Backbone.Collection  buildings
+        'unit_variant' : new Backbone.Collection  unitvariants
+        'unit_type' : new Backbone.Collection  unittypes
+        'low' : new Backbone.Collection  low
+        'medium':  new Backbone.Collection  medium
+        'high': new Backbone.Collection  high
 
-    App.store.push 'unit', units
-    App.store.push 'view', views
-    App.store.push 'building', buildings
-    App.store.push 'unit_variant', unitvariants
-    App.store.push 'unit_type', unittypes
-    App.store.push 'low', low
-    App.store.push 'medium', medium
-    App.store.push 'high', high
+    App.currentStore = App.store
+
+    App.filter = (params={})->
+        param_arr = params.split('&')
+        othermodels = Array()
+        $.each(param_arr, (index,value)->
+            value_arr  =  value.split('=')
+            param_key = value_arr[0]
+            param_val = value_arr[1]
+            param_val_arr = param_val.split(',')
+            paramkey = {}
+            paramkey[param_key] = parseInt(param_val)
+            if param_val_arr.length > 1
+                collection = Array()
+                $.each(param_val_arr, (index,value)->
+                    paramkey = {}
+                    collectionNew = Array()
+                    paramkey[param_key] = parseInt(value)
+                    collectionNew = App.currentStore.unit.where(paramkey)
+                    $.each(collectionNew , (index,value)->
+                        collection.push value
+
+
+                    )
+
+
+
+                )
+            else if param_val_arr.length ==  1
+                if param_val_arr[0].toUpperCase() == 'ALL'
+                    collection =  App.currentStore.unit.toArray()
+                else
+                    collection =  App.currentStore.unit.where(paramkey)
+
+
+            App.currentStore.unit.reset collection
+
+
+        )
+        buildings = App.currentStore.unit.pluck("building")
+        uniqBuildings = _.uniq(buildings)
+        buildingArray = Array()
+        for element , index in uniqBuildings
+            buildingModel = App.currentStore.building.get element
+            buildingArray.push buildingModel
+
+        unittype = App.currentStore.unit.pluck("unitType")
+        uniqUnittype = _.uniq(unittype)
+        unittypeArray = Array()
+        for element , index in uniqUnittype
+            unittypeModel = App.currentStore.unit_type.get element
+            unittypeArray.push unittypeModel
+
+        unitvariant = App.currentStore.unit.pluck("unitVariant")
+        uniqUnitvariant = _.uniq(unitvariant)
+        unitvariantArray = Array()
+        for element , index in uniqUnitvariant
+            unitvariantModel = App.currentStore.unit_variant.get element
+            unitvariantArray.push unitvariantModel
+
+        view = App.currentStore.unit.pluck("view")
+        uniqviews = _.uniq(buildings)
+        viewArray = Array()
+        for element , index in uniqviews
+            viewModel = App.currentStore.view.get element
+            viewArray.push viewModel
+
+        App.currentStore.building.reset buildingArray
+        App.currentStore.unit_type.reset unittypeArray
+        App.currentStore.unit_variant.reset unitvariantArray
+        App.currentStore.view.reset viewArray
+        App.currentStore.unit
 
 
 
 
+
+    App.currentRoute = []
 
     # load static apps
     staticApps = [

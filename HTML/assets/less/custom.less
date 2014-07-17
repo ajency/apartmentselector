@@ -9,6 +9,8 @@ Version:        0.1.0
 */
 
 @import "variables";
+@import "triplelayout.less";
+@import "towerList.less";
 
 @media (min-width:768px) and (max-width:959px), (min-width:1024px) and (max-width:1199px){
 .width5{
@@ -417,4 +419,31 @@ Version:        0.1.0
 			}
 		}
 	}
+}
+
+//Apartment Selector
+iframe{
+	margin: 50px auto 0;
+	display: block;
+	width: 520px;
+}
+
+.header{
+	position: static;
+}
+
+.backBtn{
+	position: absolute;
+	left: 0;
+	a{
+		width: 60px;
+		text-align: center;
+		display: block;
+		padding: 20px 0;
+		background-color: darken(@color-orange, 10%);
+	}	
+}
+
+.introTxt{
+	margin-bottom: 30px;
 }

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ApartmentSelector, RouterAPI, staticApps;
+  var ApartmentSelector, RouterAPI;
   ApartmentSelector = (function(_super) {
     __extends(ApartmentSelector, _super);
 
@@ -12,35 +12,31 @@ define(['marionette'], function(Marionette) {
     }
 
     ApartmentSelector.prototype.appRoutes = {
-      'screen-two/unittype/:id/budget/:budget': 'show',
-      'screen-three/unittype/:unitypeid/range/:range/building/:buildingid': 'showUnits',
-      'screen-four/unit/:unit/unittype/:unittypeid/range/:range/size/:size': 'showSelectedUnit'
+      ':params': 'showValues',
+      'screen-two/:params': 'show',
+      'screen-three/:params': 'showUnits',
+      'screen-four/:params': 'showSelectedUnit'
     };
 
     return ApartmentSelector;
 
   })(Marionette.AppRouter);
-  staticApps = [];
   RouterAPI = {
-    show: function(id, budget) {
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({
-        unittypeid: id
-      });
-      return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions({
-        unittypeid: id
-      });
+    showValues: function(params) {
+      App.filter(params);
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
     },
-    showUnits: function(unitypeid, range, buildingid) {
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({
-        unittypeid: unitypeid,
-        range: range,
-        buildingid: buildingid
-      });
-      return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions({
-        unittypeid: unitypeid,
-        range: range,
-        buildingid: buildingid
-      });
+    show: function(params) {
+      console.log(params);
+      App.filter(params);
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
+    },
+    showUnits: function(params) {
+      App.filter(params);
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
     },
     showSelectedUnit: function(unit, unittypeid, range, size) {
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({

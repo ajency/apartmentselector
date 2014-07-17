@@ -3,34 +3,50 @@ define [ 'marionette'], ( Marionette )->
     class ApartmentSelector extends Marionette.AppRouter
 
         appRoutes:
-            'screen-two/unittype/:id/budget/:budget'  : 'show'
-            'screen-three/unittype/:unitypeid/range/:range/building/:buildingid' : 'showUnits'
-            'screen-four/unit/:unit/unittype/:unittypeid/range/:range/size/:size' : 'showSelectedUnit'
+            ':params' : 'showValues'
+            'screen-two/:params'  : 'show'
+            'screen-three/:params' : 'showUnits'
+            'screen-four/:params' : 'showSelectedUnit'
 
 
 
 
 
-    staticApps = [
 
-    ]
+
+
     RouterAPI =
     #Start Sub App
-        show :(id,budget)->
+        showValues:(params)->
+            App.filter(params)
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
-                .withOptions({unittypeid:id})
+                .withOptions()
+            msgbus.showApp 'screen:one'
+            .insideRegion  App.mainRegion
+                .withOptions()
+
+
+
+
+        show :(params)->
+            console.log params
+            App.filter(params)
+            msgbus.showApp 'header'
+            .insideRegion  App.headerRegion
+                .withOptions()
             msgbus.showApp 'screen:two'
                 .insideRegion  App.mainRegion
-                .withOptions({unittypeid:id})
+                .withOptions()
 
-        showUnits:(unitypeid,range,buildingid)->
+        showUnits:(params)->
+            App.filter(params)
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
-                .withOptions({unittypeid:unitypeid,range:range,buildingid:buildingid})
+                .withOptions()
             msgbus.showApp 'screen:three'
             .insideRegion  App.mainRegion
-                .withOptions({unittypeid:unitypeid,range:range,buildingid:buildingid})
+                .withOptions()
 
         showSelectedUnit:(unit,unittypeid,range,size)->
 

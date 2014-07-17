@@ -31,7 +31,7 @@ define [ 'marionette' ], ( Marionette )->
         childViewContainer : '.grid-container'
 
         initialize:->
-            console.log @model.get 'units'
+
             @collection = @model.get 'units'
 
 

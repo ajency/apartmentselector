@@ -16,17 +16,11 @@ requirejs.config({
     jasmineajax: 'src/bower_components/jasmine-ajax/lib/mock-ajax',
     jasminejquery: 'src/bower_components/jasmine-jquery/lib/jasmine-jquery',
     jqueryvalidate: 'src/bower_components/jquery.validation/dist/jquery.validate',
-    plupload: 'src/bower_components/plupload/js/plupload.full.min',
     async: 'src/bower_components/async/lib/async',
     bootstraptour: 'src/bower_components/bootstrap-tour/build/js/bootstrap-tour.js',
     underscorestring: 'src/bower_components/underscore.string/lib/underscore.string',
-    jqueryvalidate: 'src/bower_components/jquery.validation/dist/jquery.validate',
     extm: 'src/bower_components/extm/lib/extm.amd',
-    preload: 'src/bower_components/preload/jquery.preload',
-    modernizr: 'src/bower_components/preload/modernizr.custom',
-    classie: 'src/bower_components/preload/classie',
-    hammer: 'src/bower_components/preload/hammer.min',
-    main: 'src/bower_components/preload/main'
+    preload: 'src/bower_components/preload/jquery.preload'
   },
   shim: {
     jquery: ['underscore'],
@@ -46,10 +40,6 @@ requirejs.config({
       deps: ['jquery'],
       exports: 'plupload'
     },
-    preload: ['jquery'],
-    modernizr: ['jquery'],
-    classie: ['jquery'],
-    hammer: ['jquery'],
-    main: ['jquery']
+    preload: ['jquery']
   }
 });

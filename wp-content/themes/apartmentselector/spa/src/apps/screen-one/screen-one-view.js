@@ -20,10 +20,9 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var budget;
       evt.preventDefault();
-      budget = 'NotSet';
-      return this.trigger('unit:type:clicked', this.model.get('id'), budget);
+      console.log("aaaaaaaaaaaa");
+      return this.trigger('unit:type:clicked', this.model.get('id'));
     };
 
     return UnitTypeView;
@@ -43,6 +42,10 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.childView = UnitTypeView;
 
     ScreenOneView.prototype.childViewContainer = '.grid-container';
+
+    ScreenOneView.prototype.initialize = function() {
+      return console.log(this.collection);
+    };
 
     return ScreenOneView;
 

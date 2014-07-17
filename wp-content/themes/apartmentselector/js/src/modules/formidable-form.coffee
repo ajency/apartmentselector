@@ -130,7 +130,7 @@ define ['jquery'],(jQuery)->
                 action: "save_entry"
                 data: data
             , (response) ->
-                #window.location.href = SITEURL + "/listing/?form_id="+$("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val()
+                window.location.href = SITEURL + "/listing/?form_id="+$("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val()
                 return
 
             return

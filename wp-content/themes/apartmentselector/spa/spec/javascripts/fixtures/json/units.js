@@ -15,7 +15,7 @@ define(function() {
       name: "AO2",
       unitType: 2,
       unitVariant: 3,
-      building: 3,
+      building: 2,
       floor: 2,
       view: 2,
       status: "Available"
@@ -24,7 +24,7 @@ define(function() {
       name: "AO3",
       unitType: 3,
       unitVariant: 3,
-      building: 3,
+      building: 2,
       floor: 3,
       view: 3,
       status: "Blocked"
@@ -229,9 +229,9 @@ define(function() {
     }, {
       id: 26,
       name: "AO26",
-      unitType: 2,
+      unitType: 3,
       unitVariant: 3,
-      building: 2,
+      building: 3,
       floor: 2,
       view: 2,
       status: "Available"
@@ -310,7 +310,7 @@ define(function() {
     }, {
       id: 35,
       name: "AO35",
-      unitType: 11,
+      unitType: 10,
       unitVariant: 11,
       building: 11,
       floor: 11,
@@ -448,6 +448,15 @@ define(function() {
       unitType: 2,
       unitVariant: 2,
       building: 2,
+      floor: 2,
+      view: 2,
+      status: "Sold"
+    }, {
+      id: 51,
+      name: "AO50",
+      unitType: 69,
+      unitVariant: 2,
+      building: 1,
       floor: 2,
       view: 2,
       status: "Available"

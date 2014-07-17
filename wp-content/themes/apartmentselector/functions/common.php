@@ -72,7 +72,7 @@ function get_default_data($master_type,$id=0){
 		$where_clause = " id = ".$id;
 
 	}
-	$query = "SELECT * FROM ".$wpdb->prefix .CUSTOMTBLPREFIX. "defaults WHERE master_type = '$master_type'".$where_cluse;
+	$query = "SELECT id as id,value as name,master_type as master_type,data as data FROM ".$wpdb->prefix .CUSTOMTBLPREFIX. "defaults WHERE master_type = '$master_type'".$where_cluse;
 
 	$default_data = $wpdb->get_results($query,ARRAY_A);
  
@@ -80,3 +80,42 @@ function get_default_data($master_type,$id=0){
 
 
 }
+function get_list($list)
+{
+    $get_list = "get_".$list;
+
+    return $get_list();
+}
+
+function get_masters($masters){
+
+    $return_masters = array();
+
+    foreach($masters as $master){
+
+        $get_master = "get_".$master;
+
+        $return_masters[$master] = $get_master();
+
+    }
+
+    return $return_masters;
+
+}
+
+function ajax_get_list_view(){
+
+
+    $list = get_list($_REQUEST["list"]);
+
+    $masters = get_masters($_REQUEST["masters"]);
+
+    $response = json_encode( array('list'=>$list ,'masters'=>$masters) );
+
+    header( "Content-Type: application/json" );
+
+    echo $response;
+
+    exit;
+}
+add_action('wp_ajax_get_list_view','ajax_get_list_view');

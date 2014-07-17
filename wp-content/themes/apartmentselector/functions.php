@@ -1,4 +1,5 @@
 <?php
+
 /**
  * apartmentselector functions file
  *
@@ -21,8 +22,18 @@ require_once (get_template_directory().'/functions/rooms.php');
 //load the functions related to unit
 require_once (get_template_directory().'/functions/unit.php');
 
+//load the functions related to unit type
+require_once (get_template_directory().'/functions/unit-type.php');
+
+//load the functions related to building
+require_once (get_template_directory().'/functions/building.php');
+
+//load backend styles and scripts//
+require_once (get_template_directory().'/functions/backend-scripts-styles.php');
+
 //load all the classes//
 require_once (get_template_directory().'/classes/autoload.php');
+
 
 //formatted echo using pre tags can be used to echo out data for testing purpose
 
@@ -95,6 +106,7 @@ if ( is_development_environment() ) {
             TRUE);
 
 
+
         wp_enqueue_script( "$module-script",
             get_template_directory_uri() . "/{$folder_path}/{$module}.{$pattern}.js",
             array( "require-config" ) );
@@ -119,13 +131,14 @@ if ( is_development_environment() ) {
     add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
 }
 
-if ( !is_development_environment() ) {
+if (! is_development_environment() ) {
 
     function apartmentselector_production_enqueue_script() {
 
-        $module = get_module_name();
+       $module = get_module_name();
 
         if ( is_single_page_app( $module ) )
+
             $path = get_template_directory_uri() . "/production/{$module}.spa.min.js";
         else
             $path = get_template_directory_uri() . "/production/{$module}.scripts.min.js";
@@ -135,6 +148,10 @@ if ( !is_development_environment() ) {
             array(),
             get_current_version(),
             TRUE );
+        wp_localize_script(  "$module-script", "SITEURL", site_url() );
+        wp_localize_script(  "$module-script", "AJAXURL", admin_url( "admin-ajax.php" ) );
+        wp_localize_script( "$module-script", "UPLOADURL", admin_url( "async-upload.php" ) );
+        wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
 
     }
 

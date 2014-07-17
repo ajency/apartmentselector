@@ -142,7 +142,9 @@ define(['jquery'], function(jQuery) {
       $.post(AJAXURL, {
         action: "save_entry",
         data: data
-      }, function(response) {});
+      }, function(response) {
+        window.location.href = SITEURL + "/listing/?form_id=" + $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val();
+      });
     });
     $(document).on("click", ".show-add-form", function(e) {
       var form_id, _e;
