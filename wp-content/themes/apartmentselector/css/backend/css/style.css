@@ -1335,7 +1335,8 @@ span.iconset{
 }
 /*** Page Loader ***/
 .pace .pace-activity {
-	top: 72px;	
+	top: 72px;
+
 }
 /** No menu Reset **/
 .no-top .pace .pace-activity {
@@ -1360,7 +1361,6 @@ span.iconset{
     border-width: 2px;
     display: block;
     height: 14px;
-    margin-left: 40%;
     width: 14px;
     z-index: 2000;
 }

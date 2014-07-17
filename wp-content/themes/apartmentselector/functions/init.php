@@ -37,6 +37,8 @@ function do_init_routines(){
 
     add_default_phases();
 
+    add_default_flats_and_floors();
+
 }
 add_action('init','do_init_routines');
 

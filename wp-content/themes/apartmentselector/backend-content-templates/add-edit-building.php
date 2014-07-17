@@ -1,0 +1,192 @@
+<?
+
+$heading = "Add";
+if(isset($_REQUEST["id"])){
+$heading = "Edit";
+
+    $building_id = $_REQUEST["id"];
+
+    $building = (get_building_by_id($building_id));
+
+ 
+    $building_name = $building["name"];
+
+    $building_phase = $building["building_phase"];
+
+    $no_of_floors = $building["building_no_of_floors"];
+
+    $building_no_of_flats = $building["building_no_of_flats"];
+
+    $no_of_flats = count($building_no_of_flats);
+
+    $floor = $unit["floor"];
+
+    $unit_status = $unit["status"];
+}
+?>
+<div class="page-title">
+
+    <i class="icon-custom-left">
+    </i>
+    <h3>
+        <?php echo $heading;?> Building
+    </h3>
+
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<div class="grid simple">
+<div class="grid-title no-border">
+    <h4>
+        Enter Building Details
+    </h4>
+</div>
+<div class="grid-body no-border">
+<form id="form_add_edit_building"  name = "form_add_edit_building" action="" novalidate="novalidate">
+ 
+<?php echo wp_nonce_field( plugin_basename( __FILE__ ), 'custom_save_building',true,false);?>
+<input type="hidden" name="building_id" id="building_id" value="<?php echo @$building_id;?>" />
+                    <br/>
+<div class="form-group">
+    <label class="form-label">
+        Building Name
+    </label>
+                  <span class="help">
+                    ex: Block A
+                  </span>
+    <div class="input-with-icon  right">
+
+        <i class="">
+        </i>
+        <input type="text" name="building_name" id="building_name" value="<?php echo $building_name;?>"class="form-control">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="form-label">
+                Phase
+            </label>
+
+            <div class="input-with-icon  right">
+
+                <i class="">
+                </i>
+                <select  name="building_phase" id="building_phase"  >
+
+                    <option value="">Select</option>
+                    <?php
+
+                    $phases = get_phases();
+
+                    foreach ($phases as $phase){
+
+                        ?>
+                        <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['name']?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-label">
+                No of Floors
+            </label>
+
+            <div class="input-with-icon  right">
+
+                <i class="">
+                </i>
+                <select name="no_of_floors" id="no_of_floors">
+                    <option value="">
+                        Please Select
+                    </option>
+                    <?php
+                    $max_no_of_floors = get_max_no_of_floors();
+
+                         for($i=1;$i<=$max_no_of_floors;$i++){
+                            ?>
+                            <option value="<?php echo $i;?>" <?php if($i==$no_of_floors){ ?>selected <?php } ?>>
+                                <?php echo $i;?>
+                            </option>
+                            <?php
+
+                        }
+                    ?>
+
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-label">
+                No of flats per floor
+            </label>
+
+            <div class="input-with-icon  right">
+
+                <i class="">
+                </i>
+                <select name="no_of_flats"  id="no_of_flats" class="no_of_flats" flats_container_id="flats_container" exception_no="">
+                    <option value="">
+                        Please Select
+                    </option>
+                    <?php
+                    $max_no_of_flats = get_max_no_of_flats();
+
+                    for($i=1;$i<=$max_no_of_flats;$i++){
+                        ?>
+                        <option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?>>
+                            <?php echo $i;?>
+                        </option>
+                    <?php
+
+                    }
+                    ?>
+
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="well" id="flats_container">
+    <div class="form-group">
+        <label class="form-label">
+           <i>Select No Of Flats</i>
+        </label>
+
+    </div>
+
+
+</div>
+<div id="exceptions" style="display:none">
+<b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
+<input type="hidden" name="exceptions_count" value="0" id="exceptions_count">
+        <i class="icon-ok">
+        </i>
+        +
+    </button>
+<div class="exception_container">
+
+</div>
+
+</div>
+
+<div class="form-actions">
+
+    <button type="button" class="btn btn-success btn-cons" id="save_building">
+        <i class="icon-ok">
+        </i>
+        Submit
+    </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>

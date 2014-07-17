@@ -1,5 +1,18 @@
 <?php
 
+
+function add_default_flats_and_floors(){
+
+    $default_facings = array();
+
+    $default_facings[] = array("master_type"	=>"max-no-of-flats","value"=>"15","data"=>"");
+
+    $default_facings[] = array("master_type"	=>"max-no-of-floors","value"=>"20","data"=>"");
+
+
+    $return = set_defaults_data($default_facings);
+
+}
 function add_default_facings(){
 
     $default_facings = array();
@@ -239,7 +252,7 @@ add_action( 'building_edit_form_fields', 'extra_building_fields', 10, 2 );
 // save extra building taxonomy fields callback function
 function save_extra_building_fields( $term_id ) {
 
-    if (isset($_REQUEST['buiding_facing_ids'])) {
+   /* if (isset($_REQUEST['buiding_facing_ids'])) {
 
         $buiding_facing_ids =  explode(",",$_REQUEST['buiding_facing_ids'] ) ;
 
@@ -253,13 +266,59 @@ function save_extra_building_fields( $term_id ) {
 
         }
 
-        $building_phase =  $_REQUEST['building_phase'];
         //save the option array
        update_option( "building_".$term_id."_facings_view", $building_facings );
-        //save the option array
-        update_option( "building_".$term_id."_phase", $building_phase );
+       
 
+    }*/
+    $no_of_floors = $_REQUEST["no_of_floors"];
+    $no_of_flats_count = $_REQUEST["no_of_flats"]; 
+
+    $no_of_flats = array();
+    for($i=1;$i<=$no_of_flats_count;$i++){
+
+        $image_id = $_REQUEST["image_id".$i];
+        $no_of_flats[] = array("flat_no"=>$i,
+                                "image_id"=>$image_id,
+                                );
     }
+
+     $building_phase =  $_REQUEST['building_phase'];
+
+
+    $exceptions = array();
+     $exceptions_count =  $_REQUEST['exceptions_count'];
+
+     for($e = 1;$e<=$exceptions_count;$e++){
+        $exception_floors = $_REQUEST['exception_floors'.$e];
+        $exception_flats_count = $_REQUEST['no_of_flats'.$e];
+        $no_of_exception_flats = array();
+        for($i=1;$i<=$exception_flats_count;$i++){
+
+                $image_id = $_REQUEST['exception_'.$e.'_image_id'.$i];
+                $no_of_exception_flats[] = array("flat_no"=>$i,
+                                        "image_id"=>$image_id,
+                                        );
+            }
+        $exceptions[] = array(  'floors'=>$exception_floors,
+                                'flats'=>$no_of_exception_flats
+                            );
+
+
+     }
+ 
+        //save the option array
+
+
+    update_option( "building_".$term_id."_phase", $building_phase );
+
+    update_option( "building_".$term_id."_no_of_floors", $no_of_floors );
+
+    update_option( "building_".$term_id."_no_of_flats", $no_of_flats );
+
+    update_option( "building_".$term_id."_exceptions", $exceptions ); 
+
+
     return;
 }
 add_action( 'created_building', 'save_extra_building_fields', 10, 2 );
@@ -288,6 +347,34 @@ function get_phases($id = 0){
     return get_default_data('phases',$id);
 
 }
+
+
+/*
+function get max no of floors
+
+*/
+
+function get_max_no_of_floors(){
+
+    $max_no_of_floors = get_default_data('max-no-of-floors');
+
+    return intval($max_no_of_floors[0]["name"]);
+
+}
+
+/*
+function get max no of flats
+
+*/
+
+function get_max_no_of_flats(){
+
+    $max_no_of_flats = get_default_data('max-no-of-flats');
+
+    return intval($max_no_of_flats[0]["name"]);
+
+}
+
 
 /*
 function get views
@@ -322,4 +409,72 @@ function get_buildings($ids=array())
 
     }
     return $buildings;
+}
+
+//saving building
+
+function ajax_save_building(){
+
+    $msg = "";
+    $data  = "";
+    $error = false;
+
+             if(empty($_REQUEST['building_id'])){
+ 
+ 
+
+// Insert the term building
+                 $building_id = wp_insert_term( $_REQUEST["building_name"],
+                                                'building',
+                                                array('parent'=>0));
+
+                 
+
+                if(is_wp_error($building_id)) {
+
+                    $error = true;
+
+                    $msg = "Error Creating Building!";
+
+                 }
+                 $msg = "Building Created Successfully!";
+
+             }
+            else{
+                $unit = array(
+                    'ID'    => $_REQUEST['building_id'],
+                    'post_title'    => $_REQUEST["flat_no"],
+                    'post_status'   => 'publish',
+                    'post_type'   => 'unit',
+                );
+// Insert the post into the database
+                $building_id = wp_update_post( $unit );
+
+                $msg = "Building Updated Successfully!";
+            }
+
+
+$response = json_encode( array('msg'=>$msg,'error'=>$error,'data'=> array('building_id'=>$building_id)) );
+
+header( "Content-Type: application/json" );
+
+echo $response;
+
+exit;
+}
+add_action('wp_ajax_save_building','ajax_save_building');
+
+
+//get building data by id
+function get_building_by_id($building_id){
+
+   $building =  get_term_by('id', $building_id, 'building');
+
+   $building_phase = get_option('building_'.$building_id.'_phase');
+   $building_no_of_floors = get_option('building_'.$building_id.'_no_of_floors');
+   $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
+   $building_exceptions = maybe_unserialize(get_option('building_'.$building_id.'_exceptions'));
+   $result = array('id'=>$building->term_id ,'name'=>$building->name,'building_phase'=>$building_phase,'building_no_of_floors'=>$building_no_of_floors,'building_no_of_flats'=>$building_no_of_flats,'building_exceptions'=>$building_exceptions );
+ 
+   return ($result);
 }
