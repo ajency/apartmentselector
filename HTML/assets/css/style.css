@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 .text-white {
   color: #ffffff;
 }
@@ -37,7 +39,7 @@ html {
 body {
   background-color: #1b1e24;
   color: #6f7b8a;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-size: 13px;
   padding: 0px !important;
   margin: 0px !important;
@@ -368,7 +370,7 @@ body {
 .page-sidebar {
   background-color: #1b1e24 !important;
   height: 100%;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
 }
 .page-sidebar .outer-tab-nav-section {
   display: inline-block;
@@ -749,7 +751,7 @@ body {
 }
 .chat-window-wrapper {
   overflow: hidden;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-size: 13px;
 }
 .chat-window-wrapper .chat-header {
@@ -1147,7 +1149,7 @@ body {
   font-size: 18px;
 }
 .page-content .breadcrumb {
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -1178,7 +1180,7 @@ body {
   display: inline-block;
   position: absolute;
   width: 200px;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   background-color: #1b1e24;
   height: 100%;
 }
@@ -1458,7 +1460,7 @@ h4,
 h5,
 h6 {
   margin: 10px 0;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-weight: 300;
   color: #505458;
 }
@@ -1477,7 +1479,7 @@ h4 {
 h3 small,
 h4 small,
 h5 small {
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-weight: 300;
   color: #444;
 }
@@ -1744,7 +1746,7 @@ hr {
   color: #666;
   margin: 0 0 10px;
   font-weight: 300;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
 }
 .page-title h3 {
   display: inline-block;
@@ -4451,7 +4453,7 @@ form legend,
 }
 .tiles .tiles-title {
   font-size: 10.5px;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   letter-spacing: 0.5px;
   font-weight: 600;
 }
@@ -4597,7 +4599,7 @@ form legend,
 .tiles .heading {
   font-size: 25px;
   display: block;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-weight: 600;
   margin: 4px 0px;
 }
@@ -5032,16 +5034,17 @@ form legend,
   line-height: 20px;
   color: #5e5e5e;
   text-align: center;
+  text-transform: uppercase;
   vertical-align: middle;
   cursor: pointer;
   background-color: #d1dade;
-  -webkit-border-radius: 3px;
+  border-radius: 0;
+  -webkit-border-radius: 0;
   background-image: none !important;
   border: none;
   text-shadow: none;
   box-shadow: none;
   transition: all 0.12s linear 0s !important;
-  font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .btn:focus {
   outline: none;
@@ -5182,11 +5185,7 @@ form legend,
   border: none;
 }
 .btn-large {
-  padding: 11px 19px;
-  font-size: 16px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  padding: 14px 24px;
 }
 .btn-link:hover,
 .btn-link:focus,
@@ -5203,9 +5202,6 @@ form legend,
 .btn-small {
   padding: 3px 12px;
   font-size: 11.9px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 .btn-small [class^="icon-"],
 .btn-small [class*=" icon-"] {
@@ -5218,9 +5214,6 @@ form legend,
 .btn-mini {
   padding: 2px 9px;
   font-size: 10.5px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 .btn-group.open .btn.dropdown-toggle {
   background-color: #e6e6e6;
@@ -6112,7 +6105,7 @@ code:hover {
   padding: 15px 19px 15px 17px;
 }
 .notification-messages {
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   background-color: #eef9f8;
   padding: 15px 18px 10px;
   display: block;
@@ -6312,13 +6305,13 @@ code:hover {
   font-size: 11px;
   text-shadow: none;
   background-color: #D1DADE;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-weight: 600;
   color: #5E5E5E;
 }
 .badge {
   text-shadow: none;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   font-weight: 600;
   background-color: #D1DADE;
   font-size: 11px;
@@ -7087,7 +7080,7 @@ input[type="checkbox"] {
 }
 .error-body {
   background-color: #e5e9ec !important;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   height: 100%;
 }
 .error-wrapper {
@@ -7102,7 +7095,7 @@ input[type="checkbox"] {
   display: block;
 }
 .error-container {
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   margin-left: auto;
   margin-right: auto;
   float: none;
@@ -7207,7 +7200,7 @@ input[type="checkbox"] {
   width: 25%;
   padding-right: 100px;
   position: absolute;
-  font-family: 'Open Sans';
+  font-family: 'Lato';
   text-align: right;
 }
 .cbp_tmtimeline > li .cbp_tmtime .date {

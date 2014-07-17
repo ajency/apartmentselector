@@ -42,17 +42,8 @@
 <div class="page-container row-fluid">
 
 	<h1 class="text-center">Select your Preference</h1>
-	<h3 class="text-center m-t-40">What is your budget?</h3>
-
-	<div class="budgetSelect">
-		<div class="budget">undecided</div>
-		<div class="budget">25-35 lakhs</div>
-		<div class="budget">35-45 lakhs</div>
-		<div class="budget">45-55 lakhs</div>
-	</div>
-
-	<h4 class="text-center m-t-40 m-b-20">OR</h4>
-	<h3 class="text-center">Select your flat to get started</h3>
+	
+	<h3 class="text-center m-t-40">Select your flat to get started</h3>
 
 	<div class="grid-container">
 	  	<div class="grid-block-1">
@@ -88,6 +79,19 @@
 	      </a>
 	  	</div>
 	</div>
+
+	<h4 class="text-center m-t-40 m-b-20">OR</h4>
+	<h3 class="text-center">What is your budget?</h3>
+	<div class="budgetSelect">
+		<div class="budget">undecided</div>
+		<div class="budget">25-35 lakhs</div>
+		<div class="budget">35-45 lakhs</div>
+		<div class="budget">45-55 lakhs</div>
+	</div>
+
+	<div class="h-align-middle m-t-50 m-b-20">
+		<span class="btn btn-primary btn-large">Continue with Selection</span>
+	</div>
 </div>
 <!-- END CONTAINER -->
 
@@ -121,6 +125,9 @@
 		$('.budgetSelect').slick({
 			infinite: false
 		});
+	});
+	$( ".grid-link" ).click(function() {
+	  $( this ).toggleClass( "selected" );
 	});
 </script>
 

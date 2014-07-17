@@ -68,6 +68,17 @@ Version:        0.1.0
 .grid-container .grid-link.selected .grid-main-title {
   color: #f28428;
 }
+.grid-container .grid-link.selected {
+  color: #f28428;
+}
+.grid-container .grid-link.selected:before {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-size: 20px;
+  font-family: 'Glyphicons Halflings';
+  content: '\e089';
+}
 .grid-container .grid-block-1 {
   display: inline-block;
   width: 47.2394%;
