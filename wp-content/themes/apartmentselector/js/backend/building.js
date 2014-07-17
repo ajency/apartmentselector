@@ -4,20 +4,22 @@ jQuery(document).ready(function($) {
     //load unit variants
     $(document).on("change", ".no_of_flats", function(e) {
 
+        prev_flat_count =  $(e.target).attr('prev_flat_count');
+
         $("#"+$(e.target).attr('flats_container_id')).html("");
 
         exception_no = $(e.target).attr('exception_no');
 
-
         prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
         for(i=1;i<=$(e.target).val();i++){
 
-           $("#"+$(e.target).attr('flats_container_id')).append(getFlatUi(i,exception_no))
+           $("#"+$(e.target).attr('flats_container_id')).append("<div flatno ='"+i+"'>"+getFlatUi(i,exception_no)+'</div>')
 
             //bind file upload ui to the fileupload function
 
             fileUpload(prefix+i)
         }
+         $(e.target).attr('prev_flat_count',$(e.target).val())  ;
 
     })
 

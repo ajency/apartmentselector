@@ -440,15 +440,7 @@ function ajax_save_building(){
                  $msg = "Building Created Successfully!";
 
              }
-            else{
-                $unit = array(
-                    'ID'    => $_REQUEST['building_id'],
-                    'post_title'    => $_REQUEST["flat_no"],
-                    'post_status'   => 'publish',
-                    'post_type'   => 'unit',
-                );
-// Insert the post into the database
-                $building_id = wp_update_post( $unit );
+            else{ 
 
                 $msg = "Building Updated Successfully!";
             }
@@ -473,7 +465,25 @@ function get_building_by_id($building_id){
    $building_phase = get_option('building_'.$building_id.'_phase');
    $building_no_of_floors = get_option('building_'.$building_id.'_no_of_floors');
    $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
+   $building_no_of_flats_updated = array();
+   foreach($building_no_of_flats as $building_no_of_flat){
+        $building_no_of_flat['image_url'] =  wp_get_attachment_thumb_url($building_no_of_flat["image_id"]);
+        $building_no_of_flats_updated[]  =  $building_no_of_flat;
+   }
+   $building_no_of_flats = $building_no_of_flats_updated;
    $building_exceptions = maybe_unserialize(get_option('building_'.$building_id.'_exceptions'));
+   $building_exceptions_updated = array();
+   foreach($building_exceptions as $building_exception){
+
+        $building_no_of_flats_updated = array();
+        foreach($building_exception["flats"] as $building_exception_flat){
+            $building_exception_flat['image_url'] =  wp_get_attachment_thumb_url($building_exception_flat["image_id"]);
+            $building_no_of_flats_updated[]  =  $building_exception_flat;
+        }
+        $building_exception["flats"] = $building_no_of_flats_updated;
+        $building_exceptions_updated[] = $building_exception;
+   }
+   $building_exceptions = $building_exceptions_updated;
    $result = array('id'=>$building->term_id ,'name'=>$building->name,'building_phase'=>$building_phase,'building_no_of_floors'=>$building_no_of_floors,'building_no_of_flats'=>$building_no_of_flats,'building_exceptions'=>$building_exceptions );
  
    return ($result);

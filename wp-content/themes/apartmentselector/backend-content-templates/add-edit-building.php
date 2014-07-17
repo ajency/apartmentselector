@@ -1,6 +1,8 @@
 <?
 
 $heading = "Add";
+$no_of_flats = 0;
+$building_exceptions = array();
 if(isset($_REQUEST["id"])){
 $heading = "Edit";
 
@@ -19,9 +21,7 @@ $heading = "Edit";
 
     $no_of_flats = count($building_no_of_flats);
 
-    $floor = $unit["floor"];
-
-    $unit_status = $unit["status"];
+    $building_exceptions = $building["building_exceptions"]; 
 }
 ?>
 <div class="page-title">
@@ -131,7 +131,7 @@ $heading = "Edit";
 
                 <i class="">
                 </i>
-                <select name="no_of_flats"  id="no_of_flats" class="no_of_flats" flats_container_id="flats_container" exception_no="">
+                <select name="no_of_flats" prev_flat_count="<?php echo $no_of_flats; ?>"  id="no_of_flats" class="no_of_flats" flats_container_id="flats_container" exception_no="">
                     <option value="">
                         Please Select
                     </option>
@@ -155,16 +155,62 @@ $heading = "Edit";
 </div>
 
 <div class="well" id="flats_container">
-    <div class="form-group">
-        <label class="form-label">
+ 
+        <?php if($no_of_flats==0){
+        ?>   <div class="form-group">
+<label class="form-label">
            <i>Select No Of Flats</i>
+        </label></div>
+        <?php
+            }
+            else{
+?>
+ <div class="form-group">
+  
+<?php
+                foreach($building_no_of_flats as $building_no_of_flat){
+                    ?>    <label class="form-label">
+       Flat No: <?php echo $building_no_of_flat['flat_no'];?>
         </label>
-
-    </div>
+        <span class="help">
+         </span> 
+        <div class="row">
+         <div class="col-md-4">
+                  <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Select files...</span>
+                    <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="flatNo"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                    </span>
+                    <br>
+                    <br>
+                    <div id="progress<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
+                    <br><div class="row-fluid">
+                    <div class="col-md-12">
+                    <img src="<?php echo $building_no_of_flat['image_url'];?>" class="image_display">
+                    </div>
+                    </div>
+                     </div>
+         </div>
+         </div>
+         <div class="row-fluid">
+         <div class="col-md-12">
+         <img src="">
+         </div> 
+                    <?php
+                }
+                ?></div><?php
+            }
+            ?>
+        
+ 
 
 
 </div>
-<div id="exceptions" style="display:none">
+
+<div id="exceptions" <?php if(count($building_exceptions)==0){?>style="display:none"<?php } ?>>
 <b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
 <input type="hidden" name="exceptions_count" value="0" id="exceptions_count">
         <i class="icon-ok">
@@ -172,10 +218,96 @@ $heading = "Edit";
         +
     </button>
 <div class="exception_container">
+<?php
+ 
+ foreach($building_exceptions as $building_exception){
+    ?>
+    <table width="100%">
+    <?php
+    $col = 1;
+    for($i=1;$i<=$no_of_floors;$i++){
+        if($col==1){
+            ?><tr><?php
+        }
+        ?>
+        <td><input type="checkbox" name="exception_floors1" value="1" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>><?php echo $i;?></td>
+        <?php
+        $col++;
+        if($col==5){
+            $col=1;
+            ?></tr><?php
+        }
+    }
+    if($col>1){
+        ?></tr><?php
+    } 
+    ?>
+    </table>
+    <?
 
+    ?>
+<div class="well" id="flats_container">
+ 
+        <?php if($no_of_flats==0){
+        ?>   <div class="form-group">
+<label class="form-label">
+           <i>Select No Of Flats</i>
+        </label></div>
+        <?php
+            }
+            else{
+?>
+ <div class="form-group">
+  
+<?php
+                foreach($building_exception["flats"] as $building_no_of_flat){
+                    ?>    <label class="form-label">
+       Flat No: <?php echo $building_no_of_flat['flat_no'];?>
+        </label>
+        <span class="help">
+         </span> 
+        <div class="row">
+         <div class="col-md-4">
+                  <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Select files...</span>
+                    <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="flatNo"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                    </span>
+                    <br>
+                    <br>
+                    <div id="progress<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
+                    <br><div class="row-fluid">
+                    <div class="col-md-12">
+                    <img src="<?php echo $building_no_of_flat['image_url'];?>" class="image_display">
+                    </div>
+                    </div>
+                     </div>
+         </div>
+         </div>
+         <div class="row-fluid">
+         <div class="col-md-12">
+         <img src="">
+         </div> 
+                    <?php
+                }
+                ?></div><?php
+            }
+            ?>
+        
+ 
+
+
+</div>
+    <?php
+    }?>
 </div>
 
 </div>
+
+
 
 <div class="form-actions">
 
