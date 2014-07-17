@@ -20,6 +20,7 @@ Version:        0.1.0
 }
 .booking {
   background: #ffffff;
+  font-family: 'Lato', sans-serif;
   font-weight: 300;
 }
 .navbar-inverse {
@@ -48,8 +49,7 @@ Version:        0.1.0
   display: table;
 }
 .grid-container .grid-link {
-  border: 1px solid #999;
-  box-shadow: 0 0 0 3px #edeef0 inset, 2px 3px 0 #fce4d0;
+  box-shadow: 0 0 0 1px #dfe1e5 inset, 2px 2px 2px #fce4d0;
   display: table;
   height: 100%;
   padding: 10px;
@@ -60,14 +60,27 @@ Version:        0.1.0
 }
 .grid-container .grid-link:hover,
 .grid-container .grid-link.selected {
-  border: 3px solid #f28428;
-  box-shadow: 2px 3px 0 #fce4d0;
+  border: 1px solid #f28428;
   padding: 8px;
   text-decoration: none;
 }
+.grid-container .grid-link:hover .grid-main-title,
+.grid-container .grid-link.selected .grid-main-title {
+  color: #f28428;
+}
+.grid-container .grid-link.selected {
+  color: #f28428;
+}
+.grid-container .grid-link.selected:before {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-size: 20px;
+  font-family: 'Glyphicons Halflings';
+  content: '\e089';
+}
 .grid-container .grid-block-1 {
   display: inline-block;
-  text-align: left;
   width: 47.2394%;
   margin-right: 3.52113%;
   margin-bottom: 10px;
@@ -85,8 +98,7 @@ Version:        0.1.0
   display: block;
   line-height: 14px;
   padding: 2px 0;
-  color: #f28428;
-  font-weight: 700;
+  font-weight: 600;
 }
 .grid-container .grid-block-1 .grid-link .grid-text-wrap .grid-sub-title {
   text-transform: lowercase;
@@ -97,7 +109,7 @@ Version:        0.1.0
 }
 @media (min-width: 768px) and (max-width: 979px) {
   .grid-container .grid-block-1 {
-    width: 31.4917%;
+    width: 32.4917%;
     margin-right: 2.76243%;
     margin-bottom: 20px;
     height: 88px;

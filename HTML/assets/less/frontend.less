@@ -32,6 +32,7 @@ Version:        0.1.0
 
 .booking {
 	background: @color-white;
+	font-family: 'Lato', sans-serif;
 	font-weight: 300;
 }
 
@@ -50,8 +51,8 @@ Version:        0.1.0
 	text-align: center;
 	.clearfix;
 	.grid-link {
-		border: 1px solid #999;
-	    box-shadow: 0 0 0 3px lighten(@color-grey, 35%) inset, 2px 3px 0 lighten(@color-orange, 35%);
+		// border: 1px solid #999;
+	    box-shadow: 0 0 0 1px lighten(@color-grey, 30%) inset, 2px 2px 2px lighten(@color-orange, 35%);
 	    display: table;
 	    height: 100%;
 	    padding: 10px;
@@ -60,17 +61,31 @@ Version:        0.1.0
 	    width: 100%;
 	    color: @color-grey;
 	    &:hover, &.selected {
-	    	border: 3px solid @color-orange;
-		    box-shadow: 2px 3px 0 lighten(@color-orange, 35%);
+	    	border: 1px solid @color-orange;
+		    // box-shadow: 2px 3px 0 lighten(@color-orange, 35%);
 		    padding: 8px;
 		    text-decoration: none;
+		    .grid-main-title {
+		    	color: @color-orange;
+		    }
+	    }
+	    &.selected{
+	    	color: @color-orange;
+	    	&:before{
+	    		position: absolute;
+	    		top: 0;
+	    		right: 4px;
+	    		font-size: 20px;
+	    		font-family: 'Glyphicons Halflings';
+	    		content: '\e089';
+	    	}
 	    }
 	}
 
 	/**** Block Type 1 ****/
 	.grid-block-1 {
 		display: inline-block;
-		text-align: left;
+		// text-align: left;
 		// display: inline;
 		// float: left;
 	    width: 47.2394%;
@@ -89,8 +104,8 @@ Version:        0.1.0
 			    	display: block;
 				    line-height: 14px;
 				    padding: 2px 0;
-				    color: @color-orange;
-				    font-weight: 700;
+				    // color: @color-orange;
+				    font-weight: 600;
 			    }
 			    .grid-sub-title{
 			    	text-transform: lowercase;
@@ -103,7 +118,7 @@ Version:        0.1.0
 	    	margin-right: 0;
 	    }
 	    @media (min-width: 768px) and (max-width: 979px) { 
-	    	width: 31.4917%;
+	    	width: 32.4917%;
 	    	margin-right: 2.76243%;
 	    	margin-bottom: 20px;
 	    	// float: left;

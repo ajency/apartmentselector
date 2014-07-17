@@ -61,13 +61,34 @@
 				}
 
 				.flatNos{
-					padding: 10px;
+					padding: 8px 15px 15px;
+					height: 55px;
 					width: 90px;
 					margin: 0 0 10px auto;
 					background-color: lighten(@color-grey, 45%);
 					border: 1px solid lighten(@color-grey, 30%);
 					font-size: 20px;
 					font-weight: 600;
+					position: relative;
+					&.oneBHK, &.twoBHK{
+						&:after{
+							position: absolute;
+				    		bottom: -8px;
+				    		right: 40px;
+				    		font-size: 40px;
+				    		content: '.';
+				    		color: @color-primary;
+						}
+					}
+					&.twoBHK{
+						&:after{
+							color: @color-warning;
+						}
+					}
+					&.blank{
+						font-size: 40px;
+						line-height: 16px;
+					}
 				}
 			}
 	        .vs-left {
