@@ -20,7 +20,9 @@
 <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/slick/slick.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/frontend.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END CSS TEMPLATE -->
 </head>
 <!-- END HEAD -->
@@ -31,13 +33,18 @@
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse ">
   <div class="text-center">
-    <h3 class="text-white">Select Your Preference</h3>
+    <h3 class="text-white m-t-15">Apartment Selector</h3>
   </div>
 </div>
 <!-- END HEADER -->
 
 <!-- BEGIN CONTAINER -->
 <div class="page-container row-fluid">
+
+	<h1 class="text-center">Select your Preference</h1>
+	
+	<h3 class="text-center m-t-40">Select your flat to get started</h3>
+
 	<div class="grid-container">
 	  	<div class="grid-block-1">
 	  		<a class="grid-link" href="step2.html">
@@ -72,6 +79,19 @@
 	      </a>
 	  	</div>
 	</div>
+
+	<h4 class="text-center m-t-40 m-b-20">OR</h4>
+	<h3 class="text-center">What is your budget?</h3>
+	<div class="budgetSelect">
+		<div class="budget">undecided</div>
+		<div class="budget">25-35 lakhs</div>
+		<div class="budget">35-45 lakhs</div>
+		<div class="budget">45-55 lakhs</div>
+	</div>
+
+	<div class="h-align-middle m-t-50 m-b-20">
+		<span class="btn btn-primary btn-large">Continue with Selection</span>
+	</div>
 </div>
 <!-- END CONTAINER -->
 
@@ -91,13 +111,25 @@
 <script src="assets/plugins/breakpoints.js" type="text/javascript"></script> 
 <script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
 <script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script> 
-<script src="assets/js/support_ticket.js" type="text/javascript"></script>
+<!-- <script src="assets/js/support_ticket.js" type="text/javascript"></script> -->
 <!-- END CORE JS FRAMEWORK --> 
 <!-- BEGIN PAGE LEVEL JS --> 	
 <!-- <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>  --> 
 <script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
 <script src="assets/plugins/jquery-slider/jquery.sidr.min.js" type="text/javascript"></script>
 <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+
+<script src="assets/js/slick/slick.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.budgetSelect').slick({
+			infinite: false
+		});
+	});
+	$( ".grid-link" ).click(function() {
+	  $( this ).toggleClass( "selected" );
+	});
+</script>
 
 </body>
 </html>

@@ -1,1 +1,7 @@
 @import '../spa/src/bower_components/spin/stylesheets/jquery.spin.css';
+@import 'bootstrap.min.css';
+@import 'style.css';
+@import 'frontend.css';
+@import 'normalize.css';
+@import 'demo.css';
+@import 'component.css';

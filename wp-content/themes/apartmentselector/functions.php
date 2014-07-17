@@ -137,17 +137,18 @@ if ( is_development_environment() ) {
     add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
 }
 
-if ( !is_development_environment() ) {
+if (! is_development_environment() ) {
 
     function apartmentselector_production_enqueue_script() {
-
+ 
 
         if(check_backend_template())
             return;
 
-        $module = get_module_name();
+        $module = get_module_name(); 
 
         if ( is_single_page_app( $module ) )
+
             $path = get_template_directory_uri() . "/production/{$module}.spa.min.js";
         else
             $path = get_template_directory_uri() . "/production/{$module}.scripts.min.js";
@@ -157,6 +158,10 @@ if ( !is_development_environment() ) {
             array(),
             get_current_version(),
             TRUE );
+        wp_localize_script(  "$module-script", "SITEURL", site_url() );
+        wp_localize_script(  "$module-script", "AJAXURL", admin_url( "admin-ajax.php" ) );
+        wp_localize_script( "$module-script", "UPLOADURL", admin_url( "async-upload.php" ) );
+        wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
 
     }
 

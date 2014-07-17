@@ -7,6 +7,120 @@ Author URI:     http://ajency.in/
 Template:       skyi
 Version:        0.1.0
 */
+.vs-sidenav div {
+  top: 204px;
+}
+.vs-nav li a {
+  color: #1b1e24;
+  font-weight: 500;
+}
+.vs-nav .vs-nav-current a {
+  color: #f28428;
+}
+.towerTable {
+  position: relative;
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+}
+.towerTable .tableHeader {
+  width: 100px;
+  position: absolute;
+  left: 24%;
+  top: 75px;
+  z-index: 999;
+}
+.towerTable .tableHeader ul {
+  list-style-type: none;
+  padding: 0;
+}
+.towerTable .tableHeader ul li {
+  height: 80px;
+  cursor: pointer;
+}
+.towerTable .tableHeader ul li a {
+  color: #8b91a0;
+}
+.towerTable .tableBody .vs-header {
+  padding: 0 5px 1em;
+}
+.towerTable .tableBody .vs-header .vs-nav {
+  height: 35px;
+}
+.towerTable .tableBody .vs-header .vs-nav li a {
+  font-size: 12px;
+  padding: 0 0 5px;
+  border-top: 0;
+}
+.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a {
+  font-size: 22px;
+}
+.towerTable .tableBody .vs-container {
+  position: static;
+}
+.towerTable .tableBody .vs-wrapper > section {
+  left: 20%;
+  width: 60%;
+  padding: 0;
+}
+.towerTable .tableBody .vs-wrapper .vs-content {
+  width: 80%;
+}
+.towerTable .tableBody .vs-wrapper .vs-content > div {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #dfe1e5;
+}
+.towerTable .tableBody .vs-wrapper .vs-content .flatNos {
+  padding: 8px 15px 15px;
+  height: 55px;
+  width: 90px;
+  margin: 0 0 10px auto;
+  background-color: #ffffff;
+  border: 1px solid #dfe1e5;
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+}
+.towerTable .tableBody .vs-wrapper .vs-content .flatNos.oneBHK:after,
+.towerTable .tableBody .vs-wrapper .vs-content .flatNos.twoBHK:after {
+  position: absolute;
+  bottom: -8px;
+  right: 40px;
+  font-size: 40px;
+  content: '.';
+  color: #f28428;
+}
+.towerTable .tableBody .vs-wrapper .vs-content .flatNos.twoBHK:after {
+  color: #fdd01c;
+}
+.towerTable .tableBody .vs-wrapper .vs-content .flatNos.blank {
+  font-size: 40px;
+  line-height: 16px;
+}
+.towerTable .tableBody .vs-wrapper .vs-left {
+  left: -40%;
+}
+.towerTable .tableBody .vs-wrapper .vs-left-outer {
+  left: -120%;
+}
+.towerTable .tableBody .vs-wrapper .vs-current {
+  position: relative;
+  z-index: 100;
+}
+.towerTable .tableBody .vs-wrapper .vs-right {
+  left: 80%;
+}
+.towerTable .tableBody .vs-wrapper .vs-right-outer {
+  left: 140%;
+}
+.towerTable .tableBody .vs-sidenav div {
+  display: block;
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  height: 84%;
+  width: 20%;
+}
 @media (min-width: 768px) and (max-width: 959px), (min-width: 1024px) and (max-width: 1199px) {
   .width5 {
     width: 5%;
@@ -344,7 +458,7 @@ Version:        0.1.0
 iframe {
   margin: 50px auto 0;
   display: block;
-  width: 320px;
+  width: 520px;
 }
 .header {
   position: static;
@@ -360,6 +474,74 @@ iframe {
   padding: 20px 0;
   background-color: #da6a0d;
 }
-.introTxt {
-  margin-bottom: 30px;
+.legend .oneBHK,
+.legend .twoBHK {
+  font-size: 50px;
+  line-height: 5px;
+  color: #f28428;
+}
+.legend .twoBHK {
+  color: #fdd01c;
+}
+.budgetSelect {
+  margin: auto;
+  width: 200px;
+}
+.budgetSelect .budget {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 25px;
+  font-weight: 500;
+  color: #f28428;
+}
+.budgetSelect .budget:first-child {
+  color: #8b91a0;
+}
+.budgetSelect .slick-prev,
+.budgetSelect .slick-next {
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 0 0 1px #edeef0 inset, 2px 2px 2px #fce4d0;
+  top: 42%;
+}
+.budgetSelect .slick-prev:before,
+.budgetSelect .slick-next:before {
+  font-family: 'Glyphicons Halflings';
+  color: #f28428;
+  font-size: 16px;
+}
+.budgetSelect .slick-prev {
+  left: -80px;
+}
+.budgetSelect .slick-prev:before {
+  content: '\2212';
+}
+.budgetSelect .slick-next {
+  right: -80px;
+}
+.budgetSelect .slick-next:before {
+  content: '\2b';
+}
+@media (max-width: 767px) {
+  .budgetSelect {
+    width: 120px;
+  }
+  .budgetSelect .budget {
+    font-size: 18px;
+  }
+  .budgetSelect .slick-prev,
+  .budgetSelect .slick-next {
+    width: 30px;
+    height: 30px;
+  }
+  .budgetSelect .slick-prev:before,
+  .budgetSelect .slick-next:before {
+    font-size: 12px;
+  }
+  .budgetSelect .slick-prev {
+    left: -60px;
+  }
+  .budgetSelect .slick-next {
+    right: -60px;
+  }
 }
