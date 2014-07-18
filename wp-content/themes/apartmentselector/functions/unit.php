@@ -283,6 +283,34 @@ function get_units(){
 }
 
 
+/*get unit by id*/
+function get_unit_by_id($id){
+
+    $result = get_post($id);
+
+    $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
+
+    $unit_building =   get_post_meta($result->ID, 'building', true);
+
+    $floor =   get_post_meta($result->ID, 'floor', true);
+
+    $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
+
+    $unit_status =   get_post_meta($result->ID, 'unit_status', true);
+
+    $unit_type = get_unit_type_by_unit_variant($unit_variant);
+
+    return array(   'id'=>$result->ID,
+                    'name'=>$result->post_title,
+                    'unit_type'=>$unit_type,
+                    'unit_variant'=>$unit_variant,
+                    'building'=>$unit_building,
+                    'floor'=>$floor,
+                    'status'=>$unit_status
+                );
+}
+
+
 function ajax_save_apartment(){
 
     $msg = "";
@@ -312,7 +340,14 @@ function ajax_save_apartment(){
 
              }
             else{
-
+                $unit = array(
+                    'ID'    => $_REQUEST['apartment_id'],
+                    'post_title'    => $_REQUEST["flat_no"],
+                    'post_status'   => 'publish',
+                    'post_type'   => 'unit',
+                );
+// Insert the post into the database
+                $apartment_id = wp_update_post( $unit );
 
                 $msg = "Apartment Updated Successfully!";
             }
