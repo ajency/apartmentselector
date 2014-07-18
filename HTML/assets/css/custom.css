@@ -103,7 +103,7 @@ Version:        0.1.0
   margin: auto;
 }
 .towerTable .tableHeader {
-  width: 104px;
+  width: 124px;
   position: absolute;
   left: 24%;
   top: 70px;
@@ -120,12 +120,19 @@ Version:        0.1.0
   cursor: pointer;
   background-color: #f8f9fa;
 }
+.towerTable .tableHeader ul li span {
+  text-decoration: underline;
+}
 .towerTable .tableHeader ul li a {
   color: #8b91a0;
 }
 @media (max-width: 480px) {
   .towerTable .tableHeader {
-    left: 10%;
+    left: 0;
+    width: 48%;
+  }
+  .towerTable .tableHeader ul > li {
+    padding-left: 20%;
   }
 }
 .towerTable .tableBody .vs-header {
@@ -163,19 +170,20 @@ Version:        0.1.0
 .towerTable .tableBody .vs-wrapper .vs-content .flatNos {
   padding: 8px 15px 15px;
   height: 55px;
-  width: 90px;
+  width: 110px;
   margin: 0 0 10px auto;
   background-color: #ffffff;
   border: 1px solid #dfe1e5;
   font-size: 20px;
   font-weight: 600;
   position: relative;
+  cursor: pointer;
 }
 .towerTable .tableBody .vs-wrapper .vs-content .flatNos.oneBHK:after,
 .towerTable .tableBody .vs-wrapper .vs-content .flatNos.twoBHK:after {
   position: absolute;
   bottom: -8px;
-  right: 40px;
+  right: 50px;
   font-size: 40px;
   content: '.';
   color: #f28428;
@@ -257,15 +265,33 @@ Version:        0.1.0
     float: left;
   }
 }
+.towerDetails {
+  max-width: 700px;
+  margin: 20px auto;
+}
+.towerDetails > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+@media (max-width: 767px) {
+  .towerDetails h1 {
+    font-size: 25px;
+    line-height: 25px;
+    margin-top: 10px;
+  }
+  .towerDetails h1 small {
+    font-size: 50%;
+  }
+}
 .unitNos {
   padding: 8px 15px;
   height: 55px;
-  width: 120px;
+  width: 110px;
   margin: 0 auto;
   background-color: #ffffff;
   border: 1px solid #dfe1e5;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   cursor: pointer;
   position: relative;
 }
@@ -342,7 +368,6 @@ Version:        0.1.0
   text-align: center;
   padding: 1em;
   height: 84px;
-  color: #c3c6ce;
   background-color: #f6f6f7;
   border-bottom: 1px solid #edeef0;
 }
