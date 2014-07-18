@@ -13,14 +13,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
 
     ScreenTwoController.prototype.initialize = function() {
       var view;
-      this.layout = new ScreenTwoView.ScreenTwoLayout();
       this.unitsCountCollection = this._getUnitsCountCollection();
       this.view = view = this._getUnitTypesCountView(this.unitsCountCollection);
-      this.listenTo(this.layout, "show", (function(_this) {
-        return function() {
-          return console.log(view.buildingRegion);
-        };
-      })(this));
       return this.show(this.view);
     };
 

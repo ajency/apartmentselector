@@ -48,10 +48,10 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
           App.defaults[param_key[0]] = param_key[1];
         }
       }
-      params = params;
-      console.log(App.defaults);
+      params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
+      console.log(params);
     } else {
-      params = 'building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&unitType=' + App.defaults['unitType'] + '&view=' + App.defaults['view'] + '&floor=' + App.defaults['floor'];
+      params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
       console.log(params);
     }
     param_arr = params.split('&');

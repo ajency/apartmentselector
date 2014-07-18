@@ -18,6 +18,8 @@ define [ 'marionette' ], ( Marionette )->
         unitTypeSelected : ( evt )->
             evt.preventDefault()
             @trigger 'unit:type:clicked'
+            App.defaults['unitType'] = @model.get 'id'
+            console.log App.defaults
 
 
     class ScreenOneView extends Marionette.CompositeView

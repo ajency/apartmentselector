@@ -30,7 +30,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
 
     ScreenOneController.prototype._unitTypeClicked = function(childview) {
       console.log("wwwwwwwwwwww");
-      return App.navigate('#screen-two/unitype/#{unitType}', {
+      return App.navigate("screen-two", {
         trigger: true
       });
     };

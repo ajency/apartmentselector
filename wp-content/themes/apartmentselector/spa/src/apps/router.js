@@ -12,9 +12,10 @@ define(['marionette'], function(Marionette) {
     }
 
     ApartmentSelector.prototype.appRoutes = {
-      ':params': 'showValues',
-      'screen-two/:params': 'show',
       'screen-two': 'show',
+      ':params': 'showValues',
+      'screen-one:params': 'showValues',
+      'screen-two/:params': 'show',
       'screen-three/:params': 'showUnits',
       'screen-four/:params': 'showSelectedUnit'
     };
@@ -29,6 +30,9 @@ define(['marionette'], function(Marionette) {
       return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
     },
     show: function(params) {
+      if (params == null) {
+        params = {};
+      }
       console.log('qqqqqqqqqqqqq');
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();

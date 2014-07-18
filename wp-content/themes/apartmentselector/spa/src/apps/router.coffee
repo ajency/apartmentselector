@@ -3,9 +3,11 @@ define [ 'marionette'], ( Marionette )->
     class ApartmentSelector extends Marionette.AppRouter
 
         appRoutes:
-            ':params' : 'showValues'
-            'screen-two/:params'  : 'show'
             'screen-two'  : 'show'
+            ':params' : 'showValues'
+            'screen-one:params' : 'showValues'
+            'screen-two/:params'  : 'show'
+
             'screen-three/:params' : 'showUnits'
             'screen-four/:params' : 'showSelectedUnit'
 
@@ -30,7 +32,7 @@ define [ 'marionette'], ( Marionette )->
 
 
 
-        show :(params)->
+        show :(params={})->
             console.log 'qqqqqqqqqqqqq'
             App.filter(params)
             msgbus.showApp 'header'

@@ -5,17 +5,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
         initialize : ()->
 
-            @layout = new ScreenTwoView.ScreenTwoLayout()
-
-
-
             @unitsCountCollection = @_getUnitsCountCollection()
 
             @view = view = @_getUnitTypesCountView @unitsCountCollection
 
-            @listenTo @layout , "show", =>
 
-                console.log view.buildingRegion
 
             @show @view
 

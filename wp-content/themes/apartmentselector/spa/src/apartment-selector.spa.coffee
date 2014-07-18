@@ -61,27 +61,32 @@ require [ 'spec/javascripts/fixtures/json/units'
 
 
     App.filter = (params={})->
+        #check whether url contains any parameters
         if  window.location.href.indexOf('=') > -1
             console.log params = params
             paramsArray = params.split('&')
+            #loop through all the parameters
             for element,index in paramsArray
                 console.log param_key = element.split('=')
+                #check whether defaults has the param key
                 key = App.defaults.hasOwnProperty(param_key[0])
+                #If yes , assign the new value to the matched key of the defaults
                 if key == true
                     console.log param_key[1]
                     App.defaults[param_key[0]] = param_key[1]
 
 
 
-            params = params
-            console.log App.defaults
+            params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
+            console.log params
 
 
 
         else
-
-            params = 'building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+'&unitType='+App.defaults['unitType']+
-            '&view='+App.defaults['view']+'&floor='+App.defaults['floor']
+            #url doesnt contain any parameters take the value of the defaults
+            params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
             console.log params
 
 

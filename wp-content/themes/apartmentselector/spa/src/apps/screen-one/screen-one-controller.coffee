@@ -20,7 +20,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
         _unitTypeClicked:(childview)=>
             console.log "wwwwwwwwwwww"
-            App.navigate '#screen-two/unitype/#{unitType}' , trigger:true
+            App.navigate "screen-two" , trigger:true
 
 
 
