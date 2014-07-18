@@ -1,0 +1,81 @@
+
+.introTxt{
+	font-size: 26px;
+}
+.subTxt{
+	font-size: 20px;
+	margin-top: 20px;
+	font-weight: 300;
+}
+@media (min-width:481px){
+	.introTxt{
+		font-size: 34px;
+		margin-bottom: 40px;
+	}
+	.subTxt{
+		font-size: 24px;
+	}
+}
+
+
+//Budget Select
+.budgetSelect{
+	margin: auto;
+	width: 200px;
+	// height: 120px;
+	.budget{
+		text-align: center;
+		padding: 10px 0;
+		font-size: 25px;
+		font-weight: 500;
+		color: @color-orange;
+		&:first-child{
+			color: @color-grey;
+		}
+		//box-shadow: 0 0 0 2px lighten(@color-grey, 30%) inset;
+	}
+	.slick-prev, .slick-next{
+		width: 40px;
+		height: 40px;
+		box-shadow: 0 0 0 1px lighten(@color-grey, 35%) inset, 2px 2px 2px lighten(@color-orange, 35%);
+		top: 42%;
+		&:before{
+			font-family: 'Glyphicons Halflings';
+			color: @color-orange;
+			font-size: 16px;
+		}
+	}
+	.slick-prev{
+		left: -80px;
+		&:before{
+			content: '\2212';
+		}		
+	}
+	.slick-next{
+		right: -80px;
+		&:before{
+			content: '\2b';
+		}		
+	}
+}
+@media (max-width: 767px){
+	.budgetSelect{
+		width: 120px;
+		.budget{
+			font-size: 18px;
+		}
+		.slick-prev, .slick-next{
+			width: 30px;
+			height: 30px;
+			&:before{
+				font-size: 12px;
+			}
+		}
+		.slick-prev{
+			left: -60px;
+		}
+		.slick-next{
+			right: -60px;
+		}
+	}
+}

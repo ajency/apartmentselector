@@ -18,7 +18,7 @@
 <!-- END CORE CSS FRAMEWORK -->
 <!-- BEGIN CSS TEMPLATE -->
 <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+<!-- <link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/> -->
 <link href="assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/slick/slick.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/frontend.css" rel="stylesheet" type="text/css"/>
@@ -28,12 +28,12 @@
 <!-- END HEAD -->
 
 <!-- BEGIN BODY -->
-<body class="booking">
+<body>
 
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse ">
   <div class="text-center">
-    <h3 class="text-white m-t-15">Apartment Selector</h3>
+    <h3 class="text-white m-t-15 step1">Apartment Selector</h3>
   </div>
 </div>
 <!-- END HEADER -->
@@ -41,13 +41,13 @@
 <!-- BEGIN CONTAINER -->
 <div class="page-container row-fluid">
 
-	<h1 class="text-center">Select your Preference</h1>
+	<div class="text-center introTxt">Select your Preference</div>
 	
-	<h3 class="text-center m-t-40">Select your flat to get started</h3>
+	<div class="text-center subTxt">Select your flat to get started</div>
 
 	<div class="grid-container">
 	  	<div class="grid-block-1">
-	  		<a class="grid-link" href="step2.html">
+	  		<a class="grid-link" href="#">
 	        <div class="grid-text-wrap">
 	          <span class="grid-main-title">1BHK</span>
 	          <span class="grid-sub-title">649 to 759 (sq. ft.)</span>
@@ -80,8 +80,9 @@
 	  	</div>
 	</div>
 
-	<h4 class="text-center m-t-40 m-b-20">OR</h4>
-	<h3 class="text-center">What is your budget?</h3>
+	<h4 class="text-center m-t-20 m-b-20">OR</h4>
+	<div class="text-center subTxt">What is your budget?</div>
+
 	<div class="budgetSelect">
 		<div class="budget">undecided</div>
 		<div class="budget">25-35 lakhs</div>
@@ -90,7 +91,9 @@
 	</div>
 
 	<div class="h-align-middle m-t-50 m-b-20">
-		<span class="btn btn-primary btn-large">Continue with Selection</span>
+		<a class="btn btn-primary btn-large disabled">Continue with Selection</a>
+		<br><br>
+		<a href="step2.html" class="btn btn-primary btn-large">Continue with Selection</a>
 	</div>
 </div>
 <!-- END CONTAINER -->
