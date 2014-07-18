@@ -35,7 +35,7 @@ define [ 'marionette' ], ( Marionette )->
             @collection = @model.get 'units'
 
 
-    class ScreenThreeView extends Marionette.CompositeView
+    class ScreenThreeView extends Marionette.LayoutView
 
         childView : UnitTypeChildView
 

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var ScreenTwoView, UnitTypeChildView, UnitTypeView;
+  var ScreenTwoLayout, UnitTypeChildView, UnitTypeView;
   UnitTypeView = (function(_super) {
     __extends(UnitTypeView, _super);
 
@@ -46,55 +46,23 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     return UnitTypeChildView;
 
   })(Marionette.CompositeView);
-  return ScreenTwoView = (function(_super) {
-    __extends(ScreenTwoView, _super);
+  return ScreenTwoLayout = (function(_super) {
+    __extends(ScreenTwoLayout, _super);
 
-    function ScreenTwoView() {
-      return ScreenTwoView.__super__.constructor.apply(this, arguments);
+    function ScreenTwoLayout() {
+      return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoView.prototype.template = '<h3 class="text-center introTxt">We have <span class="bold">100 options</span> for 1BHK <br><small>Just select your floors to get started</small></h3> <div class="towerTable"><div class="tableHeader"> <ul> <li><a href="#modal"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal"><span class="bold">MIDRISE</span><br>15-11 Floors</a></li> <li><a href="#modal"><span class="bold">LOWRISE</span><br>15-11 Floors</a></li> </ul> </div><div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header"></header> <ul class="vs-nav" id="building-region"></ul><div id="unit-region" class="vs-wrapper"></div></div></div>';
+    ScreenTwoLayout.prototype.template = '<h3 class="text-center introTxt">We have <span class="bold">100 options</span> for 1BHK <br><small>Just select your floors to get started</small></h3> <div class="towerTable"><div class="tableHeader"> <ul> <li><a href="#modal"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal"><span class="bold">MIDRISE</span><br>15-11 Floors</a></li> <li><a href="#modal"><span class="bold">LOWRISE</span><br>15-11 Floors</a></li> </ul> </div><div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header"></header> <ul class="vs-nav" id="building-region"></ul><div id="unit-region" class="vs-wrapper"></div></div></div>';
 
-    ScreenTwoView.prototype.className = 'page-container row-fluid';
+    ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
-    ScreenTwoView.prototype.regions = {
+    ScreenTwoLayout.prototype.regions = {
       buildingRegion: '#building-region',
       unitRegion: '#unit-region'
     };
 
-    ScreenTwoView.prototype.events = {
-      'click .image': 'imageslider'
-    };
-
-    ScreenTwoView.prototype.imageslider = function(e) {
-      var images, img_val, myArray, q, w;
-      myArray = Array();
-      img_val = $("#" + e.target.id).attr('data-value');
-      images = ['http://farm4.static.flickr.com/3219/2431886567_c92821aede_o.jpg', 'http://farm1.static.flickr.com/37/85684217_526797a103_o.jpg', 'http://farm5.static.flickr.com/4080/4906820567_63fb82fa85_b.jpg'];
-      q = img_val;
-      w = 0;
-      while (w < 1) {
-        if (images.length === q) {
-          q = 0;
-        }
-        myArray.push(images[q]);
-        w++;
-        q++;
-      }
-      return $.preload(myArray, 1, function(last) {
-        var i;
-        i = 0;
-        while (i < this.length) {
-          $('<img height="200" src="' + this[i] + '" alt="" />').appendTo('div#content' + img_val);
-          i++;
-        }
-        if (last) {
-          return console.log("aaa");
-        }
-      });
-    };
-
-    return ScreenTwoView;
+    return ScreenTwoLayout;
 
   })(Marionette.LayoutView);
 });

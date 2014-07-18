@@ -4,16 +4,23 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
     class ScreenOneController extends Extm.RegionController
 
         initialize : ->
+            console.log "wwwwwwwwwwww"
             @unitTypeCollection = @_getUnitTypeCollection()
 
             @view = view = @_getUnitTypesView @unitTypeCollection
 
+            @listenTo view, "childview:unit:type:clicked", @_unitTypeClicked
 
             @show view
 
         _getUnitTypesView:(unitTypeCollection)->
             new ScreenOneView
                 collection :unitTypeCollection
+
+
+        _unitTypeClicked:(childview)=>
+            console.log "wwwwwwwwwwww"
+            App.navigate '#screen-two/unitype/#{unitType}' , trigger:true
 
 
 

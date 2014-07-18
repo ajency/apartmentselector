@@ -3,7 +3,7 @@ define('plugin-loader', ['preload'], function() {});
 
 define('apps-loader', ['src/apps/footer/footer-controller', 'src/apps/header/header-controller', 'src/apps/screen-one/screen-one-controller', 'src/apps/screen-two/screen-two-controller', 'src/apps/screen-three/screen-three-controller', 'src/apps/screen-four/screen-four-controller'], function() {});
 
-require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json/views', 'spec/javascripts/fixtures/json/buildings', 'spec/javascripts/fixtures/json/unitvariants', 'spec/javascripts/fixtures/json/unittypes', 'spec/javascripts/fixtures/json/lowrange', 'spec/javascripts/fixtures/json/mediumrange', 'spec/javascripts/fixtures/json/highrange', 'plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'apps-loader'], function(units, views, buildings, unitvariants, unittypes, low, medium, high, plugins, Extm) {
+require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json/views', 'spec/javascripts/fixtures/json/buildings', 'spec/javascripts/fixtures/json/unitvariants', 'spec/javascripts/fixtures/json/unittypes', 'spec/javascripts/fixtures/json/lowrange', 'spec/javascripts/fixtures/json/mediumrange', 'spec/javascripts/fixtures/json/highrange', 'spec/javascripts/fixtures/json/range', 'plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'apps-loader'], function(units, views, buildings, unitvariants, unittypes, low, medium, high, range, plugins, Extm) {
   var staticApps;
   window.App = new Extm.Application;
   App.addRegions({
@@ -20,19 +20,46 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
     'unit_type': new Backbone.Collection(unittypes),
     'low': new Backbone.Collection(low),
     'medium': new Backbone.Collection(medium),
-    'high': new Backbone.Collection(high)
+    'high': new Backbone.Collection(high),
+    'range': new Backbone.Collection(range)
   };
   App.currentStore = App.store;
+  App.defaults = {
+    "building": 'All',
+    "unitType": 'All',
+    "unitVariant": 'All',
+    'floor': 'All',
+    'view': 'All'
+  };
   App.filter = function(params) {
-    var buildingArray, buildingModel, element, index, othermodels, param_arr, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3;
+    var buildingArray, buildingModel, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
     if (params == null) {
       params = {};
     }
+    if (window.location.href.indexOf('=') > -1) {
+      console.log(params = params);
+      paramsArray = params.split('&');
+      for (index = _i = 0, _len = paramsArray.length; _i < _len; index = ++_i) {
+        element = paramsArray[index];
+        console.log(param_key = element.split('='));
+        key = App.defaults.hasOwnProperty(param_key[0]);
+        if (key === true) {
+          console.log(param_key[1]);
+          App.defaults[param_key[0]] = param_key[1];
+        }
+      }
+      params = params;
+      console.log(App.defaults);
+    } else {
+      params = 'building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&unitType=' + App.defaults['unitType'] + '&view=' + App.defaults['view'] + '&floor=' + App.defaults['floor'];
+      console.log(params);
+    }
     param_arr = params.split('&');
-    othermodels = Array();
     $.each(param_arr, function(index, value) {
-      var collection, param_key, param_val, param_val_arr, paramkey, value_arr;
+      var attribute, collection, param_val, param_val_arr, paramkey, value_arr;
       value_arr = value.split('=');
+      attribute = {};
+      attribute[param_key] = param_key;
       param_key = value_arr[0];
       param_val = value_arr[1];
       param_val_arr = param_val.split(',');
@@ -62,7 +89,7 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
     buildings = App.currentStore.unit.pluck("building");
     uniqBuildings = _.uniq(buildings);
     buildingArray = Array();
-    for (index = _i = 0, _len = uniqBuildings.length; _i < _len; index = ++_i) {
+    for (index = _j = 0, _len1 = uniqBuildings.length; _j < _len1; index = ++_j) {
       element = uniqBuildings[index];
       buildingModel = App.currentStore.building.get(element);
       buildingArray.push(buildingModel);
@@ -70,7 +97,7 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
     unittype = App.currentStore.unit.pluck("unitType");
     uniqUnittype = _.uniq(unittype);
     unittypeArray = Array();
-    for (index = _j = 0, _len1 = uniqUnittype.length; _j < _len1; index = ++_j) {
+    for (index = _k = 0, _len2 = uniqUnittype.length; _k < _len2; index = ++_k) {
       element = uniqUnittype[index];
       unittypeModel = App.currentStore.unit_type.get(element);
       unittypeArray.push(unittypeModel);
@@ -78,7 +105,7 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
     unitvariant = App.currentStore.unit.pluck("unitVariant");
     uniqUnitvariant = _.uniq(unitvariant);
     unitvariantArray = Array();
-    for (index = _k = 0, _len2 = uniqUnitvariant.length; _k < _len2; index = ++_k) {
+    for (index = _l = 0, _len3 = uniqUnitvariant.length; _l < _len3; index = ++_l) {
       element = uniqUnitvariant[index];
       unitvariantModel = App.currentStore.unit_variant.get(element);
       unitvariantArray.push(unitvariantModel);
@@ -86,7 +113,7 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
     view = App.currentStore.unit.pluck("view");
     uniqviews = _.uniq(buildings);
     viewArray = Array();
-    for (index = _l = 0, _len3 = uniqviews.length; _l < _len3; index = ++_l) {
+    for (index = _m = 0, _len4 = uniqviews.length; _m < _len4; index = ++_m) {
       element = uniqviews[index];
       viewModel = App.currentStore.view.get(element);
       viewArray.push(viewModel);
@@ -95,11 +122,38 @@ require(['spec/javascripts/fixtures/json/units', 'spec/javascripts/fixtures/json
     App.currentStore.unit_type.reset(unittypeArray);
     App.currentStore.unit_variant.reset(unitvariantArray);
     App.currentStore.view.reset(viewArray);
-    return App.currentStore.unit;
+    return console.log(App.currentStore.unit);
+  };
+  App.filterparam = function(params) {
+    if (params == null) {
+      params = {};
+    }
+    console.log("aaaaaaaaaaaaaa");
+    console.log(App.defaults = {
+      "building": [2, 3],
+      "unitType": 3,
+      "unitVariant": 'All',
+      'floor': 'All',
+      'view': 'All'
+    });
+    App.defaults.hasOwnProperty("name");
+    units = App.currentStore.unit.filter(function(model) {
+      var building, buildingArray, element, index, _i, _len, _ref;
+      console.log(App.defaults['building'].length);
+      buildingArray = Array();
+      _ref = App.defaults['building'];
+      for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
+        element = _ref[index];
+        building = model.get('building') === element;
+      }
+      return building;
+    });
+    return console.log(units);
   };
   App.currentRoute = [];
   staticApps = [['footer', App.footerRegion]];
   if (window.location.hash === '') {
+    App.filter();
     staticApps.push(['header', App.headerRegion]);
     staticApps.push(['screen:one', App.mainRegion]);
   }

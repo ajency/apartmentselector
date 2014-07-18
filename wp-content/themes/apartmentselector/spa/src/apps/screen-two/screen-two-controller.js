@@ -13,8 +13,14 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
 
     ScreenTwoController.prototype.initialize = function() {
       var view;
+      this.layout = new ScreenTwoView.ScreenTwoLayout();
       this.unitsCountCollection = this._getUnitsCountCollection();
       this.view = view = this._getUnitTypesCountView(this.unitsCountCollection);
+      this.listenTo(this.layout, "show", (function(_this) {
+        return function() {
+          return console.log(view.buildingRegion);
+        };
+      })(this));
       return this.show(this.view);
     };
 
@@ -51,24 +57,24 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         mainArray = Array();
         $.each(newunits, function(index, value) {
           var highUnits, lowUnits, mediumUnits;
-          lowUnits = App.currentStore.low;
-          lowUnits.each(function(item) {
-            if (item.get('id') === value.get('floor')) {
-              return lowArray.push(value.get('id'));
-            }
+          lowUnits = App.currentStore.range.findWhere({
+            name: 'low'
           });
-          mediumUnits = App.currentStore.medium;
-          mediumUnits.each(function(item) {
-            if (item.get('id') === value.get('floor')) {
-              return mediumArray.push(value.get('id'));
-            }
+          if (value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) {
+            lowArray.push(value.get('id'));
+          }
+          mediumUnits = App.currentStore.range.findWhere({
+            name: 'medium'
           });
-          highUnits = App.currentStore.medium;
-          return highUnits.each(function(item) {
-            if (item.get('id') === value.get('floor')) {
-              return highArray.push(value.get('id'));
-            }
+          if (value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) {
+            mediumArray.push(value.get('id'));
+          }
+          highUnits = App.currentStore.range.findWhere({
+            name: 'high'
           });
+          if (value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) {
+            return highArray.push(value.get('id'));
+          }
         });
         low_max_val = 0;
         low_min_val = 0;

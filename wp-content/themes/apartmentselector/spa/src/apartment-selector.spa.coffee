@@ -23,11 +23,12 @@ require [ 'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/lowrange'
           'spec/javascripts/fixtures/json/mediumrange'
           'spec/javascripts/fixtures/json/highrange'
+          'spec/javascripts/fixtures/json/range'
           'plugin-loader'
           'extm'
           'src/classes/ap-store'
           'src/apps/router'
-          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes,low,medium,high, plugins, Extm )->
+          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes,low,medium,high,range, plugins, Extm )->
 
     # global application object
     window.App = new Extm.Application
@@ -49,14 +50,48 @@ require [ 'spec/javascripts/fixtures/json/units'
         'low' : new Backbone.Collection  low
         'medium':  new Backbone.Collection  medium
         'high': new Backbone.Collection  high
+        'range': new Backbone.Collection  range
 
     App.currentStore = App.store
 
+
+    App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All'}
+
+
+
+
     App.filter = (params={})->
+        if  window.location.href.indexOf('=') > -1
+            console.log params = params
+            paramsArray = params.split('&')
+            for element,index in paramsArray
+                console.log param_key = element.split('=')
+                key = App.defaults.hasOwnProperty(param_key[0])
+                if key == true
+                    console.log param_key[1]
+                    App.defaults[param_key[0]] = param_key[1]
+
+
+
+            params = params
+            console.log App.defaults
+
+
+
+        else
+
+            params = 'building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+'&unitType='+App.defaults['unitType']+
+            '&view='+App.defaults['view']+'&floor='+App.defaults['floor']
+            console.log params
+
+
+
+
         param_arr = params.split('&')
-        othermodels = Array()
         $.each(param_arr, (index,value)->
             value_arr  =  value.split('=')
+            attribute = {}
+            attribute[param_key] = param_key
             param_key = value_arr[0]
             param_val = value_arr[1]
             param_val_arr = param_val.split(',')
@@ -121,8 +156,24 @@ require [ 'spec/javascripts/fixtures/json/units'
         App.currentStore.unit_type.reset unittypeArray
         App.currentStore.unit_variant.reset unitvariantArray
         App.currentStore.view.reset viewArray
-        App.currentStore.unit
+        console.log App.currentStore.unit
 
+
+    App.filterparam = (params={})->
+            console.log "aaaaaaaaaaaaaa"
+            console.log App.defaults = {"building" :[2,3] ,"unitType":3,"unitVariant":'All','floor':'All','view':'All'}
+            App.defaults.hasOwnProperty("name" )
+            units = App.currentStore.unit.filter (model)->
+                console.log App.defaults['building'].length
+                buildingArray = Array()
+                for element , index in App.defaults['building']
+                    building = model.get('building') == element
+
+
+
+
+                building
+            console.log units
 
 
 
@@ -135,6 +186,7 @@ require [ 'spec/javascripts/fixtures/json/units'
     ]
 
     if window.location.hash is ''
+        App.filter()
         staticApps.push [ 'header', App.headerRegion ]
         staticApps.push [ 'screen:one', App.mainRegion ]
 

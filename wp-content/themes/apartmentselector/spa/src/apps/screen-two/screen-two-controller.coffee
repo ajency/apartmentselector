@@ -4,10 +4,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
     class ScreenTwoController extends Extm.RegionController
 
         initialize : ()->
+
+            @layout = new ScreenTwoView.ScreenTwoLayout()
+
+
+
             @unitsCountCollection = @_getUnitsCountCollection()
 
             @view = view = @_getUnitTypesCountView @unitsCountCollection
 
+            @listenTo @layout , "show", =>
+
+                console.log view.buildingRegion
 
             @show @view
 
@@ -33,21 +41,20 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 highArray = Array()
                 mainArray = Array()
                 $.each(newunits, (index,value)->
-                    lowUnits = App.currentStore.low
-                    lowUnits.each ( item)->
-                        if item.get('id') == value.get 'floor'
+                    lowUnits = App.currentStore.range.findWhere({name:'low'})
+                    if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
                             lowArray.push value.get 'id'
 
-                    mediumUnits = App.currentStore.medium
-                    mediumUnits.each ( item)->
-                        if item.get('id') == value.get 'floor'
-                            mediumArray.push value.get 'id'
 
 
-                    highUnits = App.currentStore.medium
-                    highUnits.each ( item)->
-                        if item.get('id') == value.get 'floor'
-                            highArray.push value.get 'id'
+                    mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                    if value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end'
+                        mediumArray.push value.get 'id'
+
+
+                    highUnits = App.currentStore.range.findWhere({name:'high'})
+                    if value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end'
+                        highArray.push value.get 'id'
 
                 )
                 low_max_val = 0

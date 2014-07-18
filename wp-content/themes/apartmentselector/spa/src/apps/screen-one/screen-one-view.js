@@ -21,8 +21,7 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
       evt.preventDefault();
-      console.log("aaaaaaaaaaaa");
-      return this.trigger('unit:type:clicked', this.model.get('id'));
+      return this.trigger('unit:type:clicked');
     };
 
     return UnitTypeView;

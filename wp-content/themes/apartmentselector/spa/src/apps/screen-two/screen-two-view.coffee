@@ -43,7 +43,14 @@ define [ 'extm','marionette' ], (Extm, Marionette )->
 
 
 
-    class ScreenTwoView extends Marionette.LayoutView
+
+
+
+
+
+
+
+    class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<h3 class="text-center introTxt">We have <span class="bold">100 options</span> for 1BHK <br><small>Just select your floors to get started</small></h3>
         <div class="towerTable"><div class="tableHeader">
@@ -67,42 +74,10 @@ define [ 'extm','marionette' ], (Extm, Marionette )->
             unitRegion : '#unit-region'
 
 
-        events:
-            'click .image' : 'imageslider'
-
-
-        imageslider:(e)->
-            myArray = Array()
-            img_val = $("#"+e.target.id).attr( 'data-value' )
-            images = [
-                'http://farm4.static.flickr.com/3219/2431886567_c92821aede_o.jpg',
-                'http://farm1.static.flickr.com/37/85684217_526797a103_o.jpg',
-                'http://farm5.static.flickr.com/4080/4906820567_63fb82fa85_b.jpg',
-
-            ]
-            q = img_val
-            w = 0
-            while w < 1
-                if images.length == q
-                    q =0
-                myArray.push images[q]
-                w++
-                q++
-
-
-            $.preload(myArray, 1, (last)->
-                i = 0
 
 
 
-                while i < this.length
-                    $('<img height="200" src="' +this[i] + '" alt="" />').appendTo('div#content'+img_val)
-                    i++
 
-
-                if (last)
-                    console.log "aaa"
-            )
 
 
 

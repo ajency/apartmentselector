@@ -58,5 +58,5 @@ define(['marionette'], function(Marionette) {
 
     return ScreenThreeView;
 
-  })(Marionette.CompositeView);
+  })(Marionette.LayoutView);
 });
