@@ -17,7 +17,7 @@ html, body, .vs-container {
 .vs-header {
 	z-index: 200;
 	margin: 0 auto;
-	padding: 2em;
+	padding: 50px 2em 1em;
 	width: 80%;
 	text-align: center;
 	-webkit-backface-visibility: hidden;
@@ -70,16 +70,16 @@ html, body, .vs-container {
 	position: relative;
 	display: inline-block;
 	margin: 0 10px;
-	padding: 10px 0;
+	padding: 20px 0;
 	outline: none;
-	border-top: 2px solid #893027;
-	border-bottom: 2px solid #893027;
-	color: #893027;
+	border-top: 2px solid transparent;
+	border-bottom: 2px solid transparent;
+	color: #f28428;
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-weight: 700;
-	font-size: 1.5em;
+	font-size: 2em;
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
 }
@@ -89,14 +89,15 @@ html, body, .vs-container {
 .vs-triplelayout .vs-nav .vs-nav-current a,
 .vs-container.vs-move-left .vs-nav-right a,
 .vs-container.vs-move-right .vs-nav-left a {
-	border-color: #fff;
-	color: #fff;
+	border-top: 2px solid #f28428;
+	border-bottom: 2px solid #f28428;
+	color: ;
 }
 
 .vs-container.vs-move-left .vs-nav-current a,
 .vs-container.vs-move-right .vs-nav-current a {
-	border-color: #893027;
-	color: #893027;
+	border-color: #f28428;
+	color: #f28428;
 }
 
 .vs-triplelayout .vs-nav .vs-nav-left,
@@ -160,6 +161,7 @@ html, body, .vs-container {
 	overflow: hidden;
 	min-height: 100%;
 	width: 100%;
+	background-color: #f8f8f8;
 }
 
 .vs-wrapper > section {
@@ -169,19 +171,15 @@ html, body, .vs-container {
 	background-repeat: no-repeat;
 }
 
-#section-1 { background-image: url(../images/cat1.png); }
-#section-2 { background-image: url(../images/cat2.png); }
-#section-3 { background-image: url(../images/cat3.png); }
-#section-4 { background-image: url(../images/cat4.png); }
-#section-5 { background-image: url(../images/cat5.png); }
-
 .vs-triplelayout .vs-wrapper > section {
 	position: absolute;
 	top: 0;
-	left: 10%;
+	/*left: 8%;*/
+	left: 0%;
 	visibility: hidden;
 	padding: 0 0 100px;
-	width: 80%;
+	/*width: 84%;*/
+	width: 100%;
 	-webkit-backface-visibility: hidden;
 }
 
@@ -199,11 +197,11 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-left {
-	left: -70%; /* 80 - 10 */
+	left: -100%; /* 8 - 84 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-left-outer {
-	left: -150%; /* - 70 - 80 */
+	left: -200%; /* - 76 - 84 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-current {
@@ -212,19 +210,19 @@ html, body, .vs-container {
 }
 
 .vs-triplelayout .vs-wrapper .vs-right {
-	left: 90%; /* 80 + 10 */
+	left: 100%; /* 84 + 8 */
 }
 
 .vs-triplelayout .vs-wrapper .vs-right-outer {
-	left: 170%; /* 90 + 80 */
+	left: 200%; /* 92 + 84 */
 }
 
 .vs-container.vs-move-left .vs-left,
 .vs-container.vs-move-left .vs-current,
 .vs-container.vs-move-left .vs-right,
 .vs-container.vs-move-left .vs-right-outer {
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
 	-webkit-transform: translate3d(-100%,0,0);
 	transform: translate3d(-100%,0,0);
 }
@@ -233,8 +231,8 @@ html, body, .vs-container {
 .vs-container.vs-move-right .vs-left-outer,
 .vs-container.vs-move-right .vs-current,
 .vs-container.vs-move-right .vs-right {
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
 	-webkit-transform: translate3d(100%,0,0);
 	transform: translate3d(100%,0,0);
 }
@@ -243,12 +241,13 @@ html, body, .vs-container {
 	position: fixed;
 	top: 0;
 	z-index: 500;
-	width: 10%;
+	width: 8%;
 	height: 100%;
 	background: rgba(0,0,0,0.3);
 	cursor: pointer;
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
+	display: none;
 }
 
 .vs-sidenav div:hover {
@@ -267,26 +266,23 @@ html, body, .vs-container {
 .vs-content {
 	position: relative;
 	margin: auto;
-	padding: 1em 0;
-	width: 95%;
+	padding: 20px 0 0;
+	width: 96%;
 	text-align: left;
-	font-size: 1.5em;
+	/*font-size: 1.5em;*/
 }
 
 .vs-content h2 {
 	position: relative;
-	margin: 30px 0 40px;
-	color: #893027;
-	font-weight: 700;
-	font-size: 3em;
+	color: #f28428;
 }
 
 .vs-content .col {
 	margin: 0 auto;
-	color: #893027;
+	/*color: #893027;*/
 	text-align: justify;
 	line-height: 1.4;
-	-webkit-column-width: 30%;
+	/*-webkit-column-width: 30%;
 	-moz-column-width: 30%;
 	column-width: 30%;
 	-webkit-column-count: 3;
@@ -294,7 +290,7 @@ html, body, .vs-container {
 	column-count: 3;
 	-webkit-column-gap: 1%;
 	-moz-column-gap: 1%;
-	column-gap: 1%;
+	column-gap: 1%;*/
 }
 
 .vs-content p {
@@ -314,25 +310,30 @@ html, body, .vs-container {
 		width: 85%;
 	}
 
-	.vs-content h2 {
+	/*.vs-content h2 {
 		font-size: 1.8em;
-	}
+	}*/
 
 	.vs-nav li a {
 		width: 160px;
 	}
 
 	.vs-content .col {
-		-webkit-column-width: 50%;
+		/*-webkit-column-width: 50%;
 		-moz-column-width: 50%;
 		column-width: 50%;
 		-webkit-column-count: 2;
 		-moz-column-count: 2;
-		column-count: 2;
+		column-count: 2;*/
 	}
 }
 
-@media screen and (max-width: 45.25em) {
+@media screen and (max-width: 767px) {
+
+	.vs-header{
+		padding: 30px 0 1em;
+		width: 95%;
+	}
 
 	.vs-container > header h1 {
 		margin-bottom: 0;
@@ -346,9 +347,14 @@ html, body, .vs-container {
 		font-size: 80%;
 	}
 
+	.vs-triplelayout .vs-nav{
+		height: 60px;
+	}
+
 	.vs-triplelayout .vs-nav li a {
 		width: auto;
-		font-size: 70%;
+		font-size: 100%;
+		padding: 10px 0;
 	}
 
 	.vs-wrapper > section {

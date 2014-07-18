@@ -12,17 +12,20 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     }
 
     ScreenFourController.prototype.initialize = function(opt) {
-      console.log(opt);
-      this._promises.push(App.store.getSingleUnit(opt.unit));
-      return this.wait();
+      var view;
+      this.unitModel = this._getSelelctedUnit();
+      this.view = view = this._getSelectedUnitView(this.unitModel);
+      return this.show(view);
     };
 
-    ScreenFourController.prototype.onComplete = function(model) {
-      var screenFourView;
-      screenFourView = new ScreenFourView({
-        model: model
+    ScreenFourController.prototype._getSelelctedUnit = function() {
+      return console.log("aaaaaaaaaaa");
+    };
+
+    ScreenFourController.prototype._getSelelctedUnit = function(unitModel) {
+      return new ScreenFourView({
+        model: unitModel
       });
-      return this.show(screenFourView);
     };
 
     return ScreenFourController;

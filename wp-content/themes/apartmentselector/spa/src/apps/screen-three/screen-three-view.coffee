@@ -31,11 +31,11 @@ define [ 'marionette' ], ( Marionette )->
         childViewContainer : '.grid-container'
 
         initialize:->
-            console.log @model.get 'units'
+
             @collection = @model.get 'units'
 
 
-    class ScreenThreeView extends Marionette.CompositeView
+    class ScreenThreeView extends Marionette.LayoutView
 
         childView : UnitTypeChildView
 

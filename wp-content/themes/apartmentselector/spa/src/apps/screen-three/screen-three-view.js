@@ -41,7 +41,6 @@ define(['marionette'], function(Marionette) {
     UnitTypeChildView.prototype.childViewContainer = '.grid-container';
 
     UnitTypeChildView.prototype.initialize = function() {
-      console.log(this.model.get('units'));
       return this.collection = this.model.get('units');
     };
 
@@ -59,5 +58,5 @@ define(['marionette'], function(Marionette) {
 
     return ScreenThreeView;
 
-  })(Marionette.CompositeView);
+  })(Marionette.LayoutView);
 });

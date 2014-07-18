@@ -3,7 +3,6 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
     class HeaderController extends Extm.RegionController
 
         initialize :(opt = {})->
-            @_promises.push App.store.getHeaderView opt
             @wait()
 
         onComplete :(model)->

@@ -4,11 +4,8 @@ jQuery(document).ready(function($) {
     var collections = [];
     //load unit variants
     $(document).on("change", "#unit_type", function(e) {
-
         $("#unit_variant").empty();
-
         $("#unit_variant").append(new Option("Select", ""));
-
         $.post(AJAXURL, {
             action: "get_unit_variants",
             unit_type: $("option:selected", $(e.target)).val()
@@ -24,49 +21,30 @@ jQuery(document).ready(function($) {
 //save apartment ajax call
     $(document).on("click", "#save_apartment", function(e) {
 
-        clearAlerts();
         var data, _e;
 
         var _e = e;
 
         data = $("#form_add_edit_apartment").serialize();
 
-        $(e.target).hide().parent().append("<div class='loading-animator'></div>")
-
-
         $.post(AJAXURL, data, function(response) {
 
-            if(response.error==false){
-
-                $('form').prepend('<div class="text-success">'+response.msg+'</div>')
-
-                $('form').find("input[type=text], textarea ,select").val("");
-
-            }else{
-
-                $('form').prepend('<div class="text-error">'+response.msg+'</div>')
-
-            }
-
-            $(".loading-animator").remove();
-            $(_e.target).show() ;
+             console.log(response)
         });
     });
-
     if($('.tablesorter').length){
 
         _collections = collections
         $.post(AJAXURL, {
             action: "get_list_view",
-            list: "units", //the list required
-            masters:["unit_status", "unit_types", "unit_variants","buildings"] //the masters required for the list
+            list: "units",
+            masters:["unit_status", "unit_types", "unit_variants","buildings"]
         }, function(response) {
 
             _collections.list = response.list
 
             _collections.masters = response.masters
 
-            //load the list view with rows
             loadListContents();
 
 
@@ -75,18 +53,14 @@ jQuery(document).ready(function($) {
 
     function loadListContents(){
         $(".tablesorter tbody").empty();
-
-        floors =  _.pluck(collections.list, 'floor');
-
-
         _.each(collections.list, function(listItems,listItemsValue){
-            //add the row items
-            $(".tablesorter tbody").append("<tr class='edit-link' data-id='"+listItems.id+"'>" +
+
+            $(".tablesorter tbody").append("<tr>" +
                 "<td>"+listItems.name+"</td>" +
-                 "<td>"+getDisplayText(listItems.status,collections.masters["unit_status"],"name")+"</td>" +
-                "<td>"+getDisplayText(listItems.unit_type,collections.masters["unit_types"],"name")+"</td>" +
-                 "<td>"+getDisplayText(listItems.unit_variant,collections.masters["unit_variants"],"name")+"</td>" +
-                 "<td>"+getDisplayText(listItems.building,collections.masters["buildings"],"name")+"</td>" +
+                 "<td>"+getDisplayText(listItems.status,"unit_status","name")+"</td>" +
+                "<td>"+getDisplayText(listItems.unit_type,"unit_types","name")+"</td>" +
+                 "<td>"+getDisplayText(listItems.unit_variant,"unit_variants","name")+"</td>" +
+                 "<td>"+getDisplayText(listItems.building,"buildings","name")+"</td>" +
                 "<td>"+listItems.floor+"</td>" +
                 "</tr>")
         })
@@ -115,7 +89,7 @@ jQuery(document).ready(function($) {
                                 delayed : false,
                                 valueToHeader : false,
                                 // jQuery UI slider options
-                                values : [1, Math.max.apply(Math, floors)],
+                                values : [1, 12],
                                 min : 1,
                                 max : 12
                             });
@@ -132,11 +106,11 @@ jQuery(document).ready(function($) {
 
     }
 
+    function getDisplayText(itemId,collectionName,field){
 
+        item_found =  _.findWhere(collections.masters[collectionName], {id: itemId})
 
-    $(document).on("click", ".edit-link", function(e) {
-
-        window.location.href = SITEURL + "/add-edit-apartment/?id="+$(e.target).parent().attr('data-id');
-    });
+        return item_found==undefined ?'':item_found[field];
+    }
 
 });
