@@ -18,7 +18,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       console.log("wwwwwwwwwwww");
       this.unitTypeCollection = this._getUnitTypeCollection();
       this.view = view = this._getUnitTypesView(this.unitTypeCollection);
-      this.listenTo(view, "childview:unit:type:clicked", this._unitTypeClicked);
+      this.listenTo(view, "unit:type:clicked", this._unitTypeClicked);
       return this.show(view);
     };
 
@@ -28,7 +28,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       });
     };
 
-    ScreenOneController.prototype._unitTypeClicked = function(childview) {
+    ScreenOneController.prototype._unitTypeClicked = function() {
       console.log("wwwwwwwwwwww");
       return App.navigate("screen-two", {
         trigger: true
@@ -36,15 +36,18 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype._getUnitTypeCollection = function() {
-      var Model, UnitsCollection, collection, modelArray, units;
+      var Model, UnitsCollection, collection, modelArray, status, units;
       Model = Backbone.Model.extend({});
       UnitsCollection = Backbone.Collection.extend({
         model: Model
       });
       modelArray = Array();
       collection = new UnitsCollection();
+      status = App.currentStore.status.findWhere({
+        'name': 'Available'
+      });
       units = App.currentStore.unit.where({
-        'status': 'Available'
+        'status': status.get('id')
       });
       $.each(units, function(index, value) {
         var NewUnitCollection, max_coll, max_val, min_val, unitTypemodel;

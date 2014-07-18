@@ -21,9 +21,9 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
       evt.preventDefault();
-      this.trigger('unit:type:clicked');
       App.defaults['unitType'] = this.model.get('id');
-      return console.log(App.defaults);
+      console.log($('#budgetvalue').text());
+      return $("#finalButton").removeClass('disabled');
     };
 
     return UnitTypeView;
@@ -36,7 +36,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="grid-container"></div>';
+    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><div class="budgetSelect" id="budgetvalue"> <div class="budget">undecided</div> <div class="budget">25-35 lakhs</div> <div class="budget">35-45 lakhs</div> <div class="budget">45-55 lakhs</div> </div><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -44,8 +44,19 @@ define(['marionette'], function(Marionette) {
 
     ScreenOneView.prototype.childViewContainer = '.grid-container';
 
-    ScreenOneView.prototype.initialize = function() {
-      return console.log(this.collection);
+    ScreenOneView.prototype.events = {
+      'click #finalButton': function(e) {
+        return this.trigger('unit:type:clicked');
+      }
+    };
+
+    ScreenOneView.prototype.onShow = function() {
+      $('.budgetSelect').slick({
+        infinite: false
+      });
+      return $(".grid-link").click(function() {
+        return $(this).toggleClass("selected");
+      });
     };
 
     return ScreenOneView;

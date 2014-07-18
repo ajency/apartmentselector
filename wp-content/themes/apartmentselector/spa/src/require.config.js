@@ -20,7 +20,8 @@ requirejs.config({
     bootstraptour: 'src/bower_components/bootstrap-tour/build/js/bootstrap-tour.js',
     underscorestring: 'src/bower_components/underscore.string/lib/underscore.string',
     extm: 'src/bower_components/extm/lib/extm.amd',
-    preload: 'src/bower_components/preload/jquery.preload'
+    preload: 'src/bower_components/preload/jquery.preload',
+    slick: 'src/bower_components/bower_components/slick.js/slick/slick.min'
   },
   shim: {
     jquery: ['underscore'],
@@ -40,6 +41,7 @@ requirejs.config({
       deps: ['jquery'],
       exports: 'plupload'
     },
-    preload: ['jquery']
+    preload: ['jquery'],
+    slick: ['jquery']
   }
 });

@@ -9,7 +9,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
             @view = view = @_getUnitTypesView @unitTypeCollection
 
-            @listenTo view, "childview:unit:type:clicked", @_unitTypeClicked
+            @listenTo view, "unit:type:clicked", @_unitTypeClicked
 
             @show view
 
@@ -18,7 +18,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
                 collection :unitTypeCollection
 
 
-        _unitTypeClicked:(childview)=>
+        _unitTypeClicked:=>
             console.log "wwwwwwwwwwww"
             App.navigate "screen-two" , trigger:true
 
@@ -35,7 +35,8 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             )
             modelArray = Array()
             collection = new UnitsCollection()
-            units = App.currentStore.unit.where({'status':'Available'})
+            status = App.currentStore.status.findWhere({'name':'Available'})
+            units = App.currentStore.unit.where({'status':status.get('id')})
             $.each(units , (index,value)->
                 unitTypemodel = App.currentStore.unit_type.findWhere({'id':value.get 'unitType'})
                 NewUnitCollection = App.currentStore.unit.where({ unitType : unitTypemodel.get( 'id' ) } )

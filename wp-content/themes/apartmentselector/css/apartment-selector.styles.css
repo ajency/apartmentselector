@@ -1,9 +1,9 @@
 @import '../spa/src/bower_components/spin/stylesheets/jquery.spin.css';
 @import 'bootstrap.min.css';
 @import 'style.css';
+@import 'slick.css';
 @import 'frontend.css';
-@import 'normalize.css';
-@import 'demo.css';
+@import 'custom.css';
 @import 'component.css';
 
 

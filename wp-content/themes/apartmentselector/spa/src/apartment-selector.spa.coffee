@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['preload'], ->
+define 'plugin-loader', ['slick'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -20,15 +20,13 @@ require [ 'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/buildings'
           'spec/javascripts/fixtures/json/unitvariants'
           'spec/javascripts/fixtures/json/unittypes'
-          'spec/javascripts/fixtures/json/lowrange'
-          'spec/javascripts/fixtures/json/mediumrange'
-          'spec/javascripts/fixtures/json/highrange'
           'spec/javascripts/fixtures/json/range'
+          'spec/javascripts/fixtures/json/status'
           'plugin-loader'
           'extm'
           'src/classes/ap-store'
           'src/apps/router'
-          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes,low,medium,high,range, plugins, Extm )->
+          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes,range,status, plugins, Extm )->
 
     # global application object
     window.App = new Extm.Application
@@ -40,17 +38,14 @@ require [ 'spec/javascripts/fixtures/json/units'
         filterRegion : '#filter-region'
         mainRegion : '#main-region'
 
-
     App.store =
         'unit' : new Backbone.Collection units
         'view' : new Backbone.Collection  views
         'building' : new Backbone.Collection  buildings
         'unit_variant' : new Backbone.Collection  unitvariants
         'unit_type' : new Backbone.Collection  unittypes
-        'low' : new Backbone.Collection  low
-        'medium':  new Backbone.Collection  medium
-        'high': new Backbone.Collection  high
         'range': new Backbone.Collection  range
+        'status': new Backbone.Collection  status
 
     App.currentStore = App.store
 
@@ -187,7 +182,7 @@ require [ 'spec/javascripts/fixtures/json/units'
 
     # load static apps
     staticApps = [
-        [ 'footer', App.footerRegion ]
+
     ]
 
     if window.location.hash is ''

@@ -2,96 +2,96 @@ define ->
     [
         (
             id : 1,
-            name : "UnitVariant1",
-            carpetarea : 1,
-            sellablearea : "200"
+            name : "1009",
+            carpetarea : 689,
+            terracearea : 87,
+            sellablearea : "1009"
 
-        )
+        ),
         (
             id : 2,
-            name : "UnitVariant2",
-            carpetarea : 1,
-            sellablearea : "400"
+            name : "1589",
+            carpetarea : 1084,
+            terracearea : 138,
+            sellablearea : "1589"
 
         )
-
+    ,
         (
             id : 3,
-            name : "UnitVariant3",
-            carpetarea : 1,
-            sellablearea : "100"
+            name : "975",
+            carpetarea : 686,
+            terracearea : 64,
+            sellablearea : "64"
 
         )
-
+    ,
         (
             id : 4,
-            name : "UnitVariant4",
-            carpetarea : 1,
-            sellablearea : "500"
+            name : "1593",
+            carpetarea : 1084,
+            terracearea : 141,
+            sellablearea : "1593"
 
         )
+    ,
 
         (
             id : 5,
-            name : "UnitVariant5",
-            carpetarea : 1,
-            sellablearea : "300"
+            name : "1035",
+            carpetarea : 684,
+            terracearea : 112,
+            sellablearea : "1035"
 
         )
+    ,
 
         (
             id : 6,
-            name : "UnitVariant6",
-            carpetarea : 1,
-            sellablearea : "600"
+            name : "1006",
+            carpetarea : 677,
+            terracearea : 97,
+            sellablearea : "1006"
 
         )
+    ,
 
         (
             id : 7,
-            name : "UnitVariant7",
-            carpetarea : 1,
-            sellablearea : "700"
+            name : "1165",
+            carpetarea : 781,
+            terracearea : 115,
+            sellablearea : "1165"
 
         )
+    ,
 
         (
             id : 8,
-            name : "UnitVariant8",
-            carpetarea : 1,
-            sellablearea : "250"
+            name : "1145",
+            carpetarea : 766,
+            terracearea : 115,
+            sellablearea : "1145"
 
         )
+    ,
 
         (
             id : 9,
-            name : "UnitVariant9",
-            carpetarea : 1,
-            sellablearea : "450"
+            name : "1113",
+            carpetarea : 777,
+            terracearea : 79,
+            sellablearea : "1113"
 
         )
+    ,
 
         (
             id : 10,
-            name : "UnitVariant10",
-            carpetarea : 1,
-            sellablearea : "750"
-
-        )
-
-        (
-            id : 11,
-            name : "UnitVariant11",
-            carpetarea : 1,
-            sellablearea : "400"
-
-        )
-
-        (
-            id : 12,
-            name : "UnitVariant12",
-            carpetarea : 1,
-            sellablearea : "400"
+            name : "1093",
+            carpetarea : 762,
+            terracearea : 79,
+            sellablearea : "1093"
 
         )
     ]

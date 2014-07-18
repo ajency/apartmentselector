@@ -2,15 +2,14 @@
 define(function() {
   return [
     {
-      id: 6
+      id: 1,
+      name: "Available"
     }, {
-      id: 7
+      id: 2,
+      name: "Sold"
     }, {
-      id: 8
-    }, {
-      id: 9
-    }, {
-      id: 10
+      id: 3,
+      name: "Booked"
     }
   ];
 });
