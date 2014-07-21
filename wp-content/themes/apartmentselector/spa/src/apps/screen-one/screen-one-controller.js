@@ -9,28 +9,72 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     __extends(ScreenOneController, _super);
 
     function ScreenOneController() {
-      this.unitTypeClicked = __bind(this.unitTypeClicked, this);
+      this._unitTypeClicked = __bind(this._unitTypeClicked, this);
       return ScreenOneController.__super__.constructor.apply(this, arguments);
     }
 
     ScreenOneController.prototype.initialize = function() {
-      this._promises.push(App.store.getUnitTypes());
-      return this.wait();
+      var view;
+      console.log("wwwwwwwwwwww");
+      this.unitTypeCollection = this._getUnitTypeCollection();
+      this.view = view = this._getUnitTypesView(this.unitTypeCollection);
+      this.listenTo(view, "unit:type:clicked", this._unitTypeClicked);
+      return this.show(view);
     };
 
-    ScreenOneController.prototype.onComplete = function(unitTypesCollection) {
-      var screenOneView;
-      screenOneView = new ScreenOneView({
-        collection: unitTypesCollection
+    ScreenOneController.prototype._getUnitTypesView = function(unitTypeCollection) {
+      return new ScreenOneView({
+        collection: unitTypeCollection
       });
-      this.listenTo(screenOneView, 'childview:unit:type:clicked', this.unitTypeClicked);
-      return this.show(screenOneView);
     };
 
-    ScreenOneController.prototype.unitTypeClicked = function(childView, unitTypeId, budget) {
-      return App.navigate("#screen-two/unittype/" + unitTypeId + "/budget/" + budget, {
+    ScreenOneController.prototype._unitTypeClicked = function() {
+      console.log("wwwwwwwwwwww");
+      return App.navigate("screen-two", {
         trigger: true
       });
+    };
+
+    ScreenOneController.prototype._getUnitTypeCollection = function() {
+      var Model, UnitsCollection, collection, modelArray, status, units;
+      Model = Backbone.Model.extend({});
+      UnitsCollection = Backbone.Collection.extend({
+        model: Model
+      });
+      modelArray = Array();
+      collection = new UnitsCollection();
+      status = App.currentStore.status.findWhere({
+        'name': 'Available'
+      });
+      units = App.currentStore.unit.where({
+        'status': status.get('id')
+      });
+      $.each(units, function(index, value) {
+        var NewUnitCollection, max_coll, max_val, min_val, unitTypemodel;
+        unitTypemodel = App.currentStore.unit_type.findWhere({
+          'id': value.get('unitType')
+        });
+        NewUnitCollection = App.currentStore.unit.where({
+          unitType: unitTypemodel.get('id')
+        });
+        max_coll = Array();
+        $.each(NewUnitCollection, function(index, value) {
+          var Variant;
+          Variant = App.currentStore.unit_variant.findWhere({
+            'id': value.get('unitVariant')
+          });
+          return max_coll.push(Variant.get('sellablearea'));
+        });
+        max_val = Math.max.apply(Math, max_coll);
+        min_val = Math.min.apply(Math, max_coll);
+        unitTypemodel.set({
+          'max_value': max_val,
+          'min_value': min_val
+        });
+        return modelArray.push(unitTypemodel);
+      });
+      collection.add(modelArray);
+      return collection;
     };
 
     return ScreenOneController;

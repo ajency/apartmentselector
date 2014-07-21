@@ -82,9 +82,6 @@ if ( is_development_environment() ) {
 
     function apartmentselector_dev_enqueue_scripts() {
 
-        if(check_backend_template())
-            return;
-
         // TODO: handle with better logic to define patterns and folder names
         $module = get_module_name();
 
@@ -125,9 +122,6 @@ if ( is_development_environment() ) {
 
     function apartmentselector_dev_enqueue_styles() {
 
-        if(check_backend_template())
-            return;
-
         $module = get_module_name();
 
         wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css" );
@@ -140,12 +134,8 @@ if ( is_development_environment() ) {
 if (! is_development_environment() ) {
 
     function apartmentselector_production_enqueue_script() {
- 
 
-        if(check_backend_template())
-            return;
-
-        $module = get_module_name(); 
+       $module = get_module_name();
 
         if ( is_single_page_app( $module ) )
 
@@ -168,10 +158,6 @@ if (! is_development_environment() ) {
     add_action( 'wp_enqueue_scripts', 'apartmentselector_production_enqueue_script' );
 
     function apartmentselector_production_enqueue_styles() {
-
-
-        if(check_backend_template())
-            return;
 
         $module = get_module_name();
 

@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-<meta charset="utf-8" />
-<title>Book Apartment - Step 2</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-<!-- <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/> -->
-<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,400italic' rel='stylesheet' type='text/css'>
-<!-- END PLUGIN CSS -->
-<!-- BEGIN CORE CSS FRAMEWORK -->
-<link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
-<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<meta charset="utf-8" />
+	<title>Book Apartment - Step 3</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/> -->
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,400italic' rel='stylesheet' type='text/css'>
+	<!-- END PLUGIN CSS -->
+	<!-- BEGIN CORE CSS FRAMEWORK -->
+	<link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 
-<!-- END CORE CSS FRAMEWORK -->
-<!-- BEGIN CSS TEMPLATE -->
-<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
-<!-- <link href="assets/css/fullscreen/jquery.jscrollpane.css" rel="stylesheet" type="text/css"/> -->
-<link rel="stylesheet" type="text/css" href="assets/css/triplelayout/component.css" />
-<link href="assets/css/remodal/jquery.remodal.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
-<link href="assets/css/frontend.css" rel="stylesheet" type="text/css"/>
-<!-- END CSS TEMPLATE -->
-<script src="assets/js/triplelayout/modernizr.custom.js"></script>
+	<!-- END CORE CSS FRAMEWORK -->
+	<!-- BEGIN CSS TEMPLATE -->
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+	<!-- <link href="assets/css/fullscreen/jquery.jscrollpane.css" rel="stylesheet" type="text/css"/> -->
+	<link rel="stylesheet" type="text/css" href="assets/css/animate.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/triplelayout/component.css" />
+	<link href="assets/css/remodal/jquery.remodal.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
+	<link href="assets/css/frontend.css" rel="stylesheet" type="text/css"/>
+	<!-- END CSS TEMPLATE -->
+	<script src="assets/js/triplelayout/modernizr.custom.js"></script>
 </head>
 <!-- END HEAD -->
 
@@ -35,11 +36,11 @@
 	<!-- BEGIN HEADER -->
 	<div class="header navbar navbar-inverse ">
 		<div class="backBtn">
-			<a href="step1.html" class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
+			<a href="step2.html" class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
 		</div>
 		
 		<div class="text-center">
-			<h3 class="text-white">1BHK</h3>
+			<h3 class="text-white">Highrise > Tower A</h3>
 		</div>
 	</div>
 	<!-- END HEADER -->
@@ -48,101 +49,927 @@
 
 	<div class="page-container row-fluid">
 		
-		<h3 class="text-center introTxt m-b-10">We have <span class="bold">100 options</span> for 1BHK <br><small>Just select your floors to get started</small></h3>
+		<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3>
 
-		<div class="legend text-center m-b-20">
-			<span class="oneBHK">.</span>1BHK <span class="twoBHK m-l-20">.</span>2BHK
-		</div>
-
-		<div class="towerTable">
-			<div class="tableHeader">
-				<ul>
-					<li><a href="#modal"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
-					<li><a href="#modal"><span class="bold">MIDRISE</span><br>15-11 Floors</a></li>
-					<li><a href="#modal"><span class="bold">LOWRISE</span><br>15-11 Floors</a></li>
+		<div id="vs-container" class="vs-container">
+			<header class="vs-header">
+				<ul class="vs-nav">
+					<li><a href="#towerA">TOWER A</a></li>
+					<li><a href="#towerB">TOWER B</a></li>
+					<li><a href="#towerC">TOWER C</a></li>
 				</ul>
-			</div>
-			<div class="tableBody">
-				<div id="vs-container2" class="vs-container">
-					<header class="vs-header">
-						<ul class="vs-nav">
-							<li><a href="#tower1">Tower 1</a></li>
-							<li><a href="#tower2">Tower 2</a></li>
-							<li><a href="#tower3">Tower 3</a></li>
-							<li><a href="#tower4">Tower 4</a></li>
-							<li><a href="#tower5">Tower 5</a></li>
-						</ul>
-					</header>
-					<div class="vs-wrapper">
-						<section id="tower1">
-							<div class="vs-content">
-								<div class="text-center">
-										<div class="flatNos twoBHK">05</div>
-								</div>
-								<div class="text-center">
-										<div class="flatNos blank">.</div>
-								</div>
-								<div class="text-center">
-										<div class="flatNos oneBHK">05</div>
-								</div>
-							</div>
-						</section>
-						<section id="tower2">
-							<div class="vs-content">
-								<div class="text-center">
-									<div class="flatNos blank">.</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos twoBHK">06</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos twoBHK">06</div>
-								</div>
-							</div>
-						</section>
-						<section id="tower3">
-							<div class="vs-content">
-								<div class="text-center">
-									<div class="flatNos twoBHK">07</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos oneBHK">07</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos blank">.</div>
-								</div>
-							</div>
-						</section>
-						<section id="tower4">
-							<div class="vs-content">
-								<div class="text-center">
-									<div class="flatNos blank">.</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos twoBHK">08</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos oneBHK">08</div>
-								</div>
-							</div>
-						</section>
-						<section id="tower5">
-							<div class="vs-content">
-								<div class="text-center">
-									<div class="flatNos oneBHK">09</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos blank">.</div>
-								</div>
-								<div class="text-center">
-									<div class="flatNos twoBHK">09</div>
-								</div>
-							</div>
-						</section>
+			</header>
+			<div class="vs-wrapper">
+				<section id="towerA">
+					<div class="vs-content">
+						<div id="cd-table" class="unitTable">
+							<header class="cd-table-column">
+								<ul>
+									<li>
+										Floor 15
+										<small>95 per sqft</small>
+									</li>
+									<li>
+										Floor 14
+										<small>85 per sqft</small>
+									</li>
+									<li>
+										Floor 13
+										<small>75 per sqft</small>
+									</li>
+									<li>
+										Floor 12
+										<small>65 per sqft</small>
+									</li>
+									<li>
+										Floor 11
+										<small>55 per sqft</small>
+									</li>
+								</ul>
+							</header>
+
+							<div class="cd-table-container">
+								<div class="cd-table-wrapper">
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FA10
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FA30
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA50
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FA22
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA42
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA52
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FA13
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA23
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA43
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FA14
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA24
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA54
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FA15
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA25
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA35
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FA16
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA36
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FA46
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FA17
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA27
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA57
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FA28
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FA38
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FA48
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+								</div> <!-- cd-table-wrapper -->
+							</div> <!-- cd-table-container -->
+
+							<em class="cd-scroll-right"></em>
+						</div> <!-- cd-table -->
 					</div>
-				</div>
+				</section>
+				<section id="towerB">
+					<div class="vs-content">
+						<div id="cd-table" class="unitTable">
+							<header class="cd-table-column">
+								<ul>
+									<li>
+										Floor 15
+										<small>95 per sqft</small>
+									</li>
+									<li>
+										Floor 14
+										<small>85 per sqft</small>
+									</li>
+									<li>
+										Floor 13
+										<small>75 per sqft</small>
+									</li>
+									<li>
+										Floor 12
+										<small>65 per sqft</small>
+									</li>
+									<li>
+										Floor 11
+										<small>55 per sqft</small>
+									</li>
+								</ul>
+							</header>
+
+							<div class="cd-table-container">
+								<div class="cd-table-wrapper">
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FB10
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FB30
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB50
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FB22
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB42
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB52
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FB13
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB23
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB43
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FB14
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB24
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB54
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FB15
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB25
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB35
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FB16
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB36
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FB46
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FB17
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB27
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB57
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FB28
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FB38
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FB48
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+								</div> <!-- cd-table-wrapper -->
+							</div> <!-- cd-table-container -->
+
+							<em class="cd-scroll-right"></em>
+						</div> <!-- cd-table -->
+					</div>
+				</section>
+				<section id="towerC">
+					<div class="vs-content">
+						<div id="cd-table" class="unitTable">
+							<header class="cd-table-column">
+								<ul>
+									<li>
+										Floor 15
+										<small>95 per sqft</small>
+									</li>
+									<li>
+										Floor 14
+										<small>85 per sqft</small>
+									</li>
+									<li>
+										Floor 13
+										<small>75 per sqft</small>
+									</li>
+									<li>
+										Floor 12
+										<small>65 per sqft</small>
+									</li>
+									<li>
+										Floor 11
+										<small>55 per sqft</small>
+									</li>
+								</ul>
+							</header>
+
+							<div class="cd-table-container">
+								<div class="cd-table-wrapper">
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FC10
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FC30
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC50
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FC22
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC42
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC52
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FC13
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC23
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC43
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FC14
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC24
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC54
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box sold">
+													FC15
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC25
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC35
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FC16
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC36
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FC46
+													<div class="small sold">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box filtered">
+													FC17
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC27
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC57
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+									<div class="cd-table-column">
+										<ul>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FC28
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box filtered">
+													FC38
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box sold">
+													FC48
+													<div class="small">1BHK 640 SQF</div>
+												</div>
+											</li>
+											<li>
+												<div class="box other">
+													2BHK
+												</div>
+											</li>
+										</ul>
+									</div> <!-- cd-table-column -->
+
+								</div> <!-- cd-table-wrapper -->
+							</div> <!-- cd-table-container -->
+
+							<em class="cd-scroll-right"></em>
+						</div> <!-- cd-table -->
+					</div>
+				</section>
 			</div>
 		</div>
+
+
 
 		<!-- <div class="grid-container">
 		  	<div class="grid-block-1">
@@ -170,138 +997,6 @@
 
 	</div>
 	<!-- END CONTAINER -->
-	<div class="remodal" data-remodal-id="modal">
-		<div class="header navbar navbar-inverse ">
-			<!-- <div class="backBtn">
-				<a href="#" class="text-white remodal-close"><span class="glyphicon glyphicon-chevron-left "></span></a>
-			</div> -->
-			<div class="m-t-15">
-				<h4 class="text-white">WHAT IS THE FLOOR RISE?</h4>
-			</div>
-		</div>
-		<div id="vs-container" class="vs-container">
-			<header class="vs-header">
-				<ul class="vs-nav">
-					<li><a href="#section-1">HIGHRISE</a></li>
-					<li><a href="#section-2">MIDRISE</a></li>
-					<li><a href="#section-3">LOWRISE</a></li>
-				</ul>
-			</header>
-			<div class="vs-wrapper">
-				<section id="section-1">
-					<div class="vs-content">
-						<div class="row">
-							<div class="col-sm-4">
-								<img src="assets/img/floor-rise.jpg" class="img-responsive">
-							</div>
-							<div class="col-sm-8">
-								<div class="row">
-									<div class="col-xs-4">
-										<h1><small>Total 1BHK</small><br>55</h1>
-									</div>
-									<div class="col-xs-4">
-										<h1><small>Total 2BHK</small><br>30</h1>
-									</div>
-									<div class="col-xs-4">
-										<h1><small>Total 3BHK</small><br>30</h1>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-4">
-									</div>
-									<div class="col-sm-4">
-									</div>
-									<div class="col-sm-4">
-									</div>
-								</div>
-								<div class="col">
-									<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section id="section-2">
-					<div class="vs-content">
-						<div class="row">
-							<div class="col-sm-4">
-								<img src="assets/img/floor-rise.jpg" class="img-responsive">
-							</div>
-							<div class="col-sm-8">
-								<div class="row">
-									<div class="col-xs-4">
-										<h1><small>Total 1BHK</small><br>25</h1>
-									</div>
-									<div class="col-xs-4">
-										<h1><small>Total 2BHK</small><br>25</h1>
-									</div>
-									<div class="col-xs-4">
-										<h1><small>Total 3BHK</small><br>10</h1>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-4">
-									</div>
-									<div class="col-sm-4">
-									</div>
-									<div class="col-sm-4">
-									</div>
-								</div>
-								<div class="col">
-									<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section id="section-3">
-					<div class="vs-content">
-						<div class="row">
-							<div class="col-sm-4">
-								<img src="assets/img/floor-rise.jpg" class="img-responsive">
-							</div>
-							<div class="col-sm-8">
-								<div class="row">
-									<div class="col-xs-4">
-										<h1><small>Total 1BHK</small><br>10</h1>
-									</div>
-									<div class="col-xs-4">
-										<h1><small>Total 2BHK</small><br>20</h1>
-									</div>
-									<div class="col-xs-4">
-										<h1><small>Total 3BHK</small><br>50</h1>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-4">
-									</div>
-									<div class="col-sm-4">
-									</div>
-									<div class="col-sm-4">
-									</div>
-								</div>
-								<div class="col">
-									<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div><!-- /vs-container -->
-	</div>
 
 	<!-- BEGIN FOOTER -->
 	<div class="footer"> 
@@ -329,9 +1024,52 @@
 <script src="assets/js/triplelayout/classie.js"></script>
 <script src="assets/js/triplelayout/hammer.min.js"></script>
 <script src="assets/js/triplelayout/main.js"></script>
-<script src="assets/js/triplelayout/main2.js"></script>
+<!-- <script src="assets/js/triplelayout/main2.js"></script> -->
 
 <script src="assets/js/remodal/jquery.remodal.js"></script>
+
+<script type="text/javascript">
+	// $( ".box.filtered" ).click(function() {
+	// 	$( this ).toggleClass( "selected" );
+	// });
+
+	$('.box.filtered').click(function(){
+	  window.location = 'step4.html';
+	});
+
+	jQuery(document).ready(function($){
+		var $columns_number = $('.unitTable .cd-table-container').find('.cd-table-column').length;
+		
+		$('.cd-table-container').on('scroll', function(){ 
+			$this = $(this);
+			//hide the arrow on scrolling
+			// if( $this.scrollLeft() > 0 ) {
+			// 	$('.cd-scroll-right').hide();
+			// }
+			//remove color gradient when table has scrolled to the end
+			var total_table_width = parseInt($('.cd-table-wrapper').css('width').replace('px', '')),
+				table_viewport = parseInt($('.unitTable').css('width').replace('px', ''));
+				
+			if( $this.scrollLeft() >= total_table_width - table_viewport - $columns_number) {
+				$('.unitTable').addClass('table-end');
+				$('.cd-scroll-right').hide();
+			} else {
+				$('.unitTable').removeClass('table-end');
+				$('.cd-scroll-right').show();
+			}
+		});
+
+		//scroll the table (scroll value equal to column width) when clicking on the .cd-scroll-right arrow
+	 	$('.cd-scroll-right').on('click', function(){
+	 		$this= $(this);
+	 		var column_width = $(this).siblings('.cd-table-container').find('.cd-table-column').eq(0).css('width').replace('px', ''),
+	 			new_left_scroll = parseInt($('.cd-table-container').scrollLeft()) + parseInt(column_width);
+	 		
+	 		$('.cd-table-container').animate( {scrollLeft: new_left_scroll}, 200 );
+	 		// $this.hide();
+	 	});
+	});
+</script>
 
 </body>
 </html>

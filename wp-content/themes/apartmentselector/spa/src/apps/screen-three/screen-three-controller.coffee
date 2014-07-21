@@ -3,20 +3,50 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
     # Screen three controller
     class ScreenThreeController extends Extm.RegionController
 
-        initialize :(opt)->
-            @_promises.push App.store.getAllUnits(opt.buildingid,opt.unittypeid,opt.range)
-            @wait()
+        initialize :()->
+            @unitsCollection = @_getUnits()
 
-        onComplete :(unitCollection)->
-            console.log "aaaaaaaaaaaaaaaaaaa"
-            screenThreeView = new ScreenThreeView
-                collection : unitCollection
+            @view = view = @_getUnitsView @unitsCollection
 
 
-            @listenTo screenThreeView,'childview:childview:main:unit:clicked' , @mainUnitSelected
+
+            @show view
+
+        _getUnitsView:(unitsCollection)->
+            new ScreenThreeView
+                collection :unitsCollection
+
+        _getUnits:->
+            unitCollection = App.currentStore.unit
+            floorCollection = App.currentStore.unit.pluck('floor')
+            uniqueFloors = _.uniq(floorCollection)
+
+            floorArray = Array()
+            $.each(uniqueFloors, (index,value)->
+                unitArray = Array()
+                unitCollection.each (item)->
+                    if parseInt(value) == parseInt(item.get('floor'))
+                        variantModel = App.currentStore.unit_variant.findWhere({id:item.get('unitVariant')} )
+                        item.set 'variantModel',variantModel.get 'sellablearea'
+                        viewModel = App.currentStore.view.findWhere({id:item.get('view')} )
+                        item.set 'view_name',viewModel.get 'name'
+                        unitArray.push(item)
 
 
-            @show screenThreeView
+
+
+                collection = new Backbone.Collection(unitArray)
+                floorArray.push({floorid:value,units:collection})
+
+
+
+
+            )
+            unitcollection = new Backbone.Collection(floorArray)
+            unitcollection
+
+
+
 
 
         mainUnitSelected:(childview,childview1,unit,unittypeid,range,size)=>

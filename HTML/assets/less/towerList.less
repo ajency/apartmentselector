@@ -1,15 +1,27 @@
+.flatNos{
+	padding: 8px 15px 15px;
+	height: 55px;
+	width: 110px;
+	margin: 0 0 10px auto;
+	background-color: lighten(@color-grey, 45%);
+	border: 1px solid lighten(@color-grey, 30%);
+	font-size: 20px;
+	font-weight: 600;
+	position: relative;
+	cursor: pointer;
+}
 
 .towerTable{
 	position:relative;
-	width: 90%;
+	width: 100%;
 	max-width: 700px;
 	margin: auto;
 
 	.tableHeader{
-		width: 100px;
+		width: 124px;
 		position: absolute;
 		left: 24%;
-		top: 75px;
+		top: 70px;
 		z-index: 999;
 		// background-color: lighten(@color-grey, 37%);
 		// border: 1px solid lighten(@color-grey, 30%);
@@ -18,27 +30,46 @@
 			list-style-type: none;
 			padding: 0;
 			li{
-				height: 80px;				
+				height: 56px;
+				margin-bottom: 25px;
+				padding-top: 5px;
 				cursor: pointer;
+				background-color: lighten(@color-grey, 39%);
+				span{
+					text-decoration: underline;
+				}
 				a{
 					color: @color-grey;
 				}
 			}
-		} 
+		}
+	}
+	@media(max-width:480px){
+		.tableHeader{
+			left: 0;
+			width: 48%;
+			ul > li{
+				padding-left: 20%;
+			}
+		}
 	}
 
 	.tableBody{
 		.vs-header{
-			padding: 0 5px 1em;
+			padding: 0 0 15px;
 			.vs-nav{
 				height: 35px;
-				li a{
-					font-size: 12px;
-					padding: 0 0 5px;
-					border-top: 0;
-				}
+				li{
+					padding: 0;
+					a{
+						font-size: 12px;
+						padding: 0 0 5px;
+						border-top: 0;
+
+					}
+				} 
 				li.vs-nav-current a{
-					font-size: 22px;
+					font-size: 18px;
 				}
 			}
 		}
@@ -59,64 +90,138 @@
 					margin-bottom: 15px;
 					border-bottom: 1px solid lighten(@color-grey, 30%) ;
 				}
-
-				.flatNos{
-					padding: 8px 15px 15px;
-					height: 55px;
-					width: 90px;
-					margin: 0 0 10px auto;
-					background-color: lighten(@color-grey, 45%);
-					border: 1px solid lighten(@color-grey, 30%);
-					font-size: 20px;
-					font-weight: 600;
-					position: relative;
-					&.oneBHK, &.twoBHK{
-						&:after{
-							position: absolute;
-				    		bottom: -8px;
-				    		right: 40px;
-				    		font-size: 40px;
-				    		content: '.';
-				    		color: @color-primary;
-						}
-					}
-					&.twoBHK{
-						&:after{
-							color: @color-warning;
-						}
-					}
-					&.blank{
-						font-size: 40px;
-						line-height: 16px;
-					}
-				}
 			}
 	        .vs-left {
 	            left: -40%;
+	            
+	            .towerDetails{
+	            	.easeOut;
+	            	display: none;
+	            }
 	        }
 	        .vs-left-outer {
-	            left: -120%;
+	            left: -100%;
+	            .towerDetails{
+	            	display: none;
+	            }
 	        }
 	        .vs-current {
 	            position: relative;
 	            z-index: 100;
+	            .towerDetails{
+	            	.easeIn;
+	            }	            
 	        }
 	        .vs-right {
 	            left: 80%;
+	            .towerDetails{
+	            	.easeOut;
+	            	display: none;
+	            }
 	        }
 	        .vs-right-outer {
 	            left: 140%;
+	            .towerDetails{
+	            	display: none;
+	            }
 	        }
 	    }
 
 	    .vs-sidenav div {
 	    	display: block;
 	    	position: absolute;
-	    	top: auto;
-	    	bottom: 0;
-	    	height: 84%;
+	    	top: 48px;
+	    	height: 260px;
 			width: 20%;
+		}
+
+		@media(max-width:480px){
+			.vs-wrapper {
+				& > section {
+					left: 0%;
+					width: 100%;
+				}
+				.vs-content{
+					width: 80%;
+					& > div{
+						margin-bottom: 15px;
+						border-bottom: 1px solid lighten(@color-grey, 30%) ;
+					}
+				}
+		        .vs-left {
+		            left: -100%;
+		        }
+		        .vs-left-outer {
+		            left: -200%;
+		        }
+		        .vs-current {
+		            position: relative;
+		            z-index: 100;
+		        }
+		        .vs-right {
+		            left: 100%;
+		        }
+		        .vs-right-outer {
+		            left: 200%;
+		        }
+		    }
+		    .vs-sidenav div {
+		    	display: none;
+		    }
+	    }
+	}
+}
+
+@media(max-width:767px){
+	.towerPopup{
+		h1{
+			font-size: 25px;
+			line-height: 32px;
+			margin-top: 30px;
+			small{
+				font-size: 50%;
+			}
 		}
 	}
 }
 
+@media(min-width:768px){
+	.viewsNo{
+		float: left;
+	}
+}
+
+.towerDetails{
+	// max-width: 700px;
+	margin: 20px auto;
+	position: relative;
+	left: -35%;
+	width: 170%;
+	& > .row{
+		margin-left: 0;
+		margin-right: 0;
+	}
+	
+}
+@media(max-width:480px){
+	.towerDetails{
+		left: 0;
+		width: 100%;
+		h1{
+			font-size: 25px;
+			line-height: 25px;
+			margin-top: 10px;
+			small{
+				font-size: 50%;
+			}
+		}
+	}
+}
+
+.vs-header{
+	.vs-nav{
+		li.vs-nav-current a{
+			.easeIn;
+		}
+	}
+}

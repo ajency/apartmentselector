@@ -13,19 +13,50 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       return ScreenThreeController.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeController.prototype.initialize = function(opt) {
-      this._promises.push(App.store.getAllUnits(opt.buildingid, opt.unittypeid, opt.range));
-      return this.wait();
+    ScreenThreeController.prototype.initialize = function() {
+      var view;
+      this.unitsCollection = this._getUnits();
+      this.view = view = this._getUnitsView(this.unitsCollection);
+      return this.show(view);
     };
 
-    ScreenThreeController.prototype.onComplete = function(unitCollection) {
-      var screenThreeView;
-      console.log("aaaaaaaaaaaaaaaaaaa");
-      screenThreeView = new ScreenThreeView({
-        collection: unitCollection
+    ScreenThreeController.prototype._getUnitsView = function(unitsCollection) {
+      return new ScreenThreeView({
+        collection: unitsCollection
       });
-      this.listenTo(screenThreeView, 'childview:childview:main:unit:clicked', this.mainUnitSelected);
-      return this.show(screenThreeView);
+    };
+
+    ScreenThreeController.prototype._getUnits = function() {
+      var floorArray, floorCollection, uniqueFloors, unitCollection, unitcollection;
+      unitCollection = App.currentStore.unit;
+      floorCollection = App.currentStore.unit.pluck('floor');
+      uniqueFloors = _.uniq(floorCollection);
+      floorArray = Array();
+      $.each(uniqueFloors, function(index, value) {
+        var collection, unitArray;
+        unitArray = Array();
+        unitCollection.each(function(item) {
+          var variantModel, viewModel;
+          if (parseInt(value) === parseInt(item.get('floor'))) {
+            variantModel = App.currentStore.unit_variant.findWhere({
+              id: item.get('unitVariant')
+            });
+            item.set('variantModel', variantModel.get('sellablearea'));
+            viewModel = App.currentStore.view.findWhere({
+              id: item.get('view')
+            });
+            item.set('view_name', viewModel.get('name'));
+            return unitArray.push(item);
+          }
+        });
+        collection = new Backbone.Collection(unitArray);
+        return floorArray.push({
+          floorid: value,
+          units: collection
+        });
+      });
+      unitcollection = new Backbone.Collection(floorArray);
+      return unitcollection;
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {
