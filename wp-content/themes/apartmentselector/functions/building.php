@@ -441,6 +441,11 @@ function ajax_save_building(){
 
              }
             else{ 
+                $building_id = $_REQUEST['building_id'];
+                
+                wp_update_term($building_id, 'building', array(
+                                  'name' =>  $_REQUEST["building_name"]  
+                                )) ;
 
                 $msg = "Building Updated Successfully!";
             }
@@ -457,6 +462,30 @@ exit;
 add_action('wp_ajax_save_building','ajax_save_building');
 
 
+//delete building
+function ajax_delete_building(){
+
+    $building = $_REQUEST["id"];
+
+    wp_delete_term( $_REQUEST["id"], 'building' );
+
+    delete_option( "building_".$building."_phase" );
+
+    delete_option( "building_".$building."_no_of_floors" );
+
+    delete_option( "building_".$building."_no_of_flats" );
+
+    delete_option( "building_".$building."_exceptions" ); 
+
+$response = json_encode( array('msg'=> 'Successfully Deleted Building') );
+
+header( "Content-Type: application/json" );
+
+echo $response;
+
+exit;
+}
+add_action('wp_ajax_delete_building','ajax_delete_building');
 //get building data by id
 function get_building_by_id($building_id){
 
