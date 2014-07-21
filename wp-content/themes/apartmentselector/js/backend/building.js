@@ -11,13 +11,11 @@ $(document).on("change", ".no_of_flats", function(e) {
  
         //if prev count less then the the new selection add the additional flats UI 
         if(prevCountOfFlats < $(e.target).val()){
-
-         //$("#"+$(e.target).attr('flats_container_id')).html("");
-
+ 
             startFrom = prevCountOfFlats + 1;
 
             endTo = $(e.target).val();
-
+ 
             addFlatsUI(startFrom,$(e.target));
        
         }else{ //if the previous coun is greater then the current slection then find the differnce and remove the flats UI
@@ -50,9 +48,9 @@ $(document).on("change", ".no_of_flats", function(e) {
     });
 
 function addFlatsUI(startFrom,element){
-console.log("startFrom"+startFrom)
+ 
     for(i=startFrom;i<=element.val();i++){
-
+ 
         exception_no = element.attr('exception_no');
 
         prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
