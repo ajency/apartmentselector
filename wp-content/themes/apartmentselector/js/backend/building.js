@@ -297,7 +297,7 @@ function addException(exception_no){
             $(".tablesorter tbody").append("<tr  >" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
                  "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.building_phase,collections.masters["phases"],"name")+"</td>" +
-                "<td  style='text-align:center'><a href='javascript:void(0)' class='delete_building'  style='font-weight: bold;' data-id='"+listItems.id+"'>x</a></td>" +
+                "<td  style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
                 "</tr>")
         })
 

@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.unit_variant,collections.masters["unit_variants"],"name")+"</td>" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.building,collections.masters["buildings"],"name")+"</td>" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.floor+"</td>" +
-                "<td style='text-align:center'><a href='javascript:void(0)' style='font-weight: bold;' class='delete_unit' data-id='"+listItems.id+"'>x</a></td>" +
+                "<td><i  class='fa fa-trash-o delete_unit' data-id='"+listItems.id+"'></i></td>" +
                "</tr>")
         })
 

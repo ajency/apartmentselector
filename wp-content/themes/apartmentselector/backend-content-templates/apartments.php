@@ -2,6 +2,7 @@
                 <h3>Select your Apartment</h3>
 
             </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="row-fluid">
