@@ -8031,3 +8031,11 @@ ul.my-friends li .profile-pic{
 .rickshaw_graph{
 	overflow:hidden;
 }
+
+tr.tablesorter-filter-row input.disabled {
+    display: none;
+}
+.fa-trash-o
+{
+	cursor: pointer
+}

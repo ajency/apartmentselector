@@ -1,25 +1,29 @@
 
 jQuery(document).ready(function($) {
     var collections = [];
-    //load unit variants
-    $(document).on("change", ".no_of_flats", function(e) {
+    //load unit variants 
+$(document).on("change", ".no_of_flats", function(e) {
 
-        prev_flat_count =  $(e.target).attr('prev_flat_count');
-
-        $("#"+$(e.target).attr('flats_container_id')).html("");
 
         exception_no = $(e.target).attr('exception_no');
+        //check the number of flats before the change of the no of flats
+        prevCountOfFlats = $('.belongs_to_'+$(e.target).attr("id")).length 
+ 
+        //if prev count less then the the new selection add the additional flats UI 
+        if(prevCountOfFlats < $(e.target).val()){
+ 
+            startFrom = prevCountOfFlats + 1;
 
-        prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
-        for(i=1;i<=$(e.target).val();i++){
+            endTo = $(e.target).val();
+ 
+            addFlatsUI(startFrom,$(e.target));
+       
+        }else{ //if the previous coun is greater then the current slection then find the differnce and remove the flats UI
 
-           $("#"+$(e.target).attr('flats_container_id')).append("<div flatno ='"+i+"'>"+getFlatUi(i,exception_no)+'</div>')
-
-            //bind file upload ui to the fileupload function
-
-            fileUpload(prefix+i)
+            removeFlatsUI(prevCountOfFlats,$(e.target));
         }
-         $(e.target).attr('prev_flat_count',$(e.target).val())  ;
+       
+         
 
     })
 
@@ -42,6 +46,34 @@ jQuery(document).ready(function($) {
 
 
     });
+
+function addFlatsUI(startFrom,element){
+ 
+    for(i=startFrom;i<=element.val();i++){
+ 
+        exception_no = element.attr('exception_no');
+
+        prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
+      
+        $("#"+element.attr('flats_container_id')).append("<div flatno ='"+i+"' class='flat_ui belongs_to_"+element.attr("id")+"' >"+getFlatUi(i,exception_no)+'</div>')
+
+        //bind file upload ui to the fileupload function
+
+        fileUpload(prefix+i)
+        }
+}
+
+function removeFlatsUI(prevCountOfFlats,element){
+     for(i=prevCountOfFlats;i>element.val();i--){
+        elementWithClassIndex = 1
+         $('.belongs_to_'+element.attr("id")).each(function() {
+                if(elementWithClassIndex>=prevCountOfFlats){
+                    this.remove()
+                }
+                elementWithClassIndex++;
+            });
+     }
+    }
 
 function loadExceptionsOption(floors){
 
@@ -183,24 +215,34 @@ function addException(exception_no){
 
 //save building ajax call
     $(document).on("click", "#save_building", function(e) {
-
+ 
         clearAlerts();
-        var data, _e;
 
-        var _e = e;
+        //validate form
+        if($('form').valid()){
+            var data, _e;
 
-        data = $("#form_add_edit_building").serialize();
+            var _e = e;
 
-        $(e.target).hide().parent().append("<div class='loading-animator'></div>")
+            data = $("#form_add_edit_building").serialize();
+
+            $(e.target).hide().parent().append("<div class='loading-animator'></div>")
 
 
-        $.post(AJAXURL+"?action=save_building", data, function(response) {
+            $.post(AJAXURL+"?action=save_building", data, function(response) {
 
             if(response.error==false){
 
                 $('form').prepend('<div class="text-success">'+response.msg+'</div>')
 
-                $('form').find("input[type=text], textarea ,select").val("");
+                if($('#building_id').val()==""){
+                    $('form').find("input[type=text], textarea ,select").val("");
+                    $('#no_of_floors').val('')
+                    $('#no_of_floors').trigger('change')
+                    $('#no_of_flats').val('')
+                    $('#no_of_flats').trigger('change')
+                }
+                
 
             }else{
 
@@ -212,6 +254,8 @@ function addException(exception_no){
 
             $(_e.target).show() ;
         });
+        }
+        
     });
 
 
@@ -248,9 +292,10 @@ function addException(exception_no){
 
         _.each(collections.list, function(listItems,listItemsValue){
             //add the row items
-            $(".tablesorter tbody").append("<tr class='edit-link' data-id='"+listItems.id+"'>" +
-                "<td>"+listItems.name+"</td>" +
-                 "<td>"+getDisplayText(listItems.building_phase,collections.masters["phases"],"name")+"</td>" +
+            $(".tablesorter tbody").append("<tr  >" +
+                "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
+                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.building_phase,collections.masters["phases"],"name")+"</td>" +
+                "<td  style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
                 "</tr>")
         })
 
@@ -299,8 +344,83 @@ function addException(exception_no){
 
     $(document).on("click", ".edit-link", function(e) {
 
-        window.location.href = SITEURL + "/add-edit-building/?id="+$(e.target).parent().attr('data-id');
+        window.location.href = SITEURL + "/add-edit-building/?id="+$(e.target) .attr('data-id');
     });
+
+     $(document).on("click", ".delete_building", function(e) {
+ 
+        var _e = e
+        clearAlerts();
+         building_name = $(e.target).parent().parent().children(':first-child').html() 
+        confirmUserAction = confirm("Are you sure you want to delete building "+building_name+" ?")
+        if(confirmUserAction){
+
+            $.post(AJAXURL, {
+
+            action: "delete_building", 
+
+            id:$(e.target).attr('data-id')
+
+        }, function(response) {
+
+            $(_e.target).parent().parent().remove();
+
+            $(".grid-body").prepend('<div class="text-success">'+response.msg+'</div>')
+             
+        });
+        }
+          
+    });
+
+
+    //validations 
+    $('form').validate({
+                focusInvalid: false, 
+                ignore: "",
+                rules: {
+                    building_name: { 
+                        required: true
+                    },
+                    building_phase: { 
+                        required: true
+                    },
+                    no_of_floors: { 
+                        required: true
+                    },
+                    no_of_flats: { 
+                        required: true
+                    },
+                    
+                },
+
+                invalidHandler: function (event, validator) {
+                    //display error alert on form submit    
+                },
+
+                errorPlacement: function (label, element) { // render error placement for each input type   
+                    $('<span class="error"></span>').insertAfter(element).append(label)
+                    var parent = $(element).parent('.input-with-icon');
+                    parent.removeClass('success-control').addClass('error-control');  
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    var parent = $(element).parent();
+                    parent.removeClass('success-control').addClass('error-control'); 
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    
+                },
+
+                success: function (label, element) {
+                    var parent = $(element).parent('.input-with-icon');
+                    parent.removeClass('error-control').addClass('success-control'); 
+                },
+
+                submitHandler: function (form) {
+                
+                }
+            }); 
 
 
 })

@@ -180,6 +180,24 @@ function save_unit($post_id, $post){
 }
 add_action('save_post', 'save_unit', 1, 2);
 
+//delete building
+function ajax_delete_unit(){
+
+    $unit = $_REQUEST["id"];
+
+    wp_delete_post( $unit, 1 );
+ 
+
+$response = json_encode( array('msg'=> 'Successfully Deleted Apartment') );
+
+header( "Content-Type: application/json" );
+
+echo $response;
+
+exit;
+}
+add_action('wp_ajax_delete_unit','ajax_delete_unit');
+
 function ajax_get_unit_variants(){
 
     $unit_type = $_REQUEST["unit_type"];

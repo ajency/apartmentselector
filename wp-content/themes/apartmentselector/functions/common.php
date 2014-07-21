@@ -141,6 +141,9 @@ function check_backend_template(){
 
         return true;
     }
+    else{
+    	 return false;
+    }
 }
 
 
