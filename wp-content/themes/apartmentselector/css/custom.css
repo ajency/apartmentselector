@@ -315,6 +315,9 @@ Version:        0.1.0
   font-family: 'Glyphicons Halflings';
   content: '\e089';
 }
+.unitNos.sold {
+  opacity: 0.5;
+}
 /**** Responsive Table Styles ****/
 .unitTable {
   position: relative;

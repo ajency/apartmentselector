@@ -1,16 +1,19 @@
 <?
-
+//form heading
 $heading = "Add";
+
 $no_of_flats = 0;
+
 $building_exceptions = array();
+
 if(isset($_REQUEST["id"])){
+
 $heading = "Edit";
 
     $building_id = $_REQUEST["id"];
 
     $building = (get_building_by_id($building_id));
 
- 
     $building_name = $building["name"];
 
     $building_phase = $building["building_phase"];
@@ -165,11 +168,12 @@ $heading = "Edit";
             }
             else{
 ?>
- <div class="form-group">
+ 
   
 <?php
                 foreach($building_no_of_flats as $building_no_of_flat){
-                    ?>    <label class="form-label">
+                    ?><div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats' >
+                    <div class="form-group">   <label class="form-label">
        Flat No: <?php echo $building_no_of_flat['flat_no'];?>
         </label>
         <span class="help">
@@ -179,7 +183,7 @@ $heading = "Edit";
                   <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>Select files...</span>
-                    <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="flatNo"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                    <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['image_id'];?>"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
                     </span>
                     <br>
                     <br>
@@ -198,10 +202,10 @@ $heading = "Edit";
          <div class="row-fluid">
          <div class="col-md-12">
          <img src="">
-         </div> 
+         </div> </div></div>
                     <?php
                 }
-                ?></div><?php
+                ?><?php
             }
             ?>
         
@@ -211,101 +215,125 @@ $heading = "Edit";
 </div>
 
 <div id="exceptions" <?php if(count($building_exceptions)==0){?>style="display:none"<?php } ?>>
-<b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
-<input type="hidden" name="exceptions_count" value="0" id="exceptions_count">
-        <i class="icon-ok">
-        </i>
+    <b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
+    <input type="hidden" name="exceptions_count" value="<?php echo count($building_exceptions);?>" id="exceptions_count">
+    <i class="icon-ok"></i>
         +
     </button>
-<div class="exception_container">
-<?php
- 
- foreach($building_exceptions as $building_exception){
-    ?>
-    <table width="100%">
-    <?php
-    $col = 1;
-    for($i=1;$i<=$no_of_floors;$i++){
-        if($col==1){
-            ?><tr><?php
-        }
-        ?>
-        <td><input type="checkbox" name="exception_floors1" value="1" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>><?php echo $i;?></td>
-        <?php
-        $col++;
-        if($col==5){
-            $col=1;
-            ?></tr><?php
-        }
-    }
-    if($col>1){
-        ?></tr><?php
-    } 
-    ?>
-    </table>
-    <?
+    <div class="exception_container">
+        <div class="form-group"> 
+            <div class="input-with-icon  right exception_floors"><br><br>
+                <?php
+                $exception_count = 1;
+                foreach($building_exceptions as $building_exception){
 
-    ?>
-<div class="well" id="flats_container">
- 
-        <?php if($no_of_flats==0){
-        ?>   <div class="form-group">
-<label class="form-label">
-           <i>Select No Of Flats</i>
-        </label></div>
-        <?php
-            }
-            else{
-?>
- <div class="form-group">
-  
-<?php
-                foreach($building_exception["flats"] as $building_no_of_flat){
-                    ?>    <label class="form-label">
-       Flat No: <?php echo $building_no_of_flat['flat_no'];?>
-        </label>
-        <span class="help">
-         </span> 
-        <div class="row">
-         <div class="col-md-4">
-                  <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Select files...</span>
-                    <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="flatNo"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
-                    </span>
-                    <br>
-                    <br>
-                    <div id="progress<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
-                    <div class="progress-bar progress-bar-success"></div>
-                    </div>
-                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
-                    <br><div class="row-fluid">
-                    <div class="col-md-12">
-                    <img src="<?php echo $building_no_of_flat['image_url'];?>" class="image_display">
-                    </div>
-                    </div>
-                     </div>
-         </div>
-         </div>
-         <div class="row-fluid">
-         <div class="col-md-12">
-         <img src="">
-         </div> 
+                    $building_exception["floors"] =  is_array($building_exception["floors"])?$building_exception["floors"]:array();
+                ?>
+                    <table width="100%">
                     <?php
+                    $col = 1;
+                    for($i=1;$i<=$no_of_floors;$i++){
+                        if($col==1){
+                            ?><tr><?php
+                        }
+                        ?>
+                        <td><input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>><?php echo $i;?></td>
+                        <?php
+                        $col++;
+                        if($col==5){
+                            $col=1;
+                            ?></tr><?php
+                        }
+                    }
+                    if($col>1){
+                        ?></tr><?php
+                    } 
+
+                    $no_of_flats = count($building_exception["flats"]);
+ 
+                    ?>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">
+                No Of Flats
+                </label>
+                <div class="input-with-icon  right">
+                    <i class="">
+                    </i>
+                    <select name="no_of_flats<?php echo($exception_count);?>"  class="no_of_flats"  id="no_of_flats<?php echo($exception_count);?>" flats_container_id="flats_container<?php echo($exception_count);?>" exception_no="<?php echo($exception_count);?>">'
+                        <option value="">Please Select</option>'
+
+                        <?php $max_no_of_flats = get_max_no_of_flats();
+
+                            for($i=1;$i<=$max_no_of_flats;$i++){
+                            ?><option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?>><?php echo $i;?></option>
+                            <?php  
+                            }?>
+                    </select>
+                </div>
+            </div>
+            <div class="well" id="flats_container<?php echo($exception_count);?>">
+ 
+                <?php if($no_of_flats==0){
+                ?>   
+                    <div class="form-group">
+                        <label class="form-label">
+                           <i>Select No Of Flats</i>
+                        </label>
+                    </div>
+                <?php
+                    }
+                else{ 
+                    foreach($building_exception["flats"] as $building_no_of_flat){
+                    ?> 
+                        <div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats<?php echo($exception_count);?>' ><div class="form-group">
+                            <label class="form-label">
+                                Flat No: <?php echo $building_no_of_flat['flat_no'];?>
+                            </label>
+                            <span class="help">
+                            </span> 
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Select files...</span> 
+                                        <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="exception_<?php echo($exception_count);?>_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['image_id'];?>"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <div id="progress<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
+                                        <div class="progress-bar progress-bar-success"></div>
+                                    </div>
+                                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
+                                    <br>
+                                    <div class="row-fluid">
+                                        <div class="col-md-12">
+                                            <img src="<?php echo $building_no_of_flat['image_url'];?>" class="image_display">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row-fluid">
+                        <div class="col-md-12">
+                             <img src="">
+                        </div> 
+                    </div>
+               
+                <?php
                 }
-                ?></div><?php
+                ?><?php
             }
             ?>
-        
- 
-
-
-</div>
+          
     <?php
-    }?>
-</div>
-
-</div>
+        $exception_count++;
+    }?> </div>
+    </div>
+</div> 
+</div>  
 
 
 
