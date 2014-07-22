@@ -1,36 +1,65 @@
 define [ 'marionette' ], ( Marionette )->
+
+    unitType = []
     class UnitTypeView extends Marionette.ItemView
 
         className : "grid-block-1"
 
-        template : '<a class="grid-link" href="step2.html">
+        template : '<a class="grid-link">
               	        <div class="grid-text-wrap">
               	          <span class="grid-main-title">{{name}}</span>
               	          <span class="grid-sub-title">{{min_value}} to {{max_value}} (sq. ft.)</span>
-              	        </div>
+
+                        <input type="hidden" name="check{{id}}"   id="check{{id}}"       value="0" />
+     	        </div>
               	      </a>
               	  	'
 
         events :
-            'click' : 'unitTypeSelected'
+            'click ' : 'unitTypeSelected'
+
+
+
+        initialize :->
+            @$el.prop("id", 'unittype'+@model.get("id"))
 
         unitTypeSelected : ( evt )->
             evt.preventDefault()
-            App.defaults['unitType'] = @model.get 'id'
-            console.log $('#budgetvalue').text()
+            $("li").removeClass 'cs-selected'
+            $(".cs-placeholder").text('Undecided')
+
+
+            if  parseInt($("#check"+@model.get 'id').val()) == 0
+                unitType.push @model.get 'id'
+                $("#check"+@model.get 'id').val "1"
+            else
+                index = unitType.indexOf( @model.get 'id' )
+
+                unitType.splice( index, 1 )
+                $("#check"+@model.get 'id').val "0"
+            console.log unitType.length
+            if unitType.length == 0
+                $("#finalButton").addClass 'disabled'
+                return false
+
+            unitTypeString = unitType.join(',')
+            App.defaults['unitType'] = unitTypeString
             $("#finalButton").removeClass 'disabled'
+
 
 
     class ScreenOneView extends Marionette.CompositeView
 
         template : '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div>
         <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4>
-        	<div class="text-center subTxt">What is your budget?</div><div class="budgetSelect" id="budgetvalue">
-        		<div class="budget">undecided</div>
-        		<div class="budget">25-35 lakhs</div>
-        		<div class="budget">35-45 lakhs</div>
-        		<div class="budget">45-55 lakhs</div>
-        	    </div><div class="h-align-middle m-t-50 m-b-20">
+        	<div class="text-center subTxt">What is your budget?</div><section>
+        		<select class="cs-select cs-skin-underline" id="budgetValue">
+        			<option value="" disabled selected>Undecided</option>
+        			<option value="10-35 lakhs">10-35 lakhs</option>
+        			<option value="35-45 lakhs">35-45 lakhs</option>
+        			<option value="45-55 lakhs">45-55 lakhs</option>
+        		</select>
+        	    </section><div class="h-align-middle m-t-50 m-b-20">
         		<a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a>
         		<br><br>
         		</div>'
@@ -43,19 +72,43 @@ define [ 'marionette' ], ( Marionette )->
 
         events:
             'click #finalButton':(e)->
+                console.log $(".cs-placeholder").text()
+                if $(".cs-placeholder").text() != 'Undecided'
+                    budget_val = $(".cs-selected").text().split(' ')
+                    if(budget_val[1]=='lakhs')
+                        budget_price = budget_val[0].split('-')
+                        budget_price[0] = budget_price[0] + ('00000')
+                        budget_price[1] = budget_price[1]+ ('00000')
+                        budget_price = budget_price.join('-')
+                    console.log budget_price
+                    App.defaults['budget'] = budget_price
+                else
+                    App.defaults['budget'] = 'All'
+
+
                 @trigger 'unit:type:clicked'
+
+            'click .cs-selected':(e)->
+                for element in unitType
+                    $('a' ).removeClass 'selected'
+                    $("#check"+element).val "0"
+                unitType = []
+                $("#finalButton").removeClass 'disabled'
+
+
 
 
 
 
         onShow:->
 
-            $('.budgetSelect').slick(
-                infinite: false
+            [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( (el)->
+                new SelectFx(el)
             )
             $( ".grid-link" ).click( ()->
                 $( this ).toggleClass( "selected" )
             )
+            unitType = []
 
 
 

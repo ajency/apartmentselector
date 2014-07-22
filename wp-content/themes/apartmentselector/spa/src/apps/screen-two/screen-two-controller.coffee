@@ -5,31 +5,131 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
         initialize : ()->
 
-            @unitsCountCollection = @_getUnitsCountCollection()
+            @Collection = @_getUnitsCountCollection()
 
-            @view = view = @_getUnitTypesCountView @unitsCountCollection
+            @unitTypecoll = @Collection[2]
+
+            @layout = new ScreenTwoView.ScreenTwoLayout({templateHelpers:
+                                                            unitType : @unitTypecoll,
+                                                            selection :@Collection[3]
+                                                            unitsCount:@Collection[4] })
+
+
+            @listenTo @layout, "show", @showViews
+
+
+            @show @layout
+
+
+        showViews:=>
+            @buildingCollection = @Collection[0]
+            @unitCollection = @Collection[1]
+            itemview1 = @getView @buildingCollection
+            console.log itemview1
+            @layout.buildingRegion.show itemview1
+            itemview2 = @getUnitsView @unitCollection
+            @layout.unitRegion.show itemview2
 
 
 
-            @show @view
 
-        _getUnitTypesCountView:(unitsCountCollection)->
-            new ScreenTwoView
-                collection :unitsCountCollection
+
+        getView:(buildingCollection)->
+            console.log "hi"
+            new ScreenTwoView.UnitTypeChildView
+                collection : buildingCollection
+
+        getUnitsView:(unitCollection)->
+            new ScreenTwoView.UnitTypeView
+                collection : unitCollection
+
+
 
         _getUnitsCountCollection:->
             buildingArray = Array()
+            buildingArrayModel = Array()
             unitColl = Array()
-            units = App.currentStore.unit.where({status:'Available'})
+            unitTypeArray = Array()
+            newarr =  []
+            unique = {}
+            templateArr = []
+            MainCollection = new Backbone.Model()
+            status = App.currentStore.status.findWhere({'name':'Available'})
+            units = App.currentStore.unit.where({'status':status.get('id')})
+            Countunits = App.currentStore.unit.where({'status':status.get('id')})
+            param = {}
+            paramkey = {}
+            $.each(App.defaults, (index,value)->
+                if(value !='All')
+                    param[index] = value
+                    console.log index
+                    string_val = _.isString(value)
+                    if string_val == true
+                        valuearr = value.split(',')
+                    if valuearr.length > 1
+                        for element  in valuearr
+                            console.log element
+                            if index == 'unitType'
+                                key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
+                                console.log key
+                                templateArr.push key.get 'name'
+                            if index == 'unitVariant'
+                                key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
+                                console.log key
+                                templateArr.push key.get 'name'
+                            if index == 'building'
+                                key = App.currentStore.building.findWhere({id:parseInt(element)})
+                                console.log key
+                                templateArr.push key.get 'name'
+                            if index == 'budget'
+                                budget_Val = value+'lakhs'
+                                templateArr.push budget_Val
+                            if index == 'floor'
+                                templateArr.push value
+                    else
+                        if index == 'unitType'
+                            key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
+                            console.log key
+                            templateArr.push key.get 'name'
+                        if index == 'unitVariant'
+                            key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
+                            console.log key
+                            templateArr.push key.get 'name'
+                        if index == 'building'
+                            key = App.currentStore.building.findWhere({id:parseInt(value)})
+                            console.log key
+                            templateArr.push key.get 'name'
+                        if index == 'budget'
+                            budget_Val = value+'lakhs'
+                            templateArr.push budget_Val
+                        if index == 'floor'
+                            templateArr.push value
+
+
+
+
+            )
+            console.log templateArr
+            templateString  = templateArr.join(',')
             $.each(units, (index,value)->
                 maxcoll = Array()
+                unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
+                unitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
                 if buildingArray.indexOf(value.get 'building') ==  -1
                     buildingArray.push value.get 'building'
             )
+            $.each(unitTypeArray, (key,item)->
+                if (!unique[item.id])
+                    console.log count = App.currentStore.unit.where({unitType:item.id})
+                    newarr.push({id:item.id,name:item.name,count:count.length})
+                    unique[item.id] = item;
+
+
+            )
+            console.log newarr
             $.each(buildingArray, (index,value)->
                 buildingid = value
                 newunits = App.currentStore.unit.where({'building':value})
-                console.log newunits
                 lowArray = Array()
                 mediumArray = Array()
                 highArray = Array()
@@ -111,10 +211,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
-                unitColl.push {buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id')}
+                unitColl.push {buildingname: buildingModel.get('name') , units: mainArray ,buildingid:buildingModel.get('id')}
+                buildingArrayModel.push(buildingModel)
+
             )
+            buildingCollection = new Backbone.Collection(buildingArrayModel)
             units = new Backbone.Collection(unitColl)
-            console.log units
+            [buildingCollection ,units,newarr,templateString,Countunits.length]
 
 
 

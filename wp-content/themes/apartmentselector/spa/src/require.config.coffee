@@ -20,8 +20,12 @@ requirejs.config
         bootstraptour : 'src/bower_components/bootstrap-tour/build/js/bootstrap-tour.js'
         underscorestring : 'src/bower_components/underscore.string/lib/underscore.string'
         extm : 'src/bower_components/extm/lib/extm.amd'
-        preload : 'src/bower_components/preload/jquery.preload'
+        modernizr : 'src/bower_components/preload/modernizr.custom'
+        classie : 'src/bower_components/preload/classie'
+        hammer : 'src/bower_components/preload/hammer.min'
         slick : 'src/bower_components/bower_components/slick.js/slick/slick.min'
+        selectFx : 'src/bower_components/preload/selectFx'
+
 
 
 
