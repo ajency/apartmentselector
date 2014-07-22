@@ -3,8 +3,38 @@ define [ 'marionette' ], ( Mariontte )->
 
     class HeaderView extends Marionette.ItemView
 
-        template : '<div class="text-center">
-
-                <h3 class="text-white">{{name}}</h3><h3 class="text-white">{{unittype}} {{range}} {{size}}</h3></div>'
+        template : '<div class="backBtn {{textClass}}">
+        			<a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
+        		</div>
+        <div class="text-center">
+        			<h3 class="text-white m-t-15 selearr">{{textString}}</h3>
+        		</div>'
 
         className : "header navbar navbar-inverse"
+
+
+
+        events:
+            'click .text-white':(e)->
+                App.navigate ""
+                e.preventDefault()
+                App.filter(params={})
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                .withOptions()
+                msgbus.showApp 'screen:one'
+                .insideRegion  App.mainRegion
+                .withOptions()
+
+
+
+        onShow:->
+            if window.location.href.indexOf('screen-two') > -1
+                console.log  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            else
+                console.log "eeeeeeeeeeee"
+                $('.backBtn').addClass 'hidden'
+                $('.selearr').text 'Apartment Selector'
+
+
+

@@ -17,8 +17,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             <div class="tableHeader">
                 				<ul>
                 					<li><a href="#modal"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
-                					<li><a href="#modal"><span class="bold">MIDRISE</span><br>15-11 Floors</a></li>
-                					<li><a href="#modal"><span class="bold">LOWRISE</span><br>15-11 Floors</a></li>
+                					<li><a href="#modal"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
+                					<li><a href="#modal"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
                 				</ul>
                 		    </div>
                             <div class="tableBody">
@@ -105,28 +105,54 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             console.log "aaaaaaaaaaaaa"
 
 
-    class UnitView extends Marionette.ItemView
+    class UnitViewChildView extends Marionette.ItemView
 
         template : '
-                                							<div class="vs-content">
+                            <div class="flatNos">{{name}}</div>
+                            </div>
 
-                                        								{{#units}}<div class="text-center">
-                                										<div class="flatNos">{{name}}</div>
-                                								</div>
 
-               {{/units}}
-                                							</div>
-                                						'
+
+                    '
+
+        className : 'text-center'
+
+
+        events:
+            'click .vs-content':(e)->
+                console.log @model.get 'buildingid'
+
+
+
+
+
+
+    class UnitView extends Marionette.CompositeView
+
+        template : '<div class="vs-content"></div>'
+
 
 
         tagName : 'section'
 
 
+
+        childView : UnitViewChildView
+
+
+        childViewContainer : '.vs-content'
+
+
+
+
+
         initialize :->
+            @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
 
         onShow : ->
+            console.log @model
             $("#tower1" ).removeClass 'hidden'
 
 

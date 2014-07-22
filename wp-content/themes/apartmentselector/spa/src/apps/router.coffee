@@ -20,7 +20,7 @@ define [ 'marionette'], ( Marionette )->
 
     RouterAPI =
     #Start Sub App
-        showValues:(params)->
+        showValues:(params={})->
             App.filter(params)
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion

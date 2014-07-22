@@ -311,7 +311,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         unitColl.push({
           buildingname: buildingModel.get('name'),
-          units: mainArray,
+          units: itemCollection,
           buildingid: buildingModel.get('id')
         });
         return buildingArrayModel.push(buildingModel);

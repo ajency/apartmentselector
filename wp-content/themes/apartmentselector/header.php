@@ -26,6 +26,7 @@
     <meta name="viewport" content="width=device-width"/>
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.js"></script>
+    <script>var SITEURL = '<?php echo site_url() ?>';</script>
     <![endif]-->
     <?php wp_head(); ?>
 </head>

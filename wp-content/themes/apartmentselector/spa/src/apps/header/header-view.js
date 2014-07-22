@@ -11,9 +11,30 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="text-center"> <h3 class="text-white">{{name}}</h3><h3 class="text-white">{{unittype}} {{range}} {{size}}</h3></div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="text-center"> <h3 class="text-white m-t-15 selearr">{{textString}}</h3> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
+
+    HeaderView.prototype.events = {
+      'click .text-white': function(e) {
+        var params;
+        App.navigate("");
+        e.preventDefault();
+        App.filter(params = {});
+        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+        return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
+      }
+    };
+
+    HeaderView.prototype.onShow = function() {
+      if (window.location.href.indexOf('screen-two') > -1) {
+        return console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      } else {
+        console.log("eeeeeeeeeeee");
+        $('.backBtn').addClass('hidden');
+        return $('.selearr').text('Apartment Selector');
+      }
+    };
 
     return HeaderView;
 

@@ -25,6 +25,9 @@ define(['marionette'], function(Marionette) {
   })(Marionette.AppRouter);
   RouterAPI = {
     showValues: function(params) {
+      if (params == null) {
+        params = {};
+      }
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();

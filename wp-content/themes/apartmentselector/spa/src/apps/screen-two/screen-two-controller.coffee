@@ -211,7 +211,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
-                unitColl.push {buildingname: buildingModel.get('name') , units: mainArray ,buildingid:buildingModel.get('id')}
+                unitColl.push {buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id')}
                 buildingArrayModel.push(buildingModel)
 
             )
