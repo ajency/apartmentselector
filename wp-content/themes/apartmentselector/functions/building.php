@@ -525,6 +525,7 @@ function get_flats_details($flats){
 
             $flat['image_url'] =  wp_get_attachment_thumb_url($flat["image_id"]);
             
+            $flat['image_url']  = $flat['image_url'] ==false?get_no_image_150x150():$flat['image_url']; 
             $flats_updated[]  =  $flat;
         }
 
