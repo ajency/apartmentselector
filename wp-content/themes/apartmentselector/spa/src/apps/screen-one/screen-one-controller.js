@@ -36,7 +36,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype._getUnitTypeCollection = function() {
-      var Model, UnitsCollection, collection, modelArray, status, units;
+      var Model, UnitsCollection, collection, modelArray, priceUnits, status, units;
       Model = Backbone.Model.extend({});
       UnitsCollection = Backbone.Collection.extend({
         model: Model
@@ -45,6 +45,26 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       collection = new UnitsCollection();
       status = App.currentStore.status.findWhere({
         'name': 'Available'
+      });
+      units = App.currentStore.unit.where({
+        'status': status.get('id')
+      });
+      priceUnits = App.currentStore.unit;
+      priceUnits.each(function(item) {
+        var buildingModel, floorRise, floorRiseValue, unitPrice, unitTypemodel;
+        buildingModel = App.currentStore.building.findWhere({
+          'id': item.get('building')
+        });
+        floorRise = buildingModel.get('floor');
+        floorRiseValue = floorRise[item.get('floor')];
+        unitTypemodel = App.currentStore.unit_variant.findWhere({
+          'id': item.get('unitVariant')
+        });
+        unitPrice = (1000 + parseInt(floorRiseValue)) * parseInt(unitTypemodel.get('sellablearea'));
+        return item.set({
+          'unitPrice': 'unitPrice',
+          unitPrice: unitPrice
+        });
       });
       units = App.currentStore.unit.where({
         'status': status.get('id')

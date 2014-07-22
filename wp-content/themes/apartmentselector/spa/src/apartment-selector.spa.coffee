@@ -17,7 +17,7 @@ define 'apps-loader', [
     # set all plugins for this page here
 require [ 'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/views'
-          'spec/javascripts/fixtures/json/buildings'
+          'spec/javascripts/fixtures/json/building'
           'spec/javascripts/fixtures/json/unitvariants'
           'spec/javascripts/fixtures/json/unittypes'
           'spec/javascripts/fixtures/json/range'
@@ -26,7 +26,7 @@ require [ 'spec/javascripts/fixtures/json/units'
           'extm'
           'src/classes/ap-store'
           'src/apps/router'
-          'apps-loader' ], ( units, views, buildings, unitvariants, unittypes,range,status, plugins, Extm )->
+          'apps-loader'], ( units, views, buildings, unitvariants, unittypes,range,status, plugins, Extm )->
 
     # global application object
     window.App = new Extm.Application
@@ -50,7 +50,7 @@ require [ 'spec/javascripts/fixtures/json/units'
     App.currentStore = App.store
 
 
-    App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All'}
+    App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
 
 
 
@@ -73,7 +73,7 @@ require [ 'spec/javascripts/fixtures/json/units'
 
 
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
             console.log params
 
 
@@ -81,13 +81,14 @@ require [ 'spec/javascripts/fixtures/json/units'
         else
             #url doesnt contain any parameters take the value of the defaults
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
             console.log params
 
 
 
 
         param_arr = params.split('&')
+        budgetUnitArray = []
         $.each(param_arr, (index,value)->
             value_arr  =  value.split('=')
             attribute = {}
@@ -114,8 +115,17 @@ require [ 'spec/javascripts/fixtures/json/units'
 
                 )
             else if param_val_arr.length ==  1
+                budget_arr = param_val_arr[0].split('-')
                 if param_val_arr[0].toUpperCase() == 'ALL'
                     collection =  App.currentStore.unit.toArray()
+                else if budget_arr.length>1
+                    units = App.currentStore.unit
+                    units.each (item)->
+                        if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
+                            console.log item.get 'unitType'
+                            budgetUnitArray.push item
+                        collection  = budgetUnitArray
+
                 else
                     collection =  App.currentStore.unit.where(paramkey)
 

@@ -36,6 +36,22 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             modelArray = Array()
             collection = new UnitsCollection()
             status = App.currentStore.status.findWhere({'name':'Available'})
+
+            units = App.currentStore.unit.where({'status':status.get('id')})
+            priceUnits = App.currentStore.unit
+            priceUnits.each ( item)->
+                #calculating the price value
+                buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
+                floorRise = buildingModel.get 'floor'
+                floorRiseValue = floorRise[item.get 'floor']
+                unitTypemodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
+                unitPrice = ( 1000 + parseInt(floorRiseValue)) * parseInt(unitTypemodel.get 'sellablearea')
+                item.set({'unitPrice' , unitPrice})
+                #calculating the price value
+
+
+
+
             units = App.currentStore.unit.where({'status':status.get('id')})
             $.each(units , (index,value)->
                 unitTypemodel = App.currentStore.unit_type.findWhere({'id':value.get 'unitType'})
