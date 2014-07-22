@@ -630,6 +630,16 @@ Version:        0.1.0
 .flatContainer .summary .row {
   margin-top: 20px;
 }
+.facilities img {
+  margin: auto;
+}
+.slick-dots li button:before {
+  content: '.';
+  font-size: 60px;
+  font-family: 'Lato';
+  top: -20px;
+  color: #f28428;
+}
 body {
   background-color: #ffffff;
 }
