@@ -13,6 +13,8 @@ if(isset($_REQUEST["id"])){
 
     $unit_building = $unit["building"];
 
+    $unit_assigned = $unit["unit_assigned"];
+
     $floor = $unit["floor"];
 
     $unit_status = $unit["status"];
@@ -96,10 +98,11 @@ if(isset($_REQUEST["id"])){
                             <select  name="building" id="building"  >
                                 <option value="">Select</option>
                                 <?php
+                                $floors_option = 0;
                                 $buildings = get_buildings();
                                 foreach($buildings as $building){
                                     ?>
-                                    <option value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected"; }?>><?php echo  $building['name']?></option>
+                                    <option  floors = "<?php echo $building['building_no_of_floors']; ?>" value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected";$floors_option=$building['building_no_of_floors']; }?>><?php echo  $building['name']?></option>
                                 <?php
                                 }
                                 ?>
@@ -114,7 +117,7 @@ if(isset($_REQUEST["id"])){
                             <select  name="floor" id="floor"  >
                                 <option value="">Select</option>
                                 <?php
-                                for($i=1;$i<=15;$i++){
+                                for($i=1;$i<=$floors_option;$i++){
                                     ?>
                                     <option value="<?php echo $i;?>" <?php if($floor==$i){ echo "selected"; }?>><?php echo $i;?></option>
                                 <?php
@@ -123,6 +126,30 @@ if(isset($_REQUEST["id"])){
                             </select>
                         </div>
                     </div>
+                     <div class="well">Select Flat:
+                     <div id="flat_container">
+                     <?php if(!empty($unit_building) && !empty($floor)){
+                            $flats = get_flats_on_floor($unit_building ,$floor);
+                            ?>
+                                <div class="row-fluid" > <div class="row">
+                            <?php
+                            foreach($flats as $flat){
+                                    ?>
+                                        <div class="col-md-6"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>"><?php echo $flat["flat_no"]?><br><img src="<?php echo $flat["image_url"]?>" class="image_display"></div>
+                                    <?php
+                            }
+                            ?>
+                                </div></div>
+                            <?php
+                        }
+                        else{
+                        ?>
+                                <i>select building and floor</i>
+                        <?php
+                        }
+                        ?>
+                     </div>
+                     </div>
                     <div class="form-group">
                         <label class="form-label">Status</label>
 

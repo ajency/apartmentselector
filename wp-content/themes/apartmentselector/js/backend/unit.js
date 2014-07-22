@@ -2,7 +2,7 @@
 
 jQuery(document).ready(function($) {
     var collections = [];
-    //load unit variants
+    //load unit variants on selection of unit type
     $(document).on("change", "#unit_type", function(e) {
 
         $("#unit_variant").empty();
@@ -20,6 +20,56 @@ jQuery(document).ready(function($) {
 
         });
     });
+
+//on chnage of building load the no of floors in the building
+     $(document).on("change", "#building", function(e) {
+
+        floors = $("option:selected", $(e.target)).attr("floors");
+
+        $("#floor").empty();
+
+        $("#floor").append(new Option("Select", ""));
+
+        if($("option:selected", $(e.target)).val()==""){
+         $("#flat_container").html("<i>select building and floor</i>")
+         return
+      }
+        for(i=1;i<=floors;i++){
+
+            $("#floor").append(new Option(i, i));
+
+        }
+
+});
+
+//on selection of floor get the flats on the floor making an ajax call
+$(document).on("change", "#floor", function(e) {
+
+      if($("option:selected", $(e.target)).val()==""){
+         $("#flat_container").html("<i>select building and floor</i>")
+         return
+      }
+      $("#flat_container").html("<div class='loading-animator'></div>")
+      $.post(AJAXURL, {
+
+            action: "get_flats_on_floor",
+            building:$("option:selected", $("#building")).val(),
+            floor: $("option:selected", $(e.target)).val()
+
+        }, function(response) {
+                
+            flats_html = "";
+             $.each(response, function(i, val) {
+               flats_html += '<div class="col-md-6"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">'+val.flat_no+'<br><img src="'+val.image_url+'" class="image_display"></div>';
+            });
+
+             $("#flat_container").html('<div class="row-fluid" > <div class="row">'+flats_html+'</div></div>');
+        
+         
+
+        });
+
+});
 
 //save apartment ajax call
     $(document).on("click", "#save_apartment", function(e) {

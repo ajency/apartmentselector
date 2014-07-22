@@ -183,7 +183,7 @@ $heading = "Edit";
                   <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>Select files...</span>
-                    <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['image_id'];?>"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                    <input type="hidden" class="image_id" name="image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['image_id'];?>"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
                     </span>
                     <br>
                     <br>
@@ -299,7 +299,7 @@ $heading = "Edit";
                                     <span class="btn btn-success fileinput-button">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     <span>Select files...</span> 
-                                        <input type="hidden" class="image_id<?php echo $building_no_of_flat['flat_no'];?>" name="exception_<?php echo($exception_count);?>_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['image_id'];?>"><input id="fileupload<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                                        <input type="hidden" class="image_id" name="exception_<?php echo($exception_count);?>_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['image_id'];?>"><input id="fileuploadexception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files" >
                                     </span>
                                     <br>
                                     <br>
