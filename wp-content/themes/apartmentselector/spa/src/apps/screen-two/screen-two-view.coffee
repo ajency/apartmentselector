@@ -23,7 +23,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 		    </div>
                             <div class="tableBody">
                 				<div id="vs-container2" class="vs-container">
-                				<header class="vs-header"><div id="building-region"></div></header>
+                				<header class="vs-header" id="building-region"></header>
                 				    <div id="unit-region"></div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class BuildingView extends Marionette.ItemView
 
-        template : '<a class="link">{{name}}</a>'
+        template : '<a class="link" href="tower{{id}}">{{name}}</a>'
 
         tagName : 'li'
 
@@ -90,11 +90,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitTypeChildView extends Marionette.CompositeView
 
-        template : '<ul class="vs-nav"></ul>'
+        tagName : 'ul'
+
+
+        className : 'vs-nav'
+
+
 
         childView : BuildingView
 
-        childViewContainer : ".vs-nav"
+
 
         onShow : ->
             console.log "aaaaaaaaaaaaa"
@@ -102,7 +107,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitView extends Marionette.ItemView
 
-        template : '<section id="tower{{buildingid}}" class="hidden">
+        template : '
                                 							<div class="vs-content">
 
                                         								{{#units}}<div class="text-center">
@@ -111,7 +116,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                {{/units}}
                                 							</div>
-                                						</section>'
+                                						'
+
+
+        tagName : 'section'
+
+
+        initialize :->
+            @$el.prop("id", 'tower'+@model.get("buildingid"))
 
 
         onShow : ->
@@ -120,12 +132,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitTypeView extends Marionette.CompositeView
 
-        template : '<div class="vs-wrapper">'
+
 
 
         childView : UnitView
 
-        childViewContainer : ".vs-wrapper"
+        className : "vs-wrapper"
 
         initialize : ->
             tower = @collection.at( 0 )

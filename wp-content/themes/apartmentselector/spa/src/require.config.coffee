@@ -24,6 +24,8 @@ requirejs.config
         classie : 'src/bower_components/preload/classie'
         hammer : 'src/bower_components/preload/hammer.min'
         slick : 'src/bower_components/bower_components/slick.js/slick/slick.min'
+        selectFx : 'src/bower_components/preload/selectFx'
+
 
 
 

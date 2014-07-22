@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['slick'], ->
+define 'plugin-loader', ['classie','selectFx'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -15,18 +15,18 @@ define 'apps-loader', [
 ], ->
 
     # set all plugins for this page here
-require [ 'spec/javascripts/fixtures/json/units'
+require [ 'plugin-loader'
+          'spec/javascripts/fixtures/json/units'
           'spec/javascripts/fixtures/json/views'
           'spec/javascripts/fixtures/json/building'
           'spec/javascripts/fixtures/json/unitvariants'
           'spec/javascripts/fixtures/json/unittypes'
           'spec/javascripts/fixtures/json/range'
           'spec/javascripts/fixtures/json/status'
-          'plugin-loader'
           'extm'
           'src/classes/ap-store'
           'src/apps/router'
-          'apps-loader'], ( units, views, buildings, unitvariants, unittypes,range,status, plugins, Extm )->
+          'apps-loader'], ( plugins,units, views, buildings, unitvariants, unittypes,range,status,  Extm )->
 
     # global application object
     window.App = new Extm.Application

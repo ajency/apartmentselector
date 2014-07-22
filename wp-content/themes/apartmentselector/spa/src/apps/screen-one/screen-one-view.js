@@ -27,6 +27,8 @@ define(['marionette'], function(Marionette) {
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
       var index, unitTypeString;
       evt.preventDefault();
+      $("li").removeClass('cs-selected');
+      $(".cs-placeholder").text('Undecided');
       if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
         unitType.push(this.model.get('id'));
         $("#check" + this.model.get('id')).val("1");
@@ -42,10 +44,7 @@ define(['marionette'], function(Marionette) {
       }
       unitTypeString = unitType.join(',');
       App.defaults['unitType'] = unitTypeString;
-      console.log($('#budgetvalue').text());
-      $("#finalButton").removeClass('disabled');
-      $(".slick-next").addClass('slick-disabled');
-      return $(".slick-prev").addClass('slick-disabled');
+      return $("#finalButton").removeClass('disabled');
     };
 
     return UnitTypeView;
@@ -58,7 +57,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><div class="budgetSelect" id="budgetvalue"> <div class="budget">undecided</div> <div class="budget">10-35 lakhs</div> <div class="budget">35-45 lakhs</div> <div class="budget">45-55 lakhs</div> </div><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
+    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> <option value="10-35 lakhs">10-35 lakhs</option> <option value="35-45 lakhs">35-45 lakhs</option> <option value="45-55 lakhs">45-55 lakhs</option> </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -69,9 +68,9 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.events = {
       'click #finalButton': function(e) {
         var budget_price, budget_val;
-        console.log($(".slick-active").text());
-        if ($(".slick-active").text() !== 'undecided') {
-          budget_val = $(".slick-active").text().split(' ');
+        console.log($(".cs-placeholder").text());
+        if ($(".cs-placeholder").text() !== 'Undecided') {
+          budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');
             budget_price[0] = budget_price[0] + '00000';
@@ -85,31 +84,21 @@ define(['marionette'], function(Marionette) {
         }
         return this.trigger('unit:type:clicked');
       },
-      'click .budget': function(e) {
-        return console.log("aaaaaaaaaaaaa");
-      },
-      'click .slick-next': function(e) {
-        if ($(".slick-active").text() !== 'undecided') {
-          $("#finalButton").removeClass('disabled');
-        } else {
-          $("#finalButton").addClass('disabled');
+      'click .cs-selected': function(e) {
+        var element, _i, _len;
+        for (_i = 0, _len = unitType.length; _i < _len; _i++) {
+          element = unitType[_i];
+          $('a').removeClass('selected');
+          $("#check" + element).val("0");
         }
-        return this.collection.each(function(item) {
-          return $('#unittype' + item.get('id')).click(function() {});
-        });
-      },
-      'click .slick-prev': function(e) {
-        if ($(".slick-active").text() !== 'undecided') {
-          return $("#finalButton").removeClass('disabled');
-        } else {
-          return $("#finalButton").addClass('disabled');
-        }
+        unitType = [];
+        return $("#finalButton").removeClass('disabled');
       }
     };
 
     ScreenOneView.prototype.onShow = function() {
-      $('.budgetSelect').slick({
-        infinite: false
+      [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function(el) {
+        return new SelectFx(el);
       });
       $(".grid-link").click(function() {
         return $(this).toggleClass("selected");
