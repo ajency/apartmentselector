@@ -2,6 +2,11 @@
 jQuery(document).ready(function($) {
     var collections = [];
     //load unit variants 
+
+    $('.fileupload').each(function(e,val) { 
+        file_field =  val.id.replace(/fileupload/g,'');
+        fileUpload(file_field);
+    });
 $(document).on("change", ".no_of_flats", function(e) {
 
 

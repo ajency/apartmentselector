@@ -168,6 +168,8 @@ function save_unit($post_id, $post){
 
     $unit_status = $_REQUEST["unit_status"];
 
+    $unit_assigned = $_REQUEST["unit_assigned"];
+
     update_post_meta($post->ID, 'unit_variant', $unit_variant);
 
     update_post_meta($post->ID, 'floor', $floor);
@@ -175,6 +177,8 @@ function save_unit($post_id, $post){
     update_post_meta($post->ID, 'building', $building);
 
     update_post_meta($post->ID, 'unit_status', $unit_status);
+
+    update_post_meta($post->ID, 'unit_assigned', $unit_assigned);
 
     return $post->ID;
 }
@@ -316,6 +320,8 @@ function get_unit_by_id($id){
 
     $unit_status =   get_post_meta($result->ID, 'unit_status', true);
 
+    $unit_assigned =   get_post_meta($result->ID, 'unit_assigned', true);
+
     $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
     return array(   'id'=>$result->ID,
@@ -324,6 +330,7 @@ function get_unit_by_id($id){
                     'unit_variant'=>$unit_variant,
                     'building'=>$unit_building,
                     'floor'=>$floor,
+                    'unit_assigned'=>$unit_assigned,
                     'status'=>$unit_status
                 );
 }
@@ -380,3 +387,48 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_save_apartment','ajax_save_apartment');
+
+
+function get_flats_on_floor($building ,$floor){
+
+    $flats = array();
+
+    $building_exceptions = maybe_unserialize(get_option('building_'.$building.'_exceptions'));
+    
+    //var to check if floor is found in exception
+    $floor_in_exception = 0;
+
+    foreach($building_exceptions as $building_exception){
+
+            if(in_array($floor,$building_exception["floors"])){
+
+                $flats = $building_exception["flats"];
+
+                $floor_in_exception = 1;
+            }
+            if($floor_in_exception ==0){
+                
+                $flats = maybe_unserialize(get_option('building_'.$building.'_no_of_flats'));
+    
+            }
+    }
+ 
+    return get_flats_details($flats);
+}
+function ajax_get_flats_on_floor(){
+
+    $building = $_REQUEST["building"];
+
+    $floor = $_REQUEST["floor"];
+
+    $flats = get_flats_on_floor($building ,$floor);
+
+    $response = json_encode( $flats );
+
+    header( "Content-Type: application/json" );
+
+    echo $response;
+
+    exit;
+}
+add_action('wp_ajax_get_flats_on_floor','ajax_get_flats_on_floor');

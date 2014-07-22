@@ -400,12 +400,11 @@ function get_buildings($ids=array())
     ) );
     foreach($categories as $category){
 
-
-        //$building_facings = get_option( "building_".$category->term_id."_facings_view",true);
-
+        $building_no_of_floors = get_option( "building_".$category->term_id."_no_of_floors",true);
+        
         $building_phase = get_option( "building_".$category->term_id."_phase",true);
 
-        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"building_phase"=>$building_phase);
+        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"building_phase"=>$building_phase,"building_no_of_floors"=>$building_no_of_floors);
 
     }
     return $buildings;
@@ -492,28 +491,42 @@ function get_building_by_id($building_id){
    $building =  get_term_by('id', $building_id, 'building');
 
    $building_phase = get_option('building_'.$building_id.'_phase');
-   $building_no_of_floors = get_option('building_'.$building_id.'_no_of_floors');
-   $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
-   $building_no_of_flats_updated = array();
-   foreach($building_no_of_flats as $building_no_of_flat){
-        $building_no_of_flat['image_url'] =  wp_get_attachment_thumb_url($building_no_of_flat["image_id"]);
-        $building_no_of_flats_updated[]  =  $building_no_of_flat;
-   }
-   $building_no_of_flats = $building_no_of_flats_updated;
-   $building_exceptions = maybe_unserialize(get_option('building_'.$building_id.'_exceptions'));
-   $building_exceptions_updated = array();
-   foreach($building_exceptions as $building_exception){
 
-        $building_no_of_flats_updated = array();
-        foreach($building_exception["flats"] as $building_exception_flat){
-            $building_exception_flat['image_url'] =  wp_get_attachment_thumb_url($building_exception_flat["image_id"]);
-            $building_no_of_flats_updated[]  =  $building_exception_flat;
-        }
-        $building_exception["flats"] = $building_no_of_flats_updated;
+   $building_no_of_floors = get_option('building_'.$building_id.'_no_of_floors');
+   
+   $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
+ 
+   $building_no_of_flats = get_flats_details($building_no_of_flats);
+   
+   $building_exceptions = maybe_unserialize(get_option('building_'.$building_id.'_exceptions'));
+   
+   $building_exceptions_updated = array();
+   
+   foreach($building_exceptions as $building_exception){
+ 
+        $building_exception["flats"] = get_flats_details($building_exception["flats"]);
+
         $building_exceptions_updated[] = $building_exception;
    }
+   
    $building_exceptions = $building_exceptions_updated;
+   
    $result = array('id'=>$building->term_id ,'name'=>$building->name,'building_phase'=>$building_phase,'building_no_of_floors'=>$building_no_of_floors,'building_no_of_flats'=>$building_no_of_flats,'building_exceptions'=>$building_exceptions );
  
    return ($result);
+}
+
+//get additional info of flats and pass to the flats array as additional attributes e.g. image path
+function get_flats_details($flats){
+
+    $flats_updated = array();
+
+     foreach($flats as $flat){
+
+            $flat['image_url'] =  wp_get_attachment_thumb_url($flat["image_id"]);
+            
+            $flats_updated[]  =  $flat;
+        }
+
+    return $flats_updated;
 }
