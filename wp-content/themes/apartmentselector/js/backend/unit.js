@@ -29,16 +29,14 @@ jQuery(document).ready(function($) {
         $("#floor").empty();
 
         $("#floor").append(new Option("Select", ""));
-
-        if($("option:selected", $(e.target)).val()==""){
-         $("#flat_container").html("<i>select building and floor</i>")
-         return
-      }
+ 
         for(i=1;i<=floors;i++){
 
             $("#floor").append(new Option(i, i));
 
         }
+
+        $("#floor").trigger('change')
 
 });
 

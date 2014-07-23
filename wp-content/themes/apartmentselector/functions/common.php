@@ -223,3 +223,12 @@ function upload_attachment($file_handler, $post_id, $setthumb = 'false') {
 		update_post_meta($post_id, '_thumbnail_id', $attach_id);
 	return $attach_id;
 }
+
+//get no image of size 150 by 150
+
+function get_no_image_150x150(){
+
+ 	$image_url = get_template_directory_uri()."/css/backend/img/no-image.jpg";
+	
+	return $image_url;
+}

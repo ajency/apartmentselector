@@ -14,6 +14,11 @@ $(document).on("change", ".no_of_flats", function(e) {
         //check the number of flats before the change of the no of flats
         prevCountOfFlats = $('.belongs_to_'+$(e.target).attr("id")).length 
  
+        if($(e.target).val()==""){
+          
+            $("#"+$(e.target).attr('flats_container_id')).html('  <div class="form-group"><label class="form-label"><i>Select No Of Flats</i></label></div>');
+            return;
+        }
         //if prev count less then the the new selection add the additional flats UI 
         if(prevCountOfFlats < $(e.target).val()){
  
@@ -220,7 +225,7 @@ function addException(exception_no){
 
 //save building ajax call
     $(document).on("click", "#save_building", function(e) {
- 
+              
         clearAlerts();
 
         //validate form
@@ -244,8 +249,9 @@ function addException(exception_no){
                     $('form').find("input[type=text], textarea ,select").val("");
                     $('#no_of_floors').val('')
                     $('#no_of_floors').trigger('change')
-                    $('#no_of_flats').val('')
-                    $('#no_of_flats').trigger('change')
+                    $('.no_of_flats').val('')
+                    $('.no_of_flats').trigger('change')
+                  
                 }
                 
 
