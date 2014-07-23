@@ -6,7 +6,7 @@ function apartmentselector_backend_enqueue_scripts(){
 
     global $post;
 
-    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building');
+    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
 
     if(in_array(get_template_filename(),$array_backend_pages)){
 
@@ -111,6 +111,13 @@ function apartmentselector_backend_enqueue_scripts(){
                 array( "jquery" ), false, true );
 
     }
+
+     if(in_array(get_template_filename(),array('form','form-list'))){
+        wp_enqueue_script( 'formidable-form',
+                get_template_directory_uri() . "/js/backend/formidable-form.js",
+                array( "jquery" ), false, true );
+
+        }
 
     //laod file upload js file
     if(in_array(get_template_filename(),array('add-edit-building'))){
