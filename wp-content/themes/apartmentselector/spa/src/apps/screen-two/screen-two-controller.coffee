@@ -24,11 +24,26 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
         showViews:=>
             @buildingCollection = @Collection[0]
             @unitCollection = @Collection[1]
-            itemview1 = @getView @buildingCollection
-            console.log itemview1
+            @showBuildingRegion @buildingCollection
+            @showUnitRegion @unitCollection
+
+
+
+
+
+        showBuildingRegion:(buildingCollection)->
+            itemview1 = @getView buildingCollection
             @layout.buildingRegion.show itemview1
-            itemview2 = @getUnitsView @unitCollection
+
+
+
+        showUnitRegion:(unitCollection)->
+            itemview2 = @getUnitsView unitCollection
             @layout.unitRegion.show itemview2
+
+            @listenTo itemview2, 'childview:childview:unit:count:selected', @_unitCountSelected
+
+
 
 
 
@@ -42,6 +57,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
         getUnitsView:(unitCollection)->
             new ScreenTwoView.UnitTypeView
                 collection : unitCollection
+
+
+        _unitCountSelected:(childview,childview1)=>
+            App.navigate "screen-three" , trigger:true
+
 
 
 
@@ -64,6 +84,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     param[index] = value
                     console.log index
                     string_val = _.isString(value)
+                    valuearr = ""
                     if string_val == true
                         valuearr = value.split(',')
                     if valuearr.length > 1
@@ -110,6 +131,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             console.log templateArr
+            if templateArr.length == 0
+                templateArr.push 'All'
             templateString  = templateArr.join(',')
             $.each(units, (index,value)->
                 maxcoll = Array()
@@ -205,13 +228,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high_max_val = Math.max.apply( Math, max_coll )
                     high_min_val = Math.min.apply( Math, max_coll )
                 )
-                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid})
-                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid})
                 mainArray.push({name:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid})
+                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid})
+                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid})
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
-                unitColl.push {buildingname: buildingModel.get('name') , units: mainArray ,buildingid:buildingModel.get('id')}
+                unitColl.push {buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id')}
                 buildingArrayModel.push(buildingModel)
 
             )

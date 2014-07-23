@@ -10,53 +10,112 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     function ScreenThreeController() {
       this.mainUnitSelected = __bind(this.mainUnitSelected, this);
+      this.showViews = __bind(this.showViews, this);
       return ScreenThreeController.__super__.constructor.apply(this, arguments);
     }
 
     ScreenThreeController.prototype.initialize = function() {
-      var view;
-      this.unitsCollection = this._getUnits();
-      this.view = view = this._getUnitsView(this.unitsCollection);
-      return this.show(view);
+      this.Collection = this._getUnits();
+      this.layout = new ScreenThreeView.ScreenThreeLayout();
+      this.listenTo(this.layout, "show", this.showViews);
+      return this.show(this.layout);
     };
 
-    ScreenThreeController.prototype._getUnitsView = function(unitsCollection) {
-      return new ScreenThreeView({
-        collection: unitsCollection
+    ScreenThreeController.prototype.showViews = function() {
+      console.log(this.buildingCollection = this.Collection[0]);
+      console.log(this.unitCollection = this.Collection[1]);
+      this.showBuildingRegion(this.buildingCollection);
+      return this.showUnitRegion(this.unitCollection);
+    };
+
+    ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {
+      var itemview1;
+      itemview1 = this.getView(buildingCollection);
+      return this.layout.buildingRegion.show(itemview1);
+    };
+
+    ScreenThreeController.prototype.showUnitRegion = function(unitCollection) {
+      var itemview2;
+      itemview2 = this.getUnitsView(unitCollection);
+      return this.layout.unitRegion.show(itemview2);
+    };
+
+    ScreenThreeController.prototype.getView = function(buildingCollection) {
+      return new ScreenThreeView.UnitTypeChildView({
+        collection: buildingCollection
+      });
+    };
+
+    ScreenThreeController.prototype.getUnitsView = function(unitCollection) {
+      return new ScreenThreeView.UnitTypeView({
+        collection: unitCollection
       });
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var floorArray, floorCollection, uniqueFloors, unitCollection, unitcollection;
-      unitCollection = App.currentStore.unit;
-      floorCollection = App.currentStore.unit.pluck('floor');
-      uniqueFloors = _.uniq(floorCollection);
-      floorArray = Array();
-      $.each(uniqueFloors, function(index, value) {
-        var collection, unitArray;
-        unitArray = Array();
-        unitCollection.each(function(item) {
-          var variantModel, viewModel;
-          if (parseInt(value) === parseInt(item.get('floor'))) {
-            variantModel = App.currentStore.unit_variant.findWhere({
-              id: item.get('unitVariant')
+      var buildingArray, buildingArrayModel, buildingCollection, newunitCollection, unitArray, units, unitsArray;
+      buildingArray = [];
+      unitArray = [];
+      unitsArray = [];
+      buildingArrayModel = [];
+      units = App.currentStore.unit;
+      units.each(function(item) {
+        if (buildingArray.indexOf(item.get('building')) === -1) {
+          return buildingArray.push(item.get('building'));
+        }
+      });
+      $.each(buildingArray, function(index, value) {
+        var buildingModel, buildingid, floorArray, floorCountArray, unitCollection, unitsCollection;
+        buildingid = value;
+        floorArray = [];
+        floorCountArray = [];
+        unitsCollection = App.currentStore.unit.where({
+          building: value
+        });
+        $.each(unitsCollection, function(index, value) {
+          if (floorArray.indexOf(value.get('floor')) === -1) {
+            floorArray.push(value.get('floor'));
+            return floorCountArray.push({
+              id: value.get('floor')
             });
-            item.set('variantModel', variantModel.get('sellablearea'));
-            viewModel = App.currentStore.view.findWhere({
-              id: item.get('view')
-            });
-            item.set('view_name', viewModel.get('name'));
-            return unitArray.push(item);
           }
         });
-        collection = new Backbone.Collection(unitArray);
-        return floorArray.push({
-          floorid: value,
-          units: collection
+        $.each(floorArray, function(index, value) {
+          var floorCollection, floorunits;
+          floorunits = App.currentStore.unit.where({
+            floor: value,
+            building: buildingid
+          });
+          floorCollection = new Backbone.Collection(floorunits);
+          unitsArray.push({
+            floorunits: floorCollection
+          });
+          return $.each(floorunits, function(index, value) {
+            var unitType, unitVariant;
+            unitType = App.currentStore.unit_type.findWhere({
+              id: value.get('unitType')
+            });
+            value.set('unitTypeName', unitType.get('name'));
+            unitVariant = App.currentStore.unit_variant.findWhere({
+              id: value.get('unitVariant')
+            });
+            return value.set('unitVariantName', unitVariant.get('name'));
+          });
+        });
+        buildingModel = App.currentStore.building.findWhere({
+          id: value
+        });
+        buildingArrayModel.push(buildingModel);
+        unitCollection = new Backbone.Collection(unitsArray);
+        return unitArray.push({
+          buildingid: value,
+          units: unitCollection,
+          floorcount: floorCountArray
         });
       });
-      unitcollection = new Backbone.Collection(floorArray);
-      return unitcollection;
+      buildingCollection = new Backbone.Collection(buildingArrayModel);
+      newunitCollection = new Backbone.Collection(unitArray);
+      return [buildingCollection, newunitCollection];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {

@@ -93,6 +93,7 @@ define [ 'marionette' ], ( Marionette )->
                     $('a' ).removeClass 'selected'
                     $("#check"+element).val "0"
                 unitType = []
+                App.defaults['unitType'] = 'All'
                 $("#finalButton").removeClass 'disabled'
 
 

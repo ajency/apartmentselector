@@ -17,8 +17,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             <div class="tableHeader">
                 				<ul>
                 					<li><a href="#modal"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
-                					<li><a href="#modal"><span class="bold">MIDRISE</span><br>15-11 Floors</a></li>
-                					<li><a href="#modal"><span class="bold">LOWRISE</span><br>15-11 Floors</a></li>
+                					<li><a href="#modal"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
+                					<li><a href="#modal"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
                 				</ul>
                 		    </div>
                             <div class="tableBody">
@@ -82,10 +82,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         tagName : 'li'
 
-        events :
-            'click .link' : ( e )->
-                console.log @model.get 'id'
-                $( '#tower'+@model.get 'id' ).removeClass 'hidden'
+
 
 
     class UnitTypeChildView extends Marionette.CompositeView
@@ -101,33 +98,67 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
-        onShow : ->
-            console.log "aaaaaaaaaaaaa"
 
 
-    class UnitView extends Marionette.ItemView
 
-        template : '
-                                							<div class="vs-content">
+    class UnitViewChildView extends Marionette.ItemView
 
-                                        								{{#units}}<div class="text-center">
-                                										<div class="flatNos">{{name}}</div>
-                                								</div>
+        template : '<div class="flatNos">{{name}}</div>
+                            </div>'
 
-               {{/units}}
-                                							</div>
-                                						'
+        className : 'text-center'
+
+
+        events:
+            'click .flatNos':(e)->
+                param = {}
+                param['name'] = @model.get 'range'
+                rangeModel = App.currentStore.range.findWhere(param)
+                rangeArray = []
+                i = 0
+                start = rangeModel.get('start')
+                end = rangeModel.get('end')
+                while parseInt(start) <= parseInt(end)
+                    rangeArray[i] = start
+                    start = parseInt(start) + 1
+                    i++
+                rangeArray
+                rangeString = rangeArray.join(',')
+
+
+                App.defaults['floor'] = rangeString
+                @trigger 'unit:count:selected'
+
+
+
+
+
+
+    class UnitView extends Marionette.CompositeView
+
+        template : '<div class="vs-content"></div>'
+
 
 
         tagName : 'section'
 
 
+
+        childView : UnitViewChildView
+
+
+        childViewContainer : '.vs-content'
+
+
+
+
+
         initialize :->
+            @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
 
-        onShow : ->
-            $("#tower1" ).removeClass 'hidden'
+
 
 
     class UnitTypeView extends Marionette.CompositeView
@@ -139,9 +170,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         className : "vs-wrapper"
 
-        initialize : ->
-            tower = @collection.at( 0 )
-            $( "#tower"+tower.get('id') ).show()
+
 
 
     ScreenTwoLayout : ScreenTwoLayout
