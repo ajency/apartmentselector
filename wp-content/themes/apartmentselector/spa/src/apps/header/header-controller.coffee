@@ -77,6 +77,9 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
             templateString  = templateArr.join(',')
             textString = ""
             if window.location.href.indexOf('screen-two') > -1
+                if templateArr.length == 0
+                    templateArr.push 'All'
+                    templateString  = templateArr.join(',')
                 if flag==1
                     first = _.first(templateArr)
                     buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
@@ -97,6 +100,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
                 textString  = 'You have selected '+templateString
                 textClass = ''
+
             else if window.location.href.indexOf('screen-three') > -1
                 first = _.first(templateArr)
                 buildingModel = App.currentStore.building.findWhere({id:App.building['name']})

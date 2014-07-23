@@ -7,9 +7,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         		<div class="legend text-center m-b-20">
 
-       {{#unitType}}
+       {{#unittypes}}
 <span class="oneBHK">.</span>{{name}}
-        {{/unitType}}
+        {{/unittypes}}
         		</div>
                 <div class="row m-r-0 m-l-0">
         			<div class="col-sm-7 p-l-0 p-r-0">
@@ -28,27 +28,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 </div>
                             </div>
                         </div>
-                        <div class="towerDetails">
-        					<div class="row">
-        						<div class="col-sm-12">
-        							<img src="assets/img/towerA.jpg" class="img-responsive">
-        						</div>
-        					</div>
-        					<div class="row">
 
-       {{#unitType}}         						<div class="col-xs-4">
-        							<h1><small>Total {{name}}</small><br>{{count}}</h1>
-        						</div>
-{{/unitType}}
-        					</div>
-        					<div class="row">
-        						<div class="col-sm-12 m-t-10">
-        							<div class="col">
-        								<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
                     </div>
 
                     <div class="col-sm-5 hidden-xs">
@@ -142,7 +122,26 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitView extends Marionette.CompositeView
 
-        template : '<div class="vs-content"></div>'
+        template : '<div class="vs-content"></div><div class="towerDetails">
+        										<div class="row">
+        											<div class="col-sm-12">
+        												<img src="assets/img/towerA.jpg" class="img-responsive">
+        											</div>
+        										</div>
+        										<div class="row">
+        											{{#unittypes}}         		<div class="col-xs-4">
+                							<h1><small>Total {{name}}</small><br>{{count}}</h1>
+                						    </div>
+        {{/unittypes}}
+        										</div>
+        										<div class="row">
+        											<div class="col-sm-12 m-t-10">
+        												<div class="col">
+        													<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
+        												</div>
+        											</div>
+        										</div>
+        									</div>'
 
 
 
