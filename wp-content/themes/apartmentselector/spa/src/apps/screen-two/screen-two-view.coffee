@@ -98,8 +98,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
-        onShow : ->
-            console.log "aaaaaaaaaaaaa"
+
 
 
     class UnitViewChildView extends Marionette.ItemView
@@ -159,9 +158,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
 
-        onShow : ->
-            console.log @model
-            $("#tower1" ).removeClass 'hidden'
+
 
 
     class UnitTypeView extends Marionette.CompositeView
@@ -173,9 +170,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         className : "vs-wrapper"
 
-        initialize : ->
-            tower = @collection.at( 0 )
-            $( "#tower"+tower.get('id') ).show()
+
 
 
     ScreenTwoLayout : ScreenTwoLayout

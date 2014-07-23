@@ -78,7 +78,7 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '{{name}} <div class="small">{{unitTypeName}}  {{unitVariantName}}</div>';
+    childViewUnit.prototype.template = '{{name}}<div class="small">{{unitTypeName}}  {{unitVariantName}}</div>';
 
     childViewUnit.prototype.className = 'box filtered';
 

@@ -41,7 +41,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype.getView = function(buildingCollection) {
-      console.log("hi");
       return new ScreenThreeView.UnitTypeChildView({
         collection: buildingCollection
       });

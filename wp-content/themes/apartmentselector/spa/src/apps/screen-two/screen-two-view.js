@@ -57,10 +57,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     UnitTypeChildView.prototype.childView = BuildingView;
 
-    UnitTypeChildView.prototype.onShow = function() {
-      return console.log("aaaaaaaaaaaaa");
-    };
-
     return UnitTypeChildView;
 
   })(Marionette.CompositeView);
@@ -120,11 +116,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return this.$el.prop("id", 'tower' + this.model.get("buildingid"));
     };
 
-    UnitView.prototype.onShow = function() {
-      console.log(this.model);
-      return $("#tower1").removeClass('hidden');
-    };
-
     return UnitView;
 
   })(Marionette.CompositeView);
@@ -138,12 +129,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitTypeView.prototype.childView = UnitView;
 
     UnitTypeView.prototype.className = "vs-wrapper";
-
-    UnitTypeView.prototype.initialize = function() {
-      var tower;
-      tower = this.collection.at(0);
-      return $("#tower" + tower.get('id')).show();
-    };
 
     return UnitTypeView;
 

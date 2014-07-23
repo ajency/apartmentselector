@@ -42,7 +42,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
         getView:(buildingCollection)->
-            console.log "hi"
             new ScreenThreeView.UnitTypeChildView
                 collection : buildingCollection
 

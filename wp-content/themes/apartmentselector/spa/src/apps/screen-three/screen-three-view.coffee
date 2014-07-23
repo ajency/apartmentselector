@@ -62,9 +62,7 @@ define [ 'marionette' ], ( Marionette )->
 
     class childViewUnit extends Marionette.ItemView
 
-        template : '
-        													{{name}}
-        													<div class="small">{{unitTypeName}}  {{unitVariantName}}</div>
+        template : '{{name}}<div class="small">{{unitTypeName}}  {{unitVariantName}}</div>
         												'
 
 
