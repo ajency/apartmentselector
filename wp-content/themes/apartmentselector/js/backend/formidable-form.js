@@ -135,6 +135,7 @@
     });
     $(document).on("click", "#save-main-entry", function(e) {
       var data;
+      $("#save-main-entry").hide().parent().append("saving...")
       GetSubFormEntries(e);
       data = $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form").serializeArray();
       $.post(AJAXURL, {
