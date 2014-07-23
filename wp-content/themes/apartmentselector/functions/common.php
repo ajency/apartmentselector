@@ -135,7 +135,8 @@ add_action('wp_ajax_get_list_view','ajax_get_list_view');
 
 function check_backend_template(){
     //check to load js only if not backend templates
-    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building');
+    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
+
 
     if(in_array(get_template_filename(),$array_backend_pages)){
 
