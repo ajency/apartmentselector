@@ -22,6 +22,9 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     'status': new Backbone.Collection(status)
   };
   App.currentStore = App.store;
+  App.building = {
+    name: ''
+  };
   App.defaults = {
     "building": 'All',
     "unitType": 'All',

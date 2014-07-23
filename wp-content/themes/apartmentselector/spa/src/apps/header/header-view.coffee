@@ -16,20 +16,32 @@ define [ 'marionette' ], ( Mariontte )->
 
         events:
             'click .text-white':(e)->
-                App.navigate ""
-                e.preventDefault()
-                App.filter(params={})
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                .withOptions()
-                msgbus.showApp 'screen:one'
-                .insideRegion  App.mainRegion
-                .withOptions()
+                if window.location.href.indexOf('screen-two') > -1
+                    App.navigate ""
+                    App.defaults['floor'] = 'All'
+                    e.preventDefault()
+                    App.filter(params={})
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                    .withOptions()
+                    msgbus.showApp 'screen:one'
+                    .insideRegion  App.mainRegion
+                    .withOptions()
+                else if window.location.href.indexOf('screen-three') > -1
+                    App.navigate "screen-two"
+                    e.preventDefault()
+                    App.filter(params={})
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                        .withOptions()
+                    msgbus.showApp 'screen:two'
+                    .insideRegion  App.mainRegion
+                        .withOptions()
 
 
 
         onShow:->
-            if window.location.href.indexOf('screen-two') > -1
+            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1
                 console.log  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             else
                 console.log "eeeeeeeeeeee"

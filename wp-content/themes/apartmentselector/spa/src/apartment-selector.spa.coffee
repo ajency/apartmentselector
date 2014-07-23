@@ -49,6 +49,8 @@ require [ 'plugin-loader'
 
     App.currentStore = App.store
 
+    App.building = {name:''}
+
 
     App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
 

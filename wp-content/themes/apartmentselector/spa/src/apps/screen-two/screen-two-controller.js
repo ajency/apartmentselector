@@ -68,7 +68,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function() {
-      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, newarr, param, paramkey, status, templateArr, templateString, unique, unitColl, unitTypeArray, units;
+      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, first, flag, highUnits, lowUnits, mediumUnits, newarr, param, paramkey, range, status, templateArr, templateString, unique, unitColl, unitTypeArray, units;
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -88,6 +88,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       param = {};
       paramkey = {};
+      flag = 0;
       $.each(App.defaults, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
@@ -129,7 +130,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
                 templateArr.push(budget_Val);
               }
               if (index === 'floor') {
-                _results.push(templateArr.push(value));
+                templateArr.push(value);
+                _results.push(flag = 1);
               } else {
                 _results.push(void 0);
               }
@@ -162,7 +164,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               templateArr.push(budget_Val);
             }
             if (index === 'floor') {
-              return templateArr.push(value);
+              templateArr.push(value);
+              return flag = 1;
             }
           }
         }
@@ -171,7 +174,33 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       if (templateArr.length === 0) {
         templateArr.push('All');
       }
-      templateString = templateArr.join(',');
+      if (flag === 1) {
+        first = _.first(templateArr);
+        buildingModel = App.currentStore.building.findWhere({
+          id: App.building['name']
+        });
+        lowUnits = App.currentStore.range.findWhere({
+          name: 'low'
+        });
+        if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+          range = 'LOWRISE' + ',' + buildingModel.get('name');
+        }
+        mediumUnits = App.currentStore.range.findWhere({
+          name: 'medium'
+        });
+        if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+          range = 'MIDRISE' + ',' + buildingModel.get('name');
+        }
+        highUnits = App.currentStore.range.findWhere({
+          name: 'high'
+        });
+        if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+          range = 'HIGHRISE' + ',' + buildingModel.get('name');
+        }
+        templateString = range;
+      } else {
+        templateString = templateArr.join(',');
+      }
       $.each(units, function(index, value) {
         var maxcoll, unitType;
         maxcoll = Array();
@@ -200,9 +229,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return unique[item.id] = item;
         }
       });
-      console.log(newarr);
       $.each(buildingArray, function(index, value) {
-        var buildingModel, buildingid, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newunits;
+        var buildingid, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newunits;
         buildingid = value;
         newunits = App.currentStore.unit.where({
           'building': value
@@ -212,7 +240,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         highArray = Array();
         mainArray = Array();
         $.each(newunits, function(index, value) {
-          var highUnits, lowUnits, mediumUnits;
           lowUnits = App.currentStore.range.findWhere({
             name: 'low'
           });

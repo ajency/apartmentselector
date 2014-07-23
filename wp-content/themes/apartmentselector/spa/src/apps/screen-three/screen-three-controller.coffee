@@ -63,6 +63,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 buildingid = value
                 floorArray = []
                 floorCountArray = []
+                unitsArray = []
                 unitsCollection = App.currentStore.unit.where({building:value})
                 $.each(unitsCollection, (index,value)->
                     if floorArray.indexOf(value.get 'floor') ==  -1
@@ -73,6 +74,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 )
                 $.each(floorArray, (index,value)->
+
                     floorunits = App.currentStore.unit.where({floor:value,building:buildingid})
                     floorCollection = new Backbone.Collection(floorunits)
                     unitsArray.push { floorunits : floorCollection }
@@ -103,6 +105,18 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             )
+            temp = []
+            temp1 = []
+            for element,index in unitArray
+                console.log unitArray[index]
+                if unitArray[index].buildingid  == App.building['name']
+                    temp[0] = unitArray[0]
+                    unitArray[0] = unitArray[index]
+                    unitArray[index] = temp[0]
+                    temp1[0] = buildingArrayModel[0]
+                    buildingArrayModel[0] = buildingArrayModel[index]
+                    buildingArrayModel[index] = temp1[0]
+
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             newunitCollection = new Backbone.Collection(unitArray)
             [buildingCollection,newunitCollection]

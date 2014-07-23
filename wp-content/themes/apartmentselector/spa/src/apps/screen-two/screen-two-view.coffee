@@ -127,6 +127,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                 App.defaults['floor'] = rangeString
+                App.defaults['unitType'] = 'All'
+                App.defaults['unitVariant'] = 'All'
+                App.defaults['view'] = 'All'
+                App.defaults['budget'] = 'All'
+                App.defaults['building'] = 'All'
+                App.building['name'] = parseInt(@model.get 'buildingid')
                 @trigger 'unit:count:selected'
 
 

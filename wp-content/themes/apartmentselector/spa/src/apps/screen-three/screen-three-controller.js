@@ -53,7 +53,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var buildingArray, buildingArrayModel, buildingCollection, newunitCollection, unitArray, units, unitsArray;
+      var buildingArray, buildingArrayModel, buildingCollection, element, index, newunitCollection, temp, temp1, unitArray, units, unitsArray, _i, _len;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -69,6 +69,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         buildingid = value;
         floorArray = [];
         floorCountArray = [];
+        unitsArray = [];
         unitsCollection = App.currentStore.unit.where({
           building: value
         });
@@ -113,6 +114,20 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           floorcount: floorCountArray
         });
       });
+      temp = [];
+      temp1 = [];
+      for (index = _i = 0, _len = unitArray.length; _i < _len; index = ++_i) {
+        element = unitArray[index];
+        console.log(unitArray[index]);
+        if (unitArray[index].buildingid === App.building['name']) {
+          temp[0] = unitArray[0];
+          unitArray[0] = unitArray[index];
+          unitArray[index] = temp[0];
+          temp1[0] = buildingArrayModel[0];
+          buildingArrayModel[0] = buildingArrayModel[index];
+          buildingArrayModel[index] = temp1[0];
+        }
+      }
       buildingCollection = new Backbone.Collection(buildingArrayModel);
       newunitCollection = new Backbone.Collection(unitArray);
       return [buildingCollection, newunitCollection];

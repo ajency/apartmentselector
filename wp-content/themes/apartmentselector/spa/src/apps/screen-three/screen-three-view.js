@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div class="vs-wrapper" id="unit-region"> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -21,10 +21,33 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var scr;
+      var $columns_number, scr;
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/spa/src/bower_components/preload/main.js';
-      return document.body.appendChild(scr);
+      document.body.appendChild(scr);
+      $columns_number = $('.unitTable .cd-table-container').find('.cd-block').length;
+      $('.cd-table-container').on('scroll', function() {
+        var $this, table_viewport, total_table_width;
+        $this = $(this);
+        total_table_width = parseInt($('.cd-table-wrapper').css('width').replace('px', ''));
+        table_viewport = parseInt($('.unitTable').css('width').replace('px', ''));
+        if ($this.scrollLeft() >= total_table_width - table_viewport - $columns_number) {
+          $('.unitTable').addClass('table-end');
+          return $('.cd-scroll-right').hide();
+        } else {
+          $('.unitTable').removeClass('table-end');
+          return $('.cd-scroll-right').show();
+        }
+      });
+      return $('.cd-scroll-right').on('click', function() {
+        var $this, column_width, new_left_scroll;
+        $this = $(this);
+        column_width = $(this).siblings('.cd-table-container').find('.cd-block').eq(0).css('width').replace('px', '');
+        new_left_scroll = parseInt($('.cd-table-container').scrollLeft()) + parseInt(column_width);
+        return $('.cd-table-container').animate({
+          scrollLeft: new_left_scroll
+        }, 200);
+      });
     };
 
     return ScreenThreeLayout;
@@ -43,7 +66,6 @@ define(['marionette'], function(Marionette) {
 
     BuildingView.prototype.events = {
       'click .link': function(e) {
-        console.log(this.model.get('id'));
         return $('#tower' + this.model.get('id')).removeClass('hidden');
       }
     };
@@ -64,10 +86,6 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeChildView.prototype.childView = BuildingView;
 
-    UnitTypeChildView.prototype.onShow = function() {
-      return console.log("aaaaaaaaaaaaa");
-    };
-
     return UnitTypeChildView;
 
   })(Marionette.CompositeView);
@@ -78,9 +96,23 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '{{name}}<div class="small">{{unitTypeName}}  {{unitVariantName}}</div>';
+    childViewUnit.prototype.template = '<div > {{name}} <div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div> </div>';
 
-    childViewUnit.prototype.className = 'box filtered';
+    childViewUnit.prototype.className = 'cd-block';
+
+    childViewUnit.prototype.initialize = function() {
+      return this.$el.prop("id", 'unit' + this.model.get("id"));
+    };
+
+    childViewUnit.prototype.onShow = function() {
+      if (this.model.get('status') === 1) {
+        return $('#unit' + this.model.get("id")).addClass('box filtered');
+      } else if (this.model.get('status') === 2) {
+        return $('#unit' + this.model.get("id")).addClass('box sold');
+      } else {
+        return $('#unit' + this.model.get("id")).addClass('box other');
+      }
+    };
 
     return childViewUnit;
 
@@ -92,12 +124,13 @@ define(['marionette'], function(Marionette) {
       return unitChildView.__super__.constructor.apply(this, arguments);
     }
 
-    unitChildView.prototype.className = 'cd-table-column';
+    unitChildView.prototype.template = '<div class="clearfix"></div>';
+
+    unitChildView.prototype.className = 'cd-table-row';
 
     unitChildView.prototype.childView = childViewUnit;
 
     unitChildView.prototype.initialize = function() {
-      console.log(this.model);
       return this.collection = this.model.get('floorunits');
     };
 
@@ -111,7 +144,7 @@ define(['marionette'], function(Marionette) {
       return UnitView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} <small>95 per sqft</small> </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div></div></div>';
+    UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} <small>95 per sqft</small> </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div><em class="cd-scroll-right"></em></div></div>';
 
     UnitView.prototype.childView = unitChildView;
 
@@ -120,7 +153,6 @@ define(['marionette'], function(Marionette) {
     UnitView.prototype.childViewContainer = '.cd-table-wrapper';
 
     UnitView.prototype.initialize = function() {
-      console.log(this.model.get('floorcount'));
       this.collection = this.model.get('units');
       return this.$el.prop("id", 'tower' + this.model.get("buildingid"));
     };
@@ -134,6 +166,8 @@ define(['marionette'], function(Marionette) {
     function UnitTypeView() {
       return UnitTypeView.__super__.constructor.apply(this, arguments);
     }
+
+    UnitTypeView.prototype.className = "vs-wrapper";
 
     UnitTypeView.prototype.childView = UnitView;
 

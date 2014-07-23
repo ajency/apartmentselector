@@ -18,16 +18,25 @@ define(['marionette'], function(Mariontte) {
     HeaderView.prototype.events = {
       'click .text-white': function(e) {
         var params;
-        App.navigate("");
-        e.preventDefault();
-        App.filter(params = {});
-        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-        return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
+        if (window.location.href.indexOf('screen-two') > -1) {
+          App.navigate("");
+          App.defaults['floor'] = 'All';
+          e.preventDefault();
+          App.filter(params = {});
+          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
+        } else if (window.location.href.indexOf('screen-three') > -1) {
+          App.navigate("screen-two");
+          e.preventDefault();
+          App.filter(params = {});
+          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
+        }
       }
     };
 
     HeaderView.prototype.onShow = function() {
-      if (window.location.href.indexOf('screen-two') > -1) {
+      if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1) {
         return console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
       } else {
         console.log("eeeeeeeeeeee");

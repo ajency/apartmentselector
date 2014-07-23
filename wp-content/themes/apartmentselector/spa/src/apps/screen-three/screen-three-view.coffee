@@ -8,7 +8,7 @@ define [ 'marionette' ], ( Marionette )->
 
         			</header>
 
-                    <div class="vs-wrapper" id="unit-region">
+                    <div  id="unit-region">
                     </div>
                     </div>'
 
@@ -29,6 +29,40 @@ define [ 'marionette' ], ( Marionette )->
             scr.src = '../wp-content/themes/apartmentselector/spa/src/bower_components/preload/main.js'
             document.body.appendChild(scr)
 
+            $columns_number = $('.unitTable .cd-table-container').find('.cd-block').length
+
+            $('.cd-table-container').on('scroll', ()->
+                $this = $(this)
+                total_table_width = parseInt($('.cd-table-wrapper').css('width').replace('px', ''))
+                table_viewport = parseInt($('.unitTable').css('width').replace('px', ''))
+                if( $this.scrollLeft() >= total_table_width - table_viewport - $columns_number)
+                    $('.unitTable').addClass('table-end');
+                    $('.cd-scroll-right').hide()
+                else
+                    $('.unitTable').removeClass('table-end')
+                    $('.cd-scroll-right').show()
+
+
+
+
+
+
+            )
+            $('.cd-scroll-right').on('click', ()->
+                $this= $(this)
+                column_width = $(this).siblings('.cd-table-container').find('.cd-block').eq(0).css('width').replace('px', '')
+                new_left_scroll = parseInt($('.cd-table-container').scrollLeft()) + parseInt(column_width)
+                $('.cd-table-container').animate( {scrollLeft: new_left_scroll}, 200 )
+
+
+
+
+
+            )
+
+
+
+
 
 
 
@@ -40,7 +74,6 @@ define [ 'marionette' ], ( Marionette )->
 
         events :
             'click .link' : ( e )->
-                console.log @model.get 'id'
                 $( '#tower'+@model.get 'id' ).removeClass 'hidden'
 
 
@@ -57,24 +90,42 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-        onShow : ->
-            console.log "aaaaaaaaaaaaa"
+
 
     class childViewUnit extends Marionette.ItemView
 
-        template : '{{name}}<div class="small">{{unitTypeName}}  {{unitVariantName}}</div>
+        template : '<div >
+        												{{name}}
+        												<div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div>
+        											</div>
+
         												'
 
 
 
-        className : 'box filtered'
+        className : 'cd-block'
+
+        initialize :->
+            @$el.prop("id", 'unit'+@model.get("id"))
+
+        onShow :->
+
+            if @model.get('status') == 1
+                $('#unit'+@model.get("id")).addClass 'box filtered'
+            else if @model.get('status') == 2
+                $('#unit'+@model.get("id")).addClass 'box sold'
+            else
+                $('#unit'+@model.get("id")).addClass 'box other'
+
 
 
     class unitChildView extends Marionette.CompositeView
 
+        template : '<div class="clearfix"></div>'
 
 
-        className : 'cd-table-column'
+
+        className : 'cd-table-row'
 
 
 
@@ -86,7 +137,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
         initialize :->
-            console.log @model
             @collection = @model.get 'floorunits'
 
 
@@ -108,7 +158,7 @@ define [ 'marionette' ], ( Marionette )->
                 								</ul>
                 							</header>
                 			<div class="cd-table-container"><div class="cd-table-wrapper">
-                            </div></div></div></div>'
+                            </div></div><em class="cd-scroll-right"></em></div></div>'
 
 
 
@@ -125,16 +175,16 @@ define [ 'marionette' ], ( Marionette )->
 
 
         initialize :->
-            console.log @model.get 'floorcount'
             @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
 
 
 
+
     class UnitTypeView extends Marionette.CompositeView
 
-
+        className : "vs-wrapper"
 
 
         childView : UnitView

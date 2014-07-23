@@ -79,10 +79,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             param = {}
             paramkey = {}
+            flag = 0
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value
                     console.log index
+
                     string_val = _.isString(value)
                     valuearr = ""
                     if string_val == true
@@ -107,6 +109,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                                 templateArr.push budget_Val
                             if index == 'floor'
                                 templateArr.push value
+                                flag = 1
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
@@ -125,6 +128,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                             templateArr.push budget_Val
                         if index == 'floor'
                             templateArr.push value
+                            flag = 1
 
 
 
@@ -133,7 +137,28 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             console.log templateArr
             if templateArr.length == 0
                 templateArr.push 'All'
-            templateString  = templateArr.join(',')
+            if(flag==1)
+                first = _.first(templateArr)
+                buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                lowUnits = App.currentStore.range.findWhere({name:'low'})
+                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                    range = 'LOWRISE'+',' +buildingModel.get('name')
+
+
+
+                mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                    range = 'MIDRISE'+',' +buildingModel.get('name')
+
+
+                highUnits = App.currentStore.range.findWhere({name:'high'})
+                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                    range = 'HIGHRISE'+',' +buildingModel.get('name')
+                templateString = range
+            else
+                templateString  = templateArr.join(',')
+
+
             $.each(units, (index,value)->
                 maxcoll = Array()
                 unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
@@ -149,7 +174,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             )
-            console.log newarr
             $.each(buildingArray, (index,value)->
                 buildingid = value
                 newunits = App.currentStore.unit.where({'building':value})

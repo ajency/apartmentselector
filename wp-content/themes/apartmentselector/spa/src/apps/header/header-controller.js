@@ -31,13 +31,12 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var flag, templateArr, templateString, textClass, textString;
+      var buildingModel, first, flag, highUnits, lowUnits, mediumUnits, range, templateArr, templateString, textClass, textString;
       templateArr = [];
       flag = 0;
       $.each(App.defaults, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
-          flag = 1;
           string_val = _.isString(value);
           valuearr = "";
           if (string_val === true) {
@@ -74,7 +73,8 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
                 templateArr.push(budget_Val);
               }
               if (index === 'floor') {
-                _results.push(templateArr.push(element));
+                templateArr.push(element);
+                _results.push(flag = 1);
               } else {
                 _results.push(void 0);
               }
@@ -107,7 +107,8 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
               templateArr.push(budget_Val);
             }
             if (index === 'floor') {
-              return templateArr.push(value);
+              templateArr.push(value);
+              return flag = 1;
             }
           }
         }
@@ -115,8 +116,57 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       console.log(templateArr);
       templateString = templateArr.join(',');
       textString = "";
-      if (flag === 1) {
+      if (window.location.href.indexOf('screen-two') > -1) {
+        if (flag === 1) {
+          first = _.first(templateArr);
+          buildingModel = App.currentStore.building.findWhere({
+            id: App.building['name']
+          });
+          lowUnits = App.currentStore.range.findWhere({
+            name: 'low'
+          });
+          if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+            templateString = 'LOWRISE' + ',' + buildingModel.get('name');
+          }
+          mediumUnits = App.currentStore.range.findWhere({
+            name: 'medium'
+          });
+          if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+            templateString = 'MIDRISE' + ',' + buildingModel.get('name');
+          }
+          highUnits = App.currentStore.range.findWhere({
+            name: 'high'
+          });
+          if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+            templateString = 'HIGHRISE' + ',' + buildingModel.get('name');
+          }
+        }
         textString = 'You have selected ' + templateString;
+        textClass = '';
+      } else if (window.location.href.indexOf('screen-three') > -1) {
+        first = _.first(templateArr);
+        buildingModel = App.currentStore.building.findWhere({
+          id: App.building['name']
+        });
+        lowUnits = App.currentStore.range.findWhere({
+          name: 'low'
+        });
+        if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+          range = 'LOWRISE';
+        }
+        mediumUnits = App.currentStore.range.findWhere({
+          name: 'medium'
+        });
+        if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+          range = 'MIDRISE';
+        }
+        highUnits = App.currentStore.range.findWhere({
+          name: 'high'
+        });
+        if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+          range = 'HIGHRISE';
+        }
+        textString = range + '>' + buildingModel.get('name');
         textClass = '';
       } else {
         textString = 'Apartment Selector';
