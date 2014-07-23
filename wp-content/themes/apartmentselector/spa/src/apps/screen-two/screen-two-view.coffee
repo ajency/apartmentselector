@@ -82,10 +82,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         tagName : 'li'
 
-        events :
-            'click .link' : ( e )->
-                console.log @model.get 'id'
-                $( '#tower'+@model.get 'id' ).removeClass 'hidden'
+
 
 
     class UnitTypeChildView extends Marionette.CompositeView
@@ -107,20 +104,31 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '
-                            <div class="flatNos">{{name}}</div>
-                            </div>
-
-
-
-                    '
+        template : '<div class="flatNos">{{name}}</div>
+                            </div>'
 
         className : 'text-center'
 
 
         events:
-            'click .vs-content':(e)->
-                console.log @model.get 'buildingid'
+            'click .flatNos':(e)->
+                param = {}
+                param['name'] = @model.get 'range'
+                rangeModel = App.currentStore.range.findWhere(param)
+                rangeArray = []
+                i = 0
+                start = rangeModel.get('start')
+                end = rangeModel.get('end')
+                while parseInt(start) <= parseInt(end)
+                    rangeArray[i] = start
+                    start = parseInt(start) + 1
+                    i++
+                rangeArray
+                rangeString = rangeArray.join(',')
+
+
+                App.defaults['floor'] = rangeString
+                @trigger 'unit:count:selected'
 
 
 
@@ -147,7 +155,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         initialize :->
-            @model.get 'units'
+            @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
 

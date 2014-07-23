@@ -3,28 +3,52 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenThreeView, UnitTypeChildView, UnitTypeView;
-  UnitTypeView = (function(_super) {
-    __extends(UnitTypeView, _super);
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, unitChildView;
+  ScreenThreeLayout = (function(_super) {
+    __extends(ScreenThreeLayout, _super);
 
-    function UnitTypeView() {
-      return UnitTypeView.__super__.constructor.apply(this, arguments);
+    function ScreenThreeLayout() {
+      return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    UnitTypeView.prototype.className = "grid-block-1";
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div class="vs-wrapper" id="unit-region"> </div> </div>';
 
-    UnitTypeView.prototype.template = '<a href="#"  class="grid-link"   > <div class="grid-text-wrap"     > <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{view_name}}</span> </div> </a>';
+    ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
-    UnitTypeView.prototype.events = {
-      'click': 'unitSelected'
+    ScreenThreeLayout.prototype.regions = {
+      buildingRegion: '#building-region',
+      unitRegion: '#unit-region'
     };
 
-    UnitTypeView.prototype.unitSelected = function(evt) {
-      evt.preventDefault();
-      return this.trigger('main:unit:clicked', this.model.get('id'), this.model.get('unitType'), this.model.get('range'), this.model.get('size'));
+    ScreenThreeLayout.prototype.onShow = function() {
+      var scr;
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/spa/src/bower_components/preload/main.js';
+      return document.body.appendChild(scr);
     };
 
-    return UnitTypeView;
+    return ScreenThreeLayout;
+
+  })(Marionette.LayoutView);
+  BuildingView = (function(_super) {
+    __extends(BuildingView, _super);
+
+    function BuildingView() {
+      return BuildingView.__super__.constructor.apply(this, arguments);
+    }
+
+    BuildingView.prototype.template = '<a class="link" href="tower{{id}}">{{name}}</a>';
+
+    BuildingView.prototype.tagName = 'li';
+
+    BuildingView.prototype.events = {
+      'click .link': function(e) {
+        console.log(this.model.get('id'));
+        return $('#tower' + this.model.get('id')).removeClass('hidden');
+      }
+    };
+
+    return BuildingView;
 
   })(Marionette.ItemView);
   UnitTypeChildView = (function(_super) {
@@ -34,29 +58,91 @@ define(['marionette'], function(Marionette) {
       return UnitTypeChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitTypeChildView.prototype.template = '<div class="grid-container">{{floorid}}</div>';
+    UnitTypeChildView.prototype.tagName = 'ul';
 
-    UnitTypeChildView.prototype.childView = UnitTypeView;
+    UnitTypeChildView.prototype.className = 'vs-nav';
 
-    UnitTypeChildView.prototype.childViewContainer = '.grid-container';
+    UnitTypeChildView.prototype.childView = BuildingView;
 
-    UnitTypeChildView.prototype.initialize = function() {
-      return this.collection = this.model.get('units');
+    UnitTypeChildView.prototype.onShow = function() {
+      return console.log("aaaaaaaaaaaaa");
     };
 
     return UnitTypeChildView;
 
   })(Marionette.CompositeView);
-  return ScreenThreeView = (function(_super) {
-    __extends(ScreenThreeView, _super);
+  childViewUnit = (function(_super) {
+    __extends(childViewUnit, _super);
 
-    function ScreenThreeView() {
-      return ScreenThreeView.__super__.constructor.apply(this, arguments);
+    function childViewUnit() {
+      return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeView.prototype.childView = UnitTypeChildView;
+    childViewUnit.prototype.template = '{{name}} <div class="small">{{unitTypeName}}  {{unitVariantName}}</div>';
 
-    return ScreenThreeView;
+    childViewUnit.prototype.className = 'box filtered';
 
-  })(Marionette.LayoutView);
+    return childViewUnit;
+
+  })(Marionette.ItemView);
+  unitChildView = (function(_super) {
+    __extends(unitChildView, _super);
+
+    function unitChildView() {
+      return unitChildView.__super__.constructor.apply(this, arguments);
+    }
+
+    unitChildView.prototype.className = 'cd-table-column';
+
+    unitChildView.prototype.childView = childViewUnit;
+
+    unitChildView.prototype.initialize = function() {
+      console.log(this.model);
+      return this.collection = this.model.get('floorunits');
+    };
+
+    return unitChildView;
+
+  })(Marionette.CompositeView);
+  UnitView = (function(_super) {
+    __extends(UnitView, _super);
+
+    function UnitView() {
+      return UnitView.__super__.constructor.apply(this, arguments);
+    }
+
+    UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} <small>95 per sqft</small> </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div></div></div>';
+
+    UnitView.prototype.childView = unitChildView;
+
+    UnitView.prototype.tagName = "section";
+
+    UnitView.prototype.childViewContainer = '.cd-table-wrapper';
+
+    UnitView.prototype.initialize = function() {
+      console.log(this.model.get('floorcount'));
+      this.collection = this.model.get('units');
+      return this.$el.prop("id", 'tower' + this.model.get("buildingid"));
+    };
+
+    return UnitView;
+
+  })(Marionette.CompositeView);
+  UnitTypeView = (function(_super) {
+    __extends(UnitTypeView, _super);
+
+    function UnitTypeView() {
+      return UnitTypeView.__super__.constructor.apply(this, arguments);
+    }
+
+    UnitTypeView.prototype.childView = UnitView;
+
+    return UnitTypeView;
+
+  })(Marionette.CompositeView);
+  return {
+    ScreenThreeLayout: ScreenThreeLayout,
+    UnitTypeChildView: UnitTypeChildView,
+    UnitTypeView: UnitTypeView
+  };
 });

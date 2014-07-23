@@ -39,6 +39,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         if (value !== 'All') {
           flag = 1;
           string_val = _.isString(value);
+          valuearr = "";
           if (string_val === true) {
             valuearr = value.split(',');
           }
@@ -69,11 +70,11 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
                 templateArr.push(key.get('name'));
               }
               if (index === 'budget') {
-                budget_Val = value + 'lakhs';
+                budget_Val = element + 'lakhs';
                 templateArr.push(budget_Val);
               }
               if (index === 'floor') {
-                _results.push(templateArr.push(value));
+                _results.push(templateArr.push(element));
               } else {
                 _results.push(void 0);
               }

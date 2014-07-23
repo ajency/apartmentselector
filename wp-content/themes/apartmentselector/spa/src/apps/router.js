@@ -12,6 +12,7 @@ define(['marionette'], function(Marionette) {
     }
 
     ApartmentSelector.prototype.appRoutes = {
+      'screen-three': 'showUnits',
       'screen-two': 'show',
       ':params': 'showValues',
       'screen-one:params': 'showValues',
@@ -42,7 +43,10 @@ define(['marionette'], function(Marionette) {
       return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
     },
     showUnits: function(params) {
-      App.filter(params);
+      if (params == null) {
+        params = {};
+      }
+      App.filter(params = {});
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
     },

@@ -41,13 +41,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     BuildingView.prototype.tagName = 'li';
 
-    BuildingView.prototype.events = {
-      'click .link': function(e) {
-        console.log(this.model.get('id'));
-        return $('#tower' + this.model.get('id')).removeClass('hidden');
-      }
-    };
-
     return BuildingView;
 
   })(Marionette.ItemView);
@@ -83,8 +76,24 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitViewChildView.prototype.className = 'text-center';
 
     UnitViewChildView.prototype.events = {
-      'click .vs-content': function(e) {
-        return console.log(this.model.get('buildingid'));
+      'click .flatNos': function(e) {
+        var end, i, param, rangeArray, rangeModel, rangeString, start;
+        param = {};
+        param['name'] = this.model.get('range');
+        rangeModel = App.currentStore.range.findWhere(param);
+        rangeArray = [];
+        i = 0;
+        start = rangeModel.get('start');
+        end = rangeModel.get('end');
+        while (parseInt(start) <= parseInt(end)) {
+          rangeArray[i] = start;
+          start = parseInt(start) + 1;
+          i++;
+        }
+        rangeArray;
+        rangeString = rangeArray.join(',');
+        App.defaults['floor'] = rangeString;
+        return this.trigger('unit:count:selected');
       }
     };
 
@@ -107,7 +116,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitView.prototype.childViewContainer = '.vs-content';
 
     UnitView.prototype.initialize = function() {
-      this.model.get('units');
+      this.collection = this.model.get('units');
       return this.$el.prop("id", 'tower' + this.model.get("buildingid"));
     };
 

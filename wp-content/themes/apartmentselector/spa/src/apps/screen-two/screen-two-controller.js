@@ -9,6 +9,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     __extends(ScreenTwoController, _super);
 
     function ScreenTwoController() {
+      this._unitCountSelected = __bind(this._unitCountSelected, this);
       this.showViews = __bind(this.showViews, this);
       return ScreenTwoController.__super__.constructor.apply(this, arguments);
     }
@@ -28,14 +29,23 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.showViews = function() {
-      var itemview1, itemview2;
       this.buildingCollection = this.Collection[0];
       this.unitCollection = this.Collection[1];
-      itemview1 = this.getView(this.buildingCollection);
-      console.log(itemview1);
-      this.layout.buildingRegion.show(itemview1);
-      itemview2 = this.getUnitsView(this.unitCollection);
-      return this.layout.unitRegion.show(itemview2);
+      this.showBuildingRegion(this.buildingCollection);
+      return this.showUnitRegion(this.unitCollection);
+    };
+
+    ScreenTwoController.prototype.showBuildingRegion = function(buildingCollection) {
+      var itemview1;
+      itemview1 = this.getView(buildingCollection);
+      return this.layout.buildingRegion.show(itemview1);
+    };
+
+    ScreenTwoController.prototype.showUnitRegion = function(unitCollection) {
+      var itemview2;
+      itemview2 = this.getUnitsView(unitCollection);
+      this.layout.unitRegion.show(itemview2);
+      return this.listenTo(itemview2, 'childview:childview:unit:count:selected', this._unitCountSelected);
     };
 
     ScreenTwoController.prototype.getView = function(buildingCollection) {
@@ -48,6 +58,12 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype.getUnitsView = function(unitCollection) {
       return new ScreenTwoView.UnitTypeView({
         collection: unitCollection
+      });
+    };
+
+    ScreenTwoController.prototype._unitCountSelected = function(childview, childview1) {
+      return App.navigate("screen-three", {
+        trigger: true
       });
     };
 
@@ -78,6 +94,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           param[index] = value;
           console.log(index);
           string_val = _.isString(value);
+          valuearr = "";
           if (string_val === true) {
             valuearr = value.split(',');
           }
@@ -151,6 +168,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         }
       });
       console.log(templateArr);
+      if (templateArr.length === 0) {
+        templateArr.push('All');
+      }
       templateString = templateArr.join(',');
       $.each(units, function(index, value) {
         var maxcoll, unitType;
@@ -285,10 +305,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return high_min_val = Math.min.apply(Math, max_coll);
         });
         mainArray.push({
-          name: lowArray.length,
-          low_max_val: low_max_val,
-          low_min_val: low_min_val,
-          range: 'low',
+          name: highArray.length,
+          low_max_val: high_max_val,
+          low_min_val: high_min_val,
+          range: 'high',
           buildingid: buildingid
         });
         mainArray.push({
@@ -299,10 +319,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           buildingid: buildingid
         });
         mainArray.push({
-          name: highArray.length,
-          low_max_val: high_max_val,
-          low_min_val: high_min_val,
-          range: 'high',
+          name: lowArray.length,
+          low_max_val: low_max_val,
+          low_min_val: low_min_val,
+          range: 'low',
           buildingid: buildingid
         });
         itemCollection = new Backbone.Collection(mainArray);

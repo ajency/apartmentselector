@@ -25,6 +25,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 if(value !='All')
                     flag = 1
                     string_val = _.isString(value)
+                    valuearr = ""
                     if string_val == true
                         valuearr = value.split(',')
                     if valuearr.length > 1
@@ -43,10 +44,10 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                                 console.log key
                                 templateArr.push key.get 'name'
                             if index == 'budget'
-                                budget_Val = value+'lakhs'
+                                budget_Val = element+'lakhs'
                                 templateArr.push budget_Val
                             if index == 'floor'
-                                templateArr.push value
+                                templateArr.push element
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})

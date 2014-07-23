@@ -2,7 +2,7 @@ define ->
     [
         (
             name : 'low',
-            start : 0,
+            start : 1,
             end : 5
 
 

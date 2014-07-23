@@ -79,6 +79,7 @@ require [ 'plugin-loader'
 
 
         else
+
             #url doesnt contain any parameters take the value of the defaults
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
