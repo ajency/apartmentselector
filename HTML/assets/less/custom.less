@@ -10,6 +10,7 @@ Version:        0.1.0
 
 @import "variables";
 @import "mixins.less";
+@import "grid.less";
 @import "step1.less";
 @import "triplelayout.less";
 @import "towerList.less";
@@ -29,6 +30,9 @@ body{
 		text-align: center;
 		margin-left: 0;
 	}
+}
+.navbar-inverse {
+	background: @color-primary;
 }
 
 .page-container {
@@ -447,7 +451,7 @@ body{
 				}
 				&:hover {
 					h5 {
-						background: @color-orange;
+						background: @color-primary;
 					}
 				}
 			}
@@ -474,7 +478,7 @@ iframe{
 		text-align: center;
 		display: block;
 		padding: 20px 0;
-		background-color: darken(@color-orange, 10%);
+		background-color: darken(@color-primary, 10%);
 	}	
 }
 

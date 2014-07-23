@@ -30,7 +30,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
 
     ScreenTwoController.prototype.showViews = function() {
       this.buildingCollection = this.Collection[0];
-      this.unitCollection = this.Collection[1];
+      console.log(this.unitCollection = this.Collection[1]);
       this.showBuildingRegion(this.buildingCollection);
       return this.showUnitRegion(this.unitCollection);
     };

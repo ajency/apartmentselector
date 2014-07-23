@@ -23,7 +23,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
         showViews:=>
             @buildingCollection = @Collection[0]
-            @unitCollection = @Collection[1]
+            console.log @unitCollection = @Collection[1]
             @showBuildingRegion @buildingCollection
             @showUnitRegion @unitCollection
 
