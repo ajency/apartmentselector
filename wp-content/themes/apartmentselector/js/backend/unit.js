@@ -138,8 +138,8 @@ $(document).on("change", "#floor", function(e) {
             $(".tablesorter tbody").append("<tr >" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.status,collections.masters["unit_status"],"name")+"</td>" +
-                "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.unit_type,collections.masters["unit_types"],"name")+"</td>" +
-                "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.unit_variant,collections.masters["unit_variants"],"name")+"</td>" +
+                "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.unitType,collections.masters["unit_types"],"name")+"</td>" +
+                "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.unitVariant,collections.masters["unit_variants"],"name")+"</td>" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.building,collections.masters["buildings"],"name")+"</td>" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.floor+"</td>" +
                 "<td><i  class='fa fa-trash-o delete_unit' data-id='"+listItems.id+"'></i></td>" +
