@@ -404,7 +404,7 @@ function get_buildings($ids=array())
         
         $building_phase = get_option( "building_".$category->term_id."_phase",true);
 
-        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"building_phase"=>$building_phase,"building_no_of_floors"=>$building_no_of_floors);
+        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors);
 
     }
     return $buildings;
@@ -511,7 +511,7 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-   $result = array('id'=>$building->term_id ,'name'=>$building->name,'building_phase'=>$building_phase,'building_no_of_floors'=>$building_no_of_floors,'building_no_of_flats'=>$building_no_of_flats,'building_exceptions'=>$building_exceptions );
+   $result = array('id'=>$building->term_id ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions );
  
    return ($result);
 }

@@ -298,8 +298,6 @@ function addException(exception_no){
     function loadListContents(){
         $(".tablesorter tbody").empty();
 
-        floors =  _.pluck(collections.list, 'floor');
-
 
         _.each(collections.list, function(listItems,listItemsValue){
             //add the row items
@@ -336,7 +334,7 @@ function addException(exception_no){
                                 // jQuery UI slider options
                                 values : [1, Math.max.apply(Math, floors)],
                                 min : 1,
-                                max : 12
+                                max : Math.max.apply(Math, floors)
                             });
                         },
 

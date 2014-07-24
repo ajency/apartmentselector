@@ -128,9 +128,10 @@ $(document).on("change", "#floor", function(e) {
 
     function loadListContents(){
         $(".tablesorter tbody").empty();
-
+ 
         floors =  _.pluck(collections.list, 'floor');
-
+ 
+       console.log(floors); 
 
         _.each(collections.list, function(listItems,listItemsValue){
             //add the row items
@@ -171,7 +172,7 @@ $(document).on("change", "#floor", function(e) {
                                 // jQuery UI slider options
                                 values : [1, Math.max.apply(Math, floors)],
                                 min : 1,
-                                max : 12
+                                max : Math.max.apply(Math, floors)
                             });
                         },
 
