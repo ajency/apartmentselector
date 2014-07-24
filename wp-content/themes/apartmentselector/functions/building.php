@@ -404,7 +404,14 @@ function get_buildings($ids=array())
         
         $building_phase = get_option( "building_".$category->term_id."_phase",true);
 
-        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors);
+
+        $floor = array();
+
+        //needs to be chnaged later with real data
+        for ($i=1; $i<=$building_no_of_floors;$i++){
+            $floor[$i] = $i;
+        }
+        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
 
     }
     return $buildings;

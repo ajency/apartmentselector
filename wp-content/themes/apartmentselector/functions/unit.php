@@ -293,8 +293,8 @@ function get_units(){
 
         $units[] = array(   'id'=>$result->ID,
                             'name'=>$result->post_title,
-                            'unit_type'=>$unit_type,
-                            'unit_variant'=>$unit_variant,
+                            'unitType'=>$unit_type,
+                            'unitVariant'=>$unit_variant,
                             'building'=>$unit_building,
                             'floor'=>$floor,
                             'status'=>$unit_status,
