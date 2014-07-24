@@ -24,7 +24,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       var scr;
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/spa/src/bower_components/preload/main2.js';
-      return document.body.appendChild(scr);
+      document.body.appendChild(scr);
+      return this.trigger("get:mappalic:map");
     };
 
     return ScreenTwoLayout;

@@ -103,6 +103,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
             else if window.location.href.indexOf('screen-three') > -1
                 first = _.first(templateArr)
+
                 buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
                 lowUnits = App.currentStore.range.findWhere({name:'low'})
                 if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'

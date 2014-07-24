@@ -53,7 +53,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         onShow:->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/spa/src/bower_components/preload/main2.js'
-            document.body.appendChild(scr);
+            document.body.appendChild(scr)
+            @trigger "get:mappalic:map"
+
 
 
     class BuildingView extends Marionette.ItemView

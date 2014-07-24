@@ -16,6 +16,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, "show", @showViews
 
+            @listenTo @layout, "get:mappalic:map", @getMappalicMap
+
 
             @show @layout
 
@@ -60,6 +62,21 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
         _unitCountSelected:(childview,childview1)=>
             App.navigate "screen-three" , trigger:true
+
+
+        getMappalicMap:->
+            console.log "gi"
+            $.ajax(
+                method: 'POST'
+                url : AJAXURL+'?action=get-mappalic-view'
+                data : ''
+                success :(result)->
+                    result
+
+
+            )
+
+
 
 
 
