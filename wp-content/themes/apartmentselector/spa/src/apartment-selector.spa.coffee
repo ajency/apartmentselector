@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['modernizr','classie','hammer','main2','main','selectFx','jquerymousewheel','jqueryeasing','mapplic'], ->
+define 'plugin-loader', ['classie','selectFx','modernizr','jquerymousewheel','jqueryeasing','mapplic'], ->
 
     # add your marionette apps here
 define 'apps-loader', [

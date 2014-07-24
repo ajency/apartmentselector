@@ -26,7 +26,7 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/bower_components/preload/main.js'
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
             document.body.appendChild(scr)
 
             $columns_number = $('.unitTable .cd-table-container').find('.cd-block').length
