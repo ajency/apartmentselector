@@ -23,7 +23,7 @@ define(['marionette'], function(Marionette) {
     ScreenThreeLayout.prototype.onShow = function() {
       var $columns_number, scr;
       scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/spa/src/bower_components/preload/main.js';
+      scr.src = '../wp-content/themes/apartmentselector/js/src/bower_components/preload/main.js';
       document.body.appendChild(scr);
       $columns_number = $('.unitTable .cd-table-container').find('.cd-block').length;
       $('.cd-table-container').on('scroll', function() {

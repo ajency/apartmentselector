@@ -19,8 +19,6 @@
 <!--[if gt IE 9]><!-->
 <html <?php language_attributes(); ?>> <!--<![endif]-->
 <head>
-    <script type="text/javascript"  src="../wp-content/themes/apartmentselector/spa/src/bower_components/preload/modernizr.custom.js"></script>
-    <script type="text/javascript"  src="../wp-content/themes/apartmentselector/spa/src/bower_components/preload/classie.js"></script>
     <meta charset="<?php bloginfo( 'charset' ); ?>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?php wp_title(); ?></title>
@@ -51,7 +49,7 @@
 
 <div id="mapid" class="hidden"  width="20px">
 
-    <?php echo  do_shortcode('[mapplic id="1"]');?>
+    <?php //echo  do_shortcode('[mapplic id="1"]');?>
 
 
     </div>
