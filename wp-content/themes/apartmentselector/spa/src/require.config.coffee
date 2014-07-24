@@ -23,6 +23,8 @@ requirejs.config
         modernizr : 'src/bower_components/preload/modernizr.custom'
         classie : 'src/bower_components/preload/classie'
         hammer : 'src/bower_components/preload/hammer.min'
+        main2 : 'src/bower_components/preload/main2'
+        main : 'src/bower_components/preload/main'
         slick : 'src/bower_components/bower_components/slick.js/slick/slick.min'
         selectFx : 'src/bower_components/preload/selectFx'
         jqueryeasing : 'src/bower_components/preload/jquery.easing'
@@ -53,5 +55,11 @@ requirejs.config
         slick : [ 'jquery' ]
         jqueryeasing : [ 'jquery' ]
         jquerymousewheel : [ 'jquery' ]
+        modernizr : ['jquery']
         mapplic : [ 'jquery' ]
+        classie : [ 'jquery' ]
+        main2 : [ 'jquery' ]
+        main : [ 'jquery']
+        selectFx : ['jquery']
+
 
