@@ -16,15 +16,15 @@ $heading = "Edit";
 
     $building_name = $building["name"];
 
-    $building_phase = $building["building_phase"];
+    $building_phase = $building["phase"];
 
-    $no_of_floors = $building["building_no_of_floors"];
+    $no_of_floors = $building["nooffloors"];
 
-    $building_no_of_flats = $building["building_no_of_flats"];
+    $building_no_of_flats = $building["noofflats"];
 
     $no_of_flats = count($building_no_of_flats);
 
-    $building_exceptions = $building["building_exceptions"]; 
+    $building_exceptions = $building["exceptions"]; 
 }
 ?>
 <div class="page-title">

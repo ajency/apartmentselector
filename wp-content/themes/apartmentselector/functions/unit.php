@@ -225,7 +225,7 @@ function get_unit_variants_by_unit_type($unit_type=0){
     global $wpdb;
 
     $query = "  SELECT  ITEMMASTERNAME.meta_value as variant_name, ITEMMASTERNAME.item_id variant_id FROM ".$wpdb->prefix."frm_items ITEMS JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERUNITTYPE ON ITEMS.id = ITEMMASTERUNITTYPE.item_id AND ITEMMASTERUNITTYPE.meta_value = '".$unit_type."' AND ITEMMASTERUNITTYPE.field_id = (select id from ".$wpdb->prefix."frm_fields where `type` = 'unittype' and form_id = 24) AND ITEMS.form_id = 24 JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERNAME ON ITEMMASTERUNITTYPE.item_id = ITEMMASTERNAME.item_id AND ITEMMASTERNAME.field_id = (select id from ".$wpdb->prefix."frm_fields where `field_key` = 'name' and form_id = 24) ";
-
+ 
     $unit_variants = $wpdb->get_results( $query,ARRAY_A);
 
     return $unit_variants;
@@ -256,7 +256,7 @@ function get_unit_variants(){
 
     $unit_variants = array();
     foreach($results as $result){
-        $unit_variants[] = array('id'=>$result->id ,'name'=>$result->metas['name'] ,'carpet_area'=>$result->metas['carpet_area'] ,'sellable_area'=>$result->metas['sellable_area']);
+        $unit_variants[] = array('id'=>$result->id ,'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea']);
     }
 
     return $unit_variants;
@@ -269,7 +269,8 @@ function get_units(){
 
     $results = get_posts(array(
 
-                'post_type'=>'unit'
+                'post_type'=>'unit',
+                'posts_per_page' => -1
 
                 )
     );

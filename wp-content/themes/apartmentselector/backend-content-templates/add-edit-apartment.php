@@ -102,7 +102,7 @@ if(isset($_REQUEST["id"])){
                                 $buildings = get_buildings();
                                 foreach($buildings as $building){
                                     ?>
-                                    <option  floors = "<?php echo $building['building_no_of_floors']; ?>" value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected";$floors_option=$building['building_no_of_floors']; }?>><?php echo  $building['name']?></option>
+                                    <option  floors = "<?php echo $building['nooffloors']; ?>" value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected";$floors_option=$building['building_no_of_floors']; }?>><?php echo  $building['name']?></option>
                                 <?php
                                 }
                                 ?>
