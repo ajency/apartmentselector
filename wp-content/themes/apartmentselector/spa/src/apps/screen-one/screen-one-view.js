@@ -92,6 +92,7 @@ define(['marionette'], function(Marionette) {
           $("#check" + element).val("0");
         }
         unitType = [];
+        App.defaults['unitType'] = 'All';
         return $("#finalButton").removeClass('disabled');
       }
     };

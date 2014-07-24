@@ -2367,7 +2367,7 @@ define ->
             unitVariant : 10,
             building : 3,
             floor : 12,
-            status :  1
+            status :  3
         ),
         (
             id : 264,
@@ -2376,7 +2376,7 @@ define ->
             unitVariant : 10,
             building : 3,
             floor : 12,
-            status :  1
+            status :  2
         )
 
     ]

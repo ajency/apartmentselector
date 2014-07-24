@@ -27,7 +27,11 @@
     <meta name="viewport" content="width=device-width"/>
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.js"></script>
+
     <![endif]-->
+    <script>
+
+    </script>
     <?php wp_head(); ?>
     </head>
 <body class="booking">
@@ -43,6 +47,27 @@
 
 <!-- footer-region -->
 <div id="footer-region"></div>
+
+
+<div id="mapid" class="hidden"  width="20px">
+
+    <?php echo  do_shortcode('[mapplic id="1"]');?>
+
+
+    </div>
+
+    <?php
+
+
+    ?>;
+
+
+
+
+
+
+
+
 
 <?php wp_footer(); ?>
 </body>

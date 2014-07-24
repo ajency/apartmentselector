@@ -7,15 +7,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @Collection = @_getUnitsCountCollection()
 
-            @unitTypecoll = @Collection[2]
 
             @layout = new ScreenTwoView.ScreenTwoLayout({templateHelpers:
-                                                            unitType : @unitTypecoll,
-                                                            selection :@Collection[3]
-                                                            unitsCount:@Collection[4] })
+                                                            selection :@Collection[2]
+                                                            unitsCount:@Collection[3]
+                                                            unittypes: @Collection[4]})
 
 
             @listenTo @layout, "show", @showViews
+
+            @listenTo @layout, "get:mappalic:map", @getMappalicMap
 
 
             @show @layout
@@ -23,12 +24,27 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
         showViews:=>
             @buildingCollection = @Collection[0]
-            @unitCollection = @Collection[1]
-            itemview1 = @getView @buildingCollection
-            console.log itemview1
+            console.log @unitCollection = @Collection[1]
+            @showBuildingRegion @buildingCollection
+            @showUnitRegion @unitCollection
+
+
+
+
+
+        showBuildingRegion:(buildingCollection)->
+            itemview1 = @getView buildingCollection
             @layout.buildingRegion.show itemview1
-            itemview2 = @getUnitsView @unitCollection
+
+
+
+        showUnitRegion:(unitCollection)->
+            itemview2 = @getUnitsView unitCollection
             @layout.unitRegion.show itemview2
+
+            @listenTo itemview2, 'childview:childview:unit:count:selected', @_unitCountSelected
+
+
 
 
 
@@ -44,26 +60,49 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 collection : unitCollection
 
 
+        _unitCountSelected:(childview,childview1)=>
+            App.navigate "screen-three" , trigger:true
+
+
+        getMappalicMap:->
+            console.log "gi"
+            $.ajax(
+                method: 'POST'
+                url : AJAXURL+'?action=get-mappalic-view'
+                data : ''
+                success :(result)->
+                    result
+
+
+            )
+
+
+
+
+
 
         _getUnitsCountCollection:->
             buildingArray = Array()
             buildingArrayModel = Array()
             unitColl = Array()
-            unitTypeArray = Array()
-            newarr =  []
-            unique = {}
             templateArr = []
+            mainunitTypeArray = []
+            mainnewarr =  []
+            mainunique = {}
             MainCollection = new Backbone.Model()
             status = App.currentStore.status.findWhere({'name':'Available'})
             units = App.currentStore.unit.where({'status':status.get('id')})
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             param = {}
             paramkey = {}
+            flag = 0
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value
                     console.log index
+
                     string_val = _.isString(value)
+                    valuearr = ""
                     if string_val == true
                         valuearr = value.split(',')
                     if valuearr.length > 1
@@ -86,6 +125,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                                 templateArr.push budget_Val
                             if index == 'floor'
                                 templateArr.push value
+                                flag = 1
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
@@ -104,36 +144,68 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                             templateArr.push budget_Val
                         if index == 'floor'
                             templateArr.push value
+                            flag = 1
 
 
 
 
             )
             console.log templateArr
-            templateString  = templateArr.join(',')
+            if templateArr.length == 0
+                templateArr.push 'All'
+            if(flag==1)
+                first = _.first(templateArr)
+                buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                lowUnits = App.currentStore.range.findWhere({name:'low'})
+                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                    range = 'LOWRISE'+',' +buildingModel.get('name')
+
+
+
+                mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                    range = 'MIDRISE'+',' +buildingModel.get('name')
+
+
+                highUnits = App.currentStore.range.findWhere({name:'high'})
+                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                    range = 'HIGHRISE'+',' +buildingModel.get('name')
+                templateString = range
+            else
+                templateString  = templateArr.join(',')
+
+
             $.each(units, (index,value)->
                 maxcoll = Array()
-                unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
-                unitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
+
                 if buildingArray.indexOf(value.get 'building') ==  -1
                     buildingArray.push value.get 'building'
+
+                unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
+                mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
-            $.each(unitTypeArray, (key,item)->
-                if (!unique[item.id])
-                    console.log count = App.currentStore.unit.where({unitType:item.id})
-                    newarr.push({id:item.id,name:item.name,count:count.length})
-                    unique[item.id] = item;
+            $.each(mainunitTypeArray, (key,item)->
+                if (!mainunique[item.id])
+                    mainnewarr.push({id:item.id,name:item.name})
+                    mainunique[item.id] = item;
 
 
             )
-            console.log newarr
+
             $.each(buildingArray, (index,value)->
                 buildingid = value
-                newunits = App.currentStore.unit.where({'building':value})
+                unitTypeArray = Array()
+                newarr =  []
+                unique = {}
+
+                status = App.currentStore.status.findWhere({'name':'Available'})
+
+                newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
                 lowArray = Array()
                 mediumArray = Array()
                 highArray = Array()
                 mainArray = Array()
+                unitTypeArray = []
                 $.each(newunits, (index,value)->
                     lowUnits = App.currentStore.range.findWhere({name:'low'})
                     if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
@@ -149,6 +221,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     highUnits = App.currentStore.range.findWhere({name:'high'})
                     if value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end'
                         highArray.push value.get 'id'
+
+                    unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
+                    unitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
+
+                )
+                $.each(unitTypeArray, (key,item)->
+                    if (!unique[item.id])
+                        status = App.currentStore.status.findWhere({'name':'Available'})
+                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
+                        newarr.push({id:item.id,name:item.name,count:count.length})
+                        unique[item.id] = item;
+
 
                 )
                 low_max_val = 0
@@ -205,19 +289,19 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high_max_val = Math.max.apply( Math, max_coll )
                     high_min_val = Math.min.apply( Math, max_coll )
                 )
-                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid})
-                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid})
                 mainArray.push({name:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid})
+                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid})
+                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid})
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
-                unitColl.push {buildingname: buildingModel.get('name') , units: mainArray ,buildingid:buildingModel.get('id')}
+                unitColl.push {buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),unittypes:newarr}
                 buildingArrayModel.push(buildingModel)
 
             )
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             units = new Backbone.Collection(unitColl)
-            [buildingCollection ,units,newarr,templateString,Countunits.length]
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr]
 
 
 

@@ -34,6 +34,9 @@ require_once (get_template_directory().'/functions/backend-scripts-styles.php');
 //load all the classes//
 require_once (get_template_directory().'/classes/autoload.php');
 
+//load ajax call
+require_once (get_template_directory().'/ajax-module.php');
+
 
 //formatted echo using pre tags can be used to echo out data for testing purpose
 
@@ -118,6 +121,7 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "AJAXURL", admin_url( "admin-ajax.php" ) );
             wp_localize_script( "requirejs", "UPLOADURL", admin_url( "async-upload.php" ) );
             wp_localize_script( "requirejs", "_WPNONCE", wp_create_nonce( 'media-form' ) );
+
         }
     }
  
@@ -224,3 +228,5 @@ function get_module_name() {
     return $module;
 
 }
+
+

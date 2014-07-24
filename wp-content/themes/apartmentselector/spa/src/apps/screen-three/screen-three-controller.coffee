@@ -4,46 +4,123 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
     class ScreenThreeController extends Extm.RegionController
 
         initialize :()->
-            @unitsCollection = @_getUnits()
+            @Collection = @_getUnits()
 
-            @view = view = @_getUnitsView @unitsCollection
+            @layout = new ScreenThreeView.ScreenThreeLayout()
+
+
+            @listenTo @layout, "show", @showViews
+
+
+            @show @layout
+
+        showViews:=>
+            console.log @buildingCollection = @Collection[0]
+            console.log @unitCollection = @Collection[1]
+            @showBuildingRegion @buildingCollection
+            @showUnitRegion @unitCollection
 
 
 
-            @show view
 
-        _getUnitsView:(unitsCollection)->
-            new ScreenThreeView
-                collection :unitsCollection
+
+        showBuildingRegion:(buildingCollection)->
+            itemview1 = @getView buildingCollection
+            @layout.buildingRegion.show itemview1
+
+
+
+        showUnitRegion:(unitCollection)->
+            itemview2 = @getUnitsView unitCollection
+            @layout.unitRegion.show itemview2
+
+
+
+
+
+
+
+
+        getView:(buildingCollection)->
+            new ScreenThreeView.UnitTypeChildView
+                collection : buildingCollection
+
+        getUnitsView:(unitCollection)->
+            new ScreenThreeView.UnitTypeView
+                collection : unitCollection
+
 
         _getUnits:->
-            unitCollection = App.currentStore.unit
-            floorCollection = App.currentStore.unit.pluck('floor')
-            uniqueFloors = _.uniq(floorCollection)
+            buildingArray = []
+            unitArray = []
+            unitsArray = []
+            buildingArrayModel = []
+            units = App.currentStore.unit
+            units.each (item)->
+                if buildingArray.indexOf(item.get 'building') ==  -1
+                    buildingArray.push item.get 'building'
+            $.each(buildingArray, (index,value)->
+                buildingid = value
+                floorArray = []
+                floorCountArray = []
+                unitsArray = []
+                unitsCollection = App.currentStore.unit.where({building:value})
+                $.each(unitsCollection, (index,value)->
+                    if floorArray.indexOf(value.get 'floor') ==  -1
+                        floorArray.push value.get 'floor'
+                        floorCountArray.push {id:value.get 'floor'}
 
-            floorArray = Array()
-            $.each(uniqueFloors, (index,value)->
-                unitArray = Array()
-                unitCollection.each (item)->
-                    if parseInt(value) == parseInt(item.get('floor'))
-                        variantModel = App.currentStore.unit_variant.findWhere({id:item.get('unitVariant')} )
-                        item.set 'variantModel',variantModel.get 'sellablearea'
-                        viewModel = App.currentStore.view.findWhere({id:item.get('view')} )
-                        item.set 'view_name',viewModel.get 'name'
-                        unitArray.push(item)
+
+
+                )
+                $.each(floorArray, (index,value)->
+
+                    floorunits = App.currentStore.unit.where({floor:value,building:buildingid})
+                    floorCollection = new Backbone.Collection(floorunits)
+                    unitsArray.push { floorunits : floorCollection }
+
+                    $.each(floorunits, (index,value)->
+                        unitType = App.currentStore.unit_type.findWhere({id:value.get('unitType')})
+                        value.set 'unitTypeName' , unitType.get 'name'
+                        unitVariant = App.currentStore.unit_variant.findWhere({id:value.get('unitVariant')})
+                        value.set 'unitVariantName' , unitVariant.get 'name'
 
 
 
 
-                collection = new Backbone.Collection(unitArray)
-                floorArray.push({floorid:value,units:collection})
+                    )
+
+
+
+                )
+                buildingModel = App.currentStore.building.findWhere({id:value})
+                buildingArrayModel.push buildingModel
+                unitCollection = new Backbone.Collection(unitsArray)
+                unitArray.push { buildingid:value, units: unitCollection ,floorcount : floorCountArray }
+
+
+
 
 
 
 
             )
-            unitcollection = new Backbone.Collection(floorArray)
-            unitcollection
+            temp = []
+            temp1 = []
+            for element,index in unitArray
+                console.log unitArray[index]
+                if unitArray[index].buildingid  == App.building['name']
+                    temp[0] = unitArray[0]
+                    unitArray[0] = unitArray[index]
+                    unitArray[index] = temp[0]
+                    temp1[0] = buildingArrayModel[0]
+                    buildingArrayModel[0] = buildingArrayModel[index]
+                    buildingArrayModel[index] = temp1[0]
+
+            buildingCollection = new Backbone.Collection(buildingArrayModel)
+            newunitCollection = new Backbone.Collection(unitArray)
+            [buildingCollection,newunitCollection]
+
 
 
 

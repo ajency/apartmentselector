@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['classie','selectFx'], ->
+define 'plugin-loader', ['classie','selectFx','jquerymousewheel','jqueryeasing','mapplic'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -49,6 +49,8 @@ require [ 'plugin-loader'
 
     App.currentStore = App.store
 
+    App.building = {name:''}
+
 
     App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
 
@@ -79,6 +81,7 @@ require [ 'plugin-loader'
 
 
         else
+
             #url doesnt contain any parameters take the value of the defaults
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']

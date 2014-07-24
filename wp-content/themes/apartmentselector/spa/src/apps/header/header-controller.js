@@ -12,19 +12,171 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     }
 
     HeaderController.prototype.initialize = function(opt) {
+      var view;
       if (opt == null) {
         opt = {};
       }
-      return this.wait();
+      this.model = this._getHeader();
+      this.view = view = this._getHeaderView(this.model);
+      return this.show(view);
     };
 
-    HeaderController.prototype.onComplete = function(model) {
-      var headerView;
-      console.log(model);
-      headerView = new HeaderView({
-        model: model
+    HeaderController.prototype._getHeaderView = function(model) {
+      return new HeaderView({
+        templateHelpers: {
+          textString: model[0],
+          textClass: model[1]
+        }
       });
-      return this.show(headerView);
+    };
+
+    HeaderController.prototype._getHeader = function() {
+      var buildingModel, first, flag, highUnits, lowUnits, mediumUnits, range, templateArr, templateString, textClass, textString;
+      templateArr = [];
+      flag = 0;
+      $.each(App.defaults, function(index, value) {
+        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+        if (value !== 'All') {
+          string_val = _.isString(value);
+          valuearr = "";
+          if (string_val === true) {
+            valuearr = value.split(',');
+          }
+          if (valuearr.length > 1) {
+            _results = [];
+            for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
+              element = valuearr[_i];
+              console.log(element);
+              if (index === 'unitType') {
+                key = App.currentStore.unit_type.findWhere({
+                  id: parseInt(element)
+                });
+                console.log(key);
+                templateArr.push(key.get('name'));
+              }
+              if (index === 'unitVariant') {
+                key = App.currentStore.unit_variant.findWhere({
+                  id: parseInt(element)
+                });
+                console.log(key);
+                templateArr.push(key.get('name'));
+              }
+              if (index === 'building') {
+                key = App.currentStore.building.findWhere({
+                  id: parseInt(element)
+                });
+                console.log(key);
+                templateArr.push(key.get('name'));
+              }
+              if (index === 'budget') {
+                budget_Val = element + 'lakhs';
+                templateArr.push(budget_Val);
+              }
+              if (index === 'floor') {
+                templateArr.push(element);
+                _results.push(flag = 1);
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          } else {
+            if (index === 'unitType') {
+              key = App.currentStore.unit_type.findWhere({
+                id: parseInt(value)
+              });
+              console.log(key);
+              templateArr.push(key.get('name'));
+            }
+            if (index === 'unitVariant') {
+              key = App.currentStore.unit_variant.findWhere({
+                id: parseInt(value)
+              });
+              console.log(key);
+              templateArr.push(key.get('name'));
+            }
+            if (index === 'building') {
+              key = App.currentStore.building.findWhere({
+                id: parseInt(value)
+              });
+              console.log(key);
+              templateArr.push(key.get('name'));
+            }
+            if (index === 'budget') {
+              budget_Val = value + 'lakhs';
+              templateArr.push(budget_Val);
+            }
+            if (index === 'floor') {
+              templateArr.push(value);
+              return flag = 1;
+            }
+          }
+        }
+      });
+      console.log(templateArr);
+      templateString = templateArr.join(',');
+      textString = "";
+      if (window.location.href.indexOf('screen-two') > -1) {
+        if (templateArr.length === 0) {
+          templateArr.push('All');
+          templateString = templateArr.join(',');
+        }
+        if (flag === 1) {
+          first = _.first(templateArr);
+          buildingModel = App.currentStore.building.findWhere({
+            id: App.building['name']
+          });
+          lowUnits = App.currentStore.range.findWhere({
+            name: 'low'
+          });
+          if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+            templateString = 'LOWRISE' + ',' + buildingModel.get('name');
+          }
+          mediumUnits = App.currentStore.range.findWhere({
+            name: 'medium'
+          });
+          if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+            templateString = 'MIDRISE' + ',' + buildingModel.get('name');
+          }
+          highUnits = App.currentStore.range.findWhere({
+            name: 'high'
+          });
+          if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+            templateString = 'HIGHRISE' + ',' + buildingModel.get('name');
+          }
+        }
+        textString = 'You have selected ' + templateString;
+        textClass = '';
+      } else if (window.location.href.indexOf('screen-three') > -1) {
+        first = _.first(templateArr);
+        buildingModel = App.currentStore.building.findWhere({
+          id: App.building['name']
+        });
+        lowUnits = App.currentStore.range.findWhere({
+          name: 'low'
+        });
+        if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+          range = 'LOWRISE';
+        }
+        mediumUnits = App.currentStore.range.findWhere({
+          name: 'medium'
+        });
+        if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+          range = 'MIDRISE';
+        }
+        highUnits = App.currentStore.range.findWhere({
+          name: 'high'
+        });
+        if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+          range = 'HIGHRISE';
+        }
+        textString = range + '>' + buildingModel.get('name');
+        textClass = '';
+      } else {
+        textString = 'Apartment Selector';
+        textClass = 'hidden';
+      }
+      return [textString, textClass];
     };
 
     return HeaderController;

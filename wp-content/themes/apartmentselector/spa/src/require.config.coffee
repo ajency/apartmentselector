@@ -25,6 +25,9 @@ requirejs.config
         hammer : 'src/bower_components/preload/hammer.min'
         slick : 'src/bower_components/bower_components/slick.js/slick/slick.min'
         selectFx : 'src/bower_components/preload/selectFx'
+        jqueryeasing : 'src/bower_components/preload/jquery.easing'
+        jquerymousewheel : 'src/bower_components/preload/jquery.mousewheel'
+        mapplic : 'src/bower_components/preload/mapplic'
 
 
 
@@ -48,4 +51,7 @@ requirejs.config
 
         preload : [ 'jquery' ]
         slick : [ 'jquery' ]
+        jqueryeasing : [ 'jquery' ]
+        jquerymousewheel : [ 'jquery' ]
+        mapplic : [ 'jquery' ]
 
