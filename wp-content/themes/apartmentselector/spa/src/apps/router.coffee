@@ -5,6 +5,7 @@ define [ 'marionette'], ( Marionette )->
         appRoutes:
             'screen-three' : 'showUnits'
             'screen-two'  : 'show'
+            'screen-one'  : 'showValues'
             'screen-one/:params' : 'showValues'
             #':params' : 'show'
             'screen-two/:params'  : 'show'

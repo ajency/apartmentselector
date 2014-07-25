@@ -14,6 +14,7 @@ define(['marionette'], function(Marionette) {
     ApartmentSelector.prototype.appRoutes = {
       'screen-three': 'showUnits',
       'screen-two': 'show',
+      'screen-one': 'showValues',
       'screen-one/:params': 'showValues',
       'screen-two/:params': 'show',
       'screen-three/:params': 'showUnits',
