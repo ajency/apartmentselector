@@ -303,7 +303,6 @@ function addException(exception_no){
                     filter_formatter : {
 
 
-
                         // Total (jQuery selector added v2.17.0)
                        5 : function($cell, indx){
                             return $.tablesorter.filterFormatter.uiRange( $cell, indx, {
