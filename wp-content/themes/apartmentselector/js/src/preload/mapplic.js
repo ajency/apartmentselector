@@ -246,7 +246,7 @@
 
 			// Hashchange
 			$(window).on('hashchange', function() {
-				var id = location.hash.slice(1);
+               var id = location.hash.slice(1);
 				self.showLocation(id, 800);
 
 				// Tooltip
@@ -285,7 +285,8 @@
 
 			// Double click
 			map.on('dblclick', function(e) {
-				var mapPos = self.map.offset();
+
+                var mapPos = self.map.offset();
 				var x = (e.pageX - mapPos.left) / self.map.width();
 				var y = (e.pageY - mapPos.top) / self.map.height();
 				var z = self.map.width() / self.min_width * 2;
@@ -385,7 +386,8 @@
 			var data = null;
 			$.each(self.data.levels, function(index, layer) {
 				$.each(layer.locations, function(index, value) {
-					if (value.id == id) {
+
+                    if (value.id == id) {
 						data = value;
 					}
 				});
@@ -394,9 +396,10 @@
 		}
 
 		self.showTooltip = function(location) {
-			self.tooltip.hide();
+            self.tooltip.hide();
 			if (location.image) $('img', self.tooltip).attr('src', location.image).show();
 			else $('img', self.tooltip).hide();
+            console.logg(self.tooltip);
 			if (location.link) $('a', self.tooltip).attr('href', location.link).show();
 			$('h4', self.tooltip).text(location.label);
 			$('p', self.tooltip).html(location.description);
@@ -478,7 +481,9 @@
 		}
 
 		self.zoomTo = function(x, y, z, duration) {
-			var map = self.map;
+
+
+            var map = self.map;
 			var container = self.container;
 			duration = typeof duration !== 'undefined' ? duration : 800;
 			
@@ -508,7 +513,7 @@
 		};
 
 		self.goTo = function(x, y, duration) {
-			var map = self.map;
+            var map = self.map;
 			var container = self.container;
 			duration = typeof duration !== 'undefined' ? duration : 800;
 
@@ -529,7 +534,8 @@
 		}
 
 		self.showLocation = function(id, duration) {
-			$.each(self.data.levels, function(index, layer) {
+
+            $.each(self.data.levels, function(index, layer) {
 				$.each(layer.locations, function(index, value) {
 					if (value.id == id) {
 						var zoom = 4;//typeof value.zoom !== 'undefined' ? value.zoom : 4;
@@ -541,7 +547,9 @@
 		};
 
 		var move = function(e) {
-			var map = self.map,
+
+
+            var map = self.map,
 				slide = 80;
 
 			if (map.data('mouseMove')) {

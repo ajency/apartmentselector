@@ -9,6 +9,11 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
             @view = view = @_getUnitTypesView @unitTypeCollection
 
+            if(window.location.href.indexOf('=') > -1)
+                console.log "not"
+            else
+                App.navigate "screen-one" , trigger:true
+
             @listenTo view, "unit:type:clicked", @_unitTypeClicked
 
             @show view
