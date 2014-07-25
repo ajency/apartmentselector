@@ -52,7 +52,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         onShow:->
             scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/bower_components/preload/main2.js'
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
             document.body.appendChild(scr)
             @trigger "get:mappalic:map"
 

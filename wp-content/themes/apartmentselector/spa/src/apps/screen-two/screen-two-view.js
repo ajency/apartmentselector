@@ -23,7 +23,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     ScreenTwoLayout.prototype.onShow = function() {
       var scr;
       scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/js/src/bower_components/preload/main2.js';
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
       document.body.appendChild(scr);
       return this.trigger("get:mappalic:map");
     };
