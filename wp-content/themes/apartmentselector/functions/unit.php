@@ -343,7 +343,14 @@ function ajax_save_apartment(){
     $data  = "";
     $error = false;
 
-             if(empty($_REQUEST['apartment_id'])){
+    if(duplicate_apartment($_REQUEST)){
+
+        $msg = "Apartment Already Exists!";
+        $error = true;
+
+    }else{
+
+         if(empty($_REQUEST['apartment_id'])){
 
                  // Create post object
                  $unit = array(
@@ -377,6 +384,10 @@ function ajax_save_apartment(){
 
                 $msg = "Apartment Updated Successfully!";
             }
+
+    }
+
+            
 
 
 $response = json_encode( array('msg'=>$msg,'error'=>$error,'data'=> array('apartment_id'=>$apartment_id)) );
@@ -433,3 +444,53 @@ function ajax_get_flats_on_floor(){
     exit;
 }
 add_action('wp_ajax_get_flats_on_floor','ajax_get_flats_on_floor');
+
+
+//function to check for duplicate apartments
+
+
+function duplicate_apartment($data){
+  
+    $args = array( 
+    'exclude' => $data["apartment_id"],
+    'post_type' => 'unit',
+    'meta_query' => array(
+        array(
+            'key' => 'unit_variant',
+            'value' =>  $data["unit_variant"],
+        ),
+        array(
+            'key' => 'floor',
+            'value' => $data["floor"],
+        ),
+        array(
+            'key' => 'building',
+            'value' => $data["building"],
+        ),
+        array(
+            'key' => 'unit_status',
+            'value' => $data["unit_status"],
+        ),
+        array(
+            'key' => 'unit_assigned',
+            'value' => $data["unit_assigned"],
+        ),
+    )
+ );
+
+
+$apartments = get_posts( $args );
+
+$return = false;
+
+foreach($apartments as $apartment){
+ 
+        if($apartment->post_title==$data["flat_no"]){
+            $return = true;
+        }
+
+}  
+
+return $return;
+    
+}
