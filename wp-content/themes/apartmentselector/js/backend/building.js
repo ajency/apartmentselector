@@ -13,7 +13,7 @@ $(document).on("change", ".no_of_flats", function(e) {
         exception_no = $(e.target).attr('exception_no');
         //check the number of flats before the change of the no of flats
         prevCountOfFlats = $('.belongs_to_'+$(e.target).attr("id")).length 
- console.log("prevCountOfFlats"+prevCountOfFlats)
+ 
         if($(e.target).val()==""){
           
             $("#"+$(e.target).attr('flats_container_id')).html('  <div class="form-group"><label class="form-label"><i>Select No Of Flats</i></label></div>');
@@ -281,7 +281,7 @@ function addException(exception_no){
             //add the row items
             $(".tablesorter tbody").append("<tr  >" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
-                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.building_phase,collections.masters["phases"],"name")+"</td>" +
+                 "<td class='edit-link' data-id='"+listItems.id+"'>"+getDisplayText(listItems.phase,collections.masters["phases"],"name")+"</td>" +
                 "<td  style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
                 "</tr>")
         })
