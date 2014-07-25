@@ -6,7 +6,7 @@ define [ 'marionette'], ( Marionette )->
             'screen-three' : 'showUnits'
             'screen-two'  : 'show'
             'screen-one/:params' : 'showValues'
-            ':params' : 'show'
+            #':params' : 'show'
             'screen-two/:params'  : 'show'
 
             'screen-three/:params' : 'showUnits'

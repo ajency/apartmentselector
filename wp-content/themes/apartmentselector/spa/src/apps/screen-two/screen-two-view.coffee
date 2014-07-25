@@ -83,6 +83,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         tagName : 'li'
 
+        events:
+            'click .link':->
+                App.navigate "tower"+@model.get('id') , trigger:true
+
+
 
 
 
@@ -96,6 +101,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         childView : BuildingView
+
+        onShow:->
+            console.log @collection
+            model = @collection.at(0)
+            console.log model
+            App.navigate "tower"+model.get('id') , trigger:true
 
 
 

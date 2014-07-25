@@ -15,7 +15,6 @@ define(['marionette'], function(Marionette) {
       'screen-three': 'showUnits',
       'screen-two': 'show',
       'screen-one/:params': 'showValues',
-      ':params': 'show',
       'screen-two/:params': 'show',
       'screen-three/:params': 'showUnits',
       'screen-four/:params': 'showSelectedUnit'

@@ -58,6 +58,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     BuildingView.prototype.tagName = 'li';
 
+    BuildingView.prototype.events = {
+      'click .link': function() {
+        return App.navigate("tower" + this.model.get('id'), {
+          trigger: true
+        });
+      }
+    };
+
     return BuildingView;
 
   })(Marionette.ItemView);
@@ -73,6 +81,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitTypeChildView.prototype.className = 'vs-nav';
 
     UnitTypeChildView.prototype.childView = BuildingView;
+
+    UnitTypeChildView.prototype.onShow = function() {
+      var model;
+      console.log(this.collection);
+      model = this.collection.at(0);
+      console.log(model);
+      return App.navigate("tower" + model.get('id'), {
+        trigger: true
+      });
+    };
 
     return UnitTypeChildView;
 
