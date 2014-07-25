@@ -34,8 +34,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="col-sm-5 hidden-xs">
         				<h3 class="bold m-t-0">Climb leg make muffins or sweet</h3>
         				<p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p>
-        				<img src="../../../.../../../HTML/assets/img/map1.jpg" class="img-responsive m-t-20">
-        			</div>
+
+        			</div><div id="mapplic1"></div>
                 </div>'
 
 
@@ -54,7 +54,26 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
             document.body.appendChild(scr)
-            @trigger "get:mappalic:map"
+
+
+            console.log AJAXURL
+            i = 1
+            console.log window['mapplic' + i]
+            while (window['mapplic' + i] != undefined)
+                params = window['mapplic' + i]
+                selector = '#mapplic' + i
+                ajaxurl = AJAXURL
+                console.log params.id
+                $(selector).mapplic(
+                    'id': 4,
+                    'width': params.width,
+                    'height': params.height
+
+
+                )
+
+                i++;
+
 
 
 

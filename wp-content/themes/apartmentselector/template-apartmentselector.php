@@ -49,17 +49,18 @@
 <div id="footer-region"></div>
 
 
-<div id="mapid" class="hidden"  width="20px">
 
-    <?php echo  do_shortcode('[mapplic id="1"]');?>
+<div id="mapid"  >
 
-
-    </div>
-
-    <?php
+    <?php //echo do_shortcode('[mapplic id="2"]'); ?>
 
 
-    ?>;
+
+
+</div>
+
+
+
 
 
 

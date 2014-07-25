@@ -22,9 +22,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unitsCount: this.Collection[3],
           unittypes: this.Collection[4]
         }
+      }, {
+        AJAXURL: AJAXURL
       });
       this.listenTo(this.layout, "show", this.showViews);
-      this.listenTo(this.layout, "get:mappalic:map", this.getMappalicMap);
       return this.show(this.layout);
     };
 
@@ -64,18 +65,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype._unitCountSelected = function(childview, childview1) {
       return App.navigate("screen-three", {
         trigger: true
-      });
-    };
-
-    ScreenTwoController.prototype.getMappalicMap = function() {
-      console.log("gi");
-      return $.ajax({
-        method: 'POST',
-        url: AJAXURL + '?action=get-mappalic-view',
-        data: '',
-        success: function(result) {
-          return result;
-        }
       });
     };
 

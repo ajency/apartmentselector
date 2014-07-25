@@ -4,6 +4,8 @@ requirejs.config
     baseUrl : '../wp-content/themes/apartmentselector/spa'
     paths :
         jquery : 'src/bower_components/jquery/dist/jquery'
+        modernizr : 'src/bower_components/preload/modernizr.custom'
+        classie : 'src/bower_components/preload/classie'
         backbone : 'src/bower_components/backbone/backbone'
         underscore : 'src/bower_components/underscore/underscore'
         marionette : 'src/bower_components/marionette/lib/core/backbone.marionette'
@@ -20,8 +22,6 @@ requirejs.config
         bootstraptour : 'src/bower_components/bootstrap-tour/build/js/bootstrap-tour.js'
         underscorestring : 'src/bower_components/underscore.string/lib/underscore.string'
         extm : 'src/bower_components/extm/lib/extm.amd'
-        modernizr : 'src/bower_components/preload/modernizr.custom'
-        classie : 'src/bower_components/preload/classie'
         hammer : 'src/bower_components/preload/hammer.min'
         slick : 'src/bower_components/bower_components/slick.js/slick/slick.min'
         selectFx : 'src/bower_components/preload/selectFx'
@@ -57,5 +57,6 @@ requirejs.config
         mapplic : [ 'jquery' ]
         classie : [ 'jquery' ]
         selectFx : ['jquery']
+
 
 

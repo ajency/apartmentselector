@@ -13,9 +13,11 @@ function ajax_call_get_mappalic_view(){
 
 
 
-    $content =  do_shortcode('[mapplic id="1"]');
 
-    echo $content;
+
+
+
+
 
 
 

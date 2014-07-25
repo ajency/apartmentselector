@@ -119,6 +119,7 @@ if ( is_development_environment() ) {
             // localized variables
             wp_localize_script( "requirejs", "SITEURL", site_url() );
             wp_localize_script( "requirejs", "AJAXURL", admin_url( "admin-ajax.php" ) );
+            wp_localize_script(  "requirejs", "ajaxurl", admin_url( "admin-ajax.php" ) );
             wp_localize_script( "requirejs", "UPLOADURL", admin_url( "async-upload.php" ) );
             wp_localize_script( "requirejs", "_WPNONCE", wp_create_nonce( 'media-form' ) );
 
@@ -160,6 +161,7 @@ if (! is_development_environment() ) {
                 TRUE );
             wp_localize_script(  "$module-script", "SITEURL", site_url() );
             wp_localize_script(  "$module-script", "AJAXURL", admin_url( "admin-ajax.php" ) );
+            wp_localize_script(  "$module-script", "ajaxurl", admin_url( "admin-ajax.php" ) );
             wp_localize_script( "$module-script", "UPLOADURL", admin_url( "async-upload.php" ) );
             wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
         }
