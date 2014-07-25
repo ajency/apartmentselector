@@ -6,11 +6,37 @@ function clearAlerts(){
     jQuery(".text-error").remove();
 }
 
+
+
+//reset form values and scroll top to see the message on save completion
+
+function resetForm(e,entryId,response){
+
+   if(entryId=="" && response.error==false){
+
+        jQuery('form').find("input[type=text], textarea ,select").val("");
+        jQuery('select').val('')
+        jQuery('select').trigger('change')
+    }
+
+    msgClass= (response.error==false)? "text-success" :"text-error";
+        
+    jQuery('form').prepend('<div class="'+msgClass+'">'+response.msg+'</div>')
+    
+    jQuery(".loading-animator").remove();
+
+    jQuery(e.target).show() ; 
+
+   jQuery('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+
+}
+
 //get the display text for the id from the the master collections
 function getDisplayText(itemId,collection,field){
-console.log(itemId)
-console.log(collection)
-console.log(field)
+ 
     itemFound =  _.findWhere(collection, {id: itemId})
 
     return itemFound==undefined ?'':itemFound[field];

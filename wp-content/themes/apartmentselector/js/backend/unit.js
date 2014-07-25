@@ -1,6 +1,7 @@
 
 
 jQuery(document).ready(function($) {
+ 
     var collections = [];
     //load unit variants on selection of unit type
     $(document).on("change", "#unit_type", function(e) {
@@ -87,21 +88,8 @@ $(document).on("change", "#floor", function(e) {
 
             $.post(AJAXURL, data, function(response) {
 
-                if(response.error==false){
-
-                    $('form').prepend('<div class="text-success">'+response.msg+'</div>')
-  if($('#apartment_id').val()==""){
-                    $('form').find("input[type=text], textarea ,select").val("");
-                }
-
-                }else{
-
-                    $('form').prepend('<div class="text-error">'+response.msg+'</div>')
-
-                }
-
-                $(".loading-animator").remove();
-                $(_e.target).show() ;
+                resetForm(e,$('#apartment_id').val(),response);
+       
             });
         }
     });
