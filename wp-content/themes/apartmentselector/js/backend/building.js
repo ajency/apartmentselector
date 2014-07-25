@@ -13,7 +13,7 @@ $(document).on("change", ".no_of_flats", function(e) {
         exception_no = $(e.target).attr('exception_no');
         //check the number of flats before the change of the no of flats
         prevCountOfFlats = $('.belongs_to_'+$(e.target).attr("id")).length 
- 
+ console.log("prevCountOfFlats"+prevCountOfFlats)
         if($(e.target).val()==""){
           
             $("#"+$(e.target).attr('flats_container_id')).html('  <div class="form-group"><label class="form-label"><i>Select No Of Flats</i></label></div>');
@@ -29,7 +29,7 @@ $(document).on("change", ".no_of_flats", function(e) {
             addFlatsUI(startFrom,$(e.target));
        
         }else{ //if the previous coun is greater then the current slection then find the differnce and remove the flats UI
-
+ console.log("prevCountOfFlats"+prevCountOfFlats)
             removeFlatsUI(prevCountOfFlats,$(e.target));
         }
        
@@ -74,14 +74,14 @@ function addFlatsUI(startFrom,element){
 }
 
 function removeFlatsUI(prevCountOfFlats,element){
-     for(i=prevCountOfFlats;i>element.val();i--){
-        elementWithClassIndex = 1
-         $('.belongs_to_'+element.attr("id")).each(function() {
-                if(elementWithClassIndex>=prevCountOfFlats){
-                    this.remove()
-                }
-                elementWithClassIndex++;
-            });
+
+    console.log("ffffffffffff")
+    console.log(prevCountOfFlats)
+
+    console.log(element.val())
+     for(i=prevCountOfFlats;i>=element.val();i--){
+      
+         $('.belongs_to_'+element.attr("id")).eq(i).remove();
      }
     }
 
@@ -241,29 +241,7 @@ function addException(exception_no){
 
             $.post(AJAXURL+"?action=save_building", data, function(response) {
 
-            if(response.error==false){
-
-                $('form').prepend('<div class="text-success">'+response.msg+'</div>')
-
-                if($('#building_id').val()==""){
-                    $('form').find("input[type=text], textarea ,select").val("");
-                    $('#no_of_floors').val('')
-                    $('#no_of_floors').trigger('change')
-                    $('.no_of_flats').val('')
-                    $('.no_of_flats').trigger('change')
-                  
-                }
-                
-
-            }else{
-
-                $('form').prepend('<div class="text-error">'+response.msg+'</div>')
-
-            }
-
-            $(".loading-animator").remove();
-
-            $(_e.target).show() ;
+            resetForm(e,$('#building_id').val(),response);
         });
         }
         
