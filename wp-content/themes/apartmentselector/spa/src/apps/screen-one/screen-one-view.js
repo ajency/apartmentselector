@@ -43,6 +43,8 @@ define(['marionette'], function(Marionette) {
       }
       unitTypeString = unitType.join(',');
       App.defaults['unitType'] = unitTypeString;
+      App.screenOneFilter['value'] = unitTypeString;
+      App.screenOneFilter['key'] = 'unitType';
       return $("#finalButton").removeClass('disabled');
     };
 
@@ -76,6 +78,8 @@ define(['marionette'], function(Marionette) {
             budget_price = budget_price.join('-');
           }
           App.defaults['budget'] = budget_price;
+          App.screenOneFilter['value'] = budget_price;
+          App.screenOneFilter['key'] = 'budget';
         } else {
           App.defaults['budget'] = 'All';
         }

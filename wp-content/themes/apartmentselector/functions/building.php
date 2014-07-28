@@ -398,6 +398,8 @@ function get_buildings($ids=array())
         'hide_empty' => 0,
         'include'	=> $ids
     ) );
+
+
     foreach($categories as $category){
 
         $building_no_of_floors = get_option( "building_".$category->term_id."_no_of_floors",true);
@@ -414,6 +416,7 @@ function get_buildings($ids=array())
         $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
 
     }
+
     return $buildings;
 }
 

@@ -17,8 +17,13 @@ define(['marionette'], function(Mariontte) {
 
     HeaderView.prototype.events = {
       'click .text-white': function(e) {
-        var params;
+        var key, params;
         if (window.location.href.indexOf('screen-three') > -1) {
+          App.defaults['floor'] = 'All';
+          key = App.defaults.hasOwnProperty(App.screenOneFilter['key']);
+          if (key === true) {
+            App.defaults[App.screenOneFilter['key']] = App.screenOneFilter['value'];
+          }
           App.navigate("screen-two");
           e.preventDefault();
           App.filter(params = {});

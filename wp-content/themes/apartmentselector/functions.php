@@ -122,6 +122,12 @@ if ( is_development_environment() ) {
             wp_localize_script(  "requirejs", "ajaxurl", admin_url( "admin-ajax.php" ) );
             wp_localize_script( "requirejs", "UPLOADURL", admin_url( "async-upload.php" ) );
             wp_localize_script( "requirejs", "_WPNONCE", wp_create_nonce( 'media-form' ) );
+            wp_localize_script( "requirejs", "BUILDINGS", get_buildings() );
+            wp_localize_script( "requirejs", "UNITS", get_units() );
+            wp_localize_script( "requirejs", "STATUS", get_unit_status() );
+            wp_localize_script( "requirejs", "UNITTYPES", get_unit_types() );
+            wp_localize_script( "requirejs", "UNITVARIANTS", get_unit_variants() );
+
 
         }
     }
@@ -162,8 +168,13 @@ if (! is_development_environment() ) {
             wp_localize_script(  "$module-script", "SITEURL", site_url() );
             wp_localize_script(  "$module-script", "AJAXURL", admin_url( "admin-ajax.php" ) );
             wp_localize_script(  "$module-script", "ajaxurl", admin_url( "admin-ajax.php" ) );
-            wp_localize_script( "$module-script", "UPLOADURL", admin_url( "async-upload.php" ) );
+            wp_localize_script(  "$module-script", "UPLOADURL", admin_url( "async-upload.php" ) );
             wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
+            wp_localize_script( "$module-script", "BUILDINGS", get_buildings() );
+            wp_localize_script( "$module-script", "UNITS", get_units() );
+            wp_localize_script( "$module-script", "STATUS", get_unit_status() );
+            wp_localize_script( "$module-script", "UNITTYPES", get_unit_types() );
+            wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
         }
     }
 

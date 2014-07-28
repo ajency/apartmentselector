@@ -43,6 +43,8 @@ define [ 'marionette' ], ( Marionette )->
 
             unitTypeString = unitType.join(',')
             App.defaults['unitType'] = unitTypeString
+            App.screenOneFilter['value'] = unitTypeString
+            App.screenOneFilter['key'] = 'unitType'
             $("#finalButton").removeClass 'disabled'
 
 
@@ -79,6 +81,8 @@ define [ 'marionette' ], ( Marionette )->
                         budget_price[1] = budget_price[1]+ ('00000')
                         budget_price = budget_price.join('-')
                     App.defaults['budget'] = budget_price
+                    App.screenOneFilter['value'] = budget_price
+                    App.screenOneFilter['key'] = 'budget'
                 else
                     App.defaults['budget'] = 'All'
 

@@ -152,7 +152,7 @@ define [ 'marionette' ], ( Marionette )->
 
                     {{#floorcount}}         									<li>
                 										Floor {{id}}
-                										<small>95 per sqft</small>
+
                 									</li>
                     {{/floorcount}}
                 								</ul>

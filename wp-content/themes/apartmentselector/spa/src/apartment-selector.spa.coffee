@@ -38,18 +38,22 @@ require [ 'plugin-loader'
         filterRegion : '#filter-region'
         mainRegion : '#main-region'
 
+    console.log(BUILDINGS)
+
     App.store =
-        'unit' : new Backbone.Collection units
+        'unit' : new Backbone.Collection UNITS
         'view' : new Backbone.Collection  views
-        'building' : new Backbone.Collection  buildings
-        'unit_variant' : new Backbone.Collection  unitvariants
-        'unit_type' : new Backbone.Collection  unittypes
+        'building' : new Backbone.Collection  BUILDINGS
+        'unit_variant' : new Backbone.Collection  UNITVARIANTS
+        'unit_type' : new Backbone.Collection  UNITTYPES
         'range': new Backbone.Collection  range
-        'status': new Backbone.Collection  status
+        'status': new Backbone.Collection  STATUS
 
     App.currentStore = App.store
 
     App.building = {name:''}
+
+    App.screenOneFilter = {key:'',value:''}
 
 
     App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}

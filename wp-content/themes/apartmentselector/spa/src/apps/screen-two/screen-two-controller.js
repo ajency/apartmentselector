@@ -17,13 +17,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype.initialize = function() {
       this.Collection = this._getUnitsCountCollection();
       this.layout = new ScreenTwoView.ScreenTwoLayout({
+        collection: this.Collection[0],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
-          unittypes: this.Collection[4]
+          unittypes: this.Collection[4],
+          AJAXURL: AJAXURL
         }
-      }, {
-        AJAXURL: AJAXURL
       });
       this.listenTo(this.layout, "show", this.showViews);
       return this.show(this.layout);
@@ -262,7 +262,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           });
         });
         $.each(unitTypeArray, function(key, item) {
-          var count;
+          var classname, count;
           if (!unique[item.id]) {
             status = App.currentStore.status.findWhere({
               'name': 'Available'
@@ -272,10 +272,16 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               'status': status.get('id'),
               'building': buildingid
             });
+            if (parseInt(count) === 0) {
+              classname = "twoBHK m-l-20";
+            } else {
+              classname = "oneBHK";
+            }
             newarr.push({
               id: item.id,
               name: item.name,
-              count: count.length
+              count: count.length,
+              "class": classname
             });
             return unique[item.id] = item;
           }

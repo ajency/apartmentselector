@@ -144,7 +144,7 @@ define(['marionette'], function(Marionette) {
       return UnitView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} <small>95 per sqft</small> </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div><em class="cd-scroll-right"></em></div></div>';
+    UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div><em class="cd-scroll-right"></em></div></div>';
 
     UnitView.prototype.childView = unitChildView;
 

@@ -8,10 +8,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @Collection = @_getUnitsCountCollection()
 
 
-            @layout = new ScreenTwoView.ScreenTwoLayout({templateHelpers:
+            @layout = new ScreenTwoView.ScreenTwoLayout(
+                collection:@Collection[0]
+                templateHelpers:
                                                             selection :@Collection[2]
                                                             unitsCount:@Collection[3]
-                                                            unittypes: @Collection[4]}
+                                                            unittypes: @Collection[4]
                                                             AJAXURL : AJAXURL)
 
 
@@ -210,7 +212,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!unique[item.id])
                         status = App.currentStore.status.findWhere({'name':'Available'})
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
-                        newarr.push({id:item.id,name:item.name,count:count.length})
+                        if parseInt(count) == 0
+                            classname = "twoBHK m-l-20"
+                        else
+                            classname = "oneBHK"
+                        newarr.push({id:item.id,name:item.name,count:count.length,class:classname})
                         unique[item.id] = item;
 
 

@@ -9,7 +9,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         		<div class="legend text-center m-b-20">
 
        {{#unittypes}}
-<span class="oneBHK">.</span>{{name}}
+<span class="{{class}}">.</span>{{name}}
         {{/unittypes}}
         		</div>
                 <div class="row m-r-0 m-l-0">
@@ -37,7 +37,204 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         				<p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p>
 
         			</div><div id="mapplic1"></div>
-                </div>'
+                </div><div class="remodal towerPopup" data-remodal-id="modal">
+        		<div class="header navbar navbar-inverse ">
+        			<!-- <div class="backBtn">
+        				<a href="#" class="text-white remodal-close"><span class="glyphicon glyphicon-chevron-left "></span></a>
+        			</div> -->
+        			<div class="m-t-15">
+        				<h4 class="text-white m-t-15">WHAT IS THE FLOOR RISE?</h4>
+        			</div>
+        		</div>
+        		<div id="vs-container" class="vs-container">
+        			<header class="vs-header">
+        				<ul class="vs-nav">
+        					<li><a href="#section-1">HIGHRISE</a></li>
+        					<li><a href="#section-2">MIDRISE</a></li>
+        					<li><a href="#section-3">LOWRISE</a></li>
+        				</ul>
+        			</header>
+        			<div class="vs-wrapper">
+        				<section id="section-1">
+        					<div class="vs-content">
+        						<div class="row">
+        							<div class="col-sm-4 col-xs-9">
+        								<img src="assets/img/floor-rise.jpg" class="img-responsive">
+        							</div>
+        							<div class="col-sm-8 col-xs-3">
+        								<div class="row">
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 1BHK</small><br>55</h1>
+        									</div>
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 2BHK</small><br>30</h1>
+        									</div>
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 3BHK</small><br>30</h1>
+        									</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-sm-12 hidden-xs m-t-30 p-l-0">
+        										<div class="col">
+        											<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
+        										</div>
+        									</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-sm-4">
+        									</div>
+        									<div class="col-sm-4">
+        									</div>
+        									<div class="col-sm-4">
+        									</div>
+        								</div>
+        							</div>
+        							<div class="clearfix visible-xs"></div>
+        							<div class="viewsNo m-t-20">
+        								<div class="row">
+        									<div class="col-xs-4">
+        										<h4>
+        											NO OF <span class="text-primary bold">VIEWS</span>
+        										</H4>
+        									</div>
+        									<div class="col-xs-4">
+        										Garden view<br>
+        										Pond View<br>
+        										Manas Lake<br>
+        										Eco pond
+        									</div>
+        									<div class="col-xs-4">
+        										Garden view<br>
+        										Pond View<br>
+        										Manas Lake<br>
+        										Eco pond
+        									</div>
+        								</div>
+        							</div>
+        						</div>
+        					</div>
+        				</section>
+        				<section id="section-2">
+        					<div class="vs-content">
+        						<div class="row">
+        							<div class="col-sm-4 col-xs-9">
+        								<img src="assets/img/floor-rise.jpg" class="img-responsive">
+        							</div>
+        							<div class="col-sm-8 col-xs-3">
+        								<div class="row">
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 1BHK</small><br>55</h1>
+        									</div>
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 2BHK</small><br>30</h1>
+        									</div>
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 3BHK</small><br>30</h1>
+        									</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-sm-12 hidden-xs m-t-30 p-l-0">
+        										<div class="col">
+        											<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
+        										</div>
+        									</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-sm-4">
+        									</div>
+        									<div class="col-sm-4">
+        									</div>
+        									<div class="col-sm-4">
+        									</div>
+        								</div>
+        							</div>
+        							<div class="clearfix visible-xs"></div>
+        							<div class="viewsNo m-t-20">
+        								<div class="row">
+        									<div class="col-xs-4">
+        										<h4>
+        											NO OF <span class="text-primary bold">VIEWS</span>
+        										</H4>
+        									</div>
+        									<div class="col-xs-4">
+        										Garden view<br>
+        										Pond View<br>
+        										Manas Lake<br>
+        										Eco pond
+        									</div>
+        									<div class="col-xs-4">
+        										Garden view<br>
+        										Pond View<br>
+        										Manas Lake<br>
+        										Eco pond
+        									</div>
+        								</div>
+        							</div>
+        						</div>
+        					</div>
+        				</section>
+        				<section id="section-3">
+        					<div class="vs-content">
+        						<div class="row">
+        							<div class="col-sm-4 col-xs-9">
+        								<img src="assets/img/floor-rise.jpg" class="img-responsive">
+        							</div>
+        							<div class="col-sm-8 col-xs-3">
+        								<div class="row">
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 1BHK</small><br>55</h1>
+        									</div>
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 2BHK</small><br>30</h1>
+        									</div>
+        									<div class="col-sm-4 p-l-0 p-r-0">
+        										<h1><small>Total 3BHK</small><br>30</h1>
+        									</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-sm-12 hidden-xs m-t-30 p-l-0">
+        										<div class="col">
+        											<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
+        										</div>
+        									</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-sm-4">
+        									</div>
+        									<div class="col-sm-4">
+        									</div>
+        									<div class="col-sm-4">
+        									</div>
+        								</div>
+        							</div>
+        							<div class="clearfix visible-xs"></div>
+        							<div class="viewsNo m-t-20">
+        								<div class="row">
+        									<div class="col-xs-4">
+        										<h4>
+        											NO OF <span class="text-primary bold">VIEWS</span>
+        										</H4>
+        									</div>
+        									<div class="col-xs-4">
+        										Garden view<br>
+        										Pond View<br>
+        										Manas Lake<br>
+        										Eco pond
+        									</div>
+        									<div class="col-xs-4">
+        										Garden view<br>
+        										Pond View<br>
+        										Manas Lake<br>
+        										Eco pond
+        									</div>
+        								</div>
+        							</div>
+        						</div>
+        					</div>
+        				</section>
+        			</div>
+        		</div><!-- /vs-container -->
+        	</div>'
 
 
 
@@ -56,6 +253,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 e.preventDefault()
 
         onShow:->
+
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
             document.body.appendChild(scr)
@@ -79,6 +277,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 i++;
 
             m  = $('#mapplic1').data('mapplic')
+
+
+
+
+
 
 
 
