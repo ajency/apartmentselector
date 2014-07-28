@@ -45,7 +45,10 @@ $form_id = $_REQUEST["form_id"];
 						<div class="entry-content">
 						 
 
-							<?php echo FrmProEntriesController::get_form_results(array('id' => $form_id,'edit_link'=>"Edit",'page_id'=>4));;
+							<?php 
+ 							$page = get_page_by_title( 'Add Edit Details' );
+     
+							echo FrmProEntriesController::get_form_results(array('id' => $form_id,'edit_link'=>"Edit",'page_id'=>$page->ID));;
 							?>
 							 
 						</div><!-- .entry-content -->
