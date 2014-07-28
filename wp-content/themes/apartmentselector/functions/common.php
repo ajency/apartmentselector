@@ -86,7 +86,15 @@ function get_default_data($master_type,$id=0){
 
 	$default_data = $wpdb->get_results($query,ARRAY_A);
 
- 	return $default_data;
+	$data = array();
+	
+	foreach($default_data as  $data_item){
+ 
+		 $data_item["id"] = intval($data_item["id"])  ;
+		 $data[] = $data_item;
+	}
+ 
+ 	return $data;
 
 
 }

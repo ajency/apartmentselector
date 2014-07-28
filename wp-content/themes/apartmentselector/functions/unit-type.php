@@ -86,7 +86,7 @@ function get_unit_types($ids=array())
 
         $no_of_floors= get_option( "unit_type_".$category->term_id."_no_of_floors",true);
 
-        $unit_types[] = array('id'=>$category->term_id,"name"=>$category->name,"no_of_floors"=>$no_of_floors);
+        $unit_types[] = array('id'=>intval($category->term_id),"name"=>$category->name,"no_of_floors"=>$no_of_floors);
 
     }
     return $unit_types;
