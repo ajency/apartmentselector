@@ -258,7 +258,8 @@ function get_unit_variants(){
 
     $unit_variants = array();
     foreach($results as $result){
-        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea']);
+         $persqftprice = is_null($result->metas['persqftprice'])?0:$result->metas['persqftprice'];
+        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice);
     }
 
     return $unit_variants;
