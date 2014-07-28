@@ -37,8 +37,8 @@ function resetForm(e,entryId,response){
 //get the display text for the id from the the master collections
 function getDisplayText(itemId,collection,field){
  
-    itemFound =  _.findWhere(collection, {id: itemId})
-
+    itemFound =  _.findWhere(collection, {id: parseInt(itemId)})
+ 
     return itemFound==undefined ?'':itemFound[field];
 }
 

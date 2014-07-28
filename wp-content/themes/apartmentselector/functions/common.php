@@ -86,7 +86,15 @@ function get_default_data($master_type,$id=0){
 
 	$default_data = $wpdb->get_results($query,ARRAY_A);
 
- 	return $default_data;
+	$data = array();
+	
+	foreach($default_data as  $data_item){
+ 
+		 $data_item["id"] = intval($data_item["id"])  ;
+		 $data[] = $data_item;
+	}
+ 
+ 	return $data;
 
 
 }
@@ -131,6 +139,7 @@ function ajax_get_list_view(){
     exit;
 }
 add_action('wp_ajax_get_list_view','ajax_get_list_view');
+add_action('wp_ajax_nopriv_get_list_view','ajax_get_list_view');
 
 
 function check_backend_template(){
@@ -194,6 +203,7 @@ function ajax_upload_file(){
     exit;
 }
 add_action('wp_ajax_upload_file','ajax_upload_file');
+add_action('wp_ajax_nopriv_upload_file','ajax_upload_file');
 
 
 
