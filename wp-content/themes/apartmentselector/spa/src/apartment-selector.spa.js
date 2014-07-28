@@ -57,6 +57,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
     } else {
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
+      console.log(params);
     }
     param_arr = params.split('&');
     budgetUnitArray = [];
@@ -95,7 +96,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
             return collection = budgetUnitArray;
           });
         } else {
-          collection = App.currentStore.unit.where(paramkey);
+          console.log(collection = App.currentStore.unit.where(paramkey));
         }
       }
       return App.currentStore.unit.reset(collection);

@@ -88,6 +88,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             param = {}
             paramkey = {}
             flag = 0
+            console.log App.defaults
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value

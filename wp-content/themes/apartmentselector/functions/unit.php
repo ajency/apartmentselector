@@ -299,7 +299,7 @@ function get_units(){
                             'unitVariant'=>intval($unit_variant),
                             'building'=>intval($unit_building),
                             'floor'=>intval($floor),
-                            'status'=>$unit_status,
+                            'status'=>intval($unit_status),
                         );
 
     }

@@ -17,10 +17,14 @@ define [ 'marionette' ], ( Mariontte )->
         events:
             'click .text-white':(e)->
                 if window.location.href.indexOf('screen-three') > -1
+                    console.log App.defaults
                     App.defaults['floor'] = 'All'
+                    console.log App.defaults
                     key = App.defaults.hasOwnProperty(App.screenOneFilter['key'])
                     if key == true
                         App.defaults[App.screenOneFilter['key']] = App.screenOneFilter['value']
+
+                    console.log App.defaults
 
                     App.navigate "screen-two"
                     e.preventDefault()
