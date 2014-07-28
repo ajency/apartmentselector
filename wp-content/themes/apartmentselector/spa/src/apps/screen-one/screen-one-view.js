@@ -37,7 +37,6 @@ define(['marionette'], function(Marionette) {
         unitType.splice(index, 1);
         $("#check" + this.model.get('id')).val("0");
       }
-      console.log(unitType.length);
       if (unitType.length === 0) {
         $("#finalButton").addClass('disabled');
         return false;
@@ -68,7 +67,6 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.events = {
       'click #finalButton': function(e) {
         var budget_price, budget_val;
-        console.log($(".cs-placeholder").text());
         if ($(".cs-placeholder").text() !== 'Undecided') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
@@ -77,7 +75,6 @@ define(['marionette'], function(Marionette) {
             budget_price[1] = budget_price[1] + '00000';
             budget_price = budget_price.join('-');
           }
-          console.log(budget_price);
           App.defaults['budget'] = budget_price;
         } else {
           App.defaults['budget'] = 'All';

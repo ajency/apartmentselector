@@ -1,4 +1,5 @@
 define [ 'extm', 'marionette' ], ( Extm, Marionette )->
+    m = ""
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="text-center introTxt">We have <span class="bold text-primary"> {{unitsCount }} options</span>
@@ -50,20 +51,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
+        events:
+            'click a':(e)->
+                e.preventDefault()
+
         onShow:->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
             document.body.appendChild(scr)
 
 
-            console.log AJAXURL
             i = 1
-            console.log window['mapplic' + i]
             while (window['mapplic' + i] != undefined)
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
                 ajaxurl = AJAXURL
-                console.log params.id
                 $(selector).mapplic(
                     'id': 4,
                     'width': params.width,
@@ -72,7 +74,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
 
+
+
                 i++;
+
+            m  = $('#mapplic1').data('mapplic')
+
+
+
+
+
+
+
 
 
 
@@ -85,7 +98,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'click .link':->
-                App.navigate "tower"+@model.get('id') , trigger:true
+                #m = mapplic()
+                #m  = $('#mapplic1').data('mapplic')
+
+                id = 'tower'+@model.get('id')
+                i =1
+                params = window['mapplic' + i]
+                selector = '#mapplic' + i
+
+                #m.initial($(selector),params)
+                m.showLocation(id, 800)
+                #locationData = m.getLocationData(id);
+                #m.showTooltip(locationData);
+                #App.navigate "tower"+@model.get('id') , trigger:true
+
+
 
 
 
@@ -103,10 +130,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         childView : BuildingView
 
         onShow:->
-            console.log @collection
             model = @collection.at(0)
-            console.log model
-            App.navigate "tower"+model.get('id') , trigger:true
+
+            id = 'tower'+model.get('id')
+            #m.showLocation(id, 800)
+
+            #App.navigate "tower"+model.get('id') , trigger:true
 
 
 
@@ -155,11 +184,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitView extends Marionette.CompositeView
 
         template : '<div class="vs-content"></div><div class="towerDetails">
-        										<div class="row">
-        											<div class="col-sm-12">
-        												<img src="assets/img/towerA.jpg" class="img-responsive">
-        											</div>
-        										</div>
+
         										<div class="row">
         											{{#unittypes}}         		<div class="col-xs-4">
                 							<h1><small>Total {{name}}</small><br>{{count}}</h1>
@@ -193,6 +218,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         initialize :->
             @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
+
 
 
 

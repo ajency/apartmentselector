@@ -6,7 +6,7 @@ define [ 'marionette'], ( Marionette )->
             'screen-three' : 'showUnits'
             'screen-two'  : 'show'
             'screen-one'  : 'showValues'
-            'screen-one/:params' : 'showValues'
+            ':params' : 'showValues'
             #':params' : 'show'
             'screen-two/:params'  : 'show'
 
@@ -35,7 +35,6 @@ define [ 'marionette'], ( Marionette )->
 
 
         show :(params={})->
-            console.log 'qqqqqqqqqqqqq'
             App.filter(params)
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion

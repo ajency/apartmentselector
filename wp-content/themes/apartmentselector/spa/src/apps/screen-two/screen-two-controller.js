@@ -31,7 +31,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
 
     ScreenTwoController.prototype.showViews = function() {
       this.buildingCollection = this.Collection[0];
-      console.log(this.unitCollection = this.Collection[1]);
+      this.unitCollection = this.Collection[1];
       this.showBuildingRegion(this.buildingCollection);
       return this.showUnitRegion(this.unitCollection);
     };
@@ -50,7 +50,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.getView = function(buildingCollection) {
-      console.log("hi");
       return new ScreenTwoView.UnitTypeChildView({
         collection: buildingCollection
       });
@@ -94,7 +93,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
           param[index] = value;
-          console.log(index);
           string_val = _.isString(value);
           valuearr = "";
           if (string_val === true) {
@@ -104,26 +102,22 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             _results = [];
             for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
               element = valuearr[_i];
-              console.log(element);
               if (index === 'unitType') {
                 key = App.currentStore.unit_type.findWhere({
                   id: parseInt(element)
                 });
-                console.log(key);
                 templateArr.push(key.get('name'));
               }
               if (index === 'unitVariant') {
                 key = App.currentStore.unit_variant.findWhere({
                   id: parseInt(element)
                 });
-                console.log(key);
                 templateArr.push(key.get('name'));
               }
               if (index === 'building') {
                 key = App.currentStore.building.findWhere({
                   id: parseInt(element)
                 });
-                console.log(key);
                 templateArr.push(key.get('name'));
               }
               if (index === 'budget') {
@@ -143,21 +137,18 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               key = App.currentStore.unit_type.findWhere({
                 id: parseInt(value)
               });
-              console.log(key);
               templateArr.push(key.get('name'));
             }
             if (index === 'unitVariant') {
               key = App.currentStore.unit_variant.findWhere({
                 id: parseInt(value)
               });
-              console.log(key);
               templateArr.push(key.get('name'));
             }
             if (index === 'building') {
               key = App.currentStore.building.findWhere({
                 id: parseInt(value)
               });
-              console.log(key);
               templateArr.push(key.get('name'));
             }
             if (index === 'budget') {
@@ -171,7 +162,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           }
         }
       });
-      console.log(templateArr);
       if (templateArr.length === 0) {
         templateArr.push('All');
       }

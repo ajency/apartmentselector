@@ -22,8 +22,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype.showViews = function() {
-      console.log(this.buildingCollection = this.Collection[0]);
-      console.log(this.unitCollection = this.Collection[1]);
+      this.buildingCollection = this.Collection[0];
+      this.unitCollection = this.Collection[1];
       this.showBuildingRegion(this.buildingCollection);
       return this.showUnitRegion(this.unitCollection);
     };
@@ -118,7 +118,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       temp1 = [];
       for (index = _i = 0, _len = unitArray.length; _i < _len; index = ++_i) {
         element = unitArray[index];
-        console.log(unitArray[index]);
         if (unitArray[index].buildingid === App.building['name']) {
           temp[0] = unitArray[0];
           unitArray[0] = unitArray[index];
@@ -134,7 +133,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {
-      console.log("hi");
       return App.navigate("#screen-four/unit/" + unit + "/unittype/" + unittypeid + "/range/" + range + "/size/" + size, {
         trigger: true
       });

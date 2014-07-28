@@ -37,9 +37,8 @@ define(['marionette'], function(Mariontte) {
 
     HeaderView.prototype.onShow = function() {
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1) {
-        return console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
       } else {
-        console.log("eeeeeeeeeeee");
         $('.backBtn').addClass('hidden');
         return $('.selearr').text('Apartment Selector');
       }

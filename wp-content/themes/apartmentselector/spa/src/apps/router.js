@@ -15,7 +15,7 @@ define(['marionette'], function(Marionette) {
       'screen-three': 'showUnits',
       'screen-two': 'show',
       'screen-one': 'showValues',
-      'screen-one/:params': 'showValues',
+      ':params': 'showValues',
       'screen-two/:params': 'show',
       'screen-three/:params': 'showUnits',
       'screen-four/:params': 'showSelectedUnit'
@@ -37,7 +37,6 @@ define(['marionette'], function(Marionette) {
       if (params == null) {
         params = {};
       }
-      console.log('qqqqqqqqqqqqq');
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();

@@ -15,8 +15,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             @show @layout
 
         showViews:=>
-            console.log @buildingCollection = @Collection[0]
-            console.log @unitCollection = @Collection[1]
+            @buildingCollection = @Collection[0]
+            @unitCollection = @Collection[1]
             @showBuildingRegion @buildingCollection
             @showUnitRegion @unitCollection
 
@@ -108,7 +108,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             temp = []
             temp1 = []
             for element,index in unitArray
-                console.log unitArray[index]
                 if unitArray[index].buildingid  == App.building['name']
                     temp[0] = unitArray[0]
                     unitArray[0] = unitArray[index]
@@ -127,7 +126,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
         mainUnitSelected:(childview,childview1,unit,unittypeid,range,size)=>
-            console.log "hi"
             App.navigate "#screen-four/unit/#{unit}/unittype/#{unittypeid}/range/#{range}/size/#{size}" ,  trigger : true
 
 

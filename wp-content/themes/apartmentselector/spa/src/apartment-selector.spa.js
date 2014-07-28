@@ -39,22 +39,19 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
       params = {};
     }
     if (window.location.href.indexOf('=') > -1) {
-      console.log(params = params);
+      params = params;
       paramsArray = params.split('&');
       for (index = _i = 0, _len = paramsArray.length; _i < _len; index = ++_i) {
         element = paramsArray[index];
-        console.log(param_key = element.split('='));
+        param_key = element.split('=');
         key = App.defaults.hasOwnProperty(param_key[0]);
         if (key === true) {
-          console.log(param_key[1]);
           App.defaults[param_key[0]] = param_key[1];
         }
       }
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
-      console.log(params);
     } else {
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
-      console.log(params);
     }
     param_arr = params.split('&');
     budgetUnitArray = [];
@@ -88,7 +85,6 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
           units = App.currentStore.unit;
           units.each(function(item) {
             if (item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])) {
-              console.log(item.get('unitType'));
               budgetUnitArray.push(item);
             }
             return collection = budgetUnitArray;
@@ -135,24 +131,23 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     App.currentStore.unit_type.reset(unittypeArray);
     App.currentStore.unit_variant.reset(unitvariantArray);
     App.currentStore.view.reset(viewArray);
-    return console.log(App.currentStore.unit);
+    return App.currentStore.unit;
   };
   App.filterparam = function(params) {
     if (params == null) {
       params = {};
     }
-    console.log("aaaaaaaaaaaaaa");
-    console.log(App.defaults = {
+    App.defaults = {
       "building": [2, 3],
       "unitType": 3,
       "unitVariant": 'All',
       'floor': 'All',
       'view': 'All'
-    });
+    };
     App.defaults.hasOwnProperty("name");
     units = App.currentStore.unit.filter(function(model) {
       var building, buildingArray, element, index, _i, _len, _ref;
-      console.log(App.defaults['building'].length);
+      App.defaults['building'].length;
       buildingArray = Array();
       _ref = App.defaults['building'];
       for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
@@ -161,7 +156,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
       }
       return building;
     });
-    return console.log(units);
+    return units;
   };
   App.currentRoute = [];
   staticApps = [];

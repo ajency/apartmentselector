@@ -46,26 +46,22 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
             _results = [];
             for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
               element = valuearr[_i];
-              console.log(element);
               if (index === 'unitType') {
                 key = App.currentStore.unit_type.findWhere({
                   id: parseInt(element)
                 });
-                console.log(key);
                 templateArr.push(key.get('name'));
               }
               if (index === 'unitVariant') {
                 key = App.currentStore.unit_variant.findWhere({
                   id: parseInt(element)
                 });
-                console.log(key);
                 templateArr.push(key.get('name'));
               }
               if (index === 'building') {
                 key = App.currentStore.building.findWhere({
                   id: parseInt(element)
                 });
-                console.log(key);
                 templateArr.push(key.get('name'));
               }
               if (index === 'budget') {
@@ -85,21 +81,18 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
               key = App.currentStore.unit_type.findWhere({
                 id: parseInt(value)
               });
-              console.log(key);
               templateArr.push(key.get('name'));
             }
             if (index === 'unitVariant') {
               key = App.currentStore.unit_variant.findWhere({
                 id: parseInt(value)
               });
-              console.log(key);
               templateArr.push(key.get('name'));
             }
             if (index === 'building') {
               key = App.currentStore.building.findWhere({
                 id: parseInt(value)
               });
-              console.log(key);
               templateArr.push(key.get('name'));
             }
             if (index === 'budget') {
@@ -113,7 +106,6 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
           }
         }
       });
-      console.log(templateArr);
       templateString = templateArr.join(',');
       textString = "";
       if (window.location.href.indexOf('screen-two') > -1) {

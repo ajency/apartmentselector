@@ -15,16 +15,8 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
 
     ScreenOneController.prototype.initialize = function() {
       var view;
-      console.log("wwwwwwwwwwww");
       this.unitTypeCollection = this._getUnitTypeCollection();
       this.view = view = this._getUnitTypesView(this.unitTypeCollection);
-      if (window.location.href.indexOf('=') > -1) {
-        console.log("not");
-      } else {
-        App.navigate("screen-one", {
-          trigger: true
-        });
-      }
       this.listenTo(view, "unit:type:clicked", this._unitTypeClicked);
       return this.show(view);
     };
@@ -36,7 +28,6 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype._unitTypeClicked = function() {
-      console.log("wwwwwwwwwwww");
       return App.navigate("screen-two", {
         trigger: true
       });
