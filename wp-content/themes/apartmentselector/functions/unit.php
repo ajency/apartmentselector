@@ -201,6 +201,7 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_delete_unit','ajax_delete_unit');
+add_action('wp_ajax_nopriv_delete_unit','ajax_delete_unit');
 
 function ajax_get_unit_variants(){
 
@@ -218,6 +219,7 @@ function ajax_get_unit_variants(){
 
 }
 add_action('wp_ajax_get_unit_variants','ajax_get_unit_variants');
+add_action('wp_ajax_nopriv_get_unit_variants','ajax_get_unit_variants');
 
 /*get unit variants by unit type*/
 function get_unit_variants_by_unit_type($unit_type=0){
@@ -399,6 +401,7 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_save_apartment','ajax_save_apartment');
+add_action('wp_ajax_nopriv_save_apartment','ajax_save_apartment');
 
 
 function get_flats_on_floor($building ,$floor){
@@ -409,9 +412,9 @@ function get_flats_on_floor($building ,$floor){
     
     //var to check if floor is found in exception
     $floor_in_exception = 0;
-
     foreach($building_exceptions as $building_exception){
 
+        $building_exception["floors"] =  is_null($building_exception["floors"])?array():$building_exception["floors"];
             if(in_array($floor,$building_exception["floors"])){
 
                 $flats = $building_exception["flats"];
@@ -444,6 +447,7 @@ function ajax_get_flats_on_floor(){
     exit;
 }
 add_action('wp_ajax_get_flats_on_floor','ajax_get_flats_on_floor');
+add_action('wp_ajax_nopriv_get_flats_on_floor','ajax_get_flats_on_floor');
 
 
 //function to check for duplicate apartments

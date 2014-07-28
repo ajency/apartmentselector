@@ -120,6 +120,7 @@ function ajax_fetch_form_views(){
 	exit;
 }
 add_action('wp_ajax_fetch_form_views','ajax_fetch_form_views');
+add_action('wp_ajax_nopriv_fetch_form_views','ajax_fetch_form_views');
 
 
 function ajax_fetch_form(){
@@ -145,6 +146,7 @@ if(isset($_REQUEST["entry"])){
 	exit;
 }
 add_action('wp_ajax_fetch_form','ajax_fetch_form');
+add_action('wp_ajax_nopriv_fetch_form','ajax_fetch_form');
 
 
 function ajax_save_entry(){
@@ -195,6 +197,7 @@ function ajax_save_entry(){
         exit;
 }
 add_action('wp_ajax_save_entry','ajax_save_entry');
+add_action('wp_ajax_nopriv_save_entry','ajax_save_entry');
 
 
 /*

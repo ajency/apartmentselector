@@ -466,7 +466,7 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_save_building','ajax_save_building');
-
+add_action('wp_ajax_nopriv_save_building','ajax_save_building'); 
 
 //delete building
 function ajax_delete_building(){
@@ -492,6 +492,7 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_delete_building','ajax_delete_building');
+add_action('wp_ajax_nopriv_delete_building','ajax_delete_building');
 //get building data by id
 function get_building_by_id($building_id){
 

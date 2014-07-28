@@ -131,6 +131,7 @@ function ajax_get_list_view(){
     exit;
 }
 add_action('wp_ajax_get_list_view','ajax_get_list_view');
+add_action('wp_ajax_nopriv_get_list_view','ajax_get_list_view');
 
 
 function check_backend_template(){
@@ -194,6 +195,7 @@ function ajax_upload_file(){
     exit;
 }
 add_action('wp_ajax_upload_file','ajax_upload_file');
+add_action('wp_ajax_nopriv_upload_file','ajax_upload_file');
 
 
 
