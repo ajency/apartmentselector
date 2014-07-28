@@ -413,7 +413,7 @@ function get_buildings($ids=array())
         for ($i=1; $i<=$building_no_of_floors;$i++){
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
 
     }
 
