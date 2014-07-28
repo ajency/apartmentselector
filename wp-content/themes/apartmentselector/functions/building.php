@@ -411,7 +411,7 @@ function get_buildings($ids=array())
         for ($i=1; $i<=$building_no_of_floors;$i++){
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>$category->term_id,"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>$building_phase,"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
 
     }
     return $buildings;
@@ -519,7 +519,7 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-   $result = array('id'=>$building->term_id ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions );
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions );
  
    return ($result);
 }
