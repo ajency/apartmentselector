@@ -60,23 +60,22 @@ require [ 'plugin-loader'
     App.filter = (params={})->
         #check whether url contains any parameters
         if  window.location.href.indexOf('=') > -1
-            console.log params = params
+            params = params
             paramsArray = params.split('&')
             #loop through all the parameters
             for element,index in paramsArray
-                console.log param_key = element.split('=')
+                param_key = element.split('=')
                 #check whether defaults has the param key
                 key = App.defaults.hasOwnProperty(param_key[0])
                 #If yes , assign the new value to the matched key of the defaults
                 if key == true
-                    console.log param_key[1]
                     App.defaults[param_key[0]] = param_key[1]
 
 
 
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
-            console.log params
+
 
 
 
@@ -85,7 +84,7 @@ require [ 'plugin-loader'
             #url doesnt contain any parameters take the value of the defaults
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
-            console.log params
+
 
 
 
@@ -125,7 +124,6 @@ require [ 'plugin-loader'
                     units = App.currentStore.unit
                     units.each (item)->
                         if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
-                            console.log item.get 'unitType'
                             budgetUnitArray.push item
                         collection  = budgetUnitArray
 
@@ -169,15 +167,14 @@ require [ 'plugin-loader'
         App.currentStore.unit_type.reset unittypeArray
         App.currentStore.unit_variant.reset unitvariantArray
         App.currentStore.view.reset viewArray
-        console.log App.currentStore.unit
+        App.currentStore.unit
 
 
     App.filterparam = (params={})->
-            console.log "aaaaaaaaaaaaaa"
-            console.log App.defaults = {"building" :[2,3] ,"unitType":3,"unitVariant":'All','floor':'All','view':'All'}
+            App.defaults = {"building" :[2,3] ,"unitType":3,"unitVariant":'All','floor':'All','view':'All'}
             App.defaults.hasOwnProperty("name" )
             units = App.currentStore.unit.filter (model)->
-                console.log App.defaults['building'].length
+                App.defaults['building'].length
                 buildingArray = Array()
                 for element , index in App.defaults['building']
                     building = model.get('building') == element
@@ -186,7 +183,7 @@ require [ 'plugin-loader'
 
 
                 building
-            console.log units
+            units
 
 
 

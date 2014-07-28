@@ -27,7 +27,8 @@ requirejs.config({
     selectFx: 'src/bower_components/preload/selectFx',
     jqueryeasing: 'src/bower_components/preload/jquery.easing',
     jquerymousewheel: 'src/bower_components/preload/jquery.mousewheel',
-    mapplic: 'src/bower_components/preload/mapplic'
+    mapplic: 'src/bower_components/preload/mapplic',
+    mapplicAdmin: 'src/bower_components/preload/mapplic-admin'
   },
   shim: {
     jquery: ['underscore'],
@@ -54,6 +55,7 @@ requirejs.config({
     modernizr: ['jquery'],
     mapplic: ['jquery'],
     classie: ['jquery'],
-    selectFx: ['jquery']
+    selectFx: ['jquery'],
+    mapplicAdmin: ['jquery']
   }
 });

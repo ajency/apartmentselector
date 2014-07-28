@@ -25,7 +25,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
         showViews:=>
             @buildingCollection = @Collection[0]
-            console.log @unitCollection = @Collection[1]
+            @unitCollection = @Collection[1]
             @showBuildingRegion @buildingCollection
             @showUnitRegion @unitCollection
 
@@ -52,7 +52,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         getView:(buildingCollection)->
-            console.log "hi"
             new ScreenTwoView.UnitTypeChildView
                 collection : buildingCollection
 
@@ -90,26 +89,20 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value
-                    console.log index
-
                     string_val = _.isString(value)
                     valuearr = ""
                     if string_val == true
                         valuearr = value.split(',')
                     if valuearr.length > 1
                         for element  in valuearr
-                            console.log element
                             if index == 'unitType'
                                 key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
-                                console.log key
                                 templateArr.push key.get 'name'
                             if index == 'unitVariant'
                                 key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
-                                console.log key
                                 templateArr.push key.get 'name'
                             if index == 'building'
                                 key = App.currentStore.building.findWhere({id:parseInt(element)})
-                                console.log key
                                 templateArr.push key.get 'name'
                             if index == 'budget'
                                 budget_Val = value+'lakhs'
@@ -120,15 +113,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
-                            console.log key
                             templateArr.push key.get 'name'
                         if index == 'unitVariant'
                             key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
-                            console.log key
                             templateArr.push key.get 'name'
                         if index == 'building'
                             key = App.currentStore.building.findWhere({id:parseInt(value)})
-                            console.log key
                             templateArr.push key.get 'name'
                         if index == 'budget'
                             budget_Val = value+'lakhs'
@@ -141,7 +131,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             )
-            console.log templateArr
             if templateArr.length == 0
                 templateArr.push 'All'
             if(flag==1)

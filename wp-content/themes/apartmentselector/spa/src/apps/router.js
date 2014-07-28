@@ -14,8 +14,8 @@ define(['marionette'], function(Marionette) {
     ApartmentSelector.prototype.appRoutes = {
       'screen-three': 'showUnits',
       'screen-two': 'show',
-      'screen-one/:params': 'showValues',
-      ':params': 'show',
+      'screen-one': 'showValues',
+      ':params': 'showValues',
       'screen-two/:params': 'show',
       'screen-three/:params': 'showUnits',
       'screen-four/:params': 'showSelectedUnit'
@@ -37,7 +37,6 @@ define(['marionette'], function(Marionette) {
       if (params == null) {
         params = {};
       }
-      console.log('qqqqqqqqqqqqq');
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();

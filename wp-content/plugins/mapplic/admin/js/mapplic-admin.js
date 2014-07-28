@@ -124,6 +124,7 @@
 
 							$(document).on('click', '.im-pin', function(event) {
 								event.preventDefault();
+                                console.log('ppppppppppppp');
 							});
 						});
 

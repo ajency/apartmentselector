@@ -3,7 +3,8 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, m;
+  m = "";
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -20,28 +21,30 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       unitRegion: '#unit-region'
     };
 
+    ScreenTwoLayout.prototype.events = {
+      'click a': function(e) {
+        return e.preventDefault();
+      }
+    };
+
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, i, params, scr, selector, _results;
+      var ajaxurl, i, params, scr, selector;
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
       document.body.appendChild(scr);
-      console.log(AJAXURL);
       i = 1;
-      console.log(window['mapplic' + i]);
-      _results = [];
       while (window['mapplic' + i] !== void 0) {
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
         ajaxurl = AJAXURL;
-        console.log(params.id);
         $(selector).mapplic({
           'id': 4,
           'width': params.width,
           'height': params.height
         });
-        _results.push(i++);
+        i++;
       }
-      return _results;
+      return m = $('#mapplic1').data('mapplic');
     };
 
     return ScreenTwoLayout;
@@ -58,6 +61,17 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     BuildingView.prototype.tagName = 'li';
 
+    BuildingView.prototype.events = {
+      'click .link': function() {
+        var i, id, params, selector;
+        id = 'tower' + this.model.get('id');
+        i = 1;
+        params = window['mapplic' + i];
+        selector = '#mapplic' + i;
+        return m.showLocation(id, 800);
+      }
+    };
+
     return BuildingView;
 
   })(Marionette.ItemView);
@@ -73,6 +87,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitTypeChildView.prototype.className = 'vs-nav';
 
     UnitTypeChildView.prototype.childView = BuildingView;
+
+    UnitTypeChildView.prototype.onShow = function() {
+      var id, model;
+      model = this.collection.at(0);
+      return id = 'tower' + model.get('id');
+    };
 
     return UnitTypeChildView;
 
@@ -126,7 +146,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitView.prototype.template = '<div class="vs-content"></div><div class="towerDetails"> <div class="row"> <div class="col-sm-12"> <img src="assets/img/towerA.jpg" class="img-responsive"> </div> </div> <div class="row"> {{#unittypes}}         		<div class="col-xs-4"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/unittypes}} </div> <div class="row"> <div class="col-sm-12 m-t-10"> <div class="col"> <p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> </div> </div> </div>';
+    UnitView.prototype.template = '<div class="vs-content"></div><div class="towerDetails"> <div class="row"> {{#unittypes}}         		<div class="col-xs-4"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/unittypes}} </div> <div class="row"> <div class="col-sm-12 m-t-10"> <div class="col"> <p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> </div> </div> </div>';
 
     UnitView.prototype.tagName = 'section';
 

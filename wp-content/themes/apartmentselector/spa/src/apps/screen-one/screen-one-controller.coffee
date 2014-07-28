@@ -4,15 +4,11 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
     class ScreenOneController extends Extm.RegionController
 
         initialize : ->
-            console.log "wwwwwwwwwwww"
             @unitTypeCollection = @_getUnitTypeCollection()
 
             @view = view = @_getUnitTypesView @unitTypeCollection
 
-            if(window.location.href.indexOf('=') > -1)
-                console.log "not"
-            else
-                App.navigate "screen-one" , trigger:true
+
 
             @listenTo view, "unit:type:clicked", @_unitTypeClicked
 
@@ -24,7 +20,6 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
         _unitTypeClicked:=>
-            console.log "wwwwwwwwwwww"
             App.navigate "screen-two" , trigger:true
 
 
@@ -75,7 +70,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
                 #set max and min attribute to the unit type model
                 unitTypemodel.set( { 'max_value' : max_val, 'min_value' : min_val } )
                 modelArray.push unitTypemodel
-                #console.log modelArray
+
 
 
 

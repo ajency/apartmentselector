@@ -30,18 +30,14 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                         valuearr = value.split(',')
                     if valuearr.length > 1
                         for element  in valuearr
-                            console.log element
                             if index == 'unitType'
                                 key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
-                                console.log key
                                 templateArr.push key.get 'name'
                             if index == 'unitVariant'
                                 key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
-                                console.log key
                                 templateArr.push key.get 'name'
                             if index == 'building'
                                 key = App.currentStore.building.findWhere({id:parseInt(element)})
-                                console.log key
                                 templateArr.push key.get 'name'
                             if index == 'budget'
                                 budget_Val = element+'lakhs'
@@ -52,15 +48,12 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
-                            console.log key
                             templateArr.push key.get 'name'
                         if index == 'unitVariant'
                             key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
-                            console.log key
                             templateArr.push key.get 'name'
                         if index == 'building'
                             key = App.currentStore.building.findWhere({id:parseInt(value)})
-                            console.log key
                             templateArr.push key.get 'name'
                         if index == 'budget'
                             budget_Val = value+'lakhs'
@@ -73,7 +66,6 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
 
             )
-            console.log templateArr
             templateString  = templateArr.join(',')
             textString = ""
             if window.location.href.indexOf('screen-two') > -1
