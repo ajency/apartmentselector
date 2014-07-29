@@ -6,7 +6,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
         initialize : ->
             @unitTypeCollection = @_getUnitTypeCollection()
 
-            @view = view = @_getUnitTypesView @unitTypeCollection
+            @view = view = @_getUnitTypesView @unitTypeCollection[0]
 
 
 
@@ -17,6 +17,8 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
         _getUnitTypesView:(unitTypeCollection)->
             new ScreenOneView
                 collection :unitTypeCollection
+                templateHelpers :
+                    priceArray : @unitTypeCollection[1]
 
 
         _unitTypeClicked:=>
@@ -44,19 +46,31 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
                 buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
                 floorRise = buildingModel.get 'floor'
                 floorRiseValue = floorRise[item.get 'floor']
-                unitTypemodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
-                unitPrice = ( 1000 + parseInt(floorRiseValue)) * parseInt(unitTypemodel.get 'sellablearea')
+                unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
+                unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
                 item.set({'unitPrice' , unitPrice})
                 #calculating the price value
 
 
 
-
+            priceRange = ['10-35 lakhs ','35-45 lakhs ','45-55 lakhs ']
+            priceArray = []
+            rangeArray = []
             units = App.currentStore.unit.where({'status':status.get('id')})
             $.each(units , (index,value)->
                 unitTypemodel = App.currentStore.unit_type.findWhere({'id':value.get 'unitType'})
                 NewUnitCollection = App.currentStore.unit.where({ unitType : unitTypemodel.get( 'id' ) } )
                 max_coll = Array()
+                for element in priceRange
+                    elementArray = element.split(' ')
+                    budget_price = elementArray[0].split('-')
+                    budget_price[0] = budget_price[0] + ('00000')
+                    budget_price[1] = budget_price[1]+ ('00000')
+                    if parseInt(value.get('unitPrice')) >= parseInt(budget_price[0]) && parseInt(value.get('unitPrice')) <= parseInt(budget_price[1])
+                        priceArray.push(element)
+
+
+
                 $.each(NewUnitCollection , (index,value)->
                     Variant = App.currentStore.unit_variant.findWhere({ 'id' : value.get( 'unitVariant' ) } )
                     max_coll.push Variant.get 'sellablearea'
@@ -81,8 +95,12 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
             )
+            priceArray = _.uniq(priceArray)
+            for element in priceArray
+                rangeArray.push({id:element,name:element})
+
             collection.add modelArray
-            collection
+            [collection,rangeArray]
 
 
 

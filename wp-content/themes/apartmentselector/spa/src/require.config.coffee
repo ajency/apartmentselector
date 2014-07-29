@@ -29,6 +29,7 @@ requirejs.config
         jquerymousewheel : 'src/bower_components/preload/jquery.mousewheel'
         mapplic : 'src/bower_components/preload/mapplic'
         mapplicAdmin : 'src/bower_components/preload/mapplic-admin'
+        jqueryRemodal:'src/bower_components/preload/jquery.remodal'
 
 
 
@@ -59,6 +60,7 @@ requirejs.config
         classie : [ 'jquery' ]
         selectFx : ['jquery']
         mapplicAdmin : ['jquery']
+        jqueryRemodal : ['jquery']
 
 
 

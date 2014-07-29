@@ -12,7 +12,6 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     filterRegion: '#filter-region',
     mainRegion: '#main-region'
   });
-  console.log(BUILDINGS);
   App.store = {
     'unit': new Backbone.Collection(UNITS),
     'view': new Backbone.Collection(views),
@@ -57,7 +56,6 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
     } else {
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
-      console.log(params);
     }
     param_arr = params.split('&');
     budgetUnitArray = [];
@@ -96,7 +94,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
             return collection = budgetUnitArray;
           });
         } else {
-          console.log(collection = App.currentStore.unit.where(paramkey));
+          collection = App.currentStore.unit.where(paramkey);
         }
       }
       return App.currentStore.unit.reset(collection);

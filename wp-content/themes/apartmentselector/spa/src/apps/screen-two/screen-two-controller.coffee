@@ -9,11 +9,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             @layout = new ScreenTwoView.ScreenTwoLayout(
-                collection:@Collection[0]
+                collection:@Collection[1]
                 templateHelpers:
                                                             selection :@Collection[2]
                                                             unitsCount:@Collection[3]
-                                                            unittypes: @Collection[4]
+                                                            unittypes:  @Collection[4]
+                                                            high : @Collection[5]
+                                                            medium : @Collection[6]
+                                                            low : @Collection[7]
                                                             AJAXURL : AJAXURL)
 
 
@@ -88,7 +91,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             param = {}
             paramkey = {}
             flag = 0
-            console.log App.defaults
+            mainunitsTypeArray = []
+            lunitTypeArray = []
+            lnewarr =  []
+            lunique = {}
+            munitTypeArray = []
+            mnewarr =  []
+            munique = {}
+            hunitTypeArray = []
+            hnewarr =  []
+            hunique = {}
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value
@@ -164,16 +176,83 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 if buildingArray.indexOf(value.get 'building') ==  -1
                     buildingArray.push value.get 'building'
 
+
+                lowUnits = App.currentStore.range.findWhere({name:'low'})
+                if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
+                    unittypemodel = App.currentStore.unit_type.findWhere({id :  value.get( 'unitType' ) })
+
+                    mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
+
+
                 unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
                 mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
+            $.each(mainunitsTypeArray, (key,item)->
+                if (!lunique[item.id])
+                    lunitTypeArray = []
+                    status = App.currentStore.status.findWhere({'name':'Available'})
+                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+                    $.each(count, (index,value)->
+                        lowUnits = App.currentStore.range.findWhere({name:'low'})
+                        if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
+                            lunitTypeArray.push value.get 'id'
+                    )
+                    lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length})
+                    lunique[item.id] = item;
+
+            )
+
+            $.each(mainunitsTypeArray, (key,item)->
+                if (!munique[item.id])
+                    munitTypeArray = []
+                    status = App.currentStore.status.findWhere({'name':'Available'})
+                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+                    $.each(count, (index,value)->
+
+                        mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                        if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
+                            munitTypeArray.push value.get 'id'
+                    )
+                    mnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length})
+                    munique[item.id] = item;
+
+
+            )
+
+            $.each(mainunitsTypeArray, (key,item)->
+                if (!hunique[item.id])
+                    hunitTypeArray = []
+                    status = App.currentStore.status.findWhere({'name':'Available'})
+                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                    $.each(count, (index,value)->
+                        highUnits = App.currentStore.range.findWhere({name:'high'})
+                        if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
+                            hunitTypeArray.push value.get 'id'
+                    )
+                    hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length})
+                    hunique[item.id] = item;
+
+
+            )
+
             $.each(mainunitTypeArray, (key,item)->
                 if (!mainunique[item.id])
-                    mainnewarr.push({id:item.id,name:item.name})
+                    status = App.currentStore.status.findWhere({'name':'Available'})
+
+                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                    if parseInt(count) == 0
+                        classname = 'twoBHK m-l-20'
+                    else
+                        classname = 'oneBHK'
+                    mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
                     mainunique[item.id] = item;
 
 
             )
+
+
 
             $.each(buildingArray, (index,value)->
                 buildingid = value
@@ -214,10 +293,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         status = App.currentStore.status.findWhere({'name':'Available'})
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
                         if parseInt(count) == 0
-                            classname = "twoBHK m-l-20"
+                            classname = 'twoBHK m-l-20'
                         else
-                            classname = "oneBHK"
-                        newarr.push({id:item.id,name:item.name,count:count.length,class:classname})
+                            classname = 'oneBHK'
+                        newarr.push({id:item.id,name:item.name,count:count.length,classname:classname})
                         unique[item.id] = item;
 
 
@@ -228,7 +307,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 medium_min_val = 0
                 high_min_val = 0
                 high_max_val = 0
+
                 $.each(lowArray , (index,value)->
+
 
                     unitmodel = App.currentStore.unit.findWhere({id:value})
                     unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
@@ -244,10 +325,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     low_max_val = Math.max.apply( Math, max_coll )
                     low_min_val = Math.min.apply( Math, max_coll )
                 )
+
                 $.each(mediumArray , (index,value)->
 
                     unitmodel = App.currentStore.unit.findWhere({id:value})
                     unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
+                    munitTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
+
                     unitCollection = App.currentStore.unit.where({unitType: unittypemodel.get( 'id' ) } )
                     max_coll = Array()
                     $.each(unitCollection, (index,value)->
@@ -260,10 +344,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     medium_max_val = Math.max.apply( Math, max_coll )
                     medium_min_val = Math.min.apply( Math, max_coll )
                 )
+
                 $.each(highArray , (index,value)->
 
                     unitmodel = App.currentStore.unit.findWhere({id:value})
                     unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
+                    hunitTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
+
                     unitCollection = App.currentStore.unit.where({unitType: unittypemodel.get( 'id' ) } )
                     max_coll = Array()
                     $.each(unitCollection, (index,value)->
@@ -276,9 +363,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high_max_val = Math.max.apply( Math, max_coll )
                     high_min_val = Math.min.apply( Math, max_coll )
                 )
-                mainArray.push({name:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid})
-                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid})
-                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid})
+
+                mainArray.push({name:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid,unittypes:hnewarr})
+                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid,unittypes:mnewarr})
+                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr})
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
@@ -288,7 +376,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             units = new Backbone.Collection(unitColl)
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr]
+            if App.defaults['unitType'] != 'All'
+                mainnewarr = []
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr]
 
 
 

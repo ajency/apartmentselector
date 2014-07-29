@@ -58,7 +58,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> <option value="10-35 lakhs">10-35 lakhs</option> <option value="35-45 lakhs">35-45 lakhs</option> <option value="45-55 lakhs">45-55 lakhs</option> </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
+    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 

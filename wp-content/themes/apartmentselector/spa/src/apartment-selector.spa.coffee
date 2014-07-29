@@ -38,7 +38,7 @@ require [ 'plugin-loader'
         filterRegion : '#filter-region'
         mainRegion : '#main-region'
 
-    console.log(BUILDINGS)
+
 
     App.store =
         'unit' : new Backbone.Collection UNITS
@@ -88,7 +88,7 @@ require [ 'plugin-loader'
             #url doesnt contain any parameters take the value of the defaults
             params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
-            console.log params
+
 
 
 
@@ -132,7 +132,7 @@ require [ 'plugin-loader'
                         collection  = budgetUnitArray
 
                 else
-                    console.log collection =  App.currentStore.unit.where(paramkey)
+                    collection =  App.currentStore.unit.where(paramkey)
 
 
             App.currentStore.unit.reset collection

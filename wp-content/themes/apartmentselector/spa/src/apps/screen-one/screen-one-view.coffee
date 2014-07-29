@@ -56,9 +56,9 @@ define [ 'marionette' ], ( Marionette )->
         	<div class="text-center subTxt">What is your budget?</div><section>
         		<select class="cs-select cs-skin-underline" id="budgetValue">
         			<option value="" disabled selected>Undecided</option>
-        			<option value="10-35 lakhs">10-35 lakhs</option>
-        			<option value="35-45 lakhs">35-45 lakhs</option>
-        			<option value="45-55 lakhs">45-55 lakhs</option>
+
+       {{#priceArray}}         			<option value="{{id}}">{{name}}</option>
+        			{{/priceArray}}
         		</select>
         	    </section><div class="h-align-middle m-t-50 m-b-20">
         		<a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a>

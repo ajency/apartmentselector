@@ -17,11 +17,14 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype.initialize = function() {
       this.Collection = this._getUnitsCountCollection();
       this.layout = new ScreenTwoView.ScreenTwoLayout({
-        collection: this.Collection[0],
+        collection: this.Collection[1],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
           unittypes: this.Collection[4],
+          high: this.Collection[5],
+          medium: this.Collection[6],
+          low: this.Collection[7],
           AJAXURL: AJAXURL
         }
       });
@@ -68,7 +71,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function() {
-      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, first, flag, highUnits, lowUnits, mainnewarr, mainunique, mainunitTypeArray, mediumUnits, param, paramkey, range, status, templateArr, templateString, unitColl, units;
+      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, first, flag, highUnits, hnewarr, hunique, hunitTypeArray, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units;
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -89,7 +92,16 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       param = {};
       paramkey = {};
       flag = 0;
-      console.log(App.defaults);
+      mainunitsTypeArray = [];
+      lunitTypeArray = [];
+      lnewarr = [];
+      lunique = {};
+      munitTypeArray = [];
+      mnewarr = [];
+      munique = {};
+      hunitTypeArray = [];
+      hnewarr = [];
+      hunique = {};
       $.each(App.defaults, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
@@ -194,10 +206,22 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         templateString = templateArr.join(',');
       }
       $.each(units, function(index, value) {
-        var maxcoll, unitType;
+        var maxcoll, unitType, unittypemodel;
         maxcoll = Array();
         if (buildingArray.indexOf(value.get('building')) === -1) {
           buildingArray.push(value.get('building'));
+        }
+        lowUnits = App.currentStore.range.findWhere({
+          name: 'low'
+        });
+        if (value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) {
+          unittypemodel = App.currentStore.unit_type.findWhere({
+            id: value.get('unitType')
+          });
+          mainunitsTypeArray.push({
+            id: unittypemodel.get('id'),
+            name: unittypemodel.get('name')
+          });
         }
         unitType = App.currentStore.unit_type.findWhere({
           id: value.get('unitType')
@@ -207,11 +231,107 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           name: unitType.get('name')
         });
       });
+      $.each(mainunitsTypeArray, function(key, item) {
+        var count;
+        if (!lunique[item.id]) {
+          lunitTypeArray = [];
+          status = App.currentStore.status.findWhere({
+            'name': 'Available'
+          });
+          count = App.currentStore.unit.where({
+            unitType: item.id,
+            'status': status.get('id')
+          });
+          $.each(count, function(index, value) {
+            lowUnits = App.currentStore.range.findWhere({
+              name: 'low'
+            });
+            if ((value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) && item.id === value.get('unitType')) {
+              return lunitTypeArray.push(value.get('id'));
+            }
+          });
+          lnewarr.push({
+            id: item.id,
+            name: item.name,
+            count: lunitTypeArray.length
+          });
+          return lunique[item.id] = item;
+        }
+      });
+      $.each(mainunitsTypeArray, function(key, item) {
+        var count;
+        if (!munique[item.id]) {
+          munitTypeArray = [];
+          status = App.currentStore.status.findWhere({
+            'name': 'Available'
+          });
+          count = App.currentStore.unit.where({
+            unitType: item.id,
+            'status': status.get('id')
+          });
+          $.each(count, function(index, value) {
+            mediumUnits = App.currentStore.range.findWhere({
+              name: 'medium'
+            });
+            if ((value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) && item.id === value.get('unitType')) {
+              return munitTypeArray.push(value.get('id'));
+            }
+          });
+          mnewarr.push({
+            id: item.id,
+            name: item.name,
+            count: munitTypeArray.length
+          });
+          return munique[item.id] = item;
+        }
+      });
+      $.each(mainunitsTypeArray, function(key, item) {
+        var count;
+        if (!hunique[item.id]) {
+          hunitTypeArray = [];
+          status = App.currentStore.status.findWhere({
+            'name': 'Available'
+          });
+          count = App.currentStore.unit.where({
+            unitType: item.id,
+            'status': status.get('id')
+          });
+          $.each(count, function(index, value) {
+            highUnits = App.currentStore.range.findWhere({
+              name: 'high'
+            });
+            if ((value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) && item.id === value.get('unitType')) {
+              return hunitTypeArray.push(value.get('id'));
+            }
+          });
+          hnewarr.push({
+            id: item.id,
+            name: item.name,
+            count: hunitTypeArray.length
+          });
+          return hunique[item.id] = item;
+        }
+      });
       $.each(mainunitTypeArray, function(key, item) {
+        var classname, count;
         if (!mainunique[item.id]) {
+          status = App.currentStore.status.findWhere({
+            'name': 'Available'
+          });
+          count = App.currentStore.unit.where({
+            unitType: item.id,
+            'status': status.get('id')
+          });
+          if (parseInt(count) === 0) {
+            classname = 'twoBHK m-l-20';
+          } else {
+            classname = 'oneBHK';
+          }
           mainnewarr.push({
             id: item.id,
-            name: item.name
+            name: item.name,
+            classname: classname,
+            count: count
           });
           return mainunique[item.id] = item;
         }
@@ -274,15 +394,15 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               'building': buildingid
             });
             if (parseInt(count) === 0) {
-              classname = "twoBHK m-l-20";
+              classname = 'twoBHK m-l-20';
             } else {
-              classname = "oneBHK";
+              classname = 'oneBHK';
             }
             newarr.push({
               id: item.id,
               name: item.name,
               count: count.length,
-              "class": classname
+              classname: classname
             });
             return unique[item.id] = item;
           }
@@ -323,6 +443,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypemodel = App.currentStore.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
+          munitTypeArray.push({
+            id: unittypemodel.get('id'),
+            name: unittypemodel.get('name')
+          });
           unitCollection = App.currentStore.unit.where({
             unitType: unittypemodel.get('id')
           });
@@ -345,6 +469,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypemodel = App.currentStore.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
+          hunitTypeArray.push({
+            id: unittypemodel.get('id'),
+            name: unittypemodel.get('name')
+          });
           unitCollection = App.currentStore.unit.where({
             unitType: unittypemodel.get('id')
           });
@@ -364,21 +492,24 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           low_max_val: high_max_val,
           low_min_val: high_min_val,
           range: 'high',
-          buildingid: buildingid
+          buildingid: buildingid,
+          unittypes: hnewarr
         });
         mainArray.push({
           name: mediumArray.length,
           low_max_val: medium_max_val,
           low_min_val: medium_min_val,
           range: 'medium',
-          buildingid: buildingid
+          buildingid: buildingid,
+          unittypes: mnewarr
         });
         mainArray.push({
           name: lowArray.length,
           low_max_val: low_max_val,
           low_min_val: low_min_val,
           range: 'low',
-          buildingid: buildingid
+          buildingid: buildingid,
+          unittypes: lnewarr
         });
         itemCollection = new Backbone.Collection(mainArray);
         buildingModel = App.currentStore.building.findWhere({
@@ -394,7 +525,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       buildingCollection = new Backbone.Collection(buildingArrayModel);
       units = new Backbone.Collection(unitColl);
-      return [buildingCollection, units, templateString, Countunits.length, mainnewarr];
+      if (App.defaults['unitType'] !== 'All') {
+        mainnewarr = [];
+      }
+      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr];
     };
 
     return ScreenTwoController;

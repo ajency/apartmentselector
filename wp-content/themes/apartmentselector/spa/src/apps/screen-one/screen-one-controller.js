@@ -16,14 +16,17 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     ScreenOneController.prototype.initialize = function() {
       var view;
       this.unitTypeCollection = this._getUnitTypeCollection();
-      this.view = view = this._getUnitTypesView(this.unitTypeCollection);
+      this.view = view = this._getUnitTypesView(this.unitTypeCollection[0]);
       this.listenTo(view, "unit:type:clicked", this._unitTypeClicked);
       return this.show(view);
     };
 
     ScreenOneController.prototype._getUnitTypesView = function(unitTypeCollection) {
       return new ScreenOneView({
-        collection: unitTypeCollection
+        collection: unitTypeCollection,
+        templateHelpers: {
+          priceArray: this.unitTypeCollection[1]
+        }
       });
     };
 
@@ -34,7 +37,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype._getUnitTypeCollection = function() {
-      var Model, UnitsCollection, collection, modelArray, priceUnits, status, units;
+      var Model, UnitsCollection, collection, element, modelArray, priceArray, priceRange, priceUnits, rangeArray, status, units, _i, _len;
       Model = Backbone.Model.extend({});
       UnitsCollection = Backbone.Collection.extend({
         model: Model
@@ -49,26 +52,29 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       });
       priceUnits = App.currentStore.unit;
       priceUnits.each(function(item) {
-        var buildingModel, floorRise, floorRiseValue, unitPrice, unitTypemodel;
+        var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
         buildingModel = App.currentStore.building.findWhere({
           'id': item.get('building')
         });
         floorRise = buildingModel.get('floor');
         floorRiseValue = floorRise[item.get('floor')];
-        unitTypemodel = App.currentStore.unit_variant.findWhere({
+        unitVariantmodel = App.currentStore.unit_variant.findWhere({
           'id': item.get('unitVariant')
         });
-        unitPrice = (1000 + parseInt(floorRiseValue)) * parseInt(unitTypemodel.get('sellablearea'));
+        unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea'));
         return item.set({
           'unitPrice': 'unitPrice',
           unitPrice: unitPrice
         });
       });
+      priceRange = ['10-35 lakhs ', '35-45 lakhs ', '45-55 lakhs '];
+      priceArray = [];
+      rangeArray = [];
       units = App.currentStore.unit.where({
         'status': status.get('id')
       });
       $.each(units, function(index, value) {
-        var NewUnitCollection, max_coll, max_val, min_val, unitTypemodel;
+        var NewUnitCollection, budget_price, element, elementArray, max_coll, max_val, min_val, unitTypemodel, _i, _len;
         unitTypemodel = App.currentStore.unit_type.findWhere({
           'id': value.get('unitType')
         });
@@ -76,6 +82,16 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
           unitType: unitTypemodel.get('id')
         });
         max_coll = Array();
+        for (_i = 0, _len = priceRange.length; _i < _len; _i++) {
+          element = priceRange[_i];
+          elementArray = element.split(' ');
+          budget_price = elementArray[0].split('-');
+          budget_price[0] = budget_price[0] + '00000';
+          budget_price[1] = budget_price[1] + '00000';
+          if (parseInt(value.get('unitPrice')) >= parseInt(budget_price[0]) && parseInt(value.get('unitPrice')) <= parseInt(budget_price[1])) {
+            priceArray.push(element);
+          }
+        }
         $.each(NewUnitCollection, function(index, value) {
           var Variant;
           Variant = App.currentStore.unit_variant.findWhere({
@@ -91,8 +107,16 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
         });
         return modelArray.push(unitTypemodel);
       });
+      priceArray = _.uniq(priceArray);
+      for (_i = 0, _len = priceArray.length; _i < _len; _i++) {
+        element = priceArray[_i];
+        rangeArray.push({
+          id: element,
+          name: element
+        });
+      }
       collection.add(modelArray);
-      return collection;
+      return [collection, rangeArray];
     };
 
     return ScreenOneController;
