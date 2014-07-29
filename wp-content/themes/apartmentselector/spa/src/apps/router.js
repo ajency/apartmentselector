@@ -12,6 +12,7 @@ define(['marionette'], function(Marionette) {
     }
 
     ApartmentSelector.prototype.appRoutes = {
+      'screen-four': 'showSelectedUnit',
       'screen-three': 'showUnits',
       'screen-two': 'show',
       'screen-one': 'showValues',
@@ -50,12 +51,9 @@ define(['marionette'], function(Marionette) {
       return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
     },
     showSelectedUnit: function(unit, unittypeid, range, size) {
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions({
-        unit: unit,
-        unittypeid: unittypeid,
-        range: range,
-        size: size
-      });
+      var params;
+      App.filter(params = {});
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions({
         unit: unit,
         unittypeid: unittypeid,

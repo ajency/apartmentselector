@@ -33,6 +33,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
         showUnitRegion:(unitCollection)->
             itemview2 = @getUnitsView unitCollection
             @layout.unitRegion.show itemview2
+            @listenTo itemview2, 'childview:childview:childview:unit:item:selected', @_unitItemSelected
 
 
 
@@ -48,6 +49,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
         getUnitsView:(unitCollection)->
             new ScreenThreeView.UnitTypeView
                 collection : unitCollection
+
+        _unitItemSelected:(childview,childview1,childview2)=>
+            console.log "hi"
+            App.navigate "screen-four" , trigger:true
+
 
 
         _getUnits:->
@@ -72,6 +78,14 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
 
+                )
+                floorArray = floorArray.sort()
+                floorArray.sort( (a,b) ->
+                    a - b
+                )
+
+                floorCountArray.sort( (a,b) ->
+                    a.id - b.id
                 )
                 $.each(floorArray, (index,value)->
 

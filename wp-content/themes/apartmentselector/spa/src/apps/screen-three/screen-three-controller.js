@@ -10,6 +10,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     function ScreenThreeController() {
       this.mainUnitSelected = __bind(this.mainUnitSelected, this);
+      this._unitItemSelected = __bind(this._unitItemSelected, this);
       this.showViews = __bind(this.showViews, this);
       return ScreenThreeController.__super__.constructor.apply(this, arguments);
     }
@@ -37,7 +38,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype.showUnitRegion = function(unitCollection) {
       var itemview2;
       itemview2 = this.getUnitsView(unitCollection);
-      return this.layout.unitRegion.show(itemview2);
+      this.layout.unitRegion.show(itemview2);
+      return this.listenTo(itemview2, 'childview:childview:childview:unit:item:selected', this._unitItemSelected);
     };
 
     ScreenThreeController.prototype.getView = function(buildingCollection) {
@@ -49,6 +51,13 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype.getUnitsView = function(unitCollection) {
       return new ScreenThreeView.UnitTypeView({
         collection: unitCollection
+      });
+    };
+
+    ScreenThreeController.prototype._unitItemSelected = function(childview, childview1, childview2) {
+      console.log("hi");
+      return App.navigate("screen-four", {
+        trigger: true
       });
     };
 
@@ -80,6 +89,13 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               id: value.get('floor')
             });
           }
+        });
+        floorArray = floorArray.sort();
+        floorArray.sort(function(a, b) {
+          return a - b;
+        });
+        floorCountArray.sort(function(a, b) {
+          return a.id - b.id;
         });
         $.each(floorArray, function(index, value) {
           var floorCollection, floorunits;

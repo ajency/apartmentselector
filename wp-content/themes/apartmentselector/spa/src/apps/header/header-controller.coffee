@@ -95,8 +95,16 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
             else if window.location.href.indexOf('screen-three') > -1
                 first = _.first(templateArr)
+                mark = ''
+                range = "All"
 
-                buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                console.log buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                if (buildingModel !=undefined)
+                    buildingText = buildingModel.get('name')
+                    mark = '>'
+                else
+                    buildingText = ""
+
                 lowUnits = App.currentStore.range.findWhere({name:'low'})
                 if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
                     range = 'LOWRISE'
@@ -111,7 +119,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 highUnits = App.currentStore.range.findWhere({name:'high'})
                 if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
                     range = 'HIGHRISE'
-                textString  = range+'>'+buildingModel.get('name')
+                textString  = range+mark+buildingText
                 textClass = ''
             else
                 textString  = 'Apartment Selector'
