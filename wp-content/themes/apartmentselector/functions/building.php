@@ -251,26 +251,7 @@ add_action( 'building_edit_form_fields', 'extra_building_fields', 10, 2 );
 
 // save extra building taxonomy fields callback function
 function save_extra_building_fields( $term_id ) {
-
-   /* if (isset($_REQUEST['buiding_facing_ids'])) {
-
-        $buiding_facing_ids =  explode(",",$_REQUEST['buiding_facing_ids'] ) ;
-
-        $building_facings = array();
-
-        foreach($buiding_facing_ids as $buiding_facing_id){
-
-            $facing_views = $_REQUEST['facing-views-'.$buiding_facing_id];
-
-            $building_facings[$buiding_facing_id] =   $facing_views;
-
-        }
-
-        //save the option array
-       update_option( "building_".$term_id."_facings_view", $building_facings );
-       
-
-    }*/
+ 
     $no_of_floors = $_REQUEST["no_of_floors"];
     $no_of_flats_count = $_REQUEST["no_of_flats"]; 
 
@@ -306,6 +287,12 @@ function save_extra_building_fields( $term_id ) {
 
 
      }
+    $floor_rise = array();
+     for($i=1;$i<=$no_of_floors;$i++){
+        
+        $floor_rise[$i] = $_REQUEST["floor_rise_".$i];
+
+     }
  
         //save the option array
 
@@ -317,6 +304,8 @@ function save_extra_building_fields( $term_id ) {
     update_option( "building_".$term_id."_no_of_flats", $no_of_flats );
 
     update_option( "building_".$term_id."_exceptions", $exceptions ); 
+
+    update_option( "building_".$term_id."_floor_rise", $floor_rise ); 
 
 
     return;
@@ -505,7 +494,10 @@ function get_building_by_id($building_id){
    $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
  
    $building_no_of_flats = get_flats_details($building_no_of_flats);
+
+   $building_floor_rise =  maybe_unserialize(get_option('building_'.$building_id.'_floor_rise')) ;
    
+   $building_floor_rise = is_array($building_floor_rise)?$building_floor_rise:array();
    $building_exceptions = maybe_unserialize(get_option('building_'.$building_id.'_exceptions'));
    
    $building_exceptions_updated = array();
@@ -519,7 +511,7 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions );
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise );
  
    return ($result);
 }
