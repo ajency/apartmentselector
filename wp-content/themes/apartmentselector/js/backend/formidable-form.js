@@ -1,4 +1,28 @@
  jQuery(document).ready(function($) {
+
+    init();
+
+    function init(){
+
+    $(".frm_submit").remove();
+
+   
+
+    $("#main-form-container").show();
+     
+    $(":file").each(function(index,file) {
+      customFileUploadUi($(file)) 
+      $(file).parent().append(customFileUploadUi($(file)))
+      
+      
+
+fileUploadById($(file))
+
+$(file).remove()
+
+    
+    });
+  }
     var AddDetailsLink, DisplayFormVIew, GetSubFormEntries;
     DisplayFormVIew = function(FormId, EntryIds, Element) {
       $.post(AJAXURL, {
@@ -56,7 +80,7 @@
         return parent.children("." + StoreEntryData).val(SaveEntries);
       }
     };
-    $(".frm_submit").remove();
+
     $(document).on("click", ".add-rooms", function(e) {
       var FormNo, field_store_entry_data, form_id;
       form_id = $(this).attr("form-id");
@@ -138,11 +162,12 @@
       $("#save-main-entry").hide().parent().append("saving...")
       GetSubFormEntries(e);
       data = $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form").serializeArray();
+     console.log(data)
       $.post(AJAXURL, {
         action: "save_entry",
         data: data
       }, function(response) {
-        window.location.href = SITEURL + "/listing/?form_id=" + $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val();
+         window.location.href = SITEURL + "/listing/?form_id=" + $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val();
       });
     });
     $(document).on("click", ".show-add-form", function(e) {
