@@ -8039,3 +8039,8 @@ tr.tablesorter-filter-row input.disabled {
 {
 	cursor: pointer
 }
+.floor-listing {
+display: inline! important;
+padding-left: 150px! important;
+}
+

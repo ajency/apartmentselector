@@ -29,7 +29,7 @@ $(document).on("change", ".no_of_flats", function(e) {
             addFlatsUI(startFrom,$(e.target));
        
         }else{ //if the previous coun is greater then the current slection then find the differnce and remove the flats UI
- console.log("prevCountOfFlats"+prevCountOfFlats)
+ 
             removeFlatsUI(prevCountOfFlats,$(e.target));
         }
        
@@ -40,6 +40,8 @@ $(document).on("change", ".no_of_flats", function(e) {
     $(document).on("change", "#no_of_floors", function(e) {
 
         loadExceptionsOption($(e.target).val());
+
+        loadFloorRiseOption($(e.target).val());
 
         
 
@@ -92,11 +94,15 @@ function loadExceptionsOption(floors){
         $("#exceptions").show()
 
         //display one exception option ...button option to add multiple disabled for now
-        $(".exception_container").html(addException(1))
+       if($("#exceptions_count").val()!=1){
+            $(".exception_container").html(addException(1))
 
-        $("#exceptions_count").val(1)
+            $("#exceptions_count").val(1)
+            
+       }
+      
 
-        $(".exception_floors").html(getFloorOptions(floors,1))
+        getFloorOptions(floors,1) ;
 
 
     }
@@ -110,6 +116,29 @@ function loadExceptionsOption(floors){
     }
    
 
+}
+
+function loadFloorRiseOption(floors){
+
+    
+    prevCount = $('.floor_rise').length;
+
+    editfloors = floors - prevCount;
+ 
+    if(editfloors>0){
+         for(floor=1;floor<=editfloors;floor++){
+
+            $("#floor_rise_container").append("<li class='floor_rise' id='floor_rise_item"+floor+"'> Floor "+floor+": <input type='text' value='0' name='floor_rise_"+floor+"'></li>");
+        }
+    }else{
+
+ 
+        for(floor=prevCount;floor>floors;floor--){
+         
+            $("#floor_rise_item"+floor).remove();
+        }
+    }
+   
 }
 
 function getFlatUi(flatNo,exception_no){
@@ -157,28 +186,26 @@ function getImageUploadUi(flatNo,exception_no){
 
 
 function getFloorOptions(floors,exception_no){
-    html =  '<table width="100%">'
-    col = 1
-    for(i=1;i<=floors;i++){
 
 
-        if(col==1){
-            html +=  '<tr>'
+    prevCount = $('.exception_floor').length;
+
+    editfloors = floors - prevCount;
+ 
+    if(editfloors>0){
+         for(floor=1;floor<=editfloors;floor++){
+
+            $("#exception_floors_container"+exception_no).append("<li class='exception_floor' id='exception_floor_item"+floor+"'>  <input type='checkbox' name='exception_floors"+exception_no+"[]' value='"+floor+"'>"+floor+"</li>");
         }
-        html +='<td><input type="checkbox" name="exception_floors'+exception_no+'[]" value="'+i+'">'+i+'</td>'
-        col++
-        if(col==5){
-            html +=  '</tr>'
-            col=1
+    }else{
+ 
+        for(floor=prevCount;floor>floors;floor--){
+          
+            $("#exception_floor_item"+floor).remove();
         }
-
     }
 
-    if(col > 1){
-        html +=  '</tr>'
-    }
-      html +='</table>'; 
-    return html;
+     
 
 }
 
@@ -197,7 +224,7 @@ function addException(exception_no){
 
     html =  ' <div class="form-group">'
         +  '<div class="input-with-icon  right exception_floors"><br><br>' 
-        +  getFloorOptions($("#no_of_floors").val(),exception_no)
+        +  '<ul id="exception_floors_container'+exception_no+'"></ul>'//getFloorOptions($("#no_of_floors").val(),exception_no)
         +  '</div>'
         +  '</div>'
         +' <div class="form-group">'
