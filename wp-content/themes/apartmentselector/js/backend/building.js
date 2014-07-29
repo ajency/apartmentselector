@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
 
     $('.fileupload').each(function(e,val) { 
         file_field =  val.id.replace(/fileupload/g,'');
-        fileUpload(file_field);
+        fileUploadByIndex(file_field);
     });
 $(document).on("change", ".no_of_flats", function(e) {
 
@@ -69,7 +69,7 @@ function addFlatsUI(startFrom,element){
 
         //bind file upload ui to the fileupload function
 
-        fileUpload(prefix+i)
+        fileUploadByIndex(prefix+i)
         }
 }
 
