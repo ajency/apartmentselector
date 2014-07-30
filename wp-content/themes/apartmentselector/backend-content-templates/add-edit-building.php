@@ -231,18 +231,18 @@ $heading = "Edit";
 
                     $building_exception["floors"] =  is_array($building_exception["floors"])?$building_exception["floors"]:array();
                 ?>
-                    <ul id="exception_floors_container<?php echo($exception_count);?>">
+                    <div id="exception_floors_container<?php echo($exception_count);?>">
                     <?php 
                     for($i=1;$i<=$no_of_floors;$i++){
-                       ?>
-                        <li class='exception_floor' id='exception_floor_item<?php echo($i);?>'><input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>><?php echo $i;?></li>
+                       ?><div class="col-md-4">
+                        <div class='exception_floor checkbox check-default' id='exception_floor_item<?php echo($i);?>'><div class="checkbox check-dfault"><input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>></div><label for=""><?php echo $i;?></label></div></div>
                     <?php    
                     }
                      
                     $no_of_flats = count($building_exception["flats"]);
  
                     ?>
-                    </ul>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -325,18 +325,18 @@ $heading = "Edit";
 </div> 
 <b>Floor Rise</b>
 <div class="well" id="flats_container">
-<ul id="floor_rise_container">
+<div id="floor_rise_container">
  <?php
     for($floor=1;$floor<=$no_of_floors;$floor++){
 
         $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
         ?>
-    <li class='floor_rise' id='floor_rise_item<?php echo $floor?>'> Floor <?php  echo $floor;?>: <input type='text' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'></li>
+    <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'> Floor<label class="form-label"><?php  echo $floor;?></label>: <input type='text' class='form-control' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'></div>
         <?php
     }
  ?>
 
-</ul>
+</div>
 </div>
 </div>  
 
