@@ -395,14 +395,15 @@ function get_buildings($ids=array())
         
         $building_phase = get_option( "building_".$category->term_id."_phase",true);
 
-
+        $building_floor_rise =  maybe_unserialize(get_option('building_'.$category->term_id.'_floor_rise')) ;
+   
         $floor = array();
 
         //needs to be chnaged later with real data
         for ($i=1; $i<=$building_no_of_floors;$i++){
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floor"=>$floor);
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=>$building_floor_rise);
 
     }
 
