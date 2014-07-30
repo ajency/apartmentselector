@@ -96,7 +96,7 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '<div > {{name}} <div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div> </div>';
+    childViewUnit.prototype.template = '<div class="check" > {{name}} <div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div> </div>';
 
     childViewUnit.prototype.className = 'cd-block';
 
@@ -105,12 +105,19 @@ define(['marionette'], function(Marionette) {
     };
 
     childViewUnit.prototype.onShow = function() {
-      if (this.model.get('status') === 1) {
+      if (this.model.get('status') === 9) {
         return $('#unit' + this.model.get("id")).addClass('box filtered');
-      } else if (this.model.get('status') === 2) {
+      } else if (this.model.get('status') === 8) {
         return $('#unit' + this.model.get("id")).addClass('box sold');
       } else {
         return $('#unit' + this.model.get("id")).addClass('box other');
+      }
+    };
+
+    childViewUnit.prototype.events = {
+      'click .check': function(e) {
+        this.trigger('unit:item:selected');
+        return App.unit['name'] = this.model.get("id");
       }
     };
 

@@ -3,19 +3,109 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenFourView;
-  return ScreenFourView = (function(_super) {
-    __extends(ScreenFourView, _super);
+  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView;
+  ScreenFourLayout = (function(_super) {
+    __extends(ScreenFourLayout, _super);
 
-    function ScreenFourView() {
-      return ScreenFourView.__super__.constructor.apply(this, arguments);
+    function ScreenFourLayout() {
+      return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourView.prototype.className = "grid-block-1";
+    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unit-region"> </header> <div  id="main-region"> </div> </div>';
 
-    ScreenFourView.prototype.template = '<a href="#"  class="grid-link"   > <div class="grid-text-wrap"     > <span class="grid-main-title">Apartment Details</span>: <span class="grid-main-title">{{name}}</span><br/> <span class="grid-main-title">Floor</span>: <span class="grid-main-title">{{floor}}</span><br/> <span class="grid-main-title">Apartment Type</span>: <span class="grid-sub-title">{{unit_type_name}}</span><br/> <span class="grid-main-title">Area</span>:<span class="grid-sub-title">{{unit_variant_name}} (sq. ft.)</span><br/> <span class="grid-main-title">Apartment Facing</span>:<span class="grid-sub-title">{{view_name}}</span> </div> </a>';
+    ScreenFourLayout.prototype.className = 'page-container row-fluid';
 
-    return ScreenFourView;
+    ScreenFourLayout.prototype.regions = {
+      unitRegion: '#unit-region',
+      mainRegion: '#main-region'
+    };
+
+    ScreenFourLayout.prototype.onShow = function() {
+      var scr;
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js';
+      document.body.appendChild(scr);
+      return console.log($('.floorplan'));
+    };
+
+    return ScreenFourLayout;
+
+  })(Marionette.LayoutView);
+  UnitsView = (function(_super) {
+    __extends(UnitsView, _super);
+
+    function UnitsView() {
+      return UnitsView.__super__.constructor.apply(this, arguments);
+    }
+
+    UnitsView.prototype.template = '<a class="link" href="unit{{id}}">{{name}}</a>';
+
+    UnitsView.prototype.tagName = 'li';
+
+    return UnitsView;
 
   })(Marionette.ItemView);
+  UnitTypeChildView = (function(_super) {
+    __extends(UnitTypeChildView, _super);
+
+    function UnitTypeChildView() {
+      return UnitTypeChildView.__super__.constructor.apply(this, arguments);
+    }
+
+    UnitTypeChildView.prototype.tagName = 'ul';
+
+    UnitTypeChildView.prototype.className = 'vs-nav';
+
+    UnitTypeChildView.prototype.childView = UnitsView;
+
+    return UnitTypeChildView;
+
+  })(Marionette.CompositeView);
+  UnitMainView = (function(_super) {
+    __extends(UnitMainView, _super);
+
+    function UnitMainView() {
+      return UnitMainView.__super__.constructor.apply(this, arguments);
+    }
+
+    UnitMainView.prototype.template = '<div class="vs-content"> <div class="row"> <div class="col-sm-7 p-b-10"> <div class="floorplan"> <div><img src="{{TwoDimage}}" class="img-responsive"></div> <div><img src="{{ThreeDimage}}" class="img-responsive"></div> </div> </div> <div class="col-sm-5"> <h4 class="bold">FLAT SUMMARY</h4> <div class="summary"> <div class="row"> <div class="col-xs-6">FLOOR {{floor}}</div> <div class="col-xs-6 text-right text-primary">{{unittypename}}</div> </div> <div class="row"> <div class="col-xs-6">CARPET AREA</div> <div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">TERRACE AREA</div> <div class="col-xs-6 text-right text-primary">{{terracearea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">SELLABLEAREA AREA</div> <div class="col-xs-6 text-right text-primary">{{sellablearea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">APARTMENT FACING</div> <div class="col-xs-6 text-right text-primary">HILLSIDE</div> </div> <div class="row "> <div class="col-xs-12 m-t-20 m-b-50">Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</div> </div> </div> </div> </div> <div class="row m-t-20 p-t-20 b-grey b-t"> <div class="col-md-6 p-b-10"> <h4 class="bold">ROOM DIMENSIONS</h4> <div class="summary"> <div class="row p-b-10"> <div class="col-sm-6"> TERRACE <h3 class="text-primary"</h3> </div> <div class="col-sm-6"> TOILET <h3 class="text-primary"></h3> </div> </div> <div class="row m-t-20"> <div class="col-sm-6"> LIVING ROOM <h3 class="text-primary"></h3> </div> <div class="col-sm-6"> KITCHEN <h3 class="text-primary"></h3> </div> </div> </div> </div> <div class="col-md-6"> <h4 class="bold">ROOM DIMENSIONS</h4> <div class="summary facilities"> <div class="row"> </div> <div class="row m-t-20"> </div> </div> </div> </div> </div>';
+
+    UnitMainView.prototype.tagName = "section";
+
+    UnitMainView.prototype.initialize = function() {
+      return this.$el.prop("id", 'unit' + this.model.get("id"));
+    };
+
+    UnitMainView.prototype.onShow = function() {
+      return $('.floorplan').slick({
+        autoplay: true,
+        autoplaySpeed: 3000,
+        speed: 1000,
+        dots: true,
+        infinite: true
+      });
+    };
+
+    return UnitMainView;
+
+  })(Marionette.CompositeView);
+  UnitTypeView = (function(_super) {
+    __extends(UnitTypeView, _super);
+
+    function UnitTypeView() {
+      return UnitTypeView.__super__.constructor.apply(this, arguments);
+    }
+
+    UnitTypeView.prototype.className = "vs-wrapper";
+
+    UnitTypeView.prototype.childView = UnitMainView;
+
+    return UnitTypeView;
+
+  })(Marionette.CompositeView);
+  return {
+    ScreenFourLayout: ScreenFourLayout,
+    UnitTypeChildView: UnitTypeChildView,
+    UnitTypeView: UnitTypeView
+  };
 });

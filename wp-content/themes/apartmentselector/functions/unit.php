@@ -258,8 +258,17 @@ function get_unit_variants(){
 
     $unit_variants = array();
     foreach($results as $result){
-         $persqftprice = is_null($result->metas['persqftprice'])?0:$result->metas['persqftprice'];
-        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice);
+        $persqftprice = is_null($result->metas['persqftprice'])?0:$result->metas['persqftprice'];
+        
+        $url2dlayout_image_id = $result->metas['2dlayout'];
+
+        $url2dlayout_image = wp_get_attachment_image_src( $url2dlayout_image_id, 'large'    ); 
+        
+        $url3dlayout_image_id = $result->metas['3dlayout'];
+
+        $url3dlayout_image = wp_get_attachment_image_src( $url3dlayout_image_id, 'large'    ); 
+
+        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice,'url2dlayout_image'=>$url2dlayout_image[0],'url3dlayout_image'=>$url3dlayout_image[0]);
     }
 
     return $unit_variants;

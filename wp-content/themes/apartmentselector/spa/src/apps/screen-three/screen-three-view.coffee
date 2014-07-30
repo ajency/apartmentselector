@@ -94,7 +94,7 @@ define [ 'marionette' ], ( Marionette )->
 
     class childViewUnit extends Marionette.ItemView
 
-        template : '<div >
+        template : '<div class="check" >
         												{{name}}
         												<div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div>
         											</div>
@@ -109,13 +109,18 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow :->
-
-            if @model.get('status') == 1
+            if @model.get('status') == 9
                 $('#unit'+@model.get("id")).addClass 'box filtered'
-            else if @model.get('status') == 2
+            else if @model.get('status') == 8
                 $('#unit'+@model.get("id")).addClass 'box sold'
             else
                 $('#unit'+@model.get("id")).addClass 'box other'
+
+        events:
+            'click .check':(e)->
+                @trigger 'unit:item:selected'
+                App.unit['name'] = @model.get("id")
+
 
 
 

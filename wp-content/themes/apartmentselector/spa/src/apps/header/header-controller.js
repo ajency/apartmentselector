@@ -31,7 +31,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var buildingModel, first, flag, highUnits, lowUnits, mediumUnits, range, templateArr, templateString, textClass, textString;
+      var buildingModel, buildingText, first, flag, highUnits, lowUnits, mark, mediumUnits, range, templateArr, templateString, textClass, textString;
       templateArr = [];
       flag = 0;
       $.each(App.defaults, function(index, value) {
@@ -141,9 +141,17 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         textClass = '';
       } else if (window.location.href.indexOf('screen-three') > -1) {
         first = _.first(templateArr);
-        buildingModel = App.currentStore.building.findWhere({
+        mark = '';
+        range = "All";
+        console.log(buildingModel = App.currentStore.building.findWhere({
           id: App.building['name']
-        });
+        }));
+        if (buildingModel !== void 0) {
+          buildingText = buildingModel.get('name');
+          mark = '>';
+        } else {
+          buildingText = "";
+        }
         lowUnits = App.currentStore.range.findWhere({
           name: 'low'
         });
@@ -162,7 +170,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
           range = 'HIGHRISE';
         }
-        textString = range + '>' + buildingModel.get('name');
+        textString = range + mark + buildingText;
         textClass = '';
       } else {
         textString = 'Apartment Selector';

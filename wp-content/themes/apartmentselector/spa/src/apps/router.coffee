@@ -3,6 +3,7 @@ define [ 'marionette'], ( Marionette )->
     class ApartmentSelector extends Marionette.AppRouter
 
         appRoutes:
+            'screen-four' : 'showSelectedUnit'
             'screen-three' : 'showUnits'
             'screen-two'  : 'show'
             'screen-one'  : 'showValues'
@@ -54,9 +55,10 @@ define [ 'marionette'], ( Marionette )->
 
         showSelectedUnit:(unit,unittypeid,range,size)->
 
+            App.filter(params={})
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
-                .withOptions({unit:unit,unittypeid:unittypeid,range:range,size:size})
+                .withOptions()
             msgbus.showApp 'screen:four'
             .insideRegion  App.mainRegion
                 .withOptions({unit:unit,unittypeid:unittypeid,range:range,size:size})
