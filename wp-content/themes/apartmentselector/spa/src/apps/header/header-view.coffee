@@ -43,15 +43,27 @@ define [ 'marionette' ], ( Mariontte )->
                     .insideRegion  App.mainRegion
                         .withOptions()
                 else if window.location.href.indexOf('screen-four') > -1
+                    console.log App.backFilter['screen3']
                     screenthreeArray  = App.backFilter['screen3']
                     for element in screenthreeArray
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
-                            App.defaults[element] = 'All'
+                            App.defaults[element] = App.floorFilter['name']
+                    console.log App.defaults
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
                     App.currentStore.unit_variant.reset UNITVARIANTS
+                    App.navigate "screen-three"
+                    e.preventDefault()
+                    App.filter(params={})
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                        .withOptions()
+                    msgbus.showApp 'screen:three'
+                    .insideRegion  App.mainRegion
+                        .withOptions()
+
 
 
                 else
@@ -85,7 +97,7 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
-            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1
+            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
 
             else
                 $('.backBtn').addClass 'hidden'

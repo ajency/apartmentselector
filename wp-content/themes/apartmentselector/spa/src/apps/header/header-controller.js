@@ -31,7 +31,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var buildingModel, buildingText, first, flag, highUnits, lowUnits, mark, mediumUnits, range, templateArr, templateString, textClass, textString;
+      var buildingModel, buildingText, filterstring, first, flag, highUnits, lowUnits, mark, mediumUnits, range, templateArr, templateString, textClass, textString;
       templateArr = [];
       flag = 0;
       $.each(App.defaults, function(index, value) {
@@ -173,11 +173,19 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         textString = range + mark + buildingText;
         textClass = '';
       } else if (window.location.href.indexOf('screen-four') > -1) {
-        console.log(templateArr);
+        filterstring = templateArr.join('<');
+        mark = '<';
+        buildingModel = App.currentStore.building.findWhere({
+          id: App.building['name']
+        });
+        buildingText = buildingModel.get('name');
+        textString = buildingText + mark + filterstring;
+        textClass = '';
       } else {
         textString = 'Apartment Selector';
         textClass = 'hidden';
       }
+      console.log(textString);
       return [textString, textClass];
     };
 

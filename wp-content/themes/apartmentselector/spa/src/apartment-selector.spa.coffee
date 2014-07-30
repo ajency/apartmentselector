@@ -57,6 +57,8 @@ require [ 'plugin-loader'
 
     App.screenOneFilter = {key:'',value:''}
 
+    App.floorFilter = {name: ''}
+
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
 
 
