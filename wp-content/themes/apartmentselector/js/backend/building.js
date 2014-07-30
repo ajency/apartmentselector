@@ -224,7 +224,7 @@ function addException(exception_no){
 
     html =  ' <div class="form-group">'
         +  '<div class="input-with-icon  right exception_floors"><br><br>' 
-        +  '<ul id="exception_floors_container'+exception_no+'"></ul>'//getFloorOptions($("#no_of_floors").val(),exception_no)
+        +  '<div class="row-fluid" id="exception_floors_container'+exception_no+'"></div>'//getFloorOptions($("#no_of_floors").val(),exception_no)
         +  '</div>'
         +  '</div>'
         +' <div class="form-group">'
