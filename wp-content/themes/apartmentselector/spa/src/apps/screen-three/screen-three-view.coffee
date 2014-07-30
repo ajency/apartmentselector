@@ -119,6 +119,7 @@ define [ 'marionette' ], ( Marionette )->
         events:
             'click .check':(e)->
                 @trigger 'unit:item:selected'
+                App.unit['name'] = @model.get("id")
 
 
 

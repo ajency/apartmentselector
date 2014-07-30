@@ -51,6 +51,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
         _getSelelctedUnit:->
             units = App.currentStore.unit
+            unitsArray = App.currentStore.unit.toArray()
             units.each (item)->
 
                 unitVariantModel = App.currentStore.unit_variant.findWhere({id:item.get('unitVariant')})
@@ -59,6 +60,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 item.set 'sellablearea' , unitVariantModel.get('sellablearea')
                 item.set 'carpetarea' , unitVariantModel.get('carpetarea')
                 item.set 'unittypename' , unitTypeModel.get('name')
+                item.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
+                item.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
 
 
