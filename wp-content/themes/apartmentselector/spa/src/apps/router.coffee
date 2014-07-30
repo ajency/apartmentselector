@@ -53,7 +53,7 @@ define [ 'marionette'], ( Marionette )->
             .insideRegion  App.mainRegion
                 .withOptions()
 
-        showSelectedUnit:(unit,unittypeid,range,size)->
+        showSelectedUnit:(params={})->
 
             App.filter(params={})
             msgbus.showApp 'header'
@@ -61,7 +61,7 @@ define [ 'marionette'], ( Marionette )->
                 .withOptions()
             msgbus.showApp 'screen:four'
             .insideRegion  App.mainRegion
-                .withOptions({unit:unit,unittypeid:unittypeid,range:range,size:size})
+                .withOptions()
 
 
 

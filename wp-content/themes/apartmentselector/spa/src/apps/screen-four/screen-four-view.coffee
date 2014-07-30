@@ -4,11 +4,11 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<div id="vs-container" class="vs-container flatContainer">
 
-                    <header class="vs-header" id="unit-region">
+                    <header class="vs-header" id="unitblock-region">
 
         			</header>
 
-                    <div  id="main-region">
+                    <div  id="mainunit-region">
 
 
 
@@ -25,14 +25,14 @@ define [ 'marionette' ], ( Marionette )->
 
 
         regions :
-            unitRegion : '#unit-region'
-            mainRegion : '#main-region'
+            unitRegion : '#unitblock-region'
+            mainRegion : '#mainunit-region'
 
         onShow:->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
             document.body.appendChild(scr)
-            console.log $('.floorplan')
+
 
 
 

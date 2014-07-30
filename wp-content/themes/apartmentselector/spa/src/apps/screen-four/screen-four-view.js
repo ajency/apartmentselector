@@ -11,21 +11,20 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unit-region"> </header> <div  id="main-region"> </div> </div>';
+    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> </div>';
 
     ScreenFourLayout.prototype.className = 'page-container row-fluid';
 
     ScreenFourLayout.prototype.regions = {
-      unitRegion: '#unit-region',
-      mainRegion: '#main-region'
+      unitRegion: '#unitblock-region',
+      mainRegion: '#mainunit-region'
     };
 
     ScreenFourLayout.prototype.onShow = function() {
       var scr;
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js';
-      document.body.appendChild(scr);
-      return console.log($('.floorplan'));
+      return document.body.appendChild(scr);
     };
 
     return ScreenFourLayout;

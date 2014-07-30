@@ -50,16 +50,13 @@ define(['marionette'], function(Marionette) {
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
     },
-    showSelectedUnit: function(unit, unittypeid, range, size) {
-      var params;
+    showSelectedUnit: function(params) {
+      if (params == null) {
+        params = {};
+      }
       App.filter(params = {});
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions({
-        unit: unit,
-        unittypeid: unittypeid,
-        range: range,
-        size: size
-      });
+      return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions();
     }
   };
   return new ApartmentSelector({
