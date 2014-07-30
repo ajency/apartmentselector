@@ -17,7 +17,16 @@ define [ 'marionette' ], ( Mariontte )->
         events:
             'click .text-white':(e)->
                 if window.location.href.indexOf('screen-three') > -1
-                    App.defaults['floor'] = 'All'
+                    screentwoArray  = App.backFilter['screen2']
+                    for element in screentwoArray
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            App.defaults[element] = 'All'
+                    console.log UNITS
+                    App.currentStore.unit.reset UNITS
+                    App.currentStore.building.reset BUILDINGS
+                    App.currentStore.unit_type.reset UNITTYPES
+                    App.currentStore.unit_variant.reset UNITVARIANTS
                     key = App.defaults.hasOwnProperty(App.screenOneFilter['key'])
                     if key == true
                         App.defaults[App.screenOneFilter['key']] = App.screenOneFilter['value']
@@ -33,9 +42,36 @@ define [ 'marionette' ], ( Mariontte )->
                     msgbus.showApp 'screen:two'
                     .insideRegion  App.mainRegion
                         .withOptions()
+                else if window.location.href.indexOf('screen-four') > -1
+                    screenthreeArray  = App.backFilter['screen3']
+                    for element in screenthreeArray
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            App.defaults[element] = 'All'
+                    App.currentStore.unit.reset UNITS
+                    App.currentStore.building.reset BUILDINGS
+                    App.currentStore.unit_type.reset UNITTYPES
+                    App.currentStore.unit_variant.reset UNITVARIANTS
+
+
                 else
+                    screenoneArray  = App.backFilter['screen1']
+                    for element in screenoneArray
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            App.defaults[element] = 'All'
+
+
+
+                    App.currentStore.unit.reset UNITS
+                    App.currentStore.building.reset BUILDINGS
+                    App.currentStore.unit_type.reset UNITTYPES
+                    App.currentStore.unit_variant.reset UNITVARIANTS
                     App.navigate ""
-                    App.defaults['floor'] = 'All'
+
+
+                    console.log App.defaults
+
                     e.preventDefault()
                     App.filter(params={})
                     msgbus.showApp 'header'

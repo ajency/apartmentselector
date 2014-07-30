@@ -172,6 +172,8 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         }
         textString = range + mark + buildingText;
         textClass = '';
+      } else if (window.location.href.indexOf('screen-four') > -1) {
+        console.log(templateArr);
       } else {
         textString = 'Apartment Selector';
         textClass = 'hidden';

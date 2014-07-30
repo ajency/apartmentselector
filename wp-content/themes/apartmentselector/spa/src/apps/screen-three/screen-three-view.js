@@ -116,8 +116,10 @@ define(['marionette'], function(Marionette) {
 
     childViewUnit.prototype.events = {
       'click .check': function(e) {
-        this.trigger('unit:item:selected');
-        return App.unit['name'] = this.model.get("id");
+        App.unit['name'] = this.model.get("id");
+        App.defaults['floor'] = this.model.get("floor");
+        App.backFilter['screen3'].push('floor');
+        return this.trigger('unit:item:selected');
       }
     };
 

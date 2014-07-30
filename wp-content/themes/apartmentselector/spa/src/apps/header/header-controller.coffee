@@ -121,6 +121,9 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                     range = 'HIGHRISE'
                 textString  = range+mark+buildingText
                 textClass = ''
+            else if window.location.href.indexOf('screen-four') > -1
+                console.log templateArr
+
             else
                 textString  = 'Apartment Selector'
                 textClass = 'hidden'

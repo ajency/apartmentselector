@@ -57,6 +57,8 @@ require [ 'plugin-loader'
 
     App.screenOneFilter = {key:'',value:''}
 
+    App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
+
 
     App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
 
@@ -75,6 +77,12 @@ require [ 'plugin-loader'
                 key = App.defaults.hasOwnProperty(param_key[0])
                 #If yes , assign the new value to the matched key of the defaults
                 if key == true
+                    if  window.location.href.indexOf('screen-two') > -1
+                        App.backFilter['screen2'].push param_key[0]
+                    else if  window.location.href.indexOf('screen-three') > -1
+                        App.backFilter['screen3'].push param_key[0]
+                    else
+                        App.backFilter['screen1'].push param_key[0]
                     App.defaults[param_key[0]] = param_key[1]
 
 
@@ -94,7 +102,7 @@ require [ 'plugin-loader'
 
 
 
-
+        console.log App.defaults
         param_arr = params.split('&')
         budgetUnitArray = []
         $.each(param_arr, (index,value)->
@@ -124,11 +132,18 @@ require [ 'plugin-loader'
                 )
             else if param_val_arr.length ==  1
                 budget_arr = param_val_arr[0].split('-')
+                console.log budget_arr.length
                 if param_val_arr[0].toUpperCase() == 'ALL'
                     collection =  App.currentStore.unit.toArray()
                 else if budget_arr.length>1
                     units = App.currentStore.unit
                     units.each (item)->
+                        buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
+                        floorRise = buildingModel.get 'floorrise'
+                        floorRiseValue = floorRise[item.get 'floor']
+                        unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
+                        unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        item.set({'unitPrice' , unitPrice})
                         if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
                             budgetUnitArray.push item
                         collection  = budgetUnitArray

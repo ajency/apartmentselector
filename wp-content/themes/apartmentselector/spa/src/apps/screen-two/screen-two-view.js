@@ -132,11 +132,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         rangeArray;
         rangeString = rangeArray.join(',');
         App.defaults['floor'] = rangeString;
-        App.defaults['unitType'] = 'All';
-        App.defaults['unitVariant'] = 'All';
-        App.defaults['view'] = 'All';
-        App.defaults['budget'] = 'All';
-        App.defaults['building'] = 'All';
+        App.backFilter['screen2'].push('floor');
         App.building['name'] = parseInt(this.model.get('buildingid'));
         return this.trigger('unit:count:selected');
       }

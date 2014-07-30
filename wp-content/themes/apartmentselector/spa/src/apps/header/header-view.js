@@ -17,9 +17,21 @@ define(['marionette'], function(Mariontte) {
 
     HeaderView.prototype.events = {
       'click .text-white': function(e) {
-        var key, params;
+        var element, key, params, screenoneArray, screenthreeArray, screentwoArray, _i, _j, _k, _len, _len1, _len2;
         if (window.location.href.indexOf('screen-three') > -1) {
-          App.defaults['floor'] = 'All';
+          screentwoArray = App.backFilter['screen2'];
+          for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
+            element = screentwoArray[_i];
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              App.defaults[element] = 'All';
+            }
+          }
+          console.log(UNITS);
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
           key = App.defaults.hasOwnProperty(App.screenOneFilter['key']);
           if (key === true) {
             App.defaults[App.screenOneFilter['key']] = App.screenOneFilter['value'];
@@ -29,9 +41,34 @@ define(['marionette'], function(Mariontte) {
           App.filter(params = {});
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
+        } else if (window.location.href.indexOf('screen-four') > -1) {
+          screenthreeArray = App.backFilter['screen3'];
+          for (_j = 0, _len1 = screenthreeArray.length; _j < _len1; _j++) {
+            element = screenthreeArray[_j];
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              App.defaults[element] = 'All';
+            }
+          }
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          return App.currentStore.unit_variant.reset(UNITVARIANTS);
         } else {
+          screenoneArray = App.backFilter['screen1'];
+          for (_k = 0, _len2 = screenoneArray.length; _k < _len2; _k++) {
+            element = screenoneArray[_k];
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              App.defaults[element] = 'All';
+            }
+          }
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
           App.navigate("");
-          App.defaults['floor'] = 'All';
+          console.log(App.defaults);
           e.preventDefault();
           App.filter(params = {});
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();

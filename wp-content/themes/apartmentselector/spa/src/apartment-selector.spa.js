@@ -32,6 +32,11 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     key: '',
     value: ''
   };
+  App.backFilter = {
+    'screen1': [],
+    'screen2': [],
+    'screen3': []
+  };
   App.defaults = {
     "building": 'All',
     "unitType": 'All',
@@ -53,6 +58,13 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
         param_key = element.split('=');
         key = App.defaults.hasOwnProperty(param_key[0]);
         if (key === true) {
+          if (window.location.href.indexOf('screen-two') > -1) {
+            App.backFilter['screen2'].push(param_key[0]);
+          } else if (window.location.href.indexOf('screen-three') > -1) {
+            App.backFilter['screen3'].push(param_key[0]);
+          } else {
+            App.backFilter['screen1'].push(param_key[0]);
+          }
           App.defaults[param_key[0]] = param_key[1];
         }
       }
@@ -60,6 +72,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     } else {
       params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
     }
+    console.log(App.defaults);
     param_arr = params.split('&');
     budgetUnitArray = [];
     $.each(param_arr, function(index, value) {
@@ -86,11 +99,26 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
         });
       } else if (param_val_arr.length === 1) {
         budget_arr = param_val_arr[0].split('-');
+        console.log(budget_arr.length);
         if (param_val_arr[0].toUpperCase() === 'ALL') {
           collection = App.currentStore.unit.toArray();
         } else if (budget_arr.length > 1) {
           units = App.currentStore.unit;
           units.each(function(item) {
+            var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
+            buildingModel = App.currentStore.building.findWhere({
+              'id': item.get('building')
+            });
+            floorRise = buildingModel.get('floorrise');
+            floorRiseValue = floorRise[item.get('floor')];
+            unitVariantmodel = App.currentStore.unit_variant.findWhere({
+              'id': item.get('unitVariant')
+            });
+            unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea'));
+            item.set({
+              'unitPrice': 'unitPrice',
+              unitPrice: unitPrice
+            });
             if (item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])) {
               budgetUnitArray.push(item);
             }

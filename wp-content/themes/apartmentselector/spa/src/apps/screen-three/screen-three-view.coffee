@@ -118,8 +118,11 @@ define [ 'marionette' ], ( Marionette )->
 
         events:
             'click .check':(e)->
-                @trigger 'unit:item:selected'
                 App.unit['name'] = @model.get("id")
+                App.defaults['floor'] = @model.get("floor")
+                App.backFilter['screen3'].push 'floor'
+                @trigger 'unit:item:selected'
+
 
 
 
