@@ -52,8 +52,9 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     };
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
-      var units;
+      var units, unitsArray;
       units = App.currentStore.unit;
+      unitsArray = App.currentStore.unit.toArray();
       units.each(function(item) {
         var unitTypeModel, unitVariantModel;
         unitVariantModel = App.currentStore.unit_variant.findWhere({

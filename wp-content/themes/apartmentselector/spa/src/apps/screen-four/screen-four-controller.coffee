@@ -51,6 +51,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
         _getSelelctedUnit:->
             units = App.currentStore.unit
+            unitsArray = App.currentStore.unit.toArray()
             units.each (item)->
 
                 unitVariantModel = App.currentStore.unit_variant.findWhere({id:item.get('unitVariant')})

@@ -25,6 +25,9 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
   App.building = {
     name: ''
   };
+  App.unit = {
+    name: ''
+  };
   App.screenOneFilter = {
     key: '',
     value: ''

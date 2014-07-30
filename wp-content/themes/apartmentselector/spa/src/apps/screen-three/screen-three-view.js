@@ -116,7 +116,8 @@ define(['marionette'], function(Marionette) {
 
     childViewUnit.prototype.events = {
       'click .check': function(e) {
-        return this.trigger('unit:item:selected');
+        this.trigger('unit:item:selected');
+        return App.unit['name'] = this.model.get("id");
       }
     };
 

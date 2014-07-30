@@ -53,6 +53,8 @@ require [ 'plugin-loader'
 
     App.building = {name:''}
 
+    App.unit = {name:''}
+
     App.screenOneFilter = {key:'',value:''}
 
 
