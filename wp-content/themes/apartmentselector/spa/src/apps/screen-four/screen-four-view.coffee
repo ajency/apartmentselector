@@ -32,6 +32,13 @@ define [ 'marionette' ], ( Marionette )->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
             document.body.appendChild(scr)
+            console.log $('.floorplan')
+
+
+
+
+
+
 
 
     class UnitsView extends Marionette.ItemView
@@ -61,7 +68,10 @@ define [ 'marionette' ], ( Marionette )->
         						<div class="row">
         							<div class="col-sm-7 p-b-10">
         								<div class="floorplan">
-        									</div>
+
+       <div><img src="{{TwoDimage}}" class="img-responsive"></div>
+        									<div><img src="{{ThreeDimage}}" class="img-responsive"></div>
+        									         									</div>
         							</div>
         							<div class="col-sm-5">
         								<h4 class="bold">FLAT SUMMARY</h4>
@@ -147,6 +157,17 @@ TOILET
 
         initialize :->
             @$el.prop("id", 'unit'+@model.get("id"))
+
+        onShow:->
+            $('.floorplan').slick(
+                autoplay: true,
+                autoplaySpeed: 3000,
+                speed: 1000,
+                dots: true,
+                infinite: true
+            )
+
+
 
 
 

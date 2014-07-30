@@ -60,6 +60,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 item.set 'sellablearea' , unitVariantModel.get('sellablearea')
                 item.set 'carpetarea' , unitVariantModel.get('carpetarea')
                 item.set 'unittypename' , unitTypeModel.get('name')
+                item.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
+                item.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
 
 

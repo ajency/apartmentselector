@@ -66,7 +66,9 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         item.set('terracearea', unitVariantModel.get('terracearea'));
         item.set('sellablearea', unitVariantModel.get('sellablearea'));
         item.set('carpetarea', unitVariantModel.get('carpetarea'));
-        return item.set('unittypename', unitTypeModel.get('name'));
+        item.set('unittypename', unitTypeModel.get('name'));
+        item.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
+        return item.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
       });
       return units;
     };
