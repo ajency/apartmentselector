@@ -96,7 +96,7 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '<div class="check" > {{name}} <div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div> </div>';
+    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > {{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} SQF</div> </div>';
 
     childViewUnit.prototype.className = 'cd-block';
 
@@ -105,12 +105,61 @@ define(['marionette'], function(Marionette) {
     };
 
     childViewUnit.prototype.onShow = function() {
-      if (this.model.get('status') === 9) {
-        return $('#unit' + this.model.get("id")).addClass('box filtered');
-      } else if (this.model.get('status') === 8) {
-        return $('#unit' + this.model.get("id")).addClass('box sold');
+      var element, flag, key, myArray, object, _i, _len, _ref;
+      myArray = [];
+      console.log(App.Cloneddefaults);
+      console.log(App.backFilter);
+      _ref = App.backFilter['screen1'];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        element = _ref[_i];
+        key = App.Cloneddefaults.hasOwnProperty(element);
+        if (key === true) {
+          myArray.push({
+            key: element,
+            value: App.Cloneddefaults[element]
+          });
+        }
+      }
+      console.log(myArray);
+      flag = 0;
+      object = this;
+      $.each(myArray, function(index, value) {
+        var budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        paramKey = {};
+        if (value.key === 'budget') {
+          buildingModel = App.currentStore.building.findWhere({
+            'id': object.model.get('building')
+          });
+          floorRise = buildingModel.get('floorrise');
+          floorRiseValue = floorRise[object.model.get('floor')];
+          unitVariantmodel = App.currentStore.unit_variant.findWhere({
+            'id': object.model.get('unitVariant')
+          });
+          console.log(unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea')));
+          budget_price = value.value.split('-');
+          console.log(budget_price[0] = budget_price[0]);
+          console.log(budget_price[1] = budget_price[1]);
+          if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+            return flag = 1;
+          }
+        } else {
+          if (object.model.get(value.key) === parseInt(value.value)) {
+            return console.log(flag = 1);
+          }
+        }
+      });
+      console.log(myArray.length);
+      if (myArray.length === 0) {
+        flag = 1;
+      }
+      console.log(flag);
+      if (flag === 1 && this.model.get('status') === 9) {
+        return $('#check' + this.model.get("id")).addClass('box filtered');
+      } else if (flag === 1 && this.model.get('status') === 8) {
+        return $('#check' + this.model.get("id")).addClass('box sold');
       } else {
-        return $('#unit' + this.model.get("id")).addClass('box other');
+        $('#check' + this.model.get("id")).addClass('box other');
+        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
       }
     };
 

@@ -50,6 +50,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 collection : mainCollection
 
         _getSelelctedUnit:->
+
             units = App.currentStore.unit
             unitsArray = App.currentStore.unit.toArray()
             units.each (item)->

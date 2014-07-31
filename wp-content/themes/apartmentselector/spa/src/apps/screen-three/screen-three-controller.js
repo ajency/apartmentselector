@@ -108,11 +108,13 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             floorunits: floorCollection
           });
           return $.each(floorunits, function(index, value) {
-            var unitType, unitVariant;
+            var str, unitType, unitVariant;
             unitType = App.currentStore.unit_type.findWhere({
               id: value.get('unitType')
             });
-            value.set('unitTypeName', unitType.get('name'));
+            str = unitType.get('name');
+            str = str.replace(/\s/g, '');
+            value.set('unitTypeName', str);
             unitVariant = App.currentStore.unit_variant.findWhere({
               id: value.get('unitVariant')
             });

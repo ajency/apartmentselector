@@ -40,6 +40,12 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     'screen2': [],
     'screen3': []
   };
+  App.Cloneddefaults = {
+    "building": 'All',
+    "unitType": 'All',
+    "unitVariant": 'All',
+    'budget': 'All'
+  };
   App.defaults = {
     "building": 'All',
     "unitType": 'All',

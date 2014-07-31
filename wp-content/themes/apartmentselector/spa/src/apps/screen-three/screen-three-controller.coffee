@@ -95,7 +95,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                     $.each(floorunits, (index,value)->
                         unitType = App.currentStore.unit_type.findWhere({id:value.get('unitType')})
-                        value.set 'unitTypeName' , unitType.get 'name'
+                        str = unitType.get 'name'
+                        str = str.replace(/\s/g, '');
+
+                        value.set 'unitTypeName' , str
                         unitVariant = App.currentStore.unit_variant.findWhere({id:value.get('unitVariant')})
                         value.set 'unitVariantName' , unitVariant.get 'name'
 
