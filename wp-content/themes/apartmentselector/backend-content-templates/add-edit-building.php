@@ -228,44 +228,41 @@ $heading = "Edit";
                 <?php
                 $exception_count = 1;
                 foreach($building_exceptions as $building_exception){
-
-                    $building_exception["floors"] =  is_array($building_exception["floors"])?$building_exception["floors"]:array();
+                  $building_exception["floors"] =  is_array($building_exception["floors"])?$building_exception["floors"]:array();
                 ?>
-                    <div id="exception_floors_container<?php echo($exception_count);?>">
-                    <?php 
+                 <div id="exception_floors_container<?php echo($exception_count);?>">
+                   <?php 
                     for($i=1;$i<=$no_of_floors;$i++){
                        ?><div class="col-md-4">
-                        <div class='exception_floor checkbox check-default' id='exception_floor_item<?php echo($i);?>'><div class="checkbox check-dfault"><input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>></div><label for=""><?php echo $i;?></label></div></div>
+                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
                     <?php    
                     }
                      
                     $no_of_flats = count($building_exception["flats"]);
  
                     ?>
-                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label">
-                No Of Flats
-                </label>
-                <div class="input-with-icon  right">
-                    <i class="">
-                    </i>
-                    <select name="no_of_flats<?php echo($exception_count);?>"  class="no_of_flats"  id="no_of_flats<?php echo($exception_count);?>" flats_container_id="flats_container<?php echo($exception_count);?>" exception_no="<?php echo($exception_count);?>">'
-                        <option value="">Please Select</option>'
+                <div style="clear:both"></div>
+                <div class="form-group">
+                    <label class="form-label">
+                        No Of Flats
+                    </label>
+                    <div class="input-with-icon  right">
+                        <i class="">
+                        </i>
+                        <select name="no_of_flats<?php echo($exception_count);?>"  class="no_of_flats"  id="no_of_flats<?php echo($exception_count);?>" flats_container_id="flats_container<?php echo($exception_count);?>" exception_no="<?php echo($exception_count);?>">'
+                            <option value="">Please Select</option>'
 
-                        <?php $max_no_of_flats = get_max_no_of_flats();
+                            <?php $max_no_of_flats = get_max_no_of_flats();
 
                             for($i=1;$i<=$max_no_of_flats;$i++){
                             ?><option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?>><?php echo $i;?></option>
                             <?php  
                             }?>
-                    </select>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="well" id="flats_container<?php echo($exception_count);?>">
- 
+                <div class="well" id="flats_container<?php echo($exception_count);?>">
                 <?php if($no_of_flats==0){
                 ?>   
                     <div class="form-group">
@@ -275,16 +272,16 @@ $heading = "Edit";
                     </div>
                 <?php
                     }
-                else{ 
-                    foreach($building_exception["flats"] as $building_no_of_flat){
-                    ?> 
-                        <div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats<?php echo($exception_count);?>' ><div class="form-group">
+                else{
+                     foreach($building_exception["flats"] as $building_no_of_flat){
+                     ?>
+                     <div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats<?php echo($exception_count);?>' ><div class="form-group">
                             <label class="form-label">
                                 Flat No: <?php echo $building_no_of_flat['flat_no'];?>
                             </label>
                             <span class="help">
-                            </span> 
-                            <div class="row">
+                            </span>
+                                      <div class="row">
                                 <div class="col-md-4">
                                     <span class="btn btn-success fileinput-button">
                                     <i class="glyphicon glyphicon-plus"></i>
@@ -311,33 +308,38 @@ $heading = "Edit";
                              <img src="">
                         </div> 
                     </div>
-               
-                <?php
+                    </div>
+                     <?php   
+                    }
+
+                    ?>
+
+                    <?php
                 }
-                ?><?php
-            }
-            ?>
-          
-    <?php
-        $exception_count++;
-    }?> </div>
+
+                ?> 
+                </div>
+                <?}
+                ?> 
+            </div>
+        </div>
+    </div> 
+    <div style="clear:both"></div>
+    <b>Floor Rise</b>
+    <div class="well" id="flats_container">
+        <div id="floor_rise_container">
+             <?php
+                for($floor=1;$floor<=$no_of_floors;$floor++){
+
+                    $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
+                    ?>
+                <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'> Floor<label class="form-label"><?php  echo $floor;?></label>: <input type='text' class='form-control' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'></div>
+                    <?php
+                }
+             ?>
+
+        </div>
     </div>
-</div> 
-<b>Floor Rise</b>
-<div class="well" id="flats_container">
-<div id="floor_rise_container">
- <?php
-    for($floor=1;$floor<=$no_of_floors;$floor++){
-
-        $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
-        ?>
-    <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'> Floor<label class="form-label"><?php  echo $floor;?></label>: <input type='text' class='form-control' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'></div>
-        <?php
-    }
- ?>
-
-</div>
-</div>
 </div>  
 
 
