@@ -94,9 +94,9 @@ define [ 'marionette' ], ( Marionette )->
 
     class childViewUnit extends Marionette.ItemView
 
-        template : '<div class="check" >
+        template : '<div id="check{{id}}" class="check" >
         												{{name}}
-        												<div class="small">{{unitTypeName}}  {{unitVariantName}} SQF</div>
+        												<div class="small">{{unitTypeName}} {{unitVariantName}} SQF</div>
         											</div>
 
         												'
@@ -109,12 +109,51 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow :->
-            if @model.get('status') == 9
-                $('#unit'+@model.get("id")).addClass 'box filtered'
-            else if @model.get('status') == 8
-                $('#unit'+@model.get("id")).addClass 'box sold'
+            myArray = []
+            console.log App.Cloneddefaults
+            console.log App.backFilter
+            for element in App.backFilter['screen1']
+                key = App.Cloneddefaults.hasOwnProperty(element)
+                if key == true
+                    myArray.push({key:element,value: App.Cloneddefaults[element]})
+            console.log myArray
+            flag = 0
+            object = @
+            $.each(myArray, (index,value)->
+                paramKey = {}
+
+                if value.key == 'budget'
+                    buildingModel = App.currentStore.building.findWhere({'id':object.model.get 'building'})
+                    floorRise = buildingModel.get 'floorrise'
+                    floorRiseValue = floorRise[object.model.get 'floor']
+                    unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':object.model.get 'unitVariant'})
+                    console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                    budget_price = value.value.split('-')
+                    console.log budget_price[0] = budget_price[0]
+                    console.log budget_price[1] = budget_price[1]
+                    if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                        flag = 1
+                else
+
+
+                    if object.model.get(value.key) == parseInt(value.value)
+                       console.log  flag=1
+
+            )
+
+
+
+            console.log myArray.length
+            if myArray.length == 0
+                flag = 1
+            console.log flag
+            if flag==1 && @model.get('status') == 9
+                $('#check'+@model.get("id")).addClass 'box filtered'
+            else if flag==1 &&  @model.get('status') == 8
+                $('#check'+@model.get("id")).addClass 'box sold'
             else
-                $('#unit'+@model.get("id")).addClass 'box other'
+                $('#check'+@model.get("id")).addClass 'box other'
+                $('#check'+@model.get("id")).text @model.get 'unitTypeName'
 
         events:
             'click .check':(e)->
