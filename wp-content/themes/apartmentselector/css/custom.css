@@ -1234,6 +1234,7 @@ iframe {
 .backBtn {
   position: absolute;
   left: 0;
+  cursor: pointer;
 }
 .backBtn a {
   width: 60px;

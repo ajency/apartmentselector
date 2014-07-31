@@ -8,11 +8,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         		<div class="legend text-center m-b-20">
 
-       {{#unittypes}}
-<span class={{classname}}>.</span>{{name}}
-        {{/unittypes}}
+                    {{#unittypes}}
+                        <span class={{classname}}>.</span>{{name}}
+                    {{/unittypes}}
         		</div>
-                <div class="row m-r-0 m-l-0">
+                <div class="row m-r-0 m-l-0 m-t-30">
+
         			<div class="col-sm-7 p-l-0 p-r-0">
                         <div class="towerTable">
                             <div class="tableHeader">
@@ -24,20 +25,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 		    </div>
                             <div class="tableBody">
                 				<div id="vs-container2" class="vs-container">
-                				<header class="vs-header" id="building-region"></header>
+                				    <header class="vs-header" id="building-region"></header>
                 				    <div id="unit-region"></div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-sm-5 hidden-xs">
         				<h3 class="bold m-t-0">Climb leg make muffins or sweet</h3>
         				<p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p>
-
-        			</div><div id="mapplic1"></div>
-                </div><div class="remodal towerPopup" data-remodal-id="modal">
+                        <div id="mapplic1"></div>
+        			</div>
+                    
+                </div>
+                <div class="remodal towerPopup" data-remodal-id="modal">
         		<div class="header navbar navbar-inverse ">
         			<!-- <div class="backBtn">
         				<a href="#" class="text-white remodal-close"><span class="glyphicon glyphicon-chevron-left "></span></a>
@@ -346,14 +348,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '<div class="flatNos">{{name}}</div>
+        template : '<div class="box pull-left">{{name}}</div>
+                    <div class="box">{{name}}</div>
                             </div>'
 
         className : 'text-center'
 
 
         events:
-            'click .flatNos':(e)->
+            'click .box':(e)->
                 param = {}
                 param['name'] = @model.get 'range'
                 rangeModel = App.currentStore.range.findWhere(param)
