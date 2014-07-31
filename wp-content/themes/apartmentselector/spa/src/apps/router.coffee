@@ -64,6 +64,12 @@ define [ 'marionette'], ( Marionette )->
                 .withOptions()
 
 
+        showpopup:->
+            msgbus.showApp 'popup'
+            .insideRegion  App.mainRegion
+                .withOptions()
+
+
 
 
 

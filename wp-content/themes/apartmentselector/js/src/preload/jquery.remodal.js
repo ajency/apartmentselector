@@ -182,10 +182,7 @@
         this.modal.trigger("open");
 
         var id = this.modal.attr("data-" + pluginName + "-id");
-        if (id && this.settings.hashTracking) {
-            scrollTop = $(window).scrollTop();
-            location.hash = id;
-        }
+
 
         if (current && current !== this) {
             current.overlay.hide();
@@ -252,7 +249,6 @@
                     }
                 }
             });
-
             return instance;
         };
     }
@@ -308,7 +304,6 @@
             }
         } else {
             var $elem = $("[data-" + pluginName + "-id=" + id.replace(new RegExp('/', 'g'), "\\/") + "]");
-
             if ($elem.length) {
                 var instance = $[pluginName].lookup[$elem.data(pluginName)];
 

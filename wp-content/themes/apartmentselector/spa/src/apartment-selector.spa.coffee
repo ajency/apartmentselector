@@ -12,6 +12,7 @@ define 'apps-loader', [
     'src/apps/screen-two/screen-two-controller'
     'src/apps/screen-three/screen-three-controller'
     'src/apps/screen-four/screen-four-controller'
+    'src/apps/popup/popup-controller'
 ], ->
 
     # set all plugins for this page here
