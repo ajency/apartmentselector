@@ -61,6 +61,8 @@ require [ 'plugin-loader'
 
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
 
+    App.Cloneddefaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','budget':'All'}
+
 
     App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
 
