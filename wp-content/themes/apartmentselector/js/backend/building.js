@@ -126,10 +126,10 @@ function loadFloorRiseOption(floors){
     editfloors = floors - prevCount;
  
     if(editfloors>0){
-         for(floor=1;floor<=editfloors;floor++){
+         for(floor=prevCount+1;floor<=floors;floor++){
 
-            $("#floor_rise_container").append("<li class='floor_rise' id='floor_rise_item"+floor+"'> Floor "+floor+": <input type='text' value='0' name='floor_rise_"+floor+"'></li>");
-        }
+            $("#floor_rise_container").append("<div class='floor_rise form-group' id='floor_rise_item"+floor+"'> Floor <label class='form-label'>"+floor+"</label>: <input type='text' class='form-control' value='0' name='floor_rise_"+floor+"'></div>");
+         }
     }else{
 
  
@@ -193,15 +193,16 @@ function getFloorOptions(floors,exception_no){
     editfloors = floors - prevCount;
  
     if(editfloors>0){
-         for(floor=1;floor<=editfloors;floor++){
+       
+         for(floor=prevCount+1;floor<=floors;floor++){
 
-            $("#exception_floors_container"+exception_no).append("<li class='exception_floor' id='exception_floor_item"+floor+"'>  <input type='checkbox' name='exception_floors"+exception_no+"[]' value='"+floor+"'>"+floor+"</li>");
-        }
+            $("#"+exception_no+"exception_floors_container"+exception_no).append("<div class='col-md-4'><div class='exception_floor checkbox check-default' id='"+exception_no+"exception_floor_item"+floor+"'><div class='checkbox check-dfault'><input type='checkbox' name='exception_floors"+exception_no+"[]' id='"+floor+"exception_floors"+exception_no+"'  value='"+floor+"'></div><label for='"+floor+"exception_floors"+exception_no+"'>"+floor+"</label></li></div></div>");
+          }
     }else{
  
         for(floor=prevCount;floor>floors;floor--){
           
-            $("#exception_floor_item"+floor).remove();
+            $("#"+exception_no+"exception_floor_item"+floor).remove();
         }
     }
 
