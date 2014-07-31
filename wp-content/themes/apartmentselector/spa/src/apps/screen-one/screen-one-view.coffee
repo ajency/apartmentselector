@@ -38,7 +38,8 @@ define [ 'marionette' ], ( Marionette )->
                 unitType.splice( index, 1 )
                 $("#check"+@model.get 'id').val "0"
             if unitType.length == 0
-                $("#finalButton").addClass 'disabled'
+                $("#finalButton").addClass 'disabled btn-default'
+                $("#finalButton").removeClass 'btn-primary'
                 return false
 
             unitTypeString = unitType.join(',')
@@ -49,7 +50,8 @@ define [ 'marionette' ], ( Marionette )->
 
             App.screenOneFilter['value'] = unitTypeString
             App.screenOneFilter['key'] = 'unitType'
-            $("#finalButton").removeClass 'disabled'
+            $("#finalButton").removeClass 'disabled btn-default'
+            $("#finalButton").addClass 'btn-primary'
 
 
 
@@ -65,7 +67,7 @@ define [ 'marionette' ], ( Marionette )->
         			{{/priceArray}}
         		</select>
         	    </section><div class="h-align-middle m-t-50 m-b-20">
-        		<a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a>
+        		<a class="btn btn-default btn-large disabled" id="finalButton">Continue with Selection</a>
         		<br><br>
         		</div>'
 
@@ -100,7 +102,8 @@ define [ 'marionette' ], ( Marionette )->
                     $("#check"+element).val "0"
                 unitType = []
                 App.defaults['unitType'] = 'All'
-                $("#finalButton").removeClass 'disabled'
+                $("#finalButton").removeClass 'disabled btn-default'
+                $("#finalButton").addClass 'btn-primary'
 
 
 

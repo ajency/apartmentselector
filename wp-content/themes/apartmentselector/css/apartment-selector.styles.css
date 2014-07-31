@@ -5099,7 +5099,6 @@ Version:        0.1.0
   height: 56px;
   margin-bottom: 25px;
   padding-top: 5px;
-  cursor: pointer;
   background-color: #f8f9fa;
 }
 .towerTable .tableHeader ul li span {
@@ -5107,6 +5106,10 @@ Version:        0.1.0
 }
 .towerTable .tableHeader ul li a {
   color: #8b91a0;
+  cursor: pointer;
+}
+.towerTable .tableHeader ul li a:hover span {
+  color: #f28428;
 }
 @media (max-width: 480px) {
   .towerTable .tableHeader {
@@ -5335,6 +5338,10 @@ Version:        0.1.0
 .box.blank {
   font-size: 40px;
   line-height: 16px;
+}
+.box:hover {
+  border-color: #f28428;
+  color: #f28428;
 }
 /**** Responsive Table Styles ****/
 .unitTable {

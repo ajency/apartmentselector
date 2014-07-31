@@ -26,6 +26,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             <div class="tableBody">
                 				<div id="vs-container2" class="vs-container">
                 				    <header class="vs-header" id="building-region"></header>
+                                    <div class="subHeader"></div>
                 				    <div id="unit-region"></div>
                                 </div>
                             </div>
@@ -431,6 +432,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
+        onShow :->
+            $("#unit-region section").addClass "vs-current"  if $("#unit-region section").length < 2
+            return
+
 
 
 
@@ -444,6 +449,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         childView : UnitView
 
         className : "vs-wrapper"
+
+
 
 
 

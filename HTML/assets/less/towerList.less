@@ -32,15 +32,21 @@
 			li{
 				height: 56px;
 				margin-bottom: 25px;
-				padding-top: 5px;
-				cursor: pointer;
+				padding-top: 5px;				
 				background-color: lighten(@color-grey, 39%);
 				span{
 					text-decoration: underline;
 				}
 				a{
 					color: @color-grey;
+					cursor: pointer;
+					&:hover{
+						span{
+							color: @color-primary;
+						}
+					}
 				}
+
 			}
 		}
 	}

@@ -38,7 +38,8 @@ define(['marionette'], function(Marionette) {
         $("#check" + this.model.get('id')).val("0");
       }
       if (unitType.length === 0) {
-        $("#finalButton").addClass('disabled');
+        $("#finalButton").addClass('disabled btn-default');
+        $("#finalButton").removeClass('btn-primary');
         return false;
       }
       unitTypeString = unitType.join(',');
@@ -48,7 +49,8 @@ define(['marionette'], function(Marionette) {
       console.log(App.backFilter['screen1']);
       App.screenOneFilter['value'] = unitTypeString;
       App.screenOneFilter['key'] = 'unitType';
-      return $("#finalButton").removeClass('disabled');
+      $("#finalButton").removeClass('disabled btn-default');
+      return $("#finalButton").addClass('btn-primary');
     };
 
     return UnitTypeView;
@@ -61,7 +63,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-primary btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
+    ScreenOneView.prototype.template = '<div class="text-center introTxt">Select your Preference</div><div class="text-center subTxt">Select your flat to get started</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">What is your budget?</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-default btn-large disabled" id="finalButton">Continue with Selection</a> <br><br> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -98,7 +100,8 @@ define(['marionette'], function(Marionette) {
         }
         unitType = [];
         App.defaults['unitType'] = 'All';
-        return $("#finalButton").removeClass('disabled');
+        $("#finalButton").removeClass('disabled btn-default');
+        return $("#finalButton").addClass('btn-primary');
       }
     };
 
