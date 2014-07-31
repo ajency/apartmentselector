@@ -1,4 +1,5 @@
-
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 .text-white {
   color: #ffffff;
 }
@@ -83,13 +84,11 @@
 ::selection {
   background: #1b1e24;
   /* Safari */
-
   color: #ffffff;
 }
 ::-moz-selection {
   background: #1b1e24;
   /* Safari */
-
   color: #ffffff;
 }
 html {

@@ -78,20 +78,15 @@ Version:        0.1.0
   padding: 0 5px;
   text-align: center;
   /**** Block Type 1 ****/
-
   /**** Block Type 2 ****/
-
   /**** Block Type 3 ****/
-
 }
 .grid-container:before,
 .grid-container:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .grid-container:after {
   clear: both;
@@ -670,7 +665,6 @@ Version:        0.1.0
 }
 .unitTable::before {
   /* White color gradient on the right */
-
   content: '';
   position: absolute;
   top: 0;
@@ -809,9 +803,6 @@ Version:        0.1.0
     box-shadow: none;
     pointer-events: auto;
   }
-}
-@media only screen and (min-width: 1170px) {
-  
 }
 @-webkit-keyframes cd-scroll-right {
   0%,
