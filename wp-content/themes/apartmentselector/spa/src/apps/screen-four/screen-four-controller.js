@@ -52,25 +52,28 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     };
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
-      var units, unitsArray;
-      units = App.currentStore.unit;
+      var unitCollection, units, unitsArray;
+      units = App.currentStore.unit.where({
+        building: App.building['name']
+      });
       unitsArray = App.currentStore.unit.toArray();
-      units.each(function(item) {
+      $.each(units, function(index, value) {
         var unitTypeModel, unitVariantModel;
         unitVariantModel = App.currentStore.unit_variant.findWhere({
-          id: item.get('unitVariant')
+          id: value.get('unitVariant')
         });
         unitTypeModel = App.currentStore.unit_type.findWhere({
-          id: item.get('unitType')
+          id: value.get('unitType')
         });
-        item.set('terracearea', unitVariantModel.get('terracearea'));
-        item.set('sellablearea', unitVariantModel.get('sellablearea'));
-        item.set('carpetarea', unitVariantModel.get('carpetarea'));
-        item.set('unittypename', unitTypeModel.get('name'));
-        item.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
-        return item.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
+        value.set('terracearea', unitVariantModel.get('terracearea'));
+        value.set('sellablearea', unitVariantModel.get('sellablearea'));
+        value.set('carpetarea', unitVariantModel.get('carpetarea'));
+        value.set('unittypename', unitTypeModel.get('name'));
+        value.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
+        return value.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
       });
-      return units;
+      unitCollection = new Backbone.Collection(units);
+      return unitCollection;
     };
 
     return ScreenFourController;
