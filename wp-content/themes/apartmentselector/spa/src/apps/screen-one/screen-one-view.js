@@ -30,10 +30,12 @@ define(['marionette'], function(Marionette) {
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
       $('a').removeClass('selected');
+      console.log(unitType);
       for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
         element = unitType[index];
-        if (parseInt($("#check" + this.model.get('id')).val()) !== parseInt($("#check" + element).val())) {
-          $("#check" + this.model.get('id')).val('0');
+        console.log($("#check" + element).val());
+        if (parseInt(element) === parseInt(this.model.get('id'))) {
+          $("#check" + this.model.get('id')).val('1');
         }
       }
       console.log($("#check" + this.model.get('id')).val());
