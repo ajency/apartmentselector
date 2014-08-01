@@ -26,7 +26,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             <div class="tableBody">
                 				<div id="vs-container2" class="vs-container">
                 				    <header class="vs-header" id="building-region"></header>
-                                    <div class="subHeader"></div>
+
+                                    <div class="subHeader">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                FLOOR<br>BLOCK
+                                            </div>
+                                            <div class="col-xs-7 text-right">
+                                                NO. OF UNITS OF<br>YOUR SELECTION
+                                            </div>
+                                        </div>
+                                    </div>
+
                 				    <div id="unit-region"></div>
                                 </div>
                             </div>
