@@ -12,7 +12,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">25 </span> <strong>2BHK</strong> apartments in the Highrise floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 

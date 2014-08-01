@@ -2,9 +2,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     m = ""
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="text-center introTxt">We have <span class="bold text-primary"> {{unitsCount }} options</span>
-                    for {{selection}} </div>
-        		<div class="text-center subTxt m-b-10">Just select your floors to get started</div>
+        template : '<div class="text-center subTxt m-b-20">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+        		<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
         		<div class="legend text-center m-b-20">
 
@@ -45,8 +44,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     </div>
 
                     <div class="col-sm-5 hidden-xs">
-        				<h3 class="bold m-t-0">Climb leg make muffins or sweet</h3>
-        				<p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p>
+        				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
+        				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
                         <div id="mapplic1"></div>
         			</div>
                 </div>'
