@@ -81,15 +81,19 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 )
                 floorArray = floorArray.sort()
                 floorArray.sort( (a,b) ->
-                    a - b
+                    b - a
                 )
 
                 floorCountArray.sort( (a,b) ->
-                    a.id - b.id
+                    b.id - a.id
                 )
                 $.each(floorArray, (index,value)->
 
                     floorunits = App.currentStore.unit.where({floor:value,building:buildingid})
+                    floorunits.sort( (a,b) ->
+                        console.log a.get('id')
+                        a.get('id') - b.get('id')
+                    )
                     floorCollection = new Backbone.Collection(floorunits)
                     unitsArray.push { floorunits : floorCollection }
 
@@ -110,6 +114,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
                 )
+
                 buildingModel = App.currentStore.building.findWhere({id:value})
                 buildingArrayModel.push buildingModel
                 unitCollection = new Backbone.Collection(unitsArray)
