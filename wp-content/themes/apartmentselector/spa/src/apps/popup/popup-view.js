@@ -15,8 +15,7 @@ define(['marionette'], function(Mariontte) {
 
     PopupView.prototype.events = {
       'click a': function(e) {
-        console.log(e);
-        return e.preventDefault();
+        return console.log(e);
       },
       'click .remodal-close': function(e) {
         var params;

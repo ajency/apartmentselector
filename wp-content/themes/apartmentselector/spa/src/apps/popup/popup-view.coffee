@@ -194,7 +194,7 @@ define [ 'marionette' ], ( Mariontte )->
         events:
             'click a':(e)->
                 console.log e
-                e.preventDefault()
+                #e.preventDefault()
             'click .remodal-close':(e)->
                 console.log "aaaaaaaaaaaa"
                 App.filter(params={})

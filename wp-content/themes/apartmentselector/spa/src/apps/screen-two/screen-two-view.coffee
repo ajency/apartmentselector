@@ -18,8 +18,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             <div class="tableHeader">
                 				<ul>
                 					<li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
-                					<li><a href="#modal"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
-                					<li><a href="#modal"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
+                					<li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
+                					<li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
                 				</ul>
                 		    </div>
                             <div class="tableBody">
