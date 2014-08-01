@@ -29,9 +29,11 @@ define [ 'marionette' ], ( Marionette )->
             $(".cs-placeholder").text('Undecided')
 
             $('a' ).removeClass 'selected'
+            console.log unitType
             for element , index in unitType
-                if parseInt($("#check"+@model.get 'id').val()) != parseInt($("#check"+element).val())
-                    $("#check"+@model.get 'id').val '0'
+                console.log $("#check"+element).val()
+                if parseInt(element) == parseInt(@model.get('id'))
+                    $("#check"+@model.get 'id').val '1'
             console.log $("#check"+@model.get 'id').val()
             if  parseInt($("#check"+@model.get 'id').val()) == 0
                 unitType.push @model.get 'id'
