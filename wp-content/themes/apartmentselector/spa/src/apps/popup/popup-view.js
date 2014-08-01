@@ -27,7 +27,10 @@ define(['marionette'], function(Mariontte) {
     };
 
     PopupView.prototype.onShow = function() {
-      var instance;
+      var instance, scr;
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js';
+      document.body.appendChild(scr);
       instance = $('.remodal.towerPopup').remodal();
       if (instance) {
         instance.open();

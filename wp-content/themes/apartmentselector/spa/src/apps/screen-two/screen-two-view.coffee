@@ -74,7 +74,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
+
             document.body.appendChild(scr)
+
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
