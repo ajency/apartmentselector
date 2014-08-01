@@ -189,7 +189,7 @@ $heading = "Edit";
                     </span>
                     <br>
                     <br>
-                    <div id="progress<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
+                    <div id="progress<?php echo $building_no_of_flat['flat_no'];?>" class="progress" >
                     <div class="progress-bar progress-bar-success"></div>
                     </div>
                     <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>

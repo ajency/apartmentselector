@@ -145,6 +145,10 @@ function fileUploadByIndex(field){
         url: AJAXURL+"?action=upload_file",
         
     autoUpload: true,
+
+    send: function (e, data) {
+        jQuery('#progress'+field).show(); 
+    },
     add: function (e, data) { 
         data.submit();
     },
@@ -161,6 +165,11 @@ function fileUploadByIndex(field){
        jQuery('#fileupload'+field).parent().find(".image_id").val(data.result.attachment_id )
        console.log(data.result.attachment_url)
        jQuery('#fileupload'+field).parent().parent().find(".image_display").attr('src',data.result.attachment_url )
+       jQuery('#progress'+field).hide(); 
+        jQuery('#progress'+field+' .progress-bar').css(
+            'width',
+            '0%'
+        );
     }
     }) 
 }
