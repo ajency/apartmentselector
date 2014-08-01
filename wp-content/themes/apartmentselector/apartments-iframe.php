@@ -8,7 +8,7 @@
 <html>
 <body>
 
-<iframe src="apartmentselector.skyi.com/apartment-selector/" width="100%">
+<iframe src="http://apartmentselector.skyi.com/apartment-selector/" width="100%" height="650">
     <p>Your browser does not support iframes.</p>
 </iframe>
 
