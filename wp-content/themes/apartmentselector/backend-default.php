@@ -13,6 +13,10 @@
     <!-- END CSS TEMPLATE -->
 </head>
 <!-- BEGIN BODY -->
+<?php
+    $logged_in_user = get_logged_in_user_info();
+
+?>
 <body class="">
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse ">
@@ -40,26 +44,26 @@
             <!-- BEGIN CHAT TOGGLER -->
             <div class="pull-right">
                 <div class="chat-toggler">
-                    <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom"  data-content='' data-toggle="dropdown" >
+                    <a href="#" class="dropdown-toggle" id="login-user-box" data-placement="bottom"  data-content='' data-toggle="dropdown" >
                         <div class="user-details">
                             <div class="username">
-                                John Smith
+                                <?php echo $logged_in_user["display_name"];?>
                             </div>
                         </div>
                         <div class="iconset top-chat-dark pull-right"></div>
                     </a>
-                    <div id="notification-list" style="display:none">
+                    <div id="login-user-box-content" style="display:none">
                         <div style="width:200px">
                             <div class="notification-messages success">
                                 <div class="message-wrapper">
-                                    <div class="heading"> James Richard </div>
-                                    <div class="description"> @Admin</div>
-                                    <div class="date pull-left"> An hour ago </div>
+                                    <div class="heading"> <?php echo $logged_in_user["display_name"];?> </div>
+                                    <div class="description"> @<?php echo $logged_in_user["display_role"];?></div>
+                                     
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <button type="button" class="btn btn-white btn-xs btn-mini" onclick="location.href='dashbord.html';">Dashbord</button>
-                            <button type="button" class="btn btn-primary btn-xs btn-mini" onclick="location.href='index.html';">Logout</button>
+                            <button type="button" class="btn btn-white btn-xs btn-mini" onclick="location.href='<?php echo get_admin_url()?>';">Dashbord</button>
+                            <button type="button" class="btn btn-primary btn-xs btn-mini" onclick="location.href='<?php echo wp_logout_url()?>';">Logout</button>
                         </div>
                     </div>
                 </div>
@@ -81,7 +85,7 @@
     <a href="#" class="scrollup">Scroll</a>
     <div class="footer-widget">
         <div class="pull-right">
-            <a href="lockscreen.html"><i class="fa fa-power-off"></i></a>
+            <a href="<?php echo wp_logout_url()?>"><i class="fa fa-power-off"></i></a>
         </div>
     </div>
     <!-- END SIDEBAR -->
@@ -102,6 +106,20 @@
            <?php
             get_template_part( 'backend-content-templates/'.get_template_filename() ); ?>
 
+        </div>
+        <div id='login-user-box'  style="display:none">
+            <div style="width:200px">
+                           <div class="notification-messages success">
+                              <div class="message-wrapper">
+                                 <div class="heading"> James Richard </div>
+                                 <div class="description"> @Admin</div>
+                                 <div class="date pull-left"> An hour ago </div>
+                              </div>
+                              <div class="clearfix"></div>
+                           </div>
+                           <button type="button" class="btn btn-white btn-xs btn-mini" onclick="location.href='dashbord.html';">Dashbord</button>
+                           <button type="button" class="btn btn-primary btn-xs btn-mini" onclick="location.href='index.html';">Logout</button>                          
+                        </div>
         </div>
         <?php wp_footer(); ?>
 </body>

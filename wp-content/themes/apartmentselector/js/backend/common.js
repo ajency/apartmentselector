@@ -1,9 +1,17 @@
-jQuery(document).ready(function() { 
-
+jQuery(document).ready(function($) { 
     sideMenu()
     
-    activateMenu()     
+    activateMenu() 
 
+    jQuery('#login-user-box').popover({ 
+        html : true, 
+        content: function() {
+          return $('#login-user-box-content').html();
+        }
+    });    
+
+
+ 
 function sideMenu(){
 
 
