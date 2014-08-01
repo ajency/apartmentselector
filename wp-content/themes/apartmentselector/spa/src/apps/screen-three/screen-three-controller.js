@@ -92,16 +92,20 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         });
         floorArray = floorArray.sort();
         floorArray.sort(function(a, b) {
-          return a - b;
+          return b - a;
         });
         floorCountArray.sort(function(a, b) {
-          return a.id - b.id;
+          return b.id - a.id;
         });
         $.each(floorArray, function(index, value) {
           var floorCollection, floorunits;
           floorunits = App.currentStore.unit.where({
             floor: value,
             building: buildingid
+          });
+          floorunits.sort(function(a, b) {
+            console.log(a.get('id'));
+            return a.get('id') - b.get('id');
           });
           floorCollection = new Backbone.Collection(floorunits);
           unitsArray.push({

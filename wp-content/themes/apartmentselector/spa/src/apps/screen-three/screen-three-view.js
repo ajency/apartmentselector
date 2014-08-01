@@ -3,7 +3,8 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, unitChildView;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, flag_set, unitChildView;
+  flag_set = 0;
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -156,10 +157,12 @@ define(['marionette'], function(Marionette) {
       if (flag === 1 && this.model.get('status') === 9) {
         return $('#check' + this.model.get("id")).addClass('box filtered');
       } else if (flag === 1 && this.model.get('status') === 8) {
-        return $('#check' + this.model.get("id")).addClass('box sold');
+        $('#check' + this.model.get("id")).addClass('box sold');
+        return flag_set = 1;
       } else {
         $('#check' + this.model.get("id")).addClass('box other');
-        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
+        $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
+        return flag_set = 1;
       }
     };
 
@@ -170,7 +173,9 @@ define(['marionette'], function(Marionette) {
         App.defaults['floor'] = this.model.get("floor");
         App.backFilter['screen3'].push('floor');
         App.building['name'] = parseInt(this.model.get('building'));
-        return this.trigger('unit:item:selected');
+        if (flag_set === 0) {
+          return this.trigger('unit:item:selected');
+        }
       }
     };
 

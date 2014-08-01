@@ -1,5 +1,7 @@
 define [ 'marionette' ], ( Marionette )->
 
+    flag_set = 0
+
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3>
@@ -151,9 +153,11 @@ define [ 'marionette' ], ( Marionette )->
                 $('#check'+@model.get("id")).addClass 'box filtered'
             else if flag==1 &&  @model.get('status') == 8
                 $('#check'+@model.get("id")).addClass 'box sold'
+                flag_set = 1
             else
                 $('#check'+@model.get("id")).addClass 'box other'
                 $('#check'+@model.get("id")).text @model.get 'unitTypeName'
+                flag_set =1
 
         events:
             'click .check':(e)->
@@ -162,7 +166,8 @@ define [ 'marionette' ], ( Marionette )->
                 App.defaults['floor'] = @model.get("floor")
                 App.backFilter['screen3'].push 'floor'
                 App.building['name'] = parseInt(@model.get 'building')
-                @trigger 'unit:item:selected'
+                if flag_set == 0
+                    @trigger 'unit:item:selected'
 
 
 
