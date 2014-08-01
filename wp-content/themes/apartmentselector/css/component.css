@@ -83,9 +83,13 @@
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-weight: 700;
-	font-size: 2em;
+	font-size: 1.3em;
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
+}
+
+.vs-nav li.vs-nav-current a{
+	font-size: 2em;
 }
 
 .vs-nav li a:hover,
@@ -93,7 +97,7 @@
 .vs-triplelayout .vs-nav .vs-nav-current a,
 .vs-container.vs-move-left .vs-nav-right a,
 .vs-container.vs-move-right .vs-nav-left a {
-	border-top: 2px solid #f28428;
+	border-top: 2px solid transparent;
 	border-bottom: 2px solid #f28428;
 	color: ;
 }
@@ -101,6 +105,7 @@
 .vs-container.vs-move-left .vs-nav-current a,
 .vs-container.vs-move-right .vs-nav-current a {
 	border-color: #f28428;
+	border-top: 0;
 	color: #f28428;
 }
 
@@ -357,8 +362,12 @@
 
 	.vs-triplelayout .vs-nav li a {
 		width: auto;
-		font-size: 100%;
+		font-size: 80%;
 		padding: 10px 0;
+	}
+	.vs-triplelayout .vs-nav li.vs-nav-current a {
+		font-size: 100%;
+		padding: 5px 0;
 	}
 
 	.vs-wrapper > section {

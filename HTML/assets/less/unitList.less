@@ -10,7 +10,7 @@
 	cursor: pointer;
 	position: relative;
 	.small{
-		font-size: 55%;
+		font-size: 52%;
 		width: auto !important;
 	}
 	&.selected{
@@ -38,7 +38,7 @@
 	&.sold{
 		color: lighten(@color-grey, 20%);
 	}
-	&.oneBHK, &.twoBHK{
+	&.threeBHK, &.twoBHK, &.oneBHK, &.multiBHK{
 		&:after{
 			position: absolute;
     		bottom: -8px;
@@ -51,6 +51,24 @@
 	&.twoBHK{
 		&:after{
 			color: @color-warning;
+		}
+	}
+	&.oneBHK{
+		&:after{
+			color: @color-info;
+		}
+	}
+	&.multiBHK{
+		&:before{
+			position: absolute;
+    		bottom: -8px;
+    		right: 55px;
+    		font-size: 40px;
+    		content: '.';
+    		color: @color-warning;
+		}
+		&:after{
+			right: 45px;
 		}
 	}
 	&.blank{

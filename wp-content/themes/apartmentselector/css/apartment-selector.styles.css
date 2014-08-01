@@ -3633,9 +3633,13 @@ div.cs-skin-underline {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-weight: 700;
-	font-size: 2em;
+	font-size: 1.3em;
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
+}
+
+.vs-nav li.vs-nav-current a{
+	font-size: 2em;
 }
 
 .vs-nav li a:hover,
@@ -3643,7 +3647,7 @@ div.cs-skin-underline {
 .vs-triplelayout .vs-nav .vs-nav-current a,
 .vs-container.vs-move-left .vs-nav-right a,
 .vs-container.vs-move-right .vs-nav-left a {
-	border-top: 2px solid #f28428;
+	border-top: 2px solid transparent;
 	border-bottom: 2px solid #f28428;
 	color: ;
 }
@@ -3651,6 +3655,7 @@ div.cs-skin-underline {
 .vs-container.vs-move-left .vs-nav-current a,
 .vs-container.vs-move-right .vs-nav-current a {
 	border-color: #f28428;
+	border-top: 0;
 	color: #f28428;
 }
 
@@ -3907,8 +3912,12 @@ div.cs-skin-underline {
 
 	.vs-triplelayout .vs-nav li a {
 		width: auto;
-		font-size: 100%;
+		font-size: 80%;
 		padding: 10px 0;
+	}
+	.vs-triplelayout .vs-nav li.vs-nav-current a {
+		font-size: 100%;
+		padding: 5px 0;
 	}
 
 	.vs-wrapper > section {
@@ -5155,7 +5164,7 @@ Version:        0.1.0
   border-top: 0;
 }
 .towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a {
-  font-size: 18px;
+  font-size: 16px;
 }
 .towerTable .tableBody .vs-container {
   position: static;
@@ -5315,7 +5324,7 @@ Version:        0.1.0
   position: relative;
 }
 .box .small {
-  font-size: 55%;
+  font-size: 52%;
   width: auto !important;
 }
 .box.selected {
@@ -5343,8 +5352,10 @@ Version:        0.1.0
 .box.sold {
   color: #c3c6ce;
 }
+.box.threeBHK:after,
+.box.twoBHK:after,
 .box.oneBHK:after,
-.box.twoBHK:after {
+.box.multiBHK:after {
   position: absolute;
   bottom: -8px;
   right: 50px;
@@ -5354,6 +5365,20 @@ Version:        0.1.0
 }
 .box.twoBHK:after {
   color: #fdd01c;
+}
+.box.oneBHK:after {
+  color: #0090d9;
+}
+.box.multiBHK:before {
+  position: absolute;
+  bottom: -8px;
+  right: 55px;
+  font-size: 40px;
+  content: '.';
+  color: #fdd01c;
+}
+.box.multiBHK:after {
+  right: 45px;
 }
 .box.blank {
   font-size: 40px;
@@ -5956,13 +5981,17 @@ iframe {
   padding: 20px 0;
   background-color: #da6a0d;
 }
-.legend .oneBHK,
-.legend .twoBHK {
+.legend .threeBHK,
+.legend .twoBHK,
+.legend .oneBHK {
   font-size: 50px;
   line-height: 5px;
   color: #f28428;
 }
 .legend .twoBHK {
   color: #fdd01c;
+}
+.legend .oneBHK {
+  color: #0090d9;
 }
 
