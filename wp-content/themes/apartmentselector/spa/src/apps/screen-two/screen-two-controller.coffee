@@ -197,7 +197,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
                             lunitTypeArray.push value.get 'id'
                     )
-                    lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length})
+                    if parseInt(item.id) == 9
+                        classname = 'oneBHK'
+                    else
+                        classname = 'twoBHK m-l-20'
+
+                    lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,classname:classname})
                     lunique[item.id] = item;
 
             )
@@ -213,7 +218,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
                             munitTypeArray.push value.get 'id'
                     )
-                    mnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length})
+                    if parseInt(item.id) == 9
+                        classname = 'oneBHK'
+                    else
+                        classname = 'twoBHK m-l-20'
+
+                    mnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,classname:classname})
                     munique[item.id] = item;
 
 
@@ -230,7 +240,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
                             hunitTypeArray.push value.get 'id'
                     )
-                    hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length})
+                    if parseInt(item.id) == 9
+                        classname = 'oneBHK'
+                    else
+                        classname = 'twoBHK m-l-20'
+
+                    hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,classname:classname})
                     hunique[item.id] = item;
 
 
@@ -242,10 +257,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                     count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
 
-                    if parseInt(count) == 0
-                        classname = 'twoBHK m-l-20'
-                    else
+                    if parseInt(item.id) == 9
                         classname = 'oneBHK'
+                    else
+                        classname = 'twoBHK m-l-20'
+
                     mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
                     mainunique[item.id] = item;
 
@@ -292,7 +308,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!unique[item.id])
                         status = App.currentStore.status.findWhere({'name':'Available'})
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
-                        if parseInt(count) == 0
+                        console.log item.id
+                        if parseInt(item.id) == 9
                             classname = 'twoBHK m-l-20'
                         else
                             classname = 'oneBHK'
@@ -364,9 +381,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high_min_val = Math.min.apply( Math, max_coll )
                 )
 
-                mainArray.push({name:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid,unittypes:hnewarr})
-                mainArray.push({name: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid,unittypes:mnewarr})
-                mainArray.push({name: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr})
+                mainArray.push({count:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid,unittypes:hnewarr})
+                mainArray.push({count: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid,unittypes:mnewarr})
+                mainArray.push({count: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr})
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})

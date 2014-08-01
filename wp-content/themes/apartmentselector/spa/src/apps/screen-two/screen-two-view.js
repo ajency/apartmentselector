@@ -113,7 +113,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<div class="box pull-left">{{name}}</div> <div class="box">{{name}}</div> </div>';
+    UnitViewChildView.prototype.template = '<div class="box pull-left">{{count}}</div> <div class="box">{{count}}</div> </div>';
 
     UnitViewChildView.prototype.className = 'text-center';
 

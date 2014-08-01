@@ -183,8 +183,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '<div class="box pull-left">{{name}}</div>
-                    <div class="box">{{name}}</div>
+        template : '<div class="box pull-left">{{count}}</div>
+                    <div class="box">{{count}}</div>
                             </div>'
 
         className : 'text-center'
