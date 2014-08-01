@@ -113,7 +113,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<div class="flatNos">{{name}}</div> </div>';
+    UnitViewChildView.prototype.template = '<div class="flatNos">{{count}}</div> </div>';
 
     UnitViewChildView.prototype.className = 'text-center';
 

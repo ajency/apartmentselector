@@ -232,7 +232,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
       });
       $.each(mainunitsTypeArray, function(key, item) {
-        var count;
+        var classname, count;
         if (!lunique[item.id]) {
           lunitTypeArray = [];
           status = App.currentStore.status.findWhere({
@@ -250,16 +250,22 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               return lunitTypeArray.push(value.get('id'));
             }
           });
+          if (parseInt(item.id) === 9) {
+            classname = 'oneBHK';
+          } else {
+            classname = 'twoBHK m-l-20';
+          }
           lnewarr.push({
             id: item.id,
             name: item.name,
-            count: lunitTypeArray.length
+            count: lunitTypeArray.length,
+            classname: classname
           });
           return lunique[item.id] = item;
         }
       });
       $.each(mainunitsTypeArray, function(key, item) {
-        var count;
+        var classname, count;
         if (!munique[item.id]) {
           munitTypeArray = [];
           status = App.currentStore.status.findWhere({
@@ -277,16 +283,22 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               return munitTypeArray.push(value.get('id'));
             }
           });
+          if (parseInt(item.id) === 9) {
+            classname = 'oneBHK';
+          } else {
+            classname = 'twoBHK m-l-20';
+          }
           mnewarr.push({
             id: item.id,
             name: item.name,
-            count: munitTypeArray.length
+            count: munitTypeArray.length,
+            classname: classname
           });
           return munique[item.id] = item;
         }
       });
       $.each(mainunitsTypeArray, function(key, item) {
-        var count;
+        var classname, count;
         if (!hunique[item.id]) {
           hunitTypeArray = [];
           status = App.currentStore.status.findWhere({
@@ -304,10 +316,16 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               return hunitTypeArray.push(value.get('id'));
             }
           });
+          if (parseInt(item.id) === 9) {
+            classname = 'oneBHK';
+          } else {
+            classname = 'twoBHK m-l-20';
+          }
           hnewarr.push({
             id: item.id,
             name: item.name,
-            count: hunitTypeArray.length
+            count: hunitTypeArray.length,
+            classname: classname
           });
           return hunique[item.id] = item;
         }
@@ -322,10 +340,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             unitType: item.id,
             'status': status.get('id')
           });
-          if (parseInt(count) === 0) {
-            classname = 'twoBHK m-l-20';
-          } else {
+          if (parseInt(item.id) === 9) {
             classname = 'oneBHK';
+          } else {
+            classname = 'twoBHK m-l-20';
           }
           mainnewarr.push({
             id: item.id,
@@ -393,7 +411,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               'status': status.get('id'),
               'building': buildingid
             });
-            if (parseInt(count) === 0) {
+            console.log(item.id);
+            if (parseInt(item.id) === 9) {
               classname = 'twoBHK m-l-20';
             } else {
               classname = 'oneBHK';
@@ -488,7 +507,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return high_min_val = Math.min.apply(Math, max_coll);
         });
         mainArray.push({
-          name: highArray.length,
+          count: highArray.length,
           low_max_val: high_max_val,
           low_min_val: high_min_val,
           range: 'high',
@@ -496,7 +515,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: hnewarr
         });
         mainArray.push({
-          name: mediumArray.length,
+          count: mediumArray.length,
           low_max_val: medium_max_val,
           low_min_val: medium_min_val,
           range: 'medium',
@@ -504,7 +523,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: mnewarr
         });
         mainArray.push({
-          name: lowArray.length,
+          count: lowArray.length,
           low_max_val: low_max_val,
           low_min_val: low_min_val,
           range: 'low',
