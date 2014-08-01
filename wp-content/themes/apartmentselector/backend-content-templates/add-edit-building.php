@@ -159,20 +159,10 @@ $heading = "Edit";
     </div>
 </div>
 
-<div class="well" id="flats_container">
+<div class="well" id="flats_container" <?php if($no_of_flats==0){ ?> style="display:none"<?}?>  >
  
-        <?php if($no_of_flats==0){
-        ?>   <div class="form-group">
-<label class="form-label">
-           <i>Select No Of Flats</i>
-        </label></div>
-        <?php
-            }
-            else{
-?>
- 
-  
-<?php
+        <? 
+            if($no_of_flats!=0){ 
                 foreach($building_no_of_flats as $building_no_of_flat){
                     ?><div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats' >
                     <div class="form-group">   <label class="form-label">
@@ -262,17 +252,9 @@ $heading = "Edit";
                         </select>
                     </div>
                 </div>
-                <div class="well" id="flats_container<?php echo($exception_count);?>">
-                <?php if($no_of_flats==0){
-                ?>   
-                    <div class="form-group">
-                        <label class="form-label">
-                           <i>Select No Of Flats</i>
-                        </label>
-                    </div>
-                <?php
-                    }
-                else{
+                <div class="well" id="flats_container<?php echo($exception_count);?>" <?php if($no_of_flats==0){ ?> style="display:none"<?}?>>
+                <?php 
+                if($no_of_flats!=0){
                      foreach($building_exception["flats"] as $building_no_of_flat){
                      ?>
                      <div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats<?php echo($exception_count);?>' ><div class="form-group">
