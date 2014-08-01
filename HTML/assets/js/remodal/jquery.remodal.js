@@ -252,7 +252,7 @@
                     }
                 }
             });
-
+			console.log(instance)
             return instance;
         };
     }
@@ -308,9 +308,11 @@
             }
         } else {
             var $elem = $("[data-" + pluginName + "-id=" + id.replace(new RegExp('/', 'g'), "\\/") + "]");
-
+			console.log(pluginName)
+            
             if ($elem.length) {
-                var instance = $[pluginName].lookup[$elem.data(pluginName)];
+                var instance = $[pluginName].lookup[0];
+				console.log(instance)
 
                 if (instance && instance.settings.hashTracking) {
                     instance.open();

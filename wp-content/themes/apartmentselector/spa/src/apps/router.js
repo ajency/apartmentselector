@@ -57,6 +57,9 @@ define(['marionette'], function(Marionette) {
       App.filter(params = {});
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions();
+    },
+    showpopup: function() {
+      return msgbus.showApp('popup').insideRegion(App.mainRegion).withOptions();
     }
   };
   return new ApartmentSelector({
