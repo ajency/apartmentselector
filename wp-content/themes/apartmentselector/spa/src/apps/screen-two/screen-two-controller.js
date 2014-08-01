@@ -71,7 +71,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function() {
-      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, first, flag, highUnits, hnewarr, hunique, hunitTypeArray, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units;
+      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, first, flag, hcount, highUnits, hnewarr, hunique, hunitTypeArray, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mcount, mediumUnits, mnewarr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units;
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -102,6 +102,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       hunitTypeArray = [];
       hnewarr = [];
       hunique = {};
+      lcount = [];
+      mcount = [];
+      hcount = [];
       $.each(App.defaults, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
@@ -232,7 +235,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
       });
       $.each(mainunitsTypeArray, function(key, item) {
-        var classname, count;
+        var count;
         if (!lunique[item.id]) {
           lunitTypeArray = [];
           status = App.currentStore.status.findWhere({
@@ -243,6 +246,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             'status': status.get('id')
           });
           $.each(count, function(index, value) {
+            var flag1;
+            if (value.get('unitType') === 9) {
+              flag = 1;
+            }
+            if (value.get('unitType') === 9) {
+              flag1 = 1;
+            }
             lowUnits = App.currentStore.range.findWhere({
               name: 'low'
             });
@@ -250,10 +260,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               return lunitTypeArray.push(value.get('id'));
             }
           });
-          if (parseInt(item.id) === 9) {
-            classname = 'oneBHK';
-          } else {
-            classname = 'twoBHK m-l-20';
+          if (parseInt(count.length) > 0) {
+            lcount.push(item.id);
           }
           lnewarr.push({
             id: item.id,
@@ -264,6 +272,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return lunique[item.id] = item;
         }
       });
+      if (lcount.length > 1) {
+        lclassname = 'multiBHK';
+      } else {
+        lclassname = 'threeBHK';
+      }
       $.each(mainunitsTypeArray, function(key, item) {
         var classname, count;
         if (!munique[item.id]) {

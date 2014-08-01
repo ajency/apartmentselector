@@ -101,6 +101,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             hunitTypeArray = []
             hnewarr =  []
             hunique = {}
+            lcount = []
+            mcount = []
+            hcount = []
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value
@@ -193,19 +196,27 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     status = App.currentStore.status.findWhere({'name':'Available'})
                     count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
                     $.each(count, (index,value)->
+                        if value.get('unitType') == 9
+                            flag = 1
+                        if value.get('unitType') == 9
+                            flag1 = 1
                         lowUnits = App.currentStore.range.findWhere({name:'low'})
                         if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
                             lunitTypeArray.push value.get 'id'
                     )
-                    if parseInt(item.id) == 9
-                        classname = 'oneBHK'
-                    else
-                        classname = 'twoBHK m-l-20'
+                    if parseInt(count.length) >0
+                        lcount.push item.id
+
+
 
                     lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,classname:classname})
                     lunique[item.id] = item;
 
             )
+            if lcount.length > 1
+                lclassname = 'multiBHK'
+            else
+                lclassname = 'threeBHK'
 
             $.each(mainunitsTypeArray, (key,item)->
                 if (!munique[item.id])
