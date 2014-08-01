@@ -97,7 +97,7 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > {{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} SQF</div> </div>';
+    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} SQF</div> </div>';
 
     childViewUnit.prototype.className = 'cd-block';
 
@@ -155,25 +155,25 @@ define(['marionette'], function(Marionette) {
       }
       console.log(flag);
       if (flag === 1 && this.model.get('status') === 9) {
-        return $('#check' + this.model.get("id")).addClass('box filtered');
+        $('#check' + this.model.get("id")).addClass('box filtered');
+        return $('#flag' + this.model.get("id")).val('1');
       } else if (flag === 1 && this.model.get('status') === 8) {
-        $('#check' + this.model.get("id")).addClass('box sold');
-        return flag_set = 1;
+        return $('#check' + this.model.get("id")).addClass('box sold');
       } else {
         $('#check' + this.model.get("id")).addClass('box other');
-        $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
-        return flag_set = 1;
+        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
       }
     };
 
     childViewUnit.prototype.events = {
       'click .check': function(e) {
+        console.log($('#flag' + this.model.get("id")));
         App.unit['name'] = this.model.get("id");
         App.floorFilter['name'] = App.defaults['floor'];
         App.defaults['floor'] = this.model.get("floor");
         App.backFilter['screen3'].push('floor');
         App.building['name'] = parseInt(this.model.get('building'));
-        if (flag_set === 0) {
+        if (parseInt($('#flag' + this.model.get("id")).val()) === 1) {
           return this.trigger('unit:item:selected');
         }
       }

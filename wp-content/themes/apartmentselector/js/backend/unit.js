@@ -15,7 +15,11 @@ jQuery(document).ready(function($) {
             unit_type: $("option:selected", $(e.target)).val()
         }, function(response) {
 
-            $.each(response, function(i, val) {
+        sortedresponse = _.sortBy(response, function (obj) { 
+            
+         return parseInt(obj.variant_name);
+        });
+            $.each(sortedresponse, function(i, val) {
                 $("#unit_variant").append(new Option(val.variant_name, val.variant_id));
             });
 

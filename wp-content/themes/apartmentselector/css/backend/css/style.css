@@ -8044,3 +8044,7 @@ display: inline! important;
 padding-left: 150px! important;
 }
 
+.progress{
+	display:none;
+}
+

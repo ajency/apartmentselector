@@ -16,9 +16,10 @@ $(document).on("change", ".no_of_flats", function(e) {
  
         if($(e.target).val()==""){
           
-            $("#"+$(e.target).attr('flats_container_id')).html('  <div class="form-group"><label class="form-label"><i>Select No Of Flats</i></label></div>');
+            $("#"+$(e.target).attr('flats_container_id')).hide() ;
             return;
         }
+        $("#"+$(e.target).attr('flats_container_id')).show() ;
         //if prev count less then the the new selection add the additional flats UI 
         if(prevCountOfFlats < $(e.target).val()){
  
@@ -238,12 +239,7 @@ function addException(exception_no){
         +  getFlatsDropdown(exception_no)
         +  '</div>'
         +  '</div>'
-        +  '<div class="well" id="flats_container'+exception_no+'">'
-        +  '<div class="form-group">'
-        +  '<label class="form-label">'
-        +  '<i>Select No Of Flats</i>'
-        +  '</label>'
-        +  '</div>'
+        +  '<div class="well" id="flats_container'+exception_no+'" style="display:none">' 
         +  '</div>'
 
     return html

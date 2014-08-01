@@ -243,3 +243,24 @@ function get_no_image_150x150(){
 	
 	return $image_url;
 }
+
+function get_logged_in_user_info(){
+ 
+	$user_data = array();
+	$current_user = wp_get_current_user();
+
+	global $wpdb,$wp_roles,$user_ID;
+	$avatar = get_avatar( $current_user->ID, 150 );
+	$current_user = wp_get_current_user();
+	$roles = $current_user->roles;
+	$roles = $current_user->roles;
+	$role = array_shift($roles); 
+ 
+	$display_role= $wp_roles->role_names[$role] ;
+	 
+	$user_data['display_name'] = $current_user->display_name;
+	$user_data['role'] = $role;
+	$user_data['display_role'] = $display_role;
+	$user_data['avatar'] = $avatar;
+	return $user_data;
+}

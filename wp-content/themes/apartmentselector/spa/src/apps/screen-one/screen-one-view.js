@@ -25,19 +25,30 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var index, unitTypeString;
+      var element, index, unitTypeString, _i, _len;
       evt.preventDefault();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
+      $('a').removeClass('selected');
+      for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
+        element = unitType[index];
+        if (parseInt($("#check" + this.model.get('id')).val()) !== parseInt($("#check" + element).val())) {
+          $("#check" + this.model.get('id')).val('0');
+        }
+      }
+      console.log($("#check" + this.model.get('id')).val());
       if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
         unitType.push(this.model.get('id'));
+        App.backFilter['screen1'].push('unitType');
+        $('#unittype' + this.model.get("id") + ' a').addClass('selected');
         $("#check" + this.model.get('id')).val("1");
       } else {
-        index = unitType.indexOf(this.model.get('id'));
-        unitType.splice(index, 1);
+        unitType = [];
+        App.backFilter['screen1'] = [];
+        App.backFilter['screen1'] = [];
         $("#check" + this.model.get('id')).val("0");
       }
-      if (unitType.length === 0) {
+      if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
         $("#finalButton").addClass('disabled btn-default');
         $("#finalButton").removeClass('btn-primary');
         return false;
@@ -45,7 +56,6 @@ define(['marionette'], function(Marionette) {
       unitTypeString = unitType.join(',');
       App.defaults['unitType'] = unitTypeString;
       console.log(App.backFilter['screen1']);
-      App.backFilter['screen1'].push('unitType');
       console.log(App.backFilter['screen1']);
       App.screenOneFilter['value'] = unitTypeString;
       App.screenOneFilter['key'] = 'unitType';

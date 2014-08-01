@@ -402,7 +402,7 @@ Version:        0.1.0
   width: 124px;
   position: absolute;
   left: 24%;
-  top: 118px;
+  top: 119px;
   z-index: 999;
 }
 .towerTable .tableHeader ul {
@@ -469,7 +469,7 @@ Version:        0.1.0
   border-top: 0;
 }
 .towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a {
-  font-size: 18px;
+  font-size: 16px;
 }
 .towerTable .tableBody .vs-container {
   position: static;
@@ -629,7 +629,7 @@ Version:        0.1.0
   position: relative;
 }
 .box .small {
-  font-size: 55%;
+  font-size: 52%;
   width: auto !important;
 }
 .box.selected {
@@ -657,8 +657,10 @@ Version:        0.1.0
 .box.sold {
   color: #c3c6ce;
 }
+.box.threeBHK:after,
+.box.twoBHK:after,
 .box.oneBHK:after,
-.box.twoBHK:after {
+.box.multiBHK:after {
   position: absolute;
   bottom: -8px;
   right: 50px;
@@ -668,6 +670,20 @@ Version:        0.1.0
 }
 .box.twoBHK:after {
   color: #fdd01c;
+}
+.box.oneBHK:after {
+  color: #0090d9;
+}
+.box.multiBHK:before {
+  position: absolute;
+  bottom: -8px;
+  right: 55px;
+  font-size: 40px;
+  content: '.';
+  color: #fdd01c;
+}
+.box.multiBHK:after {
+  right: 45px;
 }
 .box.blank {
   font-size: 40px;
@@ -1270,12 +1286,16 @@ iframe {
   padding: 20px 0;
   background-color: #da6a0d;
 }
-.legend .oneBHK,
-.legend .twoBHK {
+.legend .threeBHK,
+.legend .twoBHK,
+.legend .oneBHK {
   font-size: 50px;
   line-height: 5px;
   color: #f28428;
 }
 .legend .twoBHK {
   color: #fdd01c;
+}
+.legend .oneBHK {
+  color: #0090d9;
 }
