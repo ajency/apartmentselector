@@ -24,7 +24,19 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 		    </div>
                             <div class="tableBody">
                 				<div id="vs-container2" class="vs-container">
-                				<header class="vs-header" id="building-region"></header>
+                				    <header class="vs-header" id="building-region"></header>
+
+                                    <div class="subHeader">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                FLOOR<br>BLOCK
+                                            </div>
+                                            <div class="col-xs-7 text-right">
+                                                NO. OF UNITS OF<br>YOUR SELECTION
+                                            </div>
+                                        </div>
+                                    </div>
+
                 				    <div id="unit-region"></div>
                                 </div>
                             </div>
@@ -35,8 +47,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="col-sm-5 hidden-xs">
         				<h3 class="bold m-t-0">Climb leg make muffins or sweet</h3>
         				<p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p>
-
-        			</div><div id="mapplic1"></div>
+                        <div id="mapplic1"></div>
+        			</div>
                 </div>'
 
 
@@ -171,14 +183,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '<div class="flatNos">{{count}}</div>
+        template : '<div class="box pull-left">{{count}}</div>
+                    <div class="box">{{count}}</div>
                             </div>'
 
         className : 'text-center'
 
 
         events:
-            'click .flatNos':(e)->
+            'click .box':(e)->
                 param = {}
                 param['name'] = @model.get 'range'
                 rangeModel = App.currentStore.range.findWhere(param)
@@ -252,6 +265,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         initialize :->
             @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
+
+        onShow :->
+            $("#unit-region section").addClass "vs-current" if $("#unit-region section").length < 2
+            return
 
 
 

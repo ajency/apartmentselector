@@ -12,7 +12,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoLayout.prototype.template = '<div class="text-center introTxt">We have <span class="bold text-primary"> {{unitsCount }} options</span> for {{selection}} </div> <div class="text-center subTxt m-b-10">Just select your floors to get started</div> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="row m-r-0 m-l-0"> <div class="col-sm-7 p-l-0 p-r-0"> <div class="towerTable"> <div class="tableHeader"> <ul> <li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li> </ul> </div> <div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> </div> <div class="col-sm-5 hidden-xs"> <h3 class="bold m-t-0">Climb leg make muffins or sweet</h3> <p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p> </div><div id="mapplic1"></div> </div>';
+    ScreenTwoLayout.prototype.template = '<div class="text-center introTxt">We have <span class="bold text-primary"> {{unitsCount }} options</span> for {{selection}} </div> <div class="text-center subTxt m-b-10">Just select your floors to get started</div> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="row m-r-0 m-l-0"> <div class="col-sm-7 p-l-0 p-r-0"> <div class="towerTable"> <div class="tableHeader"> <ul> <li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li> </ul> </div> <div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header" id="building-region"></header> <div class="subHeader"> <div class="row"> <div class="col-xs-5"> FLOOR<br>BLOCK </div> <div class="col-xs-7 text-right"> NO. OF UNITS OF<br>YOUR SELECTION </div> </div> </div> <div id="unit-region"></div> </div> </div> </div> </div> <div class="col-sm-5 hidden-xs"> <h3 class="bold m-t-0">Climb leg make muffins or sweet</h3> <p>Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs.</p> <div id="mapplic1"></div> </div> </div>';
 
     ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
@@ -113,12 +113,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<div class="flatNos">{{count}}</div> </div>';
+    UnitViewChildView.prototype.template = '<div class="box pull-left">{{count}}</div> <div class="box">{{count}}</div> </div>';
 
     UnitViewChildView.prototype.className = 'text-center';
 
     UnitViewChildView.prototype.events = {
-      'click .flatNos': function(e) {
+      'click .box': function(e) {
         var end, i, param, rangeArray, rangeModel, rangeString, start;
         param = {};
         param['name'] = this.model.get('range');
@@ -173,6 +173,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitView.prototype.initialize = function() {
       this.collection = this.model.get('units');
       return this.$el.prop("id", 'tower' + this.model.get("buildingid"));
+    };
+
+    UnitView.prototype.onShow = function() {
+      if ($("#unit-region section").length < 2) {
+        $("#unit-region section").addClass("vs-current");
+      }
     };
 
     return UnitView;
