@@ -97,7 +97,8 @@ define [ 'marionette' ], ( Marionette )->
     class childViewUnit extends Marionette.ItemView
 
         template : '<div id="check{{id}}" class="check" >
-        												{{name}}
+
+       <input type="hidden" id="flag{{id}}"    name="flag{{id}}" value="0"/>     												{{name}}
         												<div class="small">{{unitTypeName}} {{unitVariantName}} SQF</div>
         											</div>
 
@@ -151,22 +152,24 @@ define [ 'marionette' ], ( Marionette )->
             console.log flag
             if flag==1 && @model.get('status') == 9
                 $('#check'+@model.get("id")).addClass 'box filtered'
+                $('#flag'+@model.get("id")).val '1'
             else if flag==1 &&  @model.get('status') == 8
                 $('#check'+@model.get("id")).addClass 'box sold'
-                flag_set = 1
+
             else
                 $('#check'+@model.get("id")).addClass 'box other'
                 $('#check'+@model.get("id")).text @model.get 'unitTypeName'
-                flag_set =1
+
 
         events:
             'click .check':(e)->
+                console.log $('#flag'+@model.get("id"))
                 App.unit['name'] = @model.get("id")
                 App.floorFilter['name'] = App.defaults['floor']
                 App.defaults['floor'] = @model.get("floor")
                 App.backFilter['screen3'].push 'floor'
                 App.building['name'] = parseInt(@model.get 'building')
-                if flag_set == 0
+                if parseInt($('#flag'+@model.get("id")).val()) == 1
                     @trigger 'unit:item:selected'
 
 

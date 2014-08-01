@@ -28,16 +28,24 @@ define [ 'marionette' ], ( Marionette )->
             $("li").removeClass 'cs-selected'
             $(".cs-placeholder").text('Undecided')
 
-
+            $('a' ).removeClass 'selected'
+            for element , index in unitType
+                if parseInt($("#check"+@model.get 'id').val()) != parseInt($("#check"+element).val())
+                    $("#check"+@model.get 'id').val '0'
+            console.log $("#check"+@model.get 'id').val()
             if  parseInt($("#check"+@model.get 'id').val()) == 0
                 unitType.push @model.get 'id'
+                App.backFilter['screen1'].push 'unitType'
+                $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
                 $("#check"+@model.get 'id').val "1"
             else
-                index = unitType.indexOf( @model.get 'id' )
-
-                unitType.splice( index, 1 )
+                unitType=[]
+                App.backFilter['screen1'] = []
+                #index = unitType.indexOf( @model.get 'id' )
+                App.backFilter['screen1'] = []
+                #unitType.splice( index, 1 )
                 $("#check"+@model.get 'id').val "0"
-            if unitType.length == 0
+            if parseInt($("#check"+@model.get 'id').val()) == 0
                 $("#finalButton").addClass 'disabled btn-default'
                 $("#finalButton").removeClass 'btn-primary'
                 return false
@@ -45,7 +53,6 @@ define [ 'marionette' ], ( Marionette )->
             unitTypeString = unitType.join(',')
             App.defaults['unitType'] = unitTypeString
             console.log App.backFilter['screen1']
-            App.backFilter['screen1'].push 'unitType'
             console.log App.backFilter['screen1']
 
             App.screenOneFilter['value'] = unitTypeString
