@@ -171,7 +171,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               templateArr.push(key.get('name'));
             }
             if (index === 'budget') {
-              budget_Val = value + 'lakhs';
+              budget_Val = value;
               templateArr.push(budget_Val);
             }
             if (index === 'floor') {

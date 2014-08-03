@@ -36,6 +36,10 @@ define(['marionette'], function(Marionette) {
         console.log($("#check" + element).val());
         if (parseInt(element) === parseInt(this.model.get('id'))) {
           $("#check" + this.model.get('id')).val('1');
+        } else {
+          $("#check" + element).val('0');
+          unitType = [];
+          App.backFilter['screen1'] = [];
         }
       }
       console.log($("#check" + this.model.get('id')).val());
@@ -46,7 +50,6 @@ define(['marionette'], function(Marionette) {
         $("#check" + this.model.get('id')).val("1");
       } else {
         unitType = [];
-        App.backFilter['screen1'] = [];
         App.backFilter['screen1'] = [];
         $("#check" + this.model.get('id')).val("0");
       }
@@ -94,9 +97,9 @@ define(['marionette'], function(Marionette) {
             budget_price[1] = budget_price[1] + '00000';
             budget_price = budget_price.join('-');
           }
-          App.defaults['budget'] = budget_price;
+          App.defaults['budget'] = $(".cs-selected").text();
           App.backFilter['screen1'].push('budget');
-          App.screenOneFilter['value'] = budget_price;
+          App.screenOneFilter['value'] = $(".cs-selected").text();
           App.screenOneFilter['key'] = 'budget';
         } else {
           App.defaults['budget'] = 'All';

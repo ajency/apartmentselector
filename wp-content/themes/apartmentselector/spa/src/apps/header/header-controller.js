@@ -96,7 +96,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
               templateArr.push(key.get('name'));
             }
             if (index === 'budget') {
-              budget_Val = value + 'lakhs';
+              budget_Val = value;
               templateArr.push(budget_Val);
             }
             if (index === 'floor') {

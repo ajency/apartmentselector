@@ -6,7 +6,12 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
         initialize :()->
             @Collection = @_getUnits()
 
-            @layout = new ScreenThreeView.ScreenThreeLayout()
+            @layout = new ScreenThreeView.ScreenThreeLayout(
+
+                templateHelpers:
+                    selection :@Collection[2]
+
+            )
 
 
             @listenTo @layout, "show", @showViews
@@ -61,7 +66,80 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             unitArray = []
             unitsArray = []
             buildingArrayModel = []
+            templateArr = []
+            param = {}
+            paramkey = {}
+            flag = 0
+
             units = App.currentStore.unit
+            $.each(App.Cloneddefaults, (index,value)->
+                if(value !='All')
+                    param[index] = value
+                    string_val = _.isString(value)
+                    valuearr = ""
+                    if string_val == true
+                        valuearr = value.split(',')
+                    if valuearr.length > 1
+                        for element  in valuearr
+                            if index == 'unitType'
+                                key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
+                                templateArr.push key.get 'name'
+                            if index == 'unitVariant'
+                                key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
+                                templateArr.push key.get 'name'
+                            if index == 'building'
+                                key = App.currentStore.building.findWhere({id:parseInt(element)})
+                                templateArr.push key.get 'name'
+                            if index == 'budget'
+                                budget_Val = value+'lakhs'
+                                templateArr.push budget_Val
+                            if index == 'floor'
+                                templateArr.push value
+                                flag = 1
+                    else
+                        if index == 'unitType'
+                            key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
+                            templateArr.push key.get 'name'
+                        if index == 'unitVariant'
+                            key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
+                            templateArr.push key.get 'name'
+                        if index == 'building'
+                            key = App.currentStore.building.findWhere({id:parseInt(value)})
+                            templateArr.push key.get 'name'
+                        if index == 'budget'
+                            budget_Val = value
+                            templateArr.push budget_Val
+                        if index == 'floor'
+                            templateArr.push value
+                            flag = 1
+
+
+
+
+            )
+            if templateArr.length == 0
+                templateArr.push 'All'
+            if(flag==1)
+                first = _.first(templateArr)
+                buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                lowUnits = App.currentStore.range.findWhere({name:'low'})
+                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                    range = 'LOWRISE'+',' +buildingModel.get('name')
+
+
+
+                mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                    range = 'MIDRISE'+',' +buildingModel.get('name')
+
+
+                highUnits = App.currentStore.range.findWhere({name:'high'})
+                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                    range = 'HIGHRISE'+',' +buildingModel.get('name')
+                templateString = range
+            else
+                templateString  = templateArr.join(',')
+
             units.each (item)->
                 if buildingArray.indexOf(item.get 'building') ==  -1
                     buildingArray.push item.get 'building'
@@ -140,7 +218,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             newunitCollection = new Backbone.Collection(unitArray)
-            [buildingCollection,newunitCollection]
+            [buildingCollection,newunitCollection,templateString]
 
 
 

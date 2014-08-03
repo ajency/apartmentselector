@@ -17,7 +17,11 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     ScreenThreeController.prototype.initialize = function() {
       this.Collection = this._getUnits();
-      this.layout = new ScreenThreeView.ScreenThreeLayout();
+      this.layout = new ScreenThreeView.ScreenThreeLayout({
+        templateHelpers: {
+          selection: this.Collection[2]
+        }
+      });
       this.listenTo(this.layout, "show", this.showViews);
       return this.show(this.layout);
     };
@@ -62,19 +66,126 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var buildingArray, buildingArrayModel, buildingCollection, element, index, newunitCollection, temp, temp1, unitArray, units, unitsArray, _i, _len;
+      var buildingArray, buildingArrayModel, buildingCollection, buildingModel, element, first, flag, highUnits, index, lowUnits, mediumUnits, newunitCollection, param, paramkey, range, temp, temp1, templateArr, templateString, unitArray, units, unitsArray, _i, _len;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
       buildingArrayModel = [];
+      templateArr = [];
+      param = {};
+      paramkey = {};
+      flag = 0;
       units = App.currentStore.unit;
+      $.each(App.Cloneddefaults, function(index, value) {
+        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+        if (value !== 'All') {
+          param[index] = value;
+          string_val = _.isString(value);
+          valuearr = "";
+          if (string_val === true) {
+            valuearr = value.split(',');
+          }
+          if (valuearr.length > 1) {
+            _results = [];
+            for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
+              element = valuearr[_i];
+              if (index === 'unitType') {
+                key = App.currentStore.unit_type.findWhere({
+                  id: parseInt(element)
+                });
+                templateArr.push(key.get('name'));
+              }
+              if (index === 'unitVariant') {
+                key = App.currentStore.unit_variant.findWhere({
+                  id: parseInt(element)
+                });
+                templateArr.push(key.get('name'));
+              }
+              if (index === 'building') {
+                key = App.currentStore.building.findWhere({
+                  id: parseInt(element)
+                });
+                templateArr.push(key.get('name'));
+              }
+              if (index === 'budget') {
+                budget_Val = value + 'lakhs';
+                templateArr.push(budget_Val);
+              }
+              if (index === 'floor') {
+                templateArr.push(value);
+                _results.push(flag = 1);
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          } else {
+            if (index === 'unitType') {
+              key = App.currentStore.unit_type.findWhere({
+                id: parseInt(value)
+              });
+              templateArr.push(key.get('name'));
+            }
+            if (index === 'unitVariant') {
+              key = App.currentStore.unit_variant.findWhere({
+                id: parseInt(value)
+              });
+              templateArr.push(key.get('name'));
+            }
+            if (index === 'building') {
+              key = App.currentStore.building.findWhere({
+                id: parseInt(value)
+              });
+              templateArr.push(key.get('name'));
+            }
+            if (index === 'budget') {
+              budget_Val = value;
+              templateArr.push(budget_Val);
+            }
+            if (index === 'floor') {
+              templateArr.push(value);
+              return flag = 1;
+            }
+          }
+        }
+      });
+      if (templateArr.length === 0) {
+        templateArr.push('All');
+      }
+      if (flag === 1) {
+        first = _.first(templateArr);
+        buildingModel = App.currentStore.building.findWhere({
+          id: App.building['name']
+        });
+        lowUnits = App.currentStore.range.findWhere({
+          name: 'low'
+        });
+        if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+          range = 'LOWRISE' + ',' + buildingModel.get('name');
+        }
+        mediumUnits = App.currentStore.range.findWhere({
+          name: 'medium'
+        });
+        if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+          range = 'MIDRISE' + ',' + buildingModel.get('name');
+        }
+        highUnits = App.currentStore.range.findWhere({
+          name: 'high'
+        });
+        if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+          range = 'HIGHRISE' + ',' + buildingModel.get('name');
+        }
+        templateString = range;
+      } else {
+        templateString = templateArr.join(',');
+      }
       units.each(function(item) {
         if (buildingArray.indexOf(item.get('building')) === -1) {
           return buildingArray.push(item.get('building'));
         }
       });
       $.each(buildingArray, function(index, value) {
-        var buildingModel, buildingid, floorArray, floorCountArray, unitCollection, unitsCollection;
+        var buildingid, floorArray, floorCountArray, unitCollection, unitsCollection;
         buildingid = value;
         floorArray = [];
         floorCountArray = [];
@@ -151,7 +262,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       }
       buildingCollection = new Backbone.Collection(buildingArrayModel);
       newunitCollection = new Backbone.Collection(unitArray);
-      return [buildingCollection, newunitCollection];
+      return [buildingCollection, newunitCollection, templateString];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {

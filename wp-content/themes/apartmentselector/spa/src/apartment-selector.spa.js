@@ -85,7 +85,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     param_arr = params.split('&');
     budgetUnitArray = [];
     $.each(param_arr, function(index, value) {
-      var attribute, budget_arr, collection, param_val, param_val_arr, paramkey, value_arr;
+      var attribute, budget_arr, budget_val, collection, param_val, param_val_arr, paramkey, value_arr;
       value_arr = value.split('=');
       attribute = {};
       attribute[param_key] = param_key;
@@ -107,11 +107,15 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
           });
         });
       } else if (param_val_arr.length === 1) {
-        budget_arr = param_val_arr[0].split('-');
-        console.log(budget_arr.length);
+        budget_val = param_val_arr[0].split(' ');
+        if (budget_val[1] === 'lakhs') {
+          budget_arr = budget_val[0].split('-');
+          budget_arr[0] = budget_arr[0] + '00000';
+          budget_arr[1] = budget_arr[1] + '00000';
+        }
         if (param_val_arr[0].toUpperCase() === 'ALL') {
           collection = App.currentStore.unit.toArray();
-        } else if (budget_arr.length > 1) {
+        } else if (budget_val.length > 1) {
           units = App.currentStore.unit;
           units.each(function(item) {
             var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;

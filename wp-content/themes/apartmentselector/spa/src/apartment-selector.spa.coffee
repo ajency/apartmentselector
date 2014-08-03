@@ -136,11 +136,14 @@ require [ 'plugin-loader'
 
                 )
             else if param_val_arr.length ==  1
-                budget_arr = param_val_arr[0].split('-')
-                console.log budget_arr.length
+                budget_val = param_val_arr[0].split(' ')
+                if(budget_val[1]=='lakhs')
+                    budget_arr = budget_val[0].split('-')
+                    budget_arr[0] = budget_arr[0] + ('00000')
+                    budget_arr[1] = budget_arr[1]+ ('00000')
                 if param_val_arr[0].toUpperCase() == 'ALL'
                     collection =  App.currentStore.unit.toArray()
-                else if budget_arr.length>1
+                else if budget_val.length>1
                     units = App.currentStore.unit
                     units.each (item)->
                         buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})

@@ -56,7 +56,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                             key = App.currentStore.building.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
                         if index == 'budget'
-                            budget_Val = value+'lakhs'
+                            budget_Val = value
                             templateArr.push budget_Val
                         if index == 'floor'
                             templateArr.push value

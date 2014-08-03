@@ -34,6 +34,11 @@ define [ 'marionette' ], ( Marionette )->
                 console.log $("#check"+element).val()
                 if parseInt(element) == parseInt(@model.get('id'))
                     $("#check"+@model.get 'id').val '1'
+                else
+                    $("#check"+element).val '0'
+                    unitType = []
+                    App.backFilter['screen1'] = []
+
             console.log $("#check"+@model.get 'id').val()
             if  parseInt($("#check"+@model.get 'id').val()) == 0
                 unitType.push @model.get 'id'
@@ -44,7 +49,6 @@ define [ 'marionette' ], ( Marionette )->
                 unitType=[]
                 App.backFilter['screen1'] = []
                 #index = unitType.indexOf( @model.get 'id' )
-                App.backFilter['screen1'] = []
                 #unitType.splice( index, 1 )
                 $("#check"+@model.get 'id').val "0"
             if parseInt($("#check"+@model.get 'id').val()) == 0
@@ -95,9 +99,9 @@ define [ 'marionette' ], ( Marionette )->
                         budget_price[0] = budget_price[0] + ('00000')
                         budget_price[1] = budget_price[1]+ ('00000')
                         budget_price = budget_price.join('-')
-                    App.defaults['budget'] = budget_price
+                    App.defaults['budget'] = $(".cs-selected").text()
                     App.backFilter['screen1'].push 'budget'
-                    App.screenOneFilter['value'] = budget_price
+                    App.screenOneFilter['value'] = $(".cs-selected").text()
                     App.screenOneFilter['key'] = 'budget'
                 else
                     App.defaults['budget'] = 'All'
