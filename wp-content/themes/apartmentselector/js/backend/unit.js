@@ -152,6 +152,7 @@ $(document).on("change", "#floor", function(e) {
                 // initialize zebra striping and filter widgets
                 widgets : ["zebra", "filter", "stickyHeaders", "uitheme"],
                 widgetOptions : {
+                    stickyHeaders_attachTo :'.wrapper', 
                     // Use the $.tablesorter.storage utility to save the most recent filters
                     filter_saveFilters : true,
                     // jQuery selector string of an element used to reset the filters

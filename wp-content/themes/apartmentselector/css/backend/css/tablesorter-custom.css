@@ -740,7 +740,7 @@ body .ui-tooltip {
 }
 .ui-widget-content {
     border: 1px solid #ddd;
-    background: #f2f5f7 url("images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x;
+    background: #ffffff url("images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x;
     color: #362b36;
 }
 .ui-widget-content a {
@@ -790,6 +790,14 @@ body .ui-tooltip {
 }
 .tablesorter-headerDesc i.tablesorter-headerDesc {
     background-image: url(../img/white-desc.gif);
+
+    /* wrapper of table 2 */
+.wrapper {
+  position: relative;
+  padding: 0 5px;
+  height: 250px;
+  overflow-y: auto;
+}
 }
  
  
