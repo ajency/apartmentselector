@@ -142,7 +142,11 @@ $(document).on("change", "#floor", function(e) {
             $(".tablesorter").tablesorter({
                 theme : 'jui',
                 sortList: [[0,0]] ,
-                headerTemplate : '{content}{icon}',
+                   headerTemplate: '<span>{content}</span>' +
+            '<div class="arrows">' +
+                '<i class="tablesorter-headerAsc"></i>' +
+                '<i class="tablesorter-headerDesc"></i>' +
+            '</div>',
                 // hidden filter input/selects will resize the columns, so try to minimize the change
                 widthFixed : true,
                 // initialize zebra striping and filter widgets
