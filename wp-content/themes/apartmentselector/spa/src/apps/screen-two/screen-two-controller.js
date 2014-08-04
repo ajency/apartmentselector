@@ -239,6 +239,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       flag = 0;
       flag1 = 0;
+      if (App.defaults['unitType'] !== 'All') {
+        mainunitsTypeArray = [];
+      }
       $.each(mainunitsTypeArray, function(key, item) {
         var count;
         if (!lunique[item.id]) {
