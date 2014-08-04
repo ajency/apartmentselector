@@ -53,7 +53,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
 
-            priceRange = ['10-35 lakhs ','35-45 lakhs ','45-55 lakhs ']
+            priceRange = ['10-35 lakhs ','35-45 lakhs ','45-55 lakhs ','55-65 lakhs ']
             priceArray = []
             rangeArray = []
             units = App.currentStore.unit.where({'status':status.get('id')})
@@ -94,6 +94,14 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
 
+            )
+            priceArray.sort( (a,b) ->
+                a = a.split(' ')
+                budget_pricea = a[0].split('-')
+                b = b.split(' ')
+                budget_priceb = b[0].split('-')
+
+                budget_pricea[0] - budget_priceb[0]
             )
             priceArray = _.uniq(priceArray)
             for element in priceArray

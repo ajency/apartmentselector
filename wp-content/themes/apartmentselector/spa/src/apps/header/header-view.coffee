@@ -17,6 +17,7 @@ define [ 'marionette' ], ( Mariontte )->
         events:
             'click .text-white':(e)->
                 if window.location.href.indexOf('screen-three') > -1
+                    App.backFilter['screen3'] = []
                     screentwoArray  = App.backFilter['screen2']
                     for element in screentwoArray
                         key = App.defaults.hasOwnProperty(element)
@@ -67,6 +68,7 @@ define [ 'marionette' ], ( Mariontte )->
 
 
                 else
+                    App.backFilter['screen2'] = []
                     screenoneArray  = App.backFilter['screen1']
                     for element in screenoneArray
                         key = App.defaults.hasOwnProperty(element)
