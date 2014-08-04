@@ -52,7 +52,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     };
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
-      var unitCollection, units, unitsArray;
+      var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
       units = App.currentStore.unit.where({
         building: App.building['name']
       });
@@ -72,7 +72,34 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         value.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
         return value.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
       });
+      units.sort(function(a, b) {
+        return a.get('id') - b.get('id');
+      });
+      modelIdArr = [];
+      modelArr = [];
+      ModelActualArr = [];
+      $.each(units, function(index, value) {
+        return modelIdArr.push(value.get('id'));
+      });
+      index = _.indexOf(modelIdArr, App.unit['name']);
+      highLength = modelIdArr.length - index;
+      i = index;
+      while (i < modelIdArr.length) {
+        modelArr.push(modelIdArr[i]);
+        i++;
+      }
+      j = 0;
+      while (j < index) {
+        modelArr.push(modelIdArr[j]);
+        j++;
+      }
+      console.log(modelArr);
       unitCollection = new Backbone.Collection(units);
+      $.each(modelArr, function(index, value) {
+        return ModelActualArr.push(unitCollection.get(value));
+      });
+      console.log(ModelActualArr);
+      unitCollection = new Backbone.Collection(ModelActualArr);
       return unitCollection;
     };
 
