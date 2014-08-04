@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="text-center"> <h3 class="text-white m-t-15 selearr">{{textString}}</h3> </div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="text-center"> <h3 class="text-white m-t-15">{{textString}}</h3> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 

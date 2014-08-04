@@ -5603,6 +5603,9 @@ Version:        0.1.0
 body {
   background-color: #ffffff;
 }
+.header.navbar {
+  position: static;
+}
 .header.navbar h3 {
   text-align: left;
   font-size: 15px;
@@ -5614,6 +5617,18 @@ body {
 }
 .navbar-inverse {
   background: #f28428;
+}
+.backBtn {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+}
+.backBtn a {
+  width: 60px;
+  text-align: center;
+  display: block;
+  padding: 20px 0;
+  background-color: #da6a0d;
 }
 .page-container {
   padding: 0 5px;
@@ -5962,21 +5977,6 @@ body {
 }
 .pick-up-schedule ul li.month:hover h5 {
   background: #f28428;
-}
-.header {
-  position: static;
-}
-.backBtn {
-  position: absolute;
-  left: 0;
-  cursor: pointer;
-}
-.backBtn a {
-  width: 60px;
-  text-align: center;
-  display: block;
-  padding: 20px 0;
-  background-color: #da6a0d;
 }
 .legend .threeBHK,
 .legend .twoBHK,

@@ -4,11 +4,11 @@ define [ 'marionette' ], ( Mariontte )->
     class HeaderView extends Marionette.ItemView
 
         template : '<div class="backBtn {{textClass}}">
-        			<a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
-        		</div>
-        <div class="text-center">
-        			<h3 class="text-white m-t-15 selearr">{{textString}}</h3>
-        		</div>'
+                        <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
+        		    </div>
+                    <div class="text-center">
+                        <h3 class="text-white m-t-15">{{textString}}</h3>
+                    </div>'
 
         className : "header navbar navbar-inverse"
 
