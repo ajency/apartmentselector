@@ -62,9 +62,15 @@ $(document).on("change", "#floor", function(e) {
         }, function(response) {
                 
             flats_html = "";
-             $.each(response, function(i, val) {
+            if(response.flats.length <=response.created_flats){
+                flats_html +='<div class="col-md-12"><i>No Flats Available</i></div>';
+            }else{
+                 $.each(response.flats, function(i, val) {
                flats_html += '<div class="col-md-6"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">'+val.flat_no+'<br><img src="'+val.image_url+'" class="image_display"></div>';
             });
+            }
+            
+            
 
              $("#flat_container").html('<div class="row-fluid" > <div class="row">'+flats_html+'</div></div>');
         
