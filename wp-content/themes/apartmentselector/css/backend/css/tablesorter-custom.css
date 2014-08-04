@@ -740,7 +740,7 @@ body .ui-tooltip {
 }
 .ui-widget-content {
     border: 1px solid #ddd;
-    background: #f2f5f7 url("images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x;
+    background: #ffffff url("images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x;
     color: #362b36;
 }
 .ui-widget-content a {
@@ -754,6 +754,50 @@ body .ui-tooltip {
 }
 .ui-widget-header a {
     color: #222;
+}
+
+.tablesorter .tablesorter-header {
+    background-image: none;
+    cursor: default;
+}
+.tablesorter-header span, .tablesorter .arrows {
+    cursor: pointer;
+}
+.tablesorter-header .arrows {
+    position: relative;
+    float: right;
+}
+.tablesorter-header div.arrows i {
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.tablesorter-header i.tablesorter-headerAsc {
+    top: -5px;
+    background-image: url(../img/black-asc.gif);
+}
+.tablesorter-header i.tablesorter-headerDesc {
+    top: 5px;
+    background-image: url(../img/black-desc.gif);
+}
+.tablesorter-headerAsc i.tablesorter-headerAsc {
+    background-image: url(../img/white-asc.gif);
+}
+.tablesorter-headerDesc i.tablesorter-headerDesc {
+    background-image: url(../img/white-desc.gif);
+
+    /* wrapper of table 2 */
+.wrapper {
+  position: relative;
+  padding: 0 5px;
+  height: 250px;
+  overflow-y: auto;
+}
 }
  
  

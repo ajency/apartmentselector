@@ -142,12 +142,17 @@ $(document).on("change", "#floor", function(e) {
             $(".tablesorter").tablesorter({
                 theme : 'jui',
                 sortList: [[0,0]] ,
-                headerTemplate : '{content}{icon}',
+                   headerTemplate: '<span>{content}</span>' +
+            '<div class="arrows">' +
+                '<i class="tablesorter-headerAsc"></i>' +
+                '<i class="tablesorter-headerDesc"></i>' +
+            '</div>',
                 // hidden filter input/selects will resize the columns, so try to minimize the change
                 widthFixed : true,
                 // initialize zebra striping and filter widgets
                 widgets : ["zebra", "filter", "stickyHeaders", "uitheme"],
                 widgetOptions : {
+                    stickyHeaders_attachTo :'.wrapper', 
                     // Use the $.tablesorter.storage utility to save the most recent filters
                     filter_saveFilters : true,
                     // jQuery selector string of an element used to reset the filters

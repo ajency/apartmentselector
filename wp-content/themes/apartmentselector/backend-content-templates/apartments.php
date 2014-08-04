@@ -10,15 +10,24 @@
                             <div class="grid simple ">
 
                                 <div class="grid-body ">
-                                    <table class="table table-hover table-condensed tablesorter" id="example">
+                                    <table class="table table-hover table-condensed tablesorter" id="example" >
                                         <thead>
+                                          <tr>
+                                          <th style="visibility:hidden"> </th>
+                                        </tr>
+                                           <tr>
+                                          <th style="visibility:hidden"> </th>
+                                        </tr>
+                                           <tr>
+                                          <th style="visibility:hidden"> </th>
+                                        </tr> 
                                         <tr>
                                           <th style="width:10%">Flat No</th>
-                                            <th style="width:20%" class="filter-select" data-placeholder="All" >Status</th>
-                                            <th style="width:20%"  class="filter-select" data-placeholder="All">Unit Type</th>
-                                            <th style="width:20%"  class="filter-select" data-placeholder="All">Unit Variant</th>
-                                            <th style="width:20" class="filter-select"  data-placeholder="All" >Building</th>
-                                            <th style="width:10%">Floor</th>
+                                            <th style="width:20%" class="filter-select filter-onlyAvail" data-placeholder="All" >Status</th>
+                                            <th style="width:20%"  class="filter-select filter-onlyAvail" data-placeholder="All">Unit Type</th>
+                                            <th style="width:20%"  class="filter-select filter-onlyAvail" data-placeholder="All">Unit Variant</th>
+                                            <th style="width:20" class="filter-select filter-onlyAvail"  data-placeholder="All" >Building</th>
+                                            <th style="width:10%" class="filter-onlyAvail" >Floor</th>
                                             <th style="width:10%" class="filter-false">Actions</th>
                                         </tr>
                                         </thead>
@@ -26,6 +35,8 @@
                                          <tr><td>loading..............</td></tr>
                                         </tbody>
                                     </table>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>
