@@ -142,6 +142,7 @@ $(document).on("change", "#floor", function(e) {
             $(".tablesorter").tablesorter({
                 theme : 'jui',
                 sortList: [[0,0]] ,
+                
                    headerTemplate: '<span>{content}</span>' +
             '<div class="arrows">' +
                 '<i class="tablesorter-headerAsc"></i>' +
