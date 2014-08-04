@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
 
         });
     });
-
+ 
 //on chnage of building load the no of floors in the building
      $(document).on("change", "#building", function(e) {
 
@@ -156,7 +156,7 @@ $(document).on("change", "#floor", function(e) {
                     // Use the $.tablesorter.storage utility to save the most recent filters
                     filter_saveFilters : true,
                     // jQuery selector string of an element used to reset the filters
-                    filter_reset : 'button.reset',
+                    filter_reset : '.reset-filters',
                     // add custom selector elements to the filter row
                     filter_formatter : {
 
@@ -182,6 +182,8 @@ $(document).on("change", "#floor", function(e) {
 
                 }
             });
+
+            $(".reset-filters").trigger('click');
 
     }
 
