@@ -195,6 +195,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
             flag = 0
             flag1 = 0
+            if App.defaults['unitType'] != 'All'
+                mainunitsTypeArray = []
+
             $.each(mainunitsTypeArray, (key,item)->
                 if (!lunique[item.id])
                     lunitTypeArray = []
