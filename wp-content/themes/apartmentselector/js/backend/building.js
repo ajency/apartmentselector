@@ -314,7 +314,11 @@ function addException(exception_no){
             $(".tablesorter").tablesorter({
                 theme : 'jui',
                 sortList: [[0,0]],
-                headerTemplate : '{content}{icon}',
+                     headerTemplate: '<span>{content}</span>' +
+                        '<div class="arrows">' +
+                            '<i class="tablesorter-headerAsc"></i>' +
+                            '<i class="tablesorter-headerDesc"></i>' +
+                        '</div>',
                 // hidden filter input/selects will resize the columns, so try to minimize the change
                 widthFixed : true,
                 // initialize zebra striping and filter widgets
@@ -323,7 +327,7 @@ function addException(exception_no){
                     // Use the $.tablesorter.storage utility to save the most recent filters
                     filter_saveFilters : true,
                     // jQuery selector string of an element used to reset the filters
-                    filter_reset : 'button.reset',
+                    filter_reset : '.reset-filters',
                     // add custom selector elements to the filter row
                     filter_formatter : {
 
@@ -348,6 +352,8 @@ function addException(exception_no){
 
                 }
             });
+
+        $(".reset-filters").trigger('click');
 
     }
 

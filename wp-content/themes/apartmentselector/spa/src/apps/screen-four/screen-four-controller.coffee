@@ -66,12 +66,41 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
             )
+            units.sort( (a,b) ->
+                a.get('id') - b.get('id')
+            )
+            modelIdArr = []
+            modelArr = []
+            ModelActualArr = []
+            $.each(units, (index,value)->
+                modelIdArr.push(value.get('id'))
+
+            )
+            index = _.indexOf(modelIdArr, App.unit['name'])
+            highLength = modelIdArr.length - index
+            i = index
+            while(i<modelIdArr.length)
+                modelArr.push(modelIdArr[i])
+                i++
+            j= 0
+            while(j<index)
+                modelArr.push(modelIdArr[j])
+                j++
+            console.log modelArr
+
+
 
 
 
 
 
             unitCollection = new Backbone.Collection(units)
+            $.each(modelArr, (index,value)->
+                ModelActualArr.push(unitCollection.get(value))
+
+            )
+            console.log ModelActualArr
+            unitCollection = new Backbone.Collection(ModelActualArr)
             unitCollection
 
 

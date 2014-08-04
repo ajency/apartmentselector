@@ -19,7 +19,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       this.Collection = this._getUnits();
       this.layout = new ScreenThreeView.ScreenThreeLayout({
         templateHelpers: {
-          selection: this.Collection[2]
+          selection: this.Collection[2],
+          countUnits: this.Collection[3]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
@@ -66,7 +67,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var buildingArray, buildingArrayModel, buildingCollection, buildingModel, element, first, flag, highUnits, index, lowUnits, mediumUnits, newunitCollection, param, paramkey, range, temp, temp1, templateArr, templateString, unitArray, units, unitsArray, _i, _len;
+      var buildingArray, buildingArrayModel, buildingCollection, buildingModel, countUnits, element, first, flag, floorUnitsArray, highUnits, index, key, lowUnits, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, temp, temp1, templateArr, templateString, unitArray, units, unitsArray, unitslen, _i, _j, _len, _len1, _ref;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -75,6 +76,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       param = {};
       paramkey = {};
       flag = 0;
+      floorUnitsArray = [];
       units = App.currentStore.unit;
       $.each(App.Cloneddefaults, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
@@ -179,6 +181,79 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       } else {
         templateString = templateArr.join(',');
       }
+      myArray = [];
+      countUnits = 0;
+      console.log(App.defaults);
+      _ref = App.backFilter['screen1'];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        element = _ref[_i];
+        key = App.Cloneddefaults.hasOwnProperty(element);
+        if (key === true) {
+          myArray.push({
+            key: element,
+            value: App.Cloneddefaults[element]
+          });
+        }
+      }
+      status = App.currentStore.status.findWhere({
+        'name': 'Available'
+      });
+      buildingModel = App.currentStore.building.findWhere({
+        id: App.building['name']
+      });
+      if (buildingModel !== void 0) {
+        unitslen = App.currentStore.unit.where({
+          'status': status.get('id'),
+          'building': App.building['name']
+        });
+      } else {
+        unitslen = App.currentStore.unit.where({
+          'status': status.get('id')
+        });
+      }
+      if (myArray.length === 0) {
+        countUnits = unitslen.length;
+      }
+      $.each(unitslen, function(index, value1) {
+        var floorArray, floorstring;
+        if (App.defaults['floor'] !== 'All') {
+          floorstring = App.defaults['floor'];
+          floorArray = floorstring.split(',');
+          return $.each(floorArray, function(index, value) {
+            if (value1.get('floor') === parseInt(value)) {
+              return floorUnitsArray.push(value1);
+            }
+          });
+        }
+      });
+      $.each(floorUnitsArray, function(index, value1) {
+        return $.each(myArray, function(index, value) {
+          var budget_price, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+          paramKey = {};
+          if (value.key === 'budget') {
+            buildingModel = App.currentStore.building.findWhere({
+              'id': value1.get('building')
+            });
+            floorRise = buildingModel.get('floorrise');
+            floorRiseValue = floorRise[value1.get('floor')];
+            unitVariantmodel = App.currentStore.unit_variant.findWhere({
+              'id': value1.get('unitVariant')
+            });
+            console.log(unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea')));
+            budget_price = value.value.split('-');
+            console.log(budget_price[0] = budget_price[0]);
+            console.log(budget_price[1] = budget_price[1]);
+            if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+              return countUnits++;
+            }
+          } else {
+            if (value1.get(value.key) === parseInt(value.value)) {
+              return countUnits++;
+            }
+          }
+        });
+      });
+      console.log(countUnits);
       units.each(function(item) {
         if (buildingArray.indexOf(item.get('building')) === -1) {
           return buildingArray.push(item.get('building'));
@@ -215,7 +290,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             building: buildingid
           });
           floorunits.sort(function(a, b) {
-            console.log(a.get('id'));
             return a.get('id') - b.get('id');
           });
           floorCollection = new Backbone.Collection(floorunits);
@@ -249,7 +323,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       temp = [];
       temp1 = [];
-      for (index = _i = 0, _len = unitArray.length; _i < _len; index = ++_i) {
+      for (index = _j = 0, _len1 = unitArray.length; _j < _len1; index = ++_j) {
         element = unitArray[index];
         if (unitArray[index].buildingid === App.building['name']) {
           temp[0] = unitArray[0];
@@ -262,7 +336,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       }
       buildingCollection = new Backbone.Collection(buildingArrayModel);
       newunitCollection = new Backbone.Collection(unitArray);
-      return [buildingCollection, newunitCollection, templateString];
+      return [buildingCollection, newunitCollection, templateString, countUnits];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {

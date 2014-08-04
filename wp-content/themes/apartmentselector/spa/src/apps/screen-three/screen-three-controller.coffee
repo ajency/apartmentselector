@@ -10,6 +10,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 templateHelpers:
                     selection :@Collection[2]
+                    countUnits : @Collection[3]
 
             )
 
@@ -70,7 +71,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             param = {}
             paramkey = {}
             flag = 0
-
+            floorUnitsArray = []
             units = App.currentStore.unit
             $.each(App.Cloneddefaults, (index,value)->
                 if(value !='All')
@@ -140,6 +141,68 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             else
                 templateString  = templateArr.join(',')
 
+
+            myArray = []
+            countUnits = 0
+            console.log App.defaults
+            for element in App.backFilter['screen1']
+                key = App.Cloneddefaults.hasOwnProperty(element)
+                if key == true
+                    myArray.push({key:element,value: App.Cloneddefaults[element]})
+            status = App.currentStore.status.findWhere({'name':'Available'})
+            buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+            if buildingModel != undefined
+                unitslen = App.currentStore.unit.where({'status':status.get('id'),'building':App.building['name']})
+            else
+                unitslen = App.currentStore.unit.where({'status':status.get('id')})
+
+            if myArray.length == 0
+                countUnits = unitslen.length
+
+            $.each(unitslen, (index,value1)->
+
+                if App.defaults['floor'] !='All'
+                    floorstring = App.defaults['floor']
+                    floorArray  = floorstring.split(',')
+                    $.each(floorArray, (index,value)->
+                        if value1.get('floor') == parseInt(value)
+                            floorUnitsArray.push(value1)
+
+
+
+
+                    )
+            )
+            $.each(floorUnitsArray, (index,value1)->
+
+                $.each(myArray, (index,value)->
+                    paramKey = {}
+
+                    if value.key == 'budget'
+                        buildingModel = App.currentStore.building.findWhere({'id':value1.get 'building'})
+                        floorRise = buildingModel.get 'floorrise'
+                        floorRiseValue = floorRise[value1.get 'floor']
+                        unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':value1.get 'unitVariant'})
+                        console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        budget_price = value.value.split('-')
+                        console.log budget_price[0] = budget_price[0]
+                        console.log budget_price[1] = budget_price[1]
+                        if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                            countUnits++
+                    else
+
+
+                        if value1.get(value.key) == parseInt(value.value)
+                            countUnits++
+
+                )
+
+
+
+
+            )
+            console.log countUnits
+
             units.each (item)->
                 if buildingArray.indexOf(item.get 'building') ==  -1
                     buildingArray.push item.get 'building'
@@ -169,7 +232,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                     floorunits = App.currentStore.unit.where({floor:value,building:buildingid})
                     floorunits.sort( (a,b) ->
-                        console.log a.get('id')
                         a.get('id') - b.get('id')
                     )
                     floorCollection = new Backbone.Collection(floorunits)
@@ -218,7 +280,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             newunitCollection = new Backbone.Collection(unitArray)
-            [buildingCollection,newunitCollection,templateString]
+            [buildingCollection,newunitCollection,templateString,countUnits]
 
 
 

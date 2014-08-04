@@ -19,6 +19,7 @@ define(['marionette'], function(Mariontte) {
       'click .text-white': function(e) {
         var element, key, params, screenoneArray, screenthreeArray, screentwoArray, _i, _j, _k, _len, _len1, _len2;
         if (window.location.href.indexOf('screen-three') > -1) {
+          App.backFilter['screen3'] = [];
           screentwoArray = App.backFilter['screen2'];
           for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
             element = screentwoArray[_i];
@@ -62,6 +63,7 @@ define(['marionette'], function(Mariontte) {
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
         } else {
+          App.backFilter['screen2'] = [];
           screenoneArray = App.backFilter['screen1'];
           for (_k = 0, _len2 = screenoneArray.length; _k < _len2; _k++) {
             element = screenoneArray[_k];

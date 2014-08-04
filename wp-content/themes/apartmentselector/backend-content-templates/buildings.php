@@ -12,16 +12,27 @@
                                     <table class="table table-hover table-condensed tablesorter" id="example">
                                         <thead>
                                         <tr>
+                                          <th style="visibility:hidden"> </th>
+                                        </tr>
+                                           <tr>
+                                          <th style="visibility:hidden"> </th>
+                                        </tr>
+                                           <tr>
+                                          <th style="visibility:hidden"> </th>
+                                        </tr> 
+                                        <tr>
                                           <th style="width:10%">Name</th>
-                                            <th style="width:20%" class="filter-select" data-placeholder="All" >Phase</th>
+                                            <th style="width:20%" class="filter-select filter-onlyAvail" data-placeholder="All" >Phase</th>
                                             
-                                            <th style="width:10%" class="filter-false">Action</th>
+                                            <th style="width:10%" class="filter-false sorter-false">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                          <tr><td>loading..............</td></tr>
                                         </tbody>
                                     </table>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>

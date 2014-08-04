@@ -12,7 +12,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">25 </span> <strong>{{selection}}</strong> apartments in the Highrise floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the Highrise floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -125,7 +125,7 @@ define(['marionette'], function(Marionette) {
       flag = 0;
       object = this;
       $.each(myArray, function(index, value) {
-        var budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
         paramKey = {};
         if (value.key === 'budget') {
           buildingModel = App.currentStore.building.findWhere({
@@ -137,9 +137,10 @@ define(['marionette'], function(Marionette) {
             'id': object.model.get('unitVariant')
           });
           console.log(unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea')));
-          budget_price = value.value.split('-');
-          console.log(budget_price[0] = budget_price[0]);
-          console.log(budget_price[1] = budget_price[1]);
+          budget_arr = value.value.split(' ');
+          budget_price = budget_arr[0].split('-');
+          console.log(budget_price[0] = budget_price[0] + '00000');
+          console.log(budget_price[1] = budget_price[1] + '00000');
           if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
             return flag = 1;
           }
@@ -154,6 +155,7 @@ define(['marionette'], function(Marionette) {
         flag = 1;
       }
       console.log(flag);
+      console.log(this.model.get('status'));
       if (flag === 1 && this.model.get('status') === 9) {
         $('#check' + this.model.get("id")).addClass('box filtered');
         return $('#flag' + this.model.get("id")).val('1');
