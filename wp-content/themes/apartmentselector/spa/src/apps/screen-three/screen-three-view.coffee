@@ -176,8 +176,6 @@ define [ 'marionette' ], ( Marionette )->
             'click .check':(e)->
                 console.log $('#flag'+@model.get("id"))
                 App.unit['name'] = @model.get("id")
-                App.floorFilter['name'] = App.defaults['floor']
-                App.defaults['floor'] = @model.get("floor")
                 App.backFilter['screen3'].push 'floor'
                 if parseInt($('#flag'+@model.get("id")).val()) == 1
                     @trigger 'unit:item:selected'

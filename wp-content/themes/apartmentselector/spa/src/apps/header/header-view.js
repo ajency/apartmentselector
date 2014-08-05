@@ -49,7 +49,7 @@ define(['marionette'], function(Mariontte) {
             element = screenthreeArray[_j];
             key = App.defaults.hasOwnProperty(element);
             if (key === true) {
-              App.defaults[element] = App.floorFilter['name'];
+              App.defaults[element] = App.defaults['floor'];
             }
           }
           console.log(App.defaults);

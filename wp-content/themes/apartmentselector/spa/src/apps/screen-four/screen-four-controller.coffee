@@ -51,7 +51,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
         _getSelelctedUnit:->
 
-            units = App.currentStore.unit.where({building:App.defaults['building']})
+            units = App.currentStore.unit.where({id:App.unit['name']})
             unitsArray = App.currentStore.unit.toArray()
             $.each(units, (index,value)->
 

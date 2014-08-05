@@ -50,7 +50,7 @@ define [ 'marionette' ], ( Mariontte )->
                     for element in screenthreeArray
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
-                            App.defaults[element] = App.floorFilter['name']
+                            App.defaults[element] = App.defaults['floor']
                     console.log App.defaults
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS

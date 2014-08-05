@@ -54,7 +54,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
       units = App.currentStore.unit.where({
-        building: App.defaults['building']
+        id: App.unit['name']
       });
       unitsArray = App.currentStore.unit.toArray();
       $.each(units, function(index, value) {

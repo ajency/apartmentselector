@@ -177,8 +177,6 @@ define(['marionette'], function(Marionette) {
       'click .check': function(e) {
         console.log($('#flag' + this.model.get("id")));
         App.unit['name'] = this.model.get("id");
-        App.floorFilter['name'] = App.defaults['floor'];
-        App.defaults['floor'] = this.model.get("floor");
         App.backFilter['screen3'].push('floor');
         if (parseInt($('#flag' + this.model.get("id")).val()) === 1) {
           return this.trigger('unit:item:selected');
