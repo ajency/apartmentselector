@@ -72,7 +72,7 @@ define(['marionette'], function(Marionette) {
         App.defaults['building'] = this.model.get('id');
         App.filter(params = {});
         msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-        return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
+        return this.trigger('building:link:selected');
       }
     };
 
@@ -111,7 +111,7 @@ define(['marionette'], function(Marionette) {
     };
 
     childViewUnit.prototype.onShow = function() {
-      var flag, myArray, object;
+      var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -124,8 +124,9 @@ define(['marionette'], function(Marionette) {
       console.log(myArray);
       flag = 0;
       object = this;
+      track = 0;
       $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, floorArray, floorRise, floorRiseValue, key, paramKey, unitPrice, unitVariantmodel;
+        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
         paramKey = {};
         if (value.key === 'budget') {
           buildingModel = App.master.building.findWhere({
@@ -142,34 +143,29 @@ define(['marionette'], function(Marionette) {
           console.log(budget_price[0] = budget_price[0] + '00000');
           console.log(budget_price[1] = budget_price[1] + '00000');
           if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
-            return flag = 1;
+            return flag++;
           }
-        } else if (value.key === 'floor') {
-          floorArray = value.value.split(',');
-          key = _.contains(floorArray, object.model.get('floor'));
-          if (key === true) {
-            return flag = 2;
-          }
-        } else {
+        } else if (value.key !== 'floor') {
           console.log(value.key);
           console.log(value.value);
           if (object.model.get(value.key) === parseInt(value.value)) {
-            return console.log(flag = 1);
-          } else {
-            return flag = 0;
+            return console.log(flag++);
           }
         }
       });
+      if (flag === myArray.length - 1) {
+        track = 1;
+      }
       console.log(flag);
       if (myArray.length === 0) {
-        flag = 1;
+        track = 1;
       }
       console.log(this.model.get('unitType'));
       console.log(this.model.get('name'));
-      if (flag === 1 && this.model.get('status') === 9) {
+      if (track === 1 && this.model.get('status') === 9) {
         $('#check' + this.model.get("id")).addClass('box filtered');
         return $('#flag' + this.model.get("id")).val('1');
-      } else if (flag === 1 && this.model.get('status') === 8) {
+      } else if (track === 1 && this.model.get('status') === 8) {
         return $('#check' + this.model.get("id")).addClass('box sold');
       } else {
         $('#check' + this.model.get("id")).addClass('box other');

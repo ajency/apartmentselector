@@ -8,7 +8,7 @@ define [ 'marionette' ], ( Mariontte )->
         		    </div>
                     <div class="text-center">
                         <!--<h3 class="text-white m-t-15 ">{{textString}}</h3>-->
-                        <h3 class="text-white m-t-15 "><span class="slctnTxt">Your selection:</span> 20-35Lakhs | Highrise | Tower 2 > 1204 </h3>
+                        <h3 class="text-white m-t-15 "><span class="slctnTxt">Your selection:</span> {{textString}} </h3>
                     </div>'
 
         className : "header navbar navbar-inverse"
@@ -104,6 +104,8 @@ define [ 'marionette' ], ( Mariontte )->
 
             else
                 $('.backBtn').addClass 'hidden'
+                $('.slctnTxt').addClass 'hidden'
+
                 
 
 

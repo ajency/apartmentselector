@@ -83,9 +83,8 @@ define [ 'marionette' ], ( Marionette )->
                 msgbus.showApp 'header'
                 .insideRegion  App.headerRegion
                     .withOptions()
-                msgbus.showApp 'screen:three'
-                .insideRegion  App.mainRegion
-                    .withOptions()
+                @trigger 'building:link:selected'
+
 
 
     class UnitTypeChildView extends Marionette.CompositeView
@@ -128,6 +127,7 @@ define [ 'marionette' ], ( Marionette )->
             console.log myArray
             flag = 0
             object = @
+            track = 0
             $.each(myArray, (index,value)->
                 paramKey = {}
                 if value.key == 'budget'
@@ -141,34 +141,30 @@ define [ 'marionette' ], ( Marionette )->
                     console.log budget_price[0] = budget_price[0]+'00000'
                     console.log budget_price[1] = budget_price[1]+'00000'
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
-                        flag = 1
-                else if value.key == 'floor'
-                    floorArray =  value.value.split(',')
-                    key = _.contains(floorArray, object.model.get('floor'))
-                    if key == true
-                        flag = 2
-                else
+                        flag++
+                else if value.key != 'floor'
 
                     console.log value.key
                     console.log value.value
                     if object.model.get(value.key) == parseInt(value.value)
-                       console.log  flag=1
-                    else
-                        flag = 0
+                       console.log  flag++
+
 
             )
+            if flag == myArray.length - 1
+                track =1
 
 
 
             console.log flag
             if myArray.length == 0
-                flag = 1
+                track = 1
             console.log @model.get('unitType')
             console.log @model.get('name')
-            if flag==1 && @model.get('status') == 9
+            if track==1 && @model.get('status') == 9
                 $('#check'+@model.get("id")).addClass 'box filtered'
                 $('#flag'+@model.get("id")).val '1'
-            else if flag==1 &&  @model.get('status') == 8
+            else if track==1 &&  @model.get('status') == 8
                 $('#check'+@model.get("id")).addClass 'box sold'
 
             else

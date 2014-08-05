@@ -39,7 +39,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {
       var itemview1;
       itemview1 = this.getView(buildingCollection);
-      return this.layout.buildingRegion.show(itemview1);
+      this.layout.buildingRegion.show(itemview1);
+      return this.listenTo(itemview1, 'childview:building:link:selected', this._getUnits);
     };
 
     ScreenThreeController.prototype.showUnitRegion = function(unitCollection) {

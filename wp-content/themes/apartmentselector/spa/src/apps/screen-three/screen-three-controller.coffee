@@ -34,6 +34,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
         showBuildingRegion:(buildingCollection)->
             itemview1 = @getView buildingCollection
             @layout.buildingRegion.show itemview1
+            @listenTo itemview1, 'childview:building:link:selected', @_getUnits
 
 
 

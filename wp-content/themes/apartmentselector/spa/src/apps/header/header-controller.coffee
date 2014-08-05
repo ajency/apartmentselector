@@ -84,9 +84,6 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
 
             )
-            textClass = "hidden"
-            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
-                textClass = ""
             console.log templateArr
             if templateArr.length == 0
                 templateArr.push 'All'
@@ -114,6 +111,13 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
             else
                 templateString  = templateArr.join('|')
+
+            textClass = "hidden"
+            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+                textClass = ""
+            else
+                templateString = "Apartment Selector"
+
 
             [templateString,textClass]
 
