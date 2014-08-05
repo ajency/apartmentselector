@@ -51,16 +51,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'click a':(e)->
-                console.log e
+                console.log $('a').attr('href');
                 e.preventDefault()
 
+
+
             'click .remodalcheck':(e)->
-                console.log e
+                console.log @
                 #App.navigate "modal"
                 e.preventDefault()
                 msgbus.showApp 'popup'
                 .insideRegion  App.mainRegion
                 .withOptions()
+
+            'click .im-pin':(e)->
+                console.log "click"
 
 
 
@@ -69,6 +74,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            console.log points = Marionette.getOption( @, 'buildingColl' )
 
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
@@ -133,8 +139,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 #m.initial($(selector),params)
                 m.showLocation(id, 800)
-                #locationData = m.getLocationData(id);
-                #m.showTooltip(locationData);
+                locationData = m.getLocationData(id);
+                m.showTooltip(locationData);
                 #App.navigate "tower"+@model.get('id') , trigger:true
 
 

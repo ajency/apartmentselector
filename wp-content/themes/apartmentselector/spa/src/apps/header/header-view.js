@@ -91,7 +91,8 @@ define(['marionette'], function(Mariontte) {
 
       } else {
         $('.backBtn').addClass('hidden');
-        return $('.slctnTxt').addClass('hidden');
+        $('.slctnTxt').addClass('hidden');
+        return $('h3').addClass('step1');
       }
     };
 

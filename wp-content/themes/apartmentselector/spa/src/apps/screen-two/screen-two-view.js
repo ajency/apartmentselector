@@ -23,18 +23,22 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.events = {
       'click a': function(e) {
-        console.log(e);
+        console.log($('a').attr('href'));
         return e.preventDefault();
       },
       'click .remodalcheck': function(e) {
-        console.log(e);
+        console.log(this);
         e.preventDefault();
         return msgbus.showApp('popup').insideRegion(App.mainRegion).withOptions();
+      },
+      'click .im-pin': function(e) {
+        return console.log("click");
       }
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, i, params, scr, selector;
+      var ajaxurl, i, params, points, scr, selector;
+      console.log(points = Marionette.getOption(this, 'buildingColl'));
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
       document.body.appendChild(scr);
@@ -72,12 +76,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     BuildingView.prototype.events = {
       'click .link': function() {
-        var i, id, params, selector;
+        var i, id, locationData, params, selector;
         id = 'tower' + this.model.get('id');
         i = 1;
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
-        return m.showLocation(id, 800);
+        m.showLocation(id, 800);
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
       }
     };
 
