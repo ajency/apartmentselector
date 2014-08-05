@@ -11,43 +11,30 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 <span class={{classname}}>.</span>{{name}}
         {{/unittypes}}
         		</div>
-                <div class="row m-r-0 m-l-0">
-        			<div class="col-sm-7 p-l-0 p-r-0">
-                        <div class="towerTable">
-                            <div class="tableHeader">
-                				<ul>
-                					<li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
-                					<li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
-                					<li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
-                				</ul>
-                		    </div>
-                            <div class="tableBody">
-                				<div id="vs-container2" class="vs-container">
-                				    <header class="vs-header" id="building-region"></header>
+                <div>
+                    <div class="towerTable">
+                        <div class="tableHeader">
+            				<ul>
+            					<li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
+            					<li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
+            					<li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
+            				</ul>
+            		    </div>
+                        <div class="tableBody">
+            				<div id="vs-container2" class="vs-container">
+            				    <header class="vs-header" id="building-region"></header>
 
-                                    <div class="subHeader">
-                                        <div class="row">
-                                            <div class="col-xs-5">
-                                                FLOOR<br>BLOCK
-                                            </div>
-                                            <div class="col-xs-7 text-right">
-                                                NO. OF UNITS OF<br>YOUR SELECTION
-                                            </div>
-                                        </div>
-                                    </div>
 
-                				    <div id="unit-region"></div>
-                                </div>
+            				    <div id="unit-region"></div>
                             </div>
                         </div>
-
                     </div>
+                </div>
 
-                    <div class="col-sm-5 hidden-xs">
-        				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
-        				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                        <div id="mapplic1"></div>
-        			</div>
+                <div class="m-t-40 p-l-15 p-r-15 text-center">
+    				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
+    				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
+                    <div id="mapplic1"></div>
                 </div>'
 
 
@@ -182,7 +169,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '<div class="box {{classname}} pull-left">{{count}}</div>
+        template : '<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>
                     <div class="box {{classname}}">{{count}}</div>
                             </div>'
 
@@ -229,22 +216,43 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitView extends Marionette.CompositeView
 
-        template : '<div class="vs-content"></div><div class="towerDetails">
+        template : '<div class="vs-content">
+                        <div class="row">
+                            <div class="col-sm-6 towerUnits">
+                                <div class="subHeader">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            FLOOR<br>BLOCK
+                                        </div>
+                                        <div class="col-xs-7 text-right">
+                                            NO. OF UNITS OF<br>YOUR SELECTION
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="towerUnits psuedoUnits"></div>
+                                <div class="towerDetails">
+                                    <div class="row">
 
-        										<div class="row">
-        											{{#unittypes}}         		<div class="col-xs-4">
-                							<h1><small>Total {{name}}</small><br>{{count}}</h1>
-                						    </div>
-        {{/unittypes}}
-        										</div>
-        										<div class="row">
-        											<div class="col-sm-12 m-t-10">
-        												<div class="col">
-        													<p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-        												</div>
-        											</div>
-        										</div>
-        									</div>'
+                                        {{#unittypes}}
+                                        <div class="col-xs-6">
+                                           <h1><small>Total {{name}}</small><br>{{count}}</h1>
+                                        </div>
+                                        {{/unittypes}}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 m-t-10">
+                                            <div class="col">
+                                                <p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>'
 
 
 
@@ -255,7 +263,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         childView : UnitViewChildView
 
 
-        childViewContainer : '.vs-content'
+        childViewContainer : '.towerUnits'
 
 
 
