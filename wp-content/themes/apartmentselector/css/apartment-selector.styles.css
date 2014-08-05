@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+/** apartmentselector Less file. Include all of your files here **/
 /* jQuery Modal
  * Copyright 2014 Kevin Sylvestre
  * 1.1.6
@@ -252,7 +253,7 @@ body {
   background-color: #1b1e24;
   color: #6f7b8a;
   font-family: 'Lato';
-  font-size: 13px;
+  font-size: 14px;
   padding: 0px !important;
   margin: 0px !important;
   line-height: 1.5;
@@ -1822,7 +1823,7 @@ blockquote.pull-right small:after {
   font-weight: normal;
 }
 .semi-bold {
-  font-weight: 600;
+  font-weight: 500;
 }
 .bold {
   font-weight: bold;
@@ -3631,13 +3632,13 @@ div.cs-skin-underline {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-weight: 700;
-	font-size: 1.3em;
+	font-size: 1em;
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
 }
 
 .vs-nav li.vs-nav-current a{
-	font-size: 2em;
+	font-size: 1.5em;
 }
 
 .vs-nav li a:hover,
@@ -4692,10 +4693,10 @@ svg a {
 	height: 120px;
 }
 /*
-Theme Name:     skyi Dashboard
+Theme Name:     Skyi Apartment Selector
 Theme URI:      http://ajency.in/
-Description:    Layout for skyi
-Author:         amit for Ajency.in
+Description:    Apartment Selector
+Author:         Jeromie for Ajency.in
 Author URI:     http://ajency.in/
 Template:       skyi
 Version:        0.1.0
@@ -4992,7 +4993,8 @@ Version:        0.1.0
 }
 .subTxt {
   font-size: 20px;
-  margin-top: 20px;
+  max-width: 700px;
+  margin: 20px auto 10px;
   font-weight: 500;
 }
 @media (min-width: 481px) {
@@ -5072,6 +5074,9 @@ Version:        0.1.0
 }
 .vs-nav .vs-nav-current a {
   color: #f28428;
+}
+.vs-triplelayout .vs-wrapper > section {
+  padding-bottom: 50px;
 }
 .flatNos {
   padding: 8px 15px 15px;
@@ -5289,12 +5294,12 @@ Version:        0.1.0
   display: none;
 }
 @media (max-width: 767px) {
-  .towerPopup h1 {
+  .towerRange h1 {
     font-size: 25px;
     line-height: 32px;
     margin-top: 30px;
   }
-  .towerPopup h1 small {
+  .towerRange h1 small {
     font-size: 50%;
   }
 }
@@ -5364,6 +5369,7 @@ Version:        0.1.0
 .box.other {
   opacity: 0.2;
   cursor: default;
+  line-height: 53px;
 }
 .box.sold {
   color: #c3c6ce;
@@ -5594,6 +5600,12 @@ Version:        0.1.0
     transform: translateX(3px);
   }
 }
+/**** No Units Styles ****/
+.noUnits {
+  text-align: center;
+  font-size: 22px;
+  padding-right: 14.66667%;
+}
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
   border-top: 1px solid #d1d3d9;
@@ -5650,7 +5662,7 @@ body {
   width: 60px;
   text-align: center;
   display: block;
-  padding: 20px 0;
+  padding: 20px 0 19px;
   background-color: #da6a0d;
 }
 .page-container {
@@ -6015,4 +6027,3 @@ body {
   color: #0090d9;
 }
 
-/** apartmentselector Less file. Include all of your files here **/
