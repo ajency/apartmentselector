@@ -97,7 +97,7 @@ body {
   background-color: #1b1e24;
   color: #6f7b8a;
   font-family: 'Lato';
-  font-size: 13px;
+  font-size: 14px;
   padding: 0px !important;
   margin: 0px !important;
   line-height: 1.5;
@@ -1667,7 +1667,7 @@ blockquote.pull-right small:after {
   font-weight: normal;
 }
 .semi-bold {
-  font-weight: 600;
+  font-weight: 500;
 }
 .bold {
   font-weight: bold;

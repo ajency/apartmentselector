@@ -10,6 +10,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @layout = new ScreenTwoView.ScreenTwoLayout(
                 collection:@Collection[1]
+                buildingColl : @Collection[0]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]

@@ -18,6 +18,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.Collection = this._getUnitsCountCollection();
       this.layout = new ScreenTwoView.ScreenTwoLayout({
         collection: this.Collection[1],
+        buildingColl: this.Collection[0],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],

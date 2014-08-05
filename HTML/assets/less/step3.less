@@ -34,6 +34,7 @@
 	&.other{
 		opacity: 0.2;
 		cursor: default;
+		line-height: 53px;
 	}
 	&.sold{
 		color: lighten(@color-grey, 20%);
@@ -117,7 +118,9 @@
 		-webkit-overflow-scrolling: touch;
 	}
 	.cd-table-wrapper {
-		width: 1365px;
+		// width: 1365px;
+		width: 100%;
+		white-space: nowrap;
 		padding-left: 120px;
 	}
 	// .cd-table-column {
@@ -131,7 +134,8 @@
 	.cd-table-row{
 		.cd-block{
 			width: 140px;
-			float: left;
+			// float: left;
+			display: inline-block;
 			text-align: center;
 			margin-left: -1px;
 			line-height: 20px;
@@ -307,4 +311,12 @@
     -o-transform: translateX(3px);
     transform: translateX(3px);
   }
+}
+
+
+/**** No Units Styles ****/
+.noUnits{
+	text-align: center;
+	font-size: 22px;
+	padding-right: 14.66667%;
 }
