@@ -5095,7 +5095,7 @@ Version:        0.1.0
   width: 126px;
   position: absolute;
   left: 11%;
-  top: 118px;
+  top: 165px;
   z-index: 999;
 }
 .towerTable .tableHeader ul {
@@ -5121,6 +5121,7 @@ Version:        0.1.0
 @media (max-width: 767px) {
   .towerTable .tableHeader {
     left: 0;
+    top: 145px;
     width: 48%;
   }
   .towerTable .tableHeader ul > li {
@@ -5135,19 +5136,11 @@ Version:        0.1.0
 .towerTable .tableBody .vs-header {
   padding: 0 0 10px;
 }
-.towerTable .tableBody .vs-header .vs-nav {
-  height: 35px;
-}
 .towerTable .tableBody .vs-header .vs-nav li {
   padding: 0;
 }
 .towerTable .tableBody .vs-header .vs-nav li a {
-  font-size: 12px;
-  padding: 0 0 5px;
   border-top: 0;
-}
-.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a {
-  font-size: 16px;
 }
 .towerTable .tableBody .vs-container {
   position: static;
@@ -5252,8 +5245,8 @@ Version:        0.1.0
 .towerTable .tableBody .vs-sidenav div {
   display: block;
   position: absolute;
-  top: 45px;
-  height: 90%;
+  top: 90px;
+  height: 84%;
   width: 10%;
 }
 @media (max-width: 767px) {
@@ -5448,12 +5441,13 @@ Version:        0.1.0
   -webkit-overflow-scrolling: touch;
 }
 .unitTable .cd-table-wrapper {
-  width: 1365px;
+  width: 100%;
+  white-space: nowrap;
   padding-left: 120px;
 }
 .unitTable .cd-table-row .cd-block {
   width: 140px;
-  float: left;
+  display: inline-block;
   text-align: center;
   margin-left: -1px;
   line-height: 20px;
