@@ -54,7 +54,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
       units = App.currentStore.unit.where({
-        building: App.building['name']
+        id: App.unit['name']
       });
       unitsArray = App.currentStore.unit.toArray();
       $.each(units, function(index, value) {
@@ -93,12 +93,10 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         modelArr.push(modelIdArr[j]);
         j++;
       }
-      console.log(modelArr);
       unitCollection = new Backbone.Collection(units);
       $.each(modelArr, function(index, value) {
         return ModelActualArr.push(unitCollection.get(value));
       });
-      console.log(ModelActualArr);
       unitCollection = new Backbone.Collection(ModelActualArr);
       return unitCollection;
     };

@@ -4,7 +4,7 @@ define [ 'marionette' ], ( Marionette )->
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
-        template : '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the Highrise floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div>
+        template : '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div>
                     <div id="vs-container" class="vs-container">
                     <header class="vs-header" id="building-region">
 
@@ -18,6 +18,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
         className : 'page-container row-fluid'
+
 
 
 
@@ -77,6 +78,13 @@ define [ 'marionette' ], ( Marionette )->
         events :
             'click .link' : ( e )->
                 $( '#tower'+@model.get 'id' ).removeClass 'hidden'
+                App.defaults['building'] = @model.get 'id'
+                App.filter(params={})
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                @trigger 'building:link:selected'
+
 
 
     class UnitTypeChildView extends Marionette.CompositeView
@@ -111,49 +119,52 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow :->
             myArray = []
-            console.log App.Cloneddefaults
-            console.log App.backFilter
-            for element in App.backFilter['screen1']
-                key = App.Cloneddefaults.hasOwnProperty(element)
-                if key == true
-                    myArray.push({key:element,value: App.Cloneddefaults[element]})
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    myArray.push({key:index,value:value})
+
+            )
             console.log myArray
             flag = 0
             object = @
+            track = 0
             $.each(myArray, (index,value)->
                 paramKey = {}
-
                 if value.key == 'budget'
-                    buildingModel = App.currentStore.building.findWhere({'id':object.model.get 'building'})
+                    buildingModel = App.master.building.findWhere({'id':object.model.get 'building'})
                     floorRise = buildingModel.get 'floorrise'
                     floorRiseValue = floorRise[object.model.get 'floor']
-                    unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':object.model.get 'unitVariant'})
+                    unitVariantmodel = App.master.unit_variant.findWhere({'id':object.model.get 'unitVariant'})
                     console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
                     budget_arr = value.value.split(' ')
                     budget_price = budget_arr[0].split('-')
                     console.log budget_price[0] = budget_price[0]+'00000'
                     console.log budget_price[1] = budget_price[1]+'00000'
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
-                        flag = 1
-                else
+                        flag++
+                else if value.key != 'floor'
 
-
+                    console.log value.key
+                    console.log value.value
                     if object.model.get(value.key) == parseInt(value.value)
-                       console.log  flag=1
+                       console.log  flag++
+
 
             )
+            if flag == myArray.length - 1
+                track =1
 
 
 
-            console.log myArray.length
-            if myArray.length == 0
-                flag = 1
             console.log flag
-            console.log @model.get('status')
-            if flag==1 && @model.get('status') == 9
+            if myArray.length == 0
+                track = 1
+            console.log @model.get('unitType')
+            console.log @model.get('name')
+            if track==1 && @model.get('status') == 9
                 $('#check'+@model.get("id")).addClass 'box filtered'
                 $('#flag'+@model.get("id")).val '1'
-            else if flag==1 &&  @model.get('status') == 8
+            else if track==1 &&  @model.get('status') == 8
                 $('#check'+@model.get("id")).addClass 'box sold'
 
             else
@@ -165,10 +176,7 @@ define [ 'marionette' ], ( Marionette )->
             'click .check':(e)->
                 console.log $('#flag'+@model.get("id"))
                 App.unit['name'] = @model.get("id")
-                App.floorFilter['name'] = App.defaults['floor']
-                App.defaults['floor'] = @model.get("floor")
                 App.backFilter['screen3'].push 'floor'
-                App.building['name'] = parseInt(@model.get 'building')
                 if parseInt($('#flag'+@model.get("id")).val()) == 1
                     @trigger 'unit:item:selected'
 
@@ -196,7 +204,9 @@ define [ 'marionette' ], ( Marionette )->
         initialize :->
             @collection = @model.get 'floorunits'
 
+    class emptyChildView extends Marionette.CompositeView
 
+        template : 'No units available for the current selection'
 
 
 
@@ -222,6 +232,8 @@ define [ 'marionette' ], ( Marionette )->
 
         childView : unitChildView
 
+        emptyView : emptyChildView
+
 
         tagName  : "section"
 
@@ -231,9 +243,12 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
+
         initialize :->
             @collection = @model.get 'units'
             @$el.prop("id", 'tower'+@model.get("buildingid"))
+
+
 
 
 

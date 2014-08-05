@@ -12,7 +12,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     filterRegion: '#filter-region',
     mainRegion: '#main-region'
   });
-  App.store = {
+  App.currentStore = {
     'unit': new Backbone.Collection(UNITS),
     'view': new Backbone.Collection(views),
     'building': new Backbone.Collection(BUILDINGS),
@@ -21,9 +21,14 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     'range': new Backbone.Collection(range),
     'status': new Backbone.Collection(STATUS)
   };
-  App.currentStore = App.store;
-  App.building = {
-    name: ''
+  App.master = {
+    'unit': new Backbone.Collection(UNITS),
+    'view': new Backbone.Collection(views),
+    'building': new Backbone.Collection(BUILDINGS),
+    'unit_variant': new Backbone.Collection(UNITVARIANTS),
+    'unit_type': new Backbone.Collection(UNITTYPES),
+    'range': new Backbone.Collection(range),
+    'status': new Backbone.Collection(STATUS)
   };
   App.unit = {
     name: ''
@@ -40,15 +45,9 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     'screen2': [],
     'screen3': []
   };
-  App.Cloneddefaults = {
-    "building": 'All',
-    "unitType": 'All',
-    "unitVariant": 'All',
-    'budget': 'All'
-  };
   App.defaults = {
-    "building": 'All',
     "unitType": 'All',
+    "building": 'All',
     "unitVariant": 'All',
     'floor': 'All',
     'view': 'All',
@@ -77,9 +76,9 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
           App.defaults[param_key[0]] = param_key[1];
         }
       }
-      params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
+      params = 'unitType=' + App.defaults['unitType'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
     } else {
-      params = 'building=' + App.defaults['building'] + '&unitType=' + App.defaults['unitType'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
+      params = 'unitType=' + App.defaults['unitType'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
     }
     console.log(App.defaults);
     param_arr = params.split('&');

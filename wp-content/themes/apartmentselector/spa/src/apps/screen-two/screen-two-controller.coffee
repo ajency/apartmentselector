@@ -195,9 +195,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
             flag = 0
             flag1 = 0
-            if App.defaults['unitType'] != 'All'
-                mainunitsTypeArray = []
-
             $.each(mainunitsTypeArray, (key,item)->
                 if (!lunique[item.id])
                     lunitTypeArray = []
@@ -309,7 +306,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
 
 
-
+            buildingUnits = []
             $.each(buildingArray, (index,value)->
                 buildingid = value
                 unitTypeArray = Array()
@@ -319,6 +316,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 status = App.currentStore.status.findWhere({'name':'Available'})
 
                 newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
+                buildingUnits.push({id:buildingid,count:newunits.length})
                 lowArray = Array()
                 mediumArray = Array()
                 highArray = Array()
@@ -427,12 +425,26 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
-                unitColl.push {buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),unittypes:newarr}
+                unitColl.push {id:buildingModel.get('id'),buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),unittypes:newarr}
                 buildingArrayModel.push(buildingModel)
 
             )
+            buildingUnits.sort( (a,b)->
+                b.count - a.count
+
+            )
+            buildingsactual = []
+            unitsactual = []
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             units = new Backbone.Collection(unitColl)
+            $.each(buildingUnits , (index,value)->
+                value = value.id
+                buildingsactual.push(buildingCollection.get(value))
+                unitsactual.push(units.get(value))
+            )
+            buildingCollection = new Backbone.Collection(buildingsactual)
+            units = new Backbone.Collection(unitsactual)
+
             if App.defaults['unitType'] != 'All'
                 mainnewarr = []
             [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr]

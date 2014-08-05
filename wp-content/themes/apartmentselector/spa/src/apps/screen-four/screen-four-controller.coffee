@@ -51,7 +51,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
         _getSelelctedUnit:->
 
-            units = App.currentStore.unit.where({building:App.building['name']})
+            units = App.currentStore.unit.where({id:App.unit['name']})
             unitsArray = App.currentStore.unit.toArray()
             $.each(units, (index,value)->
 
@@ -86,7 +86,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
             while(j<index)
                 modelArr.push(modelIdArr[j])
                 j++
-            console.log modelArr
 
 
 
@@ -99,7 +98,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 ModelActualArr.push(unitCollection.get(value))
 
             )
-            console.log ModelActualArr
             unitCollection = new Backbone.Collection(ModelActualArr)
             unitCollection
 

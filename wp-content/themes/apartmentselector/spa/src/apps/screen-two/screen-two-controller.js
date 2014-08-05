@@ -71,7 +71,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function() {
-      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, first, flag, flag1, hclassname, hcount, highUnits, hnewarr, hunique, hunitTypeArray, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units;
+      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, first, flag, flag1, hclassname, hcount, highUnits, hnewarr, hunique, hunitTypeArray, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units, unitsactual;
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -239,9 +239,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       flag = 0;
       flag1 = 0;
-      if (App.defaults['unitType'] !== 'All') {
-        mainunitsTypeArray = [];
-      }
       $.each(mainunitsTypeArray, function(key, item) {
         var count;
         if (!lunique[item.id]) {
@@ -402,6 +399,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return mainunique[item.id] = item;
         }
       });
+      buildingUnits = [];
       $.each(buildingArray, function(index, value) {
         var buildingid, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, unique, unitTypeArray;
         buildingid = value;
@@ -414,6 +412,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         newunits = App.currentStore.unit.where({
           'building': value,
           'status': status.get('id')
+        });
+        buildingUnits.push({
+          id: buildingid,
+          count: newunits.length
         });
         lowArray = Array();
         mediumArray = Array();
@@ -586,6 +588,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           id: value
         });
         unitColl.push({
+          id: buildingModel.get('id'),
           buildingname: buildingModel.get('name'),
           units: itemCollection,
           buildingid: buildingModel.get('id'),
@@ -593,8 +596,20 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         return buildingArrayModel.push(buildingModel);
       });
+      buildingUnits.sort(function(a, b) {
+        return b.count - a.count;
+      });
+      buildingsactual = [];
+      unitsactual = [];
       buildingCollection = new Backbone.Collection(buildingArrayModel);
       units = new Backbone.Collection(unitColl);
+      $.each(buildingUnits, function(index, value) {
+        value = value.id;
+        buildingsactual.push(buildingCollection.get(value));
+        return unitsactual.push(units.get(value));
+      });
+      buildingCollection = new Backbone.Collection(buildingsactual);
+      units = new Backbone.Collection(unitsactual);
       if (App.defaults['unitType'] !== 'All') {
         mainnewarr = [];
       }

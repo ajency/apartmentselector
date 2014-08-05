@@ -41,7 +41,7 @@ require [ 'plugin-loader'
 
 
 
-    App.store =
+    App.currentStore =
         'unit' : new Backbone.Collection UNITS
         'view' : new Backbone.Collection  views
         'building' : new Backbone.Collection  BUILDINGS
@@ -50,9 +50,15 @@ require [ 'plugin-loader'
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
 
-    App.currentStore = App.store
+    App.master =
+        'unit' : new Backbone.Collection UNITS
+        'view' : new Backbone.Collection  views
+        'building' : new Backbone.Collection  BUILDINGS
+        'unit_variant' : new Backbone.Collection  UNITVARIANTS
+        'unit_type' : new Backbone.Collection  UNITTYPES
+        'range': new Backbone.Collection  range
+        'status': new Backbone.Collection  STATUS
 
-    App.building = {name:''}
 
     App.unit = {name:''}
 
@@ -62,10 +68,7 @@ require [ 'plugin-loader'
 
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
 
-    App.Cloneddefaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','budget':'All'}
-
-
-    App.defaults = {"building" :'All' ,"unitType":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
+    App.defaults = {"unitType" :'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
 
 
 
@@ -92,7 +95,7 @@ require [ 'plugin-loader'
 
 
 
-            params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
+            params = 'unitType='+App.defaults['unitType']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
 
 
@@ -101,7 +104,7 @@ require [ 'plugin-loader'
         else
 
             #url doesnt contain any parameters take the value of the defaults
-            params = 'building='+App.defaults['building']+'&unitType='+App.defaults['unitType']+'&unitVariant='+App.defaults['unitVariant']+
+            params = 'unitType='+App.defaults['unitType']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
 
 
@@ -191,12 +194,12 @@ require [ 'plugin-loader'
         for element , index in uniqviews
             viewModel = App.currentStore.view.get element
             viewArray.push viewModel
-
         App.currentStore.building.reset buildingArray
         App.currentStore.unit_type.reset unittypeArray
         App.currentStore.unit_variant.reset unitvariantArray
         App.currentStore.view.reset viewArray
         App.currentStore.unit
+
 
 
     App.filterparam = (params={})->
