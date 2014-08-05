@@ -21,120 +21,101 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
         _getHeader:->
             templateArr = []
             flag = 0
-            $.each(App.defaults, (index,value)->
-                if(value !='All')
+            myArray = []
+            templateArr = []
+            param = {}
+            paramkey = {}
+            flag = 0
+            track = 0
+            trackArray = []
+            units = App.master.unit
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    myArray.push({key:index,value:value})
 
-                    string_val = _.isString(value)
+            )
+            $.each(myArray, (index,value)->
+                if(value.value !='All')
+                    console.log value.key
+                    param[value.key] = value.value
+                    string_val = _.isString(value.value)
                     valuearr = ""
                     if string_val == true
-                        valuearr = value.split(',')
+                        valuearr = value.value.split(',')
                     if valuearr.length > 1
                         for element  in valuearr
-                            if index == 'unitType'
-                                key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
+                            if value.key == 'unitType'
+                                key = App.master.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if index == 'unitVariant'
-                                key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
+                            if value.key == 'unitVariant'
+                                key = App.master.unit_variant.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if index == 'building'
-                                key = App.currentStore.building.findWhere({id:parseInt(element)})
+                            if value.key == 'building'
+                                key = App.master.building.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if index == 'budget'
-                                budget_Val = element+'lakhs'
+                            if value.key == 'budget'
+                                budget_Val = value+'lakhs'
                                 templateArr.push budget_Val
-                            if index == 'floor'
-                                templateArr.push element
+                            if value.key == 'floor'
+                                if track == 0
+                                    trackArray.push value.value
                                 flag = 1
+                                track = 1
                     else
-                        if index == 'unitType'
-                            key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
+                        if value.key == 'unitType'
+                            key = App.master.unit_type.findWhere({id:parseInt(value.value)})
                             templateArr.push key.get 'name'
-                        if index == 'unitVariant'
-                            key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
+                        if value.key == 'unitVariant'
+                            key = App.master.unit_variant.findWhere({id:parseInt(value.value)})
                             templateArr.push key.get 'name'
-                        if index == 'building'
-                            key = App.currentStore.building.findWhere({id:parseInt(value)})
+                        if value.key == 'building'
+                            key = App.master.building.findWhere({id:parseInt(value.value)})
                             templateArr.push key.get 'name'
-                        if index == 'budget'
-                            budget_Val = value
+                        if value.key == 'budget'
+                            budget_Val = value.value
                             templateArr.push budget_Val
-                        if index == 'floor'
-                            templateArr.push value
+                        if value.key == 'floor'
+                            if track == 0
+                                trackArray.push value.value
                             flag = 1
+                            track = 1
 
 
 
 
             )
-            templateString  = templateArr.join(',')
-            textString = ""
-            if window.location.href.indexOf('screen-two') > -1
-                if templateArr.length == 0
-                    templateArr.push 'All'
-                    templateString  = templateArr.join(',')
-                if flag==1
-                    first = _.first(templateArr)
-                    buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
-                    lowUnits = App.currentStore.range.findWhere({name:'low'})
-                    if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
-                        templateString = 'LOWRISE' +',' +buildingModel.get('name')
+            textClass = "hidden"
+            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+                textClass = ""
+            console.log templateArr
+            if templateArr.length == 0
+                templateArr.push 'All'
 
-
-
-                    mediumUnits = App.currentStore.range.findWhere({name:'medium'})
-                    if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
-                        templateString = 'MIDRISE' +',' +buildingModel.get('name')
-
-
-                    highUnits = App.currentStore.range.findWhere({name:'high'})
-                    if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
-                        templateString = 'HIGHRISE'+',' +buildingModel.get('name')
-
-                textString  = 'You have selected '+templateString
-                textClass = ''
-
-            else if window.location.href.indexOf('screen-three') > -1
-                first = _.first(templateArr)
-                mark = ''
-                range = "All"
-
-                console.log buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
-                if (buildingModel !=undefined)
-                    buildingText = buildingModel.get('name')
-                    mark = '>'
-                else
-                    buildingText = ""
-
-                lowUnits = App.currentStore.range.findWhere({name:'low'})
+            if(flag==1)
+                first = _.first(trackArray)
+                lowUnits = App.master.range.findWhere({name:'low'})
                 if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
                     range = 'LOWRISE'
+                    templateArr.push range
 
 
 
-                mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                mediumUnits = App.master.range.findWhere({name:'medium'})
                 if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
                     range = 'MIDRISE'
+                    templateArr.push range
 
 
-                highUnits = App.currentStore.range.findWhere({name:'high'})
+                highUnits = App.master.range.findWhere({name:'high'})
                 if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
                     range = 'HIGHRISE'
-                textString  = range+mark+buildingText
-                textClass = ''
-            else if window.location.href.indexOf('screen-four') > -1
-                filterstring = templateArr.join('<')
-                mark = '<'
-                buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
-                buildingText = buildingModel.get('name')
-                textString  = buildingText+mark+filterstring
-                textClass = ''
-
+                    templateArr.push range
+                templateString  = templateArr.join('|')
 
             else
-                textString  = 'Apartment Selector'
-                textClass = 'hidden'
-            console.log textString
-            [textString,textClass]
+                templateString  = templateArr.join('|')
+
+            [templateString,textClass]
 
 
 

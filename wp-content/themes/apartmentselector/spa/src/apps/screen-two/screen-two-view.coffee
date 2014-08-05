@@ -208,18 +208,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 App.defaults['floor'] = rangeString
                 App.backFilter['screen2'].push 'floor'
-                App.building['name'] = parseInt(@model.get 'buildingid')
-                App.Cloneddefaults['unitType'] = App.defaults['unitType']
-                App.Cloneddefaults['unitVariant'] = App.defaults['unitVariant']
-                App.Cloneddefaults['building'] = App.defaults['building']
-                App.Cloneddefaults['budget'] = App.defaults['budget']
-                App.defaults['unitType'] = 'All'
-                App.defaults['unitVariant'] = 'All'
-                App.defaults['building'] = 'All'
-                App.currentStore.unit.reset UNITS
-                App.currentStore.building.reset BUILDINGS
-                App.currentStore.unit_type.reset UNITTYPES
-                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.defaults['building'] = parseInt(@model.get 'buildingid')
+                App.backFilter['screen2'].push 'building'
                 @trigger 'unit:count:selected'
 
 

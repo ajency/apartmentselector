@@ -18,9 +18,11 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype.initialize = function() {
       this.Collection = this._getUnits();
       this.layout = new ScreenThreeView.ScreenThreeLayout({
+        countUnits: this.Collection[3],
         templateHelpers: {
           selection: this.Collection[2],
-          countUnits: this.Collection[3]
+          countUnits: this.Collection[3],
+          range: this.Collection[4]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
@@ -67,7 +69,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var buildingArray, buildingArrayModel, buildingCollection, buildingModel, countUnits, element, first, flag, floorUnitsArray, highUnits, index, key, lowUnits, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, temp, temp1, templateArr, templateString, unitArray, units, unitsArray, unitslen, _i, _j, _len, _len1, _ref;
+      var ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, i, index, j, lowUnits, mediumUnits, modelArr, modelIdArr, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, unitArray, units, unitsArray, unitsactual, unitslen;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -76,144 +78,141 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       param = {};
       paramkey = {};
       flag = 0;
+      track = 0;
+      trackArray = [];
       floorUnitsArray = [];
-      units = App.currentStore.unit;
-      $.each(App.Cloneddefaults, function(index, value) {
-        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+      myArray = [];
+      units = App.master.unit;
+      $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          param[index] = value;
-          string_val = _.isString(value);
+          return myArray.push({
+            key: index,
+            value: value
+          });
+        }
+      });
+      $.each(myArray, function(index, value) {
+        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+        if (value.value !== 'All') {
+          console.log(value.key);
+          param[value.key] = value.value;
+          string_val = _.isString(value.value);
           valuearr = "";
           if (string_val === true) {
-            valuearr = value.split(',');
+            valuearr = value.value.split(',');
           }
           if (valuearr.length > 1) {
             _results = [];
             for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
               element = valuearr[_i];
-              if (index === 'unitType') {
-                key = App.currentStore.unit_type.findWhere({
+              if (value.key === 'unitType') {
+                key = App.master.unit_type.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'unitVariant') {
-                key = App.currentStore.unit_variant.findWhere({
+              if (value.key === 'unitVariant') {
+                key = App.master.unit_variant.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'building') {
-                key = App.currentStore.building.findWhere({
+              if (value.key === 'building') {
+                key = App.master.building.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'budget') {
+              if (value.key === 'budget') {
                 budget_Val = value + 'lakhs';
                 templateArr.push(budget_Val);
               }
-              if (index === 'floor') {
-                templateArr.push(value);
-                _results.push(flag = 1);
+              if (value.key === 'floor') {
+                if (track === 0) {
+                  trackArray.push(value.value);
+                }
+                flag = 1;
+                _results.push(track = 1);
               } else {
                 _results.push(void 0);
               }
             }
             return _results;
           } else {
-            if (index === 'unitType') {
-              key = App.currentStore.unit_type.findWhere({
-                id: parseInt(value)
+            if (value.key === 'unitType') {
+              key = App.master.unit_type.findWhere({
+                id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
             }
-            if (index === 'unitVariant') {
-              key = App.currentStore.unit_variant.findWhere({
-                id: parseInt(value)
+            if (value.key === 'unitVariant') {
+              key = App.master.unit_variant.findWhere({
+                id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
             }
-            if (index === 'building') {
-              key = App.currentStore.building.findWhere({
-                id: parseInt(value)
+            if (value.key === 'building') {
+              key = App.master.building.findWhere({
+                id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
             }
-            if (index === 'budget') {
-              budget_Val = value;
+            if (value.key === 'budget') {
+              budget_Val = value.value;
               templateArr.push(budget_Val);
             }
-            if (index === 'floor') {
-              templateArr.push(value);
-              return flag = 1;
+            if (value.key === 'floor') {
+              if (track === 0) {
+                trackArray.push(value.value);
+              }
+              flag = 1;
+              return track = 1;
             }
           }
         }
       });
+      console.log(templateArr);
       if (templateArr.length === 0) {
         templateArr.push('All');
       }
       if (flag === 1) {
-        first = _.first(templateArr);
-        buildingModel = App.currentStore.building.findWhere({
-          id: App.building['name']
-        });
-        lowUnits = App.currentStore.range.findWhere({
+        first = _.first(trackArray);
+        lowUnits = App.master.range.findWhere({
           name: 'low'
         });
         if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
-          range = 'LOWRISE' + ',' + buildingModel.get('name');
+          range = 'LOWRISE';
+          templateArr.push(range);
         }
-        mediumUnits = App.currentStore.range.findWhere({
+        mediumUnits = App.master.range.findWhere({
           name: 'medium'
         });
         if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
-          range = 'MIDRISE' + ',' + buildingModel.get('name');
+          range = 'MIDRISE';
+          templateArr.push(range);
         }
-        highUnits = App.currentStore.range.findWhere({
+        highUnits = App.master.range.findWhere({
           name: 'high'
         });
         if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
-          range = 'HIGHRISE' + ',' + buildingModel.get('name');
+          range = 'HIGHRISE';
+          templateArr.push(range);
         }
-        templateString = range;
+        templateString = templateArr.join(',');
       } else {
         templateString = templateArr.join(',');
       }
-      myArray = [];
       countUnits = 0;
-      console.log(App.defaults);
-      _ref = App.backFilter['screen1'];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        element = _ref[_i];
-        key = App.Cloneddefaults.hasOwnProperty(element);
-        if (key === true) {
-          myArray.push({
-            key: element,
-            value: App.Cloneddefaults[element]
-          });
-        }
-      }
-      status = App.currentStore.status.findWhere({
+      flag = 0;
+      console.log(templateArr);
+      console.log(templateString);
+      console.log(myArray);
+      status = App.master.status.findWhere({
         'name': 'Available'
       });
-      buildingModel = App.currentStore.building.findWhere({
-        id: App.building['name']
-      });
-      if (buildingModel !== void 0) {
-        unitslen = App.currentStore.unit.where({
-          'status': status.get('id'),
-          'building': App.building['name']
-        });
-      } else {
-        unitslen = App.currentStore.unit.where({
-          'status': status.get('id')
-        });
-      }
-      if (myArray.length === 0) {
-        countUnits = unitslen.length;
-      }
+      console.log(unitslen = App.master.unit.where({
+        'status': status.get('id')
+      }));
       $.each(unitslen, function(index, value1) {
         var floorArray, floorstring;
         if (App.defaults['floor'] !== 'All') {
@@ -226,48 +225,69 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           });
         }
       });
+      if (App.defaults['floor'] === "All") {
+        floorUnitsArray = unitslen;
+      }
+      console.log(floorUnitsArray.length);
+      floorCollunits = [];
       $.each(floorUnitsArray, function(index, value1) {
-        return $.each(myArray, function(index, value) {
-          var budget_price, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        flag = 0;
+        $.each(myArray, function(index, value) {
+          var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
           paramKey = {};
+          paramKey[value.key] = value.value;
           if (value.key === 'budget') {
-            buildingModel = App.currentStore.building.findWhere({
+            buildingModel = App.master.building.findWhere({
               'id': value1.get('building')
             });
             floorRise = buildingModel.get('floorrise');
             floorRiseValue = floorRise[value1.get('floor')];
-            unitVariantmodel = App.currentStore.unit_variant.findWhere({
+            unitVariantmodel = App.master.unit_variant.findWhere({
               'id': value1.get('unitVariant')
             });
             console.log(unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea')));
-            budget_price = value.value.split('-');
-            console.log(budget_price[0] = budget_price[0]);
-            console.log(budget_price[1] = budget_price[1]);
+            budget_arr = value.value.split(' ');
+            budget_price = budget_arr[0].split('-');
+            console.log(budget_price[0] = budget_price[0] + '00000');
+            console.log(budget_price[1] = budget_price[1] + '00000');
             if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
-              return countUnits++;
+              return flag++;
             }
-          } else {
+          } else if (value.key !== 'floor') {
+            console.log(value.key);
+            console.log(value1.get(value.key) + '== ' + parseInt(value.value));
             if (value1.get(value.key) === parseInt(value.value)) {
-              return countUnits++;
+              return flag++;
             }
           }
         });
+        console.log(flag);
+        if (flag === myArray.length - 1) {
+          return floorCollunits.push(value1);
+        }
       });
-      console.log(countUnits);
+      console.log(floorCollunits);
+      if (App.defaults['floor'] === "All") {
+        floorCollunits = unitslen;
+      }
+      console.log(floorCollunits.length);
+      units = new Backbone.Collection(floorCollunits);
+      buildings = units.pluck("building");
+      console.log(uniqBuildings = _.uniq(buildings));
       units.each(function(item) {
         if (buildingArray.indexOf(item.get('building')) === -1) {
           return buildingArray.push(item.get('building'));
         }
       });
       $.each(buildingArray, function(index, value) {
-        var buildingid, floorArray, floorCountArray, unitCollection, unitsCollection;
+        var buildingModel, buildingid, floorArray, floorCountArray, unitCollection, unitsCollection;
         buildingid = value;
         floorArray = [];
         floorCountArray = [];
         unitsArray = [];
-        unitsCollection = App.currentStore.unit.where({
+        console.log(unitsCollection = units.where({
           building: value
-        });
+        }));
         $.each(unitsCollection, function(index, value) {
           if (floorArray.indexOf(value.get('floor')) === -1) {
             floorArray.push(value.get('floor'));
@@ -285,7 +305,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         });
         $.each(floorArray, function(index, value) {
           var floorCollection, floorunits;
-          floorunits = App.currentStore.unit.where({
+          floorunits = App.master.unit.where({
             floor: value,
             building: buildingid
           });
@@ -298,45 +318,62 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           });
           return $.each(floorunits, function(index, value) {
             var str, unitType, unitVariant;
-            unitType = App.currentStore.unit_type.findWhere({
+            unitType = App.master.unit_type.findWhere({
               id: value.get('unitType')
             });
             str = unitType.get('name');
             str = str.replace(/\s/g, '');
             value.set('unitTypeName', str);
-            unitVariant = App.currentStore.unit_variant.findWhere({
+            unitVariant = App.master.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return value.set('unitVariantName', unitVariant.get('name'));
           });
         });
-        buildingModel = App.currentStore.building.findWhere({
+        buildingModel = App.master.building.findWhere({
           id: value
         });
         buildingArrayModel.push(buildingModel);
         unitCollection = new Backbone.Collection(unitsArray);
         return unitArray.push({
+          id: value,
           buildingid: value,
           units: unitCollection,
           floorcount: floorCountArray
         });
       });
-      temp = [];
-      temp1 = [];
-      for (index = _j = 0, _len1 = unitArray.length; _j < _len1; index = ++_j) {
-        element = unitArray[index];
-        if (unitArray[index].buildingid === App.building['name']) {
-          temp[0] = unitArray[0];
-          unitArray[0] = unitArray[index];
-          unitArray[index] = temp[0];
-          temp1[0] = buildingArrayModel[0];
-          buildingArrayModel[0] = buildingArrayModel[index];
-          buildingArrayModel[index] = temp1[0];
-        }
+      building = App.master.building.toArray();
+      buildingCollection = App.master.building;
+      building.sort(function(a, b) {
+        return a.get('id') - b.get('id');
+      });
+      modelIdArr = [];
+      modelArr = [];
+      ModelActualArr = [];
+      unitsactual = [];
+      $.each(building, function(index, value) {
+        return modelIdArr.push(value.get('id'));
+      });
+      index = _.indexOf(modelIdArr, App.defaults['building']);
+      highLength = modelIdArr.length - index;
+      i = index;
+      while (i < modelIdArr.length) {
+        modelArr.push(modelIdArr[i]);
+        i++;
       }
-      buildingCollection = new Backbone.Collection(buildingArrayModel);
+      j = 0;
+      while (j < index) {
+        modelArr.push(modelIdArr[j]);
+        j++;
+      }
       newunitCollection = new Backbone.Collection(unitArray);
-      return [buildingCollection, newunitCollection, templateString, countUnits];
+      $.each(modelArr, function(index, value) {
+        ModelActualArr.push(buildingCollection.get(value));
+        return unitsactual.push(newunitCollection.get(value));
+      });
+      buildingCollection = new Backbone.Collection(ModelActualArr);
+      newunitCollection = new Backbone.Collection(unitsactual);
+      return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {

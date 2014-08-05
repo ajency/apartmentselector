@@ -31,162 +31,141 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var buildingModel, buildingText, filterstring, first, flag, highUnits, lowUnits, mark, mediumUnits, range, templateArr, templateString, textClass, textString;
+      var first, flag, highUnits, lowUnits, mediumUnits, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
       templateArr = [];
       flag = 0;
-      $.each(App.defaults, function(index, value) {
-        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+      myArray = [];
+      templateArr = [];
+      param = {};
+      paramkey = {};
+      flag = 0;
+      track = 0;
+      trackArray = [];
+      units = App.master.unit;
+      $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          string_val = _.isString(value);
+          return myArray.push({
+            key: index,
+            value: value
+          });
+        }
+      });
+      $.each(myArray, function(index, value) {
+        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+        if (value.value !== 'All') {
+          console.log(value.key);
+          param[value.key] = value.value;
+          string_val = _.isString(value.value);
           valuearr = "";
           if (string_val === true) {
-            valuearr = value.split(',');
+            valuearr = value.value.split(',');
           }
           if (valuearr.length > 1) {
             _results = [];
             for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
               element = valuearr[_i];
-              if (index === 'unitType') {
-                key = App.currentStore.unit_type.findWhere({
+              if (value.key === 'unitType') {
+                key = App.master.unit_type.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'unitVariant') {
-                key = App.currentStore.unit_variant.findWhere({
+              if (value.key === 'unitVariant') {
+                key = App.master.unit_variant.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'building') {
-                key = App.currentStore.building.findWhere({
+              if (value.key === 'building') {
+                key = App.master.building.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'budget') {
-                budget_Val = element + 'lakhs';
+              if (value.key === 'budget') {
+                budget_Val = value + 'lakhs';
                 templateArr.push(budget_Val);
               }
-              if (index === 'floor') {
-                templateArr.push(element);
-                _results.push(flag = 1);
+              if (value.key === 'floor') {
+                if (track === 0) {
+                  trackArray.push(value.value);
+                }
+                flag = 1;
+                _results.push(track = 1);
               } else {
                 _results.push(void 0);
               }
             }
             return _results;
           } else {
-            if (index === 'unitType') {
-              key = App.currentStore.unit_type.findWhere({
-                id: parseInt(value)
+            if (value.key === 'unitType') {
+              key = App.master.unit_type.findWhere({
+                id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
             }
-            if (index === 'unitVariant') {
-              key = App.currentStore.unit_variant.findWhere({
-                id: parseInt(value)
+            if (value.key === 'unitVariant') {
+              key = App.master.unit_variant.findWhere({
+                id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
             }
-            if (index === 'building') {
-              key = App.currentStore.building.findWhere({
-                id: parseInt(value)
+            if (value.key === 'building') {
+              key = App.master.building.findWhere({
+                id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
             }
-            if (index === 'budget') {
-              budget_Val = value;
+            if (value.key === 'budget') {
+              budget_Val = value.value;
               templateArr.push(budget_Val);
             }
-            if (index === 'floor') {
-              templateArr.push(value);
-              return flag = 1;
+            if (value.key === 'floor') {
+              if (track === 0) {
+                trackArray.push(value.value);
+              }
+              flag = 1;
+              return track = 1;
             }
           }
         }
       });
-      templateString = templateArr.join(',');
-      textString = "";
-      if (window.location.href.indexOf('screen-two') > -1) {
-        if (templateArr.length === 0) {
-          templateArr.push('All');
-          templateString = templateArr.join(',');
-        }
-        if (flag === 1) {
-          first = _.first(templateArr);
-          buildingModel = App.currentStore.building.findWhere({
-            id: App.building['name']
-          });
-          lowUnits = App.currentStore.range.findWhere({
-            name: 'low'
-          });
-          if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
-            templateString = 'LOWRISE' + ',' + buildingModel.get('name');
-          }
-          mediumUnits = App.currentStore.range.findWhere({
-            name: 'medium'
-          });
-          if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
-            templateString = 'MIDRISE' + ',' + buildingModel.get('name');
-          }
-          highUnits = App.currentStore.range.findWhere({
-            name: 'high'
-          });
-          if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
-            templateString = 'HIGHRISE' + ',' + buildingModel.get('name');
-          }
-        }
-        textString = 'You have selected ' + templateString;
-        textClass = '';
-      } else if (window.location.href.indexOf('screen-three') > -1) {
-        first = _.first(templateArr);
-        mark = '';
-        range = "All";
-        console.log(buildingModel = App.currentStore.building.findWhere({
-          id: App.building['name']
-        }));
-        if (buildingModel !== void 0) {
-          buildingText = buildingModel.get('name');
-          mark = '>';
-        } else {
-          buildingText = "";
-        }
-        lowUnits = App.currentStore.range.findWhere({
+      textClass = "hidden";
+      if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
+        textClass = "";
+      }
+      console.log(templateArr);
+      if (templateArr.length === 0) {
+        templateArr.push('All');
+      }
+      if (flag === 1) {
+        first = _.first(trackArray);
+        lowUnits = App.master.range.findWhere({
           name: 'low'
         });
         if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
           range = 'LOWRISE';
+          templateArr.push(range);
         }
-        mediumUnits = App.currentStore.range.findWhere({
+        mediumUnits = App.master.range.findWhere({
           name: 'medium'
         });
         if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
           range = 'MIDRISE';
+          templateArr.push(range);
         }
-        highUnits = App.currentStore.range.findWhere({
+        highUnits = App.master.range.findWhere({
           name: 'high'
         });
         if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
           range = 'HIGHRISE';
+          templateArr.push(range);
         }
-        textString = range + mark + buildingText;
-        textClass = '';
-      } else if (window.location.href.indexOf('screen-four') > -1) {
-        filterstring = templateArr.join('<');
-        mark = '<';
-        buildingModel = App.currentStore.building.findWhere({
-          id: App.building['name']
-        });
-        buildingText = buildingModel.get('name');
-        textString = buildingText + mark + filterstring;
-        textClass = '';
+        templateString = templateArr.join('|');
       } else {
-        textString = 'Apartment Selector';
-        textClass = 'hidden';
+        templateString = templateArr.join('|');
       }
-      console.log(textString);
-      return [textString, textClass];
+      return [templateString, textClass];
     };
 
     return HeaderController;

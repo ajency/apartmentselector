@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, flag_set, unitChildView;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, emptyChildView, flag_set, unitChildView;
   flag_set = 0;
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
@@ -12,7 +12,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the Highrise floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -67,7 +67,12 @@ define(['marionette'], function(Marionette) {
 
     BuildingView.prototype.events = {
       'click .link': function(e) {
-        return $('#tower' + this.model.get('id')).removeClass('hidden');
+        var params;
+        $('#tower' + this.model.get('id')).removeClass('hidden');
+        App.defaults['building'] = this.model.get('id');
+        App.filter(params = {});
+        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+        return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
       }
     };
 
@@ -106,34 +111,29 @@ define(['marionette'], function(Marionette) {
     };
 
     childViewUnit.prototype.onShow = function() {
-      var element, flag, key, myArray, object, _i, _len, _ref;
+      var flag, myArray, object;
       myArray = [];
-      console.log(App.Cloneddefaults);
-      console.log(App.backFilter);
-      _ref = App.backFilter['screen1'];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        element = _ref[_i];
-        key = App.Cloneddefaults.hasOwnProperty(element);
-        if (key === true) {
-          myArray.push({
-            key: element,
-            value: App.Cloneddefaults[element]
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All') {
+          return myArray.push({
+            key: index,
+            value: value
           });
         }
-      }
+      });
       console.log(myArray);
       flag = 0;
       object = this;
       $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        var budget_arr, budget_price, buildingModel, floorArray, floorRise, floorRiseValue, key, paramKey, unitPrice, unitVariantmodel;
         paramKey = {};
         if (value.key === 'budget') {
-          buildingModel = App.currentStore.building.findWhere({
+          buildingModel = App.master.building.findWhere({
             'id': object.model.get('building')
           });
           floorRise = buildingModel.get('floorrise');
           floorRiseValue = floorRise[object.model.get('floor')];
-          unitVariantmodel = App.currentStore.unit_variant.findWhere({
+          unitVariantmodel = App.master.unit_variant.findWhere({
             'id': object.model.get('unitVariant')
           });
           console.log(unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea')));
@@ -144,18 +144,28 @@ define(['marionette'], function(Marionette) {
           if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
             return flag = 1;
           }
+        } else if (value.key === 'floor') {
+          floorArray = value.value.split(',');
+          key = _.contains(floorArray, object.model.get('floor'));
+          if (key === true) {
+            return flag = 2;
+          }
         } else {
+          console.log(value.key);
+          console.log(value.value);
           if (object.model.get(value.key) === parseInt(value.value)) {
             return console.log(flag = 1);
+          } else {
+            return flag = 0;
           }
         }
       });
-      console.log(myArray.length);
+      console.log(flag);
       if (myArray.length === 0) {
         flag = 1;
       }
-      console.log(flag);
-      console.log(this.model.get('status'));
+      console.log(this.model.get('unitType'));
+      console.log(this.model.get('name'));
       if (flag === 1 && this.model.get('status') === 9) {
         $('#check' + this.model.get("id")).addClass('box filtered');
         return $('#flag' + this.model.get("id")).val('1');
@@ -174,7 +184,6 @@ define(['marionette'], function(Marionette) {
         App.floorFilter['name'] = App.defaults['floor'];
         App.defaults['floor'] = this.model.get("floor");
         App.backFilter['screen3'].push('floor');
-        App.building['name'] = parseInt(this.model.get('building'));
         if (parseInt($('#flag' + this.model.get("id")).val()) === 1) {
           return this.trigger('unit:item:selected');
         }
@@ -204,6 +213,18 @@ define(['marionette'], function(Marionette) {
     return unitChildView;
 
   })(Marionette.CompositeView);
+  emptyChildView = (function(_super) {
+    __extends(emptyChildView, _super);
+
+    function emptyChildView() {
+      return emptyChildView.__super__.constructor.apply(this, arguments);
+    }
+
+    emptyChildView.prototype.template = 'No units available for the current selection';
+
+    return emptyChildView;
+
+  })(Marionette.CompositeView);
   UnitView = (function(_super) {
     __extends(UnitView, _super);
 
@@ -214,6 +235,8 @@ define(['marionette'], function(Marionette) {
     UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div><em class="cd-scroll-right"></em></div></div>';
 
     UnitView.prototype.childView = unitChildView;
+
+    UnitView.prototype.emptyView = emptyChildView;
 
     UnitView.prototype.tagName = "section";
 
