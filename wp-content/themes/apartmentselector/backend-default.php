@@ -129,6 +129,7 @@ if(!is_user_logged_in()){
                            <button type="button" class="btn btn-primary btn-xs btn-mini" onclick="location.href='index.html';">Logout</button>                          
                         </div>
         </div>
+        <a href="javacript:void(0)" class='reset-filters'>r</a>
         <?php wp_footer(); ?>
 </body>
 </html>

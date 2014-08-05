@@ -28,7 +28,7 @@
                                             <th style="width:20%"  class="filter-select filter-onlyAvail" data-placeholder="All">Unit Variant</th>
                                             <th style="width:20" class="filter-select filter-onlyAvail"  data-placeholder="All" >Building</th>
                                             <th style="width:10%" class="filter-onlyAvail" >Floor</th>
-                                            <th style="width:10%" class="filter-false">Actions</th>
+                                            <th style="width:10%" class="filter-false sorter-false">Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>

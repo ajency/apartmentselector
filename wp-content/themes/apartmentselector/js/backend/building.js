@@ -327,7 +327,7 @@ function addException(exception_no){
                     // Use the $.tablesorter.storage utility to save the most recent filters
                     filter_saveFilters : true,
                     // jQuery selector string of an element used to reset the filters
-                    filter_reset : 'button.reset',
+                    filter_reset : '.reset-filters',
                     // add custom selector elements to the filter row
                     filter_formatter : {
 
@@ -352,6 +352,8 @@ function addException(exception_no){
 
                 }
             });
+
+        $(".reset-filters").trigger('click');
 
     }
 

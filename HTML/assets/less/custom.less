@@ -22,24 +22,50 @@ body{
 	background-color: @color-white;
 }
 
-.header.navbar h3{
-	text-align: left;
-	font-size: 15px;
-	margin-left: 70px;
-	&.step1{
-		text-align: center;
-		margin-left: 0;
+.header.navbar{
+	position: static;
+	h3{
+		text-align: left;
+		font-size: 14px;
+		margin-left: 65px;
+		
+		&.step1{
+			text-align: center;
+			margin-left: 0;
+		}
 	}
 }
+
+.slctnTxt{
+	display: none;
+}
+@media (min-width:768px){
+	.slctnTxt{
+		display: inline-block;
+	}
+}
+
 .navbar-inverse {
 	background: @color-primary;
 }
 
+.backBtn{
+	position: absolute;
+	left: 0;
+	cursor: pointer;
+	a{
+		width: 60px;
+		text-align: center;
+		display: block;
+		padding: 20px 0;
+		background-color: darken(@color-primary, 10%);
+	}	
+}
 .page-container {
 	padding: 0 5px;
 	padding-top: 30px !important;
 }
-@media (min-width:481px){
+@media (min-width:768px){
 	.page-container {
 		padding-top: 40px !important;
 	}
@@ -466,22 +492,6 @@ body{
 // 	width: 520px;
 // }
 
-.header{
-	position: static;
-}
-
-.backBtn{
-	position: absolute;
-	left: 0;
-	cursor: pointer;
-	a{
-		width: 60px;
-		text-align: center;
-		display: block;
-		padding: 20px 0;
-		background-color: darken(@color-primary, 10%);
-	}	
-}
 
 .legend{
 	.threeBHK, .twoBHK, .oneBHK{
