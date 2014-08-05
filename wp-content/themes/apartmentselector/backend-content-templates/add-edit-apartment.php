@@ -133,7 +133,7 @@ if(isset($_REQUEST["id"])){
                             ?>
                                 <div class="row-fluid" > <div class="row">
                             <?php
-                            foreach($flats as $flat){
+                            foreach($flats["flats"] as $flat){
                                     ?>
                                         <div class="col-md-6"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>"><?php echo $flat["flat_no"]?><br><img src="<?php echo $flat["image_url"]?>" class="image_display"></div>
                                     <?php

@@ -4,11 +4,12 @@ define [ 'marionette' ], ( Mariontte )->
     class HeaderView extends Marionette.ItemView
 
         template : '<div class="backBtn {{textClass}}">
-        			<a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
-        		</div>
-        <div class="text-center">
-        			<h3 class="text-white m-t-15 selearr">{{textString}}</h3>
-        		</div>'
+                        <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
+        		    </div>
+                    <div class="text-center">
+                        <!--<h3 class="text-white m-t-15 ">{{textString}}</h3>-->
+                        <h3 class="text-white m-t-15 "><span class="slctnTxt">Your selection:</span> {{textString}} </h3>
+                    </div>'
 
         className : "header navbar navbar-inverse"
 
@@ -49,7 +50,7 @@ define [ 'marionette' ], ( Mariontte )->
                     for element in screenthreeArray
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
-                            App.defaults[element] = App.floorFilter['name']
+                            App.defaults[element] = App.defaults['floor']
                     console.log App.defaults
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
@@ -103,7 +104,9 @@ define [ 'marionette' ], ( Mariontte )->
 
             else
                 $('.backBtn').addClass 'hidden'
-                $('.selearr').text 'Apartment Selector'
+                $('.slctnTxt').addClass 'hidden'
+
+                
 
 
 

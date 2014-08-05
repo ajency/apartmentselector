@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
 
         });
     });
-
+ 
 //on chnage of building load the no of floors in the building
      $(document).on("change", "#building", function(e) {
 
@@ -62,9 +62,15 @@ $(document).on("change", "#floor", function(e) {
         }, function(response) {
                 
             flats_html = "";
-             $.each(response, function(i, val) {
+            if(response.flats.length <=response.created_flats){
+                flats_html +='<div class="col-md-12"><i>No Flats Available</i></div>';
+            }else{
+                 $.each(response.flats, function(i, val) {
                flats_html += '<div class="col-md-6"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">'+val.flat_no+'<br><img src="'+val.image_url+'" class="image_display"></div>';
             });
+            }
+            
+            
 
              $("#flat_container").html('<div class="row-fluid" > <div class="row">'+flats_html+'</div></div>');
         
@@ -142,6 +148,7 @@ $(document).on("change", "#floor", function(e) {
             $(".tablesorter").tablesorter({
                 theme : 'jui',
                 sortList: [[0,0]] ,
+                
                    headerTemplate: '<span>{content}</span>' +
             '<div class="arrows">' +
                 '<i class="tablesorter-headerAsc"></i>' +
@@ -156,7 +163,7 @@ $(document).on("change", "#floor", function(e) {
                     // Use the $.tablesorter.storage utility to save the most recent filters
                     filter_saveFilters : true,
                     // jQuery selector string of an element used to reset the filters
-                    filter_reset : 'button.reset',
+                    filter_reset : '.reset-filters',
                     // add custom selector elements to the filter row
                     filter_formatter : {
 
@@ -182,6 +189,8 @@ $(document).on("change", "#floor", function(e) {
 
                 }
             });
+
+            $(".reset-filters").trigger('click');
 
     }
 

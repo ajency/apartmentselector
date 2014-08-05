@@ -24,7 +24,7 @@
                                           <th style="width:10%">Name</th>
                                             <th style="width:20%" class="filter-select filter-onlyAvail" data-placeholder="All" >Phase</th>
                                             
-                                            <th style="width:10%" class="filter-false">Action</th>
+                                            <th style="width:10%" class="filter-false sorter-false">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>

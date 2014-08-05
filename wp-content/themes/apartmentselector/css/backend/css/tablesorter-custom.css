@@ -790,14 +790,12 @@ body .ui-tooltip {
 }
 .tablesorter-headerDesc i.tablesorter-headerDesc {
     background-image: url(../img/white-desc.gif);
+}
 
-    /* wrapper of table 2 */
-.wrapper {
-  position: relative;
-  padding: 0 5px;
-  height: 250px;
-  overflow-y: auto;
+.tablesorter .tablesorter-header.sorter-false  i.tablesorter-headerDesc{
+    background-image: url() !important;
 }
+
+.tablesorter .tablesorter-header.sorter-false  i.tablesorter-headerAsc{
+    background-image: url() !important;
 }
- 
- 

@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="text-center"> <h3 class="text-white m-t-15 selearr">{{textString}}</h3> </div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="text-center"> <!--<h3 class="text-white m-t-15 ">{{textString}}</h3>--> <h3 class="text-white m-t-15 "><span class="slctnTxt">Your selection:</span> {{textString}} </h3> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 
@@ -49,7 +49,7 @@ define(['marionette'], function(Mariontte) {
             element = screenthreeArray[_j];
             key = App.defaults.hasOwnProperty(element);
             if (key === true) {
-              App.defaults[element] = App.floorFilter['name'];
+              App.defaults[element] = App.defaults['floor'];
             }
           }
           console.log(App.defaults);
@@ -91,7 +91,7 @@ define(['marionette'], function(Mariontte) {
 
       } else {
         $('.backBtn').addClass('hidden');
-        return $('.selearr').text('Apartment Selector');
+        return $('.slctnTxt').addClass('hidden');
       }
     };
 
