@@ -12,7 +12,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3><div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"> </header> <div  id="unit-region"> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="towerRange"> <h3 class="text-primary text-center semi-bold m-t-40"><u>HIGHRISE</u></h3> <div class="row m-l-0 m-r-0 m-b-20"> <div class="col-sm-4 col-xs-9"> <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block"> </div> <div class="col-sm-8 col-xs-3"> <div class="row"> <div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total 2BHK</small><br>36</h1> </div> <div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total 3BHK</small><br>10</h1> </div> </div> <div class="row"> <div class="col-sm-12 hidden-xs m-t-30 p-l-0"> <div class="col"> <p>Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> </div> </div> <div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div> </div> <div class="viewsNo m-t-20"> <div class="row m-l-0 m-r-0"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -216,6 +216,8 @@ define(['marionette'], function(Marionette) {
 
     emptyChildView.prototype.template = 'No units available for the current selection';
 
+    emptyChildView.prototype.className = 'noUnits';
+
     return emptyChildView;
 
   })(Marionette.CompositeView);
@@ -226,7 +228,7 @@ define(['marionette'], function(Marionette) {
       return UnitView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitView.prototype.template = '<div class="vs-content"><div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}}         									<li> Floor {{id}} </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"><div class="cd-table-wrapper"> </div></div><em class="cd-scroll-right"></em></div></div>';
+    UnitView.prototype.template = '<div class="vs-content"> <div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}} <li> Floor {{id}} </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"> <div class="cd-table-wrapper"> </div> </div> <em class="cd-scroll-right"></em> </div> </div>';
 
     UnitView.prototype.childView = unitChildView;
 

@@ -83,13 +83,13 @@
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-weight: 700;
-	font-size: 1.3em;
+	font-size: 1em;
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
 }
 
 .vs-nav li.vs-nav-current a{
-	font-size: 2em;
+	font-size: 1.5em;
 }
 
 .vs-nav li a:hover,
