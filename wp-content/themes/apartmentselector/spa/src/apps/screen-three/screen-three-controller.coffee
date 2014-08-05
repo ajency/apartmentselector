@@ -29,12 +29,35 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
 
+        _showBuildings:->
+                @Collection = @_getUnits()
+
+                @layout = new ScreenThreeView.ScreenThreeLayout(
+                    countUnits : @Collection[3]
+                    templateHelpers:
+                        selection :@Collection[2]
+                        countUnits : @Collection[3]
+                        range : @Collection[4]
+
+                )
+
+
+                @listenTo @layout, "show", @showViews
+
+
+                @show @layout
+
+
+
+
+
+
 
 
         showBuildingRegion:(buildingCollection)->
             itemview1 = @getView buildingCollection
             @layout.buildingRegion.show itemview1
-            @listenTo itemview1, 'childview:building:link:selected', @_getUnits
+            @listenTo itemview1, 'childview:building:link:selected', @_showBuildings
 
 
 
@@ -61,6 +84,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
         _unitItemSelected:(childview,childview1,childview2)=>
             console.log "hi"
             App.navigate "screen-four" , trigger:true
+
+
+
 
 
 
@@ -300,6 +326,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             )
+            console.log unitArray
             building = App.master.building.toArray()
             buildingCollection = App.master.building
             building.sort( (a,b) ->
@@ -326,13 +353,14 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             newunitCollection = new Backbone.Collection(unitArray)
+            console.log modelArr
             $.each(modelArr, (index,value)->
                 ModelActualArr.push(buildingCollection.get(value))
                 unitsactual.push(newunitCollection.get(value))
 
             )
             buildingCollection = new Backbone.Collection(ModelActualArr)
-            newunitCollection = new Backbone.Collection(unitsactual)
+            console.log newunitCollection = new Backbone.Collection(unitsactual)
             [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString]
 
 

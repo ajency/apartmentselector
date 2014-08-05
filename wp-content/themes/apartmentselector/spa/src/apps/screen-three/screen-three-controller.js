@@ -36,11 +36,25 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       return this.showUnitRegion(this.unitCollection);
     };
 
+    ScreenThreeController.prototype._showBuildings = function() {
+      this.Collection = this._getUnits();
+      this.layout = new ScreenThreeView.ScreenThreeLayout({
+        countUnits: this.Collection[3],
+        templateHelpers: {
+          selection: this.Collection[2],
+          countUnits: this.Collection[3],
+          range: this.Collection[4]
+        }
+      });
+      this.listenTo(this.layout, "show", this.showViews);
+      return this.show(this.layout);
+    };
+
     ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {
       var itemview1;
       itemview1 = this.getView(buildingCollection);
       this.layout.buildingRegion.show(itemview1);
-      return this.listenTo(itemview1, 'childview:building:link:selected', this._getUnits);
+      return this.listenTo(itemview1, 'childview:building:link:selected', this._showBuildings);
     };
 
     ScreenThreeController.prototype.showUnitRegion = function(unitCollection) {
@@ -343,6 +357,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           floorcount: floorCountArray
         });
       });
+      console.log(unitArray);
       building = App.master.building.toArray();
       buildingCollection = App.master.building;
       building.sort(function(a, b) {
@@ -368,12 +383,13 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         j++;
       }
       newunitCollection = new Backbone.Collection(unitArray);
+      console.log(modelArr);
       $.each(modelArr, function(index, value) {
         ModelActualArr.push(buildingCollection.get(value));
         return unitsactual.push(newunitCollection.get(value));
       });
       buildingCollection = new Backbone.Collection(ModelActualArr);
-      newunitCollection = new Backbone.Collection(unitsactual);
+      console.log(newunitCollection = new Backbone.Collection(unitsactual));
       return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString];
     };
 

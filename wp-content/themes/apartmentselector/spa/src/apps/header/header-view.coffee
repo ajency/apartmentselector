@@ -105,6 +105,8 @@ define [ 'marionette' ], ( Mariontte )->
             else
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
+                $('h3').addClass 'step1
+                '
 
                 
 
