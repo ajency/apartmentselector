@@ -12,19 +12,21 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
 
                     <div class="towerRange">
-                        <h3 class="text-primary text-center semi-bold m-t-40"><u>HIGHRISE</u></h3>
+
+
+                         <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3>
                         <div class="row m-l-0 m-r-0 m-b-20">
                             <div class="col-sm-4 col-xs-9">
                                 <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block">
                             </div>
                             <div class="col-sm-8 col-xs-3">
                                 <div class="row">
-                                    <div class="col-sm-4 p-l-0 p-r-0">
-                                        <h1><small>Total 2BHK</small><br>36</h1>
+
+       {{#high}}
+                                     <div class="col-sm-4 p-l-0 p-r-0">
+                                        <h1><small>Total {{name}}</small><br>{{count}}</h1>
                                     </div>
-                                    <div class="col-sm-4 p-l-0 p-r-0">
-                                        <h1><small>Total 3BHK</small><br>10</h1>
-                                    </div>
+{{/high}}
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 hidden-xs m-t-30 p-l-0">
@@ -173,7 +175,7 @@ define [ 'marionette' ], ( Marionette )->
         onShow :->
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All'
+                if value!='All' && index != 'floor'
                     myArray.push({key:index,value:value})
 
             )
@@ -204,7 +206,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
-            if flag == myArray.length - 1
+            if flag == myArray.length
                 track =1
 
 

@@ -12,6 +12,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     selection :@Collection[2]
                     countUnits : @Collection[3]
                     range : @Collection[4]
+                    high : @Collection[5]
+                    rangetext : @Collection[6]
+
 
             )
 
@@ -38,6 +41,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         selection :@Collection[2]
                         countUnits : @Collection[3]
                         range : @Collection[4]
+                        high : @Collection[5]
+                        rangetext : @Collection[6]
 
                 )
 
@@ -359,9 +364,136 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 unitsactual.push(newunitCollection.get(value))
 
             )
-            buildingCollection = new Backbone.Collection(ModelActualArr)
-            console.log newunitCollection = new Backbone.Collection(unitsactual)
-            [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString]
+            buildingArray = Array()
+            buildingArrayModel = Array()
+            unitColl = Array()
+            templateArr = []
+            mainunitTypeArray = []
+            mainnewarr =  []
+            mainunique = {}
+            MainCollection = new Backbone.Model()
+            status = App.master.status.findWhere({'name':'Available'})
+            units = App.master.unit.where({'status':status.get('id')})
+            Countunits = App.master.unit.where({'status':status.get('id')})
+            param = {}
+            paramkey = {}
+            flag = 0
+            mainunitsTypeArray = []
+            lunitTypeArray = []
+            lnewarr =  []
+            lunique = {}
+            munitTypeArray = []
+            mnewarr =  []
+            munique = {}
+            hunitTypeArray = []
+            hnewarr =  []
+            hunique = {}
+            mainunitTypeArray = []
+
+
+
+            $.each(units, (index,value)->
+                maxcoll = Array()
+
+                if buildingArray.indexOf(value.get 'building') ==  -1
+                    buildingArray.push value.get 'building'
+
+
+
+                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
+            )
+            if range == 'LOWRISE'
+                $.each(mainunitTypeArray, (key,item)->
+                    if (!lunique[item.id])
+                        lunitTypeArray = []
+                        status = App.master.status.findWhere({'name':'Available'})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
+                        $.each(count, (index,value)->
+                            lowUnits = App.master.range.findWhere({name:'low'})
+                            if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
+                                lunitTypeArray.push value.get 'id'
+                        )
+                        mainnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,range:'LOWRISE'})
+                        lunique[item.id] = item;
+
+                )
+            if range == 'MIDRISE'
+                $.each(mainunitTypeArray, (key,item)->
+                    if (!munique[item.id])
+                        munitTypeArray = []
+                        status = App.master.status.findWhere({'name':'Available'})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
+                        $.each(count, (index,value)->
+
+                            mediumUnits = App.master.range.findWhere({name:'medium'})
+                            if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
+                                munitTypeArray.push value.get 'id'
+                        )
+                        mainnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,range:'MEDIUMRISE'})
+                        munique[item.id] = item;
+
+
+                )
+
+            if range == 'HIGHRISE'
+
+                $.each(mainunitTypeArray, (key,item)->
+                    if (!hunique[item.id])
+                        hunitTypeArray = []
+                        status = App.master.status.findWhere({'name':'Available'})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
+
+                        $.each(count, (index,value)->
+                            highUnits = App.master.range.findWhere({name:'high'})
+                            if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
+                                hunitTypeArray.push value.get 'id'
+                        )
+                        mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
+                        hunique[item.id] = item;
+
+
+                )
+            else
+                $.each(mainunitTypeArray, (key,item)->
+                    if (!hunique[item.id])
+                        hunitTypeArray = []
+                        status = App.master.status.findWhere({'name':'Available'})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
+
+                        $.each(count, (index,value)->
+                            hunitTypeArray.push value.get 'id'
+                        )
+                        mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
+                        hunique[item.id] = item;
+
+
+                )
+
+
+
+
+            console.log mainnewarr
+            if App.defaults['building'] == "All"
+                unitArray.sort( (a,b)->
+                    b.units.length - a.units.length
+
+                )
+                buildingsactual = []
+                unitsactual = []
+                buildingCollection = App.master.building
+                units = new Backbone.Collection(unitArray)
+                $.each(unitArray , (index,value)->
+                    value = value.id
+                    buildingsactual.push(buildingCollection.get(value))
+                    unitsactual.push(units.get(value))
+                )
+                console.log  buildingCollection = new Backbone.Collection(buildingsactual)
+                newunitCollection = new Backbone.Collection(unitsactual)
+            else
+                buildingCollection = new Backbone.Collection(ModelActualArr)
+                console.log newunitCollection = new Backbone.Collection(unitsactual)
+            [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString,mainnewarr,range]
 
 
 

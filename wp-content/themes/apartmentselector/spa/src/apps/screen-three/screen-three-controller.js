@@ -22,7 +22,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
-          range: this.Collection[4]
+          range: this.Collection[4],
+          high: this.Collection[5],
+          rangetext: this.Collection[6]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
@@ -43,7 +45,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
-          range: this.Collection[4]
+          range: this.Collection[4],
+          high: this.Collection[5],
+          rangetext: this.Collection[6]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
@@ -84,7 +88,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, i, index, j, lowUnits, mediumUnits, modelArr, modelIdArr, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, unitArray, units, unitsArray, unitsactual, unitslen;
+      var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, unitArray, unitColl, units, unitsArray, unitsactual, unitslen;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -388,9 +392,186 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         ModelActualArr.push(buildingCollection.get(value));
         return unitsactual.push(newunitCollection.get(value));
       });
-      buildingCollection = new Backbone.Collection(ModelActualArr);
-      console.log(newunitCollection = new Backbone.Collection(unitsactual));
-      return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString];
+      buildingArray = Array();
+      buildingArrayModel = Array();
+      unitColl = Array();
+      templateArr = [];
+      mainunitTypeArray = [];
+      mainnewarr = [];
+      mainunique = {};
+      MainCollection = new Backbone.Model();
+      status = App.master.status.findWhere({
+        'name': 'Available'
+      });
+      units = App.master.unit.where({
+        'status': status.get('id')
+      });
+      Countunits = App.master.unit.where({
+        'status': status.get('id')
+      });
+      param = {};
+      paramkey = {};
+      flag = 0;
+      mainunitsTypeArray = [];
+      lunitTypeArray = [];
+      lnewarr = [];
+      lunique = {};
+      munitTypeArray = [];
+      mnewarr = [];
+      munique = {};
+      hunitTypeArray = [];
+      hnewarr = [];
+      hunique = {};
+      mainunitTypeArray = [];
+      $.each(units, function(index, value) {
+        var maxcoll, unitType;
+        maxcoll = Array();
+        if (buildingArray.indexOf(value.get('building')) === -1) {
+          buildingArray.push(value.get('building'));
+        }
+        unitType = App.master.unit_type.findWhere({
+          id: value.get('unitType')
+        });
+        return mainunitTypeArray.push({
+          id: unitType.get('id'),
+          name: unitType.get('name')
+        });
+      });
+      if (range === 'LOWRISE') {
+        $.each(mainunitTypeArray, function(key, item) {
+          var count;
+          if (!lunique[item.id]) {
+            lunitTypeArray = [];
+            status = App.master.status.findWhere({
+              'name': 'Available'
+            });
+            count = App.master.unit.where({
+              unitType: item.id,
+              'status': status.get('id')
+            });
+            $.each(count, function(index, value) {
+              lowUnits = App.master.range.findWhere({
+                name: 'low'
+              });
+              if ((value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) && item.id === value.get('unitType')) {
+                return lunitTypeArray.push(value.get('id'));
+              }
+            });
+            mainnewarr.push({
+              id: item.id,
+              name: item.name,
+              count: lunitTypeArray.length,
+              range: 'LOWRISE'
+            });
+            return lunique[item.id] = item;
+          }
+        });
+      }
+      if (range === 'MIDRISE') {
+        $.each(mainunitTypeArray, function(key, item) {
+          var count;
+          if (!munique[item.id]) {
+            munitTypeArray = [];
+            status = App.master.status.findWhere({
+              'name': 'Available'
+            });
+            count = App.master.unit.where({
+              unitType: item.id,
+              'status': status.get('id')
+            });
+            $.each(count, function(index, value) {
+              mediumUnits = App.master.range.findWhere({
+                name: 'medium'
+              });
+              if ((value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) && item.id === value.get('unitType')) {
+                return munitTypeArray.push(value.get('id'));
+              }
+            });
+            mainnewarr.push({
+              id: item.id,
+              name: item.name,
+              count: munitTypeArray.length,
+              range: 'MEDIUMRISE'
+            });
+            return munique[item.id] = item;
+          }
+        });
+      }
+      if (range === 'HIGHRISE') {
+        $.each(mainunitTypeArray, function(key, item) {
+          var count;
+          if (!hunique[item.id]) {
+            hunitTypeArray = [];
+            status = App.master.status.findWhere({
+              'name': 'Available'
+            });
+            count = App.master.unit.where({
+              unitType: item.id,
+              'status': status.get('id')
+            });
+            $.each(count, function(index, value) {
+              highUnits = App.master.range.findWhere({
+                name: 'high'
+              });
+              if ((value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) && item.id === value.get('unitType')) {
+                return hunitTypeArray.push(value.get('id'));
+              }
+            });
+            mainnewarr.push({
+              id: item.id,
+              name: item.name,
+              count: hunitTypeArray.length,
+              range: "HIGHRISE"
+            });
+            return hunique[item.id] = item;
+          }
+        });
+      } else {
+        $.each(mainunitTypeArray, function(key, item) {
+          var count;
+          if (!hunique[item.id]) {
+            hunitTypeArray = [];
+            status = App.master.status.findWhere({
+              'name': 'Available'
+            });
+            count = App.master.unit.where({
+              unitType: item.id,
+              'status': status.get('id')
+            });
+            $.each(count, function(index, value) {
+              return hunitTypeArray.push(value.get('id'));
+            });
+            mainnewarr.push({
+              id: item.id,
+              name: item.name,
+              count: hunitTypeArray.length,
+              range: "HIGHRISE"
+            });
+            return hunique[item.id] = item;
+          }
+        });
+      }
+      console.log(mainnewarr);
+      if (App.defaults['building'] === "All") {
+        unitArray.sort(function(a, b) {
+          return b.units.length - a.units.length;
+        });
+        buildingsactual = [];
+        unitsactual = [];
+        buildingCollection = App.master.building;
+        units = new Backbone.Collection(unitArray);
+        $.each(unitArray, function(index, value) {
+          value = value.id;
+          buildingsactual.push(buildingCollection.get(value));
+          return unitsactual.push(units.get(value));
+        });
+        console.log(buildingCollection = new Backbone.Collection(buildingsactual));
+        newunitCollection = new Backbone.Collection(unitsactual);
+      } else {
+        buildingCollection = new Backbone.Collection(ModelActualArr);
+        console.log(newunitCollection = new Backbone.Collection(unitsactual));
+      }
+      return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString, mainnewarr, range];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {
