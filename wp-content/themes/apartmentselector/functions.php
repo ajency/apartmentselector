@@ -28,6 +28,9 @@ require_once (get_template_directory().'/functions/unit-type.php');
 //load the functions related to building
 require_once (get_template_directory().'/functions/building.php');
 
+//load the functions related to apartment selector settings
+require_once (get_template_directory().'/functions/settings.php');
+
 //load backend styles and scripts//
 require_once (get_template_directory().'/functions/backend-scripts-styles.php');
 
