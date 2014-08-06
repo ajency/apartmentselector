@@ -51,7 +51,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'click a':(e)->
-                console.log $('a').attr('href');
                 e.preventDefault()
 
 
@@ -60,12 +59,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log @
                 #App.navigate "modal"
                 e.preventDefault()
-                msgbus.showApp 'popup'
-                .insideRegion  App.mainRegion
-                .withOptions()
 
-            'click .im-pin':(e)->
-                console.log "click"
+
+            'click .scroll':(e)->
+                console.log $('#'+e.target.id ).attr('data-id')
+                $('html, body').animate({ scrollTop : 0 }, 'slow')
+                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
 
 
 
@@ -124,7 +123,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class BuildingView extends Marionette.ItemView
 
-        template : '<a class="link" href="tower{{id}}">{{name}}</a>'
+        template : '<a  class="link" href="tower{{id}}">{{name}}</a>'
 
         tagName : 'li'
 

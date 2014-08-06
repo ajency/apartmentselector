@@ -23,16 +23,18 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.events = {
       'click a': function(e) {
-        console.log($('a').attr('href'));
         return e.preventDefault();
       },
       'click .remodalcheck': function(e) {
         console.log(this);
-        e.preventDefault();
-        return msgbus.showApp('popup').insideRegion(App.mainRegion).withOptions();
+        return e.preventDefault();
       },
-      'click .im-pin': function(e) {
-        return console.log("click");
+      'click .scroll': function(e) {
+        console.log($('#' + e.target.id).attr('data-id'));
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
       }
     };
 
@@ -70,7 +72,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return BuildingView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingView.prototype.template = '<a class="link" href="tower{{id}}">{{name}}</a>';
+    BuildingView.prototype.template = '<a  class="link" href="tower{{id}}">{{name}}</a>';
 
     BuildingView.prototype.tagName = 'li';
 

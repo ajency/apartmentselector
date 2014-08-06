@@ -64,8 +64,6 @@ require [ 'plugin-loader'
 
     App.screenOneFilter = {key:'',value:''}
 
-    App.floorFilter = {name: ''}
-
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
 
     App.defaults = {"unitType" :'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
