@@ -5249,8 +5249,6 @@ Version:        0.1.0
 .towerTable .tableBody .vs-sidenav div {
   display: block;
   position: absolute;
-  top: 90px;
-  height: 84%;
   width: 10%;
 }
 @media (max-width: 767px) {
@@ -5307,9 +5305,6 @@ Version:        0.1.0
   .viewsNo {
     float: left;
   }
-}
-.towerDetails h1 {
-  margin-top: -10px;
 }
 @media (max-width: 480px) {
   .towerDetails {
