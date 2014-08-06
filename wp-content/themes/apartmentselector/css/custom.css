@@ -105,7 +105,7 @@ Version:        0.1.0
 .grid-container .grid-link:hover,
 .grid-container .grid-link.selected {
   border: 1px solid #f28428;
-  padding: 8px;
+  padding: 9px;
   text-decoration: none;
 }
 .grid-container .grid-link:hover .grid-main-title,
@@ -240,27 +240,24 @@ Version:        0.1.0
   }
 }
 .grid-container .grid-block-3 {
-  float: left;
+  display: inline-block;
   margin: 0 1.77305% 1.77305% 0;
   padding: 1px;
-  width: 12.766%;
+  width: 30.2394%;
+  margin-right: 3.52113%;
 }
 .grid-container .grid-block-3 .grid-link .grid-text-wrap {
-  height: 0;
-  padding-bottom: 166.667%;
+  padding: 10px 0;
   position: relative;
   text-align: center;
   transition: color 250ms ease-out 0s;
   width: 100%;
 }
 .grid-container .grid-block-3 .grid-link .grid-text-wrap .grid-main-title {
-  display: none;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  position: absolute;
-  top: 4%;
   width: 100%;
 }
 .grid-container .grid-block-3 .grid-link .grid-text-wrap .grid-sub-title {
@@ -274,12 +271,13 @@ Version:        0.1.0
   top: 50%;
   width: 100%;
 }
-.grid-container .grid-block-3:nth-child(7n) {
+.grid-container .grid-block-3:nth-child(3n) {
   margin-right: 0;
 }
 @media (min-width: 768px) {
-  .grid-container .grid-block-3 .grid-link .grid-text-wrap {
-    padding-bottom: 112px;
+  .grid-container .grid-block-3 {
+    width: 12.766%;
+    margin-right: 1.77305%;
   }
   .grid-container .grid-block-3 .grid-link .grid-text-wrap .grid-main-title {
     display: block;
@@ -289,6 +287,9 @@ Version:        0.1.0
     font-size: 2.5rem;
     line-height: 40px;
     margin-top: -20px;
+  }
+  .grid-container .grid-block-3:nth-child(3n) {
+    margin-right: 1.77305%;
   }
 }
 .introTxt {
@@ -1313,6 +1314,27 @@ body {
 }
 .pick-up-schedule ul li.month:hover h5 {
   background: #f28428;
+}
+.variantToggle {
+  cursor: pointer;
+}
+.variantToggle:hover {
+  border-bottom: 2px solid #f28428;
+}
+.variantToggle .glyphicon {
+  font-size: 12px;
+}
+.variantBox {
+  display: none;
+  background-color: #f6f6f7;
+}
+.variantBox .grid-link {
+  background-color: #ffffff;
+}
+.variantClose {
+  cursor: pointer;
+  margin-right: 2%;
+  margin-top: 10px;
 }
 .legend .threeBHK,
 .legend .twoBHK,

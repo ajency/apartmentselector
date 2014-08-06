@@ -492,6 +492,28 @@ body{
 // 	width: 520px;
 // }
 
+.variantToggle{
+	cursor: pointer;
+	&:hover{
+		border-bottom: 2px solid @color-primary;
+	}
+	.glyphicon{
+		font-size: 12px;
+	}
+}
+.variantBox{
+	display: none;
+	background-color: lighten(@color-grey, 38%);
+	.grid-link{
+		background-color: @color-white;
+	}
+}
+.variantClose{
+	cursor: pointer;
+	margin-right: 2%;
+	margin-top: 10px;
+}
+
 
 .legend{
 	.threeBHK, .twoBHK, .oneBHK{
