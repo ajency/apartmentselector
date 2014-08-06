@@ -138,6 +138,7 @@ define [ 'marionette' ], ( Marionette )->
                 msgbus.showApp 'header'
                 .insideRegion  App.headerRegion
                     .withOptions()
+
                 @trigger 'building:link:selected'
 
 

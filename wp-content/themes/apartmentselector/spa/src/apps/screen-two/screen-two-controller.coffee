@@ -23,10 +23,38 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, "show", @showViews
 
+            @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+
+
 
 
 
             @show @layout
+
+        showUpdateBuilding:(id)=>
+            console.log id
+            @Collection = @_getUnitsCountCollection(id)
+
+            @layout = new ScreenTwoView.ScreenTwoLayout(
+                collection:@Collection[1]
+                buildingColl : @Collection[0]
+                templateHelpers:
+                    selection :@Collection[2]
+                    unitsCount:@Collection[3]
+                    unittypes:  @Collection[4]
+                    high : @Collection[5]
+                    medium : @Collection[6]
+                    low : @Collection[7]
+                    AJAXURL : AJAXURL)
+
+
+            @listenTo @layout, "show", @showViews
+
+            @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+            @show @layout
+
 
 
         showViews:=>
@@ -77,7 +105,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
 
-        _getUnitsCountCollection:->
+        _getUnitsCountCollection:(paramid={})->
             buildingArray = Array()
             buildingArrayModel = Array()
             unitColl = Array()
@@ -317,7 +345,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 status = App.currentStore.status.findWhere({'name':'Available'})
 
                 newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
-                buildingUnits.push({id:buildingid,count:newunits.length})
+                buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
                 mediumArray = Array()
                 highArray = Array()
@@ -430,16 +458,51 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingArrayModel.push(buildingModel)
 
             )
+
+            buildingvalue = _.max(buildingUnits,  (model)->
+                model.count
+            )
+            console.log buildingvalue
             buildingUnits.sort( (a,b)->
-                b.count - a.count
+                a.id - b.id
 
             )
+            modelIdArr = []
+            modelArr = []
+            ModelActualArr = []
+            $.each(buildingUnits, (index,value)->
+                modelIdArr.push(value.id)
+
+            )
+            console.log buildingUnits
+            console.log paramid
+            key =  _.isEmpty(paramid)
+            if key == true
+                index = _.indexOf(modelIdArr, buildingvalue.id)
+                modelArr.push buildingvalue.id
+
+            else
+                console.log keycheck = _.findWhere(buildingUnits, {name:paramid})
+                index = _.indexOf(modelIdArr, keycheck.id)
+                modelArr.push keycheck.id
+
+            console.log modelArr
+            highLength = modelIdArr.length - index
+            i = index + 1
+            while(i<modelIdArr.length)
+                modelArr.push(modelIdArr[i])
+                i++
+            j= 0
+            while(j<index)
+                modelArr.push(modelIdArr[j])
+                j++
+            console.log modelArr
             buildingsactual = []
             unitsactual = []
             buildingCollection = new Backbone.Collection(buildingArrayModel)
             units = new Backbone.Collection(unitColl)
-            $.each(buildingUnits , (index,value)->
-                value = value.id
+            $.each(modelArr , (index,value)->
+                value = value
                 buildingsactual.push(buildingCollection.get(value))
                 unitsactual.push(units.get(value))
             )

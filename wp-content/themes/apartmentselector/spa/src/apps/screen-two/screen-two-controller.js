@@ -11,6 +11,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     function ScreenTwoController() {
       this._unitCountSelected = __bind(this._unitCountSelected, this);
       this.showViews = __bind(this.showViews, this);
+      this.showUpdateBuilding = __bind(this.showUpdateBuilding, this);
       return ScreenTwoController.__super__.constructor.apply(this, arguments);
     }
 
@@ -30,6 +31,28 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      return this.show(this.layout);
+    };
+
+    ScreenTwoController.prototype.showUpdateBuilding = function(id) {
+      console.log(id);
+      this.Collection = this._getUnitsCountCollection(id);
+      this.layout = new ScreenTwoView.ScreenTwoLayout({
+        collection: this.Collection[1],
+        buildingColl: this.Collection[0],
+        templateHelpers: {
+          selection: this.Collection[2],
+          unitsCount: this.Collection[3],
+          unittypes: this.Collection[4],
+          high: this.Collection[5],
+          medium: this.Collection[6],
+          low: this.Collection[7],
+          AJAXURL: AJAXURL
+        }
+      });
+      this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
       return this.show(this.layout);
     };
 
@@ -71,8 +94,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
     };
 
-    ScreenTwoController.prototype._getUnitsCountCollection = function() {
-      var Countunits, MainCollection, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, first, flag, flag1, hclassname, hcount, highUnits, hnewarr, hunique, hunitTypeArray, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units, unitsactual;
+    ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
+      var Countunits, MainCollection, ModelActualArr, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, flag1, hclassname, hcount, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, key, keycheck, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units, unitsactual;
+      if (paramid == null) {
+        paramid = {};
+      }
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -416,7 +442,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         buildingUnits.push({
           id: buildingid,
-          count: newunits.length
+          count: newunits.length,
+          name: 'tower' + buildingid
         });
         lowArray = Array();
         mediumArray = Array();
@@ -597,15 +624,51 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         return buildingArrayModel.push(buildingModel);
       });
-      buildingUnits.sort(function(a, b) {
-        return b.count - a.count;
+      buildingvalue = _.max(buildingUnits, function(model) {
+        return model.count;
       });
+      console.log(buildingvalue);
+      buildingUnits.sort(function(a, b) {
+        return a.id - b.id;
+      });
+      modelIdArr = [];
+      modelArr = [];
+      ModelActualArr = [];
+      $.each(buildingUnits, function(index, value) {
+        return modelIdArr.push(value.id);
+      });
+      console.log(buildingUnits);
+      console.log(paramid);
+      key = _.isEmpty(paramid);
+      if (key === true) {
+        index = _.indexOf(modelIdArr, buildingvalue.id);
+        modelArr.push(buildingvalue.id);
+      } else {
+        console.log(keycheck = _.findWhere(buildingUnits, {
+          name: paramid
+        }));
+        index = _.indexOf(modelIdArr, keycheck.id);
+        modelArr.push(keycheck.id);
+      }
+      console.log(modelArr);
+      highLength = modelIdArr.length - index;
+      i = index + 1;
+      while (i < modelIdArr.length) {
+        modelArr.push(modelIdArr[i]);
+        i++;
+      }
+      j = 0;
+      while (j < index) {
+        modelArr.push(modelIdArr[j]);
+        j++;
+      }
+      console.log(modelArr);
       buildingsactual = [];
       unitsactual = [];
       buildingCollection = new Backbone.Collection(buildingArrayModel);
       units = new Backbone.Collection(unitColl);
-      $.each(buildingUnits, function(index, value) {
-        value = value.id;
+      $.each(modelArr, function(index, value) {
+        value = value;
         buildingsactual.push(buildingCollection.get(value));
         return unitsactual.push(units.get(value));
       });
