@@ -1,4 +1,13 @@
 <?
+
+if(!current_user_can('manage_apartments') && !current_user_can('manage_options')){
+
+    wp_redirect(site_url('no-access'));
+
+    exit;
+    
+} 
+
 if(isset($_REQUEST["id"])){
 
     $apartment_id = $_REQUEST["id"];

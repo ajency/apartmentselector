@@ -201,8 +201,7 @@ echo $response;
 
 exit;
 }
-add_action('wp_ajax_delete_unit','ajax_delete_unit');
-add_action('wp_ajax_nopriv_delete_unit','ajax_delete_unit');
+add_action('wp_ajax_delete_unit','ajax_delete_unit'); 
 
 function ajax_get_unit_variants(){
 
@@ -423,8 +422,7 @@ echo $response;
 
 exit;
 }
-add_action('wp_ajax_save_apartment','ajax_save_apartment');
-add_action('wp_ajax_nopriv_save_apartment','ajax_save_apartment');
+add_action('wp_ajax_save_apartment','ajax_save_apartment'); 
 
 
 function get_flats_on_floor($building ,$floor){
