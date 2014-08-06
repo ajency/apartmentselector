@@ -159,9 +159,9 @@ $heading = "Edit";
     </div>
 </div>
 
-<div class="well" id="flats_container" <?php if($no_of_flats==0){ ?> style="display:none"<?php}?>  >
- 
-        <?php
+<div class="well" id="flats_container" <?php if($no_of_flats==0){ ?> style="display:none"<?}?>  >
+
+        <?
             if($no_of_flats!=0){ 
                 foreach($building_no_of_flats as $building_no_of_flat){
                     ?><div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats' >
