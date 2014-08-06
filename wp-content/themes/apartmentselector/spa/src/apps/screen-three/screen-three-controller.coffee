@@ -32,6 +32,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
 
+
         _showBuildings:->
                 @Collection = @_getUnits()
 

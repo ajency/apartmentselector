@@ -37,9 +37,6 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     key: '',
     value: ''
   };
-  App.floorFilter = {
-    name: ''
-  };
   App.backFilter = {
     'screen1': [],
     'screen2': [],

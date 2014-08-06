@@ -324,7 +324,7 @@
 				map.data('newX', newX);
 				map.data('newY', newY);
 
-				if (self.data.minimap) updateMinimap(self.container, map);
+				//if (self.data.minimap) updateMinimap(self.container, map);
 			});
 
 			// Mouse Wheel
@@ -376,7 +376,7 @@
 				map.data('newX', newX);
 				map.data('newY', newY);
 
-				if (self.data.minimap) updateMinimap(self.container, map, newW, newH);
+				///if (self.data.minimap) updateMinimap(self.container, map, newW, newH);
 			});
 			return self;
 		}
@@ -509,7 +509,7 @@
 			map.data('newX', newX);
 			map.data('newY', newY);
 
-			if (self.data.minimap) updateMinimap(container, map, newW, newH);
+			//if (self.data.minimap) updateMinimap(container, map, newW, newH);
 		};
 
 		self.goTo = function(x, y, duration) {
@@ -530,7 +530,7 @@
 			map.data('newX', newX);
 			map.data('newY', newY);
 
-			if (self.data.minimap) updateMinimap(container, map);
+			//if (self.data.minimap) updateMinimap(container, map);
 		}
 
 		self.showLocation = function(id, duration) {
@@ -595,7 +595,7 @@
 				map.data('mouseX', e.clientX);
 				map.data('mouseY', e.clientY);
 
-				if (self.data.minimap) updateMinimap(self.container, map);
+				//if (self.data.minimap) updateMinimap(self.container, map);
 			}
 		};
 
