@@ -162,12 +162,15 @@ $(file).remove()
       $("#save-main-entry").hide().parent().append("saving...")
       GetSubFormEntries(e);
       data = $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form").serializeArray();
-     console.log(data)
+     
+
+     data = room_type_sizes(data);
+        
       $.post(AJAXURL, {
         action: "save_entry",
         data: data
       }, function(response) {
-         window.location.href = SITEURL + "/listing/?form_id=" + $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val();
+       window.location.href = SITEURL + "/listing/?form_id=" + $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form input[name='form_id']").val();
       });
     });
     $(document).on("click", ".show-add-form", function(e) {
@@ -214,4 +217,57 @@ $(file).remove()
         });
       });
     });
+
+function room_type_sizes(data){
+  room_sizes = []
+  if($('#add_more_room_sizes').length!=0){
+
+    for(i=1;i<=$('#add_more_room_sizes').attr("last-sr-no");i++){
+  
+      if($("#room_type_for_size_"+i).length!=0){ 
+        room_sizes.push({'room_type':$("#room_type_for_size_"+i).val(),'room_size':$("#room_type_size_"+i).val()})
+      }
+
+    }
+    data.push({name:$('#add_more_room_sizes').attr('field-name'),value:room_sizes})
+  }
+  return data;
+}
+
+  $(document).on("click", "#add_more_room_sizes", function(e) {
+
+    itemNo = parseInt($(e.target).attr("last-sr-no"))+1;
+
+    $(e.target).attr("last-sr-no",itemNo);
+ 
+    cloneElement = $("#room-type-for-size-item-1").html()
+
+    html = '<div id="room-type-for-size-item-'+itemNo+'">';
+
+    elements_html = cloneElement.replace(/1/g,itemNo);
+
+    html +=elements_html;
+
+    html +='</div>';
+ 
+   $('#room-type-for-size-container div:last').before( html );
+  });
+
+ 
+   $(document).on("click", ".delete_room_type_size_item", function(e) {
+
+      itemNo =  parseInt($(e.target).attr("item-no"));
+
+      if(itemNo==1){
+
+        alert("Not allowed to delete the first Item");
+      }
+      else{
+
+        $("#room-type-for-size-item-"+itemNo).remove();
+
+      }
+
+  });
+ 
   }); 

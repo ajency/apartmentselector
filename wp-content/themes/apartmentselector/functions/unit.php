@@ -268,13 +268,32 @@ function get_unit_variants(){
 
         $url3dlayout_image = wp_get_attachment_image_src( $url3dlayout_image_id, 'large'    ); 
 
-        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice,'url2dlayout_image'=>$url2dlayout_image[0],'url3dlayout_image'=>$url3dlayout_image[0]);
+        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice,'url2dlayout_image'=>$url2dlayout_image[0],'url3dlayout_image'=>$url3dlayout_image[0],'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes']),);
     }
 
     return $unit_variants;
 }
 
 
+//function to get names of the room types for sizes 
+function get_room_type_for_sizes_name($data){
+
+    $updated_data = array();
+
+    if(is_array($data)){
+         foreach ($data as $key => $value) {
+
+        $room_type_for_sizes = get_room_type_for_sizes($value["room_type"]);
+     
+        $value["room_type"] =  $room_type_for_sizes[0]["name"];
+
+         $updated_data[] = $value;
+    }
+
+    }
+   
+    return $updated_data;
+}
 
 /*get all units*/
 function get_units(){
