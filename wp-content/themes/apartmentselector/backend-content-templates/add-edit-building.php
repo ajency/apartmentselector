@@ -1,10 +1,18 @@
 <?
 //form heading
+
+if(!current_user_can('manage_buildings') && !current_user_can('manage_options')){
+
+    wp_redirect(site_url('no-access'));
+
+    exit;
+    
+} 
 $heading = "Add";
 
 $no_of_flats = 0;
 
-$building_exceptions = array();
+$building_exceptions  =   $building_views = array();
 
 if(isset($_REQUEST["id"])){
 
@@ -17,6 +25,12 @@ $heading = "Edit";
     $building_name = $building["name"];
 
     $building_phase = $building["phase"];
+
+    $building_views = $building["buildingviews"];
+
+    $position_in_project = $building["positioninproject"];
+    
+    $position_in_project_image_url = $building["positioninprojectimageurl"];
 
     $no_of_floors = $building["nooffloors"];
 
@@ -95,6 +109,55 @@ $heading = "Edit";
             </div>
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="form-label">
+                Position in project
+            </label>
+
+            <div class="input-with-icon  right">
+                <span class="btn btn-success fileinput-button">
+                     
+                    <span>Select file..</span>
+                    <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo $position_in_project;?>"><input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
+                </span> 
+                <div id="progressposition_in_project" class="progress" >
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <div id="filesposition_in_project" class="files"></div>
+                <br>
+                <div class="row-fluid">
+                    <div class="col-md-12">
+                        <img src="<?php echo $position_in_project_image_url;?>" id="image_displayposition_in_project">
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="form-label">
+                View
+            </label>
+
+            <div class="input-with-icon  right">   <?php
+                $views = get_views();
+
+                foreach($views as $view){
+                    ?>
+                    <div class="col-md-6">
+                        <div class='checkbox check-default' >
+                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$building_views)){ echo "checked";}?>> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?> 
+            </div> 
+        </div>
+    </div>
+    <div style="clear:both"></div>
     <div class="col-md-6">
         <div class="form-group">
             <label class="form-label">
@@ -315,10 +378,11 @@ $heading = "Edit";
 
                     $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
                     ?>
-                <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'> Floor<label class="form-label"><?php  echo $floor;?></label>: <input type='text' class='form-control' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'></div>
+                <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'><label class="form-label  form-label-inline"> Floor <?php  echo $floor;?> : </label> <label class="form-label form-label-prefix"> Rs.</label><input type='text' placeholder="0" class='form-control  form-control-small' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'>per sq ft</div>
                     <?php
                 }
              ?>
+			 
 
         </div>
     </div>

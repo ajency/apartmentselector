@@ -341,3 +341,19 @@ Version:        0.1.0
 .pick-up-schedule ul li.month:hover h5 {
   background: #f28428;
 }
+.form-control-small{
+  display: inline !important;
+  width: auto !important;
+}
+.form-label-inline{
+  margin-top:9px;
+  /*width:175px;*/
+  width:50px;
+}
+.form-label-prefix{ 
+  width:15px;
+}
+
+.form-small-input{
+  width:150px !important
+}

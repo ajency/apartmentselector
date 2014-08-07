@@ -79,11 +79,11 @@ function get_default_data($master_type,$id=0){
 
 	if($id !=0){
 
-		$where_clause = " id = ".$id;
+		$where_clause = "and id = ".$id;
 
 	}
-	$query = "SELECT id as id,value as name,master_type as master_type,data as data FROM ".$wpdb->prefix .CUSTOMTBLPREFIX. "defaults WHERE master_type = '$master_type'".$where_cluse;
-
+	$query = "SELECT id as id,value as name,master_type as master_type,data as data FROM ".$wpdb->prefix .CUSTOMTBLPREFIX. "defaults WHERE master_type = '$master_type'".$where_clause;
+ 
 	$default_data = $wpdb->get_results($query,ARRAY_A);
 
 	$data = array();
@@ -144,7 +144,7 @@ add_action('wp_ajax_nopriv_get_list_view','ajax_get_list_view');
 
 function check_backend_template(){
     //check to load js only if not backend templates
-    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
+    $array_backend_pages = array('no-access','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
 
 
     if(in_array(get_template_filename(),$array_backend_pages)){
@@ -202,8 +202,7 @@ function ajax_upload_file(){
 
     exit;
 }
-add_action('wp_ajax_upload_file','ajax_upload_file');
-add_action('wp_ajax_nopriv_upload_file','ajax_upload_file');
+add_action('wp_ajax_upload_file','ajax_upload_file'); 
 
 
 
@@ -263,4 +262,24 @@ function get_logged_in_user_info(){
 	$user_data['display_role'] = $display_role;
 	$user_data['avatar'] = $avatar;
 	return $user_data;
+}
+
+
+//fetch user role based on User Id.
+function get_user_role( $user_ID = 0 ) {
+
+    $user_ID = (int) $user_ID;
+
+    if ( $user_ID === 0 ) {
+        $user_ID = get_current_user_id();
+    }
+
+    // GET USER ROLE
+
+    $user = new WP_User( $user_ID );
+   
+    $user_role= $user->roles[0];
+
+
+    return $user->roles[ 0 ];
 }

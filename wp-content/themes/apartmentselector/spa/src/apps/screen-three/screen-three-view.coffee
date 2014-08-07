@@ -12,60 +12,56 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
 
                     <div class="towerRange">
-
-
-                         <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3>
+                        <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3>
                         <div class="row m-l-0 m-r-0 m-b-20">
-                            <div class="col-sm-4 col-xs-9">
+                            <div class="col-sm-4 col-xs-12">
                                 <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block">
                             </div>
-                            <div class="col-sm-8 col-xs-3">
+                            <!--<div class="col-sm-8 col-xs-3">
                                 <div class="row">
-
-       {{#high}}
+                                    {{#high}}
                                      <div class="col-sm-4 p-l-0 p-r-0">
                                         <h1><small>Total {{name}}</small><br>{{count}}</h1>
                                     </div>
-{{/high}}
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 hidden-xs m-t-30 p-l-0">
-                                        <div class="col">
-                                            <p>Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                    </div>
-                                    <div class="col-sm-4">
-                                    </div>
-                                    <div class="col-sm-4">
-                                    </div>
-                                </div>
+                                    {{/high}}
+                            </div>-->
+
+                            <div class="col-sm-8 col-xs-12 m-t-30">
+                                <p>Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
                             </div>
-                            <div class="viewsNo m-t-20">
-                                <div class="row m-l-0 m-r-0">
-                                    <div class="col-xs-4">
-                                        <h4>
-                                            NO OF <span class="text-primary bold">VIEWS</span>
-                                        </H4>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        Garden view<br>
-                                        Pond View<br>
-                                        Manas Lake<br>
-                                        Eco pond
-                                    </div>
-                                    <div class="col-xs-4">
-                                        Garden view<br>
-                                        Pond View<br>
-                                        Manas Lake<br>
-                                        Eco pond
-                                    </div>
+
+                            <!--<div class="row">
+                                <div class="col-sm-4">
                                 </div>
-                            </div>
+                                <div class="col-sm-4">
+                                </div>
+                                <div class="col-sm-4">
+                                </div>
+                            </div>-->
                         </div>
+
+                       <!-- <div class="viewsNo m-t-20">
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-xs-4">
+                                    <h4>
+                                        NO OF <span class="text-primary bold">VIEWS</span>
+                                    </H4>
+                                </div>
+                                <div class="col-xs-4">
+                                    Garden view<br>
+                                    Pond View<br>
+                                    Manas Lake<br>
+                                    Eco pond
+                                </div>
+                                <div class="col-xs-4">
+                                    Garden view<br>
+                                    Pond View<br>
+                                    Manas Lake<br>
+                                    Eco pond
+                                </div>
+                            </div>
+                        </div>-->
+
                     </div>
                     '
 
@@ -301,6 +297,14 @@ define [ 'marionette' ], ( Marionette )->
         childViewContainer : '.cd-table-wrapper'
 
 
+        collectionEvents :
+            'reset'  : 'dataUpdated'
+
+
+        dataUpdated:->
+            console.log "aaaaaaaaaaaaa"
+
+
 
 
 
@@ -321,6 +325,17 @@ define [ 'marionette' ], ( Marionette )->
 
 
         childView : UnitView
+
+
+
+
+
+
+
+
+
+
+
 
 
 

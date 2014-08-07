@@ -41,9 +41,35 @@ jQuery(document).ready(function($) {
 
         }
 
-        $("#floor").trigger('change')
+        $("#floor").trigger('change');
+
+        load_views();
 
 });
+
+
+function load_views(){
+    $(".views-container").html('');
+   $.post(AJAXURL, {
+
+            action: "get_building_views",
+            building:$("option:selected", $("#building")).val() 
+
+        }, function(response) { 
+            if(response.length>0){
+                    $.each(response, function(i, val) {
+              
+                    $(".views-container").append("<div class='col-md-6'><div class='checkbox check-default' ><input type='checkbox' name='views[]' id='views"+val.id+"' value='"+val.id+"'> <label for='views"+val.id+"'>"+val.name+"</label></div></div>");
+                });
+            }else{
+                $(".views-container").html("<div class='col-md-6'><div>No Views Found</div></div>");
+            }
+          
+            
+         
+        });
+
+}
 
 //on selection of floor get the flats on the floor making an ajax call
 $(document).on("change", "#floor", function(e) {

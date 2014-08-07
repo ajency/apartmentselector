@@ -15,6 +15,10 @@ function add_custom_fields($fields){
 
 	$fields['addrooms']= __('Add Rooms', 'formidable')  ;
 
+	$fields['addrooms']= __('Add Rooms', 'formidable')  ;
+
+	$fields['roomsizes']= __('Room Sizes', 'formidable')  ;
+
 	return $fields;
 
 }
@@ -80,6 +84,66 @@ function frm_form_fields_customize($field, $field_name){
  		?>
  						<input type="button" name="add_rooms" class="add-rooms show_sub_form" value="+" form-id="23" store-entry-data="room_variant_entry_id"   count-of-rooms="0">
  						<?php
+
+
+ 		break;
+
+ 		case "roomsizes": 
+
+ 			$room_type_for_sizes = get_room_type_for_sizes();
+ 			$key = 0;
+ 			?>
+ 			<div id="room-type-for-size-container">
+ 			<?php
+ 		if($field['value']==""){
+ 			?>
+			
+	 			<div id="room-type-for-size-item-1">
+	 				<select name="room_type_for_size[]" id="room_type_for_size_1"   class="form-small-input">
+	 					<option value="">Select</option>
+	 					<?php
+	 					foreach($room_type_for_sizes as $room_type_for_size){
+	 					?>
+	 					<option value="<?php echo $room_type_for_size["id"]?>"><?php echo $room_type_for_size["name"]?></option>
+	 					<?php
+	 					}
+	 					?>
+	 				</select>
+	 				<input type="text" id="room_type_size_1"  name="room_type_size_1"  class="form-small-input">
+	 				<input type="button" value="x" item-no="1" class="delete_room_type_size_item">
+	 			</div>
+	 		 
+ 			<?php
+
+ 		}else{
+ 			foreach($field['value'] as $key=>$field_value_item){
+
+ 				?>
+ 				
+	 			<div id="room-type-for-size-item-<?php echo $key+1;?>">
+	 				<select name="room_type_for_size[]" id="room_type_for_size_<?php echo $key+1;?>"   class="form-small-input">
+	 					<option value="">Select</option>
+	 					<?php
+	 					foreach($room_type_for_sizes as $room_type_for_size){
+	 					?>
+	 					<option value="<?php echo $room_type_for_size["id"]?>" <?php if($field_value_item["room_type"]==$room_type_for_size["id"]){ echo "selected";}?>><?php echo $room_type_for_size["name"]?></option>
+	 					<?php
+	 					}
+	 					?>
+	 				</select>
+	 				<input type="text" id="room_type_size_<?php echo $key+1;?>"  name="room_type_size_<?php echo $key+1;?>"  class="form-small-input" value="<?php echo $field_value_item["room_size"];?>">
+	 				<input type="button" value="x" item-no="<?php echo $key+1;?>" class="delete_room_type_size_item">
+	 			</div>
+	 			
+ 			<?php
+ 				 
+ 			}
+ 		}
+ 		?>
+ 		<div>Add More <input last-sr-no="<?php echo $key+1; ?>" type="button" name="add_more_room_sizes" id="add_more_room_sizes"  value="+" field-name="<?php echo $field_name ?>" >
+	 			</div>
+ 			</div>				
+ 		<?php
 
 
  		break;
@@ -196,8 +260,7 @@ function ajax_save_entry(){
         echo $response;
         exit;
 }
-add_action('wp_ajax_save_entry','ajax_save_entry');
-add_action('wp_ajax_nopriv_save_entry','ajax_save_entry');
+add_action('wp_ajax_save_entry','ajax_save_entry'); 
 
 
 /*

@@ -130,12 +130,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 });
                 templateArr.push(key.get('name'));
               }
-              if (value.key === 'unitVariant') {
-                key = App.master.unit_variant.findWhere({
-                  id: parseInt(element)
-                });
-                templateArr.push(key.get('name'));
-              }
               if (value.key === 'building') {
                 key = App.master.building.findWhere({
                   id: parseInt(element)
@@ -160,12 +154,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           } else {
             if (value.key === 'unitType') {
               key = App.master.unit_type.findWhere({
-                id: parseInt(value.value)
-              });
-              templateArr.push(key.get('name'));
-            }
-            if (value.key === 'unitVariant') {
-              key = App.master.unit_variant.findWhere({
                 id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));

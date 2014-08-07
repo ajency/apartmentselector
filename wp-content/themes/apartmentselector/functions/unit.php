@@ -171,6 +171,8 @@ function save_unit($post_id, $post){
 
     $unit_assigned = $_REQUEST["unit_assigned"];
 
+    $views = $_REQUEST["views"];
+
     update_post_meta($post->ID, 'unit_variant', $unit_variant);
 
     update_post_meta($post->ID, 'floor', $floor);
@@ -180,6 +182,8 @@ function save_unit($post_id, $post){
     update_post_meta($post->ID, 'unit_status', $unit_status);
 
     update_post_meta($post->ID, 'unit_assigned', $unit_assigned);
+
+    update_post_meta($post->ID, 'apartment_views', $views);
 
     return $post->ID;
 }
@@ -201,8 +205,7 @@ echo $response;
 
 exit;
 }
-add_action('wp_ajax_delete_unit','ajax_delete_unit');
-add_action('wp_ajax_nopriv_delete_unit','ajax_delete_unit');
+add_action('wp_ajax_delete_unit','ajax_delete_unit'); 
 
 function ajax_get_unit_variants(){
 
@@ -269,13 +272,32 @@ function get_unit_variants(){
 
         $url3dlayout_image = wp_get_attachment_image_src( $url3dlayout_image_id, 'large'    ); 
 
-        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice,'url2dlayout_image'=>$url2dlayout_image[0],'url3dlayout_image'=>$url3dlayout_image[0]);
+        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice,'url2dlayout_image'=>$url2dlayout_image[0],'url3dlayout_image'=>$url3dlayout_image[0],'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes']),);
     }
 
     return $unit_variants;
 }
 
 
+//function to get names of the room types for sizes 
+function get_room_type_for_sizes_name($data){
+
+    $updated_data = array();
+
+    if(is_array($data)){
+         foreach ($data as $key => $value) {
+
+        $room_type_for_sizes = get_room_type_for_sizes($value["room_type"]);
+     
+        $value["room_type"] =  $room_type_for_sizes[0]["name"];
+
+         $updated_data[] = $value;
+    }
+
+    }
+   
+    return $updated_data;
+}
 
 /*get all units*/
 function get_units(){
@@ -302,6 +324,8 @@ function get_units(){
 
         $unit_status =   get_post_meta($result->ID, 'unit_status', true);
 
+        $views =   get_post_meta($result->ID, 'apartment_views', true);
+
         $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
         $units[] = array(   'id'=>intval($result->ID),
@@ -310,6 +334,7 @@ function get_units(){
                             'unitVariant'=>intval($unit_variant),
                             'building'=>intval($unit_building),
                             'floor'=>intval($floor),
+                            'views'=>intval($views),
                             'status'=>intval($unit_status),
                         );
 
@@ -336,6 +361,8 @@ function get_unit_by_id($id){
 
     $unit_assigned =   get_post_meta($result->ID, 'unit_assigned', true);
 
+    $apartment_views =   get_post_meta($result->ID, 'apartment_views', true);
+
     $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
     return array(   'id'=>$result->ID,
@@ -345,6 +372,7 @@ function get_unit_by_id($id){
                     'building'=>$unit_building,
                     'floor'=>$floor,
                     'unit_assigned'=>$unit_assigned,
+                    'apartment_views'=>$apartment_views,
                     'status'=>$unit_status
                 );
 }
@@ -423,8 +451,7 @@ echo $response;
 
 exit;
 }
-add_action('wp_ajax_save_apartment','ajax_save_apartment');
-add_action('wp_ajax_nopriv_save_apartment','ajax_save_apartment');
+add_action('wp_ajax_save_apartment','ajax_save_apartment'); 
 
 
 function get_flats_on_floor($building ,$floor){

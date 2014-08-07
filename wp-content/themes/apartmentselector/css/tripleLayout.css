@@ -22,7 +22,7 @@
 	z-index: 200;
 	margin: 0 auto;
 	padding: 30px 2em 1em;
-	width: 80%;
+	/*width: 80%;*/
 	text-align: center;
 	-webkit-backface-visibility: hidden;
 }
@@ -74,7 +74,7 @@
 	position: relative;
 	display: inline-block;
 	margin: 0 10px;
-	padding: 20px 0;
+	padding: 10px 0;
 	outline: none;
 	border-top: 2px solid transparent;
 	border-bottom: 2px solid transparent;
@@ -90,6 +90,7 @@
 
 .vs-nav li.vs-nav-current a{
 	font-size: 1.5em;
+	padding: 5px 0;
 }
 
 .vs-nav li a:hover,
@@ -283,7 +284,7 @@
 
 .vs-content h2 {
 	position: relative;
-	color: #f28428;
+	/*color: #f28428;*/
 }
 
 .vs-content .col {
@@ -324,7 +325,7 @@
 	}*/
 
 	.vs-nav li a {
-		width: 160px;
+		/*width: 160px;*/
 	}
 
 	.vs-content .col {

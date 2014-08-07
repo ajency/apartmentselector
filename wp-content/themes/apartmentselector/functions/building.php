@@ -266,6 +266,10 @@ function save_extra_building_fields( $term_id ) {
 
      $building_phase =  $_REQUEST['building_phase'];
 
+     $position_in_project =  $_REQUEST['position_in_project'];
+
+     $building_views =  $_REQUEST['views'];
+
 
     $exceptions = array();
      $exceptions_count =  $_REQUEST['exceptions_count'];
@@ -298,6 +302,10 @@ function save_extra_building_fields( $term_id ) {
 
 
     update_option( "building_".$term_id."_phase", $building_phase );
+
+    update_option( "building_".$term_id."_position_in_project", $position_in_project );
+
+    update_option( "building_".$term_id."_views", $building_views );
 
     update_option( "building_".$term_id."_no_of_floors", $no_of_floors );
 
@@ -395,6 +403,10 @@ function get_buildings($ids=array())
         
         $building_phase = get_option( "building_".$category->term_id."_phase",true);
 
+        $position_in_project = get_option( "building_".$category->term_id."_position_in_project",true);
+
+        $position_in_project_image_url =   wp_get_attachment_thumb_url($position_in_project);
+
         $building_floor_rise =  maybe_unserialize(get_option('building_'.$category->term_id.'_floor_rise')) ;
    
         $floor = array();
@@ -403,7 +415,7 @@ function get_buildings($ids=array())
         for ($i=1; $i<=$building_no_of_floors;$i++){
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise));
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url);
 
     }
 
@@ -458,8 +470,7 @@ echo $response;
 
 exit;
 }
-add_action('wp_ajax_save_building','ajax_save_building');
-add_action('wp_ajax_nopriv_save_building','ajax_save_building'); 
+add_action('wp_ajax_save_building','ajax_save_building');  
 
 //delete building
 function ajax_delete_building(){
@@ -485,13 +496,20 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_delete_building','ajax_delete_building');
-add_action('wp_ajax_nopriv_delete_building','ajax_delete_building');
-//get building data by id
+ //get building data by id
 function get_building_by_id($building_id){
 
    $building =  get_term_by('id', $building_id, 'building');
 
    $building_phase = get_option('building_'.$building_id.'_phase');
+
+   $position_in_project = get_option('building_'.$building_id.'_position_in_project');
+
+   $position_in_project_image_url =  wp_get_attachment_thumb_url($position_in_project);
+        
+   $building_views = get_option('building_'.$building_id.'_views');  
+
+   $building_views = is_array($building_views)?$building_views:array();
 
    $building_no_of_floors = get_option('building_'.$building_id.'_no_of_floors');
    
@@ -515,7 +533,7 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise );
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'positioninprojectimageurl'=>$position_in_project_image_url ,'buildingviews'=>$building_views);
  
    return ($result);
 }
@@ -535,3 +553,39 @@ function get_flats_details($flats){
 
     return $flats_updated;
 }
+
+
+function get_building_views($building_id){
+
+    $building =  get_term_by('id', $building_id, 'building');
+
+    $building_views = get_option('building_'.$building_id.'_views');
+
+    $building_views = is_array($building_views)?$building_views:array();
+    
+    $building_views_data = array();
+
+   foreach($building_views as $building_view){
+
+        $view = get_views($building_view);
+
+        $building_views_data[] = array("id"=>$view[0]["id"],"name"=>$view[0]["name"]);
+
+   }
+
+   return  $building_views_data; 
+}
+
+function ajax_get_building_views(){
+
+$building_id = $_REQUEST["building"];
+
+$response = json_encode( get_building_views($building_id));
+
+header( "Content-Type: application/json" );
+
+echo $response;
+
+exit;
+}
+add_action('wp_ajax_get_building_views','ajax_get_building_views');

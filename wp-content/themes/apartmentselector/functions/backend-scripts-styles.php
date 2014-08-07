@@ -6,8 +6,8 @@ function apartmentselector_backend_enqueue_scripts(){
 
     global $post;
 
-    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
-
+    $array_backend_pages = array('no-access','settings','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
+ 
     if(in_array(get_template_filename(),$array_backend_pages)){
 
         wp_enqueue_script( "jquery",
@@ -95,6 +95,12 @@ function apartmentselector_backend_enqueue_scripts(){
             array( "jquery" ), false, true );
     }
 
+    ///load settings.js if any of the specifed is loaded
+    if(in_array(get_template_filename(),array('settings'))){
+        wp_enqueue_script( 'ap-sl-settings',
+            get_template_directory_uri() . "/js/backend/settings.js",
+            array( "jquery" ), false, true );
+    }
 
     ///load tablesorter js files
         if(in_array(get_template_filename(),array('apartments','buildings'))){
@@ -155,10 +161,10 @@ function apartmentselector_backend_enqueue_styles() {
 
     global $post;
 
-    $array_backend_pages = array('apartments','buildings','add-edit-apartment','add-edit-building','form' );
+    $array_backend_pages = array('no-access','settings','apartments','buildings','add-edit-apartment','add-edit-building','form' );
 
     if(in_array(get_template_filename(),$array_backend_pages)){
-if(in_array(get_template_filename(),array('apartments','buildings','add-edit-apartment','add-edit-building'))){
+if(in_array(get_template_filename(),array('no-access','settings','apartments','buildings','add-edit-apartment','add-edit-building'))){
 
         wp_enqueue_style( "pace-theme-flash", get_template_directory_uri() . "/css/backend/css/pace-theme-flash.css" );
         wp_enqueue_style( "bootstrap-tagsinput", get_template_directory_uri() . "/css/backend/css/bootstrap-tagsinput.css" );
@@ -182,6 +188,7 @@ if(in_array(get_template_filename(),array('apartments','buildings','add-edit-apa
         //file upload
         if(in_array(get_template_filename(),array('add-edit-building','form' ))){
  
+ wp_enqueue_style( "custom", get_template_directory_uri() . "/css/backend/css/custom.css" );
             wp_enqueue_style( "fileupload", get_template_directory_uri() . "/css/backend/css/jquery.fileupload.css" );
 
         }
