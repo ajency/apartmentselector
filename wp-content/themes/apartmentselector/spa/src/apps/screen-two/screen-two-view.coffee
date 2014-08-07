@@ -3,28 +3,26 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantArray = ''
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="text-center subTxt m-b-20 unittype hidden">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
-
-                <div class="text-center subTxt m-b-20 budget hidden">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
-                <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
+        template : '<div class="text-center subTxt m-b-20 animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+        		<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
                 <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All <span class="glyphicon glyphicon-chevron-down"></span> </span> variants of your apartment selection</div>
                 <div class="variantBox">
                     <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
                     <div class="grid-container">
-
-       {{#unitVariants}}                         <div class="grid-block-3" >
-                          <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
-
-
-
-
-                          {{name}}<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /></a></div>
-
-
-       {{/unitVariants}}
-                      </div>
+                        {{#unitVariants}}
+                        <div class="grid-block-3" >
+                            <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
+                                {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                            </a>
+                        </div>
+                        {{/unitVariants}}
+                        <div class="variantAction m-t-5 m-b-20">
+                            <a class="btn btn-primary m-r-10 done">DONE</a>
+                            <a class="btn btn-default">CANCEL</a>
+                        </div>
                     </div>
+                </div>
 
         		<div class="legend text-center m-b-20">
 
@@ -55,7 +53,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 <div class="m-t-40 p-l-15 p-r-15 text-center">
     				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
     				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                    <div id="mapplic1"></div>
+                    <div id="mapplic1" class="towersMap center-block"></div>
                 </div>'
 
 
@@ -105,6 +103,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log unitVariantArray
                 unitVariantString = unitVariantArray.join(',')
                 App.defaults['unitVariant'] = unitVariantString
+
+
+            'click .done':(e)->
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -116,11 +117,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
+
         onShow:->
-            if App.screenOneFilter['key'] == 'unitType'
-                $('.unittype' ).removeClass 'hidden'
-            else if App.screenOneFilter['key'] == 'budget'
-                $('.budget' ).removeClass 'hidden'
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
@@ -276,7 +274,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="subHeader">
                                     <div class="row">
                                         <div class="col-xs-5">
-                                            FLOOR<br>BLOCK
+                                            FLOOR<br>RANGE
                                         </div>
                                         <div class="col-xs-7 text-right">
                                             NO. OF UNITS OF<br>YOUR SELECTION
@@ -284,20 +282,24 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 b-grey b-l">
                                 <div class="towerUnits psuedoUnits"></div>
                                 <div class="towerDetails">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <img src="../HTML/assets/img/towerA.jpg" class="img-responsive center-block">
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         {{#unittypes}}
-                                        <div class="col-xs-6">
-                                           <h1><small>Total {{name}}</small><br>{{count}}</h1>
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Total Apartments</h3>
+                                           <h1 class="semi-bold m-t-5">{{count}}</h1>
                                         </div>
                                         {{/unittypes}}
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Available Apartments</h3>
+                                           <h1 class="semi-bold m-t-5">10</h1>
+                                        </div>
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Number of Floors</h3>
+                                           <h1 class="semi-bold m-t-5">10</h1>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 m-t-10">
@@ -308,13 +310,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                     <div class="row m-l-0 m-r-0 m-b-20">
                                         <div class="col-xs-4">
-                                            <h4> NO OF <div class="text-primary bold">VIEWS</div> </h4>
+                                            <h4 class="m-t-0 text-primary">What can I<div class="bold">SEE?</div> </h4>
                                         </div> 
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View<br> Manas Lake<br> Eco pond 
+                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Garden view<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Pond View
                                         </div>
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View<br> Manas Lake<br> Eco pond 
+                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Manas Lake<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Eco pond 
                                         </div>
                                     </div>
                                 </div>

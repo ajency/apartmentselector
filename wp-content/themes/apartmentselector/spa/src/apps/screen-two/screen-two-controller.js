@@ -58,6 +58,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
       return this.show(this.layout);
     };
 
@@ -100,7 +101,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
-      var Countunits, MainCollection, ModelActualArr, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, flag1, hclassname, hcount, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, key, keycheck, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, unitsactual, unitvariant;
+      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, flag1, hclassname, hcount, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, key, keycheck, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, unitsactual, unitvariant;
       if (paramid == null) {
         paramid = {};
       }
@@ -254,7 +255,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         unitVariantModels.push({
           id: unitVarinatModel.get('id'),
-          name: unitVarinatModel.get('name')
+          name: unitVarinatModel.get('name'),
+          sellablearea: unitVarinatModel.get('sellablearea')
         });
         return unitVariantID.push(unitVarinatModel.get('id'));
       });
@@ -683,6 +685,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         j++;
       }
       console.log(modelArr);
+      if (modelArr.length === 2) {
+        arrayvalue = _.last(modelArr);
+        modelArr.push(arrayvalue);
+      }
+      console.log(modelArr);
       buildingsactual = [];
       unitsactual = [];
       buildingCollection = new Backbone.Collection(buildingArrayModel);
@@ -692,6 +699,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingsactual.push(buildingCollection.get(value));
         return unitsactual.push(units.get(value));
       });
+      console.log(buildingsactual);
       buildingCollection = new Backbone.Collection(buildingsactual);
       units = new Backbone.Collection(unitsactual);
       if (App.defaults['unitType'] !== 'All') {
