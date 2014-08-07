@@ -353,3 +353,7 @@ Version:        0.1.0
 .form-label-prefix{ 
   width:15px;
 }
+
+.form-small-input{
+  width:150px !important
+}

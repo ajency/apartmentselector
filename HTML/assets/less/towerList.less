@@ -1,15 +1,15 @@
-.flatNos{
-	padding: 8px 15px 15px;
-	height: 55px;
-	width: 110px;
-	margin: 0 0 10px auto;
-	background-color: lighten(@color-grey, 45%);
-	border: 1px solid lighten(@color-grey, 30%);
-	font-size: 20px;
-	font-weight: 600;
-	position: relative;
-	cursor: pointer;
-}
+// .flatNos{
+// 	padding: 8px 15px 15px;
+// 	height: 55px;
+// 	width: 110px;
+// 	margin: 0 0 10px auto;
+// 	background-color: lighten(@color-grey, 45%);
+// 	border: 1px solid lighten(@color-grey, 30%);
+// 	font-size: 20px;
+// 	font-weight: 600;
+// 	position: relative;
+// 	cursor: pointer;
+// }
 
 .towerTable{
 	position:relative;
@@ -39,12 +39,12 @@
 				}
 				a{
 					color: @color-grey;
-					cursor: pointer;
-					&:hover{
-						span{
-							color: @color-primary;
-						}
-					}
+					cursor: default;
+					// &:hover{
+					// 	span{
+					// 		color: @color-primary;
+					// 	}
+					// }
 				}
 
 			}
@@ -202,8 +202,8 @@
 				.vs-content{
 					width: 80%;
 					& > div{
-						margin-bottom: 15px;
-						border-bottom: 1px solid lighten(@color-grey, 30%) ;
+						// margin-bottom: 15px;
+						// border-bottom: 1px solid lighten(@color-grey, 30%) ;
 					}
 				}
 		        .vs-left {
@@ -268,22 +268,32 @@
 		// margin-left: 0;
 		// margin-right: 0;
 	}
-	// h1{
-	// 	margin-top: -10px;
-	// }
+	h3{
+		// margin-top: -10px;
+		// line-height: 28px;
+	}
 	
 }
 @media(max-width:480px){
 	.towerDetails{
 		left: 0;
 		width: 100%;
+		// h3{
+		// 	font-size: 16px;
+		// 	line-height: 20px;
+		// }
+	}
+}
+
+@media(max-width:1169px){
+	.towerDetails{
+		h3{
+			font-size: 15px;
+			line-height: 20px;
+		}
 		h1{
 			font-size: 25px;
 			line-height: 25px;
-			margin-top: 10px;
-			small{
-				font-size: 50%;
-			}
 		}
 	}
 }

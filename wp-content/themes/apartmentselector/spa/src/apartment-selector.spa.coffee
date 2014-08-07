@@ -2,7 +2,8 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['modernizr','slick','classie','selectFx','jquerymousewheel','jqueryeasing','mapplic'], ->
+define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','jqueryEasingmin'
+                            ,'jquerytouchswipe','jqueryliquidslider'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -66,7 +67,7 @@ require [ 'plugin-loader'
 
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
 
-    App.defaults = {"unitType" :'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','budget':'All'}
+    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All'}
 
 
 
@@ -93,8 +94,8 @@ require [ 'plugin-loader'
 
 
 
-            params = 'unitType='+App.defaults['unitType']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
+            params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
 
 
 
@@ -102,8 +103,8 @@ require [ 'plugin-loader'
         else
 
             #url doesnt contain any parameters take the value of the defaults
-            params = 'unitType='+App.defaults['unitType']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&budget='+App.defaults['budget']
+            params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
 
 
 

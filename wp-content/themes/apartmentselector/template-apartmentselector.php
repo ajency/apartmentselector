@@ -21,6 +21,7 @@
 <head>
     <script type="text/javascript"  src="../wp-content/themes/apartmentselector/js/src/preload/modernizr.custom.js"></script>
     <script type="text/javascript"  src="../wp-content/themes/apartmentselector/js/src/preload/classie.js"></script>
+
     <meta charset="<?php bloginfo( 'charset' ); ?>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><?php wp_title(); ?></title>

@@ -188,6 +188,7 @@ if(in_array(get_template_filename(),array('no-access','settings','apartments','b
         //file upload
         if(in_array(get_template_filename(),array('add-edit-building','form' ))){
  
+ wp_enqueue_style( "custom", get_template_directory_uri() . "/css/backend/css/custom.css" );
             wp_enqueue_style( "fileupload", get_template_directory_uri() . "/css/backend/css/jquery.fileupload.css" );
 
         }

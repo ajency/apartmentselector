@@ -79,11 +79,11 @@ function get_default_data($master_type,$id=0){
 
 	if($id !=0){
 
-		$where_clause = " id = ".$id;
+		$where_clause = "and id = ".$id;
 
 	}
-	$query = "SELECT id as id,value as name,master_type as master_type,data as data FROM ".$wpdb->prefix .CUSTOMTBLPREFIX. "defaults WHERE master_type = '$master_type'".$where_cluse;
-
+	$query = "SELECT id as id,value as name,master_type as master_type,data as data FROM ".$wpdb->prefix .CUSTOMTBLPREFIX. "defaults WHERE master_type = '$master_type'".$where_clause;
+ 
 	$default_data = $wpdb->get_results($query,ARRAY_A);
 
 	$data = array();

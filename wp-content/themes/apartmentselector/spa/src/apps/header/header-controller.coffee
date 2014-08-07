@@ -47,15 +47,13 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                             if value.key == 'unitType'
                                 key = App.master.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if value.key == 'unitVariant'
-                                key = App.master.unit_variant.findWhere({id:parseInt(element)})
-                                templateArr.push key.get 'name'
-                            if value.key == 'building'
-                                key = App.master.building.findWhere({id:parseInt(element)})
-                                templateArr.push key.get 'name'
                             if value.key == 'budget'
                                 budget_Val = value+'lakhs'
                                 templateArr.push budget_Val
+
+                            if value.key == 'building'
+                                key = App.master.building.findWhere({id:parseInt(element)})
+                                templateArr.push key.get 'name'
                             if value.key == 'floor'
                                 if track == 0
                                     trackArray.push value.value
@@ -65,15 +63,13 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                         if value.key == 'unitType'
                             key = App.master.unit_type.findWhere({id:parseInt(value.value)})
                             templateArr.push key.get 'name'
-                        if value.key == 'unitVariant'
-                            key = App.master.unit_variant.findWhere({id:parseInt(value.value)})
-                            templateArr.push key.get 'name'
-                        if value.key == 'building'
-                            key = App.master.building.findWhere({id:parseInt(value.value)})
-                            templateArr.push key.get 'name'
                         if value.key == 'budget'
                             budget_Val = value.value
                             templateArr.push budget_Val
+
+                        if value.key == 'building'
+                            key = App.master.building.findWhere({id:parseInt(value.value)})
+                            templateArr.push key.get 'name'
                         if value.key == 'floor'
                             if track == 0
                                 trackArray.push value.value

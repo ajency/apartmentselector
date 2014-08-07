@@ -29,7 +29,10 @@ requirejs.config({
     jquerymousewheel: 'src/bower_components/preload/jquery.mousewheel',
     mapplic: 'src/bower_components/preload/mapplic',
     mapplicAdmin: 'src/bower_components/preload/mapplic-admin',
-    jqueryRemodal: 'src/bower_components/preload/jquery.remodal'
+    jqueryRemodal: 'src/bower_components/preload/jquery.remodal',
+    jqueryEasingmin: 'src/bower_components/preload/jquery.easing.min',
+    jqueryliquidslider: 'src/bower_components/preload/jquery.liquid-slider.min',
+    jquerytouchswipe: 'src/bower_components/preload/jquery.touchSwipe.min'
   },
   shim: {
     jquery: ['underscore'],
@@ -58,6 +61,9 @@ requirejs.config({
     classie: ['jquery'],
     selectFx: ['jquery'],
     mapplicAdmin: ['jquery'],
-    jqueryRemodal: ['jquery']
+    jqueryRemodal: ['jquery'],
+    jqueryEasingmin: ['jquery'],
+    jqueryliquidslider: ['jquery'],
+    jquerytouchswipe: ['jquery']
   }
 });

@@ -1,94 +1,39 @@
 define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     m = ""
+    unitVariantArray = ''
+    unitVariantIdArray = []
+    unitVariantString = ''
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="text-center subTxt m-b-20">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
-        		<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
+        template : '<div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+                    <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
 
-                <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All <span class="glyphicon glyphicon-chevron-down"></span> </span> variants of your apartment selection</div>
-                <div class="variantBox">
-                    <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
-                    <div class="grid-container">
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 1</span>
+                    <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
+
+                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
+                    <div class="variantBox">
+                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
+                        <div class="grid-container">
+                            {{#unitVariants}}
+                            <div class="grid-block-3" >
+                                <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
+                                    {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                </a>
                             </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 2</span>
+                            {{/unitVariants}}
+                            <div class="variantAction m-t-5 m-b-20">
+                                <a class="btn btn-primary m-r-10 done">DONE</a>
+                                <a class="btn btn-default cancel">CANCEL</a>
                             </div>
-                          </a>
                         </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 3</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 4</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 5</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 6</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 7</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 8</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 9</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 10</span>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
                     </div>
 
-        		<div class="legend text-center m-b-20">
+            		<div class="legend text-center m-b-20">
+                        {{#unittypes}}
+                        <span class={{classname}}>.</span>{{name}}
+                        {{/unittypes}}
+        		    </div>
 
-       {{#unittypes}}
-<span class={{classname}}>.</span>{{name}}
-        {{/unittypes}}
-        		</div>
-                <div>
                     <div class="towerTable">
                         <div class="tableHeader">
             				<ul>
@@ -100,19 +45,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         <div class="tableBody">
             				<div id="vs-container2" class="vs-container">
             				    <header class="vs-header" id="building-region"></header>
-
-
             				    <div id="unit-region"></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="m-t-40 p-l-15 p-r-15 text-center">
-    				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
-    				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                    <div id="mapplic1"></div>
-                </div>'
+                    <div class="m-t-40 p-l-15 p-r-15 text-center">
+        				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
+        				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
+                        <div id="mapplic1" class="towersMap center-block"></div>
+                    </div>'
 
 
 
@@ -143,15 +85,63 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('html, body').animate({ scrollTop : 0 }, 'slow')
                 @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
 
+            'click .grid-link':(e)->
+                console.log unitVariantArray
+                id = $('#'+e.target.id).attr('data-id')
+                if $('#check'+id).val() == '1'
+                    console.log id
+                    console.log index = unitVariantArray.indexOf(parseInt(id))
+                    if index != -1
+                        unitVariantArray.splice( index, 1 )
+                        $('#check'+id).val '0'
+                        unitVariantIdArray.push(parseInt(id))
+                else
+                    console.log "aaaaaaaaaa"
+                    unitVariantArray.push(parseInt(id))
+                    $('#check'+id).val '1'
 
 
-            #if App.defaults['budget'] != 'All'
+                console.log unitVariantArray
+                unitVariantString = unitVariantArray.join(',')
+
+
+
+            'click .done':(e)->
+                App.defaults['unitVariant'] = unitVariantString
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
+
+            'click .cancel':(e)->
+                console.log unitVariantIdArray
+                unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
+                $(".variantBox").slideToggle()
+                $.each(unitVariantArray, (index,value)->
+                    console.log value
+                    $('#grid'+value).addClass 'selected'
+
+
+
+
+                )
+
+
+
+
+
+
+
+
+
 
 
 
         onShow:->
-            console.log points = Marionette.getOption( @, 'buildingColl' )
+            if App.screenOneFilter['key'] == 'unitType'
+                $('.unittype' ).removeClass 'hidden'
+            else if App.screenOneFilter['key'] == 'budget'
+                $('.budget' ).removeClass 'hidden'
 
+            console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
 
@@ -162,14 +152,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             document.body.appendChild(scr)
 
             $(".variantToggle").click ->
+                $(this).toggleClass("open")
                 $(".variantBox").slideToggle()
                 return
 
             $(".variantClose").click ->
                 $(".variantBox").slideToggle()
+                $(".variantToggle").toggleClass("open")
                 return
 
-            $(".grid-link").click ->
+            $(".grid-link").click  (e)->
                 $(this).toggleClass("selected")
                 return
 
@@ -182,7 +174,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 selector = '#mapplic' + i
                 ajaxurl = AJAXURL
                 $(selector).mapplic(
-                    'id': 5,
+                    'id': 4,
                     'width': params.width,
                     'height': params.height
 
@@ -306,7 +298,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="subHeader">
                                     <div class="row">
                                         <div class="col-xs-5">
-                                            FLOOR<br>BLOCK
+                                            FLOOR<br>RANGE
                                         </div>
                                         <div class="col-xs-7 text-right">
                                             NO. OF UNITS OF<br>YOUR SELECTION
@@ -314,20 +306,23 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 b-grey b-l">
                                 <div class="towerUnits psuedoUnits"></div>
                                 <div class="towerDetails">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <img src="../HTML/assets/img/towerA.jpg" class="img-responsive center-block">
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Total Apartments</h3>
+                                           <h2 class="semi-bold m-t-5">{{totalunits}}</h2>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        {{#unittypes}}
-                                        <div class="col-xs-6">
-                                           <h1><small>Total {{name}}</small><br>{{count}}</h1>
+
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Available Apartments</h3>
+                                           <h2 class="semi-bold m-t-5">{{availableunits}}</h2>
                                         </div>
-                                        {{/unittypes}}
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Number of Floors</h3>
+                                           <h2 class="semi-bold m-t-5">{{totalfloors}}</h2>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 m-t-10">
@@ -338,18 +333,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                     <div class="row m-l-0 m-r-0 m-b-20">
                                         <div class="col-xs-4">
-                                            <h4> NO OF <div class="text-primary bold">VIEWS</div> </h4>
+                                            <h4 class="m-t-0 text-primary">What can I<div class="bold">SEE?</div> </h4>
                                         </div> 
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View<br> Manas Lake<br> Eco pond 
+                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Garden view<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Pond View
                                         </div>
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View<br> Manas Lake<br> Eco pond 
+                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Manas Lake<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Eco pond 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>'
 
