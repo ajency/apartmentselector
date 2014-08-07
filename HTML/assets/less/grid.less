@@ -5,7 +5,7 @@
 	text-align: center;
 	.clearfix;
 	.grid-link {
-		// border: 1px solid #999;
+		// border: 0px solid transparent;
 	    box-shadow: 0 0 0 1px lighten(@color-grey, 30%) inset, 2px 2px 2px lighten(@color-primary, 35%);
 	    display: table;
 	    height: 100%;
@@ -18,7 +18,7 @@
 	    &:hover, &.selected {
 	    	border: 1px solid @color-primary;
 		    // box-shadow: 2px 3px 0 lighten(@color-primary, 35%);
-		    padding: 8px;
+		    padding: 9px;
 		    text-decoration: none;
 		    .grid-main-title {
 		    	color: @color-primary;
@@ -178,26 +178,29 @@
 
 	/**** Block Type 3 ****/
 	.grid-block-3 {
-		float: left;
+		display: inline-block;
+		// float: left;
 	    margin: 0 1.77305% 1.77305% 0;
 	    padding: 1px;
-	    width: 12.766%;
+	    width: 30.2394%;
+		margin-right: 3.52113%;
 	    .grid-link {
 		    .grid-text-wrap {
-		    	height: 0;
-			    padding-bottom: 166.667%;
+		    	// height: 0;
+			    // padding-bottom: 16.667%;
+			    padding: 10px 0;
 			    position: relative;
 			    text-align: center;
 			    transition: color 250ms ease-out 0s;
 			    width: 100%;
 		    	.grid-main-title {
-		    		display: none;
-		    		font-size: 1.1rem;
+		    		// display: none;
+		    		font-size: 0.8rem;
 				    font-style: normal;
 				    font-weight: 500;
 				    line-height: 16px;
-				    position: absolute;
-				    top: 4%;
+				    // position: absolute;
+				    // top: 4%;
 				    width: 100%;
 		    	}
 		    	.grid-sub-title {
@@ -213,13 +216,14 @@
 		    	}
 		    }
 	    }
-	    &:nth-child(7n) {
+	    &:nth-child(3n) {
 	    	margin-right: 0;
 	    }
 	    @media (min-width: 768px) {
+	    	width: 12.766%;
+	    	margin-right: 1.77305%;
 	    	.grid-link {
 	    		.grid-text-wrap {
-	    			padding-bottom: 112px;
 	    			.grid-main-title {
 		    			display: block;
 		    			font-size: 1rem;
@@ -231,6 +235,9 @@
 		    		}
 	    		}
 	    	}
+	    	&:nth-child(3n) {
+		    	margin-right: 1.77305%;
+		    }
 	    }
 	}
 }

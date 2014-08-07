@@ -1,5 +1,13 @@
 <?
 //form heading
+
+if(!current_user_can('manage_buildings') && !current_user_can('manage_options')){
+
+    wp_redirect(site_url('no-access'));
+
+    exit;
+    
+} 
 $heading = "Add";
 
 $no_of_flats = 0;

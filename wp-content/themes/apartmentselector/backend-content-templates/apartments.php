@@ -1,3 +1,12 @@
+<?php
+if(!current_user_can('manage_apartments') && !current_user_can('manage_options')){
+
+    wp_redirect(site_url('no-access'));
+
+    exit;
+    
+} 
+?>
 <div class="page-title"> <i class="icon-custom-left"></i>
                 <h3>Select your Apartment</h3>
 

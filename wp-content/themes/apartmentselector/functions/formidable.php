@@ -196,8 +196,7 @@ function ajax_save_entry(){
         echo $response;
         exit;
 }
-add_action('wp_ajax_save_entry','ajax_save_entry');
-add_action('wp_ajax_nopriv_save_entry','ajax_save_entry');
+add_action('wp_ajax_save_entry','ajax_save_entry'); 
 
 
 /*

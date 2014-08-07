@@ -51,6 +51,9 @@
 		<div class="text-center introTxt">We have <span class="bold text-primary">100 options</span> for 1BHK </div>
 		<div class="text-center subTxt m-b-10">Just select your floors to get started</div>
 
+		<div class="introTxt text-center">You are seeing <span class="text-primary variantToggle">All <span class="fa fa-chevron-down"></span></span> variants of your apartment selection</div>
+		<div class="variantBox">Text seen on collapse</div>
+
 		<div class="legend text-center m-b-20">
 			<span class="oneBHK">.</span>1BHK <span class="twoBHK m-l-20">.</span>2BHK <span class="threeBHK m-l-20">.</span>3BHK
 		</div>
@@ -569,6 +572,11 @@
 	$('.box').click(function(){
 	  window.location = 'step3.html';
 	});
+
+	$( ".variantToggle" ).click(function() {
+		$( ".variantBox" ).slideToggle();
+	});
+
 </script>
 
 </body>
