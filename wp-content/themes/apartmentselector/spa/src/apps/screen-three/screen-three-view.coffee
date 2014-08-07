@@ -301,6 +301,14 @@ define [ 'marionette' ], ( Marionette )->
         childViewContainer : '.cd-table-wrapper'
 
 
+        collectionEvents :
+            'reset'  : 'dataUpdated'
+
+
+        dataUpdated:->
+            console.log "aaaaaaaaaaaaa"
+
+
 
 
 
@@ -321,6 +329,17 @@ define [ 'marionette' ], ( Marionette )->
 
 
         childView : UnitView
+
+
+
+
+
+
+
+
+
+
+
 
 
 

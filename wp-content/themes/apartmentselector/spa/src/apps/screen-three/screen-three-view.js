@@ -238,6 +238,14 @@ define(['marionette'], function(Marionette) {
 
     UnitView.prototype.childViewContainer = '.cd-table-wrapper';
 
+    UnitView.prototype.collectionEvents = {
+      'reset': 'dataUpdated'
+    };
+
+    UnitView.prototype.dataUpdated = function() {
+      return console.log("aaaaaaaaaaaaa");
+    };
+
     UnitView.prototype.initialize = function() {
       this.collection = this.model.get('units');
       return this.$el.prop("id", 'tower' + this.model.get("buildingid"));

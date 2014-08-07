@@ -35,23 +35,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
         _showBuildings:->
                 @Collection = @_getUnits()
-
-                @layout = new ScreenThreeView.ScreenThreeLayout(
-                    countUnits : @Collection[3]
-                    templateHelpers:
-                        selection :@Collection[2]
-                        countUnits : @Collection[3]
-                        range : @Collection[4]
-                        high : @Collection[5]
-                        rangetext : @Collection[6]
-
-                )
-
-
-                @listenTo @layout, "show", @showViews
-
-
-                @show @layout
+                @layout.unitRegion.reset()
+                @layout.unitRegion.show(new ScreenThreeView.UnitTypeView
+                                    collection : @Collection[1])
 
 
 

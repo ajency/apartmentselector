@@ -22,7 +22,7 @@
 		var container = document.getElementById( 'vs-container' ),
 			wrapper = container.querySelector( 'div.vs-wrapper' ),
 			sections = Array.prototype.slice.call( wrapper.querySelectorAll( 'section' ) ),
-			links = Array.prototype.slice.call( container.querySelectorAll( '.vs-nav' ) ),
+			links = Array.prototype.slice.call( container.querySelectorAll( 'header.vs-header > ul.vs-nav > li' ) ),
 			sectionsCount = sections.length,
 			transEndEventNames = {
 				'WebkitTransition': 'webkitTransitionEnd',

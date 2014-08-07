@@ -53,7 +53,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         selector = '#mapplic' + i;
         ajaxurl = AJAXURL;
         $(selector).mapplic({
-          'id': 5,
+          'id': 4,
           'width': params.width,
           'height': params.height
         });
