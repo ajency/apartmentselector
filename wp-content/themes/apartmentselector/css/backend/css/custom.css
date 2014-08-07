@@ -347,7 +347,8 @@ Version:        0.1.0
 }
 .form-label-inline{
   margin-top:9px;
-  width:175px;
+  /*width:175px;*/
+  width:50px;
 }
 .form-label-prefix{ 
   width:15px;

@@ -2,39 +2,38 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     m = ""
     unitVariantArray = ''
     unitVariantIdArray = []
-    unitVariantString =''
+    unitVariantString = ''
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="text-center subTxt m-b-20 unittype hidden">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+        template : '<div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+                    <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
 
-                        <div class="text-center subTxt m-b-20 budget hidden">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
-                        <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
+                    <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
-                <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-                <div class="variantBox">
-                    <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
-                    <div class="grid-container">
-                        {{#unitVariants}}
-                        <div class="grid-block-3" >
-                            <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
-                                {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
-                            </a>
-                        </div>
-                        {{/unitVariants}}
-                        <div class="variantAction m-t-5 m-b-20">
-                            <a class="btn btn-primary m-r-10 done">DONE</a>
-                            <a class="btn btn-default cancel">CANCEL</a>
+                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
+                    <div class="variantBox">
+                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
+                        <div class="grid-container">
+                            {{#unitVariants}}
+                            <div class="grid-block-3" >
+                                <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
+                                    {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                </a>
+                            </div>
+                            {{/unitVariants}}
+                            <div class="variantAction m-t-5 m-b-20">
+                                <a class="btn btn-primary m-r-10 done">DONE</a>
+                                <a class="btn btn-default cancel">CANCEL</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-        		<div class="legend text-center m-b-20">
+            		<div class="legend text-center m-b-20">
+                        {{#unittypes}}
+                        <span class={{classname}}>.</span>{{name}}
+                        {{/unittypes}}
+        		    </div>
 
-       {{#unittypes}}
-<span class={{classname}}>.</span>{{name}}
-        {{/unittypes}}
-        		</div>
-                <div>
                     <div class="towerTable">
                         <div class="tableHeader">
             				<ul>
@@ -46,19 +45,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         <div class="tableBody">
             				<div id="vs-container2" class="vs-container">
             				    <header class="vs-header" id="building-region"></header>
-
-
             				    <div id="unit-region"></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="m-t-40 p-l-15 p-r-15 text-center">
-    				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
-    				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                    <div id="mapplic1" class="towersMap center-block"></div>
-                </div>'
+                    <div class="m-t-40 p-l-15 p-r-15 text-center">
+        				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
+        				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
+                        <div id="mapplic1" class="towersMap center-block"></div>
+                    </div>'
 
 
 
@@ -314,19 +310,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="towerUnits psuedoUnits"></div>
                                 <div class="towerDetails">
                                     <div class="row">
-
                                         <div class="col-xs-4">
                                            <h3 class="m-t-0 m-b-0">Total Apartments</h3>
-                                           <h1 class="semi-bold m-t-5">{{totalunits}}</h1>
+                                           <h2 class="semi-bold m-t-5">{{totalunits}}</h2>
                                         </div>
 
                                         <div class="col-xs-4">
                                            <h3 class="m-t-0 m-b-0">Available Apartments</h3>
-                                           <h1 class="semi-bold m-t-5">{{availableunits}}</h1>
+                                           <h2 class="semi-bold m-t-5">{{availableunits}}</h2>
                                         </div>
                                         <div class="col-xs-4">
                                            <h3 class="m-t-0 m-b-0">Number of Floors</h3>
-                                           <h1 class="semi-bold m-t-5">{{totalfloors}}</h1>
+                                           <h2 class="semi-bold m-t-5">{{totalfloors}}</h2>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -349,7 +344,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>'
 
