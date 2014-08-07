@@ -37,13 +37,14 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 @Collection = @_getUnits()
 
                 @layout = new ScreenThreeView.ScreenThreeLayout(
-                    countUnits : @Collection[3]
-                    templateHelpers:
-                        selection :@Collection[2]
                         countUnits : @Collection[3]
-                        range : @Collection[4]
-                        high : @Collection[5]
-                        rangetext : @Collection[6]
+                        templateHelpers:
+                            selection :@Collection[2]
+                            countUnits : @Collection[3]
+                            range : @Collection[4]
+                            high : @Collection[5]
+                            rangetext : @Collection[6]
+
 
                 )
 
@@ -52,6 +53,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
                 @show @layout
+
+
+                #@layout.unitRegion.show(new ScreenThreeView.UnitTypeView
+                                    #collection : @Collection[1])
 
 
 
@@ -128,9 +133,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if value.key == 'unitType'
                                 key = App.master.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if value.key == 'unitVariant'
-                                key = App.master.unit_variant.findWhere({id:parseInt(element)})
-                                templateArr.push key.get 'name'
                             if value.key == 'building'
                                 key = App.master.building.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
@@ -145,9 +147,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     else
                         if value.key == 'unitType'
                             key = App.master.unit_type.findWhere({id:parseInt(value.value)})
-                            templateArr.push key.get 'name'
-                        if value.key == 'unitVariant'
-                            key = App.master.unit_variant.findWhere({id:parseInt(value.value)})
                             templateArr.push key.get 'name'
                         if value.key == 'building'
                             key = App.master.building.findWhere({id:parseInt(value.value)})

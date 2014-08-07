@@ -1,0 +1,52 @@
+.variantToggle{
+	cursor: pointer;
+	font-weight: 600;
+	&:hover{
+		border-bottom: 2px solid @color-primary;
+	}
+	&:after{
+		font-family: 'Glyphicons Halflings';
+		content: "\e114";
+		display: inline-block;
+		font-size: 12px;
+	}
+	&.open:after{
+		content: "\e113";		
+	}
+}
+.variantBox{
+	display: none;
+	background-color: lighten(@color-grey, 38%);
+	.grid-link{
+		background-color: @color-white;
+	}
+}
+.variantClose{
+	cursor: pointer;
+	margin-right: 2%;
+	margin-top: 10px;
+}
+
+
+.legend{
+	.threeBHK, .twoBHK, .oneBHK{
+		font-size: 50px;
+		line-height: 5px;
+		color: @color-primary;
+	}
+	.twoBHK{
+		color: @color-warning;
+	}
+	.oneBHK{
+		color: @color-info;
+	}
+}
+
+.towersMap{
+	width: 100%;
+}
+@media (min-width:768px){
+	.towersMap{
+		width: 80%;
+	}
+}

@@ -11,6 +11,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @layout = new ScreenTwoView.ScreenTwoLayout(
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
+                uintVariantId : @Collection[9]
+                uintVariantIdArray : @Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -18,12 +20,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high : @Collection[5]
                     medium : @Collection[6]
                     low : @Collection[7]
+                    unitVariants:@Collection[8]
                     AJAXURL : AJAXURL)
 
 
             @listenTo @layout, "show", @showViews
 
             @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
 
 
 
@@ -39,6 +44,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @layout = new ScreenTwoView.ScreenTwoLayout(
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
+                uintVariantId : @Collection[9]
+                uintVariantIdArray : @Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -46,12 +53,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high : @Collection[5]
                     medium : @Collection[6]
                     low : @Collection[7]
+                    unitVariants:@Collection[8]
                     AJAXURL : AJAXURL)
 
 
             @listenTo @layout, "show", @showViews
 
             @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
 
             @show @layout
 
@@ -148,9 +158,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                             if index == 'unitType'
                                 key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if index == 'unitVariant'
-                                key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
-                                templateArr.push key.get 'name'
                             if index == 'building'
                                 key = App.currentStore.building.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
@@ -163,9 +170,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
-                            templateArr.push key.get 'name'
-                        if index == 'unitVariant'
-                            key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
                         if index == 'building'
                             key = App.currentStore.building.findWhere({id:parseInt(value)})
@@ -203,6 +207,19 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 templateString = range
             else
                 templateString  = templateArr.join(',')
+
+
+            unitvariant = App.currentStore.unit.pluck("unitVariant")
+            console.log uniqUnitvariant = _.uniq(unitvariant)
+            unitVariantModels = []
+            unitVariantID = []
+
+            $.each(uniqUnitvariant, (index,value)->
+                unitVarinatModel = App.master.unit_variant.findWhere({id:value})
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
+                unitVariantID.push(unitVarinatModel.get('id'))
+
+            )
 
 
             $.each(units, (index,value)->
@@ -497,6 +514,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 modelArr.push(modelIdArr[j])
                 j++
             console.log modelArr
+            if modelArr.length == 2
+                arrayvalue = _.last(modelArr)
+                modelArr.push(arrayvalue)
+            console.log modelArr
+
             buildingsactual = []
             unitsactual = []
             buildingCollection = new Backbone.Collection(buildingArrayModel)
@@ -506,12 +528,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingsactual.push(buildingCollection.get(value))
                 unitsactual.push(units.get(value))
             )
+            console.log buildingsactual
             buildingCollection = new Backbone.Collection(buildingsactual)
             units = new Backbone.Collection(unitsactual)
 
             if App.defaults['unitType'] != 'All'
                 mainnewarr = []
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr]
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID]
 
 
 

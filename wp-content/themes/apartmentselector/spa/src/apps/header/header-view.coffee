@@ -71,10 +71,14 @@ define [ 'marionette' ], ( Mariontte )->
                 else
                     App.backFilter['screen2'] = []
                     screenoneArray  = App.backFilter['screen1']
-                    for element in screenoneArray
-                        key = App.defaults.hasOwnProperty(element)
-                        if key == true
-                            App.defaults[element] = 'All'
+                    myArray = []
+                    $.map(App.defaults, (value, index)->
+                        if value!='All' && index != 'floor'
+                            myArray.push({key:index,value:value})
+
+                    )
+                    for element in myArray
+                            App.defaults[element.key] = 'All'
 
 
 

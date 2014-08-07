@@ -20,6 +20,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.layout = new ScreenTwoView.ScreenTwoLayout({
         collection: this.Collection[1],
         buildingColl: this.Collection[0],
+        uintVariantId: this.Collection[9],
+        uintVariantIdArray: this.Collection[9],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -27,11 +29,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           high: this.Collection[5],
           medium: this.Collection[6],
           low: this.Collection[7],
+          unitVariants: this.Collection[8],
           AJAXURL: AJAXURL
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
       return this.show(this.layout);
     };
 
@@ -41,6 +45,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.layout = new ScreenTwoView.ScreenTwoLayout({
         collection: this.Collection[1],
         buildingColl: this.Collection[0],
+        uintVariantId: this.Collection[9],
+        uintVariantIdArray: this.Collection[9],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -48,11 +54,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           high: this.Collection[5],
           medium: this.Collection[6],
           low: this.Collection[7],
+          unitVariants: this.Collection[8],
           AJAXURL: AJAXURL
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
       return this.show(this.layout);
     };
 
@@ -95,7 +103,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
-      var Countunits, MainCollection, ModelActualArr, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, flag1, hclassname, hcount, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, key, keycheck, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, unitColl, units, unitsactual;
+      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, flag1, hclassname, hcount, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, key, keycheck, lclassname, lcount, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mclassname, mcount, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, unitsactual, unitvariant;
       if (paramid == null) {
         paramid = {};
       }
@@ -154,12 +162,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
                 });
                 templateArr.push(key.get('name'));
               }
-              if (index === 'unitVariant') {
-                key = App.currentStore.unit_variant.findWhere({
-                  id: parseInt(element)
-                });
-                templateArr.push(key.get('name'));
-              }
               if (index === 'building') {
                 key = App.currentStore.building.findWhere({
                   id: parseInt(element)
@@ -181,12 +183,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           } else {
             if (index === 'unitType') {
               key = App.currentStore.unit_type.findWhere({
-                id: parseInt(value)
-              });
-              templateArr.push(key.get('name'));
-            }
-            if (index === 'unitVariant') {
-              key = App.currentStore.unit_variant.findWhere({
                 id: parseInt(value)
               });
               templateArr.push(key.get('name'));
@@ -238,6 +234,22 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       } else {
         templateString = templateArr.join(',');
       }
+      unitvariant = App.currentStore.unit.pluck("unitVariant");
+      console.log(uniqUnitvariant = _.uniq(unitvariant));
+      unitVariantModels = [];
+      unitVariantID = [];
+      $.each(uniqUnitvariant, function(index, value) {
+        var unitVarinatModel;
+        unitVarinatModel = App.master.unit_variant.findWhere({
+          id: value
+        });
+        unitVariantModels.push({
+          id: unitVarinatModel.get('id'),
+          name: unitVarinatModel.get('name'),
+          sellablearea: unitVarinatModel.get('sellablearea')
+        });
+        return unitVariantID.push(unitVarinatModel.get('id'));
+      });
       $.each(units, function(index, value) {
         var maxcoll, unitType, unittypemodel;
         maxcoll = Array();
@@ -663,6 +675,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         j++;
       }
       console.log(modelArr);
+      if (modelArr.length === 2) {
+        arrayvalue = _.last(modelArr);
+        modelArr.push(arrayvalue);
+      }
+      console.log(modelArr);
       buildingsactual = [];
       unitsactual = [];
       buildingCollection = new Backbone.Collection(buildingArrayModel);
@@ -672,12 +689,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingsactual.push(buildingCollection.get(value));
         return unitsactual.push(units.get(value));
       });
+      console.log(buildingsactual);
       buildingCollection = new Backbone.Collection(buildingsactual);
       units = new Backbone.Collection(unitsactual);
       if (App.defaults['unitType'] !== 'All') {
         mainnewarr = [];
       }
-      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr];
+      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID];
     };
 
     return ScreenTwoController;

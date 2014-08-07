@@ -17,7 +17,7 @@ define(['marionette'], function(Mariontte) {
 
     HeaderView.prototype.events = {
       'click .text-white': function(e) {
-        var element, key, params, screenoneArray, screenthreeArray, screentwoArray, _i, _j, _k, _len, _len1, _len2;
+        var element, key, myArray, params, screenoneArray, screenthreeArray, screentwoArray, _i, _j, _k, _len, _len1, _len2;
         if (window.location.href.indexOf('screen-three') > -1) {
           App.backFilter['screen3'] = [];
           screentwoArray = App.backFilter['screen2'];
@@ -65,12 +65,18 @@ define(['marionette'], function(Mariontte) {
         } else {
           App.backFilter['screen2'] = [];
           screenoneArray = App.backFilter['screen1'];
-          for (_k = 0, _len2 = screenoneArray.length; _k < _len2; _k++) {
-            element = screenoneArray[_k];
-            key = App.defaults.hasOwnProperty(element);
-            if (key === true) {
-              App.defaults[element] = 'All';
+          myArray = [];
+          $.map(App.defaults, function(value, index) {
+            if (value !== 'All' && index !== 'floor') {
+              return myArray.push({
+                key: index,
+                value: value
+              });
             }
+          });
+          for (_k = 0, _len2 = myArray.length; _k < _len2; _k++) {
+            element = myArray[_k];
+            App.defaults[element.key] = 'All';
           }
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);

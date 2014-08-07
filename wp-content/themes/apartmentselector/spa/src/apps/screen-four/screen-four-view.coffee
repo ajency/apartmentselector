@@ -29,9 +29,11 @@ define [ 'marionette' ], ( Marionette )->
             mainRegion : '#mainunit-region'
 
         onShow:->
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
-            document.body.appendChild(scr)
+            $('#slider-plans').liquidSlider(
+                    slideEaseFunction: "easeInOutQuad",
+                    autoSlide: true,
+                    includeTitle:false
+            )
 
 
 
@@ -43,7 +45,7 @@ define [ 'marionette' ], ( Marionette )->
 
     class UnitsView extends Marionette.ItemView
 
-        template : '<a class="link" href="unit{{id}}">{{name}}</a>'
+        template : '<a class="link" href="unit{{id}}">Flat No {{name}}</a>'
 
         tagName : 'li'
 
@@ -67,11 +69,24 @@ define [ 'marionette' ], ( Marionette )->
         template : '<div class="vs-content">
         						<div class="row">
         							<div class="col-sm-7 p-b-10">
-        								<div class="floorplan">
-
-       <div><img src="{{TwoDimage}}" class="img-responsive"></div>
-        									<div><img src="{{ThreeDimage}}" class="img-responsive"></div>
-        									         									</div>
+        								<div class="liquid-slider center-block" id="slider-plans">
+        									<div>
+        										<h2 class="title">2D Layout</h2>
+        										<img src="{{TwoDimage}}" class="img-responsive">
+        									</div>
+        									<div>
+        										<h2 class="title">3D Layout</h2>
+        										<img src="{{ThreeDimage}}" class="img-responsive">
+        									</div>
+        									<div>
+        										<h2 class="title">Floor Layout</h2>
+        										<img src="assets/img/flat1.jpg" class="img-responsive">
+        									</div>
+        									<div>
+        										<h2 class="title">Building Position</h2>
+        										<img src="assets/img/flat1.jpg" class="img-responsive">
+        									</div>
+        								</div>
         							</div>
         							<div class="col-sm-5">
         								<h4 class="bold">FLAT SUMMARY</h4>
@@ -159,12 +174,10 @@ TOILET
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow:->
-            $('.floorplan').slick(
-                autoplay: true,
-                autoplaySpeed: 3000,
-                speed: 1000,
-                dots: true,
-                infinite: true
+            $('#slider-plans').liquidSlider(
+                slideEaseFunction: "easeInOutQuad",
+                autoSlide: true,
+                includeTitle:false
             )
 
 
