@@ -71,19 +71,19 @@ define [ 'marionette' ], ( Marionette )->
         							<div class="col-sm-7 p-b-10">
         								<div class="liquid-slider center-block" id="slider-plans">
         									<div>
-        										<h2 class="title">2D</h2>
+        										<h2 class="title">2D Layout</h2>
         										<img src="{{TwoDimage}}" class="img-responsive">
         									</div>
         									<div>
-        										<h2 class="title">3D</h2>
+        										<h2 class="title">3D Layout</h2>
         										<img src="{{ThreeDimage}}" class="img-responsive">
         									</div>
         									<div>
-        										<h2 class="title">Slide 3</h2>
+        										<h2 class="title">Floor Layout</h2>
         										<img src="assets/img/flat1.jpg" class="img-responsive">
         									</div>
         									<div>
-        										<h2 class="title">Slide 4</h2>
+        										<h2 class="title">Building Position</h2>
         										<img src="assets/img/flat1.jpg" class="img-responsive">
         									</div>
         								</div>

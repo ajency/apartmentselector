@@ -13,12 +13,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         {{#unitVariants}}
                         <div class="grid-block-3" >
                             <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
-                                {{name}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
                             </a>
                         </div>
                         {{/unitVariants}}
                         <div class="variantAction m-t-5 m-b-20">
-                            <a class="btn btn-primary m-r-10">DONE</a>
+                            <a class="btn btn-primary m-r-10 done">DONE</a>
                             <a class="btn btn-default">CANCEL</a>
                         </div>
                     </div>
@@ -103,8 +103,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log unitVariantArray
                 unitVariantString = unitVariantArray.join(',')
                 App.defaults['unitVariant'] = unitVariantString
+
+
+            'click .done':(e)->
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
+
 
 
 

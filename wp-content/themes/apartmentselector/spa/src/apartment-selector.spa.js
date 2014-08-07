@@ -44,11 +44,11 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
   };
   App.defaults = {
     "unitType": 'All',
+    'budget': 'All',
     "building": 'All',
     "unitVariant": 'All',
     'floor': 'All',
-    'view': 'All',
-    'budget': 'All'
+    'view': 'All'
   };
   App.filter = function(params) {
     var budgetUnitArray, buildingArray, buildingModel, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
@@ -73,9 +73,9 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
           App.defaults[param_key[0]] = param_key[1];
         }
       }
-      params = 'unitType=' + App.defaults['unitType'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
     } else {
-      params = 'unitType=' + App.defaults['unitType'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&budget=' + App.defaults['budget'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
     }
     console.log(App.defaults);
     param_arr = params.split('&');

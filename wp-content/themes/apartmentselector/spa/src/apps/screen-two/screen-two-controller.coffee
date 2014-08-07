@@ -59,6 +59,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, "show:updated:building", @showUpdateBuilding
 
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
+
             @show @layout
 
 
@@ -218,7 +220,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
-                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name')})
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
                 unitVariantID.push(unitVarinatModel.get('id'))
 
             )
@@ -516,6 +518,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 modelArr.push(modelIdArr[j])
                 j++
             console.log modelArr
+            if modelArr.length == 2
+                arrayvalue = _.last(modelArr)
+                modelArr.push(arrayvalue)
+            console.log modelArr
+
             buildingsactual = []
             unitsactual = []
             buildingCollection = new Backbone.Collection(buildingArrayModel)
@@ -525,6 +532,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingsactual.push(buildingCollection.get(value))
                 unitsactual.push(units.get(value))
             )
+            console.log buildingsactual
             buildingCollection = new Backbone.Collection(buildingsactual)
             units = new Backbone.Collection(unitsactual)
 
