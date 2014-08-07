@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+/** apartmentselector Less file. Include all of your files here **/
 /* jQuery Modal
  * Copyright 2014 Kevin Sylvestre
  * 1.1.6
@@ -3559,7 +3560,7 @@ div.cs-skin-underline {
   overflow:scroll;
 }
 .ls-preloader {  
-  background: url(../../img/loading.gif) #f2f2f2 no-repeat center 50%;
+  background: url(../images/loading.gif) #f2f2f2 no-repeat center 50%;
   opacity:1;
   width:100%;
   height:100%;
@@ -3665,7 +3666,7 @@ div.cs-skin-underline {
   width: 100%;
   height: 35px;
   overflow: hidden;
-  background: url(../../img/menu.png) no-repeat right #ddd;
+  background: url(../images/menu.png) no-repeat right #ddd;
 }
 .ls-select-box select {  
   width: 150%;
@@ -3733,7 +3734,7 @@ div.cs-skin-underline {
 [class$="-arrow"] {
   width: 25px;
   height: 25px;
-  background-image: url(../../img/arrow.png);
+  background-image: url(../images/arrow.png);
   background-repeat: no-repeat;
   margin-top: 30%;
   position:relative;
@@ -3787,7 +3788,7 @@ div.cs-skin-underline {
 	z-index: 200;
 	margin: 0 auto;
 	padding: 30px 2em 1em;
-	width: 80%;
+	/*width: 80%;*/
 	text-align: center;
 	-webkit-backface-visibility: hidden;
 }
@@ -3839,7 +3840,7 @@ div.cs-skin-underline {
 	position: relative;
 	display: inline-block;
 	margin: 0 10px;
-	padding: 20px 0;
+	padding: 10px 0;
 	outline: none;
 	border-top: 2px solid transparent;
 	border-bottom: 2px solid transparent;
@@ -3855,6 +3856,7 @@ div.cs-skin-underline {
 
 .vs-nav li.vs-nav-current a{
 	font-size: 1.5em;
+	padding: 5px 0;
 }
 
 .vs-nav li a:hover,
@@ -4048,7 +4050,7 @@ div.cs-skin-underline {
 
 .vs-content h2 {
 	position: relative;
-	color: #f28428;
+	/*color: #f28428;*/
 }
 
 .vs-content .col {
@@ -4089,7 +4091,7 @@ div.cs-skin-underline {
 	}*/
 
 	.vs-nav li a {
-		width: 160px;
+		/*width: 160px;*/
 	}
 
 	.vs-content .col {
@@ -5908,4 +5910,3 @@ body {
   }
 }
 
-/** apartmentselector Less file. Include all of your files here **/

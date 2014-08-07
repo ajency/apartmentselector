@@ -7,6 +7,11 @@ jQuery(document).ready(function($) {
         file_field =  val.id.replace(/fileupload/g,'');
         fileUploadByIndex(file_field);
     });
+
+if($("#fileuploadposition_in_project").length>0){
+
+    fileUploadById("position_in_project")
+}
 $(document).on("change", ".no_of_flats", function(e) {
 
 

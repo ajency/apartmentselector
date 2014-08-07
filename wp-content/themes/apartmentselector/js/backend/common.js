@@ -174,14 +174,50 @@ function fileUploadByIndex(field){
     }) 
 }
 
+function fileUploadById(field){  
+    // Change this to the location of your server-side upload handler:
+ 
+    jQuery('#fileupload'+field).fileupload({
+        url: AJAXURL+"?action=upload_file",
+        
+    autoUpload: true,
+
+    send: function (e, data) {
+        jQuery('#progress'+field).show(); 
+    },
+    add: function (e, data) { 
+        data.submit();
+    },
+    progressall: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+
+        jQuery('#progress'+field+' .progress-bar').css(
+            'width',
+            progress + '%'
+        );
+    },
+    done: function (e, data) {   
+        console.log(jQuery('#fileupload'+field).parent().find(".image_id"))
+       jQuery("#position_in_project").val(data.result.attachment_id )
+       console.log(data.result.attachment_url)
+       jQuery("#image_displayposition_in_project").attr('src',data.result.attachment_url )
+       jQuery('#progress'+field).hide(); 
+        jQuery('#progress'+field+' .progress-bar').css(
+            'width',
+            '0%'
+        );
+    }
+    }) 
+}
 
 
-function fileUploadById(fileInput){  
+
+function fileUploadByformidable(fileInput){  
     // Change this to the location of your server-side upload handler:
   
  var fileField = fileInput.attr("name").replace("file","")
 
- console.log(fileField)
+ console.log("fileField")
     jQuery('#fileupload'+fileField).fileupload({
         url: AJAXURL+"?action=upload_file",
         
