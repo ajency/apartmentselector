@@ -40,10 +40,18 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     ScreenThreeController.prototype._showBuildings = function() {
       this.Collection = this._getUnits();
-      this.layout.unitRegion.reset();
-      return this.layout.unitRegion.show(new ScreenThreeView.UnitTypeView({
-        collection: this.Collection[1]
-      }));
+      this.layout = new ScreenThreeView.ScreenThreeLayout({
+        countUnits: this.Collection[3],
+        templateHelpers: {
+          selection: this.Collection[2],
+          countUnits: this.Collection[3],
+          range: this.Collection[4],
+          high: this.Collection[5],
+          rangetext: this.Collection[6]
+        }
+      });
+      this.listenTo(this.layout, "show", this.showViews);
+      return this.show(this.layout);
     };
 
     ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {
@@ -122,12 +130,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 });
                 templateArr.push(key.get('name'));
               }
-              if (value.key === 'unitVariant') {
-                key = App.master.unit_variant.findWhere({
-                  id: parseInt(element)
-                });
-                templateArr.push(key.get('name'));
-              }
               if (value.key === 'building') {
                 key = App.master.building.findWhere({
                   id: parseInt(element)
@@ -152,12 +154,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           } else {
             if (value.key === 'unitType') {
               key = App.master.unit_type.findWhere({
-                id: parseInt(value.value)
-              });
-              templateArr.push(key.get('name'));
-            }
-            if (value.key === 'unitVariant') {
-              key = App.master.unit_variant.findWhere({
                 id: parseInt(value.value)
               });
               templateArr.push(key.get('name'));
