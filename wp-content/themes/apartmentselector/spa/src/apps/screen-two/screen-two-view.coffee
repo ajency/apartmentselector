@@ -3,7 +3,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantArray = ''
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="text-center subTxt m-b-20">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+        template : '<div class="text-center subTxt m-b-20 animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
         		<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
                 <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All <span class="glyphicon glyphicon-chevron-down"></span> </span> variants of your apartment selection</div>
@@ -13,10 +13,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         {{#unitVariants}}
                         <div class="grid-block-3" >
                             <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
-                                {{name}}<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                {{name}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
                             </a>
                         </div>
                         {{/unitVariants}}
+                        <div class="variantAction m-t-5 m-b-20">
+                            <a class="btn btn-primary m-r-10">DONE</a>
+                            <a class="btn btn-default">CANCEL</a>
+                        </div>
                     </div>
                 </div>
 
@@ -305,10 +309,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                             <h4 class="m-t-0 text-primary">What can I<div class="bold">SEE?</div> </h4>
                                         </div> 
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View
+                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Garden view<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Pond View
                                         </div>
                                         <div class="col-xs-4"> 
-                                            Manas Lake<br> Eco pond 
+                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Manas Lake<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Eco pond 
                                         </div>
                                     </div>
                                 </div>
