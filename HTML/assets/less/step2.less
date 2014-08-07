@@ -1,0 +1,45 @@
+.variantToggle{
+	cursor: pointer;
+	&:hover{
+		border-bottom: 2px solid @color-primary;
+	}
+	.glyphicon{
+		font-size: 12px;
+	}
+}
+.variantBox{
+	display: none;
+	background-color: lighten(@color-grey, 38%);
+	.grid-link{
+		background-color: @color-white;
+	}
+}
+.variantClose{
+	cursor: pointer;
+	margin-right: 2%;
+	margin-top: 10px;
+}
+
+
+.legend{
+	.threeBHK, .twoBHK, .oneBHK{
+		font-size: 50px;
+		line-height: 5px;
+		color: @color-primary;
+	}
+	.twoBHK{
+		color: @color-warning;
+	}
+	.oneBHK{
+		color: @color-info;
+	}
+}
+
+.towersMap{
+	width: 100%;
+}
+@media (min-width:768px){
+	.towersMap{
+		width: 80%;
+	}
+}

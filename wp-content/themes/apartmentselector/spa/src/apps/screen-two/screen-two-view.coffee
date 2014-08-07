@@ -79,8 +79,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
                           </a>
                         </div>
-                      </div>
                     </div>
+                </div>
 
         		<div class="legend text-center m-b-20">
 
@@ -111,7 +111,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 <div class="m-t-40 p-l-15 p-r-15 text-center">
     				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
     				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                    <div id="mapplic1"></div>
+                    <div id="mapplic1" class="towersMap center-block"></div>
                 </div>'
 
 
@@ -306,7 +306,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="subHeader">
                                     <div class="row">
                                         <div class="col-xs-5">
-                                            FLOOR<br>BLOCK
+                                            FLOOR<br>RANGE
                                         </div>
                                         <div class="col-xs-7 text-right">
                                             NO. OF UNITS OF<br>YOUR SELECTION
@@ -314,20 +314,24 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 b-grey b-l">
                                 <div class="towerUnits psuedoUnits"></div>
                                 <div class="towerDetails">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <img src="../HTML/assets/img/towerA.jpg" class="img-responsive center-block">
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         {{#unittypes}}
-                                        <div class="col-xs-6">
-                                           <h1><small>Total {{name}}</small><br>{{count}}</h1>
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Total Apartments</h3>
+                                           <h1 class="semi-bold m-t-5">{{count}}</h1>
                                         </div>
                                         {{/unittypes}}
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Available Apartments</h3>
+                                           <h1 class="semi-bold m-t-5">10</h1>
+                                        </div>
+                                        <div class="col-xs-4">
+                                           <h3 class="m-t-0 m-b-0">Number of Floors</h3>
+                                           <h1 class="semi-bold m-t-5">10</h1>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 m-t-10">
@@ -338,13 +342,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                     <div class="row m-l-0 m-r-0 m-b-20">
                                         <div class="col-xs-4">
-                                            <h4> NO OF <div class="text-primary bold">VIEWS</div> </h4>
+                                            <h4 class="m-t-0 text-primary">What can I<div class="bold">SEE?</div> </h4>
                                         </div> 
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View<br> Manas Lake<br> Eco pond 
+                                            Garden view<br> Pond View
                                         </div>
                                         <div class="col-xs-4"> 
-                                            Garden view<br> Pond View<br> Manas Lake<br> Eco pond 
+                                            Manas Lake<br> Eco pond 
                                         </div>
                                     </div>
                                 </div>
