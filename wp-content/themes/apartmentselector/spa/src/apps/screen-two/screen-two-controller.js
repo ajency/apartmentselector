@@ -440,7 +440,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       buildingUnits = [];
       $.each(buildingArray, function(index, value) {
-        var buildingid, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, unique, unitTypeArray;
+        var availableunits, buildingid, floors, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, totalunits, uniqFloors, unique, unitTypeArray;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
@@ -448,6 +448,15 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         status = App.currentStore.status.findWhere({
           'name': 'Available'
         });
+        totalunits = App.currentStore.unit.where({
+          'building': value
+        });
+        availableunits = App.currentStore.unit.where({
+          'building': value,
+          'status': status.get('id')
+        });
+        floors = App.currentStore.unit.pluck("floor");
+        uniqFloors = _.uniq(floors);
         newunits = App.currentStore.unit.where({
           'building': value,
           'status': status.get('id')
@@ -632,7 +641,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           buildingname: buildingModel.get('name'),
           units: itemCollection,
           buildingid: buildingModel.get('id'),
-          unittypes: newarr
+          unittypes: newarr,
+          availableunits: availableunits.length,
+          totalunits: totalunits.length,
+          totalfloors: uniqFloors.length
         });
         return buildingArrayModel.push(buildingModel);
       });

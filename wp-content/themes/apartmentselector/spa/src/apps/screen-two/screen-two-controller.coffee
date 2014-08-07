@@ -360,7 +360,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unique = {}
 
                 status = App.currentStore.status.findWhere({'name':'Available'})
-
+                totalunits = App.currentStore.unit.where({'building':value})
+                availableunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
+                floors = App.currentStore.unit.pluck("floor")
+                uniqFloors = _.uniq(floors)
                 newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
@@ -471,7 +474,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
-                unitColl.push {id:buildingModel.get('id'),buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),unittypes:newarr}
+                unitColl.push {id:buildingModel.get('id'),buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),
+                unittypes:newarr,availableunits:availableunits.length,totalunits:totalunits.length,totalfloors:uniqFloors.length}
                 buildingArrayModel.push(buildingModel)
 
             )

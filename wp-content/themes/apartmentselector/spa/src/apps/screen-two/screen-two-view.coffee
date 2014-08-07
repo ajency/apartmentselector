@@ -314,19 +314,19 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="towerUnits psuedoUnits"></div>
                                 <div class="towerDetails">
                                     <div class="row">
-                                        {{#unittypes}}
+
                                         <div class="col-xs-4">
                                            <h3 class="m-t-0 m-b-0">Total Apartments</h3>
-                                           <h1 class="semi-bold m-t-5">{{count}}</h1>
+                                           <h1 class="semi-bold m-t-5">{{totalunits}}</h1>
                                         </div>
-                                        {{/unittypes}}
+
                                         <div class="col-xs-4">
                                            <h3 class="m-t-0 m-b-0">Available Apartments</h3>
-                                           <h1 class="semi-bold m-t-5">10</h1>
+                                           <h1 class="semi-bold m-t-5">{{availableunits}}</h1>
                                         </div>
                                         <div class="col-xs-4">
                                            <h3 class="m-t-0 m-b-0">Number of Floors</h3>
-                                           <h1 class="semi-bold m-t-5">10</h1>
+                                           <h1 class="semi-bold m-t-5">{{totalfloors}}</h1>
                                         </div>
                                     </div>
                                     <div class="row">
