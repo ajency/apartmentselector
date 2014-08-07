@@ -40,18 +40,10 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     ScreenThreeController.prototype._showBuildings = function() {
       this.Collection = this._getUnits();
-      this.layout = new ScreenThreeView.ScreenThreeLayout({
-        countUnits: this.Collection[3],
-        templateHelpers: {
-          selection: this.Collection[2],
-          countUnits: this.Collection[3],
-          range: this.Collection[4],
-          high: this.Collection[5],
-          rangetext: this.Collection[6]
-        }
-      });
-      this.listenTo(this.layout, "show", this.showViews);
-      return this.show(this.layout);
+      this.layout.unitRegion.reset();
+      return this.layout.unitRegion.show(new ScreenThreeView.UnitTypeView({
+        collection: this.Collection[1]
+      }));
     };
 
     ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {

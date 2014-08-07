@@ -30,6 +30,9 @@ requirejs.config
         mapplic : 'src/bower_components/preload/mapplic'
         mapplicAdmin : 'src/bower_components/preload/mapplic-admin'
         jqueryRemodal:'src/bower_components/preload/jquery.remodal'
+        jqueryEasingmin :'src/bower_components/preload/jquery.easing.min'
+        jqueryliquidslider :'src/bower_components/preload/jquery.liquid-slider.min'
+        jquerytouchswipe :'src/bower_components/preload/jquery.touchSwipe.min'
 
 
 
@@ -61,6 +64,10 @@ requirejs.config
         selectFx : ['jquery']
         mapplicAdmin : ['jquery']
         jqueryRemodal : ['jquery']
+        jqueryEasingmin : ['jquery']
+        jqueryliquidslider : ['jquery']
+        jquerytouchswipe : ['jquery']
+
 
 
 

@@ -2,7 +2,8 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['modernizr','slick','classie','selectFx','jquerymousewheel','jqueryeasing','mapplic'], ->
+define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','jqueryEasingmin'
+                            ,'jquerytouchswipe','jqueryliquidslider'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
