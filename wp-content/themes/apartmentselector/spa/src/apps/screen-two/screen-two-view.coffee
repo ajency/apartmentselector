@@ -92,25 +92,48 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .grid-link':(e)->
                 console.log unitVariantArray
                 id = $('#'+e.target.id).attr('data-id')
+                track = 0
                 if $('#check'+id).val() == '1'
                     console.log id
                     console.log index = unitVariantArray.indexOf(parseInt(id))
                     if index != -1
                         unitVariantArray.splice( index, 1 )
                         $('#check'+id).val '0'
+                        track = 0
                         unitVariantIdArray.push(parseInt(id))
                 else
                     console.log "aaaaaaaaaa"
+                    track = 1
                     unitVariantArray.push(parseInt(id))
                     $('#check'+id).val '1'
 
 
                 console.log unitVariantArray
+                globalUnitArrayInt = []
+
+                if App.defaults['unitVariant'] != 'All'
+                    globalUnitVariants = App.defaults['unitVariant'].split(',')
+                    $.each(globalUnitVariants, (index,value)->
+                        globalUnitArrayInt.push(parseInt(value))
+
+                    )
+                console.log globalUnitArrayInt
+                if globalUnitArrayInt.length != 0
+                    if track == 0
+                        console.log track
+                        unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
+                    else
+                        globalUnitArrayInt.push(id)
+                        unitVariantArray = globalUnitArrayInt
+
+
                 unitVariantString = unitVariantArray.join(',')
 
 
 
             'click .done':(e)->
+
+
                 App.defaults['unitVariant'] = unitVariantString
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
@@ -119,14 +142,33 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log unitVariantIdArray
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $(".variantBox").slideToggle()
-                $.each(unitVariantArray, (index,value)->
-                    console.log value
-                    $('#grid'+value).addClass 'selected'
-
-
-
+                console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
+                globalUnitArrayInt = []
+                $.each(globalUnitVariants, (index,value)->
+                    globalUnitArrayInt.push(parseInt(value))
 
                 )
+
+                if App.defaults['unitVariant'] != 'All'
+                    $.each(unitVariantArray, (index,value)->
+                        console.log value
+                        key = _.contains(globalUnitArrayInt,parseInt(value))
+                        console.log key
+                        if key == true
+                            $('#grid'+value).addClass 'selected'
+                            $('#check'+value).val '1'
+                        else
+                            $('#grid'+value).removeClass 'selected'
+                            $('#check'+value).val '0'
+
+
+
+
+
+
+
+
+                    )
 
 
 
@@ -145,7 +187,39 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             else if App.screenOneFilter['key'] == 'budget'
                 $('.budget' ).removeClass 'hidden'
 
+
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
+            globalUnitArrayInt = []
+            $.each(globalUnitVariants, (index,value)->
+                globalUnitArrayInt.push(parseInt(value))
+
+            )
+
+            if App.defaults['unitVariant'] != 'All'
+                unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
+                $.each(unitVariantArray, (index,value)->
+                    console.log value
+                    key = _.contains(globalUnitArrayInt,parseInt(value))
+                    console.log key
+                    if key == true
+                        $('#grid'+value).addClass 'selected'
+                    else
+                        console.log index = unitVariantArray.indexOf(parseInt(value))
+                        $('#grid'+value).removeClass 'selected'
+                        $('#check'+value).val '0'
+
+
+
+
+
+
+
+
+
+                )
+
+
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
 

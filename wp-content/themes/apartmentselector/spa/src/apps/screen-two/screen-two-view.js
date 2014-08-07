@@ -40,23 +40,43 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
       },
       'click .grid-link': function(e) {
-        var id, index;
+        var globalUnitArrayInt, globalUnitVariants, id, index, track;
         console.log(unitVariantArray);
         id = $('#' + e.target.id).attr('data-id');
+        track = 0;
         if ($('#check' + id).val() === '1') {
           console.log(id);
           console.log(index = unitVariantArray.indexOf(parseInt(id)));
           if (index !== -1) {
             unitVariantArray.splice(index, 1);
             $('#check' + id).val('0');
+            track = 0;
             unitVariantIdArray.push(parseInt(id));
           }
         } else {
           console.log("aaaaaaaaaa");
+          track = 1;
           unitVariantArray.push(parseInt(id));
           $('#check' + id).val('1');
         }
         console.log(unitVariantArray);
+        globalUnitArrayInt = [];
+        if (App.defaults['unitVariant'] !== 'All') {
+          globalUnitVariants = App.defaults['unitVariant'].split(',');
+          $.each(globalUnitVariants, function(index, value) {
+            return globalUnitArrayInt.push(parseInt(value));
+          });
+        }
+        console.log(globalUnitArrayInt);
+        if (globalUnitArrayInt.length !== 0) {
+          if (track === 0) {
+            console.log(track);
+            unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
+          } else {
+            globalUnitArrayInt.push(id);
+            unitVariantArray = globalUnitArrayInt;
+          }
+        }
         return unitVariantString = unitVariantArray.join(',');
       },
       'click .done': function(e) {
@@ -66,24 +86,62 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
+        var globalUnitArrayInt, globalUnitVariants;
         console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox").slideToggle();
-        return $.each(unitVariantArray, function(index, value) {
-          console.log(value);
-          return $('#grid' + value).addClass('selected');
+        console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+        globalUnitArrayInt = [];
+        $.each(globalUnitVariants, function(index, value) {
+          return globalUnitArrayInt.push(parseInt(value));
         });
+        if (App.defaults['unitVariant'] !== 'All') {
+          return $.each(unitVariantArray, function(index, value) {
+            var key;
+            console.log(value);
+            key = _.contains(globalUnitArrayInt, parseInt(value));
+            console.log(key);
+            if (key === true) {
+              $('#grid' + value).addClass('selected');
+              return $('#check' + value).val('1');
+            } else {
+              $('#grid' + value).removeClass('selected');
+              return $('#check' + value).val('0');
+            }
+          });
+        }
       }
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, i, params, scr, selector;
+      var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, params, scr, selector;
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
       } else if (App.screenOneFilter['key'] === 'budget') {
         $('.budget').removeClass('hidden');
       }
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+      globalUnitArrayInt = [];
+      $.each(globalUnitVariants, function(index, value) {
+        return globalUnitArrayInt.push(parseInt(value));
+      });
+      if (App.defaults['unitVariant'] !== 'All') {
+        unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
+        $.each(unitVariantArray, function(index, value) {
+          var key;
+          console.log(value);
+          key = _.contains(globalUnitArrayInt, parseInt(value));
+          console.log(key);
+          if (key === true) {
+            return $('#grid' + value).addClass('selected');
+          } else {
+            console.log(index = unitVariantArray.indexOf(parseInt(value)));
+            $('#grid' + value).removeClass('selected');
+            return $('#check' + value).val('0');
+          }
+        });
+      }
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
       document.body.appendChild(scr);
