@@ -79,6 +79,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       });
       $(".variantClose").click(function() {
         $(".variantBox").slideToggle();
+        $(".variantToggle").toggleClass("open");
       });
       $(".grid-link").click(function(e) {
         $(this).toggleClass("selected");

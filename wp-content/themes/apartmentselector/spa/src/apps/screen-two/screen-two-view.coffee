@@ -136,6 +136,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             $(".variantClose").click ->
                 $(".variantBox").slideToggle()
+                $(".variantToggle").toggleClass("open")
                 return
 
             $(".grid-link").click  (e)->
