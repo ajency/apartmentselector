@@ -5271,12 +5271,19 @@ Version:        0.1.0
 }
 .variantToggle {
   cursor: pointer;
+  font-weight: 600;
 }
 .variantToggle:hover {
   border-bottom: 2px solid #f28428;
 }
-.variantToggle .glyphicon {
+.variantToggle:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114";
+  display: inline-block;
   font-size: 12px;
+}
+.variantToggle.open:after {
+  content: "\e113";
 }
 .variantBox {
   display: none;

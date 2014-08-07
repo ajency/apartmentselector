@@ -158,9 +158,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                             if index == 'unitType'
                                 key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if index == 'unitVariant'
-                                key = App.currentStore.unit_variant.findWhere({id:parseInt(element)})
-                                templateArr.push key.get 'name'
                             if index == 'building'
                                 key = App.currentStore.building.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
@@ -173,9 +170,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
-                            templateArr.push key.get 'name'
-                        if index == 'unitVariant'
-                            key = App.currentStore.unit_variant.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
                         if index == 'building'
                             key = App.currentStore.building.findWhere({id:parseInt(value)})

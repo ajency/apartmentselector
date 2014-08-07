@@ -1,10 +1,17 @@
 .variantToggle{
 	cursor: pointer;
+	font-weight: 600;
 	&:hover{
 		border-bottom: 2px solid @color-primary;
 	}
-	.glyphicon{
+	&:after{
+		font-family: 'Glyphicons Halflings';
+		content: "\e114";
+		display: inline-block;
 		font-size: 12px;
+	}
+	&.open:after{
+		content: "\e113";		
 	}
 }
 .variantBox{
