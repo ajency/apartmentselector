@@ -16,7 +16,7 @@
       
       
 
-fileUploadById($(file))
+fileUploadByformidable($(file))
 
 $(file).remove()
 

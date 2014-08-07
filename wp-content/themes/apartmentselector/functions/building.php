@@ -266,6 +266,8 @@ function save_extra_building_fields( $term_id ) {
 
      $building_phase =  $_REQUEST['building_phase'];
 
+     $position_in_project =  $_REQUEST['position_in_project'];
+
 
     $exceptions = array();
      $exceptions_count =  $_REQUEST['exceptions_count'];
@@ -298,6 +300,8 @@ function save_extra_building_fields( $term_id ) {
 
 
     update_option( "building_".$term_id."_phase", $building_phase );
+
+    update_option( "building_".$term_id."_position_in_project", $position_in_project );
 
     update_option( "building_".$term_id."_no_of_floors", $no_of_floors );
 
@@ -395,6 +399,10 @@ function get_buildings($ids=array())
         
         $building_phase = get_option( "building_".$category->term_id."_phase",true);
 
+        $position_in_project = get_option( "building_".$category->term_id."_position_in_project",true);
+
+        $position_in_project_image_url =   wp_get_attachment_thumb_url($position_in_project);
+
         $building_floor_rise =  maybe_unserialize(get_option('building_'.$category->term_id.'_floor_rise')) ;
    
         $floor = array();
@@ -403,7 +411,7 @@ function get_buildings($ids=array())
         for ($i=1; $i<=$building_no_of_floors;$i++){
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise));
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url);
 
     }
 
@@ -491,6 +499,10 @@ function get_building_by_id($building_id){
 
    $building_phase = get_option('building_'.$building_id.'_phase');
 
+   $position_in_project = get_option('building_'.$building_id.'_position_in_project');
+
+   $position_in_project_image_url =  wp_get_attachment_thumb_url($position_in_project);
+            
    $building_no_of_floors = get_option('building_'.$building_id.'_no_of_floors');
    
    $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
@@ -513,7 +525,7 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise );
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'positioninprojectimageurl'=>$position_in_project_image_url );
  
    return ($result);
 }

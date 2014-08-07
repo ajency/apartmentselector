@@ -26,6 +26,10 @@ $heading = "Edit";
 
     $building_phase = $building["phase"];
 
+    $position_in_project = $building["positioninproject"];
+    
+    $position_in_project_image_url = $building["positioninprojectimageurl"];
+
     $no_of_floors = $building["nooffloors"];
 
     $building_no_of_flats = $building["noofflats"];
@@ -101,6 +105,33 @@ $heading = "Edit";
                     <?php } ?>
                 </select>
             </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="form-label">
+                Position in project
+            </label>
+
+            <div class="input-with-icon  right">
+                <span class="btn btn-success fileinput-button">
+                     
+                    <span>Select file..</span>
+                    <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo $position_in_project;?>"><input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
+                </span>
+                <br>
+                <br>
+                <div id="progressposition_in_project" class="progress" >
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <div id="filesposition_in_project" class="files"></div>
+                <br>
+                <div class="row-fluid">
+                    <div class="col-md-12">
+                        <img src="<?php echo $position_in_project_image_url;?>" id="image_displayposition_in_project">
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
     <div class="col-md-6">
