@@ -29,6 +29,8 @@ function do_init_routines(){
 
 	add_default_room_types();
 
+	add_default_room_type_for_sizes();
+
     add_default_facings();
 
     add_default_unit_status();
