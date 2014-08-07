@@ -8,6 +8,8 @@ if(!current_user_can('manage_apartments') && !current_user_can('manage_options')
     
 } 
 
+$apartment_views = array();
+
 if(isset($_REQUEST["id"])){
 
     $apartment_id = $_REQUEST["id"];
@@ -21,6 +23,8 @@ if(isset($_REQUEST["id"])){
     $unit_variant = $unit["unit_variant"];
 
     $unit_building = $unit["building"];
+
+    $apartment_views = is_array($unit["apartment_views"])?$unit["apartment_views"]:array();
 
     $unit_assigned = $unit["unit_assigned"];
 
@@ -104,7 +108,7 @@ if(isset($_REQUEST["id"])){
 
                         <div class="input-with-icon  right">
                             <i class=""></i>
-                            <select  name="building" id="building"  >
+                            <select  name="building" id="building">
                                 <option value="">Select</option>
                                 <?php
                                 $floors_option = 0;
@@ -133,7 +137,30 @@ if(isset($_REQUEST["id"])){
                                 }
                                 ?>
                             </select>
+
                         </div>
+                    </div>
+
+                     <div class="form-group">
+                        <label class="form-label">Views</label>
+                        <div class="row-fluid" > <div class="row">
+                        <div class="input-with-icon  right views-container">
+                            <?php
+                            if(isset($unit_building)){ 
+                            $views = get_building_views($unit_building);
+
+                                foreach($views as $view){
+                                    ?>
+                                    <div class="col-md-6">
+                                        <div class='checkbox check-default' >
+                                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$apartment_views)){ echo "checked";}?>> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }  
+                            }
+                            ?> 
+                        </div>  </div>  </div>
                     </div>
                      <div class="well">Select Flat:
                      <div id="flat_container">

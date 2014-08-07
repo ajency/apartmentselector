@@ -171,6 +171,8 @@ function save_unit($post_id, $post){
 
     $unit_assigned = $_REQUEST["unit_assigned"];
 
+    $views = $_REQUEST["views"];
+
     update_post_meta($post->ID, 'unit_variant', $unit_variant);
 
     update_post_meta($post->ID, 'floor', $floor);
@@ -180,6 +182,8 @@ function save_unit($post_id, $post){
     update_post_meta($post->ID, 'unit_status', $unit_status);
 
     update_post_meta($post->ID, 'unit_assigned', $unit_assigned);
+
+    update_post_meta($post->ID, 'apartment_views', $views);
 
     return $post->ID;
 }
@@ -320,6 +324,8 @@ function get_units(){
 
         $unit_status =   get_post_meta($result->ID, 'unit_status', true);
 
+        $views =   get_post_meta($result->ID, 'apartment_views', true);
+
         $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
         $units[] = array(   'id'=>intval($result->ID),
@@ -328,6 +334,7 @@ function get_units(){
                             'unitVariant'=>intval($unit_variant),
                             'building'=>intval($unit_building),
                             'floor'=>intval($floor),
+                            'views'=>intval($views),
                             'status'=>intval($unit_status),
                         );
 
@@ -354,6 +361,8 @@ function get_unit_by_id($id){
 
     $unit_assigned =   get_post_meta($result->ID, 'unit_assigned', true);
 
+    $apartment_views =   get_post_meta($result->ID, 'apartment_views', true);
+
     $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
     return array(   'id'=>$result->ID,
@@ -363,6 +372,7 @@ function get_unit_by_id($id){
                     'building'=>$unit_building,
                     'floor'=>$floor,
                     'unit_assigned'=>$unit_assigned,
+                    'apartment_views'=>$apartment_views,
                     'status'=>$unit_status
                 );
 }

@@ -12,7 +12,7 @@ $heading = "Add";
 
 $no_of_flats = 0;
 
-$building_exceptions = array();
+$building_exceptions  =   $building_views = array();
 
 if(isset($_REQUEST["id"])){
 
@@ -25,6 +25,8 @@ $heading = "Edit";
     $building_name = $building["name"];
 
     $building_phase = $building["phase"];
+
+    $building_views = $building["buildingviews"];
 
     $position_in_project = $building["positioninproject"];
     
@@ -118,9 +120,7 @@ $heading = "Edit";
                      
                     <span>Select file..</span>
                     <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo $position_in_project;?>"><input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
-                </span>
-                <br>
-                <br>
+                </span> 
                 <div id="progressposition_in_project" class="progress" >
                     <div class="progress-bar progress-bar-success"></div>
                 </div>
@@ -134,6 +134,30 @@ $heading = "Edit";
             </div> 
         </div>
     </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="form-label">
+                View
+            </label>
+
+            <div class="input-with-icon  right">   <?php
+                $views = get_views();
+
+                foreach($views as $view){
+                    ?>
+                    <div class="col-md-6">
+                        <div class='checkbox check-default' >
+                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$building_views)){ echo "checked";}?>> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?> 
+            </div> 
+        </div>
+    </div>
+    <div style="clear:both"></div>
     <div class="col-md-6">
         <div class="form-group">
             <label class="form-label">
