@@ -6,7 +6,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         template : '<div class="text-center subTxt m-b-20 animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
         		<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
-                <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All <span class="glyphicon glyphicon-chevron-down"></span> </span> variants of your apartment selection</div>
+                <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                 <div class="variantBox">
                     <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
                     <div class="grid-container">
@@ -126,6 +126,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             document.body.appendChild(scr)
 
             $(".variantToggle").click ->
+                $(this).toggleClass("open")
                 $(".variantBox").slideToggle()
                 return
 
