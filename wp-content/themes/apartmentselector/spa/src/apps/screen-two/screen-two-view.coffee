@@ -5,6 +5,83 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         template : '<div class="text-center subTxt m-b-20">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
         		<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
+                <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All <span class="glyphicon glyphicon-chevron-down"></span> </span> variants of your apartment selection</div>
+                <div class="variantBox">
+                    <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
+                    <div class="grid-container">
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 1</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 2</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 3</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 4</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 5</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 6</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 7</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 8</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 9</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="grid-block-3">
+                          <a class="grid-link selected" href="#">
+                            <div class="grid-text-wrap">
+                              <span class="grid-main-title">Variant 10</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
         		<div class="legend text-center m-b-20">
 
        {{#unittypes}}
@@ -83,6 +160,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
+
+            $(".variantToggle").click ->
+                $(".variantBox").slideToggle()
+                return
+
+            $(".variantClose").click ->
+                $(".variantBox").slideToggle()
+                return
+
+            $(".grid-link").click ->
+                $(this).toggleClass("selected")
+                return
 
 
 
