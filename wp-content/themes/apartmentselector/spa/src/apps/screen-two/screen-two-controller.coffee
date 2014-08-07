@@ -12,6 +12,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
                 uintVariantId : @Collection[9]
+                uintVariantIdArray : @Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -44,6 +45,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
                 uintVariantId : @Collection[9]
+                uintVariantIdArray : @Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]

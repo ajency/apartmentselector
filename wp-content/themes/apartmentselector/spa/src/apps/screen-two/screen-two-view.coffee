@@ -1,6 +1,8 @@
 define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     m = ""
     unitVariantArray = ''
+    unitVariantIdArray = []
+    unitVariantString =''
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="text-center subTxt m-b-20 animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
@@ -19,7 +21,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         {{/unitVariants}}
                         <div class="variantAction m-t-5 m-b-20">
                             <a class="btn btn-primary m-r-10 done">DONE</a>
-                            <a class="btn btn-default">CANCEL</a>
+                            <a class="btn btn-default cancel">CANCEL</a>
                         </div>
                     </div>
                 </div>
@@ -94,6 +96,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     if index != -1
                         unitVariantArray.splice( index, 1 )
                         $('#check'+id).val '0'
+                        unitVariantIdArray.push(parseInt(id))
                 else
                     console.log "aaaaaaaaaa"
                     unitVariantArray.push(parseInt(id))
@@ -102,12 +105,28 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 console.log unitVariantArray
                 unitVariantString = unitVariantArray.join(',')
-                App.defaults['unitVariant'] = unitVariantString
+
 
 
             'click .done':(e)->
+                App.defaults['unitVariant'] = unitVariantString
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
+
+            'click .cancel':(e)->
+                console.log unitVariantIdArray
+                unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
+                $(".variantBox").slideToggle()
+                $.each(unitVariantArray, (index,value)->
+                    console.log value
+                    $('#grid'+value).addClass 'selected'
+
+
+
+
+                )
+
+
 
 
 
