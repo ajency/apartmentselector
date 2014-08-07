@@ -19,7 +19,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="col-sm-4 col-xs-9">
                                 <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block">
                             </div>
-                            <div class="col-sm-8 col-xs-3">
+                            <!--<div class="col-sm-8 col-xs-3">
                                 <div class="row">
 
        {{#high}}
@@ -27,7 +27,7 @@ define [ 'marionette' ], ( Marionette )->
                                         <h1><small>Total {{name}}</small><br>{{count}}</h1>
                                     </div>
 {{/high}}
-                                </div>
+                                </div>-->
                                 <div class="row">
                                     <div class="col-sm-12 hidden-xs m-t-30 p-l-0">
                                         <div class="col">
@@ -44,7 +44,7 @@ define [ 'marionette' ], ( Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            <div class="viewsNo m-t-20">
+                           <!-- <div class="viewsNo m-t-20">
                                 <div class="row m-l-0 m-r-0">
                                     <div class="col-xs-4">
                                         <h4>
@@ -64,7 +64,7 @@ define [ 'marionette' ], ( Marionette )->
                                         Eco pond
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     '

@@ -1,5 +1,6 @@
 define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     m = ""
+    unitVariantArray = ''
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="text-center subTxt m-b-20">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
@@ -9,76 +10,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 <div class="variantBox">
                     <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
                     <div class="grid-container">
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 1</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 2</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 3</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 4</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 5</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 6</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 7</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 8</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 9</span>
-                            </div>
-                          </a>
-                        </div>
-                        <div class="grid-block-3">
-                          <a class="grid-link selected" href="#">
-                            <div class="grid-text-wrap">
-                              <span class="grid-main-title">Variant 10</span>
-                            </div>
-                          </a>
-                        </div>
+
+       {{#unitVariants}}                         <div class="grid-block-3" >
+                          <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
+
+
+
+
+                          {{name}}<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /></a></div>
+
+
+       {{/unitVariants}}
                       </div>
                     </div>
 
@@ -143,15 +85,37 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('html, body').animate({ scrollTop : 0 }, 'slow')
                 @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
 
+            'click .grid-link':(e)->
+                console.log unitVariantArray
+                id = $('#'+e.target.id).attr('data-id')
+                if $('#check'+id).val() == '1'
+                    console.log id
+                    console.log index = unitVariantArray.indexOf(parseInt(id))
+                    if index != -1
+                        unitVariantArray.splice( index, 1 )
+                        $('#check'+id).val '0'
+                else
+                    console.log "aaaaaaaaaa"
+                    unitVariantArray.push(parseInt(id))
+                    $('#check'+id).val '1'
 
 
-            #if App.defaults['budget'] != 'All'
+                console.log unitVariantArray
+                unitVariantString = unitVariantArray.join(',')
+                App.defaults['unitVariant'] = unitVariantString
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
+
+
+
+
+
+
 
 
 
         onShow:->
-            console.log points = Marionette.getOption( @, 'buildingColl' )
-
+            console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
 
@@ -169,7 +133,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $(".variantBox").slideToggle()
                 return
 
-            $(".grid-link").click ->
+            $(".grid-link").click  (e)->
                 $(this).toggleClass("selected")
                 return
 

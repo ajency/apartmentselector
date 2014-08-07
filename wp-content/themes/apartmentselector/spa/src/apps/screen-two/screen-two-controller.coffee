@@ -11,6 +11,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @layout = new ScreenTwoView.ScreenTwoLayout(
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
+                uintVariantId : @Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -18,12 +19,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high : @Collection[5]
                     medium : @Collection[6]
                     low : @Collection[7]
+                    unitVariants:@Collection[8]
                     AJAXURL : AJAXURL)
 
 
             @listenTo @layout, "show", @showViews
 
             @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
 
 
 
@@ -39,6 +43,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @layout = new ScreenTwoView.ScreenTwoLayout(
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
+                uintVariantId : @Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -46,6 +51,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high : @Collection[5]
                     medium : @Collection[6]
                     low : @Collection[7]
+                    unitVariants:@Collection[8]
                     AJAXURL : AJAXURL)
 
 
@@ -203,6 +209,19 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 templateString = range
             else
                 templateString  = templateArr.join(',')
+
+
+            unitvariant = App.currentStore.unit.pluck("unitVariant")
+            console.log uniqUnitvariant = _.uniq(unitvariant)
+            unitVariantModels = []
+            unitVariantID = []
+
+            $.each(uniqUnitvariant, (index,value)->
+                unitVarinatModel = App.master.unit_variant.findWhere({id:value})
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name')})
+                unitVariantID.push(unitVarinatModel.get('id'))
+
+            )
 
 
             $.each(units, (index,value)->
@@ -511,7 +530,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             if App.defaults['unitType'] != 'All'
                 mainnewarr = []
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr]
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID]
 
 
 
