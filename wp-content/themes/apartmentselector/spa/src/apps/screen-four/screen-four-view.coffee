@@ -89,7 +89,7 @@ define [ 'marionette' ], ( Marionette )->
 								<div class="summary">
                                     <div class="row">
                                         <div class="col-xs-6">FLAT TYPE</div>
-                                        <div class="col-xs-6 text-right text-primary">-</div>
+                                        <div class="col-xs-6 text-right text-primary">{{name}}</div>
                                     </div>
 									<div class="row">
 										<div class="col-xs-6">FLOOR {{floor}}</div>

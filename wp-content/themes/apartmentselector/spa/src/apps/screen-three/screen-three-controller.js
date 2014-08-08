@@ -141,12 +141,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 });
                 templateArr.push(key.get('name'));
               }
-              if (value.key === 'building') {
-                key = App.master.building.findWhere({
-                  id: parseInt(element)
-                });
-                templateArr.push(key.get('name'));
-              }
               if (value.key === 'budget') {
                 budget_Val = value + 'lakhs';
                 templateArr.push(budget_Val);
@@ -155,7 +149,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 if (track === 0) {
                   trackArray.push(value.value);
                 }
-                flag = 1;
                 _results.push(track = 1);
               } else {
                 _results.push(void 0);
@@ -169,12 +162,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               });
               templateArr.push(key.get('name'));
             }
-            if (value.key === 'building') {
-              key = App.master.building.findWhere({
-                id: parseInt(value.value)
-              });
-              templateArr.push(key.get('name'));
-            }
             if (value.key === 'budget') {
               budget_Val = value.value;
               templateArr.push(budget_Val);
@@ -183,7 +170,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               if (track === 0) {
                 trackArray.push(value.value);
               }
-              flag = 1;
               return track = 1;
             }
           }

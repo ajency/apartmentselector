@@ -26,10 +26,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.events = {
       'mouseover a': function(e) {
-        var id, locationData;
-        id = $('#' + e.target.id).attr('data-id');
-        locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        var id;
+        return id = $('#' + e.target.id).attr('data-id');
       },
       'click a': function(e) {
         return e.preventDefault();
@@ -175,7 +173,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         selector = '#mapplic' + i;
         ajaxurl = AJAXURL;
         $(selector).mapplic({
-          'id': 5,
+          'id': 4,
           'width': params.width,
           'height': params.height
         });

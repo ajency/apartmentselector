@@ -71,8 +71,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         events:
             'mouseover a':(e)->
                 id  = $('#'+e.target.id ).attr('data-id')
-                locationData = m.getLocationData(id);
-                m.showTooltip(locationData);
+                #locationData = m.getLocationData(id);
+                #m.showTooltip(locationData);
 
 
             'click a':(e)->
@@ -257,7 +257,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 selector = '#mapplic' + i
                 ajaxurl = AJAXURL
                 $(selector).mapplic(
-                    'id': 5,
+                    'id': 4,
                     'width': params.width,
                     'height': params.height
 
