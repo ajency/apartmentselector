@@ -420,13 +420,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <div class="row m-l-0 m-r-0 m-b-20">
                                         <div class="col-xs-4">
                                             <h4 class="m-t-0 text-primary"><div class="bold">VIEWS</div>for this tower</h4>
-                                        </div> 
-                                        <div class="col-xs-4"> 
-                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Garden view<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Pond View
                                         </div>
-                                        <div class="col-xs-4"> 
-                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Manas Lake<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Eco pond 
+
+       {{#views}}                                         <div class="col-xs-4">
+
+                                  {{#data}}          <span class="glyphicon glyphicon-asterisk small text-grey"></span>{{name}}<br>{{/data}}
                                         </div>
+{{/views}}
                                     </div>
                                 </div>
                             </div>

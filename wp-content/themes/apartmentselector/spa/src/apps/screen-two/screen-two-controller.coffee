@@ -430,9 +430,33 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitTypeArray = Array()
                 newarr =  []
                 unique = {}
-
+                viewmodels = []
                 status = App.currentStore.status.findWhere({'name':'Available'})
                 totalunits = App.currentStore.unit.where({'building':value})
+                $.each(totalunits, (index,value)->
+                    viewsData = value.get('views')
+                    viewmodels = $.merge(viewmodels, viewsData)
+                )
+                console.log uniqueViewArry = _.uniq(viewmodels);
+                variantsDataValues = []
+                data = []
+                $.each(uniqueViewArry, (index,value)->
+                    viewModel = App.master.view.findWhere({id:parseInt(value)})
+
+                    data.push({id:viewModel.get('id'),name:viewModel.get('name')})
+                    if data.length == 2
+                        variantsDataValues.push({data:data})
+                        data = []
+
+
+
+                )
+                console.log variantsDataValues
+
+
+
+
+
                 availableunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
                 floors = App.currentStore.unit.pluck("floor")
                 uniqFloors = _.uniq(floors)
@@ -547,11 +571,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})
                 unitColl.push {id:buildingModel.get('id'),buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),
-                unittypes:newarr,availableunits:availableunits.length,totalunits:totalunits.length,totalfloors:uniqFloors.length}
+                unittypes:newarr,availableunits:availableunits.length,totalunits:totalunits.length,totalfloors:uniqFloors.length,views:variantsDataValues}
                 buildingArrayModel.push(buildingModel)
 
             )
-
+            console.log unitColl
             buildingvalue = _.max(buildingUnits,  (model)->
                 model.count
             )
