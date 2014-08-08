@@ -14,7 +14,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
   });
   App.currentStore = {
     'unit': new Backbone.Collection(UNITS),
-    'view': new Backbone.Collection(views),
+    'view': new Backbone.Collection(VIEWS),
     'building': new Backbone.Collection(BUILDINGS),
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
@@ -23,7 +23,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
   };
   App.master = {
     'unit': new Backbone.Collection(UNITS),
-    'view': new Backbone.Collection(views),
+    'view': new Backbone.Collection(VIEWS),
     'building': new Backbone.Collection(BUILDINGS),
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
