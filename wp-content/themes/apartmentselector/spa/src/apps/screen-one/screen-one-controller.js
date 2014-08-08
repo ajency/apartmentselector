@@ -61,7 +61,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
         unitVariantmodel = App.currentStore.unit_variant.findWhere({
           'id': item.get('unitVariant')
         });
-        unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea'));
+        unitPrice = item.get('unitPrice');
         return item.set({
           'unitPrice': 'unitPrice',
           unitPrice: unitPrice

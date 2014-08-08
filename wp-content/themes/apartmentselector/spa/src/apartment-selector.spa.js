@@ -123,7 +123,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
             unitVariantmodel = App.currentStore.unit_variant.findWhere({
               'id': item.get('unitVariant')
             });
-            unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea'));
+            unitPrice = item.get('unitPrice');
             item.set({
               'unitPrice': 'unitPrice',
               unitPrice: unitPrice

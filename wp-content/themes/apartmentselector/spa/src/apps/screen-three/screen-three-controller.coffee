@@ -251,7 +251,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         floorRise = buildingModel.get 'floorrise'
                         floorRiseValue = floorRise[value1.get 'floor']
                         unitVariantmodel = App.master.unit_variant.findWhere({'id':value1.get 'unitVariant'})
-                        console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        unitPrice = value1.get 'unitPrice'
                         budget_arr = value.value.split(' ')
                         budget_price = budget_arr[0].split('-')
                         console.log budget_price[0] = budget_price[0]+'00000'

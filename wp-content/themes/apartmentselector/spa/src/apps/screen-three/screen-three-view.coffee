@@ -358,7 +358,8 @@ define [ 'marionette' ], ( Marionette )->
                     floorRise = buildingModel.get 'floorrise'
                     floorRiseValue = floorRise[object.model.get 'floor']
                     unitVariantmodel = App.master.unit_variant.findWhere({'id':object.model.get 'unitVariant'})
-                    console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                    #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                    unitPrice = object.model.get 'unitPrice'
                     budget_arr = value.value.split(' ')
                     budget_price = budget_arr[0].split('-')
                     console.log budget_price[0] = budget_price[0]+'00000'
