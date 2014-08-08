@@ -69,6 +69,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'mouseover a':(e)->
+                id  = $('#'+e.target.id ).attr('data-id')
+                locationData = m.getLocationData(id);
+                m.showTooltip(locationData);
+
+
             'click a':(e)->
                 e.preventDefault()
 
@@ -123,7 +129,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         unitVariantArray = globalUnitArrayInt
 
 
-                unitVariantString = unitVariantArray.join(',')
+                if globalUnitArrayInt.length == unitVariantArray.length
+                    unitVariantString = 'All'
+                else
+                    unitVariantString = unitVariantArray.join(',')
 
 
 
@@ -248,7 +257,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 selector = '#mapplic' + i
                 ajaxurl = AJAXURL
                 $(selector).mapplic(
-                    'id': 4,
+                    'id': 5,
                     'width': params.width,
                     'height': params.height
 

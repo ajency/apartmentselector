@@ -1,11 +1,38 @@
 define [ 'marionette' ], ( Marionette )->
 
     flag_set = 0
+    unitVariantArray = ''
+    unitVariantIdArray = []
+    unitVariantString = ''
+
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div>
+                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
+                            <div class="variantBox">
+                                <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                                <div class="grid-container">
+
+                                    {{#unitVariants}}
+                                    <div class="grid-block-3" >
+                                        <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
+                                            {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                        </a>
+                                    </div>
+                                    {{/unitVariants}}
+
+                                    <div class="variantAction m-t-5 m-b-20">
+                                        <a class="btn btn-primary m-r-10 done">DONE</a>
+                                        <a class="btn btn-default cancel">CANCEL</a>
+                                    </div>
+                            </div>
+                    </div>
+
+
+
+
                     <div id="vs-container" class="vs-container">
                         <header class="vs-header" id="building-region"></header>
                         <div  id="unit-region"></div>
@@ -78,6 +105,91 @@ define [ 'marionette' ], ( Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
+        events:
+            'click a':(e)->
+                e.preventDefault()
+
+            'click .grid-link':(e)->
+                console.log unitVariantArray
+                id = $('#'+e.target.id).attr('data-id')
+                track = 0
+                if $('#check'+id).val() == '1'
+                    console.log id
+                    console.log index = unitVariantArray.indexOf(parseInt(id))
+                    if index != -1
+                        unitVariantArray.splice( index, 1 )
+                        $('#check'+id).val '0'
+                        track = 0
+                        unitVariantIdArray.push(parseInt(id))
+                else
+                    console.log "aaaaaaaaaa"
+                    track = 1
+                    unitVariantArray.push(parseInt(id))
+                    $('#check'+id).val '1'
+
+
+                console.log unitVariantArray
+                globalUnitArrayInt = []
+
+                if App.defaults['unitVariant'] != 'All'
+                    globalUnitVariants = App.defaults['unitVariant'].split(',')
+                    $.each(globalUnitVariants, (index,value)->
+                        globalUnitArrayInt.push(parseInt(value))
+
+                    )
+                console.log globalUnitArrayInt
+                if globalUnitArrayInt.length != 0
+                    if track == 0
+                        console.log track
+                        unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
+                    else
+                        globalUnitArrayInt.push(parseInt(id))
+                        unitVariantArray = globalUnitArrayInt
+
+                if globalUnitArrayInt.length == unitVariantArray.length
+                    unitVariantString = 'All'
+                else
+                    unitVariantString = unitVariantArray.join(',')
+
+
+
+            'click .done':(e)->
+                App.defaults['unitVariant'] = unitVariantString
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
+
+            'click .cancel':(e)->
+                console.log unitVariantIdArray
+                unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
+                $(".variantBox").slideToggle()
+                console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
+                globalUnitArrayInt = []
+                $.each(globalUnitVariants, (index,value)->
+                    globalUnitArrayInt.push(parseInt(value))
+
+                )
+
+                if App.defaults['unitVariant'] != 'All'
+                    $.each(unitVariantArray, (index,value)->
+                        console.log value
+                        key = _.contains(globalUnitArrayInt,parseInt(value))
+                        console.log key
+                        if key == true
+                            $('#grid'+value).addClass 'selected'
+                            $('#check'+value).val '1'
+                        else
+                            $('#grid'+value).removeClass 'selected'
+                            $('#check'+value).val '0'
+
+
+
+
+
+
+
+
+                    )
+
         onShow:->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
@@ -113,6 +225,51 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
+
+            $(".variantToggle").click ->
+                $(this).toggleClass("open")
+                $(".variantBox").slideToggle()
+                return
+
+            $(".variantClose").click ->
+                $(".variantBox").slideToggle()
+                $(".variantToggle").toggleClass("open")
+                return
+
+            $(".grid-link").click  (e)->
+                $(this).toggleClass("selected")
+                return
+
+            console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
+            globalUnitArrayInt = []
+            $.each(globalUnitVariants, (index,value)->
+                globalUnitArrayInt.push(parseInt(value))
+
+            )
+
+            if App.defaults['unitVariant'] != 'All'
+                unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
+                $.each(unitVariantArray, (index,value)->
+                    console.log value
+                    key = _.contains(globalUnitArrayInt,parseInt(value))
+                    console.log key
+                    if key == true
+                        $('#grid'+value).addClass 'selected'
+                    else
+                        console.log index = unitVariantArray.indexOf(parseInt(value))
+                        $('#grid'+value).removeClass 'selected'
+                        $('#check'+value).val '0'
+
+
+
+
+
+
+
+
+
+                )
 
 
 

@@ -147,8 +147,14 @@ if(isset($_REQUEST["id"])){
                         <div class="input-with-icon  right views-container">
                             <?php
                             if(isset($unit_building)){ 
-                            $views = get_building_views($unit_building);
-
+                                $views = get_building_views($unit_building);
+                                if(count($views)==0){
+                                ?>
+                                        <div class="col-md-6">
+                                            No views found
+                                        </div>
+                                        <?php
+                                }
                                 foreach($views as $view){
                                     ?>
                                     <div class="col-md-6">
@@ -158,6 +164,13 @@ if(isset($_REQUEST["id"])){
                                     </div>
                                     <?php
                                 }  
+                            }
+                            else{
+                               ?>
+                                        <div class="col-md-6">
+                                            select building to select views
+                                        </div>
+                                        <?php  
                             }
                             ?> 
                         </div>  </div>  </div>
