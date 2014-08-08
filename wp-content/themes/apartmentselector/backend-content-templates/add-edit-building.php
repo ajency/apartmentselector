@@ -143,7 +143,7 @@ $heading = "Edit";
 
             <div class="input-with-icon  right">   <?php
                 $views = get_views();
-
+formatted_echo($views);
                 foreach($views as $view){
                     ?>
                     <div class="col-md-6">

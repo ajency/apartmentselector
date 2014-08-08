@@ -50,7 +50,13 @@ jQuery(document).ready(function($) {
 
 function load_views(){
     $(".views-container").html('');
-   $.post(AJAXURL, {
+
+    if($("option:selected", $("#building")).val()==""){
+
+         $(".views-container").html("<div class='col-md-6'><div>select building to select views</div></div>");
+    }else{
+        
+          $.post(AJAXURL, {
 
             action: "get_building_views",
             building:$("option:selected", $("#building")).val() 
@@ -68,6 +74,8 @@ function load_views(){
             
          
         });
+    }
+ 
 
 }
 

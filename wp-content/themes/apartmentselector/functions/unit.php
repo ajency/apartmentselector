@@ -324,6 +324,8 @@ function get_units(){
 
         $unit_status =   get_post_meta($result->ID, 'unit_status', true);
 
+        $unit_assigned =   get_post_meta($result->ID, 'unit_assigned', true);
+
         $views =   get_post_meta($result->ID, 'apartment_views', true);
 
         $unit_type = get_unit_type_by_unit_variant($unit_variant);
@@ -334,8 +336,9 @@ function get_units(){
                             'unitVariant'=>intval($unit_variant),
                             'building'=>intval($unit_building),
                             'floor'=>intval($floor),
-                            'views'=>intval($views),
+                            'views'=>($views),
                             'status'=>intval($unit_status),
+                            'unitAssigned'=>intval($unit_assigned),
                         );
 
     }
