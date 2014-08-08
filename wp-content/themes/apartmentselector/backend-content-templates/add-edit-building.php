@@ -378,7 +378,7 @@ $heading = "Edit";
 
                     $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
                     ?>
-                <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'><label class="form-label  form-label-inline"> Floor <?php  echo $floor;?> : </label> <label class="form-label form-label-prefix"> Rs.</label><input type='text' placeholder="0" class='form-control  form-control-small' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'>per sq ft</div>
+                <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'><label class="form-label  form-label-inline"> Floor <?php  echo $floor;?> : </label> <label class="form-label form-label-prefix"> Rs.</label><input type='text' placeholder="0" class='form-control  form-control-small' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'> per sq ft</div>
                     <?php
                 }
              ?>

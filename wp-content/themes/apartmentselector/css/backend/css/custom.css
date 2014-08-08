@@ -346,9 +346,8 @@ Version:        0.1.0
   width: auto !important;
 }
 .form-label-inline{
-  margin-top:9px;
-  /*width:175px;*/
-  width:50px;
+  margin-top:9px;  
+  width:75px;
 }
 .form-label-prefix{ 
   width:15px;

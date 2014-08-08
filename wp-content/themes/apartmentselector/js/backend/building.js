@@ -134,8 +134,9 @@ function loadFloorRiseOption(floors){
     if(editfloors>0){
          for(floor=prevCount+1;floor<=floors;floor++){
 
-            $("#floor_rise_container").append("<div class='floor_rise form-group' id='floor_rise_item"+floor+"'> Floor <label class='form-label'>"+floor+"</label>: <input type='text' class='form-control' value='0' name='floor_rise_"+floor+"'></div>");
+            $("#floor_rise_container").append("<div class='floor_rise form-group' id='floor_rise_item"+floor+"'><label class='form-label  form-label-inline'> Floor "+floor+": </label> <label class='form-label form-label-prefix'> Rs.</label><input type='text' class='form-control  form-control-small' value='0' name='floor_rise_"+floor+"'> per sq ft</div>");
          }
+                 
     }else{
 
  
