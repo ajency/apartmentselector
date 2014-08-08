@@ -25,6 +25,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
+      'mouseover a': function(e) {
+        var id, locationData;
+        id = $('#' + e.target.id).attr('data-id');
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
+      },
       'click a': function(e) {
         return e.preventDefault();
       },
@@ -77,7 +83,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        return unitVariantString = unitVariantArray.join(',');
+        if (globalUnitArrayInt.length === unitVariantArray.length) {
+          return unitVariantString = 'All';
+        } else {
+          return unitVariantString = unitVariantArray.join(',');
+        }
       },
       'click .done': function(e) {
         var params;
