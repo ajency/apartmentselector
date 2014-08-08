@@ -132,7 +132,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             units = App.master.unit
             $.map(App.defaults, (value, index)->
                 if value!='All'
-                    myArray.push({key:index,value:value})
+                    if  index != 'unitVariant'
+                        myArray.push({key:index,value:value})
 
             )
             $.each(myArray, (index,value)->
@@ -364,6 +365,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             console.log unitArray
             building = App.master.building.toArray()
             buildingCollection = App.master.building
+            buildingvalue = _.max(unitArray,  (model)->
+                model.units.length
+            )
             building.sort( (a,b) ->
                 a.get('id') - b.get('id')
             )
@@ -375,7 +379,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 modelIdArr.push(value.get('id'))
 
             )
-            console.log index = _.indexOf(modelIdArr, App.defaults['building'])
+            if App.defaults['building'] == 'All'
+                console.log index = _.indexOf(modelIdArr, buildingvalue.id)
+            else
+                console.log index = _.indexOf(modelIdArr, App.defaults['building'])
             if index == -1
                 index = 0
             highLength = modelIdArr.length - index
