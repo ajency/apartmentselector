@@ -130,6 +130,7 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "STATUS", get_unit_status() );
             wp_localize_script( "requirejs", "UNITTYPES", get_unit_types() );
             wp_localize_script( "requirejs", "UNITVARIANTS", get_unit_variants() );
+            wp_localize_script( "requirejs", "VIEWS", get_views() );
 
 
         }
@@ -178,6 +179,7 @@ if (! is_development_environment() ) {
             wp_localize_script( "$module-script", "STATUS", get_unit_status() );
             wp_localize_script( "$module-script", "UNITTYPES", get_unit_types() );
             wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
+            wp_localize_script( "$module-script", "VIEWS", get_views() );
         }
     }
 
