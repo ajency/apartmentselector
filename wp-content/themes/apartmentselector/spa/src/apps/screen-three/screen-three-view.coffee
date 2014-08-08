@@ -9,9 +9,11 @@ define [ 'marionette' ], ( Marionette )->
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '
-       <div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments</div>
-                            <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
-                             <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div>
+       <div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+                            <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
+                             <div class="text-center subTxt m-b-20 refresh hidden animated fadeIn">You just refreshed the page. You are now seeing all apartments across all the towers.</div>
+                            <div class="text-center subTxt m-b-20 All hidden animated fadeIn">You are seeing all apartments in the selected floor range of the tower.</div>
+              <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div>
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                             <div class="variantBox">
                                 <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
@@ -197,6 +199,12 @@ define [ 'marionette' ], ( Marionette )->
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'
                 $('.budget' ).removeClass 'hidden'
+            else if App.defaults['floor'] == 'All'
+                $('.refresh' ).removeClass 'hidden'
+            else
+                $('.All' ).removeClass 'hidden'
+
+
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
             document.body.appendChild(scr)

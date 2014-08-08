@@ -44,7 +44,7 @@ require [ 'plugin-loader'
 
     App.currentStore =
         'unit' : new Backbone.Collection UNITS
-        'view' : new Backbone.Collection  views
+        'view' : new Backbone.Collection  VIEWS
         'building' : new Backbone.Collection  BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
         'unit_type' : new Backbone.Collection  UNITTYPES
@@ -53,7 +53,7 @@ require [ 'plugin-loader'
 
     App.master =
         'unit' : new Backbone.Collection UNITS
-        'view' : new Backbone.Collection  views
+        'view' : new Backbone.Collection  VIEWS
         'building' : new Backbone.Collection  BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
         'unit_type' : new Backbone.Collection  UNITTYPES

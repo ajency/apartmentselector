@@ -516,17 +516,43 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       buildingUnits = [];
       $.each(buildingArray, function(index, value) {
-        var availableunits, buildingid, floors, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, totalunits, uniqFloors, unique, unitTypeArray;
+        var availableunits, buildingid, data, floors, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
         unique = {};
+        viewmodels = [];
         status = App.currentStore.status.findWhere({
           'name': 'Available'
         });
         totalunits = App.currentStore.unit.where({
           'building': value
         });
+        $.each(totalunits, function(index, value) {
+          var viewsData;
+          viewsData = value.get('views');
+          return viewmodels = $.merge(viewmodels, viewsData);
+        });
+        console.log(uniqueViewArry = _.uniq(viewmodels));
+        variantsDataValues = [];
+        data = [];
+        $.each(uniqueViewArry, function(index, value) {
+          var viewModel;
+          viewModel = App.master.view.findWhere({
+            id: parseInt(value)
+          });
+          data.push({
+            id: viewModel.get('id'),
+            name: viewModel.get('name')
+          });
+          if (data.length === 2) {
+            variantsDataValues.push({
+              data: data
+            });
+            return data = [];
+          }
+        });
+        console.log(variantsDataValues);
         availableunits = App.currentStore.unit.where({
           'building': value,
           'status': status.get('id')
@@ -720,10 +746,12 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: newarr,
           availableunits: availableunits.length,
           totalunits: totalunits.length,
-          totalfloors: uniqFloors.length
+          totalfloors: uniqFloors.length,
+          views: variantsDataValues
         });
         return buildingArrayModel.push(buildingModel);
       });
+      console.log(unitColl);
       buildingvalue = _.max(buildingUnits, function(model) {
         return model.count;
       });

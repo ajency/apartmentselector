@@ -7,8 +7,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         template : '<div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
                     <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
+                    <div class="text-center subTxt m-b-20 refresh hidden animated fadeIn">You are now seeing all apartments across all the towers.</div>
 
-                    <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
+                            <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                     <div class="variantBox">
@@ -191,6 +192,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'
                 $('.budget' ).removeClass 'hidden'
+            else if App.screenOneFilter['key'] == ""
+                $('.refresh' ).removeClass 'hidden'
 
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
@@ -417,13 +420,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <div class="row m-l-0 m-r-0 m-b-20">
                                         <div class="col-xs-4">
                                             <h4 class="m-t-0 text-primary"><div class="bold">VIEWS</div>for this tower</h4>
-                                        </div> 
-                                        <div class="col-xs-4"> 
-                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Garden view<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Pond View
                                         </div>
-                                        <div class="col-xs-4"> 
-                                            <span class="glyphicon glyphicon-asterisk small text-grey"></span> Manas Lake<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Eco pond 
+
+       {{#views}}                                         <div class="col-xs-4">
+
+                                  {{#data}}          <span class="glyphicon glyphicon-asterisk small text-grey"></span>{{name}}<br>{{/data}}
                                         </div>
+{{/views}}
                                     </div>
                                 </div>
                             </div>
