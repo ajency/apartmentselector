@@ -3,8 +3,11 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, emptyChildView, flag_set, unitChildView;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, emptyChildView, flag_set, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString;
   flag_set = 0;
+  unitVariantArray = '';
+  unitVariantIdArray = [];
+  unitVariantString = '';
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -12,7 +15,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="towerRange"> <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3> <div class="row m-l-0 m-r-0 m-b-20"> <div class="col-sm-4 col-xs-12"> <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block"> </div> <!--<div class="col-sm-8 col-xs-3"> <div class="row"> {{#high}} <div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/high}} </div>--> <div class="col-sm-8 col-xs-12 m-t-30"> <p>Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> <!--<div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div>--> </div> <!-- <div class="viewsNo m-t-20"> <div class="row m-l-0 m-r-0"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div>--> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center subTxt m-b-30">We have <span class="bold text-primary">{{countUnits}} </span> <strong>{{selection}}</strong> apartments in the {{range}} floor block of the selected tower.</h3> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div> <div class="variantBox"> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="towerRange"> <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3> <div class="row m-l-0 m-r-0 m-b-20"> <div class="col-sm-4 col-xs-12"> <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block"> </div> <!--<div class="col-sm-8 col-xs-3"> <div class="row"> {{#high}} <div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/high}} </div>--> <div class="col-sm-8 col-xs-12 m-t-30"> <p>Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> <!--<div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div>--> </div> <!-- <div class="viewsNo m-t-20"> <div class="row m-l-0 m-r-0"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div>--> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -21,8 +24,90 @@ define(['marionette'], function(Marionette) {
       unitRegion: '#unit-region'
     };
 
+    ScreenThreeLayout.prototype.events = {
+      'click a': function(e) {
+        return e.preventDefault();
+      },
+      'click .grid-link': function(e) {
+        var globalUnitArrayInt, globalUnitVariants, id, index, track;
+        console.log(unitVariantArray);
+        id = $('#' + e.target.id).attr('data-id');
+        track = 0;
+        if ($('#check' + id).val() === '1') {
+          console.log(id);
+          console.log(index = unitVariantArray.indexOf(parseInt(id)));
+          if (index !== -1) {
+            unitVariantArray.splice(index, 1);
+            $('#check' + id).val('0');
+            track = 0;
+            unitVariantIdArray.push(parseInt(id));
+          }
+        } else {
+          console.log("aaaaaaaaaa");
+          track = 1;
+          unitVariantArray.push(parseInt(id));
+          $('#check' + id).val('1');
+        }
+        console.log(unitVariantArray);
+        globalUnitArrayInt = [];
+        if (App.defaults['unitVariant'] !== 'All') {
+          globalUnitVariants = App.defaults['unitVariant'].split(',');
+          $.each(globalUnitVariants, function(index, value) {
+            return globalUnitArrayInt.push(parseInt(value));
+          });
+        }
+        console.log(globalUnitArrayInt);
+        if (globalUnitArrayInt.length !== 0) {
+          if (track === 0) {
+            console.log(track);
+            unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
+          } else {
+            globalUnitArrayInt.push(parseInt(id));
+            unitVariantArray = globalUnitArrayInt;
+          }
+        }
+        if (globalUnitArrayInt.length === unitVariantArray.length) {
+          return unitVariantString = 'All';
+        } else {
+          return unitVariantString = unitVariantArray.join(',');
+        }
+      },
+      'click .done': function(e) {
+        var params;
+        App.defaults['unitVariant'] = unitVariantString;
+        App.filter(params = {});
+        return this.trigger('unit:variants:selected');
+      },
+      'click .cancel': function(e) {
+        var globalUnitArrayInt, globalUnitVariants;
+        console.log(unitVariantIdArray);
+        unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
+        $(".variantBox").slideToggle();
+        console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+        globalUnitArrayInt = [];
+        $.each(globalUnitVariants, function(index, value) {
+          return globalUnitArrayInt.push(parseInt(value));
+        });
+        if (App.defaults['unitVariant'] !== 'All') {
+          return $.each(unitVariantArray, function(index, value) {
+            var key;
+            console.log(value);
+            key = _.contains(globalUnitArrayInt, parseInt(value));
+            console.log(key);
+            if (key === true) {
+              $('#grid' + value).addClass('selected');
+              return $('#check' + value).val('1');
+            } else {
+              $('#grid' + value).removeClass('selected');
+              return $('#check' + value).val('0');
+            }
+          });
+        }
+      }
+    };
+
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, scr;
+      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr;
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js';
       document.body.appendChild(scr);
@@ -40,7 +125,7 @@ define(['marionette'], function(Marionette) {
           return $('.cd-scroll-right').show();
         }
       });
-      return $('.cd-scroll-right').on('click', function() {
+      $('.cd-scroll-right').on('click', function() {
         var $this, column_width, new_left_scroll;
         $this = $(this);
         column_width = $(this).siblings('.cd-table-container').find('.cd-block').eq(0).css('width').replace('px', '');
@@ -49,6 +134,39 @@ define(['marionette'], function(Marionette) {
           scrollLeft: new_left_scroll
         }, 200);
       });
+      $(".variantToggle").click(function() {
+        $(this).toggleClass("open");
+        $(".variantBox").slideToggle();
+      });
+      $(".variantClose").click(function() {
+        $(".variantBox").slideToggle();
+        $(".variantToggle").toggleClass("open");
+      });
+      $(".grid-link").click(function(e) {
+        $(this).toggleClass("selected");
+      });
+      console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+      globalUnitArrayInt = [];
+      $.each(globalUnitVariants, function(index, value) {
+        return globalUnitArrayInt.push(parseInt(value));
+      });
+      if (App.defaults['unitVariant'] !== 'All') {
+        unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
+        return $.each(unitVariantArray, function(index, value) {
+          var key;
+          console.log(value);
+          key = _.contains(globalUnitArrayInt, parseInt(value));
+          console.log(key);
+          if (key === true) {
+            return $('#grid' + value).addClass('selected');
+          } else {
+            console.log(index = unitVariantArray.indexOf(parseInt(value)));
+            $('#grid' + value).removeClass('selected');
+            return $('#check' + value).val('0');
+          }
+        });
+      }
     };
 
     return ScreenThreeLayout;

@@ -208,8 +208,80 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             else
                 templateString  = templateArr.join(',')
 
+            param = {}
+            paramkey = {}
+            flag = 0
+            floorUnitsArray = []
+            myArray = []
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    if  index != 'unitVariant'
+                        myArray.push({key:index,value:value})
 
-            unitvariant = App.currentStore.unit.pluck("unitVariant")
+            )
+            console.log myArray
+            status = App.master.status.findWhere({'name':'Available'})
+            console.log unitslen = App.master.unit.where({'status':status.get('id')})
+
+
+            $.each(unitslen, (index,value1)->
+
+                if App.defaults['floor'] !='All'
+                    floorstring = App.defaults['floor']
+                    floorArray  = floorstring.split(',')
+                    $.each(floorArray, (index,value)->
+                        if value1.get('floor') == parseInt(value)
+                            floorUnitsArray.push(value1)
+
+
+
+
+                    )
+
+
+            )
+            if App.defaults['floor'] == "All"
+                floorUnitsArray = unitslen
+            floorCollunits = []
+            $.each(floorUnitsArray, (index,value1)->
+                flag = 0
+                $.each(myArray, (index,value)->
+                    paramKey = {}
+                    paramKey[value.key] = value.value
+                    if value.key == 'budget'
+                        buildingModel = App.master.building.findWhere({'id':value1.get 'building'})
+                        floorRise = buildingModel.get 'floorrise'
+                        floorRiseValue = floorRise[value1.get 'floor']
+                        unitVariantmodel = App.master.unit_variant.findWhere({'id':value1.get 'unitVariant'})
+                        console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        budget_arr = value.value.split(' ')
+                        budget_price = budget_arr[0].split('-')
+                        console.log budget_price[0] = budget_price[0]+'00000'
+                        console.log budget_price[1] = budget_price[1]+'00000'
+                        if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                            flag++
+                    else if value.key != 'floor'
+                        console.log value.key
+                        console.log value1.get(value.key) + '== ' + parseInt(value.value)
+                        if value1.get(value.key) == parseInt(value.value)
+
+                            flag++
+
+
+                )
+                console.log flag
+                if flag == myArray.length
+                    floorCollunits.push(value1)
+
+
+
+
+
+            )
+            console.log floorCollunits
+
+            floorCollection = new Backbone.Collection(floorCollunits)
+            unitvariant = floorCollection.pluck("unitVariant")
             console.log uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
             unitVariantID = []
@@ -217,7 +289,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
-                unitVariantID.push(unitVarinatModel.get('id'))
+                unitVariantID.push(parseInt(unitVarinatModel.get('id')))
 
             )
 

@@ -19,15 +19,19 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       this.Collection = this._getUnits();
       this.layout = new ScreenThreeView.ScreenThreeLayout({
         countUnits: this.Collection[3],
+        uintVariantId: this.Collection[8],
+        uintVariantIdArray: this.Collection[8],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
           range: this.Collection[4],
           high: this.Collection[5],
-          rangetext: this.Collection[6]
+          rangetext: this.Collection[6],
+          unitVariants: this.Collection[7]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);
       return this.show(this.layout);
     };
 
@@ -40,17 +44,22 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     ScreenThreeController.prototype._showBuildings = function() {
       this.Collection = this._getUnits();
+      console.log(this.Collection[7]);
       this.layout = new ScreenThreeView.ScreenThreeLayout({
         countUnits: this.Collection[3],
+        uintVariantId: this.Collection[8],
+        uintVariantIdArray: this.Collection[8],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
           range: this.Collection[4],
           high: this.Collection[5],
-          rangetext: this.Collection[6]
+          rangetext: this.Collection[6],
+          unitVariants: this.Collection[7]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);
       return this.show(this.layout);
     };
 
@@ -88,7 +97,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, unitArray, unitColl, units, unitsArray, unitsactual, unitslen;
+      var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, buildingvalue, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, unitArray, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsactual, unitslen, unitvariant;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -104,10 +113,12 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       units = App.master.unit;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          return myArray.push({
-            key: index,
-            value: value
-          });
+          if (index !== 'unitVariant') {
+            return myArray.push({
+              key: index,
+              value: value
+            });
+          }
         }
       });
       $.each(myArray, function(index, value) {
@@ -281,6 +292,23 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       units = new Backbone.Collection(floorCollunits);
       buildings = units.pluck("building");
       console.log(uniqBuildings = _.uniq(buildings));
+      unitvariant = units.pluck("unitVariant");
+      console.log(uniqUnitvariant = _.uniq(unitvariant));
+      unitVariantModels = [];
+      unitVariantID = [];
+      $.each(uniqUnitvariant, function(index, value) {
+        var unitVarinatModel;
+        unitVarinatModel = App.master.unit_variant.findWhere({
+          id: value
+        });
+        unitVariantModels.push({
+          id: unitVarinatModel.get('id'),
+          name: unitVarinatModel.get('name'),
+          sellablearea: unitVarinatModel.get('sellablearea')
+        });
+        return unitVariantID.push(parseInt(unitVarinatModel.get('id')));
+      });
+      console.log(unitVariantModels);
       units.each(function(item) {
         if (buildingArray.indexOf(item.get('building')) === -1) {
           return buildingArray.push(item.get('building'));
@@ -352,6 +380,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       console.log(unitArray);
       building = App.master.building.toArray();
       buildingCollection = App.master.building;
+      buildingvalue = _.max(unitArray, function(model) {
+        return model.units.length;
+      });
       building.sort(function(a, b) {
         return a.get('id') - b.get('id');
       });
@@ -362,7 +393,14 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       $.each(building, function(index, value) {
         return modelIdArr.push(value.get('id'));
       });
-      index = _.indexOf(modelIdArr, App.defaults['building']);
+      if (App.defaults['building'] === 'All') {
+        console.log(index = _.indexOf(modelIdArr, buildingvalue.id));
+      } else {
+        console.log(index = _.indexOf(modelIdArr, App.defaults['building']));
+      }
+      if (index === -1) {
+        index = 0;
+      }
       highLength = modelIdArr.length - index;
       i = index;
       while (i < modelIdArr.length) {
@@ -559,7 +597,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         buildingCollection = new Backbone.Collection(ModelActualArr);
         console.log(newunitCollection = new Backbone.Collection(unitsactual));
       }
-      return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString, mainnewarr, range];
+      return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {
