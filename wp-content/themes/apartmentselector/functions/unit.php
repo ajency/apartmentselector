@@ -252,12 +252,18 @@ function get_unit_type_by_unit_variant($unit_variant=0){
 
 
 /*get unit variants by unit type*/
-function get_unit_variants(){
+function get_unit_variants($variant_id=0){
 
     global $frm_entry;
 
-    $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
 
+    if($variant_id==0){
+     $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
+    }else{
+       $results=   $frm_entry->getAll(array('it.id' => $variant_id),'','',true);  
+    }
+   
+ 
 
 
     $unit_variants = array();
@@ -330,6 +336,8 @@ function get_units(){
 
         $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
+        $unitprice = get_unit_price($result->ID);//(parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+        
         $units[] = array(   'id'=>intval($result->ID),
                             'name'=>$result->post_title,
                             'unitType'=>intval($unit_type),
@@ -339,6 +347,7 @@ function get_units(){
                             'views'=>($views),
                             'status'=>intval($unit_status),
                             'unitAssigned'=>intval($unit_assigned),
+                            'unitPrice'=> ($unitprice),
                         );
 
     }
@@ -346,8 +355,27 @@ function get_units(){
     return $units;
 }
 
+/* get_unit_price*/
 
-/*get unit by id*/
+function get_unit_price($unit_id)
+{
+ $unit_variant =   get_post_meta($unit_id, 'unit_variant', true);
+ 
+        $unit_building =   get_post_meta($unit_id, 'building', true);
+
+        $floor =   get_post_meta($unit_id, 'floor', true);
+
+ $variant_data = (get_unit_variants($unit_variant));
+ 
+ $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
+
+ $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
+
+ $floorrise = get_building_floorrise($unit_building,$floor);
+
+  return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
+  
+}/*get unit by id*/
 function get_unit_by_id($id){
 
     $result = get_post($id);

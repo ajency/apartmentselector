@@ -561,6 +561,23 @@ function get_building_by_id($building_id){
    return ($result);
 }
 
+
+function get_building_floorrise($building_id,$floor){
+
+    $floorrise = 0;
+
+    $building_floor_rise =  maybe_unserialize(get_option('building_'.$building_id.'_floor_rise')) ;
+   
+    $building_floor_rise = is_array($building_floor_rise)?$building_floor_rise:array();
+   
+   foreach($building_floor_rise as $building_floor_rise_itemkey => $building_floor_rise_item){
+        if($building_floor_rise_itemkey==$floor){
+
+            $floorrise = $building_floor_rise_item;
+        }
+   }
+   return $floorrise;
+}
 //get additional info of flats and pass to the flats array as additional attributes e.g. image path
 function get_flats_details($flats){
 
