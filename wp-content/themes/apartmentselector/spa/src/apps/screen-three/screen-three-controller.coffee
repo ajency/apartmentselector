@@ -8,18 +8,25 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             @layout = new ScreenThreeView.ScreenThreeLayout(
                 countUnits : @Collection[3]
+                uintVariantId : @Collection[8]
+                uintVariantIdArray : @Collection[8]
+
                 templateHelpers:
                     selection :@Collection[2]
                     countUnits : @Collection[3]
                     range : @Collection[4]
                     high : @Collection[5]
                     rangetext : @Collection[6]
+                    unitVariants:@Collection[7]
 
 
             )
 
 
             @listenTo @layout, "show", @showViews
+
+            @listenTo @layout, 'unit:variants:selected', @_showBuildings
+
 
 
             @show @layout
@@ -35,21 +42,29 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
         _showBuildings:->
                 @Collection = @_getUnits()
+                console.log @Collection[7]
 
                 @layout = new ScreenThreeView.ScreenThreeLayout(
                         countUnits : @Collection[3]
+                        uintVariantId : @Collection[8]
+                        uintVariantIdArray : @Collection[8]
+
                         templateHelpers:
-                            selection :@Collection[2]
-                            countUnits : @Collection[3]
-                            range : @Collection[4]
-                            high : @Collection[5]
-                            rangetext : @Collection[6]
+                                selection :@Collection[2]
+                                countUnits : @Collection[3]
+                                range : @Collection[4]
+                                high : @Collection[5]
+                                rangetext : @Collection[6]
+                                unitVariants:@Collection[7]
 
 
                 )
 
 
                 @listenTo @layout, "show", @showViews
+
+                @listenTo @layout, 'unit:variants:selected', @_showBuildings
+
 
 
                 @show @layout
@@ -267,6 +282,21 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             units = new Backbone.Collection floorCollunits
             buildings = units.pluck("building")
             console.log uniqBuildings = _.uniq(buildings)
+
+            unitvariant = units.pluck("unitVariant")
+            console.log uniqUnitvariant = _.uniq(unitvariant)
+            unitVariantModels = []
+            unitVariantID = []
+
+            $.each(uniqUnitvariant, (index,value)->
+                unitVarinatModel = App.master.unit_variant.findWhere({id:value})
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
+                unitVariantID.push(parseInt(unitVarinatModel.get('id')))
+
+            )
+            console.log unitVariantModels
+
+
             units.each (item)->
                 if buildingArray.indexOf(item.get 'building') ==  -1
                     buildingArray.push item.get 'building'
@@ -345,8 +375,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 modelIdArr.push(value.get('id'))
 
             )
-            index = _.indexOf(modelIdArr, App.defaults['building'])
+            console.log index = _.indexOf(modelIdArr, App.defaults['building'])
+            if index == -1
+                index = 0
             highLength = modelIdArr.length - index
+
             i = index
             while(i<modelIdArr.length)
                 modelArr.push(modelIdArr[i])
@@ -493,7 +526,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             else
                 buildingCollection = new Backbone.Collection(ModelActualArr)
                 console.log newunitCollection = new Backbone.Collection(unitsactual)
-            [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString,mainnewarr,range]
+            [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
 
 
 

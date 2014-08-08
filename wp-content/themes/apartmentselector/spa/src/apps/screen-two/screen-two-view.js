@@ -77,7 +77,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        return unitVariantString = unitVariantArray.join(',');
+        if (globalUnitArrayInt.length === unitVariantArray.length) {
+          return unitVariantString = 'All';
+        } else {
+          return unitVariantString = unitVariantArray.join(',');
+        }
       },
       'click .done': function(e) {
         var params;

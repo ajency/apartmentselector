@@ -123,7 +123,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         unitVariantArray = globalUnitArrayInt
 
 
-                unitVariantString = unitVariantArray.join(',')
+                if globalUnitArrayInt.length == unitVariantArray.length
+                    unitVariantString = 'All'
+                else
+                    unitVariantString = unitVariantArray.join(',')
 
 
 
