@@ -75,6 +75,7 @@ define(['marionette'], function(Marionette) {
       'click .done': function(e) {
         var params;
         App.defaults['unitVariant'] = unitVariantString;
+        App.backFilter['screen2'].push("unitVariant");
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },

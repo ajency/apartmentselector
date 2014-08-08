@@ -159,6 +159,7 @@ define [ 'marionette' ], ( Marionette )->
 
             'click .done':(e)->
                 App.defaults['unitVariant'] = unitVariantString
+                App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
