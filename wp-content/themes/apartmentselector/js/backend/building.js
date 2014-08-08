@@ -288,7 +288,7 @@ function addException(exception_no){
         $.post(AJAXURL, {
             action: "get_list_view",
             list: "buildings", //the list required
-            masters:["phases"] //the masters required for the list
+            masters:["phases","views"] //the masters required for the list
         }, function(response) {
 
             _collections.list = response.list

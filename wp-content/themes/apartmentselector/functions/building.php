@@ -408,14 +408,36 @@ function get_buildings($ids=array())
         $position_in_project_image_url =   wp_get_attachment_thumb_url($position_in_project);
 
         $building_floor_rise =  maybe_unserialize(get_option('building_'.$category->term_id.'_floor_rise')) ;
-   
+           
+        $building_views = get_option('building_'.$category->term_id.'_views');  
+
+        $building_views = is_array($building_views)?$building_views:array();
+        
+        $floor_positions = get_option( "building_".$category->term_id."_no_of_flats");
+
+        $floor_positions = get_flats_details($floor_positions);
+
+        $floor_exception_positions = get_option( "building_".$category->term_id."_exceptions");
+ 
+
+       $building_exceptions_updated = array();
+       
+       foreach($floor_exception_positions as $building_exception){
+     
+            $building_exception["flats"] = get_flats_details($building_exception["flats"]);
+
+            $building_exceptions_updated[] = $building_exception;
+       }
+       
+       $floor_exception_positions = $building_exceptions_updated;
         $floor = array();
 
         //needs to be chnaged later with real data
         for ($i=1; $i<=$building_no_of_floors;$i++){
+
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url);
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views);
 
     }
 
@@ -520,6 +542,7 @@ function get_building_by_id($building_id){
    $building_floor_rise =  maybe_unserialize(get_option('building_'.$building_id.'_floor_rise')) ;
    
    $building_floor_rise = is_array($building_floor_rise)?$building_floor_rise:array();
+   
    $building_exceptions = maybe_unserialize(get_option('building_'.$building_id.'_exceptions'));
    
    $building_exceptions_updated = array();
@@ -562,7 +585,7 @@ function get_building_views($building_id){
     $building_views = get_option('building_'.$building_id.'_views');
 
     $building_views = is_array($building_views)?$building_views:array();
-    
+
     $building_views_data = array();
 
    foreach($building_views as $building_view){
