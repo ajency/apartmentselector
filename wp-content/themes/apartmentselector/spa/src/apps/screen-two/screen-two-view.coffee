@@ -71,8 +71,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         events:
             'mouseover a':(e)->
                 id  = $('#'+e.target.id ).attr('data-id')
-                locationData = m.getLocationData(id);
-                m.showTooltip(locationData);
+                #locationData = m.getLocationData(id);
+                #m.showTooltip(locationData);
 
 
             'click a':(e)->
@@ -416,7 +416,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                     <div class="row m-l-0 m-r-0 m-b-20">
                                         <div class="col-xs-4">
-                                            <h4 class="m-t-0 text-primary">What can I<div class="bold">SEE?</div> </h4>
+                                            <h4 class="m-t-0 text-primary"><div class="bold">VIEWS</div>for this tower</h4>
                                         </div> 
                                         <div class="col-xs-4"> 
                                             <span class="glyphicon glyphicon-asterisk small text-grey"></span> Garden view<br><span class="glyphicon glyphicon-asterisk small text-grey"></span> Pond View

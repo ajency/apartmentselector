@@ -149,31 +149,31 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if value.key == 'unitType'
                                 key = App.master.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
-                            if value.key == 'building'
-                                key = App.master.building.findWhere({id:parseInt(element)})
-                                templateArr.push key.get 'name'
+                            #if value.key == 'building'
+                                #key = App.master.building.findWhere({id:parseInt(element)})
+                            #templateArr.push key.get 'name'
                             if value.key == 'budget'
                                 budget_Val = value+'lakhs'
                                 templateArr.push budget_Val
                             if value.key == 'floor'
                                 if track == 0
                                     trackArray.push value.value
-                                flag = 1
+                                #flag = 1
                                 track = 1
                     else
                         if value.key == 'unitType'
                             key = App.master.unit_type.findWhere({id:parseInt(value.value)})
                             templateArr.push key.get 'name'
-                        if value.key == 'building'
-                            key = App.master.building.findWhere({id:parseInt(value.value)})
-                            templateArr.push key.get 'name'
+                        #if value.key == 'building'
+                            #key = App.master.building.findWhere({id:parseInt(value.value)})
+                            #templateArr.push key.get 'name'
                         if value.key == 'budget'
                             budget_Val = value.value
                             templateArr.push budget_Val
                         if value.key == 'floor'
                             if track == 0
                                 trackArray.push value.value
-                            flag = 1
+                            #flag = 1
                             track = 1
 
 
