@@ -25,6 +25,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
+      'mouseover a': function(e) {
+        var id, locationData;
+        id = $('#' + e.target.id).attr('data-id');
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
+      },
       'click a': function(e) {
         return e.preventDefault();
       },

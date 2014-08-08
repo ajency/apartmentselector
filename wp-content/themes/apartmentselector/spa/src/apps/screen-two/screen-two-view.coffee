@@ -69,6 +69,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'mouseover a':(e)->
+                id  = $('#'+e.target.id ).attr('data-id')
+                locationData = m.getLocationData(id);
+                m.showTooltip(locationData);
+
+
             'click a':(e)->
                 e.preventDefault()
 
