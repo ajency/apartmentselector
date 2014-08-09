@@ -41,7 +41,7 @@ require [ 'plugin-loader'
         mainRegion : '#main-region'
 
 
-
+    # current store
     App.currentStore =
         'unit' : new Backbone.Collection UNITS
         'view' : new Backbone.Collection  VIEWS
@@ -51,6 +51,7 @@ require [ 'plugin-loader'
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
 
+    # master store
     App.master =
         'unit' : new Backbone.Collection UNITS
         'view' : new Backbone.Collection  VIEWS
@@ -60,18 +61,21 @@ require [ 'plugin-loader'
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
 
-
+    # global variable to keep track of the unit the user has clicked on
     App.unit = {name:''}
 
+    # global variable to keep track of the filter the user has selected  on the first screen
     App.screenOneFilter = {key:'',value:''}
 
+    # global variable to keep track of the filter the user has selected on the previous screen
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
 
+    # global variable to keep track of the filtr the user has selected
     App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All'}
 
 
 
-
+    #filter function which takes the parameters into account anf filters the current store.
     App.filter = (params={})->
         #check whether url contains any parameters
         if  window.location.href.indexOf('=') > -1
@@ -84,50 +88,45 @@ require [ 'plugin-loader'
                 key = App.defaults.hasOwnProperty(param_key[0])
                 #If yes , assign the new value to the matched key of the defaults
                 if key == true
+                    #check the screen which the user is on and accordingy store the filters
                     if  window.location.href.indexOf('screen-two') > -1
                         App.backFilter['screen2'].push param_key[0]
                     else if  window.location.href.indexOf('screen-three') > -1
                         App.backFilter['screen3'].push param_key[0]
                     else
                         App.backFilter['screen1'].push param_key[0]
+                    #assign the filter value to the respective defaults variable
                     App.defaults[param_key[0]] = param_key[1]
 
 
-
+            #set the params with the filters selected by the user
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
-
-
-
-
         else
 
             #url doesnt contain any parameters take the value of the defaults
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
 
-
-
-
-        console.log App.defaults
         param_arr = params.split('&')
         budgetUnitArray = []
         $.each(param_arr, (index,value)->
             value_arr  =  value.split('=')
-            attribute = {}
-            attribute[param_key] = param_key
             param_key = value_arr[0]
             param_val = value_arr[1]
             param_val_arr = param_val.split(',')
             paramkey = {}
             paramkey[param_key] = parseInt(param_val)
+            # if there are comma seperted values assigned to the filter
             if param_val_arr.length > 1
-                collection = Array()
+                collection = []
+                #loop through each value
                 $.each(param_val_arr, (index,value)->
                     paramkey = {}
-                    collectionNew = Array()
+                    collectionNew = []
                     paramkey[param_key] = parseInt(value)
                     collectionNew = App.currentStore.unit.where(paramkey)
+                    #loop through the filtered collection and get the updated collection
                     $.each(collectionNew , (index,value)->
                         collection.push value
 
@@ -137,6 +136,7 @@ require [ 'plugin-loader'
 
 
                 )
+            #if thers is only one value assigned to the filter
             else if param_val_arr.length ==  1
                 budget_val = param_val_arr[0].split(' ')
                 if(budget_val[1]=='lakhs')
@@ -199,24 +199,6 @@ require [ 'plugin-loader'
         App.currentStore.unit_variant.reset unitvariantArray
         App.currentStore.view.reset viewArray
         App.currentStore.unit
-
-
-
-    App.filterparam = (params={})->
-            App.defaults = {"building" :[2,3] ,"unitType":3,"unitVariant":'All','floor':'All','view':'All'}
-            App.defaults.hasOwnProperty("name" )
-            units = App.currentStore.unit.filter (model)->
-                App.defaults['building'].length
-                buildingArray = Array()
-                for element , index in App.defaults['building']
-                    building = model.get('building') == element
-
-
-
-
-                building
-            units
-
 
 
 

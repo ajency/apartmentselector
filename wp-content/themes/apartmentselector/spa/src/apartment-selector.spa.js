@@ -77,25 +77,22 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     } else {
       params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
     }
-    console.log(App.defaults);
     param_arr = params.split('&');
     budgetUnitArray = [];
     $.each(param_arr, function(index, value) {
-      var attribute, budget_arr, budget_val, collection, param_val, param_val_arr, paramkey, value_arr;
+      var budget_arr, budget_val, collection, param_val, param_val_arr, paramkey, value_arr;
       value_arr = value.split('=');
-      attribute = {};
-      attribute[param_key] = param_key;
       param_key = value_arr[0];
       param_val = value_arr[1];
       param_val_arr = param_val.split(',');
       paramkey = {};
       paramkey[param_key] = parseInt(param_val);
       if (param_val_arr.length > 1) {
-        collection = Array();
+        collection = [];
         $.each(param_val_arr, function(index, value) {
           var collectionNew;
           paramkey = {};
-          collectionNew = Array();
+          collectionNew = [];
           paramkey[param_key] = parseInt(value);
           collectionNew = App.currentStore.unit.where(paramkey);
           return $.each(collectionNew, function(index, value) {
@@ -176,31 +173,6 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     App.currentStore.unit_variant.reset(unitvariantArray);
     App.currentStore.view.reset(viewArray);
     return App.currentStore.unit;
-  };
-  App.filterparam = function(params) {
-    if (params == null) {
-      params = {};
-    }
-    App.defaults = {
-      "building": [2, 3],
-      "unitType": 3,
-      "unitVariant": 'All',
-      'floor': 'All',
-      'view': 'All'
-    };
-    App.defaults.hasOwnProperty("name");
-    units = App.currentStore.unit.filter(function(model) {
-      var building, buildingArray, element, index, _i, _len, _ref;
-      App.defaults['building'].length;
-      buildingArray = Array();
-      _ref = App.defaults['building'];
-      for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
-        element = _ref[index];
-        building = model.get('building') === element;
-      }
-      return building;
-    });
-    return units;
   };
   App.currentRoute = [];
   staticApps = [];
