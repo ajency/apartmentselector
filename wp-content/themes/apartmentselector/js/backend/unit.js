@@ -101,7 +101,8 @@ $(document).on("change", "#floor", function(e) {
                 flats_html +='<div class="col-md-12"><i>No Flats Available</i></div>';
             }else{
                  $.each(response.flats, function(i, val) {
-               flats_html += '<div class="col-md-6"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">'+val.flat_no+'<br><img src="'+val.basic_image_url+'" class="image_display"></div>';
+               flats_html += '<div class="col-md-12"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">Flat '+val.flat_no+'</div>';
+               flats_html += '<div class="col-md-6"><img src="'+val.basic_image_url+'" class="image_display"></div><div class="col-md-6"><img src="'+val.detailed_image_url+'" class="image_display"></div>';
             });
             }
             
