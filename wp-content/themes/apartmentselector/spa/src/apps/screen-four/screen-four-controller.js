@@ -58,7 +58,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       });
       unitsArray = App.currentStore.unit.toArray();
       $.each(units, function(index, value) {
-        var unitTypeModel, unitVariantModel;
+        var building, exceptionObject, floorLayoutimage, floorvalue, positionObject, unitTypeModel, unitVariantModel;
         unitVariantModel = App.currentStore.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -70,7 +70,31 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         value.set('carpetarea', unitVariantModel.get('carpetarea'));
         value.set('unittypename', unitTypeModel.get('name'));
         value.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
-        return value.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
+        value.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
+        building = App.currentStore.building.findWhere({
+          id: value.get('building')
+        });
+        exceptionObject = building.get('floorexceptionpositions');
+        console.log(exceptionObject[0].floors);
+        console.log(floorvalue = $.inArray(value.get('floor'), exceptionObject[0].floors));
+        floorLayoutimage = "";
+        if (floorvalue === -1) {
+          console.log(positionObject = building.get('floorpositions'));
+          $.each(positionObject, function(index, value1) {
+            if (value.get('id') === value1.flat_no) {
+              return floorLayoutimage = value1.image_url;
+            }
+          });
+        } else {
+          positionObject = exceptionObject[0].flats;
+          $.each(positionObject, function(index, value1) {
+            if (value.get('id') === value1.flat_no) {
+              return floorLayoutimage = value1.image_url;
+            }
+          });
+        }
+        value.set('floorLayoutimage', floorLayoutimage);
+        return value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
       });
       units.sort(function(a, b) {
         return a.get('id') - b.get('id');

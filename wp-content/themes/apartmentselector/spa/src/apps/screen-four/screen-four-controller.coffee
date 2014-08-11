@@ -64,6 +64,35 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
                 value.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
+                building = App.currentStore.building.findWhere({id:value.get('building')})
+                exceptionObject = building.get 'floorexceptionpositions'
+                console.log exceptionObject[0].floors
+                console.log floorvalue = $.inArray( value.get('floor'),exceptionObject[0].floors)
+                floorLayoutimage = ""
+                if floorvalue == -1
+                    console.log positionObject = building.get 'floorpositions'
+                    $.each(positionObject, (index,value1)->
+                        if value.get('id') == value1.flat_no
+                            floorLayoutimage =value1.image_url
+
+
+
+                    )
+                else
+                    positionObject = exceptionObject[0].flats
+                    $.each(positionObject, (index,value1)->
+                        if value.get('id') == value1.flat_no
+                            floorLayoutimage =value1.image_url
+
+
+
+                    )
+                value.set 'floorLayoutimage' , floorLayoutimage
+                value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
+
+
+
+
 
             )
             units.sort( (a,b) ->

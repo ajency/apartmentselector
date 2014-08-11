@@ -80,7 +80,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     param_arr = params.split('&');
     budgetUnitArray = [];
     $.each(param_arr, function(index, value) {
-      var budget_arr, budget_val, collection, param_val, param_val_arr, paramkey, value_arr;
+      var budget_val, collection, param_val, param_val_arr, paramkey, value_arr;
       value_arr = value.split('=');
       param_key = value_arr[0];
       param_val = value_arr[1];
@@ -101,35 +101,11 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
         });
       } else if (param_val_arr.length === 1) {
         budget_val = param_val_arr[0].split(' ');
-        if (budget_val[1] === 'lakhs') {
-          budget_arr = budget_val[0].split('-');
-          budget_arr[0] = budget_arr[0] + '00000';
-          budget_arr[1] = budget_arr[1] + '00000';
-        }
         if (param_val_arr[0].toUpperCase() === 'ALL') {
           collection = App.currentStore.unit.toArray();
         } else if (budget_val.length > 1) {
-          units = App.currentStore.unit;
-          units.each(function(item) {
-            var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
-            buildingModel = App.currentStore.building.findWhere({
-              'id': item.get('building')
-            });
-            floorRise = buildingModel.get('floorrise');
-            floorRiseValue = floorRise[item.get('floor')];
-            unitVariantmodel = App.currentStore.unit_variant.findWhere({
-              'id': item.get('unitVariant')
-            });
-            unitPrice = item.get('unitPrice');
-            item.set({
-              'unitPrice': 'unitPrice',
-              unitPrice: unitPrice
-            });
-            if (item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])) {
-              budgetUnitArray.push(item);
-            }
-            return collection = budgetUnitArray;
-          });
+          budgetUnitArray = App.getBudget(budget_val[0]);
+          collection = budgetUnitArray;
         } else {
           collection = App.currentStore.unit.where(paramkey);
         }
@@ -173,6 +149,34 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/units', 'spec/javascri
     App.currentStore.unit_variant.reset(unitvariantArray);
     App.currentStore.view.reset(viewArray);
     return App.currentStore.unit;
+  };
+  App.getBudget = function(budget) {
+    var budgetUnitArray, budget_arr;
+    budgetUnitArray = [];
+    budget_arr = budget.split('-');
+    budget_arr[0] = budget_arr[0] + '00000';
+    budget_arr[1] = budget_arr[1] + '00000';
+    units = App.currentStore.unit;
+    units.each(function(item) {
+      var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
+      buildingModel = App.currentStore.building.findWhere({
+        'id': item.get('building')
+      });
+      floorRise = buildingModel.get('floorrise');
+      floorRiseValue = floorRise[item.get('floor')];
+      unitVariantmodel = App.currentStore.unit_variant.findWhere({
+        'id': item.get('unitVariant')
+      });
+      unitPrice = item.get('unitPrice');
+      item.set({
+        'unitPrice': 'unitPrice',
+        unitPrice: unitPrice
+      });
+      if (item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])) {
+        return budgetUnitArray.push(item);
+      }
+    });
+    return budgetUnitArray;
   };
   App.currentRoute = [];
   staticApps = [];

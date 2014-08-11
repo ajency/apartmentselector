@@ -41,7 +41,7 @@ define [ 'marionette' ], ( Marionette )->
                         <header class="vs-header" id="building-region"></header>
                         <div  id="unit-region"></div>
                     </div>
-
+                    {{#high}}
                     <div class="towerRange">
                         <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3>
                         <div class="row m-l-0 m-r-0 m-b-20">
@@ -58,8 +58,7 @@ define [ 'marionette' ], ( Marionette )->
                             </div>-->
 
                             <div class="col-sm-8 col-xs-12 m-t-30">
-                                <p>Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p>
-                            </div>
+                                <p>{{text}}</p></div>
 
                             <!--<div class="row">
                                 <div class="col-sm-4">
@@ -94,7 +93,8 @@ define [ 'marionette' ], ( Marionette )->
                         </div>-->
 
                     </div>
-                    '
+
+       {{/high}}                     '
 
 
 

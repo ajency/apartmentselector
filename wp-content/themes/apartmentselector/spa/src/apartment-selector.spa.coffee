@@ -139,26 +139,14 @@ require [ 'plugin-loader'
             #if thers is only one value assigned to the filter
             else if param_val_arr.length ==  1
                 budget_val = param_val_arr[0].split(' ')
-                if(budget_val[1]=='lakhs')
-                    budget_arr = budget_val[0].split('-')
-                    budget_arr[0] = budget_arr[0] + ('00000')
-                    budget_arr[1] = budget_arr[1]+ ('00000')
+                #if filter value is set to ALl
                 if param_val_arr[0].toUpperCase() == 'ALL'
                     collection =  App.currentStore.unit.toArray()
+                # if filter is set to budget value
                 else if budget_val.length>1
-                    units = App.currentStore.unit
-                    units.each (item)->
-                        buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
-                        floorRise = buildingModel.get 'floorrise'
-                        floorRiseValue = floorRise[item.get 'floor']
-                        unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
-                        #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
-                        unitPrice = item.get 'unitPrice'
-                        item.set({'unitPrice' , unitPrice})
-                        if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
-                            budgetUnitArray.push item
-                        collection  = budgetUnitArray
-
+                    budgetUnitArray = App.getBudget(budget_val[0])
+                    collection  = budgetUnitArray
+                #if filter is set to a value
                 else
                     collection =  App.currentStore.unit.where(paramkey)
 
@@ -167,6 +155,8 @@ require [ 'plugin-loader'
 
 
         )
+        
+
         buildings = App.currentStore.unit.pluck("building")
         uniqBuildings = _.uniq(buildings)
         buildingArray = Array()
@@ -199,6 +189,24 @@ require [ 'plugin-loader'
         App.currentStore.unit_variant.reset unitvariantArray
         App.currentStore.view.reset viewArray
         App.currentStore.unit
+
+    App.getBudget = (budget)->
+        budgetUnitArray = []
+        budget_arr = budget.split('-')
+        budget_arr[0] = budget_arr[0] + ('00000')
+        budget_arr[1] = budget_arr[1]+ ('00000')
+        units = App.currentStore.unit
+        units.each (item)->
+            buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
+            floorRise = buildingModel.get 'floorrise'
+            floorRiseValue = floorRise[item.get 'floor']
+            unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
+            #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+            unitPrice = item.get 'unitPrice'
+            item.set({'unitPrice' , unitPrice})
+            if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
+                budgetUnitArray.push item
+        budgetUnitArray
 
 
 
