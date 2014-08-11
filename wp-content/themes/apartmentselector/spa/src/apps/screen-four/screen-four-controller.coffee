@@ -87,8 +87,29 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                     )
+
+
+                console.log roomSizesArray = unitVariantModel.get 'roomsizes'
+                bedroomArray = []
+                toiletArray = []
+                $.each(roomSizesArray, (index,value1)->
+                    if value1.room_type == 'Bedroom'
+                        bedroomArray.push({size: value1.room_size})
+                    if value1.room_type == 'Toilet'
+                        toiletArray.push({size: value1.room_size})
+                    if value1.room_type == 'Kitchen'
+                        value.set 'Kitchen' , value1.room_size
+                    if value1.room_type == 'Terrace'
+                        value.set 'Terrace' , value1.room_size
+                    if value1.room_type == 'Terrace'
+                        value.set 'Terrace' , value1.room_size
+
+
+
+                )
                 value.set 'floorLayoutimage' , floorLayoutimage
                 value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
+                value.set 'toiletArray' , toiletArray
 
 
 

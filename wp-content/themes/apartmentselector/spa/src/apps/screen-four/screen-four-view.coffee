@@ -125,8 +125,10 @@ define [ 'marionette' ], ( Marionette )->
 										</div>
                                         <div class="col-sm-6">
                                             TOILET
-                                            <h3 class="text-primary"></h3>
-										</div>
+
+       {{#toiletArray}}                                             <h3 class="text-primary">{{size}}</h3>
+
+       {{/toiletArray}} 										</div>
                                     </div>
         							<div class="row m-t-20">
         								<div class="col-sm-6">
