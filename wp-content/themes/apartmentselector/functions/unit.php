@@ -419,7 +419,9 @@ function ajax_save_apartment(){
 
     $building = $_REQUEST["building"]; 
 
-    $flats_info = get_flats_on_floor($building ,$floor);
+    $apartment_id = $_REQUEST["apartment_id"]==""?0:$_REQUEST["apartment_id"]; 
+
+    $flats_info = get_flats_on_floor($building ,$floor,$apartment_id);
 
     if($flats_info["created_flats"]==count($flats_info["flats"]) && empty($_REQUEST['apartment_id'])){
          $msg = "Cannot add more apartments on the selected floor and building!";
@@ -485,7 +487,7 @@ exit;
 add_action('wp_ajax_save_apartment','ajax_save_apartment'); 
 
 
-function get_flats_on_floor($building ,$floor){
+function get_flats_on_floor($building ,$floor,$apartment_id){
 
     global $wpdb;
 
@@ -511,8 +513,17 @@ function get_flats_on_floor($building ,$floor){
             }
     }
 
+
     $query = "select count(*) from ".$wpdb->prefix."postmeta flat_floor join ".$wpdb->prefix."postmeta flat_building on flat_building.post_id = flat_floor.post_id where  flat_building.meta_key = 'building' and flat_building.meta_value = $building and  flat_floor.meta_key = 'floor' and flat_floor.meta_value = $floor    ";
     $created_flats = $wpdb->get_var($query);
+
+    $apartment_building = get_post_meta($apartment_id,"building",true);
+
+    $apartment_floor = get_post_meta($apartment_id,"floor",true);
+
+    if( $apartment_floor==$floor && $apartment_building==$building){
+        $created_flats--;
+    }
 
     return (array("flats"=>get_flats_details($flats),"created_flats"=>$created_flats));
 }
@@ -522,7 +533,9 @@ function ajax_get_flats_on_floor(){
 
     $floor = $_REQUEST["floor"];
 
-    $flats = get_flats_on_floor($building ,$floor);
+    $apartment_id = $_REQUEST["apartment_id"]==""?0:$_REQUEST["apartment_id"]; 
+
+    $flats = get_flats_on_floor($building ,$floor, $apartment_id);
 
     $response = json_encode( $flats );
 

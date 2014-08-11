@@ -91,7 +91,8 @@ $(document).on("change", "#floor", function(e) {
 
             action: "get_flats_on_floor",
             building:$("option:selected", $("#building")).val(),
-            floor: $("option:selected", $(e.target)).val()
+            floor: $("option:selected", $(e.target)).val(),
+            apartment_id:$("#apartment_id").val()
 
         }, function(response) {
                 
@@ -100,7 +101,7 @@ $(document).on("change", "#floor", function(e) {
                 flats_html +='<div class="col-md-12"><i>No Flats Available</i></div>';
             }else{
                  $.each(response.flats, function(i, val) {
-               flats_html += '<div class="col-md-6"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">'+val.flat_no+'<br><img src="'+val.image_url+'" class="image_display"></div>';
+               flats_html += '<div class="col-md-6"><input type="radio" name="unit_assigned" value="'+val.flat_no+'">'+val.flat_no+'<br><img src="'+val.basic_image_url+'" class="image_display"></div>';
             });
             }
             

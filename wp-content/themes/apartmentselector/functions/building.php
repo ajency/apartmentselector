@@ -258,9 +258,11 @@ function save_extra_building_fields( $term_id ) {
     $no_of_flats = array();
     for($i=1;$i<=$no_of_flats_count;$i++){
 
-        $image_id = $_REQUEST["image_id".$i];
+        $basic_image_id = $_REQUEST["basic_image_id".$i];
+        $detailed_image_id = $_REQUEST["detailed_image_id".$i];
         $no_of_flats[] = array("flat_no"=>$i,
-                                "image_id"=>$image_id,
+                                "basic_image_id"=>$basic_image_id,
+                                "detailed_image_id"=>$detailed_image_id,
                                 );
     }
 
@@ -280,9 +282,11 @@ function save_extra_building_fields( $term_id ) {
         $no_of_exception_flats = array();
         for($i=1;$i<=$exception_flats_count;$i++){
 
-                $image_id = $_REQUEST['exception_'.$e.'_image_id'.$i];
+                $basic_image_id = $_REQUEST['basic_exception_'.$e.'_image_id'.$i];
+                $detailed_image_id = $_REQUEST['detailed_exception_'.$e.'_image_id'.$i];
                 $no_of_exception_flats[] = array("flat_no"=>$i,
-                                        "image_id"=>$image_id,
+                                        "basic_image_id"=>$basic_image_id,
+                                        "detailed_image_id"=>$detailed_image_id,
                                         );
             }
         $exceptions[] = array(  'floors'=>$exception_floors,
@@ -585,9 +589,14 @@ function get_flats_details($flats){
 
      foreach($flats as $flat){
 
-            $flat['image_url'] =  wp_get_attachment_thumb_url($flat["image_id"]);
+            $flat['basic_image_url'] =  wp_get_attachment_thumb_url($flat["basic_image_id"]);
             
-            $flat['image_url']  = $flat['image_url'] ==false?get_no_image_150x150():$flat['image_url']; 
+            $flat['basic_image_url']  = $flat['basic_image_url'] ==false?get_no_image_150x150():$flat['basic_image_url']; 
+            
+            $flat['detailed_image_url'] =  wp_get_attachment_thumb_url($flat["detailed_image_id"]);
+            
+            $flat['detailed_image_url']  = $flat['detailed_image_url'] ==false?get_no_image_150x150():$flat['detailed_image_url']; 
+            
             $flats_updated[]  =  $flat;
         }
 

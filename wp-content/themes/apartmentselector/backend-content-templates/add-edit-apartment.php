@@ -178,13 +178,13 @@ if(isset($_REQUEST["id"])){
                      <div class="well">Select Flat:
                      <div id="flat_container">
                      <?php if(!empty($unit_building) && !empty($floor)){
-                            $flats = get_flats_on_floor($unit_building ,$floor);
+                            $flats = get_flats_on_floor($unit_building ,$floor,$apartment_id);
                             ?>
                                 <div class="row-fluid" > <div class="row">
                             <?php
                             foreach($flats["flats"] as $flat){
                                     ?>
-                                        <div class="col-md-6"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>"><?php echo $flat["flat_no"]?><br><img src="<?php echo $flat["image_url"]?>" class="image_display"></div>
+                                        <div class="col-md-6"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>"><?php echo $flat["flat_no"]?><br><img src="<?php echo $flat["basic_image_url"]?>" class="image_display"></div>
                                     <?php
                             }
                             ?>
