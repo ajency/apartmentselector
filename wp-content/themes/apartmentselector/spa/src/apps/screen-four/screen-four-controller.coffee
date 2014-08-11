@@ -72,7 +72,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 if floorvalue == -1
                     console.log positionObject = building.get 'floorpositions'
                     $.each(positionObject, (index,value1)->
-                        if value.get('id') == value1.flat_no
+                        if value.get('unitAssigned') == value1.flat_no
                             floorLayoutimage =value1.image_url
 
 
@@ -81,7 +81,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 else
                     positionObject = exceptionObject[0].flats
                     $.each(positionObject, (index,value1)->
-                        if value.get('id') == value1.flat_no
+                        if value.get('unitAssigned') == value1.flat_no
                             floorLayoutimage =value1.image_url
 
 
