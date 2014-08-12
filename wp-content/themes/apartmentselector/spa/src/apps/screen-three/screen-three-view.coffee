@@ -9,29 +9,29 @@ define [ 'marionette' ], ( Marionette )->
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '
-       <div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
-                            <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
-                             <div class="text-center subTxt m-b-20 refresh hidden animated fadeIn">You just refreshed the page. You are now seeing all apartments across all the towers.</div>
-                            <div class="text-center subTxt m-b-20 All hidden animated fadeIn">You are seeing all apartments in the selected floor range of the tower.</div>
-              <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div>
+                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
+                    <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
+                    <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-                            <div class="variantBox">
-                                <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
-                                <div class="grid-container">
+                    <div class="variantBox">
+                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                        <div class="grid-container">
 
-                                    {{#unitVariants}}
-                                    <div class="grid-block-3" >
-                                        <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
-                                            {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
-                                        </a>
-                                    </div>
-                                    {{/unitVariants}}
-
-                                    <div class="variantAction m-t-5 m-b-20">
-                                        <a class="btn btn-primary m-r-10 done">DONE</a>
-                                        <a class="btn btn-default cancel">CANCEL</a>
-                                    </div>
+                            {{#unitVariants}}
+                            <div class="grid-block-3" >
+                                <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
+                                    {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                </a>
                             </div>
+                            {{/unitVariants}}
+
+                            <div class="variantAction m-t-5 m-b-20">
+                                <a class="btn btn-primary m-r-10 done">DONE</a>
+                                <a class="btn btn-default cancel">CANCEL</a>
+                            </div>
+                        </div>
                     </div>
 
 

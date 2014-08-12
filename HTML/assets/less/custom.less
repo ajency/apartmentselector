@@ -8,15 +8,21 @@ Template:       skyi
 Version:        0.1.0
 */
 
-@import "variables";
-@import "mixins.less";
-@import "grid.less";
+@import "bootstrap/bootstrap.less";
+@import "custom-variables.less";
+// @import "variables";
+// @import "mixins.less";
+@import "misc.less";
+@import "bootstrap-mods.less";
+@import "heading.less";
+@import "boxes.less";
 @import "step1.less";
 @import "step2.less";
+@import "step3.less";
 @import "triplelayout.less";
 @import "towerList.less";
-@import "step3.less";
 @import "unitSingle.less";
+@import "font.less";
 
 
 body{
@@ -27,7 +33,7 @@ body{
 	position: static;
 	h3{
 		text-align: left;
-		font-size: 14px;
+		// font-size: 14px;
 		margin-left: 65px;
 		
 		&.step1{
@@ -46,9 +52,7 @@ body{
 	}
 }
 
-.navbar-inverse {
-	background: @color-primary;
-}
+
 
 .backBtn{
 	position: absolute;
@@ -72,12 +76,75 @@ body{
 	}
 	.header.navbar h3{
 		text-align: center;
-		font-size: 24px;
+		// font-size: 24px;
 		margin-left: 0;
 	}
 }
 
 
+.easeIn {
+    -webkit-animation: fadein 1s; 
+       -moz-animation: fadein 1s; 
+        -ms-animation: fadein 1s; 
+         -o-animation: fadein 1s; 
+            animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.easeOut {
+    -webkit-animation: fadeout 0.5s; 
+       -moz-animation: fadeout 0.5s; 
+        -ms-animation: fadeout 0.5s; 
+         -o-animation: fadeout 0.5s; 
+            animation: fadeout 0.5s;
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+@-moz-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+
+
+//For font weight variations
+.semi-bold{
+  font-weight: 500;
+}
+.bold{
+  font-weight: 600;
+}
+
+.text-white{
+	color: @color-white;
+}
+
+.text-primary{
+	color: @color-primary;
+}
 
 //Apartment Selector
 // iframe{
