@@ -17,7 +17,7 @@ function add_custom_fields($fields){
 
 	$fields['addrooms']= __('Add Rooms', 'formidable')  ;
 
-	$fields['roomsizes']= __('Room Sizes', 'formidable')  ;
+	$fields['roomsizes']= __('Room Sizes', 'formidable')  ; 
 
 	return $fields;
 
@@ -99,8 +99,9 @@ function frm_form_fields_customize($field, $field_name){
  			?>
 			
 	 			<div id="room-type-for-size-item-1">
-	 				<select name="room_type_for_size[]" id="room_type_for_size_1"   class="form-small-input">
+	 				<select name="room_type_for_size[]" id="room_type_for_size_1"   class="room_type_for_size form-small-input">
 	 					<option value="">Select</option>
+	 					<option value="+" class="select-add-item"> + Add New Room Type..</option>
 	 					<?php
 	 					foreach($room_type_for_sizes as $room_type_for_size){
 	 					?>
@@ -109,7 +110,7 @@ function frm_form_fields_customize($field, $field_name){
 	 					}
 	 					?>
 	 				</select>
-	 				<input type="text" id="room_type_size_1"  name="room_type_size_1"  class="form-small-input">
+	 				<input type="text" id="room_type_size_1"  name="room_type_size_1"  class="amount-data form-small-input"> sq ft
 	 				<input type="button" value="x" item-no="1" class="delete_room_type_size_item">
 	 			</div>
 	 		 
@@ -121,8 +122,9 @@ function frm_form_fields_customize($field, $field_name){
  				?>
  				
 	 			<div id="room-type-for-size-item-<?php echo $key+1;?>">
-	 				<select name="room_type_for_size[]" id="room_type_for_size_<?php echo $key+1;?>"   class="form-small-input">
+	 				<select name="room_type_for_size[]" id="room_type_for_size_<?php echo $key+1;?>"   class="room_type_for_size form-small-input">
 	 					<option value="">Select</option>
+	 					<option value="+" class="select-add-item"> + Add New Room Type</option>
 	 					<?php
 	 					foreach($room_type_for_sizes as $room_type_for_size){
 	 					?>
@@ -131,9 +133,10 @@ function frm_form_fields_customize($field, $field_name){
 	 					}
 	 					?>
 	 				</select>
-	 				<input type="text" id="room_type_size_<?php echo $key+1;?>"  name="room_type_size_<?php echo $key+1;?>"  class="form-small-input" value="<?php echo $field_value_item["room_size"];?>">
+	 				<input type="text" id="room_type_size_<?php echo $key+1;?>"  name="room_type_size_<?php echo $key+1;?>"  class="amount-data form-small-input" value="<?php echo $field_value_item["room_size"];?>"> sq ft
 	 				<input type="button" value="x" item-no="<?php echo $key+1;?>" class="delete_room_type_size_item">
 	 			</div>
+	 			
 	 			
  			<?php
  				 
@@ -142,11 +145,32 @@ function frm_form_fields_customize($field, $field_name){
  		?>
  		<div>Add More <input last-sr-no="<?php echo $key+1; ?>" type="button" name="add_more_room_sizes" id="add_more_room_sizes"  value="+" field-name="<?php echo $field_name ?>" >
 	 			</div>
- 			</div>				
+ 			</div>	
+
+
+ 			<!--dialog to add new room type for size-->
+ 			<div editing-element="" class="modal fade" id="room-type-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Create New Room Type</h4>
+			      </div>
+			      <div class="modal-body">
+			        Room Type : <input type='text' id="new-room-type">
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="save-room-type">Create</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>		
  		<?php
 
 
  		break;
+ 
 
  		default:
  		break;
@@ -187,6 +211,27 @@ add_action('wp_ajax_fetch_form_views','ajax_fetch_form_views');
 add_action('wp_ajax_nopriv_fetch_form_views','ajax_fetch_form_views');
 
 
+//create new room type
+
+function ajax_save_room_type(){
+
+	$room_type_for_sizes = array();
+
+	$room_type = $_REQUEST["room_type"];
+
+    $room_type_for_sizes[] = array("master_type"=>"room-type-for-sizes","value"=>$room_type,"data"=>"");
+	 
+	$return = set_defaults_data($room_type_for_sizes);
+	
+	$response = json_encode( $return );
+
+	header( "Content-Type: application/json" );
+
+	echo $response;
+	
+	exit;
+}
+add_action('wp_ajax_save_room_type','ajax_save_room_type'); 
 function ajax_fetch_form(){
 
 if(isset($_REQUEST["entry"])){
