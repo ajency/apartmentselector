@@ -228,7 +228,7 @@ $heading = "Edit";
             if($no_of_flats!=0){ 
                 foreach($building_no_of_flats as $building_no_of_flat){
                     ?><div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats' >
-                    <div class="form-group">   <label class="form-label">
+                    <!--<div class="form-group">   <label class="form-label">
        Flat No: <?php echo $building_no_of_flat['flat_no'];?>
         </label>
         <span class="help">
@@ -267,7 +267,53 @@ $heading = "Edit";
                     </div></div>
                 </div>
             </div> 
-         </div>
+         </div>-->
+		 <!--testing-->
+		 <div class="form-group">
+		 <div class="row">
+		 <div class="col-md-12">
+			<label class="form-label">
+       Flat No: <?php echo $building_no_of_flat['flat_no'];?>
+        </label>
+		<div class="row">
+		<div class="col-md-6">
+		<label class="form-label">Basic:</label> <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Select files...</span>
+                    <input type="hidden" id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>_image_id" name="basic_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['basic_image_id'];?>"><input id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                    </span>
+					<br>
+                    <br>
+                    <div id="progressbasic_<?php echo $building_no_of_flat['flat_no'];?>" class="progress" >
+                    <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
+                    <br><div class="row">
+                    <div class="col-md-12">
+                    <img src="<?php echo $building_no_of_flat['basic_image_url'];?>" id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
+                    </div></div>
+		 </div>
+		 <div class="col-md-6">
+			<label class="form-label">Detailed:</label> <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Select files...</span>
+                    <input type="hidden"  id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>_image_id" name="detailed_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['detailed_image_id'];?>"><input id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
+                    </span>
+                    <br>
+                    <br>
+                    <div id="progressdetailed_<?php echo $building_no_of_flat['flat_no'];?>" class="progress" >
+                    <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
+                    <br><div class="row">
+                    <div class="col-md-12">
+                    <img src="<?php echo $building_no_of_flat['detailed_image_url'];?>" id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
+                    </div></div>
+		 </div>
+		 </div>
+		 </div>
+		 </div>
+		 <!--testing-->
          </div>
                     <?php
                 }
