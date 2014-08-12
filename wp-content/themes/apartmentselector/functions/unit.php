@@ -286,7 +286,8 @@ function get_unit_variants($variant_id=0){
                                     'terracearea'=>$result->metas['terracearea'], 
                                     'url2dlayout_image'=>$url2dlayout_image[0],
                                     'url3dlayout_image'=>$url3dlayout_image[0],
-                                    'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes'])
+                                    'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes']),
+                                    'terraceoptions'=>$result->metas['terraceoptions']
                                     );
     }
 
