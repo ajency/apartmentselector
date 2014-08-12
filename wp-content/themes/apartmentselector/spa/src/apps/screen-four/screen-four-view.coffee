@@ -91,14 +91,6 @@ define [ 'marionette' ], ( Marionette )->
 								<h4 class="bold">FLAT SUMMARY</h4>
 								<div class="summary">
                                     <div class="row">
-                                        <div class="col-xs-6">FLAT TYPE</div>
-                                        <div class="col-xs-6 text-right text-primary">{{name}}</div>
-                                    </div>
-									<div class="row">
-										<div class="col-xs-6">FLOOR {{floor}}</div>
-										<div class="col-xs-6 text-right text-primary">{{unittypename}}</div>
-									</div>
-									<div class="row">
 										<div class="col-xs-6">CARPET AREA</div>
 										<div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div>
 									</div>
