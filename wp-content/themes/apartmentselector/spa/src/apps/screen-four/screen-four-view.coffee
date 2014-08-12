@@ -76,11 +76,11 @@ define [ 'marionette' ], ( Marionette )->
 									</div>
 									<div>
 										<h2 class="title">Floor Layout</h2>
-										<img src="assets/img/flat1.jpg" class="img-responsive">
+										<img src="{{floorLayoutimage}}" class="img-responsive">
 									</div>
 									<div>
 										<h2 class="title">Building Position</h2>
-										<img src="assets/img/flat1.jpg" class="img-responsive">
+										<img src="{{BuildingPositionimage}}" class="img-responsive">
 									</div>
 								</div>
 							</div>

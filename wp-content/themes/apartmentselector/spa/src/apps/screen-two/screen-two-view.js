@@ -3,11 +3,12 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, m, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, globalArrayLength, m, unitVariantArray, unitVariantIdArray, unitVariantString;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
   unitVariantString = '';
+  globalArrayLength = [];
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -68,7 +69,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         if (App.defaults['unitVariant'] !== 'All') {
           globalUnitVariants = App.defaults['unitVariant'].split(',');
           $.each(globalUnitVariants, function(index, value) {
-            return globalUnitArrayInt.push(parseInt(value));
+            globalUnitArrayInt.push(parseInt(value));
+            return globalArrayLength.push(parseInt(value));
           });
         }
         console.log(globalUnitArrayInt);
@@ -78,6 +80,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
             globalUnitArrayInt.push(id);
+            globalArrayLength.push(id);
             unitVariantArray = globalUnitArrayInt;
           }
         }
@@ -89,6 +92,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .done': function(e) {
         var params;
+        console.log($('.variantToggle').text());
+        if (globalArrayLength.length === unitVariantArray.length) {
+          this.$el.find('.variantToggle').text('All');
+        } else {
+          this.$el.find('.variantToggle').text('');
+        }
         App.defaults['unitVariant'] = unitVariantString;
         App.filter(params = {});
         return this.trigger('unit:variants:selected');

@@ -3,6 +3,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
+    globalArrayLength = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
@@ -118,6 +119,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     globalUnitVariants = App.defaults['unitVariant'].split(',')
                     $.each(globalUnitVariants, (index,value)->
                         globalUnitArrayInt.push(parseInt(value))
+                        globalArrayLength.push(parseInt(value))
 
                     )
                 console.log globalUnitArrayInt
@@ -127,18 +129,25 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
                         globalUnitArrayInt.push(id)
+                        globalArrayLength.push(id)
                         unitVariantArray = globalUnitArrayInt
 
 
                 if globalUnitArrayInt.length == unitVariantArray.length
                     unitVariantString = 'All'
+
                 else
                     unitVariantString = unitVariantArray.join(',')
 
 
 
-            'click .done':(e)->
 
+            'click .done':(e)->
+                console.log $('.variantToggle').text()
+                if globalArrayLength.length == unitVariantArray.length
+                    @$el.find('.variantToggle').text 'All'
+                else
+                    @$el.find('.variantToggle').text ''
 
                 App.defaults['unitVariant'] = unitVariantString
                 App.filter(params={})

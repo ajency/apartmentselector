@@ -158,7 +158,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if value.key == 'floor'
                                 if track == 0
                                     trackArray.push value.value
-                                #flag = 1
+                                flag = 1
                                 track = 1
                     else
                         if value.key == 'unitType'
@@ -173,7 +173,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if value.key == 'floor'
                             if track == 0
                                 trackArray.push value.value
-                            #flag = 1
+                            flag = 1
                             track = 1
 
 
@@ -188,21 +188,21 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 lowUnits = App.master.range.findWhere({name:'low'})
                 if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
                     range = 'LOWRISE'
-                    templateArr.push range
+                    #templateArr.push range
 
 
 
                 mediumUnits = App.master.range.findWhere({name:'medium'})
                 if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
                     range = 'MIDRISE'
-                    templateArr.push range
+                    #templateArr.push range
 
 
                 highUnits = App.master.range.findWhere({name:'high'})
                 if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
                     range = 'HIGHRISE'
-                    templateArr.push range
-                templateString  = templateArr.join(',')
+                    #templateArr.push range
+                #templateString  = templateArr.join(',')
 
             else
                 templateString  = templateArr.join(',')
@@ -251,7 +251,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         floorRise = buildingModel.get 'floorrise'
                         floorRiseValue = floorRise[value1.get 'floor']
                         unitVariantmodel = App.master.unit_variant.findWhere({'id':value1.get 'unitVariant'})
-                        console.log unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        unitPrice = value1.get 'unitPrice'
                         budget_arr = value.value.split(' ')
                         budget_price = budget_arr[0].split('-')
                         console.log budget_price[0] = budget_price[0]+'00000'
@@ -443,6 +444,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
                 mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
+            console.log range
             if range == 'LOWRISE'
                 $.each(mainunitTypeArray, (key,item)->
                     if (!lunique[item.id])
@@ -454,11 +456,13 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
                                 lunitTypeArray.push value.get 'id'
                         )
-                        mainnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,range:'LOWRISE'})
+                        #mainnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,range:'LOWRISE'})
                         lunique[item.id] = item;
 
                 )
-            if range == 'MIDRISE'
+                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"LOWRISE"})
+
+            else if range == 'MIDRISE'
                 $.each(mainunitTypeArray, (key,item)->
                     if (!munique[item.id])
                         munitTypeArray = []
@@ -470,13 +474,15 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
                                 munitTypeArray.push value.get 'id'
                         )
-                        mainnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,range:'MEDIUMRISE'})
+                        #mainnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,range:'MEDIUMRISE'})
                         munique[item.id] = item;
 
 
                 )
+                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"MIDRISE"})
 
-            if range == 'HIGHRISE'
+
+            else if range == 'HIGHRISE'
 
                 $.each(mainunitTypeArray, (key,item)->
                     if (!hunique[item.id])
@@ -489,12 +495,15 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
                                 hunitTypeArray.push value.get 'id'
                         )
-                        mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
+                        #mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
                         hunique[item.id] = item;
 
 
                 )
+                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"HIGHRISE"})
+
             else
+                range = "ALL"
                 $.each(mainunitTypeArray, (key,item)->
                     if (!hunique[item.id])
                         hunitTypeArray = []
@@ -504,11 +513,15 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         $.each(count, (index,value)->
                             hunitTypeArray.push value.get 'id'
                         )
-                        mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
+                        #mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
                         hunique[item.id] = item;
 
 
                 )
+                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"HIGHRISE"})
+                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"MIDRISE"})
+                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"LOWRISE"})
+
 
 
 

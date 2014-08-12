@@ -258,9 +258,11 @@ function save_extra_building_fields( $term_id ) {
     $no_of_flats = array();
     for($i=1;$i<=$no_of_flats_count;$i++){
 
-        $image_id = $_REQUEST["image_id".$i];
+        $basic_image_id = $_REQUEST["basic_image_id".$i];
+        $detailed_image_id = $_REQUEST["detailed_image_id".$i];
         $no_of_flats[] = array("flat_no"=>$i,
-                                "image_id"=>$image_id,
+                                "basic_image_id"=>$basic_image_id,
+                                "detailed_image_id"=>$detailed_image_id,
                                 );
     }
 
@@ -280,9 +282,11 @@ function save_extra_building_fields( $term_id ) {
         $no_of_exception_flats = array();
         for($i=1;$i<=$exception_flats_count;$i++){
 
-                $image_id = $_REQUEST['exception_'.$e.'_image_id'.$i];
+                $basic_image_id = $_REQUEST['basic_exception_'.$e.'_image_id'.$i];
+                $detailed_image_id = $_REQUEST['detailed_exception_'.$e.'_image_id'.$i];
                 $no_of_exception_flats[] = array("flat_no"=>$i,
-                                        "image_id"=>$image_id,
+                                        "basic_image_id"=>$basic_image_id,
+                                        "detailed_image_id"=>$detailed_image_id,
                                         );
             }
         $exceptions[] = array(  'floors'=>$exception_floors,
@@ -561,6 +565,23 @@ function get_building_by_id($building_id){
    return ($result);
 }
 
+
+function get_building_floorrise($building_id,$floor){
+
+    $floorrise = 0;
+
+    $building_floor_rise =  maybe_unserialize(get_option('building_'.$building_id.'_floor_rise')) ;
+   
+    $building_floor_rise = is_array($building_floor_rise)?$building_floor_rise:array();
+   
+   foreach($building_floor_rise as $building_floor_rise_itemkey => $building_floor_rise_item){
+        if($building_floor_rise_itemkey==$floor){
+
+            $floorrise = $building_floor_rise_item;
+        }
+   }
+   return $floorrise;
+}
 //get additional info of flats and pass to the flats array as additional attributes e.g. image path
 function get_flats_details($flats){
 
@@ -568,9 +589,14 @@ function get_flats_details($flats){
 
      foreach($flats as $flat){
 
-            $flat['image_url'] =  wp_get_attachment_thumb_url($flat["image_id"]);
+            $flat['basic_image_url'] =  wp_get_attachment_thumb_url($flat["basic_image_id"]);
             
-            $flat['image_url']  = $flat['image_url'] ==false?get_no_image_150x150():$flat['image_url']; 
+            $flat['basic_image_url']  = $flat['basic_image_url'] ==false?get_no_image_150x150():$flat['basic_image_url']; 
+            
+            $flat['detailed_image_url'] =  wp_get_attachment_thumb_url($flat["detailed_image_id"]);
+            
+            $flat['detailed_image_url']  = $flat['detailed_image_url'] ==false?get_no_image_150x150():$flat['detailed_image_url']; 
+            
             $flats_updated[]  =  $flat;
         }
 

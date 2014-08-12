@@ -2,7 +2,7 @@
 ob_start(); 
 if(!is_user_logged_in()){
 
-    wp_redirect(site_url());
+    wp_redirect(wp_login_url());
 
     exit;
     

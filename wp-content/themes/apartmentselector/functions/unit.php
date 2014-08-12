@@ -252,12 +252,18 @@ function get_unit_type_by_unit_variant($unit_variant=0){
 
 
 /*get unit variants by unit type*/
-function get_unit_variants(){
+function get_unit_variants($variant_id=0){
 
     global $frm_entry;
 
-    $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
 
+    if($variant_id==0){
+     $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
+    }else{
+       $results=   $frm_entry->getAll(array('it.id' => $variant_id),'','',true);  
+    }
+   
+ 
 
 
     $unit_variants = array();
@@ -330,6 +336,8 @@ function get_units(){
 
         $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
+        $unitprice = get_unit_price($result->ID);//(parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+        
         $units[] = array(   'id'=>intval($result->ID),
                             'name'=>$result->post_title,
                             'unitType'=>intval($unit_type),
@@ -339,6 +347,7 @@ function get_units(){
                             'views'=>($views),
                             'status'=>intval($unit_status),
                             'unitAssigned'=>intval($unit_assigned),
+                            'unitPrice'=> ($unitprice),
                         );
 
     }
@@ -346,8 +355,27 @@ function get_units(){
     return $units;
 }
 
+/* get_unit_price*/
 
-/*get unit by id*/
+function get_unit_price($unit_id)
+{
+ $unit_variant =   get_post_meta($unit_id, 'unit_variant', true);
+ 
+        $unit_building =   get_post_meta($unit_id, 'building', true);
+
+        $floor =   get_post_meta($unit_id, 'floor', true);
+
+ $variant_data = (get_unit_variants($unit_variant));
+ 
+ $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
+
+ $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
+
+ $floorrise = get_building_floorrise($unit_building,$floor);
+
+  return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
+  
+}/*get unit by id*/
 function get_unit_by_id($id){
 
     $result = get_post($id);
@@ -391,7 +419,9 @@ function ajax_save_apartment(){
 
     $building = $_REQUEST["building"]; 
 
-    $flats_info = get_flats_on_floor($building ,$floor);
+    $apartment_id = $_REQUEST["apartment_id"]==""?0:$_REQUEST["apartment_id"]; 
+
+    $flats_info = get_flats_on_floor($building ,$floor,$apartment_id);
 
     if($flats_info["created_flats"]==count($flats_info["flats"]) && empty($_REQUEST['apartment_id'])){
          $msg = "Cannot add more apartments on the selected floor and building!";
@@ -457,7 +487,7 @@ exit;
 add_action('wp_ajax_save_apartment','ajax_save_apartment'); 
 
 
-function get_flats_on_floor($building ,$floor){
+function get_flats_on_floor($building ,$floor,$apartment_id){
 
     global $wpdb;
 
@@ -483,8 +513,17 @@ function get_flats_on_floor($building ,$floor){
             }
     }
 
+
     $query = "select count(*) from ".$wpdb->prefix."postmeta flat_floor join ".$wpdb->prefix."postmeta flat_building on flat_building.post_id = flat_floor.post_id where  flat_building.meta_key = 'building' and flat_building.meta_value = $building and  flat_floor.meta_key = 'floor' and flat_floor.meta_value = $floor    ";
     $created_flats = $wpdb->get_var($query);
+
+    $apartment_building = get_post_meta($apartment_id,"building",true);
+
+    $apartment_floor = get_post_meta($apartment_id,"floor",true);
+
+    if( $apartment_floor==$floor && $apartment_building==$building){
+        $created_flats--;
+    }
 
     return (array("flats"=>get_flats_details($flats),"created_flats"=>$created_flats));
 }
@@ -494,7 +533,9 @@ function ajax_get_flats_on_floor(){
 
     $floor = $_REQUEST["floor"];
 
-    $flats = get_flats_on_floor($building ,$floor);
+    $apartment_id = $_REQUEST["apartment_id"]==""?0:$_REQUEST["apartment_id"]; 
+
+    $flats = get_flats_on_floor($building ,$floor, $apartment_id);
 
     $response = json_encode( $flats );
 

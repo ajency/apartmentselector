@@ -4,6 +4,7 @@ jQuery(document).ready(function($) {
     //load unit variants 
 
     $('.fileupload').each(function(e,val) { 
+         
         file_field =  val.id.replace(/fileupload/g,'');
         fileUploadByIndex(file_field);
     });
@@ -19,11 +20,7 @@ $(document).on("change", ".no_of_flats", function(e) {
         //check the number of flats before the change of the no of flats
         prevCountOfFlats = $('.belongs_to_'+$(e.target).attr("id")).length 
  
-        if($(e.target).val()==""){
-          
-            $("#"+$(e.target).attr('flats_container_id')).hide() ;
-            return;
-        }
+       
         $("#"+$(e.target).attr('flats_container_id')).show() ;
         //if prev count less then the the new selection add the additional flats UI 
         if(prevCountOfFlats < $(e.target).val()){
@@ -39,7 +36,11 @@ $(document).on("change", ".no_of_flats", function(e) {
             removeFlatsUI(prevCountOfFlats,$(e.target));
         }
        
-         
+        if($(e.target).val()==""){
+          
+            $("#"+$(e.target).attr('flats_container_id')).hide() ;
+            return;
+        }
 
     })
 
@@ -71,22 +72,20 @@ function addFlatsUI(startFrom,element){
  
         exception_no = element.attr('exception_no');
 
-        prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
+        var prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
       
         $("#"+element.attr('flats_container_id')).append("<div flatno ='"+i+"' class='flat_ui belongs_to_"+element.attr("id")+"' >"+getFlatUi(i,exception_no)+'</div>')
 
         //bind file upload ui to the fileupload function
 
-        fileUploadByIndex(prefix+i)
+        fileUploadByIndex('basic_'+prefix+i)
+
+        fileUploadByIndex('detailed_'+prefix+i)
         }
 }
 
 function removeFlatsUI(prevCountOfFlats,element){
-
-    console.log("ffffffffffff")
-    console.log(prevCountOfFlats)
-
-    console.log(element.val())
+ 
      for(i=prevCountOfFlats;i>=element.val();i--){
       
          $('.belongs_to_'+element.attr("id")).eq(i).remove();
@@ -101,6 +100,7 @@ function loadExceptionsOption(floors){
 
         //display one exception option ...button option to add multiple disabled for now
        if($("#exceptions_count").val()!=1){
+         
             $(".exception_container").html(addException(1))
 
             $("#exceptions_count").val(1)
@@ -157,8 +157,9 @@ function getFlatUi(flatNo,exception_no){
         +'<span class="help">'
         +'</span>'
         +'<div class="row">'
-        +'<div class="col-md-4">'
-        + getImageUploadUi(flatNo,exception_no)
+        +'<div class="col-md-12">'; 
+    html += getImageUploadUi(flatNo,exception_no,'basic'); 
+    html += getImageUploadUi(flatNo,exception_no,'detailed')
         +'</div>'
         +'</div>'
         +'</div>'
@@ -170,13 +171,14 @@ function getFlatUi(flatNo,exception_no){
     return html;
 }
 
-function getImageUploadUi(flatNo,exception_no){
+function getImageUploadUi(flatNo,exception_no,field){
 
-    prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
-    html =  '<span class="btn btn-success fileinput-button">'
+    prefix = (exception_no!="")? field+'_exception_'+exception_no+'_':field+'_'+exception_no;
+    
+    html =  toProperCase(field)+': <span class="btn btn-success fileinput-button">'
             +'<i class="glyphicon glyphicon-plus"></i>'
             +'<span>Select files...</span>'
-            +'<input type="hidden" class="image_id" name="'+prefix+'image_id'+flatNo+'"><input id="fileupload'+prefix+''+flatNo+'" class="fileupload" type="file" name="files">'
+            +'<input type="hidden" id="fileupload'+prefix+''+flatNo+'_image_id" name="'+prefix+'image_id'+flatNo+'"><input id="fileupload'+prefix+''+flatNo+'" class="fileupload" type="file" name="files">'
             +'</span>'
             +'<br>'
             +'<br>'
@@ -186,7 +188,7 @@ function getImageUploadUi(flatNo,exception_no){
             +'<div id="'+prefix+flatNo+'"files" class="files'+prefix+flatNo+'"></div>'
             +'<br><div class="row-fluid">'
             +'<div class="col-md-12">'
-            +'<img src="" class="image_display">'
+            +'<img src="" id="fileupload'+prefix+''+flatNo+'_image_display">'
             +'</div>';
     return html;
 }
@@ -202,8 +204,9 @@ function getFloorOptions(floors,exception_no){
     if(editfloors>0){
        
          for(floor=prevCount+1;floor<=floors;floor++){
-
-            $("#"+exception_no+"exception_floors_container"+exception_no).append("<div class='col-md-4'><div class='exception_floor checkbox check-default' id='"+exception_no+"exception_floor_item"+floor+"'><div class='checkbox check-dfault'><input type='checkbox' name='exception_floors"+exception_no+"[]' id='"+floor+"exception_floors"+exception_no+"'  value='"+floor+"'></div><label for='"+floor+"exception_floors"+exception_no+"'>"+floor+"</label></li></div></div>");
+ 
+            $("#exception_floors_container"+exception_no).append("<div class='col-md-4'><div class='exception_floor checkbox check-default' id='"+exception_no+"exception_floor_item"+floor+"'><input type='checkbox' name='exception_floors"+exception_no+"[]' id='"+floor+"exception_floors"+exception_no+"'  value='"+floor+"'><label for='"+floor+"exception_floors"+exception_no+"'>"+floor+"</label></li></div></div>");
+                
           }
     }else{
  
@@ -232,7 +235,7 @@ function addException(exception_no){
 
     html =  ' <div class="form-group">'
         +  '<div class="input-with-icon  right exception_floors"><br><br>' 
-        +  '<div class="row-fluid" id="exception_floors_container'+exception_no+'"></div>'//getFloorOptions($("#no_of_floors").val(),exception_no)
+        +  '<div class="row-fluid" id="exception_floors_container'+exception_no+'">'+getFloorOptions($("#no_of_floors").val(),exception_no)+'</div>'//
         +  '</div>'
         +  '</div>'
         +' <div class="form-group">'
@@ -247,7 +250,8 @@ function addException(exception_no){
         +  '</div>'
         +  '<div class="well" id="flats_container'+exception_no+'" style="display:none">' 
         +  '</div>'
-
+console.log("html")
+console.log(html)
     return html
 }
 

@@ -149,6 +149,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 if (track === 0) {
                   trackArray.push(value.value);
                 }
+                flag = 1;
                 _results.push(track = 1);
               } else {
                 _results.push(void 0);
@@ -170,6 +171,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               if (track === 0) {
                 trackArray.push(value.value);
               }
+              flag = 1;
               return track = 1;
             }
           }
@@ -186,23 +188,19 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         });
         if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
           range = 'LOWRISE';
-          templateArr.push(range);
         }
         mediumUnits = App.master.range.findWhere({
           name: 'medium'
         });
         if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
           range = 'MIDRISE';
-          templateArr.push(range);
         }
         highUnits = App.master.range.findWhere({
           name: 'high'
         });
         if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
           range = 'HIGHRISE';
-          templateArr.push(range);
         }
-        templateString = templateArr.join(',');
       } else {
         templateString = templateArr.join(',');
       }
@@ -249,7 +247,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             unitVariantmodel = App.master.unit_variant.findWhere({
               'id': value1.get('unitVariant')
             });
-            console.log(unitPrice = (parseInt(unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get('sellablearea')));
+            unitPrice = value1.get('unitPrice');
             budget_arr = value.value.split(' ');
             budget_price = budget_arr[0].split('-');
             console.log(budget_price[0] = budget_price[0] + '00000');
@@ -449,6 +447,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           name: unitType.get('name')
         });
       });
+      console.log(range);
       if (range === 'LOWRISE') {
         $.each(mainunitTypeArray, function(key, item) {
           var count;
@@ -469,17 +468,15 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 return lunitTypeArray.push(value.get('id'));
               }
             });
-            mainnewarr.push({
-              id: item.id,
-              name: item.name,
-              count: lunitTypeArray.length,
-              range: 'LOWRISE'
-            });
             return lunique[item.id] = item;
           }
         });
-      }
-      if (range === 'MIDRISE') {
+        mainnewarr.push({
+          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
+          image: 'url',
+          rangetext: "LOWRISE"
+        });
+      } else if (range === 'MIDRISE') {
         $.each(mainunitTypeArray, function(key, item) {
           var count;
           if (!munique[item.id]) {
@@ -499,17 +496,15 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 return munitTypeArray.push(value.get('id'));
               }
             });
-            mainnewarr.push({
-              id: item.id,
-              name: item.name,
-              count: munitTypeArray.length,
-              range: 'MEDIUMRISE'
-            });
             return munique[item.id] = item;
           }
         });
-      }
-      if (range === 'HIGHRISE') {
+        mainnewarr.push({
+          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
+          image: 'url',
+          rangetext: "MIDRISE"
+        });
+      } else if (range === 'HIGHRISE') {
         $.each(mainunitTypeArray, function(key, item) {
           var count;
           if (!hunique[item.id]) {
@@ -529,16 +524,16 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 return hunitTypeArray.push(value.get('id'));
               }
             });
-            mainnewarr.push({
-              id: item.id,
-              name: item.name,
-              count: hunitTypeArray.length,
-              range: "HIGHRISE"
-            });
             return hunique[item.id] = item;
           }
         });
+        mainnewarr.push({
+          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
+          image: 'url',
+          rangetext: "HIGHRISE"
+        });
       } else {
+        range = "ALL";
         $.each(mainunitTypeArray, function(key, item) {
           var count;
           if (!hunique[item.id]) {
@@ -553,14 +548,23 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             $.each(count, function(index, value) {
               return hunitTypeArray.push(value.get('id'));
             });
-            mainnewarr.push({
-              id: item.id,
-              name: item.name,
-              count: hunitTypeArray.length,
-              range: "HIGHRISE"
-            });
             return hunique[item.id] = item;
           }
+        });
+        mainnewarr.push({
+          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
+          image: 'url',
+          rangetext: "HIGHRISE"
+        });
+        mainnewarr.push({
+          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
+          image: 'url',
+          rangetext: "MIDRISE"
+        });
+        mainnewarr.push({
+          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
+          image: 'url',
+          rangetext: "LOWRISE"
         });
       }
       console.log(mainnewarr);
