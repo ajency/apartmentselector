@@ -11,13 +11,15 @@
 
 div.cs-skin-underline {
 	background: transparent;
-	font-size: 1.6em;
+	/*font-size: 1.6em;*/
 	max-width: 400px;
 	margin: auto;
 }
 
 @media screen and (max-width: 30em) {
-	div.cs-skin-underline { font-size: 1.2em; }
+	div.cs-skin-underline { 
+		/*font-size: 1.2em; */
+	}
 }
 
 .cs-skin-underline > span {
@@ -60,8 +62,8 @@ div.cs-skin-underline {
 .cs-skin-underline ul span {
 	position: relative;
 	text-transform: uppercase;
-	font-size: 70%;
-	font-weight: 700;
+	/*font-size: 70%;*/
+	/*font-weight: 700;*/
 	letter-spacing: 1px;
 	padding: 1.2em 0.8em;
 	opacity: 0;
@@ -147,5 +149,5 @@ div.cs-skin-underline {
 .cs-skin-underline .cs-options li.cs-focus span,
 .cs-skin-underline li.cs-selected span {
 	color: #fff;
-	background: #F28428;
+	background: #ff6600;
 }
