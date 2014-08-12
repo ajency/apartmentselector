@@ -104,7 +104,18 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
-            console.log height = $(window).scrollTop()
+            $(window).scroll( ()->
+                console.log height = $(window).scrollTop()
+                if height == 0
+                    $('.backBtn').addClass 'hidden'
+                    $('.slctnTxt').addClass 'hidden'
+                    $('h3').addClass 'step1'
+
+
+
+
+
+            )
 
 
             if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1

@@ -52,16 +52,19 @@ define(['extm'], function(Extm) {
       screenFourRegion: '#screen-four-region'
     };
 
-    mainView.prototype.events = {
-      'scroll': function(e) {
-        var height;
-        return console.log(height = $(window).scrollTop());
-      }
-    };
-
     mainView.prototype.onShow = function() {
       var height;
-      return console.log(height = $(window).scrollTop());
+      console.log(height = $(window).scrollTop());
+      return $(window).scroll(function() {
+        console.log(height = $(window).scrollTop());
+        if (height < 300) {
+          $('.backBtn').addClass('hidden');
+          return $('.slctnTxt').addClass('hidden');
+        } else {
+          $('.backBtn').removeClass('hidden');
+          return $('.slctnTxt').removeClass('hidden');
+        }
+      });
     };
 
     return mainView;
