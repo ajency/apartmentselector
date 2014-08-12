@@ -11,7 +11,7 @@
 }*/
 
 .vs-container {
-	font-size: 16px;
+	/*font-size: 16px;*/
 }
 
 .no-touch .vs-container {
@@ -30,17 +30,17 @@
 .vs-container > header h1 {
 	margin: 0 0 2em 0;
 	padding: 0 0 0.8em;
-	font-weight: 300;
-	font-size: 2.4em;
-	line-height: 1.4;
+	/*font-weight: 300;*/
+	/*font-size: 2.4em;*/
+	/*line-height: 1.4;*/
 	-webkit-backface-visibility: hidden;
 }
 
 .vs-container > header span {
 	display: block;
 	padding: 0 0 0.6em 0.1em;
-	font-size: 60%;
-	font-weight: 400;
+	/*font-size: 60%;*/
+	/*font-weight: 400;*/
 	color: #893027;
 }
 
@@ -82,14 +82,14 @@
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 2px;
-	font-weight: 700;
-	font-size: 1em;
+	/*font-weight: 700;*/
+	/*font-size: 1em;*/
 	-webkit-transition: border-color 0.3s, color 0.3s;
 	transition: border-color 0.3s, color 0.3s;
 }
 
 .vs-nav li.vs-nav-current a{
-	font-size: 1.5em;
+	/*font-size: 1.5em;*/
 	padding: 5px 0;
 }
 
@@ -291,7 +291,7 @@
 	margin: 0 auto;
 	/*color: #893027;*/
 	text-align: justify;
-	line-height: 1.4;
+	/*line-height: 1.4;*/
 	/*-webkit-column-width: 30%;
 	-moz-column-width: 30%;
 	column-width: 30%;
@@ -313,7 +313,7 @@
 
 	.vs-header,
 	.vs-wrapper {
-		font-size: 80%;
+		/*font-size: 80%;*/
 	}
 
 	.vs-content {
@@ -354,7 +354,7 @@
 	}
 
 	.vs-wrapper {
-		font-size: 80%;
+		/*font-size: 80%;*/
 	}
 
 	.vs-triplelayout .vs-nav{
@@ -363,11 +363,11 @@
 
 	.vs-triplelayout .vs-nav li a {
 		width: auto;
-		font-size: 80%;
+		/*font-size: 80%;*/
 		padding: 10px 0;
 	}
 	.vs-triplelayout .vs-nav li.vs-nav-current a {
-		font-size: 100%;
+		/*font-size: 100%;*/
 		padding: 5px 0;
 	}
 

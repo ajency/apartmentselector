@@ -140,7 +140,7 @@ function getDisplayText(itemId,collection,field){
 
 function fileUploadByIndex(field){  
     // Change this to the location of your server-side upload handler:
-  
+  console.log('#fileupload'+field);
     jQuery('#fileupload'+field).fileupload({
         url: AJAXURL+"?action=upload_file",
         
@@ -161,12 +161,14 @@ function fileUploadByIndex(field){
         );
     },
     done: function (e, data) {   
-        console.log(jQuery('#fileupload'+field).parent().find(".image_id"))
-       jQuery('#fileupload'+field).parent().find(".image_id").val(data.result.attachment_id )
-       console.log(data.result.attachment_url)
-       jQuery('#fileupload'+field).parent().parent().find(".image_display").attr('src',data.result.attachment_url )
+       
+       jQuery('#fileupload'+field+'_image_id').val(data.result.attachment_id )
+       
+       jQuery('#fileupload'+field+'_image_display').attr('src',data.result.attachment_url )
+       
        jQuery('#progress'+field).hide(); 
-        jQuery('#progress'+field+' .progress-bar').css(
+    
+       jQuery('#progress'+field+' .progress-bar').css(
             'width',
             '0%'
         );
@@ -199,7 +201,7 @@ function fileUploadById(field){
     done: function (e, data) {   
         console.log(jQuery('#fileupload'+field).parent().find(".image_id"))
        jQuery("#position_in_project").val(data.result.attachment_id )
-       console.log(data.result.attachment_url)
+ 
        jQuery("#image_displayposition_in_project").attr('src',data.result.attachment_url )
        jQuery('#progress'+field).hide(); 
         jQuery('#progress'+field+' .progress-bar').css(
@@ -266,4 +268,10 @@ function customFileUploadUi(fileInput){
             +'<img src="" id="image_display'+fileField+'">'
             +'</div>';
 return html;
+}
+
+function toProperCase(s)
+{
+  return s.toLowerCase().replace(/^(.)|\s(.)/g, 
+          function($1) { return $1.toUpperCase(); });
 }

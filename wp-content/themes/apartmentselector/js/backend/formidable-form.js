@@ -5,8 +5,7 @@
     function init(){
 
     $(".frm_submit").remove();
-
-   
+ 
 
     $("#main-form-container").show();
      
@@ -159,6 +158,7 @@ $(file).remove()
     });
     $(document).on("click", "#save-main-entry", function(e) {
       var data;
+       $('.frm-show-form').validate();
       $("#save-main-entry").hide().parent().append("saving...")
       GetSubFormEntries(e);
       data = $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form").serializeArray();
@@ -225,7 +225,10 @@ function room_type_sizes(data){
     for(i=1;i<=$('#add_more_room_sizes').attr("last-sr-no");i++){
   
       if($("#room_type_for_size_"+i).length!=0){ 
-        room_sizes.push({'room_type':$("#room_type_for_size_"+i).val(),'room_size':$("#room_type_size_"+i).val()})
+        if($("#room_type_for_size_"+i).val()!="" && $("#room_type_for_size_"+i).val()!="+"){
+          room_sizes.push({'room_type':$("#room_type_for_size_"+i).val(),'room_size':$("#room_type_size_"+i).val()})
+        }
+        
       }
 
     }
@@ -269,5 +272,77 @@ function room_type_sizes(data){
       }
 
   });
+
+   if($("#room-type-for-size-container").length!=0){
+   
+
+        $(document).on("change", ".room_type_for_size", function(e) {
+          
+        if( $(this).val()=="+"){
+
+          $('#room-type-form').modal('show')
+
+          $('#room-type-form').attr("editing-element",$(this).attr("id"));
+        }
+      
+    }); 
+
+
+
+         $(document).on("click", "#save-room-type", function(e) {
+ 
+            roomType = $("#new-room-type").val()
+            if(roomType==""){
+              alert("Please Enter Room Size")
+              return
+            }
+            $("#new-room-type").val('')
+            $.post(AJAXURL, {
+                action: "save_room_type",
+                room_type: roomType, 
+              }, function(response) {
+                  exists = false; 
+                  $('#'+$('#room-type-form').attr("editing-element")+' option').each(function(e,val){
+                     
+                    if (val.value == response[0]) {
+                        exists = true; 
+                    }
+                  }) 
+
+                  if(exists==false){
+                     $('.room_type_for_size ').each(function(e,val) {
+                        $(val).append(new Option(roomType, response[0]));
+                    }) 
+                  }
+                $('#room-type-form').modal('hide')
+
+               
+                $('#'+$('#room-type-form').attr("editing-element")).val(response[0]);
+                
+                $('#'+$('#room-type-form').attr("editing-element")).trigger('change')
+
+                
+              });
+          });   
+   }
+
+   //allow only number
+
+
+ $(".amount-data").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
  
   }); 

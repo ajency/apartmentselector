@@ -21,8 +21,9 @@
 		width: 126px;
 		position: absolute;
 		left: 11%;
-		top: 165px;
+		top: 152px;
 		z-index: 999;
+// display: none;
 		// background-color: lighten(@color-grey, 37%);
 		// border: 1px solid lighten(@color-grey, 30%);
 
@@ -50,6 +51,7 @@
 			}
 		}
 	}
+
 	@media(max-width:767px){
 		.tableHeader{
 			left: 0;
@@ -72,23 +74,40 @@
 	// 		width: 100%;
 	// 	}
 	// }
+	.rangeName{
+		position: absolute;
+		font-size: 14px;
+		font-weight: 700;
+		color: @color-grey;
+	}
 
 	.tableBody{
 		.vs-header{
-			padding: 0 0 10px;
+			padding: 0;
+			// background-color: @color-white;
 			.vs-nav{
-				// height: 35px;
+				height: 82px;
+				// z-index: 999;
+				// background-color: @color-white;
 				li{
-					padding: 0;
+					
+					padding: 10px 0 20px;
+					// background-color: @color-white;
+					margin-bottom: 0;
 					a{
 						// font-size: 12px;
-						// padding: 0 0 5px;
+						padding: 5px 0;
 						border-top: 0;
 
 					}
 				} 
 				li.vs-nav-current a{
 					// font-size: 16px;
+					.h3;
+					.light;
+					padding: 5px 0;
+					margin: 0;
+					color: @color-primary;
 				}
 			}
 		}
@@ -129,7 +148,10 @@
 			}
 	        .vs-left {
 	            left: -70%;
-	            
+	            .rangeName{
+	            	.easeOut;
+	            	opacity: 0;
+	            }
 	            .towerDetails{
 	            	.easeOut;
 	            	opacity: 0;
@@ -150,6 +172,9 @@
 	        .vs-current {
 	            position: relative;
 	            z-index: 100;
+				.rangeName{
+					.easeIn;
+				}
 	            .towerDetails{
 	            	.easeIn;
 	            }
@@ -164,6 +189,10 @@
 	        }
 	        .vs-right {
 	            left: 90%;
+	            .rangeName{
+	            	.easeOut;
+	            	opacity: 0;
+	            }
 	            .towerDetails{
 	            	.easeOut;
 	            	opacity: 0;
@@ -174,6 +203,9 @@
 	        }
 	        .vs-right-outer {
 	            left: 170%;
+	            .rangeName{
+	            	opacity: 0;
+	            }
 	            .towerDetails{
 	            	opacity: 0;
 	            }
@@ -193,7 +225,6 @@
 			width: 10%;
 		}
 
-		@media(max-width:767px){
 			.vs-wrapper {
 				& > section {
 					left: 0%;
@@ -226,7 +257,6 @@
 		    .vs-sidenav div {
 		    	display: none;
 		    }
-	    }
 	}
 }
 
