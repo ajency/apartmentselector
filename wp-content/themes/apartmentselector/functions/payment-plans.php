@@ -1,0 +1,139 @@
+<?php
+
+
+function get_payment_plans(){
+
+	$payment_plans = array();
+
+	return $payment_plans; 
+}
+
+function get_payment_by_id($id){
+
+	global $wpdb;
+	
+	$query= "SELECT * FROM ".$wpdb->prefix ."options where   option_id  = '$id'";
+ 
+   	$data = $wpdb->get_results($query,ARRAY_A);
+
+   	return $data[0];
+}
+
+function get_milstones($id=0){
+
+	return get_default_data('milestones',$id);
+}
+
+
+//create new room type
+
+function ajax_save_milestone(){
+ 
+	$milestones = array();
+
+	$milestone = $_REQUEST["milestone"];
+
+    $milestones[] = array("master_type"=>"milestones","value"=>$milestone,"data"=>"");
+	 
+	$return = set_defaults_data($milestones);
+	
+	$response = json_encode( $return );
+
+	header( "Content-Type: application/json" );
+
+	echo $response;
+	
+	exit;
+}
+add_action('wp_ajax_save_milestone','ajax_save_milestone'); 
+
+//create new room type
+
+function ajax_save_payment_plan(){
+ 
+	$milestones = array();
+
+	$milestones = $_REQUEST["milestones"];
+
+	$payment_plan_name = $_REQUEST["payment_plan_name"];
+
+	$payment_plan_id = $_REQUEST["payment_plan_id"];
+
+    if(payment_plan_exists($payment_plan_name,$payment_plan_id)){
+
+    	$error = true;
+
+    	$msg="Payment Plan Already Exists";
+
+    }else{
+    	$error = false;
+
+    	if(empty($payment_plan_id)){
+    		add_option($payment_plan_name,array('milestones'=>$milestones));
+
+	    	$payment_plan = get_option_id($payment_plan_name);
+
+	    	$payment_plans = maybe_unserialize(get_option('payment_plans'));
+
+	    	$payment_plans[] = $payment_plan;
+
+	    	update_option('payment_plans',$payment_plans);
+
+	    	$msg="Payment Plan Created Successfully!";
+    	}else{
+    		update_option($payment_plan_name,array('milestones'=>$milestones));
+
+	    	 
+	    	$msg="Payment Plan Updated Successfully!";
+    	}
+    	
+
+    }
+	$response = json_encode(  array('msg'=>$msg,'error'=>$error));
+
+	header( "Content-Type: application/json" );
+
+	echo $response;
+	
+	exit; 
+}
+add_action('wp_ajax_save_payment_plan','ajax_save_payment_plan'); 
+
+ 
+function payment_plan_exists($payment_plan_name,$payment_plan_id=0){
+
+	$return = false;
+
+	$payment_plans = maybe_unserialize(get_option('payment_plans'));
+
+    $payment_plan_id  = empty($payment_plan_id)?0:$payment_plan_id;
+
+	$payment_plans = is_array($payment_plans)?$payment_plans:array();
+
+    $payment_plans = implode(", ",$payment_plans);
+
+    global $wpdb;
+
+    $query= "SELECT * FROM ".$wpdb->prefix ."options where option_id in($payment_plans) AND option_id != $payment_plan_id";
+ 
+   	$results = $wpdb->get_results($query,ARRAY_A);
+
+   foreach($results as $result){
+
+   		if($result["option_name"]==$payment_plan_name){
+
+   			$return = true;
+   		}
+   }
+
+   return $return;
+}
+
+
+function get_option_id($payment_plan_name){
+	 global $wpdb;
+
+    $query= "SELECT option_id FROM ".$wpdb->prefix ."options where   option_name  = '$payment_plan_name'";
+ 
+   	return $wpdb->get_var($query);
+}

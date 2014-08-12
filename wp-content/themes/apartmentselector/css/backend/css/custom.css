@@ -359,3 +359,24 @@ Version:        0.1.0
 .select-add-item {  
 color: #006CD9;
 }
+
+#milestone-list { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+#milestone-list li { border: 1px solid #dfdfdf;
+  position: relative;
+  padding: 10px 15px;
+  height: 100;
+  width: 450px;
+  line-height: 30px;
+  overflow: hidden;
+  word-wrap: break-word;}
+#milestone-list li span { position: absolute; margin-left: -1.3em; }
+
+.form-control-medium{
+  width:250px !important;
+  display:inline !important;
+ }
+.form-control-small{
+  width:64px !important;
+  padding-right:2px !important;
+ }
+
