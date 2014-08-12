@@ -52,6 +52,18 @@ define(['extm'], function(Extm) {
       screenFourRegion: '#screen-four-region'
     };
 
+    mainView.prototype.events = {
+      'scroll': function(e) {
+        var height;
+        return console.log(height = $(window).scrollTop());
+      }
+    };
+
+    mainView.prototype.onShow = function() {
+      var height;
+      return console.log(height = $(window).scrollTop());
+    };
+
     return mainView;
 
   })(Marionette.LayoutView);

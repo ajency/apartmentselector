@@ -49,6 +49,13 @@ define [ 'extm'], ( Extm)->
             screenTwoRegion: '#screen-two-region'
             screenThreeRegion: '#screen-three-region'
             screenFourRegion: '#screen-four-region'
+        events:
+            'scroll':(e)->
+                console.log height = $(window).scrollTop()
+
+
+        onShow:->
+            console.log height = $(window).scrollTop()
 
 
 

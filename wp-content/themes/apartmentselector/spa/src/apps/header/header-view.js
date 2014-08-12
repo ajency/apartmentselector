@@ -95,6 +95,8 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
+      var height;
+      console.log(height = $(window).scrollTop());
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
 
       } else {
