@@ -41,7 +41,8 @@ define(['marionette'], function(Mariontte) {
           e.preventDefault();
           App.filter(params = {});
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-          return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
+          console.log(App.layout.screenThreeRegion.el.innerHTML = "");
+          return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
         } else if (window.location.href.indexOf('screen-four') > -1) {
           console.log(App.backFilter['screen3']);
           screenthreeArray = App.backFilter['screen3'];
@@ -60,8 +61,8 @@ define(['marionette'], function(Mariontte) {
           App.navigate("screen-three");
           e.preventDefault();
           App.filter(params = {});
-          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-          return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
+          console.log(App.layout.screenFourRegion.el.innerHTML = "");
+          return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
         } else {
           App.backFilter['screen2'] = [];
           screenoneArray = App.backFilter['screen1'];
@@ -87,7 +88,8 @@ define(['marionette'], function(Mariontte) {
           e.preventDefault();
           App.filter(params = {});
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-          return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
+          console.log(App.layout.screenTwoRegion.el.innerHTML = "");
+          return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
         }
       }
     };

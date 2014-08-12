@@ -196,7 +196,7 @@ require [ 'plugin-loader'
         budgetUnitArray = []
         budget_arr = budget.split('-')
         budget_arr[0] = budget_arr[0] + ('00000')
-        budget_arr[1] = budget_arr[1]+ (' ')
+        budget_arr[1] = budget_arr[1]+ ('00000')
         units = App.currentStore.unit
         units.each (item)->
             buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
@@ -204,7 +204,7 @@ require [ 'plugin-loader'
             floorRiseValue = floorRise[item.get 'floor']
             unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
             #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
-            unitPrice = item.get 'unitPrice'
+            console.log unitPrice = item.get 'unitPrice'
             item.set({'unitPrice' , unitPrice})
             if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
                 budgetUnitArray.push item

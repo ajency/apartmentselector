@@ -35,11 +35,22 @@ define(['marionette'], function(Marionette) {
       return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
     },
     show: function(params) {
+      var flag;
       if (params == null) {
         params = {};
       }
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      flag = 0;
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All') {
+          return flag = 1;
+        }
+      });
+      if (flag === 0) {
+        msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
+        msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
+      }
       return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
     },
     showUnits: function(params) {

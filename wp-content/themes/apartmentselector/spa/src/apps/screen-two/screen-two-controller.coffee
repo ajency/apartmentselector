@@ -294,7 +294,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
 
-
+            console.log units
             $.each(units, (index,value)->
                 maxcoll = Array()
 
@@ -426,6 +426,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             buildingUnits = []
+            console.log buildingArray
             $.each(buildingArray, (index,value)->
                 buildingid = value
                 unitTypeArray = Array()
@@ -577,6 +578,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             console.log unitColl
+            console.log buildingUnits
             buildingvalue = _.max(buildingUnits,  (model)->
                 model.count
             )

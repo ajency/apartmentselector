@@ -40,6 +40,20 @@ define [ 'marionette'], ( Marionette )->
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
+            flag = 0
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    flag = 1
+
+            )
+            if flag == 0
+                msgbus.showApp 'main:app'
+                .insideRegion  App.mainRegion
+                    .withOptions()
+                msgbus.showApp 'screen:one'
+                    .insideRegion  App.layout.screenOneRegion
+                    .withOptions()
+
             msgbus.showApp 'screen:two'
                 .insideRegion  App.layout.screenTwoRegion
                 .withOptions()

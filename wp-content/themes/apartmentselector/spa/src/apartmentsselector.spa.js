@@ -156,7 +156,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
     budgetUnitArray = [];
     budget_arr = budget.split('-');
     budget_arr[0] = budget_arr[0] + '00000';
-    budget_arr[1] = budget_arr[1] + ' ';
+    budget_arr[1] = budget_arr[1] + '00000';
     units = App.currentStore.unit;
     units.each(function(item) {
       var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
@@ -168,7 +168,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
       unitVariantmodel = App.currentStore.unit_variant.findWhere({
         'id': item.get('unitVariant')
       });
-      unitPrice = item.get('unitPrice');
+      console.log(unitPrice = item.get('unitPrice'));
       item.set({
         'unitPrice': 'unitPrice',
         unitPrice: unitPrice
