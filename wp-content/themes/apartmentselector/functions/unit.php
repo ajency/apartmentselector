@@ -268,6 +268,7 @@ function get_unit_variants($variant_id=0){
 
     $unit_variants = array();
     foreach($results as $result){
+
         $persqftprice = is_null($result->metas['persqftprice'])?0:$result->metas['persqftprice'];
         
         $url2dlayout_image_id = $result->metas['2dlayout'];
@@ -278,7 +279,15 @@ function get_unit_variants($variant_id=0){
 
         $url3dlayout_image = wp_get_attachment_image_src( $url3dlayout_image_id, 'large'    ); 
 
-        $unit_variants[] = array('id'=>intval($result->id),'name'=>$result->metas['name'] ,'carpetarea'=>$result->metas['carpetarea'] ,'sellablearea'=>$result->metas['sellablearea'],'terracearea'=>$result->metas['terracearea'],'persqftprice'=>$persqftprice,'url2dlayout_image'=>$url2dlayout_image[0],'url3dlayout_image'=>$url3dlayout_image[0],'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes']),);
+        $unit_variants[] = array(   'id'=>intval($result->id),
+                                    'name'=>$result->metas['name'] ,
+                                    'carpetarea'=>$result->metas['carpetarea'] ,
+                                    'sellablearea'=>$result->metas['sellablearea'],
+                                    'terracearea'=>$result->metas['terracearea'], 
+                                    'url2dlayout_image'=>$url2dlayout_image[0],
+                                    'url3dlayout_image'=>$url3dlayout_image[0],
+                                    'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes'])
+                                    );
     }
 
     return $unit_variants;
@@ -338,6 +347,8 @@ function get_units(){
 
         $unitprice = get_unit_price($result->ID);//(parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
         
+        $premiumunitprice = get_premium_unit_price($result->ID);//(parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+        
         $units[] = array(   'id'=>intval($result->ID),
                             'name'=>$result->post_title,
                             'unitType'=>intval($unit_type),
@@ -348,6 +359,7 @@ function get_units(){
                             'status'=>intval($unit_status),
                             'unitAssigned'=>intval($unit_assigned),
                             'unitPrice'=> ($unitprice),
+                            'premiumUnitPrice'=> ($premiumunitprice),
                         );
 
     }
@@ -359,23 +371,46 @@ function get_units(){
 
 function get_unit_price($unit_id)
 {
- $unit_variant =   get_post_meta($unit_id, 'unit_variant', true);
+    $unit_variant =   get_post_meta($unit_id, 'unit_variant', true);
  
-        $unit_building =   get_post_meta($unit_id, 'building', true);
+    $unit_building =   get_post_meta($unit_id, 'building', true);
 
-        $floor =   get_post_meta($unit_id, 'floor', true);
+    $floor =   get_post_meta($unit_id, 'floor', true);
 
- $variant_data = (get_unit_variants($unit_variant));
- 
- $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
+    $variant_data = (get_unit_variants($unit_variant));
+     
+    $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
 
- $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
+    $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
 
- $floorrise = get_building_floorrise($unit_building,$floor);
+    $floorrise = get_building_floorrise($unit_building,$floor);
 
-  return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
+    return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
   
-}/*get unit by id*/
+}
+
+/*
+get_premium_unit_price
+*/
+function get_premium_unit_price($unit_id){
+    
+    $unit_variant =   get_post_meta($unit_id, 'unit_variant', true);
+ 
+    $unit_building =   get_post_meta($unit_id, 'building', true);
+
+    $floor =   get_post_meta($unit_id, 'floor', true);
+
+    $variant_data = (get_unit_variants($unit_variant));
+     
+    $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
+
+    $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
+
+    $floorrise = get_building_floorrise($unit_building,$floor);
+
+    return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
+}
+/*get unit by id*/
 function get_unit_by_id($id){
 
     $result = get_post($id);
