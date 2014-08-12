@@ -80,7 +80,7 @@ define [ 'marionette' ], ( Marionette )->
         			{{/priceArray}}
         		</select>
         	    </section><div class="h-align-middle m-t-50 m-b-20">
-        		<a class="btn btn-default btn-large disabled" id="finalButton">Find Apartments</a>
+        		<a href="#screen-two-region" class="btn btn-default btn-large disabled" id="finalButton">Find Apartments</a>
         		<br><br>
         		</div>'
 
@@ -109,6 +109,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 @trigger 'unit:type:clicked'
 
+
             'click .cs-selected':(e)->
                 for element in unitType
                     $('a' ).removeClass 'selected'
@@ -117,6 +118,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.defaults['unitType'] = 'All'
                 $("#finalButton").removeClass 'disabled btn-default'
                 $("#finalButton").addClass 'btn-primary'
+
+            'click a':(e)->
+                e.preventDefault()
 
 
 
@@ -132,6 +136,11 @@ define [ 'marionette' ], ( Marionette )->
                 $( this ).toggleClass( "selected" )
             )
             unitType = []
+
+
+
+
+
 
 
 

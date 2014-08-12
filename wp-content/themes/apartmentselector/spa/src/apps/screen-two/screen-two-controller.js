@@ -173,8 +173,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
                 templateArr.push(budget_Val);
               }
               if (index === 'floor') {
-                templateArr.push(value);
-                _results.push(flag = 1);
+                _results.push(templateArr.push(value));
               } else {
                 _results.push(void 0);
               }
@@ -198,8 +197,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               templateArr.push(budget_Val);
             }
             if (index === 'floor') {
-              templateArr.push(value);
-              return flag = 1;
+              return templateArr.push(value);
             }
           }
         }

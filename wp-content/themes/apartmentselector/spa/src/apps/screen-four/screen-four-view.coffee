@@ -28,6 +28,9 @@ define [ 'marionette' ], ( Marionette )->
                     autoSlide: true,
                     includeTitle:false
             )
+            $('html, body').animate({
+                scrollTop: $('#screen-four-region').offset().top
+            }, 'slow');
 
 
 

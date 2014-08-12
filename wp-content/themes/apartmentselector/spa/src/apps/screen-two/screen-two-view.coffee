@@ -282,6 +282,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             m  = $('#mapplic1').data('mapplic')
 
+            $('html, body').animate({
+                scrollTop: $('#screen-two-region').offset().top
+            }, 'slow');
+
+
 
 
 

@@ -21,11 +21,14 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
-      return $('#slider-plans').liquidSlider({
+      $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false
       });
+      return $('html, body').animate({
+        scrollTop: $('#screen-four-region').offset().top
+      }, 'slow');
     };
 
     return ScreenFourLayout;

@@ -78,7 +78,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="text-center introTxt bold">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">Choose a budget</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a class="btn btn-default btn-large disabled" id="finalButton">Find Apartments</a> <br><br> </div>';
+    ScreenOneView.prototype.template = '<div class="text-center introTxt bold">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div> <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4> <div class="text-center subTxt">Choose a budget</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-large disabled" id="finalButton">Find Apartments</a> <br><br> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -117,6 +117,9 @@ define(['marionette'], function(Marionette) {
         App.defaults['unitType'] = 'All';
         $("#finalButton").removeClass('disabled btn-default');
         return $("#finalButton").addClass('btn-primary');
+      },
+      'click a': function(e) {
+        return e.preventDefault();
       }
     };
 

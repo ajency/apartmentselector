@@ -32,7 +32,9 @@ requirejs.config({
     jqueryRemodal: 'src/bower_components/preload/jquery.remodal',
     jqueryEasingmin: 'src/bower_components/preload/jquery.easing.min',
     jqueryliquidslider: 'src/bower_components/preload/jquery.liquid-slider.min',
-    jquerytouchswipe: 'src/bower_components/preload/jquery.touchSwipe.min'
+    jquerytouchswipe: 'src/bower_components/preload/jquery.touchSwipe.min',
+    jqueryCookie: 'src/bower_components/bower_components/jquery-cookie/jquery.cookie',
+    scroller: 'src/bower_components/preload/scroller'
   },
   shim: {
     jquery: ['underscore'],
@@ -64,6 +66,7 @@ requirejs.config({
     jqueryRemodal: ['jquery'],
     jqueryEasingmin: ['jquery'],
     jqueryliquidslider: ['jquery'],
-    jquerytouchswipe: ['jquery']
+    jquerytouchswipe: ['jquery'],
+    scroller: ['jquery']
   }
 });

@@ -40,23 +40,48 @@ define(['marionette'], function(Marionette) {
       }
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
+      return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
     },
     showUnits: function(params) {
+      var flag;
       if (params == null) {
         params = {};
       }
       App.filter(params = {});
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      return msgbus.showApp('screen:three').insideRegion(App.mainRegion).withOptions();
+      flag = 0;
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All') {
+          return flag = 1;
+        }
+      });
+      if (flag === 0) {
+        msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
+        msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
+        msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
+      }
+      return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
     },
     showSelectedUnit: function(params) {
+      var flag;
       if (params == null) {
         params = {};
       }
       App.filter(params = {});
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      return msgbus.showApp('screen:four').insideRegion(App.mainRegion).withOptions();
+      flag = 0;
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All') {
+          return flag = 1;
+        }
+      });
+      if (flag === 0) {
+        msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
+        msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
+        msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
+        msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
+      }
+      return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
     },
     showpopup: function() {
       return msgbus.showApp('popup').insideRegion(App.mainRegion).withOptions();

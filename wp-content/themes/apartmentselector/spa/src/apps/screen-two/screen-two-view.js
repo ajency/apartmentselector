@@ -190,7 +190,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         i++;
       }
-      return m = $('#mapplic1').data('mapplic');
+      m = $('#mapplic1').data('mapplic');
+      return $('html, body').animate({
+        scrollTop: $('#screen-two-region').offset().top
+      }, 'slow');
     };
 
     return ScreenTwoLayout;

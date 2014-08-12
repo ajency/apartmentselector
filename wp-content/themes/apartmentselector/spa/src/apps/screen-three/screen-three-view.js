@@ -163,7 +163,7 @@ define(['marionette'], function(Marionette) {
       });
       if (App.defaults['unitVariant'] !== 'All') {
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
-        return $.each(unitVariantArray, function(index, value) {
+        $.each(unitVariantArray, function(index, value) {
           var key;
           console.log(value);
           key = _.contains(globalUnitArrayInt, parseInt(value));
@@ -177,6 +177,9 @@ define(['marionette'], function(Marionette) {
           }
         });
       }
+      return $('html, body').animate({
+        scrollTop: $('#screen-three-region').offset().top
+      }, 'slow');
     };
 
     return ScreenThreeLayout;

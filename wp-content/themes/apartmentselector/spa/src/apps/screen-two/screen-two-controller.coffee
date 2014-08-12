@@ -166,7 +166,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                                 templateArr.push budget_Val
                             if index == 'floor'
                                 templateArr.push value
-                                flag = 1
+                                #flag = 1
                     else
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
@@ -179,7 +179,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                             templateArr.push budget_Val
                         if index == 'floor'
                             templateArr.push value
-                            flag = 1
+                            #flag = 1
 
 
 

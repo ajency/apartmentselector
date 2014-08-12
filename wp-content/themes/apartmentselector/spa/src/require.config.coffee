@@ -33,6 +33,8 @@ requirejs.config
         jqueryEasingmin :'src/bower_components/preload/jquery.easing.min'
         jqueryliquidslider :'src/bower_components/preload/jquery.liquid-slider.min'
         jquerytouchswipe :'src/bower_components/preload/jquery.touchSwipe.min'
+        jqueryCookie :'src/bower_components/bower_components/jquery-cookie/jquery.cookie'
+        scroller : 'src/bower_components/preload/scroller'
 
 
 
@@ -67,6 +69,7 @@ requirejs.config
         jqueryEasingmin : ['jquery']
         jqueryliquidslider : ['jquery']
         jquerytouchswipe : ['jquery']
+        scroller : ['jquery']
 
 
 

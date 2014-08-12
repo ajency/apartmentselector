@@ -3,10 +3,11 @@
 
 # add your required plugins here.
 define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','jqueryEasingmin'
-                            ,'jquerytouchswipe','jqueryliquidslider'], ->
+,'jquerytouchswipe','jqueryliquidslider'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
+
     'src/apps/footer/footer-controller'
     'src/apps/header/header-controller'
     'src/apps/screen-one/screen-one-controller'
@@ -14,6 +15,7 @@ define 'apps-loader', [
     'src/apps/screen-three/screen-three-controller'
     'src/apps/screen-four/screen-four-controller'
     'src/apps/popup/popup-controller'
+    'src/apps/main-app/main-layout'
 ], ->
 
     # set all plugins for this page here
@@ -69,6 +71,8 @@ require [ 'plugin-loader'
 
 
 
+    App.layout = ""
+
     #filter function which takes the parameters into account anf filters the current store.
     App.filter = (params={})->
         #check whether url contains any parameters
@@ -102,6 +106,10 @@ require [ 'plugin-loader'
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
             '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
 
+
+
+
+
         param_arr = params.split('&')
         budgetUnitArray = []
         $.each(param_arr, (index,value)->
@@ -130,17 +138,17 @@ require [ 'plugin-loader'
 
 
                 )
-            #if thers is only one value assigned to the filter
+                #if thers is only one value assigned to the filter
             else if param_val_arr.length ==  1
                 budget_val = param_val_arr[0].split(' ')
                 #if filter value is set to ALl
                 if param_val_arr[0].toUpperCase() == 'ALL'
                     collection =  App.currentStore.unit.toArray()
-                # if filter is set to budget value
+                    # if filter is set to budget value
                 else if budget_val.length>1
                     budgetUnitArray = App.getBudget(budget_val[0])
                     collection  = budgetUnitArray
-                #if filter is set to a value
+                    #if filter is set to a value
                 else
                     collection =  App.currentStore.unit.where(paramkey)
 
@@ -149,7 +157,7 @@ require [ 'plugin-loader'
 
 
         )
-        
+
 
         buildings = App.currentStore.unit.pluck("building")
         uniqBuildings = _.uniq(buildings)
@@ -214,7 +222,7 @@ require [ 'plugin-loader'
     if window.location.hash is ''
         App.filter()
         staticApps.push [ 'header', App.headerRegion ]
-        staticApps.push [ 'screen:one', App.mainRegion ]
+        staticApps.push [ 'main:app', App.mainRegion ]
 
 
 
@@ -234,6 +242,6 @@ require [ 'plugin-loader'
 
     App.addStaticApps staticApps
 
-        # start application
+    # start application
     App.start()
 

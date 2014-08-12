@@ -285,6 +285,9 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
+            $('html, body').animate({
+                scrollTop: $('#screen-three-region').offset().top
+            }, 'slow');
 
 
 
