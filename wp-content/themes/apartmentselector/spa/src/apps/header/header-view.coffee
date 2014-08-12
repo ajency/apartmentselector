@@ -108,7 +108,7 @@ define [ 'marionette' ], ( Mariontte )->
                 if height == 0
                     $('.backBtn').addClass 'hidden'
                     $('.slctnTxt').addClass 'hidden'
-                    $('h3').addClass 'step1'
+                    $('h5').addClass 'step1'
 
 
 
@@ -122,7 +122,7 @@ define [ 'marionette' ], ( Mariontte )->
             else
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
-                $('h3').addClass 'step1
+                $('h5').addClass 'step1
 
 
                        '

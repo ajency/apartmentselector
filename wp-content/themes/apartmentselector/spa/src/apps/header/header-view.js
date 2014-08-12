@@ -101,7 +101,7 @@ define(['marionette'], function(Mariontte) {
         if (height === 0) {
           $('.backBtn').addClass('hidden');
           $('.slctnTxt').addClass('hidden');
-          return $('h3').addClass('step1');
+          return $('h5').addClass('step1');
         }
       });
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
@@ -109,7 +109,7 @@ define(['marionette'], function(Mariontte) {
       } else {
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');
-        return $('h3').addClass('step1');
+        return $('h5').addClass('step1');
       }
     };
 

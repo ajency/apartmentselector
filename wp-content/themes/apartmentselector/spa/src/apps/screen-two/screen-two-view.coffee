@@ -39,13 +39,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         		    </div>
 
                     <div class="towerTable">
-                        <div class="tableHeader">
-            				<ul>
-            					<li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li>
-            					<li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li>
-            					<li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li>
-            				</ul>
-            		    </div>
                         <div class="tableBody">
             				<div id="vs-container2" class="vs-container">
             				    <header class="vs-header" id="building-region"></header>
@@ -53,15 +46,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
                         </div>
                     </div>
-
-                    <div class="m-t-40 p-l-15 p-r-15 text-center">
-        				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
-        				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                        <div id="mapplic1" class="towersMap center-block"></div>
-                    </div>
+                    <div class="h-align-middle m-t-20 m-b-20">
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="">Select</a>
+                        </div>
 
                 </div>
-                <div class="col-sm-8"></div>
+                <div class="col-sm-8">
+                    <div class="m-t-10 text-center">
+                        <h4 class="bold m-t-0">Where is this tower located in the project?</h4>
+                        <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>
+                        <div id="mapplic1" class="towersMap center-block"></div>
+                    </div>
+                </div>
                     </div>'
 
 
@@ -361,11 +357,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>
-                    <div class="box {{classname}}">{{count}}</div>
+        template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
+                    <div class="pull-left light">
+                        <h5 class="rangeName bold">{{range}}</h5>
+                        <div class="small">{{rangeNo}}</div>
+                    </div>
+                    <div class="pull-right box {{classname}}">{{count}}</div>
+                    <div class="clearfix"></div>
                             </div>'
 
-        className : 'text-center'
+        className : 'text-center towerSelect'
 
 
         events:
@@ -400,8 +401,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         template : '<div class="vs-content">
                             <div class="towerUnits">
-                                <div class="subHeader">
-                                    <div class="row">
+                                <div class="subHeader ">
+                                    <div class="row small light">
                                         <div class="col-xs-5">
                                             FLOOR<br>RANGE
                                         </div>
@@ -411,22 +412,20 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            <div class="b-grey b-l">
-                                <div class="towerUnits psuedoUnits"></div>
-                                <div class="towerDetails">
+                                <!--<div class="towerDetails m-t-10">
                                     <div class="row">
                                         <div class="col-xs-4">
-                                           <h3 class="m-t-0 m-b-0">Total Apartments</h3>
-                                           <h2 class="semi-bold m-t-5">{{totalunits}}</h2>
+                                           <h4 class="m-t-0 m-b-0 bold">Total Apartments</h4>
+                                           <h3 class="light m-t-0">{{totalunits}}</h3>
                                         </div>
 
                                         <div class="col-xs-4">
-                                           <h3 class="m-t-0 m-b-0">Available Apartments</h3>
-                                           <h2 class="semi-bold m-t-5">{{availableunits}}</h2>
+                                           <h4 class="m-t-0 m-b-0 bold">Available Apartments</h4>
+                                           <h3 class="light m-t-0">{{availableunits}}</h3>
                                         </div>
                                         <div class="col-xs-4">
-                                           <h3 class="m-t-0 m-b-0">Number of Floors</h3>
-                                           <h2 class="semi-bold m-t-5">{{totalfloors}}</h2>
+                                           <h4 class="m-t-0 m-b-0 bold">Number of Floors</h4>
+                                           <h3 class="light m-t-0">{{totalfloors}}</h3>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -436,19 +435,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-l-0 m-r-0 m-b-20">
-                                        <div class="col-xs-4">
-                                            <h4 class="m-t-0 text-primary"><div class="bold">VIEWS</div>for this tower</h4>
-                                        </div>
 
-       {{#views}}                                         <div class="col-xs-4">
-
-                                  {{#data}}          <span class="glyphicon glyphicon-asterisk small text-grey"></span>{{name}}<br>{{/data}}
+                                    <h4 class="m-t-0 m-b-5 text-primary"><span class="bold">VIEWS</span> for this tower</h4>
+                                    <div class="row m-b-20">
+                                        {{#views}}
+                                        <div class="col-sm-6">
+                                            {{#data}}<span class="glyphicon glyphicon-asterisk small text-grey"></span> {{name}}<br>{{/data}}
                                         </div>
-{{/views}}
+                                        {{/views}}
                                     </div>
-                                </div>
-                            </div>
+                                </div>-->
                     </div>'
 
 

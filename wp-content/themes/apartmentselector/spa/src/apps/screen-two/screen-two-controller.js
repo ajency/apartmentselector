@@ -714,7 +714,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           range: 'high',
           buildingid: buildingid,
           unittypes: hnewarr,
-          classname: hclassname
+          classname: hclassname,
+          range: 'HIGHRISE',
+          rangeNo: 'Floors 11-15'
         });
         mainArray.push({
           count: mediumArray.length,
@@ -723,7 +725,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           range: 'medium',
           buildingid: buildingid,
           unittypes: mnewarr,
-          classname: mclassname
+          classname: mclassname,
+          range: 'MIDRISE',
+          rangeNo: 'Floors 6-10'
         });
         mainArray.push({
           count: lowArray.length,
@@ -732,7 +736,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           range: 'low',
           buildingid: buildingid,
           unittypes: lnewarr,
-          classname: lclassname
+          classname: lclassname,
+          range: 'LOWRISE',
+          rangeNo: 'Floors 1-5'
         });
         itemCollection = new Backbone.Collection(mainArray);
         buildingModel = App.currentStore.building.findWhere({

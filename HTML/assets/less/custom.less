@@ -33,7 +33,7 @@ body{
 	position: fixed;
 	width: 100%;
 	z-index: 9999;
-	h3{
+	h5{
 		text-align: left;
 		// font-size: 14px;
 		margin-left: 65px;
@@ -83,6 +83,12 @@ body{
 	}
 }
 
+.ease{
+  -webkit-transition: all 0.3s ease-out;  /* Chrome 1-25, Safari 3.2+ */
+     -moz-transition: all 0.3s ease-out;  /* Firefox 4-15 */
+       -o-transition: all 0.3s ease-out;  /* Opera 10.50–12.00 */
+          transition: all 0.3s ease-out;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
 
 .easeIn {
     -webkit-animation: fadein 1s; 
@@ -131,15 +137,6 @@ body{
 }
 
 
-
-//For font weight variations
-.semi-bold{
-  font-weight: 500;
-}
-.bold{
-  font-weight: 600;
-}
-
 .text-white{
 	color: @color-white;
 }
@@ -148,10 +145,7 @@ body{
 	color: @color-primary;
 }
 
-//Apartment Selector
-// iframe{
-// 	margin: 50px auto 0;
-// 	display: block;
-// 	width: 520px;
-// }
 
+#screen-two-region, #screen-three-region, #screen-four-region{
+	border-top: 1px solid @gray-lighter;
+}
