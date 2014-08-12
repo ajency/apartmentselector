@@ -70,7 +70,9 @@ define [ 'marionette' ], ( Marionette )->
 
     class ScreenOneView extends Marionette.CompositeView
 
-        template : '<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div>
+        template : '<div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4">
+                            <div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div>
         <div class="grid-container"></div><h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
         	<div class="text-center subTxt">Choose a budget</div><section>
         		<select class="cs-select cs-skin-underline" id="budgetValue">
@@ -80,9 +82,12 @@ define [ 'marionette' ], ( Marionette )->
         			{{/priceArray}}
         		</select>
         	    </section><div class="h-align-middle m-t-50 m-b-20">
-        		<a class="btn btn-default btn-lg disabled" id="finalButton">Find Apartments</a>
+        		<a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Find Apartments</a>
         		<br><br>
-        		</div>'
+        		</div>
+                </div>
+                <div class="col-sm-8"></div>
+                    </div>'
 
         className : 'page-container row-fluid'
 
@@ -109,6 +114,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 @trigger 'unit:type:clicked'
 
+
             'click .cs-selected':(e)->
                 for element in unitType
                     $('a' ).removeClass 'selected'
@@ -117,6 +123,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.defaults['unitType'] = 'All'
                 $("#finalButton").removeClass 'disabled btn-default'
                 $("#finalButton").addClass 'btn-primary'
+
+            'click a':(e)->
+                e.preventDefault()
 
 
 
@@ -132,6 +141,11 @@ define [ 'marionette' ], ( Marionette )->
                 $( this ).toggleClass( "selected" )
             )
             unitType = []
+
+
+
+
+
 
 
 

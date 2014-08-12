@@ -6756,11 +6756,6 @@ h5 {
   }
 }
 @media (min-width: 980px) {
-  .grid-container .grid-block-1 {
-    margin-right: 1.66113%;
-    width: 15.2824%;
-    height: 88px;
-  }
   .grid-container .grid-block-1 .grid-link .grid-text-wrap {
     line-height: 18px;
   }
@@ -7305,16 +7300,12 @@ h5 {
 }
 .towerTable .tableBody .vs-header {
   padding: 0;
-  background-color: #ffffff;
 }
 .towerTable .tableBody .vs-header .vs-nav {
   height: 82px;
-  z-index: 999;
-  background-color: #ffffff;
 }
 .towerTable .tableBody .vs-header .vs-nav li {
   padding: 10px 0 20px;
-  background-color: #ffffff;
   margin-bottom: 0;
 }
 .towerTable .tableBody .vs-header .vs-nav li a {
@@ -7475,33 +7466,31 @@ h5 {
   position: absolute;
   width: 10%;
 }
-@media (max-width: 767px) {
-  .towerTable .tableBody .vs-wrapper > section {
-    left: 0%;
-    width: 100%;
-  }
-  .towerTable .tableBody .vs-wrapper .vs-content {
-    width: 80%;
-  }
-  .towerTable .tableBody .vs-wrapper .vs-left {
-    left: -100%;
-  }
-  .towerTable .tableBody .vs-wrapper .vs-left-outer {
-    left: -200%;
-  }
-  .towerTable .tableBody .vs-wrapper .vs-current {
-    position: relative;
-    z-index: 100;
-  }
-  .towerTable .tableBody .vs-wrapper .vs-right {
-    left: 100%;
-  }
-  .towerTable .tableBody .vs-wrapper .vs-right-outer {
-    left: 200%;
-  }
-  .towerTable .tableBody .vs-sidenav div {
-    display: none;
-  }
+.towerTable .tableBody .vs-wrapper > section {
+  left: 0%;
+  width: 100%;
+}
+.towerTable .tableBody .vs-wrapper .vs-content {
+  width: 80%;
+}
+.towerTable .tableBody .vs-wrapper .vs-left {
+  left: -100%;
+}
+.towerTable .tableBody .vs-wrapper .vs-left-outer {
+  left: -200%;
+}
+.towerTable .tableBody .vs-wrapper .vs-current {
+  position: relative;
+  z-index: 100;
+}
+.towerTable .tableBody .vs-wrapper .vs-right {
+  left: 100%;
+}
+.towerTable .tableBody .vs-wrapper .vs-right-outer {
+  left: 200%;
+}
+.towerTable .tableBody .vs-sidenav div {
+  display: none;
 }
 .psuedoUnits {
   position: absolute;
@@ -7630,7 +7619,9 @@ body {
   background-color: #ffffff;
 }
 .header.navbar {
-  position: static;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
 }
 .header.navbar h3 {
   text-align: left;
@@ -7662,11 +7653,11 @@ body {
 }
 .page-container {
   padding: 0 5px;
-  padding-top: 30px !important;
+  padding-top: 80px !important;
 }
 @media (min-width: 768px) {
   .page-container {
-    padding-top: 40px !important;
+    padding-top: 90px !important;
   }
   .header.navbar h3 {
     text-align: center;

@@ -40,8 +40,9 @@ define [ 'marionette' ], ( Mariontte )->
                     msgbus.showApp 'header'
                     .insideRegion  App.headerRegion
                         .withOptions()
+                    console.log App.layout.screenThreeRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:two'
-                    .insideRegion  App.mainRegion
+                    .insideRegion  App.layout.screenTwoRegion
                         .withOptions()
                 else if window.location.href.indexOf('screen-four') > -1
                     console.log App.backFilter['screen3']
@@ -58,11 +59,9 @@ define [ 'marionette' ], ( Mariontte )->
                     App.navigate "screen-three"
                     e.preventDefault()
                     App.filter(params={})
-                    msgbus.showApp 'header'
-                    .insideRegion  App.headerRegion
-                        .withOptions()
+                    console.log App.layout.screenFourRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:three'
-                    .insideRegion  App.mainRegion
+                    .insideRegion  App.layout.screenThreeRegion
                         .withOptions()
 
 
@@ -95,21 +94,38 @@ define [ 'marionette' ], ( Mariontte )->
                     msgbus.showApp 'header'
                     .insideRegion  App.headerRegion
                         .withOptions()
+                    console.log App.layout.screenTwoRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:one'
-                    .insideRegion  App.mainRegion
+                    .insideRegion  App.layout.screenOneRegion
                         .withOptions()
 
 
 
 
         onShow:->
+            $(window).scroll( ()->
+                console.log height = $(window).scrollTop()
+                if height == 0
+                    $('.backBtn').addClass 'hidden'
+                    $('.slctnTxt').addClass 'hidden'
+                    $('h3').addClass 'step1'
+
+
+
+
+
+            )
+
+
             if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
 
             else
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1
-                '
+
+
+                       '
 
                 
 

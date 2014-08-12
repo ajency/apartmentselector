@@ -173,8 +173,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
                 templateArr.push(budget_Val);
               }
               if (index === 'floor') {
-                templateArr.push(value);
-                _results.push(flag = 1);
+                _results.push(templateArr.push(value));
               } else {
                 _results.push(void 0);
               }
@@ -198,8 +197,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               templateArr.push(budget_Val);
             }
             if (index === 'floor') {
-              templateArr.push(value);
-              return flag = 1;
+              return templateArr.push(value);
             }
           }
         }
@@ -326,6 +324,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         return unitVariantID.push(parseInt(unitVarinatModel.get('id')));
       });
+      console.log(units);
       $.each(units, function(index, value) {
         var maxcoll, unitType, unittypemodel;
         maxcoll = Array();
@@ -515,6 +514,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         }
       });
       buildingUnits = [];
+      console.log(buildingArray);
       $.each(buildingArray, function(index, value) {
         var availableunits, buildingid, data, floors, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
@@ -752,6 +752,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         return buildingArrayModel.push(buildingModel);
       });
       console.log(unitColl);
+      console.log(buildingUnits);
       buildingvalue = _.max(buildingUnits, function(model) {
         return model.count;
       });

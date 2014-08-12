@@ -40,8 +40,22 @@ define [ 'marionette'], ( Marionette )->
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
-            msgbus.showApp 'screen:two'
+            flag = 0
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    flag = 1
+
+            )
+            if flag == 0
+                msgbus.showApp 'main:app'
                 .insideRegion  App.mainRegion
+                    .withOptions()
+                msgbus.showApp 'screen:one'
+                    .insideRegion  App.layout.screenOneRegion
+                    .withOptions()
+
+            msgbus.showApp 'screen:two'
+                .insideRegion  App.layout.screenTwoRegion
                 .withOptions()
 
         showUnits:(params={})->
@@ -49,8 +63,25 @@ define [ 'marionette'], ( Marionette )->
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
+            flag = 0
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    flag = 1
+
+            )
+            if flag == 0
+                msgbus.showApp 'main:app'
+                .insideRegion  App.mainRegion
+                    .withOptions()
+                msgbus.showApp 'screen:one'
+                .insideRegion  App.layout.screenOneRegion
+                    .withOptions()
+                msgbus.showApp 'screen:two'
+                .insideRegion  App.layout.screenTwoRegion
+                    .withOptions()
+
             msgbus.showApp 'screen:three'
-            .insideRegion  App.mainRegion
+            .insideRegion  App.layout.screenThreeRegion
                 .withOptions()
 
         showSelectedUnit:(params={})->
@@ -59,8 +90,27 @@ define [ 'marionette'], ( Marionette )->
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
+            flag = 0
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    flag = 1
+
+            )
+            if flag == 0
+                msgbus.showApp 'main:app'
+                .insideRegion  App.mainRegion
+                    .withOptions()
+                msgbus.showApp 'screen:one'
+                .insideRegion  App.layout.screenOneRegion
+                    .withOptions()
+                msgbus.showApp 'screen:two'
+                .insideRegion  App.layout.screenTwoRegion
+                    .withOptions()
+                msgbus.showApp 'screen:three'
+                .insideRegion  App.layout.screenThreeRegion
+                    .withOptions()
             msgbus.showApp 'screen:four'
-            .insideRegion  App.mainRegion
+            .insideRegion  App.layout.screenFourRegion
                 .withOptions()
 
 

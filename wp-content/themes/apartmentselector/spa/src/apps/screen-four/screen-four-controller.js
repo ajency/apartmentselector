@@ -58,7 +58,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       });
       unitsArray = App.currentStore.unit.toArray();
       $.each(units, function(index, value) {
-        var building, exceptionObject, floorLayoutimage, floorvalue, positionObject, unitTypeModel, unitVariantModel;
+        var bedroomArray, building, exceptionObject, floorLayoutimage, floorvalue, positionObject, roomSizesArray, toiletArray, unitTypeModel, unitVariantModel;
         unitVariantModel = App.currentStore.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -93,8 +93,33 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             }
           });
         }
+        console.log(roomSizesArray = unitVariantModel.get('roomsizes'));
+        bedroomArray = [];
+        toiletArray = [];
+        $.each(roomSizesArray, function(index, value1) {
+          if (value1.room_type === 'Bedroom') {
+            bedroomArray.push({
+              size: value1.room_size
+            });
+          }
+          if (value1.room_type === 'Toilet') {
+            toiletArray.push({
+              size: value1.room_size
+            });
+          }
+          if (value1.room_type === 'Kitchen') {
+            value.set('Kitchen', value1.room_size);
+          }
+          if (value1.room_type === 'Terrace') {
+            value.set('Terrace', value1.room_size);
+          }
+          if (value1.room_type === 'Terrace') {
+            return value.set('Terrace', value1.room_size);
+          }
+        });
         value.set('floorLayoutimage', floorLayoutimage);
-        return value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
+        value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
+        return value.set('toiletArray', toiletArray);
       });
       units.sort(function(a, b) {
         return a.get('id') - b.get('id');

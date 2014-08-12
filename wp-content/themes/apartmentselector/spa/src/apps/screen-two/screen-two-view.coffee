@@ -6,7 +6,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     globalArrayLength = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
+        template : '<div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4">
+                            <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
                     <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
 
@@ -56,6 +58,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         				<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
         				<p>This is a map of the entire project that shows the location of the tower selected (on the left).</p>
                         <div id="mapplic1" class="towersMap center-block"></div>
+                    </div>
+
+                </div>
+                <div class="col-sm-8"></div>
                     </div>'
 
 
@@ -282,6 +288,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             m  = $('#mapplic1').data('mapplic')
 
+            $('html, body').animate({
+                scrollTop: $('#screen-two-region').offset().top
+            }, 'slow');
+
+
 
 
 
@@ -388,8 +399,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitView extends Marionette.CompositeView
 
         template : '<div class="vs-content">
-                        <div class="row">
-                            <div class="col-sm-6 towerUnits">
+                            <div class="towerUnits">
                                 <div class="subHeader">
                                     <div class="row">
                                         <div class="col-xs-5">
@@ -401,7 +411,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 b-grey b-l">
+                            <div class="b-grey b-l">
                                 <div class="towerUnits psuedoUnits"></div>
                                 <div class="towerDetails">
                                     <div class="row">
@@ -439,7 +449,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>'
 
 

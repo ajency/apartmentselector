@@ -30,7 +30,9 @@ body{
 }
 
 .header.navbar{
-	position: static;
+	position: fixed;
+	width: 100%;
+	z-index: 9999;
 	h3{
 		text-align: left;
 		// font-size: 14px;
@@ -68,11 +70,11 @@ body{
 }
 .page-container {
 	padding: 0 5px;
-	padding-top: 30px !important;
+	padding-top: 80px !important;
 }
 @media (min-width:768px){
 	.page-container {
-		padding-top: 40px !important;
+		padding-top: 90px !important;
 	}
 	.header.navbar h3{
 		text-align: center;

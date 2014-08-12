@@ -228,7 +228,7 @@ function get_current_version() {
 function is_single_page_app( $module_name ) {
 
     // add slugs of SPA pages here
-    $spa_pages = array( 'apartment-selector' );
+    $spa_pages = array( 'apartment-selector','apartmentsselector' );
 
     return in_array( $module_name, $spa_pages );
 
