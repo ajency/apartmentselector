@@ -4,7 +4,7 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
-
+    firstElement =''
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
@@ -151,10 +151,18 @@ define [ 'marionette' ], ( Marionette )->
                         globalUnitArrayInt.push(parseInt(id))
                         unitVariantArray = globalUnitArrayInt
 
-                if globalUnitArrayInt.length == unitVariantArray.length
-                    unitVariantString = 'All'
+                console.log firstElement
+                if unitVariantArray.length == 0
+                    unitVariantString = firstElement.toString()
                 else
-                    unitVariantString = unitVariantArray.join(',')
+
+
+
+                    if globalUnitArrayInt.length == unitVariantArray.length
+                        unitVariantString = 'All'
+
+                    else
+                        unitVariantString = unitVariantArray.join(',')
 
 
 
@@ -216,12 +224,11 @@ define [ 'marionette' ], ( Marionette )->
                 $.each(remainainArray, (index,value)->
                     $('#gridlink'+value).removeClass 'selected'
                     $('#checklink'+value).val '0'
-                    index = unitVariantArray.indexOf(parseInt(value))
-                    unitVariantArray.splice( index, 1 )
+
 
 
                 )
-                unitVariantString = unitVariantArray.join(',')
+                unitVariantString = value.toString()
 
         onShow:->
             if App.screenOneFilter['key'] == 'unitType'
@@ -284,6 +291,7 @@ define [ 'marionette' ], ( Marionette )->
                 return
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log firstElement = _.first(unitVariantArray)
             console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
             globalUnitArrayInt = []
             $.each(globalUnitVariants, (index,value)->

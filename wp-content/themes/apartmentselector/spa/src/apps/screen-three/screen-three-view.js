@@ -3,11 +3,12 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, emptyChildView, flag_set, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, emptyChildView, firstElement, flag_set, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
   unitVariantString = '';
+  firstElement = '';
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -66,10 +67,15 @@ define(['marionette'], function(Marionette) {
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        if (globalUnitArrayInt.length === unitVariantArray.length) {
-          return unitVariantString = 'All';
+        console.log(firstElement);
+        if (unitVariantArray.length === 0) {
+          return unitVariantString = firstElement.toString();
         } else {
-          return unitVariantString = unitVariantArray.join(',');
+          if (globalUnitArrayInt.length === unitVariantArray.length) {
+            return unitVariantString = 'All';
+          } else {
+            return unitVariantString = unitVariantArray.join(',');
+          }
         }
       },
       'click .done': function(e) {
@@ -124,11 +130,9 @@ define(['marionette'], function(Marionette) {
         remainainArray = _.rest(unitVariantArray);
         $.each(remainainArray, function(index, value) {
           $('#gridlink' + value).removeClass('selected');
-          $('#checklink' + value).val('0');
-          index = unitVariantArray.indexOf(parseInt(value));
-          return unitVariantArray.splice(index, 1);
+          return $('#checklink' + value).val('0');
         });
-        return unitVariantString = unitVariantArray.join(',');
+        return unitVariantString = value.toString();
       }
     };
 
@@ -181,6 +185,7 @@ define(['marionette'], function(Marionette) {
         $(this).toggleClass("selected");
       });
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      console.log(firstElement = _.first(unitVariantArray));
       console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
       globalUnitArrayInt = [];
       $.each(globalUnitVariants, function(index, value) {

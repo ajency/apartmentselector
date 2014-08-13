@@ -4,6 +4,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantIdArray = []
     unitVariantString = ''
     globalArrayLength = []
+    firstElement =''
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -135,12 +136,19 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         globalArrayLength.push(id)
                         unitVariantArray = globalUnitArrayInt
 
-
-                if globalUnitArrayInt.length == unitVariantArray.length
-                    unitVariantString = 'All'
-
+                console.log unitVariantArray
+                console.log firstElement
+                if unitVariantArray.length == 0
+                    unitVariantString = firstElement.toString()
                 else
-                    unitVariantString = unitVariantArray.join(',')
+
+
+
+                    if globalUnitArrayInt.length == unitVariantArray.length
+                        unitVariantString = 'All'
+
+                    else
+                        unitVariantString = unitVariantArray.join(',')
 
 
 
@@ -209,12 +217,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $.each(remainainArray, (index,value)->
                     $('#grid'+value).removeClass 'selected'
                     $('#check'+value).val '0'
-                    index = unitVariantArray.indexOf(parseInt(value))
-                    unitVariantArray.splice( index, 1 )
 
 
                 )
-                unitVariantString = unitVariantArray.join(',')
+                unitVariantString = value.toString()
 
 
 
@@ -239,6 +245,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log firstElement = _.first(unitVariantArray)
             console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
             globalUnitArrayInt = []
             $.each(globalUnitVariants, (index,value)->
