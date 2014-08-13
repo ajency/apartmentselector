@@ -293,7 +293,7 @@ console.log(html)
         $.post(AJAXURL, {
             action: "get_list_view",
             list: "buildings", //the list required
-            masters:["phases","views","payment_plans","milestones"] //the masters required for the list
+            masters:["phases","views"] //the masters required for the list
         }, function(response) {
 
             _collections.list = response.list

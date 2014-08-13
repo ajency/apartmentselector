@@ -24,6 +24,8 @@ if(isset($_REQUEST["id"])){
 
     $unit_building = $unit["building"];
 
+    $unit_facing = $unit["facing"];
+
     $apartment_views = is_array($unit["apartment_views"])?$unit["apartment_views"]:array();
 
     $unit_assigned = $unit["unit_assigned"];
@@ -108,14 +110,32 @@ if(isset($_REQUEST["id"])){
 
                         <div class="input-with-icon  right">
                             <i class=""></i>
-                            <select  name="building" id="building">
+                            <select  name="building" id="building" class="form-control">
                                 <option value="">Select</option>
                                 <?php
                                 $floors_option = 0;
                                 $buildings = get_buildings();
                                 foreach($buildings as $building){
-                                    ?>
+                                    ?>m-control
                                     <option  floors = "<?php echo $building['nooffloors']; ?>" value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected";$floors_option=$building['nooffloors']; }?>><?php echo  $building['name']?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Facings</label>
+
+                        <div class="input-with-icon  right">
+                            <i class=""></i>
+                            <select  name="facing" id="facing" class="form-control">
+                                <option value="">Select</option>
+                                <?php 
+                                $facings = get_facings();
+                                foreach($facings as $facing){
+                                    ?> 
+                                    <option  value="<?php echo $facing['id']; ?>" <?php if($unit_facing==$facing['id']){ echo "selected"; }?>><?php echo  $facing['name']?></option>
                                 <?php
                                 }
                                 ?>
