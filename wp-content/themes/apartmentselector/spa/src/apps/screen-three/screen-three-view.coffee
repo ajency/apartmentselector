@@ -46,6 +46,10 @@ define [ 'marionette' ], ( Marionette )->
                         <div  id="unit-region"></div>
                     </div>
 
+                    <div class="h-align-middle m-t-20 m-b-20">
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
+                    </div>
+
                     
 
                     </div>

@@ -4,7 +4,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantIdArray = []
     unitVariantString = ''
     globalArrayLength = []
-    firstElement =''
+    firstElement = ''
     rangeArray =[]
     class ScreenTwoLayout extends Marionette.LayoutView
 
@@ -58,7 +58,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
                         <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
-                        </div>
+                    </div>
 
                 </div>
                 <div class="col-sm-8">
