@@ -15,15 +15,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
-                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-                    <div class="variantBox">
+                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle1"> All  </span> variants of your apartment selection</div>
+                    <div class="variantBox1">
 
                         <div class="pull-left m-l-15">
                             <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
                             <label for="selectall">Select/Unselect All</label>
                         </div>
                         <div class="text-right m-b-20">
-                            <span class="variantClose glyphicon glyphicon-remove text-grey"></span>
+                            <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span>
                         </div>
                         <div class="grid-container">
                             {{#unitVariants}}
@@ -167,9 +167,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.filter(params={})
                 if globalArrayLength.length == unitVariantArray.length
-                    @$el.find('.variantToggle').text 'All'
+                    @$el.find('.variantToggle1').text 'All'
                 else
-                    @$el.find('.variantToggle').text ''
+                    @$el.find('.variantToggle1').text ''
 
                 App.defaults['unitVariant'] = unitVariantString
                 console.log App.defaults
@@ -179,7 +179,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .cancel':(e)->
                 console.log unitVariantIdArray
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
-                $(".variantBox").slideToggle()
+                $(".variantBox1").slideToggle()
                 console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
                 globalUnitArrayInt = []
                 $.each(globalUnitVariants, (index,value)->
@@ -296,14 +296,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
 
-            $(".variantToggle").click ->
+            $(".variantToggle1").click ->
                 $(this).toggleClass("open")
-                $(".variantBox").slideToggle()
+                $(".variantBox1").slideToggle()
                 return
 
-            $(".variantClose").click ->
-                $(".variantBox").slideToggle()
-                $(".variantToggle").toggleClass("open")
+            $(".variantClose1").click ->
+                $(".variantBox1").slideToggle()
+                $(".variantToggle1").toggleClass("open")
                 return
 
             $(".grid-link").click  (e)->
