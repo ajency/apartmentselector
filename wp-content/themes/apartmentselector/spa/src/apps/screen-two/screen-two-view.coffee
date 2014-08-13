@@ -97,7 +97,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .scroll':(e)->
                 console.log $('#'+e.target.id ).attr('data-id')
                 $('html, body').animate({ scrollTop : 0 }, 'slow')
-                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
+                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-7')
 
             'click .grid-link':(e)->
                 console.log unitVariantArray

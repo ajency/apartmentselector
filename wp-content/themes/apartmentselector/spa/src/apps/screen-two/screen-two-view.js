@@ -44,7 +44,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $('html, body').animate({
           scrollTop: 0
         }, 'slow');
-        return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
+        return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-7'));
       },
       'click .grid-link': function(e) {
         var globalUnitArrayInt, globalUnitVariants, id, index, track;
