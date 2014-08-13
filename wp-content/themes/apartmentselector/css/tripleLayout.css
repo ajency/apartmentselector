@@ -78,7 +78,7 @@
 	outline: none;
 	border-top: 2px solid transparent;
 	border-bottom: 2px solid transparent;
-	color: #f28428;
+	color: #ff6600;
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 2px;
@@ -99,15 +99,15 @@
 .vs-container.vs-move-left .vs-nav-right a,
 .vs-container.vs-move-right .vs-nav-left a {
 	border-top: 2px solid transparent;
-	border-bottom: 2px solid #f28428;
+	border-bottom: 2px solid #ff6600;
 	color: ;
 }
 
 .vs-container.vs-move-left .vs-nav-current a,
 .vs-container.vs-move-right .vs-nav-current a {
-	border-color: #f28428;
-	border-top: 0;
-	color: #f28428;
+	border-color: #ff6600;
+	border-top: 2px solid transparent;
+	color: #ff6600;
 }
 
 .vs-triplelayout .vs-nav .vs-nav-left,
@@ -284,7 +284,7 @@
 
 .vs-content h2 {
 	position: relative;
-	/*color: #f28428;*/
+	/*color: #ff6600;*/
 }
 
 .vs-content .col {

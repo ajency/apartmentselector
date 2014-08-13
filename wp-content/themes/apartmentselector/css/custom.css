@@ -6836,7 +6836,6 @@ h5 {
 }
 @media (min-width: 768px) {
   .grid-container .grid-block-3 {
-    width: 12.766%;
     margin-right: 1.77305%;
   }
   .grid-container .grid-block-3 .grid-link {
@@ -6956,13 +6955,53 @@ h5 {
 .legend .oneBHK {
   color: #5bc0de;
 }
-.towersMap {
-  width: 100%;
+.rangeName {
+  margin-bottom: 0px;
 }
-@media (min-width: 768px) {
-  .towersMap {
-    width: 80%;
-  }
+.towerSelect {
+  padding: 0 10px;
+  cursor: pointer;
+  padding-top: 10px;
+  border-bottom: 1px solid #dfe1e5;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
+.towerSelect:hover {
+  color: #ff6600;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
+.towerSelect:hover .box {
+  color: #ff6600;
+  border-color: #ff6600;
+}
+.towerSelect.selected {
+  background-color: #ff6600;
+  color: #ffffff;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
+.towerSelect.selected .box {
+  color: #ff6600;
+  border-color: #ff6600;
 }
 .box {
   padding: 8px 15px;
@@ -6975,6 +7014,14 @@ h5 {
   font-weight: 600;
   cursor: pointer;
   position: relative;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 .box .small {
   font-size: 52%;
@@ -7041,6 +7088,14 @@ h5 {
 .box:hover {
   border-color: #ff6600;
   color: #ff6600;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 /**** Responsive Table Styles ****/
 .unitTable {
@@ -7248,248 +7303,84 @@ h5 {
 .vs-triplelayout .vs-wrapper > section {
   padding-bottom: 50px;
 }
-.towerTable {
-  position: relative;
-  width: 100%;
-  margin: auto;
-}
-.towerTable .tableHeader {
-  width: 126px;
-  position: absolute;
-  left: 11%;
-  top: 152px;
-  z-index: 999;
-}
-.towerTable .tableHeader ul {
-  list-style-type: none;
+.vs-header {
   padding: 0;
 }
-.towerTable .tableHeader ul li {
-  height: 56px;
-  margin-bottom: 25px;
-  padding-top: 5px;
-  background-color: #f8f9fa;
+.vs-header .vs-nav {
+  height: 60px;
 }
-.towerTable .tableHeader ul li span {
-  text-decoration: underline;
-}
-.towerTable .tableHeader ul li a {
-  color: #8b91a0;
-  cursor: default;
-}
-@media (max-width: 767px) {
-  .towerTable .tableHeader {
-    left: 0;
-    top: 145px;
-    width: 48%;
-  }
-  .towerTable .tableHeader ul > li {
-    padding-left: 20%;
-  }
-}
-@media (min-width: 768px) and (max-width: 1166px) {
-  .towerTable .tableHeader {
-    left: 16%;
-  }
-}
-.towerTable .rangeName {
-  position: absolute;
-  font-size: 14px;
-  font-weight: 700;
-  color: #8b91a0;
-}
-.towerTable .tableBody .vs-header {
-  padding: 0;
-}
-.towerTable .tableBody .vs-header .vs-nav {
-  height: 82px;
-}
-.towerTable .tableBody .vs-header .vs-nav li {
+.vs-header .vs-nav li {
   padding: 10px 0 20px;
   margin-bottom: 0;
 }
-.towerTable .tableBody .vs-header .vs-nav li a {
-  padding: 5px 0;
-  border-top: 0;
+.vs-header .vs-nav li a {
+  padding: 10px 0 5px;
+  border-top: 2px solid #ffffff;
+  font-size: 87%;
+  font-weight: 400;
 }
-.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a {
+.vs-header .vs-nav li.vs-nav-current a {
   font-family: 'kievit';
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
-  margin-top: 21px;
+  margin-top: 10.5px;
   margin-bottom: 10.5px;
-  font-size: 35px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 700;
   padding: 5px 0;
   margin: 0;
   color: #ff6600;
 }
-.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a small,
-.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a .small {
+.vs-header .vs-nav li.vs-nav-current a small,
+.vs-header .vs-nav li.vs-nav-current a .small {
   font-weight: normal;
   line-height: 1;
   color: #999999;
 }
-.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a small,
-.towerTable .tableBody .vs-header .vs-nav li.vs-nav-current a .small {
-  font-size: 65%;
+.vs-header .vs-nav li.vs-nav-current a small,
+.vs-header .vs-nav li.vs-nav-current a .small {
+  font-size: 75%;
 }
-.towerTable .tableBody .vs-container {
+.vs-container {
   position: static;
 }
-.towerTable .tableBody .vs-wrapper > section {
-  left: 10%;
-  width: 80%;
-  padding: 0;
-}
-.towerTable .tableBody .vs-wrapper .towerUnits > div {
-  margin-bottom: 15px;
-  border-bottom: 1px solid #dfe1e5;
-}
-.towerTable .tableBody .vs-wrapper .towerUnits .subHeader {
-  margin-bottom: 5px;
-  padding: 0 0 5px;
-  font-size: 11px;
-  border-bottom: none;
-}
-.towerTable .tableBody .vs-wrapper .towerUnits .subHeader .row {
-  margin: auto;
-  padding: 5px 0;
-  border-bottom: 1px solid #dfe1e5;
-}
-.towerTable .tableBody .vs-wrapper .vs-left {
-  left: -70%;
-}
-.towerTable .tableBody .vs-wrapper .vs-left .rangeName {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-left .towerDetails {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-left .psuedoUnits {
-  -webkit-animation: fadein 1s;
-  -moz-animation: fadein 1s;
-  -ms-animation: fadein 1s;
-  -o-animation: fadein 1s;
-  animation: fadein 1s;
-}
-.towerTable .tableBody .vs-wrapper .vs-left-outer {
-  left: -150%;
-}
-.towerTable .tableBody .vs-wrapper .vs-left-outer .psuedoUnits {
-  display: none;
-}
-.towerTable .tableBody .vs-wrapper .vs-current {
-  position: relative;
-  z-index: 100;
-}
-.towerTable .tableBody .vs-wrapper .vs-current .rangeName {
-  -webkit-animation: fadein 1s;
-  -moz-animation: fadein 1s;
-  -ms-animation: fadein 1s;
-  -o-animation: fadein 1s;
-  animation: fadein 1s;
-}
-.towerTable .tableBody .vs-wrapper .vs-current .towerDetails {
-  -webkit-animation: fadein 1s;
-  -moz-animation: fadein 1s;
-  -ms-animation: fadein 1s;
-  -o-animation: fadein 1s;
-  animation: fadein 1s;
-}
-.towerTable .tableBody .vs-wrapper .vs-current .psuedoUnits {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-current .psuedoBox {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-right {
-  left: 90%;
-}
-.towerTable .tableBody .vs-wrapper .vs-right .rangeName {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-right .towerDetails {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-right-outer {
-  left: 170%;
-}
-.towerTable .tableBody .vs-wrapper .vs-right-outer .rangeName {
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-right-outer .towerDetails {
-  opacity: 0;
-}
-.towerTable .tableBody .vs-wrapper .vs-right-outer .psuedoUnits {
-  -webkit-animation: fadeout 0.5s;
-  -moz-animation: fadeout 0.5s;
-  -ms-animation: fadeout 0.5s;
-  -o-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  opacity: 0;
-  display: none;
-}
-.towerTable .tableBody .vs-sidenav div {
-  display: block;
-  position: absolute;
-  width: 10%;
-}
-.towerTable .tableBody .vs-wrapper > section {
+.vs-triplelayout .vs-wrapper > section {
   left: 0%;
   width: 100%;
+  padding: 0 0 20px;
 }
-.towerTable .tableBody .vs-wrapper .vs-content {
-  width: 80%;
+.vs-triplelayout .vs-wrapper .vs-content {
+  width: 90%;
+  padding: 0;
 }
-.towerTable .tableBody .vs-wrapper .vs-left {
+.vs-triplelayout .vs-wrapper .towerUnits .subHeader {
+  font-size: 16px;
+  padding-top: 5px;
+  border-bottom: none;
+}
+.vs-triplelayout .vs-wrapper .towerUnits .subHeader .row {
+  margin: auto;
+  padding: 5px 0;
+  border-bottom: 2px solid #dfe1e5;
+}
+.vs-triplelayout .vs-wrapper .vs-left {
   left: -100%;
 }
-.towerTable .tableBody .vs-wrapper .vs-left-outer {
+.vs-triplelayout .vs-wrapper .vs-left-outer {
   left: -200%;
 }
-.towerTable .tableBody .vs-wrapper .vs-current {
+.vs-triplelayout .vs-wrapper .vs-current {
   position: relative;
   z-index: 100;
 }
-.towerTable .tableBody .vs-wrapper .vs-right {
+.vs-triplelayout .vs-wrapper .vs-right {
   left: 100%;
 }
-.towerTable .tableBody .vs-wrapper .vs-right-outer {
+.vs-triplelayout .vs-wrapper .vs-right-outer {
   left: 200%;
 }
-.towerTable .tableBody .vs-sidenav div {
+.vs-sidenav div {
   display: none;
 }
 .psuedoUnits {
@@ -7500,43 +7391,20 @@ h5 {
 .psuedoUnits .psuedoBox {
   display: none;
 }
-@media (max-width: 767px) {
-  .towerRange h1 {
-    font-size: 25px;
-    line-height: 32px;
-    margin-top: 30px;
-  }
-  .towerRange h1 small {
-    font-size: 50%;
-  }
-}
 @media (min-width: 768px) {
   .viewsNo {
     float: left;
   }
 }
-@media (max-width: 480px) {
-  .towerDetails {
-    left: 0;
-    width: 100%;
-  }
-}
-@media (max-width: 1169px) {
-  .towerDetails h3 {
-    font-size: 15px;
-    line-height: 20px;
-  }
-  .towerDetails h1 {
-    font-size: 25px;
-    line-height: 25px;
-  }
-}
-.vs-header .vs-nav li.vs-nav-current a {
-  -webkit-animation: fadein 1s;
-  -moz-animation: fadein 1s;
-  -ms-animation: fadein 1s;
-  -o-animation: fadein 1s;
-  animation: fadein 1s;
+.vs-header .vs-nav li a {
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
@@ -7623,11 +7491,11 @@ body {
   width: 100%;
   z-index: 9999;
 }
-.header.navbar h3 {
+.header.navbar h5 {
   text-align: left;
   margin-left: 65px;
 }
-.header.navbar h3.step1 {
+.header.navbar h5.step1 {
   text-align: center;
   margin-left: 0;
 }
@@ -7663,6 +7531,16 @@ body {
     text-align: center;
     margin-left: 0;
   }
+}
+.ease {
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 .easeIn {
   -webkit-animation: fadein 1s;
@@ -7726,15 +7604,14 @@ body {
     opacity: 0;
   }
 }
-.semi-bold {
-  font-weight: 500;
-}
-.bold {
-  font-weight: 600;
-}
 .text-white {
   color: #ffffff;
 }
 .text-primary {
   color: #ff6600;
+}
+#screen-two-region,
+#screen-three-region,
+#screen-four-region {
+  border-top: 1px solid #eeeeee;
 }
