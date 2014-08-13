@@ -82,7 +82,7 @@ $(document).on("click", "#add-more-milstones", function(e) {
    
     cloneElement = $('#milestone-list li:first').html() ;
  
-    html = '<li class="sortable-items">'+cloneElement.replace(/1/g,nextItem)+'</li>';
+    html = '<li class="sortable-items"  id="sortable-items-'+nextItem+'">'+cloneElement.replace(/1/g,nextItem)+'</li>';
 
     $('#milestone-list').append(html);
 
@@ -105,7 +105,7 @@ $(document).on("click", "#save_payment_plan", function(e) {
             payment_plan_id= $("#payment_plan_id").val();
 
             milestones = getSelectedMilstones();
-
+ 
      
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")
 
@@ -117,10 +117,30 @@ $(document).on("click", "#save_payment_plan", function(e) {
               }, function(response)  {
 
             resetForm(e,$('#payment_plan_id').val(),response);
+            
+            if($('#payment_plan_id').val()==""){
+
+                resetMilstones();
+
+            }
         });
         }
     });
 
+
+function resetMilstones(){
+
+    $('#milestone-list li').each(function(e,val) {
+        if(e!=0){
+            $(val).remove();
+        }
+        else{
+                $(val).children('[name="milestone"]').val("")
+                $(val).children('[name="milestone"]').trigger('change')
+                $(val).children('[name="payment_percentage"]').val("")
+            }
+        });
+}
 $(document).on("click", ".milestone-remove", function(e) {
  
  if($('#milestone-list li').length==1){
