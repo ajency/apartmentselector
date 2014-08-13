@@ -167,6 +167,8 @@ function save_unit($post_id, $post){
 
     $building = $_REQUEST["building"];
 
+    $facing = $_REQUEST["facing"];
+
     $unit_status = $_REQUEST["unit_status"];
 
     $unit_assigned = $_REQUEST["unit_assigned"];
@@ -178,6 +180,8 @@ function save_unit($post_id, $post){
     update_post_meta($post->ID, 'floor', $floor);
 
     update_post_meta($post->ID, 'building', $building);
+
+    update_post_meta($post->ID, 'facing', $facing);
 
     update_post_meta($post->ID, 'unit_status', $unit_status);
 
@@ -334,6 +338,8 @@ function get_units(){
 
         $unit_building =   get_post_meta($result->ID, 'building', true);
 
+        $unit_facing =   get_post_meta($result->ID, 'facing', true);
+
         $floor =   get_post_meta($result->ID, 'floor', true);
 
         $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
@@ -361,6 +367,7 @@ function get_units(){
                             'unitAssigned'=>intval($unit_assigned),
                             'unitPrice'=> ($unitprice),
                             'premiumUnitPrice'=> ($premiumunitprice),
+                            'facing'=>intval($unit_facing)
                         );
 
     }
@@ -420,6 +427,8 @@ function get_unit_by_id($id){
 
     $unit_building =   get_post_meta($result->ID, 'building', true);
 
+    $unit_facing =   get_post_meta($result->ID, 'facing', true);
+
     $floor =   get_post_meta($result->ID, 'floor', true);
 
     $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
@@ -440,7 +449,8 @@ function get_unit_by_id($id){
                     'floor'=>$floor,
                     'unit_assigned'=>$unit_assigned,
                     'apartment_views'=>$apartment_views,
-                    'status'=>$unit_status
+                    'status'=>$unit_status,
+                    'facing'=>$unit_facing
                 );
 }
 

@@ -449,6 +449,31 @@ console.log(html)
                 }
             }); 
 
+   $(document).on("change", "#building_payment_plan", function(e) {
 
+        $("#building_milestone").empty();
+
+        $("#building_milestone").append(new Option("Select", ""));
+        if($(e.target).val()!=""){
+ 
+        $.post(AJAXURL, {
+            action: "get_payment_plan_milestones",
+
+            payment_plan: $("option:selected", $(e.target)).val()
+        }, function(response) {
+
+        sortedresponse = _.sortBy(response, function (obj) { 
+            
+         return parseInt(obj.sort_index);
+        });
+
+            $.each(sortedresponse, function(i, val) {
+                $("#building_milestone").append(new Option(val.name, val.milestone));
+            });
+
+        });
+        }
+   });
+ 
 })
 
