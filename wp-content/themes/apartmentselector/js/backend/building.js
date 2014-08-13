@@ -293,7 +293,7 @@ console.log(html)
         $.post(AJAXURL, {
             action: "get_list_view",
             list: "buildings", //the list required
-            masters:["phases","views"] //the masters required for the list
+            masters:["phases","views","payment_plans","milestones"] //the masters required for the list
         }, function(response) {
 
             _collections.list = response.list
@@ -449,6 +449,31 @@ console.log(html)
                 }
             }); 
 
+   $(document).on("change", "#building_payment_plan", function(e) {
 
+        $("#building_milestone").empty();
+
+        $("#building_milestone").append(new Option("Select", ""));
+        if($(e.target).val()!=""){
+ 
+        $.post(AJAXURL, {
+            action: "get_payment_plan_milestones",
+
+            payment_plan: $("option:selected", $(e.target)).val()
+        }, function(response) {
+
+        sortedresponse = _.sortBy(response, function (obj) { 
+            
+         return parseInt(obj.sort_index);
+        });
+
+            $.each(sortedresponse, function(i, val) {
+                $("#building_milestone").append(new Option(val.name, val.milestone));
+            });
+
+        });
+        }
+   });
+ 
 })
 

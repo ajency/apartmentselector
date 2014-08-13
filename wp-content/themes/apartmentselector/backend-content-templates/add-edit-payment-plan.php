@@ -88,7 +88,7 @@ $heading = "Edit";
                         <option value="">Select Milestone</option>
                         <option value="+" class="select-add-item ">Add New Milestone</option>
                           <?php
-                          $milestones = get_milstones();
+                          $milestones = get_milestones();
 
                           foreach($milestones as $milestone)
                           {
@@ -117,7 +117,7 @@ $heading = "Edit";
               <option value="">Select Milestone</option>
               <option value="+" class="select-add-item ">Add New Milestone</option>
               <?php
-              $milestones = get_milstones();
+              $milestones = get_milestones();
 
               foreach($milestones as $milestone)
               {
