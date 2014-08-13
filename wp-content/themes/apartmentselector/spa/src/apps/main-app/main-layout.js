@@ -56,7 +56,7 @@ define(['extm'], function(Extm) {
       var height;
       console.log(height = $(window).scrollTop());
       return $(window).scroll(function() {
-        console.log(height = $(window).scrollTop());
+        height = $(window).scrollTop();
         if (height < 300) {
           $('.backBtn').addClass('hidden');
           return $('.slctnTxt').addClass('hidden');

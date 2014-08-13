@@ -98,6 +98,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     ScreenThreeController.prototype._getUnits = function() {
       var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, buildingvalue, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, unitArray, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsactual, unitslen, unitvariant;
+      console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -291,6 +292,12 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           sellablearea: unitVarinatModel.get('sellablearea')
         });
         return unitVariantID.push(parseInt(unitVarinatModel.get('id')));
+      });
+      unitVariantModels.sort(function(a, b) {
+        return a.id - b.id;
+      });
+      unitVariantID.sort(function(a, b) {
+        return a - b;
       });
       console.log(unitVariantModels);
       units.each(function(item) {

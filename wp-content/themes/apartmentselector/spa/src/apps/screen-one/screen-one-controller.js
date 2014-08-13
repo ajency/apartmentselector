@@ -123,6 +123,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
           name: element
         });
       }
+      console.log(modelArray);
       collection.add(modelArray);
       return [collection, rangeArray];
     };

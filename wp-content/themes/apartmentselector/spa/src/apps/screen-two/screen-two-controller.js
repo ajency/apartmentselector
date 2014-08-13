@@ -180,6 +180,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             }
             return _results;
           } else {
+            console.log(value);
             if (index === 'unitType') {
               key = App.currentStore.unit_type.findWhere({
                 id: parseInt(value)
@@ -323,6 +324,12 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           sellablearea: unitVarinatModel.get('sellablearea')
         });
         return unitVariantID.push(parseInt(unitVarinatModel.get('id')));
+      });
+      unitVariantModels.sort(function(a, b) {
+        return a.id - b.id;
+      });
+      unitVariantID.sort(function(a, b) {
+        return a - b;
       });
       console.log(units);
       $.each(units, function(index, value) {

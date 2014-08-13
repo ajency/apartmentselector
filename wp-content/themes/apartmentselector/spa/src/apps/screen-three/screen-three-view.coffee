@@ -16,13 +16,14 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                     <div class="variantBox">
-                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+
+                    <input type="radio" name="selectall" id="selectall" value="0" />Select All<input type="radio" name="selectall" id="unselectall" value="1" />Unselect All                         <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
 
                             {{#unitVariants}}
                             <div class="grid-block-3" >
-                                <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
-                                    {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}">
+                                    {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
                                 </a>
                             </div>
                             {{/unitVariants}}
@@ -117,19 +118,19 @@ define [ 'marionette' ], ( Marionette )->
                 console.log unitVariantArray
                 id = $('#'+e.target.id).attr('data-id')
                 track = 0
-                if $('#check'+id).val() == '1'
+                if $('#checklink'+id).val() == '1'
                     console.log id
                     console.log index = unitVariantArray.indexOf(parseInt(id))
                     if index != -1
                         unitVariantArray.splice( index, 1 )
-                        $('#check'+id).val '0'
+                        $('#checklink'+id).val '0'
                         track = 0
                         unitVariantIdArray.push(parseInt(id))
                 else
                     console.log "aaaaaaaaaa"
                     track = 1
                     unitVariantArray.push(parseInt(id))
-                    $('#check'+id).val '1'
+                    $('#checklink'+id).val '1'
 
 
                 console.log unitVariantArray
@@ -158,6 +159,11 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'click .done':(e)->
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
@@ -180,11 +186,11 @@ define [ 'marionette' ], ( Marionette )->
                         key = _.contains(globalUnitArrayInt,parseInt(value))
                         console.log key
                         if key == true
-                            $('#grid'+value).addClass 'selected'
-                            $('#check'+value).val '1'
+                            $('#gridlink'+value).addClass 'selected'
+                            $('#checklink'+value).val '1'
                         else
-                            $('#grid'+value).removeClass 'selected'
-                            $('#check'+value).val '0'
+                            $('#gridlink'+value).removeClass 'selected'
+                            $('#checklink'+value).val '0'
 
 
 
@@ -194,6 +200,28 @@ define [ 'marionette' ], ( Marionette )->
 
 
                     )
+            'click #selectall':(e)->
+                console.log unitVariantArray
+                $.each(unitVariantArray, (index,value)->
+                    $('#gridlink'+value).addClass 'selected'
+                    $('#checklink'+value).val '1'
+
+
+                )
+                unitVariantString = 'All'
+
+            'click #unselectall':(e)->
+                console.log value = _.first(unitVariantArray)
+                remainainArray = _.rest(unitVariantArray)
+                unitVariantArray = []
+                unitVariantArray.push(value)
+                $.each(remainainArray, (index,value)->
+                    $('#gridlink'+value).removeClass 'selected'
+                    $('#checklink'+value).val '0'
+
+
+                )
+                unitVariantString = unitVariantArray.join(',')
 
         onShow:->
             if App.screenOneFilter['key'] == 'unitType'
@@ -264,17 +292,18 @@ define [ 'marionette' ], ( Marionette )->
             )
 
             if App.defaults['unitVariant'] != 'All'
-                unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
+                console.log unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $.each(unitVariantArray, (index,value)->
                     console.log value
                     key = _.contains(globalUnitArrayInt,parseInt(value))
                     console.log key
                     if key == true
-                        $('#grid'+value).addClass 'selected'
+                        $('#gridlink'+value).addClass 'selected'
+                        $('#checklink'+value).val '1'
                     else
                         console.log index = unitVariantArray.indexOf(parseInt(value))
-                        $('#grid'+value).removeClass 'selected'
-                        $('#check'+value).val '0'
+                        $('#gridlink'+value).removeClass 'selected'
+                        $('#checklink'+value).val '0'
 
 
 

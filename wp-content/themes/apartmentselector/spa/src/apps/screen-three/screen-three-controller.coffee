@@ -117,6 +117,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
         _getUnits:->
+            console.log App.defaults
+
             buildingArray = []
             unitArray = []
             unitsArray = []
@@ -294,6 +296,14 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
                 unitVariantID.push(parseInt(unitVarinatModel.get('id')))
+
+            )
+            unitVariantModels.sort( (a,b)->
+                a.id - b.id
+
+            )
+            unitVariantID.sort( (a,b)->
+                a - b
 
             )
             console.log unitVariantModels

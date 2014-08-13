@@ -80,6 +80,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
                 )
+
                 max_val = Math.max.apply( Math, max_coll )
                 min_val = Math.min.apply( Math, max_coll )
                 #set max and min attribute to the unit type model
@@ -108,6 +109,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             for element in priceArray
                 rangeArray.push({id:element,name:element})
 
+            console.log modelArray
             collection.add modelArray
             [collection,rangeArray]
 

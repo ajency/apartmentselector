@@ -109,7 +109,6 @@ require [ 'plugin-loader'
 
 
 
-
         param_arr = params.split('&')
         budgetUnitArray = []
         $.each(param_arr, (index,value)->

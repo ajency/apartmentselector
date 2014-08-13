@@ -16,7 +16,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                     <div class="variantBox">
-                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> 
+
+       <input type="radio" name="selectall" id="selectall" value="0" />Select All<input type="radio" name="selectall" id="unselectall" value="1" />Unselect All                       <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
                             {{#unitVariants}}
                             <div class="grid-block-3" >
@@ -149,13 +150,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .done':(e)->
-                console.log $('.variantToggle').text()
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
                 if globalArrayLength.length == unitVariantArray.length
                     @$el.find('.variantToggle').text 'All'
                 else
                     @$el.find('.variantToggle').text ''
 
                 App.defaults['unitVariant'] = unitVariantString
+                console.log App.defaults
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -190,6 +196,31 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                     )
+
+            'click #selectall':(e)->
+                console.log unitVariantArray
+                $.each(unitVariantArray, (index,value)->
+                    $('#grid'+value).addClass 'selected'
+                    $('#check'+value).val '1'
+
+
+                )
+                unitVariantString = 'All'
+
+            'click #unselectall':(e)->
+                console.log value = _.first(unitVariantArray)
+                remainainArray = _.rest(unitVariantArray)
+                unitVariantArray = []
+                unitVariantArray.push(value)
+                $.each(remainainArray, (index,value)->
+                    $('#grid'+value).removeClass 'selected'
+                    $('#check'+value).val '0'
+
+
+                )
+                unitVariantString = unitVariantArray.join(',')
+
+
 
 
 

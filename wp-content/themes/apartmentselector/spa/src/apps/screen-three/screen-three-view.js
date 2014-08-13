@@ -15,7 +15,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="text-center subTxt m-b-20 unittype hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated fadeIn">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated fadeIn">You just refreshed the page. You are now seeing all apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated fadeIn">You are seeing all apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br>(You can scroll between towers to see other options.)</div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div> <div class="variantBox"> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> {{#high}} <div class="towerRange"> <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3> <div class="row m-l-0 m-r-0 m-b-20"> <div class="col-sm-4 col-xs-12"> <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block"> </div> <!--<div class="col-sm-8 col-xs-3"> <div class="row"> {{#high}} <div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/high}} </div>--> <div class="col-sm-8 col-xs-12 m-t-30"> <p>{{text}}</p></div> <!--<div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div>--> </div> <!-- <div class="viewsNo m-t-20"> <div class="row m-l-0 m-r-0"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div>--> </div> {{/high}}                     ';
+    ScreenThreeLayout.prototype.template = '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div> <div class="variantBox"> <input type="radio" name="selectall" id="selectall" value="0" />Select All<input type="radio" name="selectall" id="unselectall" value="1" />Unselect All                         <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> {{#high}} <div class="towerRange"> <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3> <div class="row m-l-0 m-r-0 m-b-20"> <div class="col-sm-4 col-xs-12"> <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block"> </div> <!--<div class="col-sm-8 col-xs-3"> <div class="row"> {{#high}} <div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/high}} </div>--> <div class="col-sm-8 col-xs-12 m-t-30"> <p>{{text}}</p></div> <!--<div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div>--> </div> <!-- <div class="viewsNo m-t-20"> <div class="row m-l-0 m-r-0"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div>--> </div> {{/high}}                     ';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -33,12 +33,12 @@ define(['marionette'], function(Marionette) {
         console.log(unitVariantArray);
         id = $('#' + e.target.id).attr('data-id');
         track = 0;
-        if ($('#check' + id).val() === '1') {
+        if ($('#checklink' + id).val() === '1') {
           console.log(id);
           console.log(index = unitVariantArray.indexOf(parseInt(id)));
           if (index !== -1) {
             unitVariantArray.splice(index, 1);
-            $('#check' + id).val('0');
+            $('#checklink' + id).val('0');
             track = 0;
             unitVariantIdArray.push(parseInt(id));
           }
@@ -46,7 +46,7 @@ define(['marionette'], function(Marionette) {
           console.log("aaaaaaaaaa");
           track = 1;
           unitVariantArray.push(parseInt(id));
-          $('#check' + id).val('1');
+          $('#checklink' + id).val('1');
         }
         console.log(unitVariantArray);
         globalUnitArrayInt = [];
@@ -74,6 +74,11 @@ define(['marionette'], function(Marionette) {
       },
       'click .done': function(e) {
         var params;
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.filter(params = {});
         App.defaults['unitVariant'] = unitVariantString;
         App.backFilter['screen2'].push("unitVariant");
         App.filter(params = {});
@@ -96,14 +101,34 @@ define(['marionette'], function(Marionette) {
             key = _.contains(globalUnitArrayInt, parseInt(value));
             console.log(key);
             if (key === true) {
-              $('#grid' + value).addClass('selected');
-              return $('#check' + value).val('1');
+              $('#gridlink' + value).addClass('selected');
+              return $('#checklink' + value).val('1');
             } else {
-              $('#grid' + value).removeClass('selected');
-              return $('#check' + value).val('0');
+              $('#gridlink' + value).removeClass('selected');
+              return $('#checklink' + value).val('0');
             }
           });
         }
+      },
+      'click #selectall': function(e) {
+        console.log(unitVariantArray);
+        $.each(unitVariantArray, function(index, value) {
+          $('#gridlink' + value).addClass('selected');
+          return $('#checklink' + value).val('1');
+        });
+        return unitVariantString = 'All';
+      },
+      'click #unselectall': function(e) {
+        var remainainArray, value;
+        console.log(value = _.first(unitVariantArray));
+        remainainArray = _.rest(unitVariantArray);
+        unitVariantArray = [];
+        unitVariantArray.push(value);
+        $.each(remainainArray, function(index, value) {
+          $('#gridlink' + value).removeClass('selected');
+          return $('#checklink' + value).val('0');
+        });
+        return unitVariantString = unitVariantArray.join(',');
       }
     };
 
@@ -162,18 +187,19 @@ define(['marionette'], function(Marionette) {
         return globalUnitArrayInt.push(parseInt(value));
       });
       if (App.defaults['unitVariant'] !== 'All') {
-        unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
+        console.log(unitVariantArray = _.union(unitVariantArray, unitVariantIdArray));
         $.each(unitVariantArray, function(index, value) {
           var key;
           console.log(value);
           key = _.contains(globalUnitArrayInt, parseInt(value));
           console.log(key);
           if (key === true) {
-            return $('#grid' + value).addClass('selected');
+            $('#gridlink' + value).addClass('selected');
+            return $('#checklink' + value).val('1');
           } else {
             console.log(index = unitVariantArray.indexOf(parseInt(value)));
-            $('#grid' + value).removeClass('selected');
-            return $('#check' + value).val('0');
+            $('#gridlink' + value).removeClass('selected');
+            return $('#checklink' + value).val('0');
           }
         });
       }

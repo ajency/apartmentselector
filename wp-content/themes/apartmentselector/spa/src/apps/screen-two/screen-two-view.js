@@ -16,7 +16,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div> <div class="variantBox"> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableHeader"> <ul> <li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li> </ul> </div> <div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="m-t-40 p-l-15 p-r-15 text-center"> <h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p>This is a map of the entire project that shows the location of the tower selected (on the left).</p> <div id="mapplic1" class="towersMap center-block"></div> </div> </div> <div class="col-sm-8"></div> </div>';
+    ScreenTwoLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div> <div class="variantBox"> <input type="radio" name="selectall" id="selectall" value="0" />Select All<input type="radio" name="selectall" id="unselectall" value="1" />Unselect All                       <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableHeader"> <ul> <li><a href="#modal" class="remodalcheck"><span class="bold">HIGHRISE</span><br>15-11 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">MIDRISE</span><br>10-6 Floors</a></li> <li><a href="#modal" class="remodalcheck"><span class="bold">LOWRISE</span><br>5-1 Floors</a></li> </ul> </div> <div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="m-t-40 p-l-15 p-r-15 text-center"> <h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p>This is a map of the entire project that shows the location of the tower selected (on the left).</p> <div id="mapplic1" class="towersMap center-block"></div> </div> </div> <div class="col-sm-8"></div> </div>';
 
     ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
@@ -92,13 +92,18 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .done': function(e) {
         var params;
-        console.log($('.variantToggle').text());
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.filter(params = {});
         if (globalArrayLength.length === unitVariantArray.length) {
           this.$el.find('.variantToggle').text('All');
         } else {
           this.$el.find('.variantToggle').text('');
         }
         App.defaults['unitVariant'] = unitVariantString;
+        console.log(App.defaults);
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },
@@ -127,6 +132,26 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           });
         }
+      },
+      'click #selectall': function(e) {
+        console.log(unitVariantArray);
+        $.each(unitVariantArray, function(index, value) {
+          $('#grid' + value).addClass('selected');
+          return $('#check' + value).val('1');
+        });
+        return unitVariantString = 'All';
+      },
+      'click #unselectall': function(e) {
+        var remainainArray, value;
+        console.log(value = _.first(unitVariantArray));
+        remainainArray = _.rest(unitVariantArray);
+        unitVariantArray = [];
+        unitVariantArray.push(value);
+        $.each(remainainArray, function(index, value) {
+          $('#grid' + value).removeClass('selected');
+          return $('#check' + value).val('0');
+        });
+        return unitVariantString = unitVariantArray.join(',');
       }
     };
 

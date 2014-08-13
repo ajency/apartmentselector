@@ -168,6 +168,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                                 templateArr.push value
                                 #flag = 1
                     else
+                        console.log value
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
@@ -293,7 +294,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitVariantID.push(parseInt(unitVarinatModel.get('id')))
 
             )
+            unitVariantModels.sort( (a,b)->
+                a.id - b.id
 
+            )
+            unitVariantID.sort( (a,b)->
+                a - b
+
+            )
             console.log units
             $.each(units, (index,value)->
                 maxcoll = Array()
