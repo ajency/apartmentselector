@@ -7,8 +7,7 @@ define [ 'marionette' ], ( Mariontte )->
                         <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
         		    </div>
                     <div class="text-center">
-                        <!--<h3 class="text-white m-t-15 ">{{textString}}</h3>-->
-                        <h3 class="text-white m-t-15 "><span class="slctnTxt">Your selection:</span> {{textString}} </h3>
+                        <h5 class="text-white m-t-20 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h3>
                     </div>'
 
         className : "header navbar navbar-inverse"

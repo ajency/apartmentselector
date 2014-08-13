@@ -70,8 +70,8 @@ define [ 'marionette' ], ( Marionette )->
 
     class ScreenOneView extends Marionette.CompositeView
 
-        template : '<div class="text-center introTxt bold">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div>
-        <div class="grid-container"></div><h4 class="text-center m-t-20 m-b-20">OR</h4>
+        template : '<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div>
+        <div class="grid-container"></div><h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
         	<div class="text-center subTxt">Choose a budget</div><section>
         		<select class="cs-select cs-skin-underline" id="budgetValue">
         			<option value="" disabled selected>Undecided</option>
@@ -80,7 +80,7 @@ define [ 'marionette' ], ( Marionette )->
         			{{/priceArray}}
         		</select>
         	    </section><div class="h-align-middle m-t-50 m-b-20">
-        		<a class="btn btn-default btn-large disabled" id="finalButton">Find Apartments</a>
+        		<a class="btn btn-default btn-lg disabled" id="finalButton">Find Apartments</a>
         		<br><br>
         		</div>'
 
