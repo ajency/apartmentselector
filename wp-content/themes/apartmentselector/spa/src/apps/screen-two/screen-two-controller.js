@@ -36,6 +36,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
       this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
       return this.show(this.layout);
     };
 
@@ -61,6 +62,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
       this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
       return this.show(this.layout);
     };
 
@@ -80,8 +82,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype.showUnitRegion = function(unitCollection) {
       var itemview2;
       itemview2 = this.getUnitsView(unitCollection);
-      this.layout.unitRegion.show(itemview2);
-      return this.listenTo(itemview2, 'childview:childview:unit:count:selected', this._unitCountSelected);
+      return this.layout.unitRegion.show(itemview2);
     };
 
     ScreenTwoController.prototype.getView = function(buildingCollection) {

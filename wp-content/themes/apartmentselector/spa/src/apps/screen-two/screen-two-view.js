@@ -3,13 +3,14 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, firstElement, globalArrayLength, m, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, firstElement, globalArrayLength, m, rangeArray, unitVariantArray, unitVariantIdArray, unitVariantString;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
   unitVariantString = '';
   globalArrayLength = [];
   firstElement = '';
+  rangeArray = [];
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -17,7 +18,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle1"> All  </span> variants of your apartment selection</div> <div class="variantBox1"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="">Select</a> </div> </div> <div class="col-sm-8"> <div class="m-t-10 text-center"> <h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p> <div id="mapplic1" class="towersMap center-block"></div> </div> </div> </div>';
+    ScreenTwoLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div> <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle1"> All  </span> variants of your apartment selection</div> <div class="variantBox1"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a> </div> </div> <div class="col-sm-8"> <div class="m-t-10 text-center"> <h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p> <div id="mapplic1" class="towersMap center-block"></div> </div> </div> </div>';
 
     ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
@@ -43,7 +44,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $('html, body').animate({
           scrollTop: 0
         }, 'slow');
-        return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
+        return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-7'));
       },
       'click .grid-link': function(e) {
         var globalUnitArrayInt, globalUnitVariants, id, index, track;
@@ -158,6 +159,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
           return unitVariantString = value.toString();
         }
+      },
+      'click #screen-three-button': function(e) {
+        console.log("aaaaaaaaaaaaa");
+        return this.trigger('unit:count:selected');
       }
     };
 
@@ -287,33 +292,65 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div class="pull-left light"> <h5 class="rangeName bold">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="pull-right box {{classname}}">{{count}}</div> <div class="clearfix"></div> </div>';
+    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div class="pull-left light"> <h5 class="rangeName bold">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="pull-right box {{classname}}">{{count}}</div> <div class="clearfix"></div> <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>';
 
     UnitViewChildView.prototype.className = 'text-center towerSelect';
 
+    UnitViewChildView.prototype.initialize = function() {
+      return this.$el.prop("id", 'range' + this.model.get("range"));
+    };
+
     UnitViewChildView.prototype.events = {
-      'click .box': function(e) {
-        var end, i, param, rangeArray, rangeModel, rangeString, start;
-        param = {};
-        param['name'] = this.model.get('range');
-        console.log(param);
-        rangeModel = App.currentStore.range.findWhere(param);
-        rangeArray = [];
-        i = 0;
-        start = rangeModel.get('start');
-        end = rangeModel.get('end');
-        while (parseInt(start) <= parseInt(end)) {
-          rangeArray[i] = start;
-          start = parseInt(start) + 1;
-          i++;
+      'click ': function(e) {
+        var element, end, i, index, param, rangeArrayVal, rangeModel, rangeString, start, _i, _len;
+        console.log(rangeArray);
+        for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
+          element = rangeArray[index];
+          if (element === this.model.get('range')) {
+            $("#checkrange" + this.model.get('range')).val('1');
+          } else {
+            $("#checkrange" + element).val('0');
+            $('#range' + element).removeClass('selected');
+            rangeArray = [];
+          }
         }
-        rangeArray;
-        rangeString = rangeArray.join(',');
-        App.defaults['floor'] = rangeString;
-        App.backFilter['screen2'].push('floor');
-        App.defaults['building'] = parseInt(this.model.get('buildingid'));
-        App.backFilter['screen2'].push('building');
-        return this.trigger('unit:count:selected');
+        console.log($("#checkrange" + this.model.get('range')).val());
+        if (parseInt($("#checkrange" + this.model.get('range')).val()) === 0) {
+          rangeArray.push(this.model.get('range'));
+          $('#range' + this.model.get('range')).addClass('selected');
+          $("#checkrange" + this.model.get('range')).val("1");
+          param = {};
+          param['name'] = this.model.get('range');
+          console.log(param);
+          rangeModel = App.currentStore.range.findWhere(param);
+          rangeArrayVal = [];
+          i = 0;
+          start = rangeModel.get('start');
+          end = rangeModel.get('end');
+          while (parseInt(start) <= parseInt(end)) {
+            rangeArrayVal[i] = start;
+            start = parseInt(start) + 1;
+            i++;
+          }
+          rangeArrayVal;
+          rangeString = rangeArrayVal.join(',');
+          App.defaults['floor'] = rangeString;
+          App.backFilter['screen2'].push('floor');
+          App.defaults['building'] = parseInt(this.model.get('buildingid'));
+          App.backFilter['screen2'].push('building');
+          console.log($('#screen-three-button'));
+          $('#screen-three-button').removeClass('disabled btn-default');
+          $("#screen-three-button").addClass('btn-primary');
+        } else {
+          rangeArray = [];
+          $("#checkrange" + this.model.get('range')).val("0");
+          $('#range' + this.model.get('range')).removeClass('selected');
+        }
+        if (parseInt($("#checkrange" + this.model.get('range')).val()) === 0) {
+          $("#screen-three-button").addClass('disabled btn-default');
+          $("#screen-three-button").removeClass('btn-primary');
+          return false;
+        }
       }
     };
 
