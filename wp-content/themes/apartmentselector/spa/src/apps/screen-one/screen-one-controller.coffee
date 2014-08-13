@@ -60,32 +60,33 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             units = App.currentStore.unit.where({'status':status.get('id')})
             $.each(units , (index,value)->
                 unitTypemodel = App.currentStore.unit_type.findWhere({'id':value.get 'unitType'})
-                NewUnitCollection = App.currentStore.unit.where({ unitType : unitTypemodel.get( 'id' ) } )
-                max_coll = Array()
-                for element in priceRange
-                    elementArray = element.split(' ')
-                    budget_price = elementArray[0].split('-')
-                    budget_price[0] = budget_price[0] + ('00000')
-                    budget_price[1] = budget_price[1]+ ('00000')
-                    if parseInt(value.get('unitPrice')) >= parseInt(budget_price[0]) && parseInt(value.get('unitPrice')) <= parseInt(budget_price[1])
-                        priceArray.push(element)
+                if unitTypemodel.get('id') != 14
+                    NewUnitCollection = App.currentStore.unit.where({ unitType : unitTypemodel.get( 'id' ) } )
+                    max_coll = Array()
+                    for element in priceRange
+                        elementArray = element.split(' ')
+                        budget_price = elementArray[0].split('-')
+                        budget_price[0] = budget_price[0] + ('00000')
+                        budget_price[1] = budget_price[1]+ ('00000')
+                        if parseInt(value.get('unitPrice')) >= parseInt(budget_price[0]) && parseInt(value.get('unitPrice')) <= parseInt(budget_price[1])
+                            priceArray.push(element)
 
 
 
-                $.each(NewUnitCollection , (index,value)->
-                    Variant = App.currentStore.unit_variant.findWhere({ 'id' : value.get( 'unitVariant' ) } )
-                    max_coll.push Variant.get 'sellablearea'
+                    $.each(NewUnitCollection , (index,value)->
+                        Variant = App.currentStore.unit_variant.findWhere({ 'id' : value.get( 'unitVariant' ) } )
+                        max_coll.push Variant.get 'sellablearea'
 
 
 
 
-                )
+                    )
 
-                max_val = Math.max.apply( Math, max_coll )
-                min_val = Math.min.apply( Math, max_coll )
-                #set max and min attribute to the unit type model
-                unitTypemodel.set( { 'max_value' : max_val, 'min_value' : min_val } )
-                modelArray.push unitTypemodel
+                    max_val = Math.max.apply( Math, max_coll )
+                    min_val = Math.min.apply( Math, max_coll )
+                    #set max and min attribute to the unit type model
+                    unitTypemodel.set( { 'max_value' : max_val, 'min_value' : min_val } )
+                    modelArray.push unitTypemodel
 
 
 

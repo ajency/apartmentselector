@@ -78,34 +78,36 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
         unitTypemodel = App.currentStore.unit_type.findWhere({
           'id': value.get('unitType')
         });
-        NewUnitCollection = App.currentStore.unit.where({
-          unitType: unitTypemodel.get('id')
-        });
-        max_coll = Array();
-        for (_i = 0, _len = priceRange.length; _i < _len; _i++) {
-          element = priceRange[_i];
-          elementArray = element.split(' ');
-          budget_price = elementArray[0].split('-');
-          budget_price[0] = budget_price[0] + '00000';
-          budget_price[1] = budget_price[1] + '00000';
-          if (parseInt(value.get('unitPrice')) >= parseInt(budget_price[0]) && parseInt(value.get('unitPrice')) <= parseInt(budget_price[1])) {
-            priceArray.push(element);
-          }
-        }
-        $.each(NewUnitCollection, function(index, value) {
-          var Variant;
-          Variant = App.currentStore.unit_variant.findWhere({
-            'id': value.get('unitVariant')
+        if (unitTypemodel.get('id') !== 14) {
+          NewUnitCollection = App.currentStore.unit.where({
+            unitType: unitTypemodel.get('id')
           });
-          return max_coll.push(Variant.get('sellablearea'));
-        });
-        max_val = Math.max.apply(Math, max_coll);
-        min_val = Math.min.apply(Math, max_coll);
-        unitTypemodel.set({
-          'max_value': max_val,
-          'min_value': min_val
-        });
-        return modelArray.push(unitTypemodel);
+          max_coll = Array();
+          for (_i = 0, _len = priceRange.length; _i < _len; _i++) {
+            element = priceRange[_i];
+            elementArray = element.split(' ');
+            budget_price = elementArray[0].split('-');
+            budget_price[0] = budget_price[0] + '00000';
+            budget_price[1] = budget_price[1] + '00000';
+            if (parseInt(value.get('unitPrice')) >= parseInt(budget_price[0]) && parseInt(value.get('unitPrice')) <= parseInt(budget_price[1])) {
+              priceArray.push(element);
+            }
+          }
+          $.each(NewUnitCollection, function(index, value) {
+            var Variant;
+            Variant = App.currentStore.unit_variant.findWhere({
+              'id': value.get('unitVariant')
+            });
+            return max_coll.push(Variant.get('sellablearea'));
+          });
+          max_val = Math.max.apply(Math, max_coll);
+          min_val = Math.min.apply(Math, max_coll);
+          unitTypemodel.set({
+            'max_value': max_val,
+            'min_value': min_val
+          });
+          return modelArray.push(unitTypemodel);
+        }
       });
       priceArray.sort(function(a, b) {
         var budget_pricea, budget_priceb;

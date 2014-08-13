@@ -44,7 +44,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
 
     ScreenThreeController.prototype._showBuildings = function() {
       this.Collection = this._getUnits();
-      console.log(this.Collection[7]);
+      console.log(this.Collection[3]);
       this.layout = new ScreenThreeView.ScreenThreeLayout({
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],

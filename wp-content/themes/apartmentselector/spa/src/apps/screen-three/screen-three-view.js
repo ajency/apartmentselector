@@ -122,11 +122,11 @@ define(['marionette'], function(Marionette) {
         var remainainArray, value;
         console.log(value = _.first(unitVariantArray));
         remainainArray = _.rest(unitVariantArray);
-        unitVariantArray = [];
-        unitVariantArray.push(value);
         $.each(remainainArray, function(index, value) {
           $('#gridlink' + value).removeClass('selected');
-          return $('#checklink' + value).val('0');
+          $('#checklink' + value).val('0');
+          index = unitVariantArray.indexOf(parseInt(value));
+          return unitVariantArray.splice(index, 1);
         });
         return unitVariantString = unitVariantArray.join(',');
       }

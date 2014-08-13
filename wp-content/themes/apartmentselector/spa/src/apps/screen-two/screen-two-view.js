@@ -145,11 +145,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         var remainainArray, value;
         console.log(value = _.first(unitVariantArray));
         remainainArray = _.rest(unitVariantArray);
-        unitVariantArray = [];
-        unitVariantArray.push(value);
         $.each(remainainArray, function(index, value) {
           $('#grid' + value).removeClass('selected');
-          return $('#check' + value).val('0');
+          $('#check' + value).val('0');
+          index = unitVariantArray.indexOf(parseInt(value));
+          return unitVariantArray.splice(index, 1);
         });
         return unitVariantString = unitVariantArray.join(',');
       }

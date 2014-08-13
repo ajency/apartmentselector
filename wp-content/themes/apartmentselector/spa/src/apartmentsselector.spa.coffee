@@ -73,6 +73,7 @@ require [ 'plugin-loader'
 
     App.layout = ""
 
+    
     #filter function which takes the parameters into account anf filters the current store.
     App.filter = (params={})->
         #check whether url contains any parameters

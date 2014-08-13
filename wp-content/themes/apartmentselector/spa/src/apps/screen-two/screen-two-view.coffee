@@ -206,11 +206,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click #unselectall':(e)->
                 console.log value = _.first(unitVariantArray)
                 remainainArray = _.rest(unitVariantArray)
-                unitVariantArray = []
-                unitVariantArray.push(value)
                 $.each(remainainArray, (index,value)->
                     $('#grid'+value).removeClass 'selected'
                     $('#check'+value).val '0'
+                    index = unitVariantArray.indexOf(parseInt(value))
+                    unitVariantArray.splice( index, 1 )
 
 
                 )
