@@ -5,6 +5,17 @@ function get_payment_plans(){
 
 	$payment_plans = array();
 
+	$payment_plans = maybe_unserialize(get_option('payment_plans'));
+
+    $payment_plans = implode(", ",$payment_plans);
+
+    global $wpdb;
+
+    $query= "SELECT option_name as  name, option_id as id FROM ".$wpdb->prefix ."options where option_id in($payment_plans)  ";
+ 
+   	$payment_plans = $wpdb->get_results($query,ARRAY_A);
+ 
+
 	return $payment_plans; 
 }
 
@@ -69,6 +80,7 @@ function ajax_save_payment_plan(){
     	$error = false;
 
     	if(empty($payment_plan_id)){
+    		
     		add_option($payment_plan_name,array('milestones'=>$milestones));
 
 	    	$payment_plan = get_option_id($payment_plan_name);
@@ -81,6 +93,11 @@ function ajax_save_payment_plan(){
 
 	    	$msg="Payment Plan Created Successfully!";
     	}else{
+
+    		//update the option name
+    		update_payment_plan($payment_plan_id,$payment_plan_name);
+
+    		//update the option value
     		update_option($payment_plan_name,array('milestones'=>$milestones));
 
 	    	 
@@ -129,11 +146,55 @@ function payment_plan_exists($payment_plan_name,$payment_plan_id=0){
    return $return;
 }
 
-
+//get the option id for a option name
 function get_option_id($payment_plan_name){
 	 global $wpdb;
 
     $query= "SELECT option_id FROM ".$wpdb->prefix ."options where   option_name  = '$payment_plan_name'";
  
    	return $wpdb->get_var($query);
+}
+
+//update the option name by id
+function update_payment_plan($payment_plan_id,$payment_plan_name){
+	 global $wpdb;
+
+    $query= "UPDATE  ".$wpdb->prefix ."options set option_name  = '$payment_plan_name' WHERE option_id = $payment_plan_id";
+ 
+   	return $wpdb->get_var($query);
+}
+
+//delete payment plan
+function ajax_delete_payment_plan(){
+
+    $payment_plan = $_REQUEST["id"];
+
+delete_payment_plan($payment_plan);
+	$response = json_encode( array('msg'=> 'Successfully Deleted Payment Plan') );
+
+	header( "Content-Type: application/json" );
+
+	echo $response;
+
+	exit;
+}
+add_action('wp_ajax_delete_payment_plan','ajax_delete_payment_plan');
+
+
+//update the option name by id
+function delete_payment_plan($payment_plan_id){
+	 global $wpdb;
+
+    $query= "DELETE  FROM ".$wpdb->prefix ."options   WHERE option_id = $payment_plan_id";
+ 
+   	return $wpdb->get_var($query);
+
+
+	$payment_plans = maybe_unserialize(get_option('payment_plans'));
+
+    if(($key = array_search($payment_plan_id, $payment_plans)) !== false) {
+    	unset($payment_plans[$key]);
+	}
+
+	update_option('payment_plans',$payment_plans);
 }

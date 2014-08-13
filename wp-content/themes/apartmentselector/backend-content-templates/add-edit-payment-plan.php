@@ -10,6 +10,8 @@ if(!current_user_can('manage_buildings') && !current_user_can('manage_options'))
 } 
 $heading = "Add"; 
 
+$payment_milestones = array();
+
 if(isset($_REQUEST["id"])){
 
 $heading = "Edit";
@@ -20,9 +22,9 @@ $heading = "Edit";
  
     $payment_plan_name = $payment_plan["option_name"];
  
-    $payment_milestones = maybe_unserialize($payment_plan["milestones"]);
+    $payment_milestones =  unserialize($payment_plan["option_value"])["milestones"];
 
-     
+ 
 }
 ?>
 <div class="page-title">
@@ -47,7 +49,7 @@ $heading = "Edit";
 <form id="form_add_edit_payment_plan"  name = "form_add_edit_payment_plan" action="" novalidate="novalidate">
  
 <?php echo wp_nonce_field( plugin_basename( __FILE__ ), 'custom_save_payment_plan',true,false);?>
-<input type="hidden" name="payment_plan_id" id="payment_plan_id" value="<?php echo @$building_id;?>" />
+<input type="hidden" name="payment_plan_id" id="payment_plan_id" value="<?php echo @$payment_plan_id;?>" />
                     <br/>
 <div class="form-group">
     <label class="form-label">
@@ -72,8 +74,42 @@ $heading = "Edit";
        <ul id="milestone-list">
 
        <?php
-       ?>
-          <li class="sortable-items" item="1">
+       $items = 1;
+       if(count($payment_milestones)){
+        $items = count($payment_milestones);
+            foreach($payment_milestones as $key=>$payment_milestone){
+                ?>
+
+                <li class="sortable-items" id="sortable-items-<?php echo $key+1;?>">
+              
+                    <select  name="milestone" id="milestone_<?php echo $key+1;?>"   class="milestone form-control form-control-medium">
+                        <option value="">Select Milestone</option>
+                        <option value="+" class="select-add-item ">Add New Milestone</option>
+                          <?php
+                          $milestones = get_milstones();
+
+                          foreach($milestones as $milestone)
+                          {
+
+                            ?>
+                            <option value="<?php echo $milestone["id"];?>" <?php if($payment_milestone["milestone"]==$milestone["id"]){ echo "selected";}?>  ><?php echo $milestone["name"];?></option>
+                            <?
+                            }
+                            ?>
+                    </select>
+                    <input type="text" name="payment_percentage" id="payment_percentage_<?php echo $key;?>" value="<?php echo $payment_milestone["payment_percentage"];?>" class="form-control  form-control-small"> %
+                    <a href="javascript:void(0)" item="<?php echo $key+1;?>" class="milestone-remove">x</a>
+                </li>
+                <?php
+            } 
+        ?>
+
+        <?
+       }else{
+
+        ?>
+
+            <li class="sortable-items" id="sortable-items-1">
               
               <select  name="milestone" id="milestone_1"   class="milestone form-control form-control-medium">
               <option value="">Select Milestone</option>
@@ -93,9 +129,13 @@ $heading = "Edit";
               <input type="text" name="payment_percentage" id="payment_percentage_1" value="" class="form-control  form-control-small"> %
               <a href="javascript:void(0)" item="1" class="milestone-remove">x</a>
           </li>
+        <?php
+       }
+       ?>
+          
           
         </ul>
-            <a href="javascript:void(0)" id="add-more-milstones" count="1">Add More</a>
+            <a href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a>
             <div editing-element="" class="modal fade" id="milestone-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">

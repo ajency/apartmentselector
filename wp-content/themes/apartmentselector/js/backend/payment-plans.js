@@ -98,18 +98,22 @@ $(document).on("click", "#save_payment_plan", function(e) {
         if($('form').valid()){
             var data, _e;
 
-            var _e = e; 
+            var _e = e;  
 
             payment_plan_name = $("#payment_plan_name").val();
+            
+            payment_plan_id= $("#payment_plan_id").val();
 
             milestones = getSelectedMilstones();
+
      
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")
 
             $.post(AJAXURL, {
                 action: "save_payment_plan",
                 payment_plan_name:  payment_plan_name, 
-                milestones:  milestones,   
+                milestones:  milestones,  
+                payment_plan_id: payment_plan_id
               }, function(response)  {
 
             resetForm(e,$('#payment_plan_id').val(),response);
@@ -117,6 +121,16 @@ $(document).on("click", "#save_payment_plan", function(e) {
         }
     });
 
+$(document).on("click", ".milestone-remove", function(e) {
+ 
+ if($('#milestone-list li').length==1){
+
+    alert("Deleting of all milestones not allowed!")
+    return
+ }
+    item = $(e.target).attr("item")
+    $( "#sortable-items-"+item  ).remove()
+    });
 function getSelectedMilstones(){
 
     sort = 0
@@ -181,7 +195,7 @@ function getSelectedMilstones(){
             //add the row items
             $(".tablesorter tbody").append("<tr  >" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
-                 "<td  style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
+                 "<td style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
                 "</tr>")
         })
 
@@ -233,7 +247,36 @@ function getSelectedMilstones(){
     }
  
 
+    $(document).on("click", ".edit-link", function(e) {
 
+        window.location.href = SITEURL + "/add-edit-payment-plan/?id="+$(e.target) .attr('data-id');
+    });
+
+
+     $(document).on("click", ".delete_building", function(e) {
+ 
+        var _e = e
+        clearAlerts();
+        payment_plan_name = $(e.target).parent().parent().children(':first-child').html() 
+        confirmUserAction = confirm("Are you sure you want to delete payment plan "+payment_plan_name+" ?")
+        if(confirmUserAction){
+
+            $.post(AJAXURL, {
+
+            action: "delete_payment_plan", 
+
+            id:$(e.target).attr('data-id')
+
+        }, function(response) {
+
+            $(_e.target).parent().parent().remove();
+
+            $(".grid-body").prepend('<div class="text-success">'+response.msg+'</div>')
+             
+        });
+        }
+          
+    });
     
 
 })

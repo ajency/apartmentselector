@@ -28,10 +28,10 @@ if(!current_user_can('manage_buildings') && !current_user_can('manage_options'))
                                           <th style="visibility:hidden"> </th>
                                         </tr> 
                                         <tr>
-                                          <th style="width:10%">Payment Plan</th>
+                                          <th  >Payment Plan</th>
                                             
                                             
-                                            <th style="width:10%" class="filter-false sorter-false">Action</th>
+                                            <th  width="100"  class="filter-false sorter-false">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>

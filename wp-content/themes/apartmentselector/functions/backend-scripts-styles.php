@@ -111,7 +111,7 @@ function apartmentselector_backend_enqueue_scripts(){
     }
 
     ///load tablesorter js files
-        if(in_array(get_template_filename(),array('apartments','buildings'))){
+        if(in_array(get_template_filename(),array('apartments','buildings','payment-plans'))){
             wp_enqueue_script( 'tablesorter',
                 get_template_directory_uri() . "/js/backend/jquery.tablesorter.min.js",
                 array( "jquery" ), false, true );
@@ -187,7 +187,7 @@ if(in_array(get_template_filename(),array('add-edit-payment-plan','payment-plans
         wp_enqueue_style( "custom", get_template_directory_uri() . "/css/backend/css/custom.css" );
 }
         //table sorter css
-        if(in_array(get_template_filename(),array('apartments','buildings'))){
+        if(in_array(get_template_filename(),array('apartments','buildings','payment-plans'))){
 
             wp_enqueue_style( "tablesorter-custom", get_template_directory_uri() . "/css/backend/css/tablesorter-custom.css" );
             wp_enqueue_style( "filter-formatter", get_template_directory_uri() . "/css/backend/css/filter.formatter.css" );
