@@ -42,7 +42,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
         _showBuildings:->
                 @Collection = @_getUnits()
-                console.log @Collection[3]
+
 
                 @layout = new ScreenThreeView.ScreenThreeLayout(
                         countUnits : @Collection[3]

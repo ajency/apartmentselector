@@ -5,6 +5,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantString = ''
     globalArrayLength = []
     firstElement =''
+    rangeArray =[]
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -50,7 +51,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="">Select</a>
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
                         </div>
 
                 </div>
@@ -223,6 +224,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     )
                     unitVariantString = value.toString()
+
+            'click #screen-three-button':(e)->
+                console.log "aaaaaaaaaaaaa"
+                @trigger 'unit:count:selected'
+
 
 
 
@@ -407,34 +413,65 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     </div>
                     <div class="pull-right box {{classname}}">{{count}}</div>
                     <div class="clearfix"></div>
-                            </div>'
+
+                    <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>'
 
         className : 'text-center towerSelect'
 
+        initialize :->
+            @$el.prop("id", 'range'+@model.get("range"))
+
 
         events:
-            'click .box':(e)->
-                param = {}
-                param['name'] = @model.get 'range'
-                console.log param
-                rangeModel = App.currentStore.range.findWhere(param)
-                rangeArray = []
-                i = 0
-                start = rangeModel.get('start')
-                end = rangeModel.get('end')
-                while parseInt(start) <= parseInt(end)
-                    rangeArray[i] = start
-                    start = parseInt(start) + 1
-                    i++
-                rangeArray
-                rangeString = rangeArray.join(',')
+            'click ':(e)->
+                console.log rangeArray
+                for element , index in rangeArray
+                    if element == @model.get('range')
+                        $("#checkrange"+@model.get 'range').val '1'
+                    else
+                        $("#checkrange"+element).val '0'
+                        $('#range'+element).removeClass 'selected'
+                        rangeArray = []
+                console.log $("#checkrange"+@model.get 'range').val()
+
+                if  parseInt($("#checkrange"+@model.get 'range').val()) == 0
+                    rangeArray.push @model.get 'range'
+                    $('#range'+@model.get 'range').addClass 'selected'
+
+                    $("#checkrange"+@model.get 'range').val "1"
+                    param = {}
+                    param['name'] = @model.get 'range'
+                    console.log param
+                    rangeModel = App.currentStore.range.findWhere(param)
+                    rangeArrayVal = []
+                    i = 0
+                    start = rangeModel.get('start')
+                    end = rangeModel.get('end')
+                    while parseInt(start) <= parseInt(end)
+                        rangeArrayVal[i] = start
+                        start = parseInt(start) + 1
+                        i++
+                    rangeArrayVal
+                    rangeString = rangeArrayVal.join(',')
 
 
-                App.defaults['floor'] = rangeString
-                App.backFilter['screen2'].push 'floor'
-                App.defaults['building'] = parseInt(@model.get 'buildingid')
-                App.backFilter['screen2'].push 'building'
-                @trigger 'unit:count:selected'
+                    App.defaults['floor'] = rangeString
+                    App.backFilter['screen2'].push 'floor'
+                    App.defaults['building'] = parseInt(@model.get 'buildingid')
+                    App.backFilter['screen2'].push 'building'
+                    console.log $('#screen-three-button')
+                    $('#screen-three-button').removeClass 'disabled btn-default'
+                    $("#screen-three-button").addClass 'btn-primary'
+                    #@trigger 'unit:count:selected'
+                else
+                    rangeArray=[]
+                    $("#checkrange"+@model.get 'range').val "0"
+                    $('#range'+@model.get 'range').removeClass 'selected'
+                if parseInt($("#checkrange"+@model.get 'range').val()) == 0
+                    $("#screen-three-button").addClass 'disabled btn-default'
+                    $("#screen-three-button").removeClass 'btn-primary'
+                    return false
+
 
 
 

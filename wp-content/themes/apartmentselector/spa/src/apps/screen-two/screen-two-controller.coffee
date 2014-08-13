@@ -30,6 +30,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
 
+            @listenTo @layout, 'unit:count:selected', @_unitCountSelected
+
 
 
 
@@ -63,6 +65,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
 
+            @listenTo @layout, 'unit:count:selected', @_unitCountSelected
+
             @show @layout
 
 
@@ -87,7 +91,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             itemview2 = @getUnitsView unitCollection
             @layout.unitRegion.show itemview2
 
-            @listenTo itemview2, 'childview:childview:unit:count:selected', @_unitCountSelected
 
 
 
