@@ -22,6 +22,10 @@ function add_default_unit_status(){
     $default_unit_status[] = array("master_type"	=>"unit-status","value"=>"Sold","data"=>"");
 
     $default_unit_status[] = array("master_type"	=>"unit-status","value"=>"Available","data"=>"");
+    
+    $default_unit_status[] = array("master_type"    =>"unit-status","value"=>"Blocked","data"=>"");
+    
+    $default_unit_status[] = array("master_type"    =>"unit-status","value"=>"Not Released","data"=>"");
 
     $return = set_defaults_data($default_unit_status);
 
@@ -175,6 +179,8 @@ function save_unit($post_id, $post){
 
     $views = $_REQUEST["views"];
 
+    unit_status_update($post_id);
+
     update_post_meta($post->ID, 'unit_variant', $unit_variant);
 
     update_post_meta($post->ID, 'floor', $floor);
@@ -183,16 +189,78 @@ function save_unit($post_id, $post){
 
     update_post_meta($post->ID, 'facing', $facing);
 
-    update_post_meta($post->ID, 'unit_status', $unit_status);
-
     update_post_meta($post->ID, 'unit_assigned', $unit_assigned);
 
     update_post_meta($post->ID, 'apartment_views', $views);
+
+    
 
     return $post->ID;
 }
 add_action('save_post', 'save_unit', 1, 2);
 
+
+function unit_status_update($unit){
+
+    $blocked_by = $_REQUEST["blocked_by"];
+
+    $for_customer = $_REQUEST["for_customer"];
+
+    $blocked_on = $_REQUEST["blocked_on"];
+
+    $blocked_till = $_REQUEST["blocked_till"];
+
+    $block_status_comments = $_REQUEST["block_status_comments"];
+
+    $unit_status = $_REQUEST["unit_status"];
+
+    $prev_unit_status = get_post_meta($unit,"unit_status",true);
+
+    if(is_blocked_status($unit_status)){
+
+        update_post_meta($unit, 'blocked_by', $blocked_by);
+
+        update_post_meta($unit, 'for_customer', $for_customer);
+
+        if(!is_blocked_status($prev_unit_status)){
+        
+            update_post_meta($unit, 'blocked_on', convert_custom_to_mysql_date($blocked_on));
+
+        }
+        update_post_meta($unit, 'blocked_till', convert_custom_to_mysql_date($blocked_till));
+
+        update_post_meta($unit, 'block_status_comments', $block_status_comments);
+    }else{
+
+        update_post_meta($unit, 'blocked_by', '');
+
+        update_post_meta($unit, 'for_customer',  '');
+
+        update_post_meta($unit, 'blocked_on',  '');
+
+        update_post_meta($unit, 'blocked_till', '');
+
+        update_post_meta($unit, 'block_status_comments',  '');
+
+    }
+
+    update_post_meta($unit, 'unit_status', $unit_status);
+}
+
+
+function is_blocked_status($status_id){
+
+
+   $status = get_unit_status($status_id) ;
+
+   if($status[0]["name"]=="Blocked"){
+        return true;
+   }else{
+        return false;
+   }
+
+
+}
 //delete building
 function ajax_delete_unit(){
 
@@ -356,6 +424,16 @@ function get_units(){
         
         $premiumunitprice = get_premium_unit_price($result->ID);//(parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
         
+        $blocked_by =   get_post_meta($result->ID, 'blocked_by', true);
+
+        $for_customer =   get_post_meta($result->ID, 'for_customer', true);
+
+        $blocked_on =   get_post_meta($result->ID, 'blocked_on', true);
+
+        $blocked_till =   get_post_meta($result->ID, 'blocked_till', true);
+        
+        $block_status_comments =   get_post_meta($result->ID, 'block_status_comments', true);
+
         $units[] = array(   'id'=>intval($result->ID),
                             'name'=>$result->post_title,
                             'unitType'=>intval($unit_type),
@@ -367,7 +445,12 @@ function get_units(){
                             'unitAssigned'=>intval($unit_assigned),
                             'unitPrice'=> ($unitprice),
                             'premiumUnitPrice'=> ($premiumunitprice),
-                            'facing'=>intval($unit_facing)
+                            'facing'=>intval($unit_facing),
+                            'blocked_by'=> ($blocked_by),
+                            'for_customer'=> ($for_customer),
+                            'blocked_on'=> convert_mysql_to_custom_date($blocked_on),
+                            'blocked_till'=> convert_mysql_to_custom_date($blocked_till),
+                            'block_status_comments'=> ($block_status_comments)
                         );
 
     }
@@ -439,6 +522,18 @@ function get_unit_by_id($id){
 
     $apartment_views =   get_post_meta($result->ID, 'apartment_views', true);
 
+    $blocked_by =   get_post_meta($result->ID, 'blocked_by', true);
+
+    $for_customer =   get_post_meta($result->ID, 'for_customer', true);
+
+    $blocked_on =   get_post_meta($result->ID, 'blocked_on', true);
+
+    $blocked_till =   get_post_meta($result->ID, 'blocked_till', true);
+
+    $block_till_limit = date('d/m/Y', strtotime($blocked_on. ' + 30 days'));
+
+    $block_status_comments =   get_post_meta($result->ID, 'block_status_comments', true);
+
     $unit_type = get_unit_type_by_unit_variant($unit_variant);
 
     return array(   'id'=>$result->ID,
@@ -450,7 +545,13 @@ function get_unit_by_id($id){
                     'unit_assigned'=>$unit_assigned,
                     'apartment_views'=>$apartment_views,
                     'status'=>$unit_status,
-                    'facing'=>$unit_facing
+                    'facing'=>$unit_facing,
+                    'blocked_by'=>$blocked_by,
+                    'for_customer'=>$for_customer,
+                    'blocked_on'=>convert_mysql_to_custom_date($blocked_on),
+                    'blocked_till'=>convert_mysql_to_custom_date($blocked_till),
+                    'block_status_comments'=>$block_status_comments,
+                    'block_till_limit'=>$block_till_limit
                 );
 }
 
@@ -643,3 +744,37 @@ foreach($apartments as $apartment){
 return $return;
     
 }
+
+
+function ajax_get_server_block_date(){
+
+    $apartment_id = $_REQUEST["id"]; 
+
+    $apartment_status = get_post_meta($apartment_id,'unit_status',true);
+
+    if(is_blocked_status($apartment_status)){
+
+        $apartment_block_date = get_post_meta($apartment_id,'blocked_on',true);
+
+        
+        $apartment_block_till_limit = date('d/m/Y', strtotime($apartment_block_date. ' +30 days'));
+        $apartment_block_date = strtotime($apartment_block_date);
+        $apartment_block_date = date('d/m/Y',$apartment_block_date);
+
+    }else{
+
+        $apartment_block_date = date('d/m/Y');
+        $apartment_block_till_limit =   date("d/m/Y", strtotime(date("Y-m-d"). " +30 days"));
+
+    }
+     
+
+    $response = json_encode( array('blocked_on_date'=>$apartment_block_date,'apartment_block_till_limit'=>$apartment_block_till_limit) );
+
+    header( "Content-Type: application/json" );
+
+    echo $response;
+
+    exit;
+}
+add_action('wp_ajax_get_server_block_date','ajax_get_server_block_date'); 

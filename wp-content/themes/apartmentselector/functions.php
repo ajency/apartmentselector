@@ -33,6 +33,8 @@ require_once (get_template_directory().'/functions/settings.php');
 
 //load the functions related to apartment selector payment plans
 require_once (get_template_directory().'/functions/payment-plans.php');
+//load the functions related to apartment selector users
+require_once (get_template_directory().'/functions/users.php');
 
 //load backend styles and scripts//
 require_once (get_template_directory().'/functions/backend-scripts-styles.php');

@@ -33,6 +33,22 @@ if(isset($_REQUEST["id"])){
     $floor = $unit["floor"];
 
     $unit_status = $unit["status"];
+
+    $blocked_by = $unit["blocked_by"];
+
+    $for_customer = $unit["for_customer"];
+
+    $blocked_on = $unit["blocked_on"];
+
+    $blocked_till = $unit["blocked_till"];
+
+    $blocked_till_limit = $unit["blocked_till"];
+
+    $blocked_till_limit = $unit["blocked_till"];
+
+    $block_status_comments = $unit["block_status_comments"];
+
+    $block_till_limit =   $unit["block_till_limit"];
 }
 ?>
 <div class="page-title"> <i class="icon-custom-left"></i>
@@ -234,7 +250,7 @@ if(isset($_REQUEST["id"])){
                                 foreach($unit_statuses as $unit_status_item){
                                     ?>
 
-                                    <option value="<?php echo $unit_status_item["id"];?>" <?php if($unit_status==$unit_status_item["id"]){ echo "selected"; }?>><?php echo $unit_status_item["name"];?></option>
+                                    <option value="<?php echo $unit_status_item["id"];?>" <?php if($unit_status==$unit_status_item["id"]){ echo "selected";$status_check=$unit_status_item["name"]; }?>><?php echo $unit_status_item["name"];?></option>
 
                                 <?php
                                 }
@@ -242,8 +258,64 @@ if(isset($_REQUEST["id"])){
                                 ?>
                             </select>
                         </div>
-                    </div>
+                    </div> 
+                    <div class="well" id="block-status-details" <?php if( @$status_check !="Blocked"){?>style="display:none"<?php } ?>>
+                        <div class="form-group">
+                            <label class="form-label">Blocked by</label> 
+                            <div class="input-with-icon  right">
+                                <i class=""></i>
+                                <select  name="blocked_by" id="blocked_by"  class="form-control" >
 
+                                    <option value="">Select</option>
+                                    <?php
+
+                                    $sales_users = get_sales_users();
+
+                                    foreach ($sales_users as $sales_user){
+
+                                        ?>
+                                        <option value="<?php echo $sales_user['id']; ?>"  <?php if($blocked_by==$sales_user['id']){ echo "selected"; }?>><?php echo  $sales_user['name']?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="form-label">For Customer</label> 
+                            <div class="input-with-icon  right">
+                                <i class=""></i>
+                                <input type="text"  name="for_customer" id="for_customer" value="<?php echo $for_customer; ?>" class="form-control" >
+
+                                     
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Blocked On</label> 
+                            <div class="input-with-icon  right">
+                                <i class=""></i>
+                                 <input type="text" readonly name="blocked_on" id="blocked_on" value="<?php echo $blocked_on; ?>" class="form-control" >
+
+
+                                     
+                            </div> 
+                    </div>
+                    <div class="form-group">
+                            <label class="form-label">Blocked Till</label> 
+                            <div class="input-with-icon  right">
+                                <i class=""></i>
+                                <input type="text" block-till-limit ="<?php echo $block_till_limit;?>" data-date-format="dd/mm/yyyy"  value="<?php echo $blocked_till; ?>" name="blocked_till" id="blocked_till"  class="form-control" >
+ 
+                                     
+                            </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="form-label">Comments</label> 
+                            <div class="input-with-icon  right">
+                                <i class=""></i>
+                                <textarea  name="block_status_comments" id="block_status_comments"  class="form-control" ><?php echo $block_status_comments; ?></textarea>
+
+                                     
+                            </div>
+                    </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-success btn-cons" name="save_apartment"  id="save_apartment"><i class="icon-ok"></i> Submit</button>
                     </div>

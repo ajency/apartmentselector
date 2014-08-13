@@ -41,6 +41,8 @@ function do_init_routines(){
 
     add_default_flats_and_floors();
 
+    test_data();
+
 }
 add_action('init','do_init_routines');
 
@@ -134,5 +136,45 @@ function manage_roles()
 }
 
  add_filter( 'init', 'manage_roles' );
+
+ function test_data(){
+ 
+ 	//create test sales user
+ 
+ 	 if ( !username_exists( 'salesone') ){
+
+	 		$userdata = array(
+		    'display_name'  =>  'Sales One', 
+		    'role'  =>  'contributor',
+		    'user_login'  =>  'salesone', 
+		    'user_pass'   =>  'temp#123'  // When creating an user, `user_pass` is expected.
+			);
+
+			$user_id = wp_insert_user( $userdata ) ;
+
+			$user = new WP_User( $user_id );
+			$user->add_cap( 'sales');
+
+			
+	 }
+	 if ( !username_exists( 'salestwo') ){
+
+	 		$userdata = array(
+		    'display_name'  =>  'Sales Two', 
+		    'role'  =>  'contributor',
+		    'user_login'  =>  'salestwo', 
+		    'user_pass'   =>  'temp#123'  // When creating an user, `user_pass` is expected.
+			);
+
+			$user_id = wp_insert_user( $userdata ) ;
+
+			$user = new WP_User( $user_id );
+			$user->add_cap( 'sales');
+
+
+	 }
+ 
+
+ }
 
 
