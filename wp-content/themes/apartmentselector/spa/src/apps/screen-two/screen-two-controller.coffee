@@ -468,7 +468,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
                 availableunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
-                floors = App.currentStore.unit.pluck("floor")
+                totalfloorcollection = new Backbone.Collection(totalunits)
+                floors = totalfloorcollection.pluck("floor")
                 uniqFloors = _.uniq(floors)
                 newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})

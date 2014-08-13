@@ -523,7 +523,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       buildingUnits = [];
       console.log(buildingArray);
       $.each(buildingArray, function(index, value) {
-        var availableunits, buildingid, data, floors, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
+        var availableunits, buildingid, data, floors, highArray, high_max_val, high_min_val, itemCollection, lowArray, low_max_val, low_min_val, mainArray, mediumArray, medium_max_val, medium_min_val, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
@@ -564,7 +564,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           'building': value,
           'status': status.get('id')
         });
-        floors = App.currentStore.unit.pluck("floor");
+        totalfloorcollection = new Backbone.Collection(totalunits);
+        floors = totalfloorcollection.pluck("floor");
         uniqFloors = _.uniq(floors);
         newunits = App.currentStore.unit.where({
           'building': value,
