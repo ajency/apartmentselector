@@ -6,7 +6,7 @@ function apartmentselector_backend_enqueue_scripts(){
 
     global $post;
 
-    $array_backend_pages = array('no-access','settings','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
+    $array_backend_pages = array('add-edit-payment-plan','payment-plans','no-access','general-settings','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
  
     if(in_array(get_template_filename(),$array_backend_pages)){
 
@@ -96,14 +96,22 @@ function apartmentselector_backend_enqueue_scripts(){
     }
 
     ///load settings.js if any of the specifed is loaded
-    if(in_array(get_template_filename(),array('settings'))){
+    if(in_array(get_template_filename(),array('general-settings'))){
         wp_enqueue_script( 'ap-sl-settings',
             get_template_directory_uri() . "/js/backend/settings.js",
             array( "jquery" ), false, true );
     }
 
+
+    ///load payment-plan.js if any of the specifed is loaded
+    if(in_array(get_template_filename(),array('add-edit-payment-plan','payment-plans'))){
+        wp_enqueue_script( 'ap-sl-settings',
+            get_template_directory_uri() . "/js/backend/payment-plans.js",
+            array( "jquery" ), false, true );
+    }
+
     ///load tablesorter js files
-        if(in_array(get_template_filename(),array('apartments','buildings'))){
+        if(in_array(get_template_filename(),array('apartments','buildings','payment-plans'))){
             wp_enqueue_script( 'tablesorter',
                 get_template_directory_uri() . "/js/backend/jquery.tablesorter.min.js",
                 array( "jquery" ), false, true );
@@ -161,10 +169,10 @@ function apartmentselector_backend_enqueue_styles() {
 
     global $post;
 
-    $array_backend_pages = array('no-access','settings','apartments','buildings','add-edit-apartment','add-edit-building','form' );
+    $array_backend_pages = array('add-edit-payment-plan','payment-plans','no-access','general-settings','apartments','buildings','add-edit-apartment','add-edit-building','form' );
 
     if(in_array(get_template_filename(),$array_backend_pages)){
-if(in_array(get_template_filename(),array('no-access','settings','apartments','buildings','add-edit-apartment','add-edit-building'))){
+if(in_array(get_template_filename(),array('add-edit-payment-plan','payment-plans','no-access','general-settings','apartments','buildings','add-edit-apartment','add-edit-building'))){
 
         wp_enqueue_style( "pace-theme-flash", get_template_directory_uri() . "/css/backend/css/pace-theme-flash.css" );
         wp_enqueue_style( "bootstrap-tagsinput", get_template_directory_uri() . "/css/backend/css/bootstrap-tagsinput.css" );
@@ -179,7 +187,7 @@ if(in_array(get_template_filename(),array('no-access','settings','apartments','b
         wp_enqueue_style( "custom", get_template_directory_uri() . "/css/backend/css/custom.css" );
 }
         //table sorter css
-        if(in_array(get_template_filename(),array('apartments','buildings'))){
+        if(in_array(get_template_filename(),array('apartments','buildings','payment-plans'))){
 
             wp_enqueue_style( "tablesorter-custom", get_template_directory_uri() . "/css/backend/css/tablesorter-custom.css" );
             wp_enqueue_style( "filter-formatter", get_template_directory_uri() . "/css/backend/css/filter.formatter.css" );

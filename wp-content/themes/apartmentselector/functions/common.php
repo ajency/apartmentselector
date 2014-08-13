@@ -109,12 +109,15 @@ function get_masters($masters){
 
     $return_masters = array();
 
-    foreach($masters as $master){
+    if(is_array($masters)){
+    	
+	    foreach($masters as $master){
 
-        $get_master = "get_".$master;
+	        $get_master = "get_".$master;
 
-        $return_masters[$master] = $get_master();
+	        $return_masters[$master] = $get_master();
 
+	    }
     }
 
     return $return_masters;
@@ -144,7 +147,7 @@ add_action('wp_ajax_nopriv_get_list_view','ajax_get_list_view');
 
 function check_backend_template(){
     //check to load js only if not backend templates
-    $array_backend_pages = array('no-access','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list');
+    $array_backend_pages = array('no-access','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list','general-settings','add-edit-payment-plan','payment-plans');
 
 
     if(in_array(get_template_filename(),$array_backend_pages)){
