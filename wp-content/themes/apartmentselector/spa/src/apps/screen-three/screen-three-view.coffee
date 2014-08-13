@@ -17,7 +17,7 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                     <div class="variantBox">
 
-                    <input type="radio" name="selectall" id="selectall" value="0" />Select All<input type="radio" name="selectall" id="unselectall" value="1" />Unselect All                         <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                    <input type="checkbox" name="selectall" id="selectall" value="0" />Select All/Unselect All                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
 
                             {{#unitVariants}}
@@ -154,6 +154,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log firstElement
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
+
                 else
 
 
@@ -210,25 +211,24 @@ define [ 'marionette' ], ( Marionette )->
                     )
             'click #selectall':(e)->
                 console.log unitVariantArray
-                $.each(unitVariantArray, (index,value)->
-                    $('#gridlink'+value).addClass 'selected'
-                    $('#checklink'+value).val '1'
+                if $('#'+e.target.id).prop('checked') == true
+                    $.each(unitVariantArray, (index,value)->
+                        $('#grid'+value).addClass 'selected'
+                        $('#check'+value).val '1'
 
 
-                )
-                unitVariantString = 'All'
-
-            'click #unselectall':(e)->
-                console.log value = _.first(unitVariantArray)
-                remainainArray = _.rest(unitVariantArray)
-                $.each(remainainArray, (index,value)->
-                    $('#gridlink'+value).removeClass 'selected'
-                    $('#checklink'+value).val '0'
-
+                    )
+                    unitVariantString = 'All'
+                else
+                    console.log value = _.first(unitVariantArray)
+                    remainainArray = _.rest(unitVariantArray)
+                    $.each(remainainArray, (index,value)->
+                        $('#grid'+value).removeClass 'selected'
+                        $('#check'+value).val '0'
 
 
-                )
-                unitVariantString = value.toString()
+                    )
+                    unitVariantString = value.toString()
 
         onShow:->
             if App.screenOneFilter['key'] == 'unitType'
