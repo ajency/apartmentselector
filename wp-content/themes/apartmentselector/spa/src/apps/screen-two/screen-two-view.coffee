@@ -5,6 +5,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantString = ''
     globalArrayLength = []
     firstElement = ''
+    rangeArray =[]
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -15,16 +16,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
-                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-                    <div class="variantBox">
+                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle1"> All  </span> variants of your apartment selection</div>
+                    <div class="variantBox1">
 
                         <div class="pull-left m-l-15">
                             <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
                             <label for="selectall">Select/Unselect All</label>
                         </div>
                         <div class="text-right m-b-20">
-                            <span class="variantClose glyphicon glyphicon-remove text-grey"></span>
+                            <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span>
                         </div>
+
                         <div class="grid-container">
                             {{#unitVariants}}
                             <div class="grid-block-3" >
@@ -55,8 +57,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="">Select</a>
-                        </div>
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
+                    </div>
 
                 </div>
                 <div class="col-sm-8">
@@ -101,7 +103,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .scroll':(e)->
                 console.log $('#'+e.target.id ).attr('data-id')
                 $('html, body').animate({ scrollTop : 0 }, 'slow')
-                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
+                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-7')
 
             'click .grid-link':(e)->
                 console.log unitVariantArray
@@ -167,9 +169,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.filter(params={})
                 if globalArrayLength.length == unitVariantArray.length
-                    @$el.find('.variantToggle').text 'All'
+                    @$el.find('.variantToggle1').text 'All'
                 else
-                    @$el.find('.variantToggle').text ''
+                    @$el.find('.variantToggle1').text ''
 
                 App.defaults['unitVariant'] = unitVariantString
                 console.log App.defaults
@@ -179,7 +181,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .cancel':(e)->
                 console.log unitVariantIdArray
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
-                $(".variantBox").slideToggle()
+                $(".variantBox1").slideToggle()
                 console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
                 globalUnitArrayInt = []
                 $.each(globalUnitVariants, (index,value)->
@@ -228,6 +230,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     )
                     unitVariantString = value.toString()
+
+            'click #screen-three-button':(e)->
+                console.log "aaaaaaaaaaaaa"
+                @trigger 'unit:count:selected'
+
 
 
 
@@ -296,14 +303,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
 
-            $(".variantToggle").click ->
+            $(".variantToggle1").click ->
                 $(this).toggleClass("open")
-                $(".variantBox").slideToggle()
+                $(".variantBox1").slideToggle()
                 return
 
-            $(".variantClose").click ->
-                $(".variantBox").slideToggle()
-                $(".variantToggle").toggleClass("open")
+            $(".variantClose1").click ->
+                $(".variantBox1").slideToggle()
+                $(".variantToggle1").toggleClass("open")
                 return
 
             $(".grid-link").click  (e)->
@@ -412,34 +419,65 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     </div>
                     <div class="pull-right box {{classname}}">{{count}}</div>
                     <div class="clearfix"></div>
-                            </div>'
+
+                    <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>'
 
         className : 'text-center towerSelect'
 
+        initialize :->
+            @$el.prop("id", 'range'+@model.get("range"))
+
 
         events:
-            'click .box':(e)->
-                param = {}
-                param['name'] = @model.get 'range'
-                console.log param
-                rangeModel = App.currentStore.range.findWhere(param)
-                rangeArray = []
-                i = 0
-                start = rangeModel.get('start')
-                end = rangeModel.get('end')
-                while parseInt(start) <= parseInt(end)
-                    rangeArray[i] = start
-                    start = parseInt(start) + 1
-                    i++
-                rangeArray
-                rangeString = rangeArray.join(',')
+            'click ':(e)->
+                console.log rangeArray
+                for element , index in rangeArray
+                    if element == @model.get('range')
+                        $("#checkrange"+@model.get 'range').val '1'
+                    else
+                        $("#checkrange"+element).val '0'
+                        $('#range'+element).removeClass 'selected'
+                        rangeArray = []
+                console.log $("#checkrange"+@model.get 'range').val()
+
+                if  parseInt($("#checkrange"+@model.get 'range').val()) == 0
+                    rangeArray.push @model.get 'range'
+                    $('#range'+@model.get 'range').addClass 'selected'
+
+                    $("#checkrange"+@model.get 'range').val "1"
+                    param = {}
+                    param['name'] = @model.get 'range'
+                    console.log param
+                    rangeModel = App.currentStore.range.findWhere(param)
+                    rangeArrayVal = []
+                    i = 0
+                    start = rangeModel.get('start')
+                    end = rangeModel.get('end')
+                    while parseInt(start) <= parseInt(end)
+                        rangeArrayVal[i] = start
+                        start = parseInt(start) + 1
+                        i++
+                    rangeArrayVal
+                    rangeString = rangeArrayVal.join(',')
 
 
-                App.defaults['floor'] = rangeString
-                App.backFilter['screen2'].push 'floor'
-                App.defaults['building'] = parseInt(@model.get 'buildingid')
-                App.backFilter['screen2'].push 'building'
-                @trigger 'unit:count:selected'
+                    App.defaults['floor'] = rangeString
+                    App.backFilter['screen2'].push 'floor'
+                    App.defaults['building'] = parseInt(@model.get 'buildingid')
+                    App.backFilter['screen2'].push 'building'
+                    console.log $('#screen-three-button')
+                    $('#screen-three-button').removeClass 'disabled btn-default'
+                    $("#screen-three-button").addClass 'btn-primary'
+                    #@trigger 'unit:count:selected'
+                else
+                    rangeArray=[]
+                    $("#checkrange"+@model.get 'range').val "0"
+                    $('#range'+@model.get 'range').removeClass 'selected'
+                if parseInt($("#checkrange"+@model.get 'range').val()) == 0
+                    $("#screen-three-button").addClass 'disabled btn-default'
+                    $("#screen-three-button").removeClass 'btn-primary'
+                    return false
+
 
 
 

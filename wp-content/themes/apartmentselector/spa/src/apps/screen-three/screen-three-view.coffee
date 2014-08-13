@@ -4,20 +4,26 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
-    firstElement =''
+    firstElement = ''
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
-        template : '
+        template : '<div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4">
                     <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
+                    
                     <div class="variantBox">
 
-                    <input type="checkbox" name="selectall" id="selectall" value="0" />Select All/Unselect All                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                        <div class="pull-left m-l-15">
+                            <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/>
+                            <label for="unselectall">Select/Unselect All</label>
+                        </div>
+                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
 
                             {{#unitVariants}}
@@ -35,67 +41,35 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                     </div>
 
-
-
-
                     <div id="vs-container" class="vs-container">
                         <header class="vs-header" id="building-region"></header>
                         <div  id="unit-region"></div>
                     </div>
+
+                    <div class="h-align-middle m-t-20 m-b-20">
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
+                    </div>
+
+                    
+
+                    </div>
+                <div class="col-sm-8">
                     {{#high}}
                     <div class="towerRange">
-                        <h3 class="text-primary text-center semi-bold m-t-40"><u>{{rangetext}}</u></h3>
+                        <h3 class="text-primary text-center semi-bold m-t-0"><u>{{rangetext}}</u></h3>
                         <div class="row m-l-0 m-r-0 m-b-20">
                             <div class="col-sm-4 col-xs-12">
                                 <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block">
                             </div>
-                            <!--<div class="col-sm-8 col-xs-3">
-                                <div class="row">
-                                    {{#high}}
-                                     <div class="col-sm-4 p-l-0 p-r-0">
-                                        <h1><small>Total {{name}}</small><br>{{count}}</h1>
-                                    </div>
-                                    {{/high}}
-                            </div>-->
 
                             <div class="col-sm-8 col-xs-12 m-t-30">
-                                <p>{{text}}</p></div>
-
-                            <!--<div class="row">
-                                <div class="col-sm-4">
-                                </div>
-                                <div class="col-sm-4">
-                                </div>
-                                <div class="col-sm-4">
-                                </div>
-                            </div>-->
-                        </div>
-
-                       <!-- <div class="viewsNo m-t-20">
-                            <div class="row m-l-0 m-r-0">
-                                <div class="col-xs-4">
-                                    <h4>
-                                        NO OF <span class="text-primary bold">VIEWS</span>
-                                    </H4>
-                                </div>
-                                <div class="col-xs-4">
-                                    Garden view<br>
-                                    Pond View<br>
-                                    Manas Lake<br>
-                                    Eco pond
-                                </div>
-                                <div class="col-xs-4">
-                                    Garden view<br>
-                                    Pond View<br>
-                                    Manas Lake<br>
-                                    Eco pond
-                                </div>
+                                <p>{{text}}</p>
                             </div>
-                        </div>-->
-
+                        </div>
                     </div>
-
-       {{/high}}                     '
+                    {{/high}}
+                    </div>
+                    </div>'
 
 
 
@@ -209,12 +183,12 @@ define [ 'marionette' ], ( Marionette )->
 
 
                     )
-            'click #selectall':(e)->
+            'click #unselectall':(e)->
                 console.log unitVariantArray
                 if $('#'+e.target.id).prop('checked') == true
                     $.each(unitVariantArray, (index,value)->
-                        $('#grid'+value).addClass 'selected'
-                        $('#check'+value).val '1'
+                        $('#gridlink'+value).addClass 'selected'
+                        $('#checklink'+value).val '1'
 
 
                     )
@@ -223,8 +197,8 @@ define [ 'marionette' ], ( Marionette )->
                     console.log value = _.first(unitVariantArray)
                     remainainArray = _.rest(unitVariantArray)
                     $.each(remainainArray, (index,value)->
-                        $('#grid'+value).removeClass 'selected'
-                        $('#check'+value).val '0'
+                        $('#gridlink'+value).removeClass 'selected'
+                        $('#checklink'+value).val '0'
 
 
                     )
@@ -370,7 +344,7 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<div id="check{{id}}" class="check" >
                         <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}}
-        				<div class="small">{{unitTypeName}} {{unitVariantName}} SQF</div>
+        				<div class="small">{{unitTypeName}} {{unitVariantName}} Sqft</div>
         			</div>'
 
 
@@ -538,6 +512,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
         childView : UnitView
+
 
 
 
