@@ -1,6 +1,38 @@
 <?php
 
+function get_payment_plan_milestones($payment_plan){
+	global $wpdb;
+	
+	$query= "SELECT option_value FROM ".$wpdb->prefix ."options where   option_id  = '$payment_plan'";
+ 
+   	$data = $wpdb->get_var($query);
+ $data = unserialize($data) ;
 
+   	return get_milestone_names( $data["milestones"]);
+}
+
+
+function get_milestone_names($milestones){
+
+	$milestone_with_names = array();
+
+	$all_milestones = get_milestones();
+ 
+	foreach($milestones as $milestone){
+
+		foreach($all_milestones as $all_milestone_item){
+ 
+			if($all_milestone_item["id"]==$milestone["milestone"]){
+
+				$milestone["name"] = $all_milestone_item["name"];
+			}
+		}
+
+		$milestone_with_names[] = $milestone;
+	}
+
+	return $milestone_with_names;
+}
 function get_payment_plans(){
 
 	$payment_plans = array();
@@ -30,7 +62,7 @@ function get_payment_by_id($id){
    	return $data[0];
 }
 
-function get_milstones($id=0){
+function get_milestones($id=0){
 
 	return get_default_data('milestones',$id);
 }
@@ -198,3 +230,19 @@ function delete_payment_plan($payment_plan_id){
 
 	update_option('payment_plans',$payment_plans);
 }
+
+//delete payment plan
+function ajax_get_payment_plan_milestones(){
+
+    $payment_plan = $_REQUEST["payment_plan"];
+
+	$payment_plan_milestones = get_payment_plan_milestones($payment_plan);
+	$response = json_encode( $payment_plan_milestones );
+
+	header( "Content-Type: application/json" );
+
+	echo $response;
+
+	exit;
+}
+add_action('wp_ajax_get_payment_plan_milestones','ajax_get_payment_plan_milestones');
