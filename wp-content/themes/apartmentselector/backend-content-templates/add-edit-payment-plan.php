@@ -22,7 +22,9 @@ $heading = "Edit";
  
     $payment_plan_name = $payment_plan["option_name"];
  
-    $payment_milestones =  unserialize($payment_plan["option_value"])["milestones"];
+    $payment_milestones =  unserialize($payment_plan["option_value"]) ;
+    $payment_milestones =  $payment_milestones["milestones"];
+
 
  
 }
