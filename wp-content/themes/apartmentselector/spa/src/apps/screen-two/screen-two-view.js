@@ -3,12 +3,13 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, globalArrayLength, m, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, firstElement, globalArrayLength, m, unitVariantArray, unitVariantIdArray, unitVariantString;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
   unitVariantString = '';
   globalArrayLength = [];
+  firstElement = '';
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -84,10 +85,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        if (globalUnitArrayInt.length === unitVariantArray.length) {
-          return unitVariantString = 'All';
+        console.log(unitVariantArray);
+        console.log(firstElement);
+        if (unitVariantArray.length === 0) {
+          return unitVariantString = firstElement.toString();
         } else {
-          return unitVariantString = unitVariantArray.join(',');
+          if (globalUnitArrayInt.length === unitVariantArray.length) {
+            return unitVariantString = 'All';
+          } else {
+            return unitVariantString = unitVariantArray.join(',');
+          }
         }
       },
       'click .done': function(e) {
@@ -147,11 +154,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         remainainArray = _.rest(unitVariantArray);
         $.each(remainainArray, function(index, value) {
           $('#grid' + value).removeClass('selected');
-          $('#check' + value).val('0');
-          index = unitVariantArray.indexOf(parseInt(value));
-          return unitVariantArray.splice(index, 1);
+          return $('#check' + value).val('0');
         });
-        return unitVariantString = unitVariantArray.join(',');
+        return unitVariantString = value.toString();
       }
     };
 
@@ -165,6 +170,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $('.refresh').removeClass('hidden');
       }
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      console.log(firstElement = _.first(unitVariantArray));
       console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
       globalUnitArrayInt = [];
       $.each(globalUnitVariants, function(index, value) {
