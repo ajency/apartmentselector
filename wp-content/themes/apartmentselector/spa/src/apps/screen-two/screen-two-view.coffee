@@ -4,7 +4,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantIdArray = []
     unitVariantString = ''
     globalArrayLength = []
-    firstElement =''
+    firstElement = ''
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -18,8 +18,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
                     <div class="variantBox">
 
-       <input type="checkbox" name="selectall" id="selectall" value="0" />Select All/Unselect All
-        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                        <div class="pull-left m-l-15">
+                            <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
+                            <label for="selectall">Select/Unselect All</label>
+                        </div>
+                        <div class="text-right m-b-20">
+                            <span class="variantClose glyphicon glyphicon-remove text-grey"></span>
+                        </div>
                         <div class="grid-container">
                             {{#unitVariants}}
                             <div class="grid-block-3" >
