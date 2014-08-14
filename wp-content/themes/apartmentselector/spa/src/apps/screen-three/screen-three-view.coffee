@@ -4,7 +4,12 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
-    firstElement = ''
+    firstElement =''
+    tagsArray = []
+    count = 0
+    object = ""
+
+
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
@@ -15,9 +20,15 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
-                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
+                    <div class="introTxt text-center">You are seeing 
+                        <div id="tagslist1" class="taglist">
+                          <ul></ul>
+                        </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div>
+
                     
+
                     <div class="variantBox">
+
 
                         <div class="pull-left m-l-15">
                             <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/>
@@ -90,6 +101,7 @@ define [ 'marionette' ], ( Marionette )->
 
             'click .grid-link':(e)->
                 console.log unitVariantArray
+                count = unitVariantArray.length
                 id = $('#'+e.target.id).attr('data-id')
                 track = 0
                 if $('#checklink'+id).val() == '1'
@@ -133,7 +145,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                    if globalUnitArrayInt.length == unitVariantArray.length
+                    if count == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
@@ -146,7 +158,6 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                App.filter(params={})
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
@@ -299,6 +310,64 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
+
+            tagsArray = []
+            console.log testtext = App.defaults['unitVariant']
+            if testtext != 'All'
+                unitVariantArrayText = testtext.split(",")
+                $.each(unitVariantArrayText, (index,value)->
+                    console.log value
+                    console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
+                    tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
+
+
+                )
+            else
+                unitVariantArrayText = testtext.split(",")
+                tagsArray.push({id:'All' , area : 'All'})
+
+            @doListing()
+            object = @
+        $(document).on("click", ".closeButton",  ()->
+                theidtodel = $(this).parent('li').attr('id')
+                object.delItem($('#' + theidtodel).attr('data-itemNum'))
+        )
+
+        doListing:->
+            $('#tagslist1 ul li').remove()
+            $.each(tagsArray,  (index, value) ->
+                $('#tagslist1 ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton"></div></li>')
+            )
+            if tagsArray.length == 1
+                $('.closeButton').addClass 'hidden'
+
+        delItem:(delnum)->
+            removeItem = delnum
+            i =0
+            key = ""
+            $.each(tagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
+
+            )
+            console.log index = key
+            if (index >= 0)
+                tagsArray.splice(index, 1)
+                $('#li-item-' + delnum).remove()
+                unitvariantarrayValues = []
+                $.each(tagsArray , (index,value)->
+                    unitvariantarrayValues.push(value.id)
+
+                )
+                App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
+                console.log App.defaults['unitVariant']
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
 
 
 
