@@ -108,6 +108,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 #locationData = m.getLocationData(id)
                 #m.showTooltip(locationData)
 
+            'click .tower-link':(e)->
+                e.preventDefault()
+                console.log e.target.id
+                console.log id  = e.target.id
+                m.showLocation(id, 800)
+                locationData = m.getLocationData(id)
+                m.showTooltip(locationData)
+
+
 
 
             'click .remodalcheck':(e)->
@@ -372,8 +381,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             tagsArray = []
             console.log testtext = App.defaults['unitVariant']
             if testtext != 'All'
-
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = testtext.split(',')
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
@@ -382,7 +390,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
             else
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = testtext.split(',')
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()

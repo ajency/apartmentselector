@@ -314,7 +314,7 @@ define [ 'marionette' ], ( Marionette )->
             tagsArray = []
             console.log testtext = App.defaults['unitVariant']
             if testtext != 'All'
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = testtext.split(',')
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
@@ -323,7 +323,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
             else
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = testtext.split(',')
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()

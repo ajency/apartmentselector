@@ -218,7 +218,7 @@ define(['marionette'], function(Marionette) {
       tagsArray = [];
       console.log(testtext = App.defaults['unitVariant']);
       if (testtext !== 'All') {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = testtext.split(',');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
           console.log(value);
@@ -231,7 +231,7 @@ define(['marionette'], function(Marionette) {
           });
         });
       } else {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = testtext.split(',');
         tagsArray.push({
           id: 'All',
           area: 'All'

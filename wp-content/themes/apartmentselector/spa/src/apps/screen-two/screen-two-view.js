@@ -43,6 +43,15 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         console.log(e.target.id);
         return console.log(id = e.target.id);
       },
+      'click .tower-link': function(e) {
+        var id, locationData;
+        e.preventDefault();
+        console.log(e.target.id);
+        console.log(id = e.target.id);
+        m.showLocation(id, 800);
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
+      },
       'click .remodalcheck': function(e) {
         console.log(this);
         return e.preventDefault();
@@ -250,7 +259,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       tagsArray = [];
       console.log(testtext = App.defaults['unitVariant']);
       if (testtext !== 'All') {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = testtext.split(',');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
           console.log(value);
@@ -263,7 +272,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
         });
       } else {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = testtext.split(',');
         tagsArray.push({
           id: 'All',
           area: 'All'
