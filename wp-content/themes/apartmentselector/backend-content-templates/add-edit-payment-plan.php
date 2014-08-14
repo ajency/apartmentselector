@@ -252,7 +252,7 @@ $heading = "Edit";
                   <div class="modal-body">
 				  <div class="row">
 				  <div class="col-md-2">
-                    <label class="form-label clabel">Milestone :</label> 
+                    <label class="form-label form-label-inline">Milestone :</label> 
 					</div>
 					
 					<div class="col-md-6">
