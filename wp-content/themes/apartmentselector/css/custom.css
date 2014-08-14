@@ -6918,6 +6918,7 @@ h5 {
 .variantToggle1 {
   cursor: pointer;
   font-weight: 600;
+  padding: 2px 5px;
 }
 .variantToggle:hover,
 .variantToggle1:hover {
@@ -6928,7 +6929,7 @@ h5 {
   font-family: 'Glyphicons Halflings';
   content: "\e114";
   display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
 }
 .variantToggle.open:after,
 .variantToggle1.open:after {
@@ -7716,4 +7717,34 @@ body {
 #screen-three-region,
 #screen-four-region {
   border-top: 1px solid #eeeeee;
+}
+.taglist {
+  display: inline-block;
+}
+.taglist ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+.taglist ul li {
+  display: inline-block;
+  background-color: #eeeeee;
+  color: #ff6600;
+  margin: 0 2px 3px;
+  padding: 3px 8px 2px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+.taglist ul li .closeButton {
+  display: inline;
+  cursor: pointer;
+  color: #999999;
+  padding: 1px 2px 1px 6px;
+}
+.taglist ul li .closeButton:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e014";
+  display: inline-block;
+  font-size: 12px;
 }

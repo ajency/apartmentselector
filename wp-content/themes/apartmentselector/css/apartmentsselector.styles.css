@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+/** apartmentselector Less file. Include all of your files here **/
 /* jQuery Modal
  * Copyright 2014 Kevin Sylvestre
  * 1.1.6
@@ -9500,5 +9501,27 @@ body {
 #screen-four-region {
   border-top: 1px solid #eeeeee;
 }
+.taglist ul {
+  list-style-type: none;
+}
+.taglist ul li {
+  display: inline-block;
+  background-color: #eeeeee;
+  margin: 0 2px 3px;
+  padding: 3px 8px;
+  border-radius: 30px;
+  font-weight: 400;
+}
+.taglist ul li .closeButton {
+  display: inline;
+  cursor: pointer;
+  color: #ff6600;
+  padding: 1px 4px;
+}
+.taglist ul li .closeButton:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e014";
+  display: inline-block;
+  font-size: 12px;
+}
 
-/** apartmentselector Less file. Include all of your files here **/
