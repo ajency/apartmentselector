@@ -97,7 +97,7 @@ define(['marionette'], function(Mariontte) {
     HeaderView.prototype.onShow = function() {
       $(window).scroll(function() {
         var height;
-        console.log(height = $(window).scrollTop());
+        height = $(window).scrollTop();
         if (height === 0) {
           $('.backBtn').addClass('hidden');
           $('.slctnTxt').addClass('hidden');

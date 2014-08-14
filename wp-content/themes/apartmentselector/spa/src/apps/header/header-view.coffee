@@ -104,7 +104,7 @@ define [ 'marionette' ], ( Mariontte )->
 
         onShow:->
             $(window).scroll( ()->
-                console.log height = $(window).scrollTop()
+                height = $(window).scrollTop()
                 if height == 0
                     $('.backBtn').addClass 'hidden'
                     $('.slctnTxt').addClass 'hidden'

@@ -78,13 +78,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'mouseover a':(e)->
-                id  = $('#'+e.target.id ).attr('data-id')
-                #locationData = m.getLocationData(id);
-                #m.showTooltip(locationData);
+                console.log id  = e.target.id
+                locationData = m.getLocationData(id)
+                m.showTooltip(locationData)
 
 
             'click a':(e)->
                 e.preventDefault()
+                console.log e.target.id
+                console.log id  = e.target.id
+                #m.showLocation(id, 800)
+                #locationData = m.getLocationData(id)
+                #m.showTooltip(locationData)
 
 
 
@@ -229,6 +234,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log "aaaaaaaaaaaaa"
                 @trigger 'unit:count:selected'
 
+        showHighlightedTowers:->
+            console.log building = Marionette.getOption( @, 'buildingColl' )
+            building.each (value)->
+                console.log value.get('id')
+                setTimeout( ()->
+                    $("#highlighttower"+value.get('id')).attr('class','overlay highlight')
+                , 1000)
+
+
+
+
 
 
 
@@ -247,6 +263,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            console.log document.getElementsByTagName('g')['highlighttower13']
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'
@@ -332,10 +349,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 i++;
 
             m  = $('#mapplic1').data('mapplic')
+            @showHighlightedTowers()
+
 
             $('html, body').animate({
                 scrollTop: $('#screen-two-region').offset().top
             }, 'slow');
+
+
 
 
 

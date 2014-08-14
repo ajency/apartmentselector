@@ -29,11 +29,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.events = {
       'mouseover a': function(e) {
-        var id;
-        return id = $('#' + e.target.id).attr('data-id');
+        var id, locationData;
+        console.log(id = e.target.id);
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
       },
       'click a': function(e) {
-        return e.preventDefault();
+        var id;
+        e.preventDefault();
+        console.log(e.target.id);
+        return console.log(id = e.target.id);
       },
       'click .remodalcheck': function(e) {
         console.log(this);
@@ -166,8 +171,20 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       }
     };
 
+    ScreenTwoLayout.prototype.showHighlightedTowers = function() {
+      var building;
+      console.log(building = Marionette.getOption(this, 'buildingColl'));
+      return building.each(function(value) {
+        console.log(value.get('id'));
+        return setTimeout(function() {
+          return $("#highlighttower" + value.get('id')).attr('class', 'overlay highlight');
+        }, 1000);
+      });
+    };
+
     ScreenTwoLayout.prototype.onShow = function() {
       var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, params, scr, selector;
+      console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
       } else if (App.screenOneFilter['key'] === 'budget') {
@@ -228,6 +245,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         i++;
       }
       m = $('#mapplic1').data('mapplic');
+      this.showHighlightedTowers();
       return $('html, body').animate({
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
