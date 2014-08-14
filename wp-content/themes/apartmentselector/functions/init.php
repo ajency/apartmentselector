@@ -88,6 +88,16 @@ $current_user = wp_get_current_user();
 
 add_filter( 'login_redirect', 'my_login_redirect',10,3 );
 
+function set_last_login( $login ) {
+
+    $user = get_userdatabylogin( $login );
+
+    //add or update the last login value for logged in user
+    update_usermeta( $user->ID, 'last_login', current_time( 'mysql' ) );
+}
+
+add_action( 'wp_login', 'set_last_login' );
+
 function manage_roles()
 {
 	global $wp_roles;

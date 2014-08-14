@@ -314,11 +314,19 @@ function convert_custom_to_mysql_date($date){
 
 function convert_mysql_to_custom_date($date){
 
+	if(!empty($date)){ 
+
+		$date = date('d/m/Y',strtotime($date));
+	}
+
+	return $date;
+}
+
+function convert_mysql_to_custom_date_time($date){
+
 	if(!empty($date)){
 
-		$format_date = explode("-",$date);
-
-		$date = $format_date[2]."/".$format_date[1]."/".$format_date[0];
+		 $date = date('d/m/Y H:i:s',strtotime($date));
 	}
 
 	return $date;

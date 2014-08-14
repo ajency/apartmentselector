@@ -27,7 +27,7 @@ function get_all_users(){
 	global $wp_roles ;
 	foreach($users as $user){
 
-		$last_login = get_user_meta($user->data->ID,"last-login",true);
+		$last_login = get_user_meta($user->data->ID,"last_login",true);
 
 		$display_role= $wp_roles->role_names[key($user->caps)] ;
 
@@ -35,7 +35,7 @@ function get_all_users(){
  								'displayName'=>$user->data->display_name,
  								'displayRole'=>$display_role,
  								'role'=>key($user->caps),
- 								'lastLogin'=>$last_login,
+ 								'lastLogin'=>convert_mysql_to_custom_date_time($last_login),
  								'email'=>$user->data->user_email,
  								'login'=>$user->data->user_login,
 

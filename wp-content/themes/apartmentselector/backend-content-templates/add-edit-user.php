@@ -1,7 +1,7 @@
 <?
 //form heading
 
-if(!current_user_can('manage_buildings') && !current_user_can('manage_options')){
+if(!current_user_can('manage_users') && !current_user_can('manage_options')){
 
     wp_redirect(site_url('no-access'));
 
