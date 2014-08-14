@@ -446,11 +446,11 @@ function get_units(){
                             'unitPrice'=> ($unitprice),
                             'premiumUnitPrice'=> ($premiumunitprice),
                             'facing'=>intval($unit_facing),
-                            'blocked_by'=> ($blocked_by),
-                            'for_customer'=> ($for_customer),
-                            'blocked_on'=> convert_mysql_to_custom_date($blocked_on),
-                            'blocked_till'=> convert_mysql_to_custom_date($blocked_till),
-                            'block_status_comments'=> ($block_status_comments)
+                            'blockedBy'=> ($blocked_by),
+                            'forCustomer'=> ($for_customer),
+                            'blockedOn'=> convert_mysql_to_custom_date($blocked_on),
+                            'blockedTill'=> convert_mysql_to_custom_date($blocked_till),
+                            'blockStatusComments'=> ($block_status_comments)
                         );
 
     }
