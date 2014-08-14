@@ -94,7 +94,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         events:
-            'mouseover .tower-link':(e)->
+            'mouseover a':(e)->
                 console.log id  = e.target.id
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
@@ -379,10 +379,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             tagsArray = []
-            console.log testtext = Marionette.getOption( @, 'uintVariantId' )
+            console.log testtext = App.defaults['unitVariant']
             if testtext != 'All'
-
-                unitVariantArrayText = Marionette.getOption( @, 'uintVariantId' )
+                unitVariantArrayText = testtext.split(',')
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
@@ -391,7 +390,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
             else
-                unitVariantArrayText = Marionette.getOption( @, 'uintVariantId' )
+                unitVariantArrayText = testtext.split(',')
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()

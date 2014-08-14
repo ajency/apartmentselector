@@ -31,7 +31,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
-      'mouseover .tower-link': function(e) {
+      'mouseover a': function(e) {
         var id, locationData;
         console.log(id = e.target.id);
         locationData = m.getLocationData(id);
@@ -257,9 +257,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
       tagsArray = [];
-      console.log(testtext = Marionette.getOption(this, 'uintVariantId'));
+      console.log(testtext = App.defaults['unitVariant']);
       if (testtext !== 'All') {
-        unitVariantArrayText = Marionette.getOption(this, 'uintVariantId');
+        unitVariantArrayText = testtext.split(',');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
           console.log(value);
@@ -272,7 +272,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
         });
       } else {
-        unitVariantArrayText = Marionette.getOption(this, 'uintVariantId');
+        unitVariantArrayText = testtext.split(',');
         tagsArray.push({
           id: 'All',
           area: 'All'
