@@ -20,10 +20,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
 
-                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle1"> All  </span> variants of your apartment selection</div>
-                    <div id="tagslist">
+                    <div class="introTxt text-center">You are seeing 
+                        <div id="tagslist" class="taglist">
                           <ul></ul>
-                        </div><div class="variantBox1">
+                        </div><span class="text-primary variantToggle1"> </span>variants of your apartment selection</div>
+                    
+                    
+
+                    <div class="variantBox1">
 
                         <div class="pull-left m-l-15">
                             <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
@@ -403,7 +407,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         doListing:->
             $('#tagslist ul li').remove()
             $.each(tagsArray,  (index, value) ->
-                $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '">[<div class="closeButton">x</div><span class="itemText">' + value.area + '</span> ]</li>')
+                $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton"></div></li>')
             )
             if tagsArray.length == 1
                 $('.closeButton').addClass 'hidden'

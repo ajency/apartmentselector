@@ -361,7 +361,7 @@ color: #006CD9;
 }
 
 #milestone-list { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-#milestone-list li { border: 1px solid #dfdfdf;
+#milestone-list li{ border: 1px solid #dfdfdf;
   position: relative;
   padding: 10px 15px;
   height: 100;
@@ -379,4 +379,12 @@ color: #006CD9;
   width:64px !important;
   padding-right:2px !important;
  }
-
+.thrash{
+	color:#000 !important;
+}
+.clabel{
+	margin-top:8px !important;
+}
+#milestone-list li:hover{
+	cursor:move;
+}
