@@ -286,3 +286,29 @@ function get_user_role( $user_ID = 0 ) {
 
     return $user->roles[ 0 ];
 }
+
+
+function convert_custom_to_mysql_date($date){
+
+	if(!empty($date)){
+
+		$format_date = explode("/",$date);
+
+		$date = $format_date[2]."-".$format_date[1]."-".$format_date[0];
+	}
+
+	return $date;
+}
+
+
+function convert_mysql_to_custom_date($date){
+
+	if(!empty($date)){
+
+		$format_date = explode("-",$date);
+
+		$date = $format_date[2]."/".$format_date[1]."/".$format_date[0];
+	}
+
+	return $date;
+}

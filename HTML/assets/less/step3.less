@@ -1,18 +1,24 @@
 .box{
 	padding: 8px 15px;
 	height: 55px;
-	width: 110px;
-	margin: 0 0 10px auto;
+	width: 115px;
+	.h4;
+	line-height: inherit;
 	background-color: @color-white;
 	border: 1px solid lighten(@color-grey, 30%);
-	font-size: 20px;
-	font-weight: 600;
+	// font-size: 20px;
+	// font-weight: 600;
 	cursor: pointer;
 	position: relative;
+	margin: 0 0 10px auto;
+	.bold;
 	.ease;
 	.small{
-		font-size: 52%;
+		// font-size: 52%;
+		.h5;
+		margin: 0;
 		width: auto !important;
+		color: @gray-light;
 	}
 	&.selected{
 		border: 1px solid @color-primary;
@@ -29,7 +35,7 @@
 	&.filtered{
 		color: @color-primary;
 		.small{
-			color: lighten(@color-grey, 10%);
+			// color: lighten(@color-grey, 10%);
 		}
 	}
 	&.other{
@@ -87,7 +93,7 @@
 /**** Responsive Table Styles ****/
 .unitTable {
 	position: relative;
-	width: 92%;
+	width: 100%;
 	max-width: 1170px;
 	margin: 1em auto;
 	font-size: 14px;
@@ -135,13 +141,13 @@
 	// }
 	.cd-table-row{
 		.cd-block{
-			width: 140px;
+			width: 125px;
 			// float: left;
 			display: inline-block;
 			text-align: center;
 			margin-left: -1px;
 			line-height: 20px;
-			padding: 1em;
+			padding: 1em 0;
 			height: 84px;
 			background-color: lighten(@color-grey, 38%);
 			border-bottom: 1px solid lighten(@color-grey, 35%);
@@ -153,7 +159,7 @@
 	ul > li {
 		position: relative;
 		text-align: center;
-		padding: 1em;
+		// padding: 1em;
 		height: 84px;
 		// color: lighten(@color-grey, 20%);
 		background-color: lighten(@color-grey, 38%);
@@ -215,12 +221,14 @@
 			border-bottom: 0;
 			text-align: left;
 			padding-top: 22px;
-			font-weight: 400;
-			color: @color-grey;
+			// font-weight: 400;
+			// color: @color-grey;
+			.small;
+			.bold;
 			text-transform: uppercase;
 			text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 			small {
-				font-weight: 300;
+				// font-weight: 300;
 				display: block;
 			}
 		}
@@ -240,40 +248,41 @@
 		-moz-animation: cd-scroll-right 1.5s infinite;
 		animation: cd-scroll-right 1.5s infinite;
 	}
-	@media only screen and (min-width: 870px) {
-		// margin: 2em auto;
-		// border-right: none;
-		
-		.cd-table-wrapper {
-			// width: 100%;
-			padding-left: 14.66667%;
-		}
-		// .cd-table-column {
-		// 	width: 150px;
-		// 	float: left;
-		// 	&:last-child {
-		// 		border-right: 1px solid #e6e7f1;
-		// 	}
-		// }
-		.cd-table-row{
-			.cd-block{
-				width: 150px;
-				&:last-child {
-					border-right: 1px solid #e6e7f1;
-				}
+
+	// margin: 2em auto;
+	// border-right: none;
+	
+	.cd-table-wrapper {
+		// width: 100%;
+		padding-left: 16.66667%;
+	}
+	// .cd-table-column {
+	// 	width: 150px;
+	// 	float: left;
+	// 	&:last-child {
+	// 		border-right: 1px solid #e6e7f1;
+	// 	}
+	// }
+	.cd-table-row{
+		.cd-block{
+			// width: 150px;
+			&:last-child {
+				margin-right: 10px;
+				border-right: 1px solid @gray-lighter;
 			}
 		}
-		header.cd-table-column {
-			width: 14.66667%;
-			float: left;
-			// background: lighten(@color-grey, 30%);
-			box-shadow: none;
-			pointer-events: auto;
-		}
-		// .cd-scroll-right {
-		// 	display: none;
-		// }
 	}
+	header.cd-table-column {
+		width: 16.66667%;
+		float: left;
+		// background: lighten(@color-grey, 30%);
+		box-shadow: none;
+		pointer-events: auto;
+	}
+	// .cd-scroll-right {
+	// 	display: none;
+	// }
+	
 	@media only screen and (min-width: 1170px) {
 		// margin: 4em auto;
 	}

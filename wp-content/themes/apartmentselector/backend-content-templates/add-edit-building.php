@@ -156,10 +156,10 @@ $heading = "Edit";
 
                     $payment_plans = get_payment_plans();
 
-                    foreach ($payment_plans as $payment_plans){
+                    foreach ($payment_plans as $payment_plan){
 
                         ?>
-                        <option value="<?php echo $payment_plans['id']; ?>"  <?php if($building_payment_plan==$payment_plans['id']){ echo "selected"; }?>><?php echo  $payment_plans['name']?></option>
+                        <option value="<?php echo $payment_plan['id']; ?>"  <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?>><?php echo  $payment_plan['name']?></option>
                     <?php } ?>
                 </select>
             </div>

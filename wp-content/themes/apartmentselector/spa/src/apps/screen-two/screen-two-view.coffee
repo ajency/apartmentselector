@@ -4,7 +4,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantIdArray = []
     unitVariantString = ''
     globalArrayLength = []
-    firstElement =''
+    firstElement = ''
     rangeArray =[]
     tagsArray = []
     class ScreenTwoLayout extends Marionette.LayoutView
@@ -17,14 +17,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
-                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
+
+                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle1"> All  </span> variants of your apartment selection</div>
                     <div id="tagslist">
-                  <ul></ul>
-                </div><div class="variantBox">
+                          <ul></ul>
+                        </div><div class="variantBox1">
+
+                        <div class="pull-left m-l-15">
+                            <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
+                            <label for="selectall">Select/Unselect All</label>
+                        </div>
+                        <div class="text-right m-b-20">
+                            <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span>
+                        </div>
 
 
-       <input type="checkbox" name="selectall" id="selectall" value="0" />Select All/Unselect All
-        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
                             {{#unitVariants}}
                             <div class="grid-block-3" >
@@ -56,7 +63,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
                         <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
-                        </div>
+                    </div>
 
                 </div>
                 <div class="col-sm-8">
@@ -171,16 +178,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                App.defaults['unitVariant'] = unitVariantString
-                console.log App.currentStore.unit
-                console.log App.defaults
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
             'click .cancel':(e)->
                 console.log unitVariantIdArray
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
-                $(".variantBox").slideToggle()
+                $(".variantBox1").slideToggle()
                 console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
                 globalUnitArrayInt = []
                 $.each(globalUnitVariants, (index,value)->
@@ -314,14 +318,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
 
-            $(".variantToggle").click ->
+            $(".variantToggle1").click ->
                 $(this).toggleClass("open")
-                $(".variantBox").slideToggle()
+                $(".variantBox1").slideToggle()
                 return
 
-            $(".variantClose").click ->
-                $(".variantBox").slideToggle()
-                $(".variantToggle").toggleClass("open")
+            $(".variantClose1").click ->
+                $(".variantBox1").slideToggle()
+                $(".variantToggle1").toggleClass("open")
                 return
 
             $(".grid-link").click  (e)->

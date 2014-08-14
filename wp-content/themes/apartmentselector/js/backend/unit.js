@@ -2,6 +2,10 @@
 
 jQuery(document).ready(function($) {
  
+    $("#blocked_till").datepicker({
+            startDate: $("#blocked_on").val(),
+            endDate: $("#blocked_till").attr('block-till-limit'),
+    });
     var collections = [];
     //load unit variants on selection of unit type
     $(document).on("change", "#unit_type", function(e) {
@@ -309,7 +313,38 @@ $(document).on("click", ".delete_unit", function(e) {
                 }
             }); 
 
+$(document).on("change", "#unit_status", function(e) {
+
+    if( $("#unit_status option:selected").text()=="Blocked"){
  
 
+    $.post(AJAXURL, {
+
+            action: "get_server_block_date", 
+
+            id:$('#apartment_id').val(), 
+
+            status:$('#unit_status').val()
+
+        }, function(response) {
+
+             $("#blocked_on").val(response.blocked_on_date);
+
+              $("#blocked_till").datepicker({
+                    startDate: response.blocked_on_date,
+                    endDate: response.apartment_block_till_limit,
+                    update: response.blocked_on_date
+                });
+ 
+
+             $("#block-status-details").show();
+        });
+        
+    }else{
+        $("#block-status-details").hide();
+    }
+    
+
+});
 
 });
