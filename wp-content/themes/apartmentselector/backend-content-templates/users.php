@@ -1,5 +1,5 @@
 <?php
-if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
+if(!current_user_can('manage_users') && !current_user_can('manage_options')){
 
     wp_redirect(site_url('no-access'));
 
@@ -28,10 +28,10 @@ if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
                                           <th style="visibility:hidden"> </th>
                                         </tr> 
                                         <tr>
-                                          <th  >Payment Plan</th>
-                                            
-                                            
-                                            <th  width="100"  class="filter-false sorter-false">Action</th>
+                                          <th  >Name</th>
+                                          <th class="filter-select"  data-placeholder="All">Role</th>
+                                          <th  >Last Login</th>
+                                          <th  width="100"  class="filter-false sorter-false">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
