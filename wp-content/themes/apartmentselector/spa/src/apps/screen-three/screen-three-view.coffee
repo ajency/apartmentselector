@@ -5,7 +5,7 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantIdArray = []
     unitVariantString = ''
     firstElement =''
-
+    tagsArray = []
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '
@@ -15,7 +15,9 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-                    <div class="variantBox">
+                    <div id="tagslist">
+                          <ul></ul>
+                        </div><div class="variantBox">
 
                     <input type="checkbox" name="selectall" id="selectall" value="0" />Select All/Unselect All                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
@@ -172,7 +174,6 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                App.filter(params={})
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
@@ -325,6 +326,50 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
+
+            console.log testtext = App.defaults['unitVariant']
+            if testtext != 'All'
+                tagsArray = []
+                unitVariantArrayText = testtext.split(",")
+                $.each(unitVariantArrayText, (index,value)->
+                    console.log value
+                    console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
+                    tagsArray.push(unitVariantModel.get('sellablearea')+'Sq.ft.')
+
+
+                )
+            else
+                tagsArray = testtext.split(",")
+
+            @doListing()
+            object = @
+            $(document).on("click", ".closeButton",  ()->
+                theidtodel = $(this).parent('li').attr('id')
+                object.delItem($('#' + theidtodel).attr('data-itemNum'))
+            )
+
+        doListing:->
+            $('#tagslist ul li').remove()
+            $.each(tagsArray,  (index, value) ->
+                $('#tagslist ul').append('<li id="li-item-' + index + '" data-itemNum="' + index + '">[<div class="closeButton">x</div><span class="itemText">' + value + '</span> ]</li>')
+            )
+            if tagsArray.length == 1
+                $('.closeButton').addClass 'hidden'
+
+        delItem:(delnum)->
+            removeItem = $('#li-item-' + delnum + ' .itemText').text()
+
+            index = $.inArray(removeItem, tagsArray)
+            if (index >= 0)
+                tagsArray.splice(index, 1)
+                $('#li-item-' + delnum).remove()
+                App.defaults['unitVariant'] = tagsArray.join(',')
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
 
 
 

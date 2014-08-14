@@ -6,6 +6,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     globalArrayLength = []
     firstElement =''
     rangeArray =[]
+    tagsArray = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -17,7 +18,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
 
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-                    <div class="variantBox">
+                    <div id="tagslist">
+                  <ul></ul>
+                </div><div class="variantBox">
+
 
        <input type="checkbox" name="selectall" id="selectall" value="0" />Select All/Unselect All
         <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
@@ -162,17 +166,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .done':(e)->
+                console.log UNITS
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                App.filter(params={})
-                if globalArrayLength.length == unitVariantArray.length
-                    @$el.find('.variantToggle').text 'All'
-                else
-                    @$el.find('.variantToggle').text ''
-
                 App.defaults['unitVariant'] = unitVariantString
+                console.log App.currentStore.unit
                 console.log App.defaults
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
@@ -354,7 +354,58 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             $('html, body').animate({
                 scrollTop: $('#screen-two-region').offset().top
-            }, 'slow');
+            }, 'slow')
+
+
+
+            console.log testtext = App.defaults['unitVariant']
+            if testtext != 'All'
+                tagsArray = []
+                unitVariantArrayText = testtext.split(",")
+                $.each(unitVariantArrayText, (index,value)->
+                    console.log value
+                    console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
+                    tagsArray.push(unitVariantModel.get('sellablearea')+'Sq.ft.')
+
+
+                )
+            else
+                tagsArray = testtext.split(",")
+
+            @doListing()
+            object = @
+            $(document).on("click", ".closeButton",  ()->
+                theidtodel = $(this).parent('li').attr('id')
+                object.delItem($('#' + theidtodel).attr('data-itemNum'))
+            )
+
+        doListing:->
+            $('#tagslist ul li').remove()
+            $.each(tagsArray,  (index, value) ->
+                $('#tagslist ul').append('<li id="li-item-' + index + '" data-itemNum="' + index + '">[<div class="closeButton">x</div><span class="itemText">' + value + '</span> ]</li>')
+            )
+            if tagsArray.length == 1
+                $('.closeButton').addClass 'hidden'
+
+        delItem:(delnum)->
+            removeItem = $('#li-item-' + delnum + ' .itemText').text()
+
+            index = $.inArray(removeItem, tagsArray)
+            if (index >= 0)
+                tagsArray.splice(index, 1)
+                $('#li-item-' + delnum).remove()
+                App.defaults['unitVariant'] = tagsArray.join(',')
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
+
+
+
+
+
 
 
 
@@ -390,9 +441,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 selector = '#mapplic' + i
 
                 #m.initial($(selector),params)
-                m.showLocation(id, 800)
-                locationData = m.getLocationData(id);
-                m.showTooltip(locationData);
+                #m.showLocation(id, 800)
+                #locationData = m.getLocationData(id);
+                #m.showTooltip(locationData);
                 #App.navigate "tower"+@model.get('id') , trigger:true
 
 
