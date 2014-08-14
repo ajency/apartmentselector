@@ -7,6 +7,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     firstElement = ''
     rangeArray =[]
     tagsArray = []
+    count = 0
+    object = ""
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -117,6 +119,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             'click .grid-link':(e)->
                 console.log unitVariantArray
+                count = unitVariantArray.length
                 id = $('#'+e.target.id).attr('data-id')
                 track = 0
                 if $('#check'+id).val() == '1'
@@ -150,8 +153,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log track
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
-                        globalUnitArrayInt.push(id)
-                        globalArrayLength.push(id)
+                        globalUnitArrayInt.push(parseInt(id))
+                        globalArrayLength.push(parseInt(id))
                         unitVariantArray = globalUnitArrayInt
 
                 console.log unitVariantArray
@@ -163,7 +166,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
-                    if globalUnitArrayInt.length == unitVariantArray.length
+                    if count == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
@@ -173,11 +176,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .done':(e)->
-                console.log UNITS
+                console.log unitVariantString
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.defaults['unitVariant'] =unitVariantString
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -361,44 +365,61 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             }, 'slow')
 
 
-
+            tagsArray = []
             console.log testtext = App.defaults['unitVariant']
             if testtext != 'All'
-                tagsArray = []
+
                 unitVariantArrayText = testtext.split(",")
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
-                    tagsArray.push(unitVariantModel.get('sellablearea')+'Sq.ft.')
+                    tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
 
 
                 )
             else
-                tagsArray = testtext.split(",")
+                unitVariantArrayText = testtext.split(",")
+                tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()
             object = @
-            $(document).on("click", ".closeButton",  ()->
+        $(document).on("click", ".closeButton",  ()->
+                console.log object
                 theidtodel = $(this).parent('li').attr('id')
+                console.log "aaaaaaaaaaaaaaaaaaaa"
+
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
-            )
+        )
 
         doListing:->
             $('#tagslist ul li').remove()
             $.each(tagsArray,  (index, value) ->
-                $('#tagslist ul').append('<li id="li-item-' + index + '" data-itemNum="' + index + '">[<div class="closeButton">x</div><span class="itemText">' + value + '</span> ]</li>')
+                $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '">[<div class="closeButton">x</div><span class="itemText">' + value.area + '</span> ]</li>')
             )
             if tagsArray.length == 1
                 $('.closeButton').addClass 'hidden'
 
         delItem:(delnum)->
-            removeItem = $('#li-item-' + delnum + ' .itemText').text()
+            removeItem = delnum
+            i =0
+            key = ""
+            $.each(tagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
 
-            index = $.inArray(removeItem, tagsArray)
+            )
+            console.log index = key
             if (index >= 0)
                 tagsArray.splice(index, 1)
                 $('#li-item-' + delnum).remove()
-                App.defaults['unitVariant'] = tagsArray.join(',')
+                unitvariantarrayValues = []
+                $.each(tagsArray , (index,value)->
+                    unitvariantarrayValues.push(value.id)
+
+                )
+                App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
+                console.log App.defaults['unitVariant']
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES

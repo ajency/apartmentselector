@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, firstElement, globalArrayLength, m, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, count, firstElement, globalArrayLength, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -12,6 +12,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
   firstElement = '';
   rangeArray = [];
   tagsArray = [];
+  count = 0;
+  object = "";
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -55,6 +57,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'click .grid-link': function(e) {
         var globalUnitArrayInt, globalUnitVariants, id, index, track;
         console.log(unitVariantArray);
+        count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
         track = 0;
         if ($('#check' + id).val() === '1') {
@@ -87,8 +90,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             console.log(track);
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
-            globalUnitArrayInt.push(id);
-            globalArrayLength.push(id);
+            globalUnitArrayInt.push(parseInt(id));
+            globalArrayLength.push(parseInt(id));
             unitVariantArray = globalUnitArrayInt;
           }
         }
@@ -97,7 +100,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         if (unitVariantArray.length === 0) {
           return unitVariantString = firstElement.toString();
         } else {
-          if (globalUnitArrayInt.length === unitVariantArray.length) {
+          if (count === unitVariantArray.length) {
             return unitVariantString = 'All';
           } else {
             return unitVariantString = unitVariantArray.join(',');
@@ -106,11 +109,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .done': function(e) {
         var params;
-        console.log(UNITS);
+        console.log(unitVariantString);
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.defaults['unitVariant'] = unitVariantString;
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },
@@ -177,7 +181,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, object, params, scr, selector, testtext, unitVariantArrayText;
+      var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayText;
       console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
@@ -243,9 +247,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       $('html, body').animate({
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
+      tagsArray = [];
       console.log(testtext = App.defaults['unitVariant']);
       if (testtext !== 'All') {
-        tagsArray = [];
         unitVariantArrayText = testtext.split(",");
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
@@ -253,24 +257,34 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           console.log(unitVariantModel = App.master.unit_variant.findWhere({
             id: parseInt(value)
           }));
-          return tagsArray.push(unitVariantModel.get('sellablearea') + 'Sq.ft.');
+          return tagsArray.push({
+            id: value,
+            area: unitVariantModel.get('sellablearea') + 'Sq.ft.'
+          });
         });
       } else {
-        tagsArray = testtext.split(",");
+        unitVariantArrayText = testtext.split(",");
+        tagsArray.push({
+          id: 'All',
+          area: 'All'
+        });
       }
       this.doListing();
-      object = this;
-      return $(document).on("click", ".closeButton", function() {
-        var theidtodel;
-        theidtodel = $(this).parent('li').attr('id');
-        return object.delItem($('#' + theidtodel).attr('data-itemNum'));
-      });
+      return object = this;
     };
+
+    $(document).on("click", ".closeButton", function() {
+      var theidtodel;
+      console.log(object);
+      theidtodel = $(this).parent('li').attr('id');
+      console.log("aaaaaaaaaaaaaaaaaaaa");
+      return object.delItem($('#' + theidtodel).attr('data-itemNum'));
+    });
 
     ScreenTwoLayout.prototype.doListing = function() {
       $('#tagslist ul li').remove();
       $.each(tagsArray, function(index, value) {
-        return $('#tagslist ul').append('<li id="li-item-' + index + '" data-itemNum="' + index + '">[<div class="closeButton">x</div><span class="itemText">' + value + '</span> ]</li>');
+        return $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '">[<div class="closeButton">x</div><span class="itemText">' + value.area + '</span> ]</li>');
       });
       if (tagsArray.length === 1) {
         return $('.closeButton').addClass('hidden');
@@ -278,13 +292,26 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.delItem = function(delnum) {
-      var index, params, removeItem;
-      removeItem = $('#li-item-' + delnum + ' .itemText').text();
-      index = $.inArray(removeItem, tagsArray);
+      var i, index, key, params, removeItem, unitvariantarrayValues;
+      removeItem = delnum;
+      i = 0;
+      key = "";
+      $.each(tagsArray, function(index, val) {
+        if (val.id === delnum) {
+          key = i;
+        }
+        return i++;
+      });
+      console.log(index = key);
       if (index >= 0) {
         tagsArray.splice(index, 1);
         $('#li-item-' + delnum).remove();
-        App.defaults['unitVariant'] = tagsArray.join(',');
+        unitvariantarrayValues = [];
+        $.each(tagsArray, function(index, value) {
+          return unitvariantarrayValues.push(value.id);
+        });
+        App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
+        console.log(App.defaults['unitVariant']);
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);

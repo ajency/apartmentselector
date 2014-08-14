@@ -6,6 +6,8 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantString = ''
     firstElement =''
     tagsArray = []
+    count = 0
+    object = ""
 
 
 
@@ -20,7 +22,7 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
                     <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
 
-                    <div id="tagslist">
+                    <div id="tagslist1">
                           <ul></ul>
                         </div>
 
@@ -98,6 +100,7 @@ define [ 'marionette' ], ( Marionette )->
 
             'click .grid-link':(e)->
                 console.log unitVariantArray
+                count = unitVariantArray.length
                 id = $('#'+e.target.id).attr('data-id')
                 track = 0
                 if $('#checklink'+id).val() == '1'
@@ -141,7 +144,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                    if globalUnitArrayInt.length == unitVariantArray.length
+                    if count == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
@@ -307,43 +310,57 @@ define [ 'marionette' ], ( Marionette )->
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
 
+            tagsArray = []
             console.log testtext = App.defaults['unitVariant']
             if testtext != 'All'
-                tagsArray = []
                 unitVariantArrayText = testtext.split(",")
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
-                    tagsArray.push(unitVariantModel.get('sellablearea')+'Sq.ft.')
+                    tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
 
 
                 )
             else
-                tagsArray = testtext.split(",")
+                unitVariantArrayText = testtext.split(",")
+                tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()
             object = @
-            $(document).on("click", ".closeButton",  ()->
+        $(document).on("click", ".closeButton",  ()->
                 theidtodel = $(this).parent('li').attr('id')
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
-            )
+        )
 
         doListing:->
-            $('#tagslist ul li').remove()
+            $('#tagslist1 ul li').remove()
             $.each(tagsArray,  (index, value) ->
-                $('#tagslist ul').append('<li id="li-item-' + index + '" data-itemNum="' + index + '">[<div class="closeButton">x</div><span class="itemText">' + value + '</span> ]</li>')
+                $('#tagslist1 ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '">[<div class="closeButton">x</div><span class="itemText">' + value.area + '</span> ]</li>')
             )
             if tagsArray.length == 1
                 $('.closeButton').addClass 'hidden'
 
         delItem:(delnum)->
-            removeItem = $('#li-item-' + delnum + ' .itemText').text()
+            removeItem = delnum
+            i =0
+            key = ""
+            $.each(tagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
 
-            index = $.inArray(removeItem, tagsArray)
+            )
+            console.log index = key
             if (index >= 0)
                 tagsArray.splice(index, 1)
                 $('#li-item-' + delnum).remove()
-                App.defaults['unitVariant'] = tagsArray.join(',')
+                unitvariantarrayValues = []
+                $.each(tagsArray , (index,value)->
+                    unitvariantarrayValues.push(value.id)
+
+                )
+                App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
+                console.log App.defaults['unitVariant']
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
