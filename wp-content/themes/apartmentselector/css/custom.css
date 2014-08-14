@@ -6918,7 +6918,7 @@ h5 {
 .variantToggle1 {
   cursor: pointer;
   font-weight: 600;
-  padding: 2px 5px;
+  padding: 2px 6px 2px 0px;
 }
 .variantToggle:hover,
 .variantToggle1:hover {
@@ -7719,13 +7719,13 @@ body {
   border-top: 1px solid #eeeeee;
 }
 .taglist {
-  display: inline-block;
+  display: inline;
 }
 .taglist ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  display: inline-block;
+  display: inline;
 }
 .taglist ul li {
   display: inline-block;
@@ -7734,6 +7734,7 @@ body {
   margin: 0 2px 3px;
   padding: 3px 8px 2px;
   border-radius: 30px;
+  text-transform: capitalize;
   font-weight: 700;
 }
 .taglist ul li .closeButton {

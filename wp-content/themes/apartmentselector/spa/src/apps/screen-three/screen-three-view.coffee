@@ -20,11 +20,12 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
-                    <div class="introTxt text-center">You are seeing <span class="text-primary variantToggle"> All  </span> variants of your apartment selection</div>
-
-                    <div id="tagslist1">
+                    <div class="introTxt text-center">You are seeing 
+                        <div id="tagslist1" class="taglist">
                           <ul></ul>
-                        </div>
+                        </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div>
+
+                    
 
                     <div class="variantBox">
 
@@ -335,7 +336,7 @@ define [ 'marionette' ], ( Marionette )->
         doListing:->
             $('#tagslist1 ul li').remove()
             $.each(tagsArray,  (index, value) ->
-                $('#tagslist1 ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '">[<div class="closeButton">x</div><span class="itemText">' + value.area + '</span> ]</li>')
+                $('#tagslist1 ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton"></div></li>')
             )
             if tagsArray.length == 1
                 $('.closeButton').addClass 'hidden'
