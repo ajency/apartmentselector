@@ -311,9 +311,9 @@ define [ 'marionette' ], ( Marionette )->
             }, 'slow');
 
             tagsArray = []
-            console.log testtext = App.defaults['unitVariant']
+            console.log testtext = Marionette.getOption( @, 'uintVariantId' )
             if testtext != 'All'
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = Marionette.getOption( @, 'uintVariantId' )
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
@@ -322,7 +322,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
             else
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = Marionette.getOption( @, 'uintVariantId' )
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()

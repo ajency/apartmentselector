@@ -90,7 +90,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         events:
-            'mouseover a':(e)->
+            'mouseover .tower-link':(e)->
                 console.log id  = e.target.id
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
@@ -103,6 +103,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id)
                 #m.showTooltip(locationData)
+
+            'click .tower-link':(e)->
+                e.preventDefault()
+                console.log e.target.id
+                console.log id  = e.target.id
+                m.showLocation(id, 800)
+                locationData = m.getLocationData(id)
+                m.showTooltip(locationData)
+
 
 
 
@@ -366,10 +375,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             tagsArray = []
-            console.log testtext = App.defaults['unitVariant']
+            console.log testtext = Marionette.getOption( @, 'uintVariantId' )
             if testtext != 'All'
 
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = Marionette.getOption( @, 'uintVariantId' )
                 $.each(unitVariantArrayText, (index,value)->
                     console.log value
                     console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
@@ -378,7 +387,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
             else
-                unitVariantArrayText = testtext.split(",")
+                unitVariantArrayText = Marionette.getOption( @, 'uintVariantId' )
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()

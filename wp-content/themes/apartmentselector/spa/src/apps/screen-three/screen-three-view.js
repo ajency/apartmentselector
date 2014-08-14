@@ -216,9 +216,9 @@ define(['marionette'], function(Marionette) {
         scrollTop: $('#screen-three-region').offset().top
       }, 'slow');
       tagsArray = [];
-      console.log(testtext = App.defaults['unitVariant']);
+      console.log(testtext = Marionette.getOption(this, 'uintVariantId'));
       if (testtext !== 'All') {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = Marionette.getOption(this, 'uintVariantId');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
           console.log(value);
@@ -231,7 +231,7 @@ define(['marionette'], function(Marionette) {
           });
         });
       } else {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = Marionette.getOption(this, 'uintVariantId');
         tagsArray.push({
           id: 'All',
           area: 'All'

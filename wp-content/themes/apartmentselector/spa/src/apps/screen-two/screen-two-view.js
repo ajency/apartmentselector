@@ -31,7 +31,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
-      'mouseover a': function(e) {
+      'mouseover .tower-link': function(e) {
         var id, locationData;
         console.log(id = e.target.id);
         locationData = m.getLocationData(id);
@@ -42,6 +42,15 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         e.preventDefault();
         console.log(e.target.id);
         return console.log(id = e.target.id);
+      },
+      'click .tower-link': function(e) {
+        var id, locationData;
+        e.preventDefault();
+        console.log(e.target.id);
+        console.log(id = e.target.id);
+        m.showLocation(id, 800);
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
       },
       'click .remodalcheck': function(e) {
         console.log(this);
@@ -248,9 +257,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
       tagsArray = [];
-      console.log(testtext = App.defaults['unitVariant']);
+      console.log(testtext = Marionette.getOption(this, 'uintVariantId'));
       if (testtext !== 'All') {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = Marionette.getOption(this, 'uintVariantId');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
           console.log(value);
@@ -263,7 +272,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
         });
       } else {
-        unitVariantArrayText = testtext.split(",");
+        unitVariantArrayText = Marionette.getOption(this, 'uintVariantId');
         tagsArray.push({
           id: 'All',
           area: 'All'
