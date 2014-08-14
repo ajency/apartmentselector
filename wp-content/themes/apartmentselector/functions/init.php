@@ -41,6 +41,8 @@ function do_init_routines(){
 
     add_default_flats_and_floors();
 
+ 	manage_roles();
+
     test_data();
 
 }
@@ -93,13 +95,13 @@ function manage_roles()
     if ( ! isset( $wp_roles ) )
         $wp_roles = new WP_Roles(); 
 
-	$custom_update_roles = "1";
+	$custom_update_roles = "4";
 
 	if(get_option('custom_update_roles') < $custom_update_roles || get_option('custom_update_roles')=="" ){
 
 		update_option('custom_update_roles',$custom_update_roles);
 
- 		$custom_roles_update = array(array('role'=>'Project Master','clone_role'=>'editor','capabilities'=>array('manage_apartments','manage_buildings','manage_settings','manage_project_master'))
+ 		$custom_roles_update = array(array('role'=>'Project Master','clone_role'=>'editor','capabilities'=>array('manage_apartments','manage_buildings','manage_settings','manage_project_master','manage_users'))
 									,array('role'=>'ERP Team','clone_role'=>'editor','capabilities'=>array('manage_apartments','manage_buildings')));
 
 		$existing_custom_roles = maybe_unserialize(get_option('custom_roles'));
@@ -121,9 +123,9 @@ function manage_roles()
 			}
 
 			foreach($custom_role['capabilities'] as $capability){
-
+ 
 				$role_check = get_role($role_slug);
-
+		 
 				if( ! $role_check->has_cap($capability))
 				{
 					$role_check->add_cap($capability);
@@ -134,8 +136,7 @@ function manage_roles()
 	}
  
 }
-
- add_filter( 'init', 'manage_roles' );
+ 
 
  function test_data(){
  
@@ -174,6 +175,7 @@ function manage_roles()
 
 	 }
  
+
 
  }
 

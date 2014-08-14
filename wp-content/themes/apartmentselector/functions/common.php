@@ -147,7 +147,18 @@ add_action('wp_ajax_nopriv_get_list_view','ajax_get_list_view');
 
 function check_backend_template(){
     //check to load js only if not backend templates
-    $array_backend_pages = array('no-access','apartments','buildings','add-edit-apartment','add-edit-building','form','form-list','general-settings','add-edit-payment-plan','payment-plans');
+    $array_backend_pages = array(	'no-access',
+    								'apartments',
+    								'buildings',
+    								'add-edit-apartment',
+    								'add-edit-building',
+    								'form',
+    								'form-list',
+    								'general-settings',
+    								'add-edit-payment-plan',
+    								'payment-plans',
+    								'add-edit-user',
+    								'users');
 
 
     if(in_array(get_template_filename(),$array_backend_pages)){
