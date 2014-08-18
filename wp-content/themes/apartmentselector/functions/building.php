@@ -278,6 +278,22 @@ function save_extra_building_fields( $term_id ) {
 
      $building_views =  $_REQUEST['views'];
 
+     $lowrisefrom =  $_REQUEST['lowrisefrom'];
+
+     $lowriseto =  $_REQUEST['lowriseto'];
+
+     $midrisefrom =  $_REQUEST['midrisefrom'];
+
+     $midriseto =  $_REQUEST['midriseto'];
+
+     $highrisefrom =  $_REQUEST['highrisefrom'];
+
+     $highriseto =  $_REQUEST['highriseto'];
+
+    $floorrise_range = array( "low"     =>array("start"=> $lowrisefrom,"end"=>$lowriseto),
+                              "medium"     =>array("start"=> $midrisefrom,"end"=>$midriseto),
+                              "high"    =>array("start"=> $highrisefrom,"end"=>$highriseto)
+                              );
 
     $exceptions = array();
      $exceptions_count =  $_REQUEST['exceptions_count'];
@@ -328,6 +344,8 @@ function save_extra_building_fields( $term_id ) {
     update_option( "building_".$term_id."_exceptions", $exceptions ); 
 
     update_option( "building_".$term_id."_floor_rise", $floor_rise ); 
+
+    update_option( "building_".$term_id."_floorrise_range", $floorrise_range ); 
 
 
     return;
@@ -455,13 +473,31 @@ function get_buildings($ids=array())
 
             $floor[$i] = $i;
         }
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views,'payment_plan'=>intval($building_payment_plan),'milestone'=>intval($building_milestone));
+
+        $floorrise_range = format_floorrise_range(maybe_unserialize(get_option( "building_".$category->term_id."_floorrise_range")));
+    
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views,'payment_plan'=>intval($building_payment_plan),'milestone'=>intval($building_milestone),'floorriserange'=>$floorrise_range);
 
     }
 
     return $buildings;
 }
 
+function format_floorrise_range($floorrise_range){
+
+    if(is_array($floorrise_range)){
+
+        $floorrise_range_formatted = array();
+
+        foreach($floorrise_range as $key =>$floorrise_range_item){
+
+            $floorrise_range_formatted[] = array("name"=>$key,"start"=>$floorrise_range_item["start"],"end"=>$floorrise_range_item["end"]);
+        }
+        $floorrise_range =  $floorrise_range_formatted;
+    }
+
+    return $floorrise_range;
+}
 //saving building
 
 function ajax_save_building(){
@@ -578,7 +614,9 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'positioninprojectimageurl'=>$position_in_project_image_url ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone);
+    $floorrise_range =  (maybe_unserialize(get_option( "building_".$building_id."_floorrise_range")));
+    
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'positioninprojectimageurl'=>$position_in_project_image_url ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone,'floorriserange'=>$floorrise_range);
  
    return ($result);
 }

@@ -45,6 +45,21 @@ $heading = "Edit";
     $floorrise = $building["floorrise"];
 
     $building_exceptions = $building["exceptions"]; 
+
+    $building_floorriserange = $building["floorriserange"]; 
+ 
+    if(is_array($building_floorriserange)){
+ 
+       $building_lowrisefrom = $building_floorriserange["low"]["start"];
+       $building_lowriseto = $building_floorriserange["low"]["end"];
+       $building_lowrise_range = "Floors ".$building_lowrisefrom." - ".$building_lowriseto;
+       $building_midrisefrom = $building_floorriserange["medium"]["start"];
+       $building_midriseto = $building_floorriserange["medium"]["end"];
+       $building_midrise_range = "Floors ".$building_midrisefrom." - ".$building_midriseto;
+       $building_highrisefrom = $building_floorriserange["high"]["start"];
+       $building_highriseto = $building_floorriserange["high"]["end"];
+       $building_highrise_range = "Floors ".$building_highrisefrom." - ".$building_highriseto;
+    }
 }
 ?>
 <div class="page-title">
@@ -56,7 +71,8 @@ $heading = "Edit";
     </h3>
 
 </div>
-
+<form id="form_add_edit_building"  name = "form_add_edit_building" action="" novalidate="novalidate">
+ 
 <div class="row">
 <div class="col-md-6">
 <div class="grid simple">
@@ -66,8 +82,7 @@ $heading = "Edit";
     </h4>
 </div>
 <div class="grid-body no-border">
-<form id="form_add_edit_building"  name = "form_add_edit_building" action="" novalidate="novalidate">
- 
+
 <?php echo wp_nonce_field( plugin_basename( __FILE__ ), 'custom_save_building',true,false);?>
 <input type="hidden" name="building_id" id="building_id" value="<?php echo @$building_id;?>" />
                     <br/>
@@ -536,7 +551,6 @@ $heading = "Edit";
         Submit
     </button>
 </div>
-</form>
 </div>
 </div>
 </div>
@@ -553,30 +567,36 @@ $heading = "Edit";
     <div class="input-with-icon  right">
 
         <div id="slider"></div>
-
+        <br> 
         <table>
             <tr>
                 <td><div class="fixed-size-square-lowrise"></div>
                 </td>
                 <td>Low rise
-                <input type="hidden" id="lowrisefrom" name="lowrisefrom">
-                <input type="hidden" id="lowriseto" name="lowriseto">
+                <input type="hidden" id="lowrisefrom" name="lowrisefrom" value="<?php echo @$building_lowrisefrom;?>">
+                <input type="hidden" id="lowriseto" name="lowriseto" value="<?php echo @$building_lowriseto;?>">
+                </td>
+                <td><div id="lowrise-range"><?php echo @$building_lowrise_range;?></div>
                 </td>
             </tr>
             <tr>
                 <td><div class="fixed-size-square-midrise"></div>
                 </td>
                 <td>Mid rise
-                <input type="hidden" id="midrisefrom" name="midrisefrom">
-                <input type="hidden" id="midriseto" name="midriseto">
+                <input type="hidden" id="midrisefrom" name="midrisefrom" value="<?php echo @$building_midrisefrom;?>">
+                <input type="hidden" id="midriseto" name="midriseto" value="<?php echo @$building_midriseto;?>">
+                </td>
+                <td><div id="midrise-range"><?php echo @$building_midrise_range;?></div>
                 </td>
             </tr>
             <tr>
                 <td><div class="fixed-size-square-highrise"></div>
                 </td>
                 <td>High rise
-                <input type="hidden" id="highrisefrom" name="highrisefrom">
-                <input type="hidden" id="highriseto" name="highriseto">
+                <input type="hidden" id="highrisefrom" name="highrisefrom" value="<?php echo @$building_highrisefrom;?>">
+                <input type="hidden" id="highriseto" name="highriseto" value="<?php echo @$building_highriseto;?>">
+                </td>
+                <td><div id="highrise-range"><?php echo @$building_highrise_range;?></div>
                 </td>
             </tr>
         </table>
@@ -589,4 +609,5 @@ $heading = "Edit";
 
 
          </div>
+</form>
 </div>
