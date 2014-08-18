@@ -8,7 +8,7 @@ if(!current_user_can('manage_apartments') && !current_user_can('manage_options')
     
 } 
 
-$apartment_views = array();
+$apartment_views = $unit_facing = array();
 
 if(isset($_REQUEST["id"])){
 
@@ -144,18 +144,20 @@ if(isset($_REQUEST["id"])){
                         <label class="form-label">Facings</label>
 
                         <div class="input-with-icon  right">
-                            <i class=""></i>
-                            <select  name="facing" id="facing" class="form-control">
-                                <option value="">Select</option>
+                            <i class=""></i>  
                                 <?php 
                                 $facings = get_facings();
                                 foreach($facings as $facing){
                                     ?> 
-                                    <option  value="<?php echo $facing['id']; ?>" <?php if($unit_facing==$facing['id']){ echo "selected"; }?>><?php echo  $facing['name']?></option>
+                                     <div class="col-md-6">
+                                        <div class='checkbox check-default' >
+                                            <input type="checkbox" name="facing[]" id="facing-<?php echo $facing['id']; ?>"   value="<?php echo $facing['id']; ?>" <?php if(in_array($facing['id'], $unit_facing)){ echo "checked"; }?>><label for="facing-<?php echo $facing['id']; ?>"><?php echo  $facing['name']?></label>
+                                        </div>
+                                    </div>
                                 <?php
                                 }
                                 ?>
-                            </select>
+                             
                         </div>
                     </div>
                     <div class="form-group">
