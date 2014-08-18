@@ -9,6 +9,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     tagsArray = []
     count = 0
     object = ""
+    unitVariants = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -68,7 +69,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Apartments</a>
                     </div>
 
                 </div>
@@ -231,14 +232,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
 
             'click #selectall':(e)->
-                console.log unitVariantArray
                 if $('#'+e.target.id).prop('checked') == true
-                    $.each(unitVariantArray, (index,value)->
+                    if unitVariantIdArray.length == 0
+                        units = unitVariantArray
+                    else
+                        units = unitVariantIdArray
+
+                    $.each(units, (index,value)->
                         $('#grid'+value).addClass 'selected'
                         $('#check'+value).val '1'
 
 
                     )
+                    units.sort(  (a,b)->
+                        a - b
+                    )
+                    console.log unitVariantArray = units
                     unitVariantString = 'All'
                 else
                     console.log value = _.first(unitVariantArray)
@@ -256,12 +265,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:->
-            console.log building = Marionette.getOption( @, 'buildingColl' )
-            building.each (value)->
-                console.log value.get('id')
-                setTimeout( ()->
-                    $("#highlighttower"+value.get('id')).attr('class','overlay highlight')
-                , 1000)
+            console.log building = Marionette.getOption( @, 'buildingColl' ).toArray()
+            buidlingValue = _.first(building)
+
+            console.log buidlingValue.get('id')
+            setTimeout( ()->
+                $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
+            , 1000)
+
 
 
 
@@ -294,6 +305,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log unitVariants  = unitVariantArray
+
             console.log firstElement = _.first(unitVariantArray)
             console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
             globalUnitArrayInt = []
@@ -516,7 +529,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div class="boxLong {{classname}}">
+                    <div id="range{{range}}" class="boxLong {{classname}}">
                         <div class="pull-left light">
                             <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
                             <div class="small">{{rangeNo}}</div>
@@ -529,8 +542,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         className : 'towerSelect'
 
-        initialize :->
-            @$el.prop("id", 'range'+@model.get("range"))
 
 
         events:

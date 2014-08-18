@@ -25,7 +25,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var element, index, unitTypeString, _i, _len;
+      var element, index, unitTypeModel, unitTypeString, _i, _len;
       evt.preventDefault();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
@@ -56,6 +56,7 @@ define(['marionette'], function(Marionette) {
       if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
         $("#finalButton").addClass('disabled btn-default');
         $("#finalButton").removeClass('btn-primary');
+        $("#finalButton").text("Show Apartments");
         return false;
       }
       unitTypeString = unitType.join(',');
@@ -65,7 +66,11 @@ define(['marionette'], function(Marionette) {
       App.screenOneFilter['value'] = unitTypeString;
       App.screenOneFilter['key'] = 'unitType';
       $("#finalButton").removeClass('disabled btn-default');
-      return $("#finalButton").addClass('btn-primary');
+      $("#finalButton").addClass('btn-primary');
+      unitTypeModel = App.master.unit_type.findWhere({
+        id: parseInt(App.defaults['unitType'])
+      });
+      return $("#finalButton").text("Show " + unitTypeModel.get('name') + " Apartments");
     };
 
     return UnitTypeView;
@@ -78,7 +83,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div> <div class="grid-container"></div><h5 class="text-center m-t-20 m-b-20 bold">OR</h5> <div class="text-center subTxt">Choose a budget</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Find Apartments</a> <br><br> </div> </div> <div class="col-sm-8"></div> </div>';
+    ScreenOneView.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div> <div class="grid-container"></div><h5 class="text-center m-t-20 m-b-20 bold">OR</h5> <div class="text-center subTxt">Choose a budget</div><section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}}         			<option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section><div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> <br><br> </div> </div> <div class="col-sm-8"> <div id="mapplic_new1" class="towersMap center-block"></div> </div> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -116,7 +121,8 @@ define(['marionette'], function(Marionette) {
         unitType = [];
         App.defaults['unitType'] = 'All';
         $("#finalButton").removeClass('disabled btn-default');
-        return $("#finalButton").addClass('btn-primary');
+        $("#finalButton").addClass('btn-primary');
+        return $("#finalButton").text("Show Apartments in my Budget");
       },
       'click a': function(e) {
         return e.preventDefault();
@@ -124,13 +130,27 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenOneView.prototype.onShow = function() {
+      var ajaxurl, i, m, params, selector;
       [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function(el) {
         return new SelectFx(el);
       });
       $(".grid-link").click(function() {
         return $(this).toggleClass("selected");
       });
-      return unitType = [];
+      unitType = [];
+      i = 1;
+      while (window['mapplic_new' + i] !== void 0) {
+        params = window['mapplic_new' + i];
+        selector = '#mapplic_new' + i;
+        ajaxurl = AJAXURL;
+        $(selector).mapplic_new({
+          'id': 5,
+          'width': params.width,
+          'height': params.height
+        });
+        i++;
+      }
+      return m = $('#mapplic_new1').data('mapplic_new');
     };
 
     return ScreenOneView;
