@@ -33,33 +33,50 @@ $membership_fees = isset($settings["membership_fees"])?$settings["membership_fee
                     <div class="form-group">
                         
                         <div class="input-with-icon  right">
+						<div class="row">
+						<div class="col-md-4">
                             <label class="form-label form-label-inline" for="vat">VAT</label>
                         <span class="help"></span>
-                            <label class="form-label form-label-prefix">  </label><input type="text" name="vat" id="vat" class="form-control form-control-small" value="<?php echo @$vat;?>"> %
+                            <label class="form-label form-label-prefix">  </label></div><div class="col-md-7"><input type="text" name="vat" id="vat" class="form-control" value="<?php echo @$vat;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
+							</div>
                         </div>
                     </div>
                     <div class="form-group">
                         
                         <div class="input-with-icon  right">
+						<div class="row">
+						<div class="col-md-4">
                             <label class="form-label form-label-inline">Sales tax</label>
                                 <span class="help"></span>
-                            <label class="form-label form-label-prefix"> </label><input type="text" name="sales_tax" id="sales_tax" class="form-control form-control-small" value="<?php echo @$sales_tax;?>"> %
+                            <label class="form-label form-label-prefix"> </label></div><div class="col-md-7"><input type="text" name="sales_tax" id="sales_tax" class="form-control" value="<?php echo @$sales_tax;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
+							</div>
                         </div>
                     </div>
                     <div class="form-group">
                         
                         <div class="input-with-icon  right">
-                            <label class="form-label form-label-inline">Infrastructure Charges</label>
-                                <span class="help"></span>
-                             <label class="form-label form-label-prefix"> Rs.</label><input type="text" name="infrastructure_charges" id="infrastructure_charges" class="form-control form-control-small" value="<?php echo @$infrastructure_charges;?>">
+						<div class="row">
+						<div class="col-md-3">
+                            <label class="form-label form-label-prefix">Infrastructure Charges</label>
+                                <span class="help"></span></div><div class="col-md-1">
+                             <label class="form-label form-label-inline"> Rs.</label></div>
+							 <div class="col-md-7">
+							 <input type="text" name="infrastructure_charges" id="infrastructure_charges" class="form-control" value="<?php echo @$infrastructure_charges;?>"></div>
+							 </div>
                         </div>
                     </div>
                     <div class="form-group">
                        <div class="input-with-icon  right">
+					   <div class="row">
+					   <div class="col-md-3">
                              <label class="form-label form-label-inline">Membership Fees</label>
-                        <span class="help"></span>
-                        
-                            Rs.<input type="text" name="membership_fees" id="membership_fees" class="form-control form-control-small" value="<?php echo @$membership_fees;?>">
+                        <span class="help"></span></div>
+                        <div class="col-md-1">
+						<label class="form-label form-label-inline">
+                            Rs.</label></div>
+							<div class="col-md-7">
+							<input type="text" name="membership_fees" id="membership_fees" class="form-control" value="<?php echo @$membership_fees;?>"></div>
+							</div>
                         </div>
                     </div>
                      
