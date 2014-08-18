@@ -443,17 +443,19 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               building: buildingid
             });
             $.each(count, function(index, value) {
-              if (value.get('unitType') === 9) {
-                flag = 1;
-              }
-              if (value.get('unitType') === 10) {
-                flag1 = 1;
-              }
               lowUnits = App.currentStore.range.findWhere({
                 name: 'low'
               });
               if ((value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) && item.id === value.get('unitType')) {
-                return lunitTypeArray.push(value.get('id'));
+                return lunitTypeArray.push(value);
+              }
+            });
+            $.each(lunitTypeArray, function(index, value) {
+              if (value.get('unitType') === 9) {
+                flag = 1;
+              }
+              if (value.get('unitType') === 10) {
+                return flag1 = 1;
               }
             });
             if (parseInt(flag) === 1) {
@@ -489,17 +491,19 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               building: buildingid
             });
             $.each(count, function(index, value) {
-              if (value.get('unitType') === 9) {
-                flag2 = 1;
-              }
-              if (value.get('unitType') === 10) {
-                flag3 = 1;
-              }
               mediumUnits = App.currentStore.range.findWhere({
                 name: 'medium'
               });
               if ((value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) && item.id === value.get('unitType')) {
-                return munitTypeArray.push(value.get('id'));
+                return munitTypeArray.push(value);
+              }
+            });
+            $.each(munitTypeArray, function(index, value) {
+              if (value.get('unitType') === 9) {
+                flag2 = 1;
+              }
+              if (value.get('unitType') === 10) {
+                return flag3 = 1;
               }
             });
             if (parseInt(flag2) === 1) {
@@ -536,17 +540,19 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               building: buildingid
             }));
             $.each(count, function(index, value) {
-              if (value.get('unitType') === 9) {
-                flag4 = 1;
-              }
-              if (value.get('unitType') === 10) {
-                flag5 = 1;
-              }
               highUnits = App.currentStore.range.findWhere({
                 name: 'high'
               });
               if ((value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) && item.id === value.get('unitType')) {
-                return hunitTypeArray.push(value.get('id'));
+                return hunitTypeArray.push(value);
+              }
+            });
+            $.each(hunitTypeArray, function(index, value) {
+              if (value.get('unitType') === 9) {
+                flag4 = 1;
+              }
+              if (value.get('unitType') === 10) {
+                return flag5 = 1;
               }
             });
             console.log(flag4);

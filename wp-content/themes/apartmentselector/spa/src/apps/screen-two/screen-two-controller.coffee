@@ -385,13 +385,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         status = App.currentStore.status.findWhere({'name':'Available'})
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
                         $.each(count, (index,value)->
+                            lowUnits = App.currentStore.range.findWhere({name:'low'})
+                            if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
+                                lunitTypeArray.push value
+                        )
+                        $.each(lunitTypeArray, (index,value)->
                             if value.get('unitType') == 9
                                 flag = 1
                             if value.get('unitType') == 10
                                 flag1 = 1
-                            lowUnits = App.currentStore.range.findWhere({name:'low'})
-                            if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
-                                lunitTypeArray.push value.get 'id'
+
                         )
                         if parseInt(flag) == 1
                             lclassname = 'twoBHK'
@@ -417,13 +420,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         status = App.currentStore.status.findWhere({'name':'Available'})
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
                         $.each(count, (index,value)->
+                            mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                            if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
+                                munitTypeArray.push value
+                        )
+                        $.each(munitTypeArray, (index,value)->
                             if value.get('unitType') == 9
                                 flag2 = 1
                             if value.get('unitType') == 10
                                 flag3 = 1
-                            mediumUnits = App.currentStore.range.findWhere({name:'medium'})
-                            if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
-                                munitTypeArray.push value.get 'id'
+
                         )
                         if parseInt(flag2) == 1
                             mclassname = 'twoBHK'
@@ -449,14 +455,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         console.log count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
 
                         $.each(count, (index,value)->
+                            highUnits = App.currentStore.range.findWhere({name:'high'})
+                            if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
+                                hunitTypeArray.push value
+                        )
+                        $.each(hunitTypeArray, (index,value)->
                             if value.get('unitType') == 9
                                 flag4 = 1
                             if value.get('unitType') == 10
                                 flag5 = 1
-                            highUnits = App.currentStore.range.findWhere({name:'high'})
-                            if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
-                                hunitTypeArray.push value.get 'id'
+
                         )
+
                         console.log flag4
                         console.log flag5
                         if parseInt(flag4) == 1
