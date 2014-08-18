@@ -37,7 +37,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype._getUnitTypeCollection = function() {
-      var Model, UnitsCollection, collection, element, modelArray, priceArray, priceRange, priceUnits, rangeArray, status, units, _i, _len;
+      var Model, UnitsCollection, collection, element, modelArray, newUnits, priceArray, priceRange, priceUnits, rangeArray, status, units, _i, _len;
       Model = Backbone.Model.extend({});
       UnitsCollection = Backbone.Collection.extend({
         model: Model
@@ -127,6 +127,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       }
       console.log(modelArray);
       collection.add(modelArray);
+      newUnits = App.currentStore.unit.where();
       return [collection, rangeArray];
     };
 

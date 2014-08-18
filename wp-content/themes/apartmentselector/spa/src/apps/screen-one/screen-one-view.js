@@ -3,8 +3,10 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenOneView, UnitTypeView, unitType;
+  var ScreenOneView, UnitTypeView, m, object, unitType;
   unitType = [];
+  object = "";
+  m = "";
   UnitTypeView = (function(_super) {
     __extends(UnitTypeView, _super);
 
@@ -25,7 +27,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var element, index, unitTypeModel, unitTypeString, _i, _len;
+      var buildings, element, index, newColl, newUnits, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
       evt.preventDefault();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
@@ -70,7 +72,33 @@ define(['marionette'], function(Marionette) {
       unitTypeModel = App.master.unit_type.findWhere({
         id: parseInt(App.defaults['unitType'])
       });
-      return $("#finalButton").text("Show " + unitTypeModel.get('name') + " Apartments");
+      $("#finalButton").text("Show " + unitTypeModel.get('name') + " Apartments");
+      newUnits = App.currentStore.unit.where({
+        unitType: parseInt(App.defaults['unitType'])
+      });
+      newColl = new Backbone.Collection(newUnits);
+      buildings = newColl.pluck("building");
+      console.log(uniqBuildings = _.uniq(buildings));
+      return this.showHighlightedTowers(uniqBuildings);
+    };
+
+    object = UnitTypeView;
+
+    UnitTypeView.prototype.showHighlightedTowers = function(uniqBuildings) {
+      var building, masterbuilding;
+      masterbuilding = App.master.building;
+      masterbuilding.each(function(index) {
+        return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
+      });
+      console.log(building = uniqBuildings);
+      return $.each(uniqBuildings, function(index, value) {
+        var buidlingValue;
+        buidlingValue = App.master.building.findWhere({
+          id: parseInt(value)
+        });
+        console.log($("#hglighttower" + buidlingValue.get('id')));
+        return $("#hglighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
+      });
     };
 
     return UnitTypeView;
@@ -112,7 +140,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger('unit:type:clicked');
       },
       'click .cs-selected': function(e) {
-        var element, _i, _len;
+        var budget_val, buildings, element, newColl, newUnits, uniqBuildings, _i, _len;
         for (_i = 0, _len = unitType.length; _i < _len; _i++) {
           element = unitType[_i];
           $('a').removeClass('selected');
@@ -122,15 +150,54 @@ define(['marionette'], function(Marionette) {
         App.defaults['unitType'] = 'All';
         $("#finalButton").removeClass('disabled btn-default');
         $("#finalButton").addClass('btn-primary');
-        return $("#finalButton").text("Show Apartments in my Budget");
+        $("#finalButton").text("Show Apartments in my Budget");
+        budget_val = $(".cs-selected").text().split(' ');
+        newUnits = App.getBudget(budget_val[0]);
+        newColl = new Backbone.Collection(newUnits);
+        buildings = newColl.pluck("building");
+        console.log(uniqBuildings = _.uniq(buildings));
+        return this.showHighlightedTowers(uniqBuildings);
       },
       'click a': function(e) {
         return e.preventDefault();
+      },
+      'mouseover a': function(e) {
+        var id, locationData;
+        console.log(id = e.target.id);
+        console.log(locationData = m.getLocationData(id));
+        return m.showTooltip(locationData);
+      },
+      'click .tower-over': function(e) {
+        var id, locationData;
+        e.preventDefault();
+        console.log(e.target.id);
+        console.log(id = e.target.id);
+        m.showLocation(id, 800);
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
       }
     };
 
+    ScreenOneView.prototype.showHighlightedTowers = function(uniqBuildings) {
+      var building, masterbuilding;
+      masterbuilding = App.master.building;
+      masterbuilding.each(function(index) {
+        console.log(index.get('id'));
+        return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
+      });
+      console.log(building = uniqBuildings);
+      return $.each(uniqBuildings, function(index, value) {
+        var buidlingValue;
+        buidlingValue = App.master.building.findWhere({
+          id: parseInt(value)
+        });
+        console.log($("#hglighttower" + buidlingValue.get('id')));
+        return $("#hglighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
+      });
+    };
+
     ScreenOneView.prototype.onShow = function() {
-      var ajaxurl, i, m, params, selector;
+      var ajaxurl, i, params, selector;
       [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function(el) {
         return new SelectFx(el);
       });
@@ -144,7 +211,7 @@ define(['marionette'], function(Marionette) {
         selector = '#mapplic_new' + i;
         ajaxurl = AJAXURL;
         $(selector).mapplic_new({
-          'id': 5,
+          'id': 6,
           'width': params.width,
           'height': params.height
         });

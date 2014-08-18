@@ -112,6 +112,8 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
             console.log modelArray
             collection.add modelArray
+
+            newUnits = App.currentStore.unit.where()
             [collection,rangeArray]
 
 
