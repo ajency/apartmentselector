@@ -529,7 +529,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div class="boxLong {{classname}}">
+                    <div id="range{{range}}" class="boxLong {{classname}}">
                         <div class="pull-left light">
                             <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
                             <div class="small">{{rangeNo}}</div>
@@ -542,8 +542,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         className : 'towerSelect'
 
-        initialize :->
-            @$el.prop("id", 'range'+@model.get("range"))
 
 
         events:
