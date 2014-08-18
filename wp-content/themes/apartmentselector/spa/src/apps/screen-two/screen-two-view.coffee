@@ -529,16 +529,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div class="pull-left light">
-                        <h5 class="rangeName bold">{{rangetext}}</h5>
-                        <div class="small">{{rangeNo}}</div>
-                    </div>
-                    <div class="pull-right box {{classname}}">{{count}}</div>
-                    <div class="clearfix"></div>
+                    <div class="boxLong {{classname}}">
+                        <div class="pull-left light">
+                            <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
+                            <div class="small">{{rangeNo}}</div>
+                        </div>
+                        <div class="unitCount">{{count}}</div>
+                        <div class="clearfix"></div>
+                    </div>                    
 
                     <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>'
 
-        className : 'text-center towerSelect'
+        className : 'towerSelect'
 
         initialize :->
             @$el.prop("id", 'range'+@model.get("range"))

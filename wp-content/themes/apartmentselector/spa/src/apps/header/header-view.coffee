@@ -4,18 +4,26 @@ define [ 'marionette' ], ( Mariontte )->
     class HeaderView extends Marionette.ItemView
 
         template : '<div class="backBtn {{textClass}}">
-                        <a  class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
+                        <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
         		    </div>
+
+                    <div class="rightBtns">
+                        <a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>
+                        <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a>
+                    </div>
+
                     <div class="text-center">
                         <h5 class="text-white m-t-20 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h3>
-                    </div>'
+                    </div>
+
+                    '
 
         className : "header navbar navbar-inverse"
 
 
 
         events:
-            'click .text-white':(e)->
+            'click .back':(e)->
                 if window.location.href.indexOf('screen-three') > -1
                     App.backFilter['screen3'] = []
                     screentwoArray  = App.backFilter['screen2']
@@ -99,6 +107,8 @@ define [ 'marionette' ], ( Mariontte )->
                     .insideRegion  App.layout.screenOneRegion
                         .withOptions()
 
+            
+
 
 
 
@@ -115,6 +125,28 @@ define [ 'marionette' ], ( Mariontte )->
 
 
             )
+
+            disableOther = (button) ->
+              classie.toggle showTop, "disabled"  if button isnt "showTop"
+              classie.toggle showRightPush, "disabled"  if button isnt "showRightPush"
+              return
+            menuRight = document.getElementById("cbp-spmenu-s2")
+            menuTop = document.getElementById("cbp-spmenu-s3")
+            showTop = document.getElementById("showTop")
+            showRightPush = document.getElementById("showRightPush")
+            body = document.body
+            showTop.onclick = ->
+              classie.toggle this, "active"
+              classie.toggle menuTop, "cbp-spmenu-open"
+              disableOther "showTop"
+              return
+
+            showRightPush.onclick = ->
+              classie.toggle this, "active"
+              classie.toggle body, "cbp-spmenu-push-toleft"
+              classie.toggle menuRight, "cbp-spmenu-open"
+              disableOther "showRightPush"
+              return
 
 
             if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1

@@ -158,7 +158,8 @@ function check_backend_template(){
     								'add-edit-payment-plan',
     								'payment-plans',
     								'add-edit-user',
-    								'users');
+    								'users',
+    								'import-apartment-csv');
 
 
     if(in_array(get_template_filename(),$array_backend_pages)){

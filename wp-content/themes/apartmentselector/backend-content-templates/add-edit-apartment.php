@@ -316,6 +316,7 @@ if(isset($_REQUEST["id"])){
                                      
                             </div>
                     </div>
+                    </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-success btn-cons" name="save_apartment"  id="save_apartment"><i class="icon-ok"></i> Submit</button>
                     </div>

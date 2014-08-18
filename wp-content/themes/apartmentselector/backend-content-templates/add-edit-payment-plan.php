@@ -199,7 +199,7 @@ $heading = "Edit";
                     <input type="text" name="payment_percentage" id="payment_percentage_<?php echo $key;?>" value="<?php echo $payment_milestone["payment_percentage"];?>" class="form-control  form-control-small"> %
 					</div>
 					<div class="col-md-4">
-                    <a href="javascript:void(0)" item="<?php echo $key+1;?>" class="milestone-remove">x</a></div>
+                    <a href="javascript:void(0)" item="<?php echo $key+1;?>" class="milestone-remove"><i class="fa fa-trash-o thrash" item="<?php echo $key+1;?>" class="milestone-remove" ></i></a></div>
 					</div>
                 </li>
                 <?php
@@ -232,7 +232,7 @@ $heading = "Edit";
 			  <div class="col-md-4">
               <input type="text" name="payment_percentage" id="payment_percentage_1" value="" class="form-control  form-control-small"><label class="form-label">%</label></div>
 			  <div class="col-md-2">
-              <a href="javascript:void(0)" item="1" class="milestone-remove"><i class="fa fa-trash-o thrash"></i></div></div>
+              <a href="javascript:void(0)" item="1" class="milestone-remove"><i class="fa fa-trash-o thrash" item="<?php echo $key+1;?>" class="milestone-remove"></i></a></div></div>
           </li>
         <?php
        }
@@ -252,7 +252,7 @@ $heading = "Edit";
                   <div class="modal-body">
 				  <div class="row">
 				  <div class="col-md-2">
-                    <label class="form-label clabel">Milestone :</label> 
+                    <label class="form-label form-label-inline">Milestone :</label> 
 					</div>
 					
 					<div class="col-md-6">
