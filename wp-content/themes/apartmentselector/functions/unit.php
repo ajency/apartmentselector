@@ -357,6 +357,7 @@ function get_unit_variants($variant_id=0){
                                     'sellablearea'=>$result->metas['sellablearea'],
                                     'terracearea'=>$result->metas['terracearea'], 
                                     'persqftprice'=>$result->metas['persqftprice'],
+                                    'premiumaddon'=>$result->metas['premiumaddon'],
                                     'url2dlayout_image'=>$url2dlayout_image[0],
                                     'url3dlayout_image'=>$url3dlayout_image[0],
                                     'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes']),
