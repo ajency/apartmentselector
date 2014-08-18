@@ -12,7 +12,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
                 uintVariantId : @Collection[9]
-                uintVariantIdArray : @Collection[9]
+                uintVariantIdArray : @Collection[10]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -47,7 +47,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 collection:@Collection[1]
                 buildingColl : @Collection[0]
                 uintVariantId : @Collection[9]
-                uintVariantIdArray : @Collection[9]
+                uintVariantIdArray : @Collection[10]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -577,7 +577,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     high_max_val = Math.max.apply( Math, max_coll )
                     high_min_val = Math.min.apply( Math, max_coll )
                 )
-
+                if App.defaults['unitType'] != 'All'
+                    mainnewarr = []
+                    hclassname = ""
+                    mclassname = ""
+                    lclassname = ""
                 mainArray.push({count:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid,unittypes:hnewarr,classname:hclassname,rangetext:'HIGHRISE',rangeNo:'Floors 11-15'})
                 mainArray.push({count: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid,unittypes:mnewarr,classname:mclassname,rangetext:'MIDRISE',rangeNo:'Floors 6-10'})
                 mainArray.push({count: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr,classname:lclassname,rangetext:'LOWRISE',rangeNo:'Floors 1-5'})
@@ -647,9 +651,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             buildingCollection = new Backbone.Collection(buildingsactual)
             units = new Backbone.Collection(unitsactual)
 
-            if App.defaults['unitType'] != 'All'
-                mainnewarr = []
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID]
+
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID]
 
 
 

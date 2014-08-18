@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, count, firstElement, globalArrayLength, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, count, firstElement, globalArrayLength, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -14,6 +14,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
   tagsArray = [];
   count = 0;
   object = "";
+  unitVariants = [];
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -154,13 +155,21 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #selectall': function(e) {
-        var remainainArray, value;
-        console.log(unitVariantArray);
+        var remainainArray, units, value;
         if ($('#' + e.target.id).prop('checked') === true) {
-          $.each(unitVariantArray, function(index, value) {
+          if (unitVariantIdArray.length === 0) {
+            units = unitVariantArray;
+          } else {
+            units = unitVariantIdArray;
+          }
+          $.each(units, function(index, value) {
             $('#grid' + value).addClass('selected');
             return $('#check' + value).val('1');
           });
+          units.sort(function(a, b) {
+            return a - b;
+          });
+          console.log(unitVariantArray = units);
           return unitVariantString = 'All';
         } else {
           console.log(value = _.first(unitVariantArray));
@@ -199,6 +208,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $('.refresh').removeClass('hidden');
       }
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
       console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
       globalUnitArrayInt = [];

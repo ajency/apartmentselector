@@ -120,13 +120,21 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #unselectall': function(e) {
-        var remainainArray, value;
-        console.log(unitVariantArray);
+        var remainainArray, units, value;
         if ($('#' + e.target.id).prop('checked') === true) {
-          $.each(unitVariantArray, function(index, value) {
+          if (unitVariantIdArray.length === 0) {
+            units = unitVariantArray;
+          } else {
+            units = unitVariantIdArray;
+          }
+          $.each(units, function(index, value) {
             $('#gridlink' + value).addClass('selected');
             return $('#checklink' + value).val('1');
           });
+          units.sort(function(a, b) {
+            return a - b;
+          });
+          console.log(unitVariantArray = units);
           return unitVariantString = 'All';
         } else {
           console.log(value = _.first(unitVariantArray));

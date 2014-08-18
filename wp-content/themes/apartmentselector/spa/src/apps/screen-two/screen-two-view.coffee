@@ -9,6 +9,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     tagsArray = []
     count = 0
     object = ""
+    unitVariants = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -231,14 +232,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
 
             'click #selectall':(e)->
-                console.log unitVariantArray
                 if $('#'+e.target.id).prop('checked') == true
-                    $.each(unitVariantArray, (index,value)->
+                    if unitVariantIdArray.length == 0
+                        units = unitVariantArray
+                    else
+                        units = unitVariantIdArray
+
+                    $.each(units, (index,value)->
                         $('#grid'+value).addClass 'selected'
                         $('#check'+value).val '1'
 
 
                     )
+                    units.sort(  (a,b)->
+                        a - b
+                    )
+                    console.log unitVariantArray = units
                     unitVariantString = 'All'
                 else
                     console.log value = _.first(unitVariantArray)
@@ -285,8 +294,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
-
-
         onShow:->
             console.log document.getElementsByTagName('g')['highlighttower13']
             if App.screenOneFilter['key'] == 'unitType'
@@ -298,6 +305,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log unitVariants  = unitVariantArray
+
             console.log firstElement = _.first(unitVariantArray)
             console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
             globalUnitArrayInt = []

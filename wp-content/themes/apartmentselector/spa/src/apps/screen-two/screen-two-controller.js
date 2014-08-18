@@ -21,7 +21,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         collection: this.Collection[1],
         buildingColl: this.Collection[0],
         uintVariantId: this.Collection[9],
-        uintVariantIdArray: this.Collection[9],
+        uintVariantIdArray: this.Collection[10],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -47,7 +47,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         collection: this.Collection[1],
         buildingColl: this.Collection[0],
         uintVariantId: this.Collection[9],
-        uintVariantIdArray: this.Collection[9],
+        uintVariantIdArray: this.Collection[10],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -716,6 +716,12 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           high_max_val = Math.max.apply(Math, max_coll);
           return high_min_val = Math.min.apply(Math, max_coll);
         });
+        if (App.defaults['unitType'] !== 'All') {
+          mainnewarr = [];
+          hclassname = "";
+          mclassname = "";
+          lclassname = "";
+        }
         mainArray.push({
           count: highArray.length,
           low_max_val: high_max_val,
@@ -824,10 +830,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       console.log(buildingsactual);
       buildingCollection = new Backbone.Collection(buildingsactual);
       units = new Backbone.Collection(unitsactual);
-      if (App.defaults['unitType'] !== 'All') {
-        mainnewarr = [];
-      }
-      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID];
+      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID, unitVariantID];
     };
 
     return ScreenTwoController;

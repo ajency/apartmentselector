@@ -195,14 +195,21 @@ define [ 'marionette' ], ( Marionette )->
 
                     )
             'click #unselectall':(e)->
-                console.log unitVariantArray
                 if $('#'+e.target.id).prop('checked') == true
-                    $.each(unitVariantArray, (index,value)->
+                    if unitVariantIdArray.length == 0
+                        units = unitVariantArray
+                    else
+                        units = unitVariantIdArray
+                    $.each(units, (index,value)->
                         $('#gridlink'+value).addClass 'selected'
                         $('#checklink'+value).val '1'
 
 
                     )
+                    units.sort(  (a,b)->
+                        a - b
+                    )
+                    console.log unitVariantArray = units
                     unitVariantString = 'All'
                 else
                     console.log value = _.first(unitVariantArray)
