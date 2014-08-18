@@ -34,7 +34,7 @@
     </script>
     <?php wp_head(); ?>
 </head>
-<body class="booking">
+<body class="booking cbp-spmenu-push">
 
 <!-- #header-region -->
 <div id="header-region"></div>

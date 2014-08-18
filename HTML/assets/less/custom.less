@@ -57,7 +57,7 @@ body{
 
 
 
-.backBtn{
+.backBtn, .rightBtns{
 	position: absolute;
 	left: 0;
 	cursor: pointer;
@@ -69,6 +69,16 @@ body{
 		background-color: darken(@color-primary, 10%);
 	}	
 }
+
+.rightBtns{
+	right: 0;
+	left: auto;
+	a{
+		float: left;
+		margin-left: 2px;
+	}
+}
+
 .page-container {
 	padding: 0 5px;
 	padding-top: 80px !important;
@@ -182,3 +192,25 @@ body{
 		}
 	}
 }
+
+.cbp-spmenu-vertical{
+	& > ul{
+		list-style-type: none;
+		padding: 0;
+		& > li a{
+			.h4;
+			.bold;
+			color: @color-primary;
+		}
+	}
+	.menuWishlist{
+		li{		
+			a{
+				padding: 5px 0;
+				border: 0;
+				.h5;
+			}
+		}
+	}
+}
+
