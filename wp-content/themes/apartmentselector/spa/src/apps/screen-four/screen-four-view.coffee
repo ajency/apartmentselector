@@ -1,5 +1,5 @@
 define [ 'marionette' ], ( Marionette )->
-
+    cookieArray = []
     class ScreenFourLayout extends Marionette.LayoutView
 
         template : '<div id="vs-container" class="vs-container flatContainer">
@@ -8,7 +8,12 @@ define [ 'marionette' ], ( Marionette )->
 
                         <div  id="mainunit-region">
                         </div>
-                    </div>'
+
+
+       <input type="button" name="list" id="list" value="Add"  /><label id="errormsg"></label>
+
+       <div id="showList"></div>
+       </div></br>                      </div>'
 
 
 
@@ -22,6 +27,47 @@ define [ 'marionette' ], ( Marionette )->
             unitRegion : '#unitblock-region'
             mainRegion : '#mainunit-region'
 
+        events:->
+            'click #list':(e)->
+                console.log App.unit['name']
+
+                console.log cookieOldValue = $.cookie("key")
+                console.log typeof cookieOldValue
+                if cookieOldValue == undefined || $.cookie("key") == ""
+                        cookieOldValue = ""
+                else
+                    console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                            parseInt(item)
+                    )
+                console.log key = $.inArray(App.unit['name'] , cookieOldValue)
+
+                if parseInt(key) == -1
+                    $('#errormsg' ).text ""
+                    cookieArray.push(parseInt(App.unit['name']))
+                else
+                    console.log "Already entered"
+                    $('#errormsg' ).text "Already entered"
+                console.log cookieArray
+                console.log cookieArray = $.merge(cookieArray,cookieOldValue)
+                console.log cookieArray = _.uniq(cookieArray)
+                $.cookie('key',cookieArray)
+                console.log $.cookie("key")
+                @showWishList()
+            'click .del':(e)->
+                console.log cookieArray
+                console.log val = $('#'+e.target.id).attr('data-id')
+                console.log index = cookieArray.indexOf( parseInt(val) )
+                cookieArray.splice( index, 1 )
+                $.cookie('key',cookieArray)
+
+
+                console.log $.cookie('key')
+
+                @showWishList()
+            'click a':(e)->
+                e.preventDefault()
+
+
         onShow:->
             $('#slider-plans').liquidSlider(
                     slideEaseFunction: "easeInOutQuad",
@@ -30,7 +76,34 @@ define [ 'marionette' ], ( Marionette )->
             )
             $('html, body').animate({
                 scrollTop: $('#screen-four-region').offset().top
-            }, 'slow');
+            }, 'slow')
+            @showWishList()
+
+        showWishList:->
+            table = ""
+            console.log typeof $.cookie("key")
+            if $.cookie("key")!= undefined && $.cookie("key") != ""
+                selectedUnitsArray = $.cookie("key").split(",")
+                table = "<table>"
+                for element in selectedUnitsArray
+                    model = App.master.unit.findWhere(id:parseInt(element))
+                    unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
+                    unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
+                    building = App.master.building.findWhere(id:model.get('building'))
+                    table += '<tr><td>'+model.get('name')+'</td><td>'+unitVariant.get('sellablearea')+' Sq.ft.</td>
+                    <td>'+building.get('name')+'</td><td>'+unitType.get('name')+' </td>
+                    <td><a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></td></tr>'
+
+                table += '</table>'
+
+            $('#showList').html table
+
+
+
+
+
+
+
 
 
 
@@ -47,6 +120,8 @@ define [ 'marionette' ], ( Marionette )->
         tagName : 'li'
 
         className : 'vs-nav-current'
+
+
 
 
 

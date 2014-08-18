@@ -68,7 +68,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Apartments</a>
                     </div>
 
                 </div>
@@ -256,12 +256,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:->
-            console.log building = Marionette.getOption( @, 'buildingColl' )
-            building.each (value)->
-                console.log value.get('id')
-                setTimeout( ()->
-                    $("#highlighttower"+value.get('id')).attr('class','overlay highlight')
-                , 1000)
+            console.log building = Marionette.getOption( @, 'buildingColl' ).toArray()
+            buidlingValue = _.first(building)
+
+            console.log buidlingValue.get('id')
+            setTimeout( ()->
+                $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
+            , 1000)
+
+
+
 
 
 

@@ -54,6 +54,7 @@ define [ 'marionette' ], ( Marionette )->
             if parseInt($("#check"+@model.get 'id').val()) == 0
                 $("#finalButton").addClass 'disabled btn-default'
                 $("#finalButton").removeClass 'btn-primary'
+                $("#finalButton").text "Show Apartments"
                 return false
 
             unitTypeString = unitType.join(',')
@@ -65,6 +66,8 @@ define [ 'marionette' ], ( Marionette )->
             App.screenOneFilter['key'] = 'unitType'
             $("#finalButton").removeClass 'disabled btn-default'
             $("#finalButton").addClass 'btn-primary'
+            unitTypeModel = App.master.unit_type.findWhere(id:parseInt(App.defaults['unitType']))
+            $("#finalButton").text "Show "+unitTypeModel.get('name')+" Apartments"
 
 
 
@@ -82,11 +85,14 @@ define [ 'marionette' ], ( Marionette )->
         			{{/priceArray}}
         		</select>
         	    </section><div class="h-align-middle m-t-50 m-b-20">
-        		<a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Find Apartments</a>
+        		<a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a>
         		<br><br>
         		</div>
                 </div>
-                <div class="col-sm-8"></div>
+                <div class="col-sm-8">
+
+       <div id="mapplic_new1" class="towersMap center-block"></div>
+        </div>
                     </div>'
 
         className : 'page-container row-fluid'
@@ -123,6 +129,7 @@ define [ 'marionette' ], ( Marionette )->
                 App.defaults['unitType'] = 'All'
                 $("#finalButton").removeClass 'disabled btn-default'
                 $("#finalButton").addClass 'btn-primary'
+                $("#finalButton").text "Show Apartments in my Budget"
 
             'click a':(e)->
                 e.preventDefault()
@@ -141,6 +148,30 @@ define [ 'marionette' ], ( Marionette )->
                 $( this ).toggleClass( "selected" )
             )
             unitType = []
+            i = 1
+            while (window['mapplic_new' + i] != undefined)
+                params = window['mapplic_new' + i]
+                selector = '#mapplic_new' + i
+                ajaxurl = AJAXURL
+                $(selector).mapplic_new(
+                    'id': 5,
+                    'width': params.width,
+                    'height': params.height
+
+
+                )
+
+
+
+                i++;
+
+            m  = $('#mapplic_new1').data('mapplic_new')
+
+
+
+
+
+
 
 
 
