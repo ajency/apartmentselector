@@ -7,18 +7,29 @@
 			padding: 10px 0 20px;
 			margin-bottom: 0;
 			a{
-				padding: 10px 0 5px;
-				border-top: 2px solid @color-white;
-				.small;
-				.light;
+				.h4;
+				.bold;
+				padding: 5px 0;
+				margin: 0;
+				color: @color-primary;
+				border-bottom: 2px solid @color-primary;
 			}
 		} 
-		li.vs-nav-current a{
-			.h4;
-			.bold;
-			padding: 5px 0;
-			margin: 0;
-			color: @color-primary;
+		li.vs-nav-right a{
+			padding: 10px 0 5px;
+			border-top: 2px solid @color-white;
+			border-bottom: 0;
+			.small;
+			.light;
+			color: @text-color;
+		} 
+		li.vs-nav-left a{
+			padding: 10px 0 5px;
+			border-top: 2px solid @color-white;
+			border-bottom: 0;
+			.small;
+			.light;
+			color: @text-color;
 		}
 	}
 }
