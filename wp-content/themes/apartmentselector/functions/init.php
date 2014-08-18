@@ -105,13 +105,14 @@ function manage_roles()
     if ( ! isset( $wp_roles ) )
         $wp_roles = new WP_Roles(); 
 
-	$custom_update_roles = "4";
+	$custom_update_roles = "6";
 
 	if(get_option('custom_update_roles') < $custom_update_roles || get_option('custom_update_roles')=="" ){
 
 		update_option('custom_update_roles',$custom_update_roles);
 
  		$custom_roles_update = array(array('role'=>'Project Master','clone_role'=>'editor','capabilities'=>array('manage_apartments','manage_buildings','manage_settings','manage_project_master','manage_users'))
+									,array('role'=>'Sales','clone_role'=>'editor','capabilities'=>array('see_cost_sheet','see_special_filters','does_sales'))
 									,array('role'=>'ERP Team','clone_role'=>'editor','capabilities'=>array('manage_apartments','manage_buildings')));
 
 		$existing_custom_roles = maybe_unserialize(get_option('custom_roles'));

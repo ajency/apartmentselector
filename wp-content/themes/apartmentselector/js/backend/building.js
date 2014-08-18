@@ -14,22 +14,58 @@ if($("#fileuploadposition_in_project").length>0){
     fileUploadById("position_in_project")
 }
 
+if($("#slider").length!=0){
+    displaySlider($("#no_of_floors").val())
+}
 
-if($("#slider").length>0){
+function updateSlider(){
+
+       $("#lowrisefrom").val(0)
+
+        $("#lowriseto").val(0)
+
+        $("#midrisefrom").val(0)
+
+        $("#midriseto").val(0)
+
+        $("#highrisefrom").val(0)
+
+        $("#highriseto").val(0)
+
+         displaySlider($("#no_of_floors").val())
+}
+
+function displaySlider(floors){
  
 
     // the code belows assume the colors array is exactly one element bigger than the handlers array.
-    var handlers = [3, 5];
-    var colors = ["#ff0000", "#00ff00", "#0000ff" ];
+    var handlers = [ $("#lowriseto").val(), $("#highrisefrom").val()];
+    var colors = ["#FFD700", "#FF8C00", "#FF6347" ];
     updateColors(handlers);
     
     $("#slider").slider({
         min: 0,
-        max: 10,
+        max: parseInt(floors),
         values: handlers,
         slide: function (evt, ui) {
             updateColors(ui.values);
-           console.log(ui.values)
+             console.log(ui.values[0])
+             console.log(ui.values[1])
+             if(ui.values[0]==0){
+                ui.values[0] = 1
+             }
+             if(ui.values[1]==0){
+                ui.values[1] = 1
+             }
+            $("#lowrisefrom").val(1)
+            $("#lowriseto").val(ui.values[0])
+            $("#lowrise-range").html("Floors "+$("#lowrisefrom").val()+"-"+$("#lowriseto").val())
+            $("#midrisefrom").val(parseInt(ui.values[0])+1)
+            $("#midriseto").val(ui.values[1])
+            $("#midrise-range").html("Floors "+$("#midrisefrom").val()+"-"+$("#midriseto").val())
+            $("#highrisefrom").val(parseInt(ui.values[1])+1)
+            $("#highriseto").val(floors)
+             $("#highrise-range").html("Floors "+$("#highrisefrom").val()+"-"+$("#highriseto").val())
         }
     });
     
@@ -37,7 +73,7 @@ if($("#slider").length>0){
 
         var colorstops = colors[0] + ", "; // start left with the first color
             for (var i=0; i< values.length; i++) {
-                value_one = (values[i]*100)/10
+                value_one = (values[i]*100)/floors
                 colorstops += colors[i] + " " + value_one + "%,";
                 colorstops += colors[i+1] + " " + value_one + "%,";
             }
@@ -85,8 +121,8 @@ $(document).on("change", ".no_of_flats", function(e) {
         loadExceptionsOption($(e.target).val());
 
         loadFloorRiseOption($(e.target).val());
-
-        
+ 
+        updateSlider()
 
 
     })
