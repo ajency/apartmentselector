@@ -27,7 +27,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/triplelayout/component.css" />
 	<link href="assets/css/remodal/jquery.remodal.css" rel="stylesheet" type="text/css"/>
 	<link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
-	<link href="assets/css/frontend.css" rel="stylesheet" type="text/css"/>
+	<!--<link href="assets/css/frontend.css" rel="stylesheet" type="text/css"/>-->
 	<style type="text/css">
 		/*@media (max-width: 550px) {
 		  #slider-plans-nav-ul {
@@ -42,26 +42,57 @@
 	</style>
 	<!-- END CSS TEMPLATE -->
 	<script src="assets/js/triplelayout/modernizr.custom.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/pushMenus/pushMenu.css" />
+	<!--<script src="assets/js/pushMenus/modernizr.custom.js"></script>-->
 </head>
 <!-- END HEAD -->
 
 <!-- BEGIN BODY -->
-<body class="booking">
+<body class="booking cbp-spmenu-push">
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+		<h3>My Menu</h3>
+		<a href="#">Wishlist</a>
+	</nav>
+	<nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
+		<h3>Additional Filters</h3>
+		<a href="#">Celery seakale</a>
+		<a href="#">Dulse daikon</a>
+		<a href="#">Zucchini garlic</a>
+		<a href="#">Catsear azuki bean</a>
+		<a href="#">Dandelion bunya</a>
+		<a href="#">Rutabaga</a>
+		<a href="#">Celery seakale</a>
+		<a href="#">Dulse daikon</a>
+		<a href="#">Zucchini garlic</a>
+		<a href="#">Catsear azuki bean</a>
+		<a href="#">Dandelion bunya</a>
+		<a href="#">Rutabaga</a>
+	</nav>
 	<!-- BEGIN HEADER -->
 	<div class="header navbar navbar-inverse ">
 		<div class="backBtn">
 			<a href="step3.html" class="text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
 		</div>
+
+		<div class="rightBtns">
+				<!-- Class "cbp-spmenu-open" gets applied to menu -->
+				<a  id="showTop" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-filter"></span></a>
+			<a id="showRightPush" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user"></span></a>
+		</div>
 		
 		<div class="text-center">
-			<h3 class="text-white m-t-15">1BHK > Tower A > Floor 15 > FA53</h3>
+			<h4 class="text-white m-t-15">1BHK > Tower A > Floor 15 > FA53</h4>
 		</div>
+		
 	</div>
 	<!-- END HEADER -->
 
 	<!-- BEGIN CONTAINER -->
 
 	<div class="page-container row-fluid">
+
+
 		
 		<!-- <h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3> -->
 
@@ -253,6 +284,36 @@
 <script src="assets/js/liquidslider/jquery.easing.min.js"></script>
 <script src="assets/js/liquidslider/jquery.touchSwipe.min.js"></script>
 <script src="assets/js/liquidslider/jquery.liquid-slider.min.js"></script>
+
+
+<script>
+	var menuRight = document.getElementById( 'cbp-spmenu-s2' ),
+		menuTop = document.getElementById( 'cbp-spmenu-s3' ),
+		showTop = document.getElementById( 'showTop' ),
+		showRightPush = document.getElementById( 'showRightPush' ),
+		body = document.body;
+
+	showTop.onclick = function() {
+		classie.toggle( this, 'active' );
+		classie.toggle( menuTop, 'cbp-spmenu-open' );
+		disableOther( 'showTop' );
+	};
+	showRightPush.onclick = function() {
+		classie.toggle( this, 'active' );
+		classie.toggle( body, 'cbp-spmenu-push-toleft' );
+		classie.toggle( menuRight, 'cbp-spmenu-open' );
+		disableOther( 'showRightPush' );
+	};
+
+	function disableOther( button ) {
+		if( button !== 'showTop' ) {
+			classie.toggle( showTop, 'disabled' );
+		}
+		if( button !== 'showRightPush' ) {
+			classie.toggle( showRightPush, 'disabled' );
+		}
+	}
+</script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
