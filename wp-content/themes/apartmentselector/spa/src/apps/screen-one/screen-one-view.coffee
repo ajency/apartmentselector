@@ -1,6 +1,8 @@
 define [ 'marionette' ], ( Marionette )->
 
     unitType = []
+    object = ""
+    m = ""
     class UnitTypeView extends Marionette.ItemView
 
         className : "grid-block-1"
@@ -68,6 +70,28 @@ define [ 'marionette' ], ( Marionette )->
             $("#finalButton").addClass 'btn-primary'
             unitTypeModel = App.master.unit_type.findWhere(id:parseInt(App.defaults['unitType']))
             $("#finalButton").text "Show "+unitTypeModel.get('name')+" Apartments"
+            newUnits = App.currentStore.unit.where(unitType:parseInt(App.defaults['unitType']))
+            newColl = new Backbone.Collection newUnits
+            buildings = newColl.pluck("building")
+            console.log uniqBuildings = _.uniq(buildings)
+            @showHighlightedTowers(uniqBuildings)
+
+        object = @
+
+        showHighlightedTowers:(uniqBuildings)->
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                $("#hglighttower"+index.get('id')).attr('class','overlay')
+            console.log building = uniqBuildings
+            $.each(uniqBuildings, (index,value)->
+                buidlingValue = App.master.building.findWhere(id:parseInt(value))
+                console.log $("#hglighttower"+buidlingValue.get('id'))
+                $("#hglighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
+
+
+            )
+
+
 
 
 
@@ -130,9 +154,44 @@ define [ 'marionette' ], ( Marionette )->
                 $("#finalButton").removeClass 'disabled btn-default'
                 $("#finalButton").addClass 'btn-primary'
                 $("#finalButton").text "Show Apartments in my Budget"
+                budget_val = $(".cs-selected").text().split(' ')
+                newUnits = App.getBudget(budget_val[0])
+                newColl = new Backbone.Collection newUnits
+                buildings = newColl.pluck("building")
+                console.log uniqBuildings = _.uniq(buildings)
+                @showHighlightedTowers(uniqBuildings)
 
             'click a':(e)->
                 e.preventDefault()
+
+
+            'mouseover a':(e)->
+                console.log id  = e.target.id
+                console.log locationData = m.getLocationData(id)
+                m.showTooltip(locationData)
+
+
+            'click .tower-over':(e)->
+                e.preventDefault()
+                console.log e.target.id
+                console.log id  = e.target.id
+                m.showLocation(id, 800)
+                locationData = m.getLocationData(id)
+                m.showTooltip(locationData)
+
+        showHighlightedTowers:(uniqBuildings)->
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                console.log index.get('id')
+                $("#hglighttower"+index.get('id')).attr('class','overlay')
+            console.log building = uniqBuildings
+            $.each(uniqBuildings, (index,value)->
+                buidlingValue = App.master.building.findWhere(id:parseInt(value))
+                console.log $("#hglighttower"+buidlingValue.get('id'))
+                $("#hglighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
+
+
+            )
 
 
 
@@ -154,7 +213,7 @@ define [ 'marionette' ], ( Marionette )->
                 selector = '#mapplic_new' + i
                 ajaxurl = AJAXURL
                 $(selector).mapplic_new(
-                    'id': 5,
+                    'id': 6,
                     'width': params.width,
                     'height': params.height
 
