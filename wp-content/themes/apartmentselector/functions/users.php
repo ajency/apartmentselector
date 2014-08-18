@@ -217,3 +217,53 @@ function get_ap_roles() {
 
      return $all_roles;
 }
+
+function get_ap_current_user(){
+
+
+    global $user_ID,  $wp_roles ;
+
+    $ap_current_user = array();
+    if($user_ID!=0){
+
+        $user_info = get_userdata( $user_ID );
+        $ap_current_user['id'] = $user_ID;
+
+        $ap_current_user['user_login'] = $user_info->user_login;
+
+        $ap_current_user['user_email'] = $user_info->user_email;
+
+        $ap_current_user['display_name'] = $user_info->display_name; 
+
+        $ap_current_user['role'] =  key($user_info->caps) ;
+
+        $ap_current_user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
+
+        $all_caps = array();
+
+        foreach($user_info->allcaps as $key=>$capability){
+
+            $all_caps[] = $key;
+
+        }
+         $ap_current_user['all_caps'] =$all_caps ;
+    }else{
+
+         $ap_current_user['id'] = 0;
+
+         $ap_current_user['user_login'] = '';
+
+        $ap_current_user['user_email'] = '';
+
+        $ap_current_user['display_name'] = ''; 
+
+        $ap_current_user['role'] =  '' ;
+
+        $ap_current_user['display_role'] = '' ;
+
+        $ap_current_user['all_caps'] = array() ;
+
+    }
+
+    formatted_echo($ap_current_user);
+}
