@@ -13,6 +13,39 @@ if($("#fileuploadposition_in_project").length>0){
 
     fileUploadById("position_in_project")
 }
+
+
+if($("#slider").length>0){
+alert("fg")
+
+    // the code belows assume the colors array is exactly one element bigger than the handlers array.
+    var handlers = [25, 50, 75];
+    var colors = ["#ff0000", "#00ff00", "#0000ff", "#00ffff"];
+    updateColors(handlers);
+    
+    $("#slider").slider({
+        min: 0,
+        max: 100,
+        values: handlers,
+        slide: function (evt, ui) {
+            updateColors(ui.values);
+        }
+    });
+    
+    function updateColors(values) {
+        var colorstops = colors[0] + ", "; // start left with the first color
+            for (var i=0; i< values.length; i++) {
+                colorstops += colors[i] + " " + values[i] + "%,";
+                colorstops += colors[i+1] + " " + values[i] + "%,";
+            }
+            // end with the last color to the right
+            colorstops += colors[colors.length-1];
+            
+            /* Safari 5.1, Chrome 10+ */
+            var css = '-webkit-linear-gradient(left,' + colorstops + ')';
+            $('#slider').css('background-image', css);
+    }
+}
 $(document).on("change", ".no_of_flats", function(e) {
 
 
@@ -343,7 +376,7 @@ console.log(html)
 
 
                         // Total (jQuery selector added v2.17.0)
-                       5 : function($cell, indx){
+                         '.floor' : function($cell, indx){
                             return $.tablesorter.filterFormatter.uiRange( $cell, indx, {
                                 delayed : false,
                                 valueToHeader : false,
