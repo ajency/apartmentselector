@@ -356,6 +356,7 @@ function get_unit_variants($variant_id=0){
                                     'carpetarea'=>$result->metas['carpetarea'] ,
                                     'sellablearea'=>$result->metas['sellablearea'],
                                     'terracearea'=>$result->metas['terracearea'], 
+                                    'persqftprice'=>$result->metas['persqftprice'],
                                     'url2dlayout_image'=>$url2dlayout_image[0],
                                     'url3dlayout_image'=>$url3dlayout_image[0],
                                     'roomsizes'=>get_room_type_for_sizes_name($result->metas['roomsizes']),
@@ -476,7 +477,7 @@ function get_unit_price($unit_id)
 
     $floorrise = get_building_floorrise($unit_building,$floor);
 
-    return  (floatval($persqftprice)+floatval($floorrise))* floatval($sellablearea);
+    return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
   
 }
 
