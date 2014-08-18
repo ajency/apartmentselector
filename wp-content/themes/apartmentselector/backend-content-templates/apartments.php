@@ -20,16 +20,9 @@ if(!current_user_can('manage_apartments') && !current_user_can('manage_options')
 
                                 <div class="grid-body ">
                                     <table class="table table-hover table-condensed tablesorter" id="example" >
+                                    
                                         <thead>
-                                          <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr>
-                                           <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr>
-                                           <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr> 
+                                      
                                         <tr>
                                           <th style="width:10%">Flat No</th>
                                             <th style="width:20%" class="filter-select filter-onlyAvail" data-placeholder="All" >Status</th>
