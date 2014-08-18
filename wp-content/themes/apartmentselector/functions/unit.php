@@ -476,7 +476,7 @@ function get_unit_price($unit_id)
 
     $floorrise = get_building_floorrise($unit_building,$floor);
 
-    return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
+    return  (floatval($persqftprice)+floatval($floorrise))* floatval($sellablearea);
   
 }
 

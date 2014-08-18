@@ -16,27 +16,30 @@ if($("#fileuploadposition_in_project").length>0){
 
 
 if($("#slider").length>0){
-alert("fg")
+ 
 
     // the code belows assume the colors array is exactly one element bigger than the handlers array.
-    var handlers = [25, 50, 75];
-    var colors = ["#ff0000", "#00ff00", "#0000ff", "#00ffff"];
+    var handlers = [3, 5];
+    var colors = ["#ff0000", "#00ff00", "#0000ff" ];
     updateColors(handlers);
     
     $("#slider").slider({
         min: 0,
-        max: 100,
+        max: 10,
         values: handlers,
         slide: function (evt, ui) {
             updateColors(ui.values);
+           console.log(ui.values)
         }
     });
     
     function updateColors(values) {
+
         var colorstops = colors[0] + ", "; // start left with the first color
             for (var i=0; i< values.length; i++) {
-                colorstops += colors[i] + " " + values[i] + "%,";
-                colorstops += colors[i+1] + " " + values[i] + "%,";
+                value_one = (values[i]*100)/10
+                colorstops += colors[i] + " " + value_one + "%,";
+                colorstops += colors[i+1] + " " + value_one + "%,";
             }
             // end with the last color to the right
             colorstops += colors[colors.length-1];

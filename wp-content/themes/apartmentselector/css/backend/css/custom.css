@@ -485,6 +485,32 @@ color: #006CD9;
   font-weight: normal;
   color: #555555;
 }
+
+
+.fixed-size-square-lowrise {
+    display: table;
+    width: 10px;
+    height: 10px;
+    background: #ff0000;
+}
+
+
+.fixed-size-square-midrise {
+    display: table;
+    width: 10px;
+    height: 10px;
+    background: #00ff00;
+}
+ 
+
+
+.fixed-size-square-highrise {
+    display: table;
+    width: 10px;
+    height: 10px;
+    background: #0000ff;
+}
+ 
  
  
   

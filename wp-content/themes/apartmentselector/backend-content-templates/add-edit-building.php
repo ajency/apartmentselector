@@ -377,6 +377,8 @@ $heading = "Edit";
 		 </div>
 		 <!--testing-->
          </div>
+
+              </div>
                     <?php
                 }
                 ?><?php
@@ -538,5 +540,53 @@ $heading = "Edit";
 </div>
 </div>
 </div>
+
+<div class="col-md-6">
+<div class="grid simple">
+<div class="grid-title no-border">
+
+<div class="form-group">
+    <label class="form-label">
+        Floor rise
+    </label>
+                   
+    <div class="input-with-icon  right">
+
+        <div id="slider"></div>
+
+        <table>
+            <tr>
+                <td><div class="fixed-size-square-lowrise"></div>
+                </td>
+                <td>Low rise
+                <input type="hidden" id="lowrisefrom" name="lowrisefrom">
+                <input type="hidden" id="lowriseto" name="lowriseto">
+                </td>
+            </tr>
+            <tr>
+                <td><div class="fixed-size-square-midrise"></div>
+                </td>
+                <td>Mid rise
+                <input type="hidden" id="midrisefrom" name="midrisefrom">
+                <input type="hidden" id="midriseto" name="midriseto">
+                </td>
+            </tr>
+            <tr>
+                <td><div class="fixed-size-square-highrise"></div>
+                </td>
+                <td>High rise
+                <input type="hidden" id="highrisefrom" name="highrisefrom">
+                <input type="hidden" id="highriseto" name="highriseto">
+                </td>
+            </tr>
+        </table>
+         
+    </div>
 </div>
- 
+
+</div>
+</div>
+
+
+         </div>
+</div>
