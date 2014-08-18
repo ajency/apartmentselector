@@ -125,6 +125,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             templateArr = []
             mainunitTypeArray = []
             mainnewarr =  []
+            lnewarr =  []
+            mnewarr =  []
+            hnewarr =  []
             mainunique = {}
             MainCollection = new Backbone.Model()
             status = App.currentStore.status.findWhere({'name':'Available'})
@@ -134,21 +137,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             paramkey = {}
             flag = 0
             mainunitsTypeArray = []
-            lunitTypeArray = []
-            lnewarr =  []
-            lunique = {}
-            munitTypeArray = []
-            mnewarr =  []
-            munique = {}
-            hunitTypeArray = []
-            hnewarr =  []
-            hunique = {}
-            lcount = []
-            mcount = []
-            hcount = []
-            lclassname = ""
-            mclassname = ""
-            hclassname = ""
+
             $.each(App.defaults, (index,value)->
                 if(value !='All')
                     param[index] = value
@@ -323,114 +312,22 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
                 mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
-            flag = 0
-            flag1 = 0
-            $.each(mainunitsTypeArray, (key,item)->
-                if (!lunique[item.id])
-                    lunitTypeArray = []
-                    status = App.currentStore.status.findWhere({'name':'Available'})
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-                    $.each(count, (index,value)->
-                        if value.get('unitType') == 9
-                            flag = 1
-                        if value.get('unitType') == 10
-                            flag1 = 1
-                        lowUnits = App.currentStore.range.findWhere({name:'low'})
-                        if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
-                            lunitTypeArray.push value.get 'id'
-                    )
-                    if parseInt(flag) == 1
-                        lclassname = 'twoBHK'
-                    if parseInt(flag1) == 1
-                        lclassname = 'threeBHK'
-                    if parseInt(flag) == 1 && parseInt(flag1) == 1
-                        lclassname = 'multiBHK'
 
-
-
-
-
-                    lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,classname:lclassname})
-                    lunique[item.id] = item;
-
-            )
-            flag = 0
-            flag1 = 0
-
-            $.each(mainunitsTypeArray, (key,item)->
-                if (!munique[item.id])
-                    munitTypeArray = []
-                    status = App.currentStore.status.findWhere({'name':'Available'})
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-                    $.each(count, (index,value)->
-                        if value.get('unitType') == 9
-                            flag = 1
-                        if value.get('unitType') == 10
-                            flag1 = 1
-                        mediumUnits = App.currentStore.range.findWhere({name:'medium'})
-                        if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
-                            munitTypeArray.push value.get 'id'
-                    )
-                    if parseInt(flag) == 1
-                        mclassname = 'twoBHK'
-                    if parseInt(flag1) == 1
-                        mclassname = 'threeBHK'
-                    if parseInt(flag) == 1 && parseInt(flag1) == 1
-                        mclassname = 'multiBHK'
-
-
-                    mnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,classname:mclassname})
-                    munique[item.id] = item;
-
-
-            )
-            flag = 0
-            flag1 = 0
-            $.each(mainunitsTypeArray, (key,item)->
-
-                if (!hunique[item.id])
-                    hunitTypeArray = []
-                    status = App.currentStore.status.findWhere({'name':'Available'})
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-
-                    $.each(count, (index,value)->
-                        if value.get('unitType') == 9
-                            flag = 1
-                        if value.get('unitType') == 10
-                            flag1 = 1
-                        highUnits = App.currentStore.range.findWhere({name:'high'})
-                        if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
-                            hunitTypeArray.push value.get 'id'
-                    )
-                    console.log flag
-                    console.log flag1
-                    if parseInt(flag) == 1
-                        hclassname = 'twoBHK'
-                    if parseInt(flag1) == 1
-                        hclassname = 'threeBHK'
-                    if parseInt(flag) == 1 && parseInt(flag1) == 1
-                        hclassname = 'multiBHK'
-
-                    console.log hclassname
-                    hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,classname:hclassname})
-                    hunique[item.id] = item;
-
-
-            )
 
             $.each(mainunitTypeArray, (key,item)->
                 if (!mainunique[item.id])
-                    status = App.currentStore.status.findWhere({'name':'Available'})
+                    if item.id != 14
+                        status = App.currentStore.status.findWhere({'name':'Available'})
 
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
 
-                    if parseInt(item.id) == 9
-                        classname = 'twoBHK'
-                    else
-                        classname = 'threeBHK'
+                        if parseInt(item.id) == 9
+                            classname = 'twoBHK'
+                        else
+                            classname = 'threeBHK'
 
-                    mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
-                    mainunique[item.id] = item;
+                        mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
+                        mainunique[item.id] = item;
 
 
             )
@@ -444,6 +341,21 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 newarr =  []
                 unique = {}
                 viewmodels = []
+                lunitTypeArray = []
+                lnewarr =  []
+                lunique = {}
+                munitTypeArray = []
+                mnewarr =  []
+                munique = {}
+                hunitTypeArray = []
+                hnewarr =  []
+                hunique = {}
+                lcount = []
+                mcount = []
+                hcount = []
+                lclassname = ""
+                mclassname = ""
+                hclassname = ""
                 status = App.currentStore.status.findWhere({'name':'Available'})
                 totalunits = App.currentStore.unit.where({'building':value})
                 $.each(totalunits, (index,value)->
@@ -465,6 +377,101 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 )
                 console.log variantsDataValues
+                flag = 0
+                flag1 = 0
+                $.each(mainunitsTypeArray, (key,item)->
+                    if (!lunique[item.id])
+                        lunitTypeArray = []
+                        status = App.currentStore.status.findWhere({'name':'Available'})
+                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+                        $.each(count, (index,value)->
+                            if value.get('unitType') == 9
+                                flag = 1
+                            if value.get('unitType') == 10
+                                flag1 = 1
+                            lowUnits = App.currentStore.range.findWhere({name:'low'})
+                            if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
+                                lunitTypeArray.push value.get 'id'
+                        )
+                        if parseInt(flag) == 1
+                            lclassname = 'twoBHK'
+                        if parseInt(flag1) == 1
+                            lclassname = 'threeBHK'
+                        if parseInt(flag) == 1 && parseInt(flag1) == 1
+                            lclassname = 'multiBHK'
+
+
+
+
+
+                        lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,classname:lclassname})
+                        lunique[item.id] = item;
+
+                )
+                flag2 = 0
+                flag3 = 0
+
+                $.each(mainunitsTypeArray, (key,item)->
+                    if (!munique[item.id])
+                        munitTypeArray = []
+                        status = App.currentStore.status.findWhere({'name':'Available'})
+                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+                        $.each(count, (index,value)->
+                            if value.get('unitType') == 9
+                                flag2 = 1
+                            if value.get('unitType') == 10
+                                flag3 = 1
+                            mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                            if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
+                                munitTypeArray.push value.get 'id'
+                        )
+                        if parseInt(flag2) == 1
+                            mclassname = 'twoBHK'
+                        if parseInt(flag3) == 1
+                            mclassname = 'threeBHK'
+                        if parseInt(flag2) == 1 && parseInt(flag3) == 1
+                            mclassname = 'multiBHK'
+
+
+                        mnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,classname:mclassname})
+                        munique[item.id] = item;
+
+
+                )
+                flag4 = 0
+                flag5 = 0
+                $.each(mainunitsTypeArray, (key,item)->
+
+                    if (!hunique[item.id])
+                        hunitTypeArray = []
+                        status = App.currentStore.status.findWhere({'name':'Available'})
+                        console.log buildingid
+                        console.log count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+
+                        $.each(count, (index,value)->
+                            if value.get('unitType') == 9
+                                flag4 = 1
+                            if value.get('unitType') == 10
+                                flag5 = 1
+                            highUnits = App.currentStore.range.findWhere({name:'high'})
+                            if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
+                                hunitTypeArray.push value.get 'id'
+                        )
+                        console.log flag4
+                        console.log flag5
+                        if parseInt(flag4) == 1
+                            hclassname = 'twoBHK'
+                        if parseInt(flag5) == 1
+                            hclassname = 'threeBHK'
+                        if parseInt(flag4) == 1 && parseInt(flag5) == 1
+                            hclassname = 'multiBHK'
+
+                        console.log hclassname
+                        hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,classname:hclassname})
+                        hunique[item.id] = item;
+
+
+                )
 
 
 
