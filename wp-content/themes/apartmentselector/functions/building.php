@@ -563,6 +563,23 @@ function ajax_delete_building(){
 
     delete_option( "building_".$building."_exceptions" ); 
 
+
+     $args = array(
+    'post_type'     =>  'unit',
+    'posts_per_page'     =>  '-1',
+    'meta_key'    =>   'building',
+    'meta_value' =>  $building );
+    $apartments =   get_posts( $args );
+
+ foreach($apartments  as $apartment){
+
+    if(!is_null($apartment->ID)){
+
+        wp_delete_post($apartment->ID,true);
+
+    }
+ }
+
 $response = json_encode( array('msg'=> 'Successfully Deleted Building') );
 
 header( "Content-Type: application/json" );
