@@ -27,6 +27,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             @listenTo @layout, 'unit:variants:selected', @_showBuildings
 
+            @listenTo @layout, 'unit:item:selected', @_unitItemSelected
+
 
 
             @show @layout
@@ -65,6 +67,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 @listenTo @layout, 'unit:variants:selected', @_showBuildings
 
+                @listenTo @layout, 'unit:item:selected', @_unitItemSelected
+
 
 
                 @show @layout
@@ -90,7 +94,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
         showUnitRegion:(unitCollection)->
             itemview2 = @getUnitsView unitCollection
             @layout.unitRegion.show itemview2
-            @listenTo itemview2, 'childview:childview:childview:unit:item:selected', @_unitItemSelected
+            #@listenTo itemview2, 'childview:childview:childview:unit:item:selected', @_unitItemSelected
 
 
 

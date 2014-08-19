@@ -199,7 +199,10 @@ require [ 'plugin-loader'
         budget_arr = budget.split('-')
         budget_arr[0] = budget_arr[0] + ('00000')
         budget_arr[1] = budget_arr[1]+ ('00000')
-        units = App.currentStore.unit
+        status = App.currentStore.status.findWhere({'name':'Available'})
+
+        units = App.currentStore.unit.where({'status':status.get('id')})
+
         units.each (item)->
             buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
             floorRise = buildingModel.get 'floorrise'
