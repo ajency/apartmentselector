@@ -194,7 +194,7 @@ $heading = "Edit";
                     </select>
 					</div>
 					<div class="col-md-4">
-                    <input type="text" name="payment_percentage" id="payment_percentage_<?php echo $key;?>" value="<?php echo $payment_milestone["payment_percentage"];?>" class="form-control  form-control-small"> %
+                    <input type="text" name="payment_percentage" id="payment_percentage_<?php echo $key+1;?>" value="<?php echo $payment_milestone["payment_percentage"];?>" class="form-control  form-control-small"> %
 					</div>
 					<div class="col-md-4">
                     <a href="javascript:void(0)" item="<?php echo $key+1;?>" class="milestone-remove"><i class="fa fa-trash-o thrash" item="<?php echo $key+1;?>" class="milestone-remove" ></i></a></div>

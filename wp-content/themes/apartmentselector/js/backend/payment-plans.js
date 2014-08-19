@@ -89,6 +89,12 @@ $(document).on("click", "#add-more-milstones", function(e) {
     $( "#milestone-list" ).sortable();
 
     $( "#milestone-list" ).disableSelection();
+
+    $("#payment_percentage_"+nextItem).val("");
+
+    $("#milestone_"+nextItem).val("");
+
+     $("#milestone_"+nextItem).trigger("change");
 });
 $(document).on("click", "#save_payment_plan", function(e) {
 
@@ -100,13 +106,23 @@ $(document).on("click", "#save_payment_plan", function(e) {
 
             var _e = e;  
 
+            removeCustomError();
+
             payment_plan_name = $("#payment_plan_name").val();
             
             payment_plan_id= $("#payment_plan_id").val();
 
             milestones = getSelectedMilstones();
 
-     
+            if(milestones.length==0 && milestones!=false){
+                showCustomError($("#add-more-milstones"),"Add atleast one milestone");
+                return;
+            }
+             if(milestones==false){
+                showCustomError($("#add-more-milstones"),"Add all selected milestone percentages");
+                return;
+            } 
+ 
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")
 
             $.post(AJAXURL, {
@@ -121,6 +137,13 @@ $(document).on("click", "#save_payment_plan", function(e) {
         }
     });
 
+
+function showCustomError(element,label){
+    $('<span class="error"></span>').insertBefore(element).append(label)
+}
+function removeCustomError(){
+    $('.error').remove();
+}
 $(document).on("click", ".milestone-remove", function(e) {
  
  if($('#milestone-list li').length==1){
@@ -136,11 +159,20 @@ function getSelectedMilstones(){
     sort = 0
     milestones = []
     $('#milestone-list li').each(function(e,val) {
-        sort_index = ++sort;
-        milestone =  $(val).children('[name="milestone"]').val() 
-        payment_percentage =  $(val).children('[name="payment_percentage"]').val() 
-        milestones.push({sort_index:sort_index,milestone:milestone,payment_percentage:payment_percentage});
+         
+        milestone =  $(val).find('[name="milestone"]').val()  
+        payment_percentage =  $(val).find('[name="payment_percentage"]').val() 
+        if(milestone!="" && milestone !="+" &&  payment_percentage!=''){
+             sort_index = ++sort;
+             milestones.push({sort_index:sort_index,milestone:milestone,payment_percentage:payment_percentage});
 
+        }
+        if(milestone!="" && milestone !="+" && (payment_percentage=='' || payment_percentage=='0')){
+            console.log("payment_percentage")
+            milestones = false;
+            return false;
+        }
+       
     });
 
     return milestones;
