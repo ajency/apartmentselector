@@ -408,7 +408,13 @@ function get_units(){
 
         $unit_building =   get_post_meta($result->ID, 'building', true);
 
-        $unit_facing =   get_post_meta($result->ID, 'facing', true);
+        $unit_facing =   maybe_unserialize(get_post_meta($result->ID, 'facing', true));
+
+        if(is_array($unit_facing)){
+               $unit_facing = array_map ('intval', $unit_facing);
+        }else{
+            $unit_facing = array();
+        }
 
         $floor =   get_post_meta($result->ID, 'floor', true);
 
@@ -447,7 +453,7 @@ function get_units(){
                             'unitAssigned'=>intval($unit_assigned),
                             'unitPrice'=> ($unitprice),
                             'premiumUnitPrice'=> ($premiumunitprice),
-                            'facing'=>intval($unit_facing),
+                            'facing'=> $unit_facing ,
                             'blockedBy'=> ($blocked_by),
                             'forCustomer'=> ($for_customer),
                             'blockedOn'=> convert_mysql_to_custom_date($blocked_on),
@@ -512,7 +518,13 @@ function get_unit_by_id($id){
 
     $unit_building =   get_post_meta($result->ID, 'building', true);
 
-    $unit_facing =   get_post_meta($result->ID, 'facing', true);
+    $unit_facing =   maybe_unserialize(get_post_meta($result->ID, 'facing', true));
+
+        if(is_array($unit_facing)){
+               $unit_facing = array_map ('intval', $unit_facing);
+        }else{
+            $unit_facing = array();
+        }
 
     $floor =   get_post_meta($result->ID, 'floor', true);
 
