@@ -257,6 +257,14 @@ function get_no_image_150x150(){
 	
 	return $image_url;
 }
+//get no image of size 150 by 150
+
+function get_no_image_big(){
+
+ 	$image_url = get_template_directory_uri()."/css/backend/img/no-image-big.jpg";
+	
+	return $image_url;
+}
 
 function get_logged_in_user_info(){
  
