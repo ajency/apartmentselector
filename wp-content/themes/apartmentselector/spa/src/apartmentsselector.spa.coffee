@@ -73,6 +73,8 @@ require [ 'plugin-loader'
 
     App.layout = ""
 
+    App.cookieArray = []
+
     
     #filter function which takes the parameters into account anf filters the current store.
     App.filter = (params={})->
@@ -197,8 +199,11 @@ require [ 'plugin-loader'
         budget_arr = budget.split('-')
         budget_arr[0] = budget_arr[0] + ('00000')
         budget_arr[1] = budget_arr[1]+ ('00000')
-        units = App.currentStore.unit
-        units.each (item)->
+        status = App.currentStore.status.findWhere({'name':'Available'})
+
+        units = App.currentStore.unit.where({'status':status.get('id')})
+        unitsColl = new Backbone.Collection units
+        unitsColl.each (item)->
             buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
             floorRise = buildingModel.get 'floorrise'
             floorRiseValue = floorRise[item.get 'floor']

@@ -70,7 +70,8 @@ define [ 'marionette' ], ( Marionette )->
             $("#finalButton").addClass 'btn-primary'
             unitTypeModel = App.master.unit_type.findWhere(id:parseInt(App.defaults['unitType']))
             $("#finalButton").text "Show "+unitTypeModel.get('name')+" Apartments"
-            newUnits = App.currentStore.unit.where(unitType:parseInt(App.defaults['unitType']))
+            status = App.currentStore.status.findWhere({'name':'Available'})
+            newUnits = App.currentStore.unit.where(unitType:parseInt(App.defaults['unitType']),status:status.get('id'))
             newColl = new Backbone.Collection newUnits
             buildings = newColl.pluck("building")
             console.log uniqBuildings = _.uniq(buildings)

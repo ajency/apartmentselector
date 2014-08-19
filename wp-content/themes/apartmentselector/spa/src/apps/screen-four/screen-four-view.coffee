@@ -1,5 +1,4 @@
 define [ 'marionette' ], ( Marionette )->
-    cookieArray = []
     class ScreenFourLayout extends Marionette.LayoutView
 
         template : '<div id="vs-container" class="vs-container flatContainer">
@@ -12,7 +11,7 @@ define [ 'marionette' ], ( Marionette )->
 
        <input type="button" name="list" id="list" value="Add"  /><label id="errormsg"></label>
 
-       <div id="showList"></div>
+
        </div></br>                      </div>'
 
 
@@ -43,22 +42,24 @@ define [ 'marionette' ], ( Marionette )->
 
                 if parseInt(key) == -1
                     $('#errormsg' ).text ""
-                    cookieArray.push(parseInt(App.unit['name']))
+                    App.cookieArray.push(parseInt(App.unit['name']))
                 else
                     console.log "Already entered"
                     $('#errormsg' ).text "Already entered"
-                console.log cookieArray
-                console.log cookieArray = $.merge(cookieArray,cookieOldValue)
-                console.log cookieArray = _.uniq(cookieArray)
-                $.cookie('key',cookieArray)
+                    return false
+                console.log App.cookieArray
+                console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
+                console.log App.cookieArray = _.uniq(App.cookieArray)
+                $.cookie('key',App.cookieArray)
                 console.log $.cookie("key")
+                $('#errormsg' ).text "The selected flat has been added to the WishList"
                 @showWishList()
             'click .del':(e)->
-                console.log cookieArray
+                console.log App.cookieArray
                 console.log val = $('#'+e.target.id).attr('data-id')
-                console.log index = cookieArray.indexOf( parseInt(val) )
-                cookieArray.splice( index, 1 )
-                $.cookie('key',cookieArray)
+                console.log index = App.cookieArray.indexOf( parseInt(val) )
+                App.cookieArray.splice( index, 1 )
+                $.cookie('key',App.cookieArray)
 
 
                 console.log $.cookie('key')
@@ -90,13 +91,12 @@ define [ 'marionette' ], ( Marionette )->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<tr><td>'+model.get('name')+'</td><td>'+unitVariant.get('sellablearea')+' Sq.ft.</td>
-                    <td>'+building.get('name')+'</td><td>'+unitType.get('name')+' </td>
-                    <td><a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></td></tr>'
+                    table += '<li><a href="#">'+model.get('name')+'</a>
+                    <a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></li>'
 
                 table += '</table>'
 
-            $('#showList').html table
+            $('#showWishlist').html table
 
 
 

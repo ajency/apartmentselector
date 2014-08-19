@@ -69,7 +69,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
                     </div>
                     <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Apartments</a>
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a>
                     </div>
 
                 </div>
@@ -260,15 +260,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
                     unitVariantString = value.toString()
 
-            'click #screen-three-button':(e)->
+            'click #screen-two-button':(e)->
                 console.log "aaaaaaaaaaaaa"
                 @trigger 'unit:count:selected'
 
-        showHighlightedTowers:->
+        showHighlightedTowers:()->
             console.log building = Marionette.getOption( @, 'buildingColl' ).toArray()
             buidlingValue = _.first(building)
 
-            console.log buidlingValue.get('id')
             setTimeout( ()->
                 $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
             , 1000)
@@ -489,12 +488,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 i =1
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
-
+                @showHighlightedBuildings(@model.get('id'))
                 #m.initial($(selector),params)
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id);
                 #m.showTooltip(locationData);
                 #App.navigate "tower"+@model.get('id') , trigger:true
+
+        showHighlightedBuildings:(id={})->
+            console.log building = id
+            setTimeout( ()->
+                $("#highlighttower"+buidlingid).attr('class','overlay highlight')
+            , 1000)
 
 
 
@@ -581,17 +586,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     App.backFilter['screen2'].push 'floor'
                     App.defaults['building'] = parseInt(@model.get 'buildingid')
                     App.backFilter['screen2'].push 'building'
-                    console.log $('#screen-three-button')
-                    $('#screen-three-button').removeClass 'disabled btn-default'
-                    $("#screen-three-button").addClass 'btn-primary'
+                    console.log $('#screen-two-button')
+                    $('#screen-two-button').removeClass 'disabled btn-default'
+                    $("#screen-two-button").addClass 'btn-primary'
                     #@trigger 'unit:count:selected'
                 else
                     rangeArray=[]
                     $("#checkrange"+@model.get 'range').val "0"
                     $('#range'+@model.get 'range').removeClass 'selected'
                 if parseInt($("#checkrange"+@model.get 'range').val()) == 0
-                    $("#screen-three-button").addClass 'disabled btn-default'
-                    $("#screen-three-button").removeClass 'btn-primary'
+                    $("#screen-two-button").addClass 'disabled btn-default'
+                    $("#screen-two-button").removeClass 'btn-primary'
                     return false
 
 

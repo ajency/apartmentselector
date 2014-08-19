@@ -3,8 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView, cookieArray;
-  cookieArray = [];
+  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView;
   ScreenFourLayout = (function(_super) {
     __extends(ScreenFourLayout, _super);
 
@@ -12,7 +11,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <input type="button" name="list" id="list" value="Add"  /><label id="errormsg"></label> <div id="showList"></div> </div></br>                      </div>';
+    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <input type="button" name="list" id="list" value="Add"  /><label id="errormsg"></label> </div></br>                      </div>';
 
     ScreenFourLayout.prototype.className = 'page-container row-fluid';
 
@@ -38,25 +37,27 @@ define(['marionette'], function(Marionette) {
           console.log(key = $.inArray(App.unit['name'], cookieOldValue));
           if (parseInt(key) === -1) {
             $('#errormsg').text("");
-            cookieArray.push(parseInt(App.unit['name']));
+            App.cookieArray.push(parseInt(App.unit['name']));
           } else {
             console.log("Already entered");
             $('#errormsg').text("Already entered");
+            return false;
           }
-          console.log(cookieArray);
-          console.log(cookieArray = $.merge(cookieArray, cookieOldValue));
-          console.log(cookieArray = _.uniq(cookieArray));
-          $.cookie('key', cookieArray);
+          console.log(App.cookieArray);
+          console.log(App.cookieArray = $.merge(App.cookieArray, cookieOldValue));
+          console.log(App.cookieArray = _.uniq(App.cookieArray));
+          $.cookie('key', App.cookieArray);
           console.log($.cookie("key"));
+          $('#errormsg').text("The selected flat has been added to the WishList");
           return this.showWishList();
         },
         'click .del': function(e) {
           var index, val;
-          console.log(cookieArray);
+          console.log(App.cookieArray);
           console.log(val = $('#' + e.target.id).attr('data-id'));
-          console.log(index = cookieArray.indexOf(parseInt(val)));
-          cookieArray.splice(index, 1);
-          $.cookie('key', cookieArray);
+          console.log(index = App.cookieArray.indexOf(parseInt(val)));
+          App.cookieArray.splice(index, 1);
+          $.cookie('key', App.cookieArray);
           console.log($.cookie('key'));
           return this.showWishList();
         },
@@ -99,11 +100,11 @@ define(['marionette'], function(Marionette) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<tr><td>' + model.get('name') + '</td><td>' + unitVariant.get('sellablearea') + ' Sq.ft.</td> <td>' + building.get('name') + '</td><td>' + unitType.get('name') + ' </td> <td><a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></td></tr>';
+          table += '<li><a href="#">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></li>';
         }
         table += '</table>';
       }
-      return $('#showList').html(table);
+      return $('#showWishlist').html(table);
     };
 
     return ScreenFourLayout;

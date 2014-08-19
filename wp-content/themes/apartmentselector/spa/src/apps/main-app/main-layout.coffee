@@ -35,8 +35,8 @@ define [ 'extm'], ( Extm)->
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>
-                <li><a href="#"><span class="glyphicon glyphicon-star"></span> Wishlist</a>
-                    <ul class="menuWishlist">
+                <li ><a href="#"><span class="glyphicon glyphicon-star"></span> Wishlist</a>
+                    <ul class="menuWishlist" id="showWishlist">
                         <li><a href="#">Wishlist 1</a></li>
                         <li><a href="#">Wishlist 2</a></li>
                     </ul>
@@ -111,6 +111,18 @@ define [ 'extm'], ( Extm)->
 
         </div>'
 
+        events:
+            'click .del':(e)->
+                console.log App.cookieArray = App.cookieArray
+                console.log val = $('#'+e.target.id).attr('data-id')
+                console.log index = App.cookieArray.indexOf( parseInt(val) )
+                App.cookieArray.splice( index, 1 )
+                $.cookie('key',App.cookieArray)
+                @showWishList()
+
+            'click a':(e)->
+                e.preventDefault()
+
         regions:
             screenOneRegion: '#screen-one-region'
             screenTwoRegion: '#screen-two-region'
@@ -138,6 +150,24 @@ define [ 'extm'], ( Extm)->
 
 
             )
+            @showWishList()
+        showWishList:->
+            table = ""
+            console.log typeof $.cookie("key")
+            if $.cookie("key")!= undefined && $.cookie("key") != ""
+                selectedUnitsArray = $.cookie("key").split(",")
+                table = "<table>"
+                for element in selectedUnitsArray
+                    model = App.master.unit.findWhere(id:parseInt(element))
+                    unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
+                    unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
+                    building = App.master.building.findWhere(id:model.get('building'))
+                    table += '<li><a href="#">'+model.get('name')+'</a>
+                                        <a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></li>'
+
+                table += '</table>'
+            console.log table
+            $('#showWishlist').html table
 
 
 

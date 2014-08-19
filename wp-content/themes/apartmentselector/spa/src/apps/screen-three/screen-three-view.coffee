@@ -58,7 +58,7 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
 
                     <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Select</a>
+                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a>
                     </div>
 
                     
@@ -96,6 +96,9 @@ define [ 'marionette' ], ( Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'click #screen-three-button':(e)->
+                @trigger 'unit:item:selected'
+
             'click a':(e)->
                 e.preventDefault()
 
@@ -493,7 +496,10 @@ define [ 'marionette' ], ( Marionette )->
                 App.unit['name'] = @model.get("id")
                 App.backFilter['screen3'].push 'floor'
                 if parseInt($('#flag'+@model.get("id")).val()) == 1
-                    @trigger 'unit:item:selected'
+                    console.log $("#screen-three-button")
+                    $("#screen-three-button").removeClass 'disabled btn-default'
+                    $("#screen-three-button").addClass 'btn-primary'
+                    #@trigger 'unit:item:selected'
 
 
 
