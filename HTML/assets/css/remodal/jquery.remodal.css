@@ -107,7 +107,7 @@ body.remodal_active .remodal-overlay {
     box-sizing: border-box;
 
     font-size: 16px;
-    background: #ffffff;
+    /*background: #ffffff;*/
     background-clip: padding-box;
     color: #182a3c;
     -webkit-box-shadow: 0px 0px 8px #171a24;
