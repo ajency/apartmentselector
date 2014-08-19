@@ -73,6 +73,8 @@ require [ 'plugin-loader'
 
     App.layout = ""
 
+    App.cookieArray = []
+
     
     #filter function which takes the parameters into account anf filters the current store.
     App.filter = (params={})->

@@ -264,11 +264,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log "aaaaaaaaaaaaa"
                 @trigger 'unit:count:selected'
 
-        showHighlightedTowers:->
+        showHighlightedTowers:()->
             console.log building = Marionette.getOption( @, 'buildingColl' ).toArray()
             buidlingValue = _.first(building)
 
-            console.log buidlingValue.get('id')
             setTimeout( ()->
                 $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
             , 1000)
@@ -489,12 +488,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 i =1
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
-
+                @showHighlightedBuildings(@model.get('id'))
                 #m.initial($(selector),params)
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id);
                 #m.showTooltip(locationData);
                 #App.navigate "tower"+@model.get('id') , trigger:true
+
+        showHighlightedBuildings:(id={})->
+            console.log building = id
+            setTimeout( ()->
+                $("#highlighttower"+buidlingid).attr('class','overlay highlight')
+            , 1000)
 
 
 

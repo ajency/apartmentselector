@@ -51,6 +51,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
     'view': 'All'
   };
   App.layout = "";
+  App.cookieArray = [];
   App.filter = function(params) {
     var budgetUnitArray, buildingArray, buildingModel, buildings, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
     if (params == null) {
