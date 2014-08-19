@@ -113,6 +113,7 @@ function resetForm(e,entryId,response){
         jQuery('form').find("input[type=text], textarea ,select").val("");
         jQuery('select').val('')
         jQuery('select').trigger('change')
+        jQuery('input:checkbox').removeAttr('checked')
     }
 
     msgClass= (response.error==false)? "text-success" :"text-error";
