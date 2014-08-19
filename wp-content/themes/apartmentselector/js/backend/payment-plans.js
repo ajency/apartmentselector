@@ -167,7 +167,7 @@ function getSelectedMilstones(){
              milestones.push({sort_index:sort_index,milestone:milestone,payment_percentage:payment_percentage});
 
         }
-        if(milestone!="" && milestone !="+" && (payment_percentage=='' || payment_percentage=='0')){
+        if(milestone!="" && milestone !="+" && (payment_percentage==''  )){
             console.log("payment_percentage")
             milestones = false;
             return false;
