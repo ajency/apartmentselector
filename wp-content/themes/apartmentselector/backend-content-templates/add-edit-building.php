@@ -379,9 +379,10 @@ $heading = "Edit";
                 ?>
                  <div id="exception_floors_container<?php echo($exception_count);?>">
                    <?php 
+                   $show_flats=false;
                     for($i=1;$i<=$no_of_floors;$i++){
                        ?><div class="col-md-4">
-                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
+                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked"; $show_flats=true;}?> class="exception_floors"> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
                     <?php    
                     }
                      
@@ -390,7 +391,7 @@ $heading = "Edit";
                     ?>
                 </div>
                 <div style="clear:both"></div>
-                <div class="form-group">
+                <div class="form-group" id="exception-flats" <?php if($show_flats==false){?>style="display:none"<?php } ?> >
                     <label class="form-label">
                         No Of Flats
                     </label>
