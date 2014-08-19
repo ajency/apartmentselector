@@ -82,7 +82,7 @@ $(document).on("click", "#add-more-milstones", function(e) {
    
     cloneElement = $('#milestone-list li:first').html() ;
  
-    html = '<li class="sortable-items">'+cloneElement.replace(/1/g,nextItem)+'</li>';
+    html = '<li class="sortable-items" id="sortable-items-'+nextItem+'">'+cloneElement.replace(/1/g,nextItem)+'</li>';
 
     $('#milestone-list').append(html);
 
@@ -96,6 +96,21 @@ $(document).on("click", "#add-more-milstones", function(e) {
 
      $("#milestone_"+nextItem).trigger("change");
 });
+
+function clearMilestones(){
+
+      cnt = 0
+      $('#milestone-list li').each(function(e,val) {
+        if(cnt==0){
+        $(val).find('[name="milestone"]').val("")  
+        $(val).find('[name="payment_percentage"]').val("")  
+        $(val).find('[name="payment_percentage"]').trigger("change")  
+        }else{
+            $(val).remove();
+        }
+        cnt++
+      });
+}
 $(document).on("click", "#save_payment_plan", function(e) {
 
         clearAlerts();
@@ -131,7 +146,11 @@ $(document).on("click", "#save_payment_plan", function(e) {
                 milestones:  milestones,  
                 payment_plan_id: payment_plan_id
               }, function(response)  {
+            if(payment_plan_id ==""){
 
+                clearMilestones();
+            }
+            
             resetForm(e,$('#payment_plan_id').val(),response);
         });
         }
@@ -168,7 +187,7 @@ function getSelectedMilstones(){
 
         }
         if(milestone!="" && milestone !="+" && (payment_percentage==''  )){
-            console.log("payment_percentage")
+             
             milestones = false;
             return false;
         }
@@ -227,7 +246,7 @@ function getSelectedMilstones(){
             //add the row items
             $(".tablesorter tbody").append("<tr  >" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
-                 "<td style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
+                 "<td style='text-align:center'><a href='javascript:void(0)' item='"+listItems.id+"' class='milestone-remove'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
                 "</tr>")
         })
 
