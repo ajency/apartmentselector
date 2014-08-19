@@ -53,7 +53,7 @@ if(isset($_REQUEST["id"])){
     $block_till_limit =   $unit["block_till_limit"];
 }
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
+<div class="page-title"> 
     <h3><?php echo $heading;?> Apartment</h3>
 
 </div>
