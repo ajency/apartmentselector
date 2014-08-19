@@ -8,8 +8,10 @@ define [ 'marionette' ], ( Marionette )->
                         <div  id="mainunit-region">
                         </div>
 
-                        <a class="btn btn-primary m-t-20 m-b-20" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
-                        <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
+                        <div class="h-align-middle">
+                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
+                            <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
+                        </div>
 
                     </div>'
 

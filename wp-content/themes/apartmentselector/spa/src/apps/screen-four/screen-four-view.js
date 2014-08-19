@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <a class="btn btn-primary m-t-20 m-b-20" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div>';
+    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div>';
 
     ScreenFourLayout.prototype.className = 'page-container row-fluid';
 
