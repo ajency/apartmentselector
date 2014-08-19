@@ -191,7 +191,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       var buidlingValue, building;
       console.log(building = Marionette.getOption(this, 'buildingColl').toArray());
       buidlingValue = _.first(building);
-      console.log(buidlingValue.get('id'));
       return setTimeout(function() {
         return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
       }, 1000);
@@ -359,8 +358,20 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         id = 'tower' + this.model.get('id');
         i = 1;
         params = window['mapplic' + i];
-        return selector = '#mapplic' + i;
+        selector = '#mapplic' + i;
+        return this.showHighlightedBuildings(this.model.get('id'));
       }
+    };
+
+    BuildingView.prototype.showHighlightedBuildings = function(id) {
+      var building;
+      if (id == null) {
+        id = {};
+      }
+      console.log(building = id);
+      return setTimeout(function() {
+        return $("#highlighttower" + buidlingid).attr('class', 'overlay highlight');
+      }, 1000);
     };
 
     return BuildingView;
