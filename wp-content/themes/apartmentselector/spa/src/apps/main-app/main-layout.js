@@ -104,7 +104,7 @@ define(['extm'], function(Extm) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></li>';
+          table += '<li><a href="#">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
         }
         table += '</table>';
       }
