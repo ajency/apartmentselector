@@ -661,15 +661,24 @@ function get_flats_details($flats){
     $flats_updated = array();
 
      foreach($flats as $flat){
+//wp_get_attachment_image_src
+            $flat['basic_thumbnail_image_url'] =  wp_get_attachment_thumb_url($flat["basic_image_id"]);
+            
+            $flat['basic_thumbnail_image_url']  = $flat['basic_thumbnail_image_url'] ==false?get_no_image_150x150():$flat['basic_thumbnail_image_url']; 
+            
+            $flat['detailed_thumbnail_image_url'] =  wp_get_attachment_thumb_url($flat["detailed_image_id"]);
+            
+            $flat['detailed_thumbnail_image_url']  = $flat['detailed_thumbnail_image_url'] ==false?get_no_image_150x150():$flat['detailed_thumbnail_image_url']; 
+            
+             $flat['basic_image_url'] =  wp_get_attachment_image_src($flat["basic_image_id"], 'large' );
+            
+            $flat['basic_image_url']  = $flat['basic_image_url'] ==false?get_no_image_big():$flat['basic_image_url'][0]; 
+            
+            $flat['detailed_image_url'] =  wp_get_attachment_image_src($flat["detailed_image_id"], 'large' );
+            
+            $flat['detailed_image_url']  = $flat['detailed_image_url'] ==false?get_no_image_big():$flat['detailed_image_url'][0]; 
+            
 
-            $flat['basic_image_url'] =  wp_get_attachment_thumb_url($flat["basic_image_id"]);
-            
-            $flat['basic_image_url']  = $flat['basic_image_url'] ==false?get_no_image_150x150():$flat['basic_image_url']; 
-            
-            $flat['detailed_image_url'] =  wp_get_attachment_thumb_url($flat["detailed_image_id"]);
-            
-            $flat['detailed_image_url']  = $flat['detailed_image_url'] ==false?get_no_image_150x150():$flat['detailed_image_url']; 
-            
             $flats_updated[]  =  $flat;
         }
 
