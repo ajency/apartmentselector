@@ -159,13 +159,18 @@ $(file).remove()
     $(document).on("click", "#save-main-entry", function(e) {
       var data;
        $('.frm-show-form').validate();
-      $("#save-main-entry").hide().parent().append("saving...")
+     
       GetSubFormEntries(e);
       data = $("#frm_form_" + $("#save-main-entry").attr("form-id") + "_container form").serializeArray();
      
 
      data = room_type_sizes(data);
-        
+    
+    if(data==false){
+
+      return
+    }
+    $("#save-main-entry").hide().parent().append("saving...")
       $.post(AJAXURL, {
         action: "save_entry",
         data: data
@@ -225,12 +230,22 @@ function room_type_sizes(data){
     for(i=1;i<=$('#add_more_room_sizes').attr("last-sr-no");i++){
   
       if($("#room_type_for_size_"+i).length!=0){ 
-        if($("#room_type_for_size_"+i).val()!="" && $("#room_type_for_size_"+i).val()!="+"){
+        if($("#room_type_for_size_"+i).val()!="" && $("#room_type_for_size_"+i).val()!="+" && $("#room_type_for_size_"+i).val()!=""){
+
           room_sizes.push({'room_type':$("#room_type_for_size_"+i).val(),'room_size':$("#room_type_size_"+i).val()})
+        }
+     
+        if($("#room_type_size_"+i).val()=="" && $("#room_type_for_size_"+i).val()!="+" && $("#room_type_for_size_"+i).val()!=""){
+          alert("Please Enter Room Size For "+$("option:selected", $("#room_type_for_size_"+i)).text())
+          return false;
         }
         
       }
 
+    }
+ 
+    if (room_sizes.length==0) {
+      room_sizes = ""
     }
     data.push({name:$('#add_more_room_sizes').attr('field-name'),value:room_sizes})
   }
@@ -254,6 +269,12 @@ function room_type_sizes(data){
     html +='</div>';
  
    $('#room-type-for-size-container div:last').before( html );
+
+    $('#room_type_size_'+itemNo).val('');
+
+    $('#room_type_for_size_'+itemNo).val('');
+    
+    $('#room_type_for_size_'+itemNo).trigger('change');
   });
 
  
