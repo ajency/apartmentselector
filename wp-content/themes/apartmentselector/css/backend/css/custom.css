@@ -376,7 +376,7 @@ color: #006CD9;
   display:inline !important;
  }
 .form-control-small{
-  width:64px !important;
+  width:75px !important;
   padding-right:2px !important;
  }
 .thrash{
@@ -388,7 +388,7 @@ color: #006CD9;
 
 
 
-.ui-slider {
+.ui-slider{
   position: relative;
   text-align: left;
 }

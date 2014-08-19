@@ -27,7 +27,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var buildings, element, index, newColl, newUnits, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
+      var buildings, element, index, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
       evt.preventDefault();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
@@ -73,8 +73,12 @@ define(['marionette'], function(Marionette) {
         id: parseInt(App.defaults['unitType'])
       });
       $("#finalButton").text("Show " + unitTypeModel.get('name') + " Apartments");
+      status = App.currentStore.status.findWhere({
+        'name': 'Available'
+      });
       newUnits = App.currentStore.unit.where({
-        unitType: parseInt(App.defaults['unitType'])
+        unitType: parseInt(App.defaults['unitType']),
+        status: status.get('id')
       });
       newColl = new Backbone.Collection(newUnits);
       buildings = newColl.pluck("building");

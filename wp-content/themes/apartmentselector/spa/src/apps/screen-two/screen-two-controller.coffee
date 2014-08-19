@@ -183,6 +183,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             if(flag==1)
                 first = _.first(templateArr)
                 buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                floorriserange = buildingModel.get('floorriserange')
                 lowUnits = App.currentStore.range.findWhere({name:'low'})
                 if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
                     range = 'LOWRISE'+',' +buildingModel.get('name')

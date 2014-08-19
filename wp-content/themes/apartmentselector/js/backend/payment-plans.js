@@ -82,14 +82,35 @@ $(document).on("click", "#add-more-milstones", function(e) {
    
     cloneElement = $('#milestone-list li:first').html() ;
  
-    html = '<li class="sortable-items">'+cloneElement.replace(/1/g,nextItem)+'</li>';
+    html = '<li class="sortable-items" id="sortable-items-'+nextItem+'">'+cloneElement.replace(/1/g,nextItem)+'</li>';
 
     $('#milestone-list').append(html);
 
     $( "#milestone-list" ).sortable();
 
     $( "#milestone-list" ).disableSelection();
+
+    $("#payment_percentage_"+nextItem).val("");
+
+    $("#milestone_"+nextItem).val("");
+
+     $("#milestone_"+nextItem).trigger("change");
 });
+
+function clearMilestones(){
+
+      cnt = 0
+      $('#milestone-list li').each(function(e,val) {
+        if(cnt==0){
+        $(val).find('[name="milestone"]').val("")  
+        $(val).find('[name="payment_percentage"]').val("")  
+        $(val).find('[name="payment_percentage"]').trigger("change")  
+        }else{
+            $(val).remove();
+        }
+        cnt++
+      });
+}
 $(document).on("click", "#save_payment_plan", function(e) {
 
         clearAlerts();
@@ -100,13 +121,23 @@ $(document).on("click", "#save_payment_plan", function(e) {
 
             var _e = e;  
 
+            removeCustomError();
+
             payment_plan_name = $("#payment_plan_name").val();
             
             payment_plan_id= $("#payment_plan_id").val();
 
             milestones = getSelectedMilstones();
 
-     
+            if(milestones.length==0 && milestones!=false){
+                showCustomError($("#add-more-milstones"),"Add atleast one milestone");
+                return;
+            }
+             if(milestones==false){
+                showCustomError($("#add-more-milstones"),"Add all selected milestone percentages");
+                return;
+            } 
+ 
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")
 
             $.post(AJAXURL, {
@@ -115,12 +146,23 @@ $(document).on("click", "#save_payment_plan", function(e) {
                 milestones:  milestones,  
                 payment_plan_id: payment_plan_id
               }, function(response)  {
+            if(payment_plan_id ==""){
 
+                clearMilestones();
+            }
+            
             resetForm(e,$('#payment_plan_id').val(),response);
         });
         }
     });
 
+
+function showCustomError(element,label){
+    $('<span class="error"></span>').insertBefore(element).append(label)
+}
+function removeCustomError(){
+    $('.error').remove();
+}
 $(document).on("click", ".milestone-remove", function(e) {
  
  if($('#milestone-list li').length==1){
@@ -136,11 +178,20 @@ function getSelectedMilstones(){
     sort = 0
     milestones = []
     $('#milestone-list li').each(function(e,val) {
-        sort_index = ++sort;
-        milestone =  $(val).children('[name="milestone"]').val() 
-        payment_percentage =  $(val).children('[name="payment_percentage"]').val() 
-        milestones.push({sort_index:sort_index,milestone:milestone,payment_percentage:payment_percentage});
+         
+        milestone =  $(val).find('[name="milestone"]').val()  
+        payment_percentage =  $(val).find('[name="payment_percentage"]').val() 
+        if(milestone!="" && milestone !="+" &&  payment_percentage!=''){
+             sort_index = ++sort;
+             milestones.push({sort_index:sort_index,milestone:milestone,payment_percentage:payment_percentage});
 
+        }
+        if(milestone!="" && milestone !="+" && (payment_percentage==''  )){
+             
+            milestones = false;
+            return false;
+        }
+       
     });
 
     return milestones;
@@ -195,7 +246,7 @@ function getSelectedMilstones(){
             //add the row items
             $(".tablesorter tbody").append("<tr  >" +
                 "<td class='edit-link' data-id='"+listItems.id+"'>"+listItems.name+"</td>" +
-                 "<td style='text-align:center'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
+                 "<td style='text-align:center'><a href='javascript:void(0)' item='"+listItems.id+"' class='milestone-remove'><i  class='fa fa-trash-o delete_building'  data-id='"+listItems.id+"'></i></td>" +
                 "</tr>")
         })
 

@@ -32,6 +32,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);
+      this.listenTo(this.layout, 'unit:item:selected', this._unitItemSelected);
       return this.show(this.layout);
     };
 
@@ -59,6 +60,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);
+      this.listenTo(this.layout, 'unit:item:selected', this._unitItemSelected);
       return this.show(this.layout);
     };
 
@@ -72,8 +74,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype.showUnitRegion = function(unitCollection) {
       var itemview2;
       itemview2 = this.getUnitsView(unitCollection);
-      this.layout.unitRegion.show(itemview2);
-      return this.listenTo(itemview2, 'childview:childview:childview:unit:item:selected', this._unitItemSelected);
+      return this.layout.unitRegion.show(itemview2);
     };
 
     ScreenThreeController.prototype.getView = function(buildingCollection) {

@@ -153,13 +153,19 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
     return App.currentStore.unit;
   };
   App.getBudget = function(budget) {
-    var budgetUnitArray, budget_arr, units;
+    var budgetUnitArray, budget_arr, status, units, unitsColl;
     budgetUnitArray = [];
     budget_arr = budget.split('-');
     budget_arr[0] = budget_arr[0] + '00000';
     budget_arr[1] = budget_arr[1] + '00000';
-    units = App.currentStore.unit;
-    units.each(function(item) {
+    status = App.currentStore.status.findWhere({
+      'name': 'Available'
+    });
+    units = App.currentStore.unit.where({
+      'status': status.get('id')
+    });
+    unitsColl = new Backbone.Collection(units);
+    unitsColl.each(function(item) {
       var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
       buildingModel = App.currentStore.building.findWhere({
         'id': item.get('building')

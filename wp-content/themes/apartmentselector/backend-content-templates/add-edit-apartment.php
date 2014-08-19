@@ -7,10 +7,12 @@ if(!current_user_can('manage_apartments') && !current_user_can('manage_options')
     exit;
     
 } 
-
+$heading = "Add";
 $apartment_views = $unit_facing = array();
 
 if(isset($_REQUEST["id"])){
+
+    $heading = "Edit";
 
     $apartment_id = $_REQUEST["id"];
 
@@ -52,7 +54,7 @@ if(isset($_REQUEST["id"])){
 }
 ?>
 <div class="page-title"> <i class="icon-custom-left"></i>
-    <h3>Select your Apartment</h3>
+    <h3><?php echo $heading;?> Apartment</h3>
 
 </div>
 <div class="row">

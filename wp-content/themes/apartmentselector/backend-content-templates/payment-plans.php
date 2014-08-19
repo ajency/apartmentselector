@@ -7,8 +7,8 @@ if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
     
 } 
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
-                <h3>Payment Plans</h3>
+<div class="page-title">
+                <h3>List Of Payment Plans</h3>
 
             </div>
             <div class="row">

@@ -36,10 +36,9 @@ function updateSlider(){
 }
 
 function displaySlider(floors){
- 
-
+  
     // the code belows assume the colors array is exactly one element bigger than the handlers array.
-    var handlers = [ $("#lowriseto").val(), $("#highrisefrom").val()];
+    var handlers = [ $("#lowriseto").val(), $("#midriseto").val()];
     var colors = ["#FFD700", "#FF8C00", "#FF6347" ];
     updateColors(handlers);
     
@@ -451,7 +450,7 @@ console.log(html)
         var _e = e
         clearAlerts();
          building_name = $(e.target).parent().parent().children(':first-child').html() 
-        confirmUserAction = confirm("Are you sure you want to delete building "+building_name+" ?")
+        confirmUserAction = confirm("Are you sure you want to delete building "+building_name+" and all the apartments assinged to it?")
         if(confirmUserAction){
 
             $.post(AJAXURL, {
