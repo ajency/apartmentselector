@@ -202,8 +202,8 @@ require [ 'plugin-loader'
         status = App.currentStore.status.findWhere({'name':'Available'})
 
         units = App.currentStore.unit.where({'status':status.get('id')})
-
-        units.each (item)->
+        unitsColl = new Backbone.Collection units
+        unitsColl.each (item)->
             buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
             floorRise = buildingModel.get 'floorrise'
             floorRiseValue = floorRise[item.get 'floor']
