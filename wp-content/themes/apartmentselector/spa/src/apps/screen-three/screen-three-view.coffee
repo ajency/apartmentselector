@@ -65,20 +65,9 @@ define [ 'marionette' ], ( Marionette )->
 
                     </div>
                 <div class="col-sm-8">
-                    {{#high}}
-                    <div class="towerRange">
-                        <h3 class="text-primary text-center semi-bold m-t-0"><u>{{rangetext}}</u></h3>
-                        <div class="row m-l-0 m-r-0 m-b-20">
-                            <div class="col-sm-4 col-xs-12">
-                                <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block">
-                            </div>
+                    <div class="towerRange" >
 
-                            <div class="col-sm-8 col-xs-12 m-t-30">
-                                <p>{{text}}</p>
-                            </div>
-                        </div>
                     </div>
-                    {{/high}}
                     </div>
                     </div>'
 
@@ -96,6 +85,8 @@ define [ 'marionette' ], ( Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'mouseover .unit-hover':(e)->
+                console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
             'click #screen-three-button':(e)->
                 @trigger 'unit:item:selected'
 
@@ -226,6 +217,19 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            $('#banner-slide').bjqs({
+
+                height        : 400,
+                width         : 703,
+                responsive    : true,
+                randomstart   : false
+            });
+            $('.secret-source').secretSource({
+                includeTag: false
+            });
+            source ="../wp-content/uploads/2014/08/image/1.svg"
+            console.log @el
+            $('<div></div>').load(source).appendTo(@el)
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'
@@ -342,6 +346,9 @@ define [ 'marionette' ], ( Marionette )->
                 theidtodel = $(this).parent('li').attr('id')
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
+        call:->
+            console.log "aaaaaaaaaaaaaaaaaaa"
+
 
         doListing:->
             $('#tagslist1 ul li').remove()
@@ -496,7 +503,6 @@ define [ 'marionette' ], ( Marionette )->
                 App.unit['name'] = @model.get("id")
                 App.backFilter['screen3'].push 'floor'
                 if parseInt($('#flag'+@model.get("id")).val()) == 1
-                    console.log $("#screen-three-button")
                     $("#screen-three-button").removeClass 'disabled btn-default'
                     $("#screen-three-button").addClass 'btn-primary'
                     #@trigger 'unit:item:selected'

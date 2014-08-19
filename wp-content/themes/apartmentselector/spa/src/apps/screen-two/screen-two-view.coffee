@@ -10,6 +10,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     count = 0
     object = ""
     unitVariants = []
+    cloneunitVariantArrayColl = ""
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -232,26 +233,33 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
 
             'click #selectall':(e)->
+                console.log cloneunitVariantArrayColl
                 if $('#'+e.target.id).prop('checked') == true
                     if unitVariantIdArray.length == 0
                         units = unitVariantArray
                     else
                         units = unitVariantIdArray
 
-                    $.each(units, (index,value)->
-                        $('#grid'+value).addClass 'selected'
-                        $('#check'+value).val '1'
+
+                    cloneunitVariantArrayColl.each ( index)->
+                        console.log index.get('id')
+                        $('#grid'+index.get('id')).addClass 'selected'
+                        $('#check'+index.get('id')).val '1'
 
 
-                    )
+
                     units.sort(  (a,b)->
                         a - b
                     )
-                    console.log unitVariantArray = units
                     unitVariantString = 'All'
                 else
-                    console.log value = _.first(unitVariantArray)
-                    remainainArray = _.rest(unitVariantArray)
+                    tempArray = []
+                    cloneunitVariantArrayColl.each ( value)->
+                        tempArray.push(parseInt(value.get('id')))
+
+
+                    console.log value = _.first(tempArray)
+                    remainainArray = _.rest(tempArray)
                     $.each(remainainArray, (index,value)->
                         $('#grid'+value).removeClass 'selected'
                         $('#check'+value).val '0'
@@ -304,6 +312,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            unitVariantsArray  = Marionette.getOption( @, 'unitVariants' )
+            unitVariantArrayColl = new Backbone.Collection unitVariantsArray
+            cloneunitVariantArrayColl = unitVariantArrayColl.clone()
             console.log unitVariants  = unitVariantArray
 
             console.log firstElement = _.first(unitVariantArray)

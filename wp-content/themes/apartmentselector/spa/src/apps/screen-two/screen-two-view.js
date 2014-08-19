@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, count, firstElement, globalArrayLength, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, firstElement, globalArrayLength, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -15,6 +15,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
   count = 0;
   object = "";
   unitVariants = [];
+  cloneunitVariantArrayColl = "";
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -155,25 +156,30 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #selectall': function(e) {
-        var remainainArray, units, value;
+        var remainainArray, tempArray, units, value;
+        console.log(cloneunitVariantArrayColl);
         if ($('#' + e.target.id).prop('checked') === true) {
           if (unitVariantIdArray.length === 0) {
             units = unitVariantArray;
           } else {
             units = unitVariantIdArray;
           }
-          $.each(units, function(index, value) {
-            $('#grid' + value).addClass('selected');
-            return $('#check' + value).val('1');
+          cloneunitVariantArrayColl.each(function(index) {
+            console.log(index.get('id'));
+            $('#grid' + index.get('id')).addClass('selected');
+            return $('#check' + index.get('id')).val('1');
           });
           units.sort(function(a, b) {
             return a - b;
           });
-          console.log(unitVariantArray = units);
           return unitVariantString = 'All';
         } else {
-          console.log(value = _.first(unitVariantArray));
-          remainainArray = _.rest(unitVariantArray);
+          tempArray = [];
+          cloneunitVariantArrayColl.each(function(value) {
+            return tempArray.push(parseInt(value.get('id')));
+          });
+          console.log(value = _.first(tempArray));
+          remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#grid' + value).removeClass('selected');
             return $('#check' + value).val('0');
@@ -197,7 +203,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayText;
+      var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
@@ -207,6 +213,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $('.refresh').removeClass('hidden');
       }
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      unitVariantsArray = Marionette.getOption(this, 'unitVariants');
+      unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
+      cloneunitVariantArrayColl = unitVariantArrayColl.clone();
       console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
       console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));

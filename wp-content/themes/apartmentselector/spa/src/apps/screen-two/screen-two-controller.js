@@ -22,6 +22,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingColl: this.Collection[0],
         uintVariantId: this.Collection[9],
         uintVariantIdArray: this.Collection[10],
+        unitVariants: this.Collection[8],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -48,6 +49,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingColl: this.Collection[0],
         uintVariantId: this.Collection[9],
         uintVariantIdArray: this.Collection[10],
+        unitVariants: this.Collection[8],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
