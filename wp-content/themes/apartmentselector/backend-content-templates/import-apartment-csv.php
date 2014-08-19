@@ -10,7 +10,7 @@ if(!current_user_can('manage_apartments') && !current_user_can('manage_options')
 
  
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
+<div class="page-title">  
     <h3>Import Apartment CSV</h3>
 
 </div>

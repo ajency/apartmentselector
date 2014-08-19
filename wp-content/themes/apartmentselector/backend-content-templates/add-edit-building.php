@@ -63,9 +63,7 @@ $heading = "Edit";
 }
 ?>
 <div class="page-title">
-
-    <i class="icon-custom-left">
-    </i>
+ 
     <h3>
         <?php echo $heading;?> Building
     </h3>

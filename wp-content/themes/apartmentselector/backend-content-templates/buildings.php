@@ -7,8 +7,8 @@ if(!current_user_can('manage_buildings') && !current_user_can('manage_options'))
     
 } 
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
-                <h3>Select your Apartment</h3>
+<div class="page-title">
+                <h3>List Of Buildings</h3>
 
             </div>
             <div class="row">

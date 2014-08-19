@@ -15,7 +15,7 @@ $infrastructure_charges = isset($settings["infrastructure_charges"])?$settings["
 $membership_fees = isset($settings["membership_fees"])?$settings["membership_fees"]:0;   
  
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
+<div class="page-title">
     <h3>General Settings</h3>
 
 </div>
