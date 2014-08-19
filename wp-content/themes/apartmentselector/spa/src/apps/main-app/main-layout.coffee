@@ -123,6 +123,36 @@ define [ 'extm'], ( Extm)->
             'click a':(e)->
                 e.preventDefault()
 
+            $("#list").on "click", ->
+              cart = $("#showRightPush")
+              imgtodrag = $(this).find(".glyphicon")
+              if imgtodrag
+                imgclone = imgtodrag.clone().offset(
+                  top: imgtodrag.offset().top
+                  left: imgtodrag.offset().left
+                ).css(
+                  opacity: "0.8"
+                  position: "absolute"
+                  color: "#ff6600"
+                  "font-size": "30px"
+                  "z-index": "100"
+                ).appendTo($("body")).animate(
+                  top: cart.offset().top + 10
+                  left: cart.offset().left + 80
+                  width: 50
+                  height: 50
+                , 1200, "easeInOutCubic")
+                imgclone.animate
+                  width: 0
+                  height: 0
+                , ->
+                  $(this).detach()
+                  return
+
+              return
+
+
+
         regions:
             screenOneRegion: '#screen-one-region'
             screenTwoRegion: '#screen-two-region'
@@ -163,7 +193,8 @@ define [ 'extm'], ( Extm)->
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
                     table += '<li><a href="#">'+model.get('name')+'</a>
-                                        <a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></li>'
+                                        <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
+                                            <div class="clearfix"></div>'
 
                 table += '</table>'
             console.log table
