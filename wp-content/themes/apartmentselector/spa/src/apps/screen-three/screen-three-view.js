@@ -393,7 +393,7 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} <span id="sqft">Sqft</span></div> </div>';
+    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} </div> </div>';
 
     childViewUnit.prototype.className = 'cd-block';
 
@@ -458,9 +458,6 @@ define(['marionette'], function(Marionette) {
         return $('#flag' + this.model.get("id")).val('1' && this.model.get('unitType') !== 14);
       } else if (track === 1 && this.model.get('status') === 8) {
         return $('#check' + this.model.get("id")).addClass('box sold');
-      } else if (this.model.get('unitType') === 14) {
-        $('#check' + this.model.get("id")).addClass('box other');
-        return $('#sqft').hide();
       } else {
         $('#check' + this.model.get("id")).addClass('box other');
         return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));

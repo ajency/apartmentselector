@@ -463,7 +463,7 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<div id="check{{id}}" class="check" >
                         <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}}
-        				<div class="small">{{unitTypeName}} {{unitVariantName}} <span id="sqft">Sqft</span></div>
+        				<div class="small">{{unitTypeName}} {{unitVariantName}} </div>
         			</div>'
 
 
@@ -525,10 +525,6 @@ define [ 'marionette' ], ( Marionette )->
                 $('#flag'+@model.get("id")).val '1' && @model.get('unitType') != 14
             else if track==1 &&  @model.get('status') == 8
                 $('#check'+@model.get("id")).addClass 'box sold'
-            else if @model.get('unitType') == 14
-                $('#check'+@model.get("id")).addClass 'box other'
-                $('#sqft').hide()
-
             else
                 $('#check'+@model.get("id")).addClass 'box other'
                 $('#check'+@model.get("id")).text @model.get 'unitTypeName'
