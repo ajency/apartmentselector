@@ -463,7 +463,7 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<div id="check{{id}}" class="check" >
                         <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}}
-        				<div class="small">{{unitTypeName}} {{unitVariantName}} Sqft</div>
+        				<div class="small">{{unitTypeName}} {{unitVariantName}} <span id="sqft">Sqft</span></div>
         			</div>'
 
 
@@ -519,11 +519,15 @@ define [ 'marionette' ], ( Marionette )->
                 track = 1
             console.log @model.get('unitType')
             console.log @model.get('name')
-            if track==1 && @model.get('status') == 9
+
+            if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box filtered'
-                $('#flag'+@model.get("id")).val '1'
+                $('#flag'+@model.get("id")).val '1' && @model.get('unitType') != 14
             else if track==1 &&  @model.get('status') == 8
                 $('#check'+@model.get("id")).addClass 'box sold'
+            else if @model.get('unitType') == 14
+                $('#check'+@model.get("id")).addClass 'box other'
+                $('#sqft').hide()
 
             else
                 $('#check'+@model.get("id")).addClass 'box other'
