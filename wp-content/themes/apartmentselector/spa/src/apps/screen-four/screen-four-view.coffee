@@ -8,11 +8,12 @@ define [ 'marionette' ], ( Marionette )->
                         <div  id="mainunit-region">
                         </div>
 
+                        <div class="h-align-middle">
+                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
+                            <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
+                        </div>
 
-       <input type="button" name="list" id="list" value="Add"  /><label id="errormsg"></label>
-
-
-       </div></br>                      </div>'
+                    </div>'
 
 
 
@@ -46,13 +47,15 @@ define [ 'marionette' ], ( Marionette )->
                 else
                     console.log "Already entered"
                     $('#errormsg' ).text "Already entered"
+                    $('#errormsg' ).addClass "inline"
                     return false
                 console.log App.cookieArray
                 console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
                 console.log App.cookieArray = _.uniq(App.cookieArray)
                 $.cookie('key',App.cookieArray)
                 console.log $.cookie("key")
-                $('#errormsg' ).text "The selected flat has been added to the WishList"
+                $('#errormsg' ).text "The selected flat has been added to your WishList"
+                $('#errormsg' ).addClass "inline"
                 @showWishList()
             'click .del':(e)->
                 console.log App.cookieArray

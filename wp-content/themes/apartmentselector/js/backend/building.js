@@ -36,10 +36,9 @@ function updateSlider(){
 }
 
 function displaySlider(floors){
- 
-
+  
     // the code belows assume the colors array is exactly one element bigger than the handlers array.
-    var handlers = [ $("#lowriseto").val(), $("#highrisefrom").val()];
+    var handlers = [ $("#lowriseto").val(), $("#midriseto").val()];
     var colors = ["#FFD700", "#FF8C00", "#FF6347" ];
     updateColors(handlers);
     
@@ -277,7 +276,7 @@ function getFloorOptions(floors,exception_no){
        
          for(floor=prevCount+1;floor<=floors;floor++){
  
-            $("#exception_floors_container"+exception_no).append("<div class='col-md-4'><div class='exception_floor checkbox check-default' id='"+exception_no+"exception_floor_item"+floor+"'><input type='checkbox' name='exception_floors"+exception_no+"[]' id='"+floor+"exception_floors"+exception_no+"'  value='"+floor+"'><label for='"+floor+"exception_floors"+exception_no+"'>"+floor+"</label></li></div></div>");
+            $("#exception_floors_container"+exception_no).append("<div class='col-md-4'><div class='exception_floor checkbox check-default' id='"+exception_no+"exception_floor_item"+floor+"'><input type='checkbox' class='exception_floors' name='exception_floors"+exception_no+"[]' id='"+floor+"exception_floors"+exception_no+"'  value='"+floor+"'><label for='"+floor+"exception_floors"+exception_no+"'>"+floor+"</label></li></div></div>");
                 
           }
     }else{
@@ -307,10 +306,10 @@ function addException(exception_no){
 
     html =  ' <div class="form-group">'
         +  '<div class="input-with-icon  right exception_floors"><br><br>' 
-        +  '<div class="row-fluid" id="exception_floors_container'+exception_no+'">'+getFloorOptions($("#no_of_floors").val(),exception_no)+'</div>'//
+        +  '<div class="row-fluid" id="exception_floors_container'+exception_no+'"></div>'//
         +  '</div>'
-        +  '</div>'
-        +' <div class="form-group">'
+        +  '</div><div style="clear:both"></div>'
+        +' <div class="form-group" id="exception-flats" style="display:none">'
         +'<label class="form-label">'
         +  'No Of Flats'
         + '</label>' 
@@ -322,13 +321,24 @@ function addException(exception_no){
         +  '</div>'
         +  '<div class="well" id="flats_container'+exception_no+'" style="display:none">' 
         +  '</div>'
-console.log("html")
-console.log(html)
+ 
     return html
 }
 
 
 
+
+    $(document).on("click", ".exception_floors", function(e) {
+        
+        if($('.exception_floors:checked').length==0){
+            $("#no_of_flats1").val("");
+            $("#no_of_flats1").trigger("change");
+
+            $('#exception-flats').hide();
+        }else{
+            $('#exception-flats').show();
+        }
+        });
 //save building ajax call
     $(document).on("click", "#save_building", function(e) {
               
@@ -451,7 +461,7 @@ console.log(html)
         var _e = e
         clearAlerts();
          building_name = $(e.target).parent().parent().children(':first-child').html() 
-        confirmUserAction = confirm("Are you sure you want to delete building "+building_name+" ?")
+        confirmUserAction = confirm("Are you sure you want to delete building "+building_name+" and all the apartments assinged to it?")
         if(confirmUserAction){
 
             $.post(AJAXURL, {

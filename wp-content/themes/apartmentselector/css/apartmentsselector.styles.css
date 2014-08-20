@@ -9880,26 +9880,24 @@ body {
 .cbp-spmenu-vertical > ul > li a .small {
   font-size: 75%;
 }
+.cbp-spmenu-vertical .menuWishlist {
+  list-style-type: none;
+}
 .cbp-spmenu-vertical .menuWishlist li a {
   padding: 5px 0;
   border: 0;
-  font-family: 'kievit';
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-  margin-top: 10.5px;
-  margin-bottom: 10.5px;
+  margin: 0;
+  float: left;
+  color: #333333;
+}
+.cbp-spmenu-vertical .menuWishlist li .del {
+  float: right;
+  margin-right: 10px;
+  font-family: 'Glyphicons Halflings';
   font-size: 14px;
 }
-.cbp-spmenu-vertical .menuWishlist li a small,
-.cbp-spmenu-vertical .menuWishlist li a .small {
-  font-weight: normal;
-  line-height: 1;
-  color: #999999;
-}
-.cbp-spmenu-vertical .menuWishlist li a small,
-.cbp-spmenu-vertical .menuWishlist li a .small {
-  font-size: 75%;
+.cbp-spmenu-vertical .menuWishlist li .del:before {
+  content: "\e014";
 }
 
 /** apartmentselector Less file. Include all of your files here **/

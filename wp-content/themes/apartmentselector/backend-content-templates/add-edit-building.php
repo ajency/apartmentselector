@@ -63,9 +63,7 @@ $heading = "Edit";
 }
 ?>
 <div class="page-title">
-
-    <i class="icon-custom-left">
-    </i>
+ 
     <h3>
         <?php echo $heading;?> Building
     </h3>
@@ -305,47 +303,7 @@ $heading = "Edit";
             if($no_of_flats!=0){ 
                 foreach($building_no_of_flats as $building_no_of_flat){
                     ?><div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats' >
-                    <!--<div class="form-group">   <label class="form-label">
-       Flat No: <?php echo $building_no_of_flat['flat_no'];?>
-        </label>
-        <span class="help">
-         </span> 
-        <div class="row">
-         <div class="col-md-4">
-                  Basic: <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Select files...</span>
-                    <input type="hidden" id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>_image_id" name="basic_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['basic_image_id'];?>"><input id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
-                    </span>
-                    <br>
-                    <br>
-                    <div id="progressbasic_<?php echo $building_no_of_flat['flat_no'];?>" class="progress" >
-                    <div class="progress-bar progress-bar-success"></div>
-                    </div>
-                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
-                    <br><div class="row-fluid">
-                    <div class="col-md-12">
-                    <img src="<?php echo $building_no_of_flat['basic_image_url'];?>" id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
-                    </div></div>
-                 Detailed: <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Select files...</span>
-                    <input type="hidden"  id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>_image_id" name="detailed_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['detailed_image_id'];?>"><input id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files">
-                    </span>
-                    <br>
-                    <br>
-                    <div id="progressdetailed_<?php echo $building_no_of_flat['flat_no'];?>" class="progress" >
-                    <div class="progress-bar progress-bar-success"></div>
-                    </div>
-                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
-                    <br><div class="row-fluid">
-                    <div class="col-md-12">
-                    <img src="<?php echo $building_no_of_flat['detailed_image_url'];?>" id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
-                    </div></div>
-                </div>
-            </div> 
-         </div>-->
-		 <!--testing-->
+                    
 		 <div class="form-group">
 		 <div class="row">
 		 <div class="col-md-12">
@@ -367,7 +325,7 @@ $heading = "Edit";
                     <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
                     <br><div class="row">
                     <div class="col-md-12">
-                    <img src="<?php echo $building_no_of_flat['basic_image_url'];?>" id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
+                    <img src="<?php echo $building_no_of_flat['basic_thumbnail_image_url'];?>" id="fileuploadbasic_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
                     </div></div>
 		 </div>
 		 <div class="col-md-6">
@@ -384,7 +342,7 @@ $heading = "Edit";
                     <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
                     <br><div class="row">
                     <div class="col-md-12">
-                    <img src="<?php echo $building_no_of_flat['detailed_image_url'];?>" id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
+                    <img src="<?php echo $building_no_of_flat['detailed_thumbnail_image_url'];?>" id="fileuploaddetailed_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
                     </div></div>
 		 </div>
 		 </div>
@@ -421,9 +379,10 @@ $heading = "Edit";
                 ?>
                  <div id="exception_floors_container<?php echo($exception_count);?>">
                    <?php 
+                   $show_flats=false;
                     for($i=1;$i<=$no_of_floors;$i++){
                        ?><div class="col-md-4">
-                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked";}?>> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
+                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked"; $show_flats=true;}?> class="exception_floors"> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
                     <?php    
                     }
                      
@@ -432,7 +391,7 @@ $heading = "Edit";
                     ?>
                 </div>
                 <div style="clear:both"></div>
-                <div class="form-group">
+                <div class="form-group" id="exception-flats" <?php if($show_flats==false){?>style="display:none"<?php } ?> >
                     <label class="form-label">
                         No Of Flats
                     </label>
@@ -478,7 +437,7 @@ $heading = "Edit";
                                     <br>
                                     <div class="row-fluid">
                                         <div class="col-md-12">
-                                            <img src="<?php echo $building_no_of_flat['basic_image_url'];?>" id="fileuploadbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
+                                            <img src="<?php echo $building_no_of_flat['basic_thumbnail_image_url'];?>" id="fileuploadbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
                                         </div>
                                     </div>
                                     Detailed: <span class="btn btn-success fileinput-button">
@@ -495,7 +454,7 @@ $heading = "Edit";
                                     <br>
                                     <div class="row-fluid">
                                         <div class="col-md-12">
-                                            <img src="<?php echo $building_no_of_flat['detailed_image_url'];?>" id="fileuploaddetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
+                                            <img src="<?php echo $building_no_of_flat['detailed_thumbnail_image_url'];?>" id="fileuploaddetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
                                         </div>
                                     </div>
                                 </div>

@@ -204,11 +204,23 @@ body{
 		}
 	}
 	.menuWishlist{
+		list-style-type: none;
 		li{		
 			a{
 				padding: 5px 0;
 				border: 0;
-				.h5;
+				margin: 0;
+				float: left;
+				color: @gray-dark;
+			}
+			.del{
+				float: right;
+				margin-right: 10px;
+				font-family: 'Glyphicons Halflings';
+				font-size: 14px;
+				&:before{
+					content: "\e014";
+				}
 			}
 		}
 	}

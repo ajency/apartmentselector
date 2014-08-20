@@ -7,8 +7,8 @@ if(!current_user_can('manage_users') && !current_user_can('manage_options')){
     
 } 
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
-                <h3>Payment Plans</h3>
+<div class="page-title">
+                <h3>Users</h3>
 
             </div>
             <div class="row">

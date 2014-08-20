@@ -7,10 +7,12 @@ if(!current_user_can('manage_apartments') && !current_user_can('manage_options')
     exit;
     
 } 
-
+$heading = "Add";
 $apartment_views = $unit_facing = array();
 
 if(isset($_REQUEST["id"])){
+
+    $heading = "Edit";
 
     $apartment_id = $_REQUEST["id"];
 
@@ -51,8 +53,8 @@ if(isset($_REQUEST["id"])){
     $block_till_limit =   $unit["block_till_limit"];
 }
 ?>
-<div class="page-title"> <i class="icon-custom-left"></i>
-    <h3>Select your Apartment</h3>
+<div class="page-title"> 
+    <h3><?php echo $heading;?> Apartment</h3>
 
 </div>
 <div class="row">
@@ -223,7 +225,7 @@ if(isset($_REQUEST["id"])){
                             foreach($flats["flats"] as $flat){
                                     ?>
                                         <div class="col-md-12"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>">Flat <?php echo $flat["flat_no"]?></div>
-                                        <div class="col-md-6"><img src="<?php echo $flat["basic_image_url"]?>" class="image_display"></div><div class="col-md-6"><img src="<?php echo $flat["detailed_image_url"]?>" class="image_display"></div>
+                                        <div class="col-md-6"><img src="<?php echo $flat["basic_thumbnail_image_url"]?>" class="image_display"></div><div class="col-md-6"><img src="<?php echo $flat["detailed_thumbnail_image_url"]?>" class="image_display"></div>
                                  <?php
                             }
                             ?>
