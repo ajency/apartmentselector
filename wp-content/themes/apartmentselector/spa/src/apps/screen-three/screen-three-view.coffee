@@ -4,7 +4,7 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
-    firstElement =''
+    firstElement = ''
     tagsArray = []
     count = 0
     object = ""
@@ -52,9 +52,237 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                     </div>
 
-                    <div id="vs-container" class="vs-container">
+                    <!--<div id="vs-container" class="vs-container">
                         <header class="vs-header" id="building-region"></header>
                         <div  id="unit-region"></div>
+                    </div>-->
+
+                    <a class="customLink" data-target="1">slide 1</a><br />                    
+                    <a class="customLink" data-target="3">slide 3</a><br />
+                    <a class="customLink" data-target="next">next slide</a><br />
+                    <a class="customLink" data-target="prev">previous slide</a><br />
+                    <a class="customLink" data-target="first">first slide</a><br />
+                    <a class="customLink" data-target="last">last slide</a><br />
+
+                    <div class="unitTable">
+                        <div id="unitsSlider" class="unitSlider">
+                            <div>
+                                <div class="unitContainer">
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 10</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 11</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 12</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 13</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 14</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="unitContainer">
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 10</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 11</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 12</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 13</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 14</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="unitContainer">
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="unitContainer">
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="boxLong filtered">
+                                        <div class="pull-left light">
+                                            <h5 class="rangeName bold m-t-5">Floor 15</h5>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <div class="unitNo">FA11</div>
+                                            <div class="small">1BHK 860 SQF</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="h-align-middle m-t-20 m-b-20">
@@ -181,7 +409,6 @@ define [ 'marionette' ], ( Marionette )->
                 globalUnitArrayInt = []
                 $.each(globalUnitVariants, (index,value)->
                     globalUnitArrayInt.push(parseInt(value))
-
                 )
 
                 if App.defaults['unitVariant'] != 'All'
@@ -195,14 +422,6 @@ define [ 'marionette' ], ( Marionette )->
                         else
                             $('#gridlink'+value).removeClass 'selected'
                             $('#checklink'+value).val '0'
-
-
-
-
-
-
-
-
                     )
             'click #unselectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
@@ -233,10 +452,18 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
-            source ="../wp-content/uploads/2014/08/image/1.svg"
-            source1 ="../wp-content/uploads/2014/08/image/2.svg"
-            source2 ="../wp-content/uploads/2014/08/image/3.svg"
-            source3 ="../wp-content/uploads/2014/08/image/4.svg"
+            sudoSlider = $("#unitsSlider").sudoSlider(
+              customLink: "a.customLink"
+              prevNext: false
+              responsive: true
+              speed: 800
+              # continuous:true
+            )
+
+            source = "../wp-content/uploads/2014/08/image/1.svg"
+            source1 = "../wp-content/uploads/2014/08/image/2.svg"
+            source2 = "../wp-content/uploads/2014/08/image/3.svg"
+            source3 = "../wp-content/uploads/2014/08/image/4.svg"
             $('<div></div>').load(source).appendTo("#svg1")
             $('<div></div>').load(source1).appendTo("#svg2")
             $('<div></div>').load(source2).appendTo("#svg3")
@@ -279,23 +506,12 @@ define [ 'marionette' ], ( Marionette )->
                 else
                     $('.unitTable').removeClass('table-end')
                     $('.cd-scroll-right').show()
-
-
-
-
-
-
             )
             $('.cd-scroll-right').on('click', ()->
                 $this= $(this)
                 column_width = $(this).siblings('.cd-table-container').find('.cd-block').eq(0).css('width').replace('px', '')
                 new_left_scroll = parseInt($('.cd-table-container').scrollLeft()) + parseInt(column_width)
                 $('.cd-table-container').animate( {scrollLeft: new_left_scroll}, 200 )
-
-
-
-
-
             )
 
             $(".variantToggle").click ->

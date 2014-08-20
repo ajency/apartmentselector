@@ -38,6 +38,7 @@ requirejs.config
         scroller : 'src/bower_components/preload/scroller'
         bjqs :'src/bower_components/preload/bjqs-1.3.min'
         jquerySecret :'src/bower_components/preload/jquery.secret-source.min'
+        sudoSlider :'src/bower_components/preload/jquery.sudoSlider.min'
 
 
 
@@ -77,6 +78,7 @@ requirejs.config
         jqueryCookie : ['jquery']
         bjqs : ['jquery']
         jquerySecret: ['jquery']
+        sudoSlider: ['jquery']
 
 
 
