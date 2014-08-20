@@ -96,6 +96,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'mouseout .im-pin':(e)->
+                $('.im-tooltip').hide()
             'mouseover a':(e)->
                 console.log id  = e.target.id
                 locationData = m.getLocationData(id)

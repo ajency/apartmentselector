@@ -33,6 +33,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
+      'mouseout .im-pin': function(e) {
+        return $('.im-tooltip').hide();
+      },
       'mouseover a': function(e) {
         var id, locationData;
         console.log(id = e.target.id);
