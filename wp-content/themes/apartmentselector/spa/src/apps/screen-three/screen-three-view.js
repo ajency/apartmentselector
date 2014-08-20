@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, count, emptyChildView, firstElement, flag_set, object, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, emptyChildView, firstElement, flag_set, object, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -12,6 +12,8 @@ define(['marionette'], function(Marionette) {
   tagsArray = [];
   count = 0;
   object = "";
+  unitVariants = [];
+  cloneunitVariantArrayColl = "";
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -135,36 +137,39 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #unselectall': function(e) {
-        var remainainArray, units, value;
+        var remainainArray, tempArray, value;
         if ($('#' + e.target.id).prop('checked') === true) {
-          if (unitVariantIdArray.length === 0) {
-            units = unitVariantArray;
-          } else {
-            units = unitVariantIdArray;
-          }
-          $.each(units, function(index, value) {
-            $('#gridlink' + value).addClass('selected');
-            return $('#checklink' + value).val('1');
+          cloneunitVariantArrayColl.each(function(index) {
+            $('#gridlink' + index.get('id')).addClass('selected');
+            return $('#checklink' + index.get('id')).val('1');
           });
           units.sort(function(a, b) {
             return a - b;
           });
-          console.log(unitVariantArray = units);
           return unitVariantString = 'All';
         } else {
-          console.log(value = _.first(unitVariantArray));
-          remainainArray = _.rest(unitVariantArray);
+          tempArray = [];
+          cloneunitVariantArrayColl.each(function(value) {
+            return tempArray.push(parseInt(value.get('id')));
+          });
+          console.log(value = _.first(tempArray));
+          remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#gridlink' + value).removeClass('selected');
-            return $('#checklink' + value).val('0');
+            $('#checklink' + value).val('0');
+            index = unitVariantArray.indexOf(parseInt(value));
+            if (index !== -1) {
+              return unitVariantArray.splice(index, 1);
+            }
           });
+          console.log(unitVariantArray);
           return unitVariantString = value.toString();
         }
       }
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayText;
+      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
       source2 = "../wp-content/uploads/2014/08/image/3.svg";
@@ -231,6 +236,10 @@ define(['marionette'], function(Marionette) {
         $(this).toggleClass("selected");
       });
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      unitVariantsArray = Marionette.getOption(this, 'unitVariants');
+      unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
+      cloneunitVariantArrayColl = unitVariantArrayColl.clone();
+      console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
       console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
       globalUnitArrayInt = [];

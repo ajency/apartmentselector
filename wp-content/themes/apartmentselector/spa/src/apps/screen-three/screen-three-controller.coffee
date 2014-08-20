@@ -10,7 +10,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 countUnits : @Collection[3]
                 uintVariantId : @Collection[8]
                 uintVariantIdArray : @Collection[8]
-
+                unitVariants:@Collection[7]
                 templateHelpers:
                     selection :@Collection[2]
                     countUnits : @Collection[3]
@@ -50,7 +50,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         countUnits : @Collection[3]
                         uintVariantId : @Collection[8]
                         uintVariantIdArray : @Collection[8]
-
+                        unitVariants:@Collection[7]
                         templateHelpers:
                                 selection :@Collection[2]
                                 countUnits : @Collection[3]

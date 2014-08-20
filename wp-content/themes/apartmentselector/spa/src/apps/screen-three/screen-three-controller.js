@@ -21,6 +21,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
+        unitVariants: this.Collection[7],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
@@ -49,6 +50,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
+        unitVariants: this.Collection[7],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],

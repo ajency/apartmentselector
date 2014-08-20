@@ -159,18 +159,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         var remainainArray, tempArray, units, value;
         console.log(cloneunitVariantArrayColl);
         if ($('#' + e.target.id).prop('checked') === true) {
-          if (unitVariantIdArray.length === 0) {
-            units = unitVariantArray;
-          } else {
-            units = unitVariantIdArray;
-          }
           cloneunitVariantArrayColl.each(function(index) {
             console.log(index.get('id'));
             $('#grid' + index.get('id')).addClass('selected');
             return $('#check' + index.get('id')).val('1');
           });
+          units = cloneunitVariantArrayColl.toArray();
           units.sort(function(a, b) {
-            return a - b;
+            return a.get('id') - b.get('id');
           });
           return unitVariantString = 'All';
         } else {
@@ -182,7 +178,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#grid' + value).removeClass('selected');
-            return $('#check' + value).val('0');
+            $('#check' + value).val('0');
+            index = unitVariantArray.indexOf(parseInt(value));
+            if (index !== -1) {
+              return unitVariantArray.splice(index, 1);
+            }
           });
           return unitVariantString = value.toString();
         }
@@ -373,14 +373,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     BuildingView.prototype.showHighlightedBuildings = function(id) {
-      var building;
+      var building, masterbuilding;
       if (id == null) {
         id = {};
       }
+      masterbuilding = App.master.building;
+      masterbuilding.each(function(index) {
+        return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
+      });
       console.log(building = id);
-      return setTimeout(function() {
-        return $("#highlighttower" + buidlingid).attr('class', 'overlay highlight');
-      }, 1000);
+      return $("#highlighttower" + building).attr('class', 'overlay highlight');
     };
 
     return BuildingView;

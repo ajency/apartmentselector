@@ -8,6 +8,8 @@ define [ 'marionette' ], ( Marionette )->
     tagsArray = []
     count = 0
     object = ""
+    unitVariants = []
+    cloneunitVariantArrayColl = ""
 
 
 
@@ -206,30 +208,34 @@ define [ 'marionette' ], ( Marionette )->
                     )
             'click #unselectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
-                    if unitVariantIdArray.length == 0
-                        units = unitVariantArray
-                    else
-                        units = unitVariantIdArray
-                    $.each(units, (index,value)->
-                        $('#gridlink'+value).addClass 'selected'
-                        $('#checklink'+value).val '1'
+                    cloneunitVariantArrayColl.each ( index)->
+                        $('#gridlink'+index.get('id')).addClass 'selected'
+                        $('#checklink'+index.get('id')).val '1'
 
 
-                    )
+
                     units.sort(  (a,b)->
                         a - b
                     )
-                    console.log unitVariantArray = units
                     unitVariantString = 'All'
                 else
-                    console.log value = _.first(unitVariantArray)
-                    remainainArray = _.rest(unitVariantArray)
+                    tempArray = []
+                    cloneunitVariantArrayColl.each ( value)->
+                        tempArray.push(parseInt(value.get('id')))
+
+
+                    console.log value = _.first(tempArray)
+                    remainainArray = _.rest(tempArray)
                     $.each(remainainArray, (index,value)->
                         $('#gridlink'+value).removeClass 'selected'
                         $('#checklink'+value).val '0'
+                        index = unitVariantArray.indexOf(parseInt(value))
+                        if index != -1
+                            unitVariantArray.splice( index, 1 )
 
 
                     )
+                    console.log unitVariantArray
                     unitVariantString = value.toString()
 
         onShow:->
@@ -313,6 +319,10 @@ define [ 'marionette' ], ( Marionette )->
                 return
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            unitVariantsArray  = Marionette.getOption( @, 'unitVariants' )
+            unitVariantArrayColl = new Backbone.Collection unitVariantsArray
+            cloneunitVariantArrayColl = unitVariantArrayColl.clone()
+            console.log unitVariants  = unitVariantArray
             console.log firstElement = _.first(unitVariantArray)
             console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
             globalUnitArrayInt = []

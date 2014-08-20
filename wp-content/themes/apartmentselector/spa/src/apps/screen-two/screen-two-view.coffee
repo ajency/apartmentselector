@@ -235,21 +235,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click #selectall':(e)->
                 console.log cloneunitVariantArrayColl
                 if $('#'+e.target.id).prop('checked') == true
-                    if unitVariantIdArray.length == 0
-                        units = unitVariantArray
-                    else
-                        units = unitVariantIdArray
-
-
                     cloneunitVariantArrayColl.each ( index)->
                         console.log index.get('id')
                         $('#grid'+index.get('id')).addClass 'selected'
                         $('#check'+index.get('id')).val '1'
 
 
-
+                    units = cloneunitVariantArrayColl.toArray()
                     units.sort(  (a,b)->
-                        a - b
+                        a.get('id') - b.get('id')
                     )
                     unitVariantString = 'All'
                 else
@@ -263,6 +257,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     $.each(remainainArray, (index,value)->
                         $('#grid'+value).removeClass 'selected'
                         $('#check'+value).val '0'
+                        index = unitVariantArray.indexOf(parseInt(value))
+                        if index != -1
+                            unitVariantArray.splice( index, 1 )
 
 
                     )
@@ -507,10 +504,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 #App.navigate "tower"+@model.get('id') , trigger:true
 
         showHighlightedBuildings:(id={})->
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                $("#highlighttower"+index.get('id')).attr('class','overlay')
             console.log building = id
-            setTimeout( ()->
-                $("#highlighttower"+buidlingid).attr('class','overlay highlight')
-            , 1000)
+            $("#highlighttower"+building).attr('class','overlay highlight')
+
 
 
 
