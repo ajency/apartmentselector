@@ -10,7 +10,7 @@ define [ 'marionette' ], ( Marionette )->
     object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
-
+    rangeArray =[]
 
 
     class ScreenThreeLayout extends Marionette.LayoutView
@@ -67,7 +67,7 @@ define [ 'marionette' ], ( Marionette )->
 
                     </div>
                 <div class="col-sm-8">
-                    <div class="liquid-slider center-block" id="sliderplans">
+                    <div class="liquid-slider center-block sliderPlans" id="sliderplans">
 
 
                     <div id="svg1">
@@ -98,14 +98,39 @@ define [ 'marionette' ], ( Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'click .unit-hover':(e)->
+                console.log(e.target.id)
+                unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
+                for element , index in rangeArray
+                    if element == e.target.id
+                        $("#select"+e.target.id).val '1'
+                    else
+                        $("#select"+element).val '0'
+                        $('#check'+element).removeClass 'selected'
+                        if unitModel.get('status') == 9
+                            $("#"+element).attr('class','unit-hover aviable ')
+                        else if unitModel.get('status') == 8
+                            $("#"+element).attr('class','unit-hover sold ')
+                        rangeArray = []
+                rangeArray.push parseInt(e.target.id)
+                $('#check'+e.target.id).addClass "selected"
+
+                $("#select"+e.target.id).val "1"
+                $("#screen-three-button").removeClass 'disabled btn-default'
+                $("#screen-three-button").addClass 'btn-primary'
+
             'mouseover .unit-hover':(e)->
                 console.log(e.target.id)
+
                 unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
                 if unitModel.get('status') == 9
                     $("#"+e.target.id).attr('class','unit-hover aviable')
                 else if unitModel.get('status') == 8
                     $("#"+e.target.id).attr('class','unit-hover sold')
+
+
             'click #screen-three-button':(e)->
+                rangeArray = []
                 @trigger 'unit:item:selected'
 
             'click a':(e)->
@@ -462,7 +487,8 @@ define [ 'marionette' ], ( Marionette )->
     class childViewUnit extends Marionette.ItemView
 
         template : '<div id="check{{id}}" class="check" >
-                        <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}}
+                        <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>
+        <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>     												{{name}}
         				<div class="small">{{unitTypeName}} {{unitVariantName}} </div>
         			</div>'
 
@@ -522,8 +548,8 @@ define [ 'marionette' ], ( Marionette )->
 
             if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box filtered'
-                $('#flag'+@model.get("id")).val '1' && @model.get('unitType') != 14
-            else if track==1 &&  @model.get('status') == 8
+                $('#flag'+@model.get("id")).val '1'
+            else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box sold'
             else
                 $('#check'+@model.get("id")).addClass 'box other'
@@ -532,13 +558,48 @@ define [ 'marionette' ], ( Marionette )->
 
         events:
             'click .check':(e)->
-                console.log $('#flag'+@model.get("id"))
-                App.unit['name'] = @model.get("id")
-                App.backFilter['screen3'].push 'floor'
-                if parseInt($('#flag'+@model.get("id")).val()) == 1
+                unitModel = App.master.unit.findWhere(id:@model.get("id"))
+
+                console.log rangeArray
+                for element , index in rangeArray
+                    if element == @model.get('id')
+                        $("#select"+@model.get('id')).val '1'
+                    else
+                        $("#select"+element).val '0'
+                        $('#check'+element).removeClass 'selected'
+                        if unitModel.get('status') == 9
+                            $("#"+element).attr('class','unit-hover aviable ')
+                        else if unitModel.get('status') == 8
+                            $("#"+element).attr('class','unit-hover sold ')
+                        rangeArray = []
+                if  parseInt($("#select"+@model.get('id')).val()) == 0
+                    rangeArray.push @model.get('id')
+                    $('#check'+@model.get("id")).addClass "selected"
+
+                    $("#select"+@model.get('id')).val "1"
+
+                    if unitModel.get('status') == 9
+                        $("#"+@model.get("id")).attr('class','unit-hover aviable selected')
+                    else if unitModel.get('status') == 8
+                        $("#"+@model.get("id")).attr('class','unit-hover sold selected')
+                    console.log $('#select'+@model.get("id"))
+                    App.unit['name'] = @model.get("id")
+                    App.backFilter['screen3'].push 'floor'
                     $("#screen-three-button").removeClass 'disabled btn-default'
                     $("#screen-three-button").addClass 'btn-primary'
                     #@trigger 'unit:item:selected'
+                else
+                    rangeArray=[]
+                    $("#select"+@model.get('id')).val "0"
+                    $('#check'+@model.get('id')).removeClass 'selected'
+                    if unitModel.get('status') == 9
+                        $("#"+@model.get("id")).attr('class','unit-hover aviable ')
+                    else if unitModel.get('status') == 8
+                        $("#"+@model.get("id")).attr('class','unit-hover sold ')
+                if parseInt($("#select"+@model.get('id')).val()) == 0
+                    $("#screen-three-button").addClass 'disabled btn-default'
+                    $("#screen-three-button").removeClass 'btn-primary'
+                    return false
 
 
 

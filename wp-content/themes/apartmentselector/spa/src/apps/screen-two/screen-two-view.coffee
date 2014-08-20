@@ -266,7 +266,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     unitVariantString = value.toString()
 
             'click #screen-two-button':(e)->
-                console.log "aaaaaaaaaaaaa"
+                rangeArray = []
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->

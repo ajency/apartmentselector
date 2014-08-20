@@ -188,7 +188,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #screen-two-button': function(e) {
-        console.log("aaaaaaaaaaaaa");
+        rangeArray = [];
         return this.trigger('unit:count:selected');
       }
     };
