@@ -65,8 +65,19 @@ define [ 'marionette' ], ( Marionette )->
 
                     </div>
                 <div class="col-sm-8">
-                    <div class="towerRange" >
+                    <div class="liquid-slider center-block" id="sliderplans">
 
+
+                    <div id="svg1">
+                    </div>
+
+                    <div id="svg2">
+                    </div>
+
+                    <div id="svg3">
+                    </div>
+                    <div id="svg4">
+                    </div>
                     </div>
                     </div>
                     </div>'
@@ -86,7 +97,12 @@ define [ 'marionette' ], ( Marionette )->
 
         events:
             'mouseover .unit-hover':(e)->
-                console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+                console.log(e.target.id)
+                unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
+                if unitModel.get('status') == 9
+                    $("#"+e.target.id).attr('class','unit-hover aviable')
+                else if unitModel.get('status') == 8
+                    $("#"+e.target.id).attr('class','unit-hover sold')
             'click #screen-three-button':(e)->
                 @trigger 'unit:item:selected'
 
@@ -217,19 +233,26 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
-            $('#banner-slide').bjqs({
-
-                height        : 400,
-                width         : 703,
-                responsive    : true,
-                randomstart   : false
-            });
-            $('.secret-source').secretSource({
-                includeTag: false
-            });
             source ="../wp-content/uploads/2014/08/image/1.svg"
-            console.log @el
-            $('<div></div>').load(source).appendTo(@el)
+            source1 ="../wp-content/uploads/2014/08/image/2.svg"
+            source2 ="../wp-content/uploads/2014/08/image/3.svg"
+            source3 ="../wp-content/uploads/2014/08/image/4.svg"
+            $('<div></div>').load(source).appendTo("#svg1")
+            $('<div></div>').load(source1).appendTo("#svg2")
+            $('<div></div>').load(source2).appendTo("#svg3")
+            $('<div></div>').load(source3).appendTo("#svg4")
+
+            $('#sliderplans').liquidSlider(
+                slideEaseFunction: "fade",
+                autoSlide: true,
+                includeTitle:false,
+                fadeOutDuration: 1000,
+                minHeight: 500,
+                forceAutoSlide: true,
+                autoSlideInterval: 5000,
+                dynamicArrows: false,
+                fadeInDuration: 1000
+            )
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'

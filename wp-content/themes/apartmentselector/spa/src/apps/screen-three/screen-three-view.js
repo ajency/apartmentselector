@@ -19,7 +19,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="towerRange" > </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -30,7 +30,16 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.events = {
       'mouseover .unit-hover': function(e) {
-        return console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        var unitModel;
+        console.log(e.target.id);
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(e.target.id)
+        });
+        if (unitModel.get('status') === 9) {
+          return $("#" + e.target.id).attr('class', 'unit-hover aviable');
+        } else if (unitModel.get('status') === 8) {
+          return $("#" + e.target.id).attr('class', 'unit-hover sold');
+        }
       },
       'click #screen-three-button': function(e) {
         return this.trigger('unit:item:selected');
@@ -155,19 +164,26 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, testtext, unitVariantArrayText;
-      $('#banner-slide').bjqs({
-        height: 400,
-        width: 703,
-        responsive: true,
-        randomstart: false
-      });
-      $('.secret-source').secretSource({
-        includeTag: false
-      });
+      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayText;
       source = "../wp-content/uploads/2014/08/image/1.svg";
-      console.log(this.el);
-      $('<div></div>').load(source).appendTo(this.el);
+      source1 = "../wp-content/uploads/2014/08/image/2.svg";
+      source2 = "../wp-content/uploads/2014/08/image/3.svg";
+      source3 = "../wp-content/uploads/2014/08/image/4.svg";
+      $('<div></div>').load(source).appendTo("#svg1");
+      $('<div></div>').load(source1).appendTo("#svg2");
+      $('<div></div>').load(source2).appendTo("#svg3");
+      $('<div></div>').load(source3).appendTo("#svg4");
+      $('#sliderplans').liquidSlider({
+        slideEaseFunction: "fade",
+        autoSlide: true,
+        includeTitle: false,
+        fadeOutDuration: 1000,
+        minHeight: 500,
+        forceAutoSlide: true,
+        autoSlideInterval: 5000,
+        dynamicArrows: false,
+        fadeInDuration: 1000
+      });
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
       } else if (App.screenOneFilter['key'] === 'budget') {

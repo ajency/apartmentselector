@@ -9903,3 +9903,13 @@ body {
 }
 
 /** apartmentselector Less file. Include all of your files here **/
+.aviable:hover {
+  fill: #99DD1F  !important;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.sold:hover {
+  fill: #DD1F1F   !important;
+  cursor: pointer;
+  opacity: 0.8;
+}

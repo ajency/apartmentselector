@@ -245,7 +245,12 @@ define [ 'marionette' ], ( Marionette )->
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad",
                 autoSlide: true,
-                includeTitle:false
+                includeTitle:false,
+                minHeight: 500,
+                autoSlideInterval: 500,
+                forceAutoSlide: true
+
+
             )
 
 
