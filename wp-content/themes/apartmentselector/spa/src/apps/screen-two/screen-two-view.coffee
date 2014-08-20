@@ -544,7 +544,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div id="range{{range}}" class="boxLong {{classname}}">
+                    <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}}">
                         <div class="pull-left light">
                             <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
                             <div class="small">{{rangeNo}}</div>
@@ -553,7 +553,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         <div class="clearfix"></div>
                     </div>                    
 
-                    <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>'
+                    <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>'
 
         className : 'towerSelect'
 
@@ -563,19 +563,19 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click ':(e)->
                 console.log rangeArray
                 for element , index in rangeArray
-                    if element == @model.get('range')
-                        $("#checkrange"+@model.get 'range').val '1'
+                    if element == @model.get('range')+@model.get('buildingid')
+                        $("#checkrange"+@model.get('range')+@model.get('buildingid')).val '1'
                     else
                         $("#checkrange"+element).val '0'
                         $('#range'+element).removeClass 'selected'
                         rangeArray = []
-                console.log $("#checkrange"+@model.get 'range').val()
+                console.log $("#checkrange"+@model.get('range')+@model.get('buildingid')).val()
 
-                if  parseInt($("#checkrange"+@model.get 'range').val()) == 0
-                    rangeArray.push @model.get 'range'
-                    $('#range'+@model.get 'range').addClass 'selected'
+                if  parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
+                    rangeArray.push @model.get('range')+@model.get('buildingid')
+                    $('#range'+@model.get('range')+@model.get('buildingid')).addClass 'selected'
 
-                    $("#checkrange"+@model.get 'range').val "1"
+                    $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "1"
                     param = {}
                     param['name'] = @model.get 'range'
                     console.log param
@@ -602,9 +602,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     #@trigger 'unit:count:selected'
                 else
                     rangeArray=[]
-                    $("#checkrange"+@model.get 'range').val "0"
-                    $('#range'+@model.get 'range').removeClass 'selected'
-                if parseInt($("#checkrange"+@model.get 'range').val()) == 0
+                    $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "0"
+                    $('#range'+@model.get('range')+@model.get('buildingid')).removeClass 'selected'
+                if parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
                     $("#screen-two-button").addClass 'disabled btn-default'
                     $("#screen-two-button").removeClass 'btn-primary'
                     return false
