@@ -33,6 +33,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
+      'mouseout .im-pin': function(e) {
+        return $('.im-tooltip').hide();
+      },
       'mouseover a': function(e) {
         var id, locationData;
         console.log(id = e.target.id);
@@ -159,18 +162,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         var remainainArray, tempArray, units, value;
         console.log(cloneunitVariantArrayColl);
         if ($('#' + e.target.id).prop('checked') === true) {
-          if (unitVariantIdArray.length === 0) {
-            units = unitVariantArray;
-          } else {
-            units = unitVariantIdArray;
-          }
           cloneunitVariantArrayColl.each(function(index) {
             console.log(index.get('id'));
             $('#grid' + index.get('id')).addClass('selected');
             return $('#check' + index.get('id')).val('1');
           });
+          units = cloneunitVariantArrayColl.toArray();
           units.sort(function(a, b) {
-            return a - b;
+            return a.get('id') - b.get('id');
           });
           return unitVariantString = 'All';
         } else {
@@ -182,13 +181,17 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#grid' + value).removeClass('selected');
-            return $('#check' + value).val('0');
+            $('#check' + value).val('0');
+            index = unitVariantArray.indexOf(parseInt(value));
+            if (index !== -1) {
+              return unitVariantArray.splice(index, 1);
+            }
           });
           return unitVariantString = value.toString();
         }
       },
       'click #screen-two-button': function(e) {
-        console.log("aaaaaaaaaaaaa");
+        rangeArray = [];
         return this.trigger('unit:count:selected');
       }
     };
@@ -373,14 +376,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     BuildingView.prototype.showHighlightedBuildings = function(id) {
-      var building;
+      var building, masterbuilding;
       if (id == null) {
         id = {};
       }
+      masterbuilding = App.master.building;
+      masterbuilding.each(function(index) {
+        return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
+      });
       console.log(building = id);
-      return setTimeout(function() {
-        return $("#highlighttower" + buidlingid).attr('class', 'overlay highlight');
-      }, 1000);
+      return $("#highlighttower" + building).attr('class', 'overlay highlight');
     };
 
     return BuildingView;
@@ -415,7 +420,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div id="range{{range}}" class="boxLong {{classname}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>';
+    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
 
     UnitViewChildView.prototype.className = 'towerSelect';
 
@@ -425,19 +430,19 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         console.log(rangeArray);
         for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
           element = rangeArray[index];
-          if (element === this.model.get('range')) {
-            $("#checkrange" + this.model.get('range')).val('1');
+          if (element === this.model.get('range') + this.model.get('buildingid')) {
+            $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val('1');
           } else {
             $("#checkrange" + element).val('0');
             $('#range' + element).removeClass('selected');
             rangeArray = [];
           }
         }
-        console.log($("#checkrange" + this.model.get('range')).val());
-        if (parseInt($("#checkrange" + this.model.get('range')).val()) === 0) {
-          rangeArray.push(this.model.get('range'));
-          $('#range' + this.model.get('range')).addClass('selected');
-          $("#checkrange" + this.model.get('range')).val("1");
+        console.log($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val());
+        if (parseInt($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val()) === 0) {
+          rangeArray.push(this.model.get('range') + this.model.get('buildingid'));
+          $('#range' + this.model.get('range') + this.model.get('buildingid')).addClass('selected');
+          $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("1");
           param = {};
           param['name'] = this.model.get('range');
           console.log(param);
@@ -462,10 +467,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $("#screen-two-button").addClass('btn-primary');
         } else {
           rangeArray = [];
-          $("#checkrange" + this.model.get('range')).val("0");
-          $('#range' + this.model.get('range')).removeClass('selected');
+          $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("0");
+          $('#range' + this.model.get('range') + this.model.get('buildingid')).removeClass('selected');
         }
-        if (parseInt($("#checkrange" + this.model.get('range')).val()) === 0) {
+        if (parseInt($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val()) === 0) {
           $("#screen-two-button").addClass('disabled btn-default');
           $("#screen-two-button").removeClass('btn-primary');
           return false;

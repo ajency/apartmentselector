@@ -96,6 +96,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'mouseout .im-pin':(e)->
+                $('.im-tooltip').hide()
             'mouseover a':(e)->
                 console.log id  = e.target.id
                 locationData = m.getLocationData(id)
@@ -235,21 +237,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click #selectall':(e)->
                 console.log cloneunitVariantArrayColl
                 if $('#'+e.target.id).prop('checked') == true
-                    if unitVariantIdArray.length == 0
-                        units = unitVariantArray
-                    else
-                        units = unitVariantIdArray
-
-
                     cloneunitVariantArrayColl.each ( index)->
                         console.log index.get('id')
                         $('#grid'+index.get('id')).addClass 'selected'
                         $('#check'+index.get('id')).val '1'
 
 
-
+                    units = cloneunitVariantArrayColl.toArray()
                     units.sort(  (a,b)->
-                        a - b
+                        a.get('id') - b.get('id')
                     )
                     unitVariantString = 'All'
                 else
@@ -263,13 +259,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     $.each(remainainArray, (index,value)->
                         $('#grid'+value).removeClass 'selected'
                         $('#check'+value).val '0'
+                        index = unitVariantArray.indexOf(parseInt(value))
+                        if index != -1
+                            unitVariantArray.splice( index, 1 )
 
 
                     )
                     unitVariantString = value.toString()
 
             'click #screen-two-button':(e)->
-                console.log "aaaaaaaaaaaaa"
+                rangeArray = []
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
@@ -507,10 +506,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 #App.navigate "tower"+@model.get('id') , trigger:true
 
         showHighlightedBuildings:(id={})->
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                $("#highlighttower"+index.get('id')).attr('class','overlay')
             console.log building = id
-            setTimeout( ()->
-                $("#highlighttower"+buidlingid).attr('class','overlay highlight')
-            , 1000)
+            $("#highlighttower"+building).attr('class','overlay highlight')
+
 
 
 
@@ -545,7 +546,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div id="range{{range}}" class="boxLong {{classname}}">
+                    <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}}">
                         <div class="pull-left light">
                             <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
                             <div class="small">{{rangeNo}}</div>
@@ -554,7 +555,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         <div class="clearfix"></div>
                     </div>                    
 
-                    <input type="hidden" name="checkrange{{range}}"   id="checkrange{{range}}"       value="0" />                             </div>'
+                    <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>'
 
         className : 'towerSelect'
 
@@ -564,19 +565,19 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click ':(e)->
                 console.log rangeArray
                 for element , index in rangeArray
-                    if element == @model.get('range')
-                        $("#checkrange"+@model.get 'range').val '1'
+                    if element == @model.get('range')+@model.get('buildingid')
+                        $("#checkrange"+@model.get('range')+@model.get('buildingid')).val '1'
                     else
                         $("#checkrange"+element).val '0'
                         $('#range'+element).removeClass 'selected'
                         rangeArray = []
-                console.log $("#checkrange"+@model.get 'range').val()
+                console.log $("#checkrange"+@model.get('range')+@model.get('buildingid')).val()
 
-                if  parseInt($("#checkrange"+@model.get 'range').val()) == 0
-                    rangeArray.push @model.get 'range'
-                    $('#range'+@model.get 'range').addClass 'selected'
+                if  parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
+                    rangeArray.push @model.get('range')+@model.get('buildingid')
+                    $('#range'+@model.get('range')+@model.get('buildingid')).addClass 'selected'
 
-                    $("#checkrange"+@model.get 'range').val "1"
+                    $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "1"
                     param = {}
                     param['name'] = @model.get 'range'
                     console.log param
@@ -603,9 +604,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     #@trigger 'unit:count:selected'
                 else
                     rangeArray=[]
-                    $("#checkrange"+@model.get 'range').val "0"
-                    $('#range'+@model.get 'range').removeClass 'selected'
-                if parseInt($("#checkrange"+@model.get 'range').val()) == 0
+                    $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "0"
+                    $('#range'+@model.get('range')+@model.get('buildingid')).removeClass 'selected'
+                if parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
                     $("#screen-two-button").addClass 'disabled btn-default'
                     $("#screen-two-button").removeClass 'btn-primary'
                     return false

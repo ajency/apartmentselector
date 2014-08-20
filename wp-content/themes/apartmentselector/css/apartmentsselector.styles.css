@@ -9905,3 +9905,7 @@ body {
   cursor: pointer;
   opacity: 0.8;
 }
+.sliderPlans .selected {
+  fill: #ff6600   !important;
+  opacity: 0.8;
+}
