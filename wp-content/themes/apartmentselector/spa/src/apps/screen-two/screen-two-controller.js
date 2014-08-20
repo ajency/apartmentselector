@@ -106,7 +106,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
-      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, highUnits, hnewarr, i, index, j, key, keycheck, lnewarr, lowUnits, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, unitsactual, unitslen, unitvariant;
+      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, highUnits, hnewarr, i, index, j, key, keycheck, lnewarr, lowUnits, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, unitsactual, unitslen, unitvariant;
       if (paramid == null) {
         paramid = {};
       }
@@ -134,6 +134,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       paramkey = {};
       flag = 0;
       mainunitsTypeArray = [];
+      mainArray = [];
       $.each(App.defaults, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
@@ -379,7 +380,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       buildingUnits = [];
       console.log(buildingArray);
       $.each(buildingArray, function(index, value) {
-        var availableunits, buildingid, data, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mainArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
+        var availableunits, buildingid, data, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
@@ -397,6 +398,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         lcount = [];
         mcount = [];
         hcount = [];
+        mainArray = Array();
         lclassname = "";
         mclassname = "";
         hclassname = "";
@@ -792,6 +794,57 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       console.log(unitColl);
       console.log(buildingUnits);
+      if (buildingUnits.length === 2) {
+        buildingUnits.push({
+          id: 100,
+          count: 0,
+          name: 'tower' + 100
+        });
+        mainArray.push({
+          count: 0,
+          low_max_val: 0,
+          low_min_val: 0,
+          range: 'high',
+          buildingid: 100,
+          unittypes: 0,
+          classname: "",
+          rangetext: 'HIGHRISE',
+          rangeNo: 'Floors 11-15'
+        });
+        mainArray.push({
+          count: 0,
+          low_max_val: 0,
+          low_min_val: 0,
+          range: 'medium',
+          buildingid: 100,
+          unittypes: 0,
+          classname: "",
+          rangetext: 'MIDRISE',
+          rangeNo: 'Floors 6-10'
+        });
+        mainArray.push({
+          count: 0,
+          low_max_val: 0,
+          low_min_val: 0,
+          range: 'low',
+          buildingid: 100,
+          unittypes: 0,
+          classname: "",
+          rangetext: 'LOWRISE',
+          rangeNo: 'Floors 1-5'
+        });
+        unitColl.push({
+          id: 100,
+          buildingname: 'Random',
+          units: itemCollection,
+          buildingid: 100,
+          unittypes: 0,
+          availableunits: 0,
+          totalunits: 0,
+          totalfloors: 0,
+          views: 0
+        });
+      }
       buildingvalue = _.max(buildingUnits, function(model) {
         return model.count;
       });
