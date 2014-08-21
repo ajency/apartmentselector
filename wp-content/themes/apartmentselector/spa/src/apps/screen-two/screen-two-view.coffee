@@ -3,7 +3,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
-    globalArrayLength = []
+    globalUnitArrayInt = []
     firstElement = ''
     rangeArray =[]
     tagsArray = []
@@ -155,26 +155,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                 console.log unitVariantArray
-                globalUnitArrayInt = []
 
-                if App.defaults['unitVariant'] != 'All'
-                    globalUnitVariants = App.defaults['unitVariant'].split(',')
-                    $.each(globalUnitVariants, (index,value)->
-                        globalUnitArrayInt.push(parseInt(value))
-                        globalArrayLength.push(parseInt(value))
-
-                    )
-                console.log globalUnitArrayInt
                 if globalUnitArrayInt.length != 0
                     if track == 0
                         console.log track
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
                         globalUnitArrayInt.push(parseInt(id))
-                        globalArrayLength.push(parseInt(id))
                         unitVariantArray = globalUnitArrayInt
 
-                console.log unitVariantArray
+                console.log unitVariantArray = _.uniq(unitVariantArray)
                 console.log firstElement
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
@@ -183,16 +173,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
-                    if count == unitVariantArray.length
+                    if cloneunitVariantArrayColl.length == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
                         unitVariantString = unitVariantArray.join(',')
+                console.log unitVariantString
+                if unitVariantString == "All"
+                    $('#selectall' ).attr 'checked' , true
+                else
+                    $('#selectall' ).attr 'checked', false
 
 
 
 
             'click .done':(e)->
+
                 console.log unitVariantString
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
@@ -301,6 +297,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            globalUnitArrayInt = []
+            if App.defaults['unitVariant'] != 'All'
+                globalUnitVariants = App.defaults['unitVariant'].split(',')
+                $.each(globalUnitVariants, (index,value)->
+                    globalUnitArrayInt.push(parseInt(value))
+
+                )
+            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
+                $('#selectall' ).attr 'checked' ,  true
+            else
+                $('#selectall' ).attr 'checked', false
             console.log document.getElementsByTagName('g')['highlighttower13']
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
@@ -317,12 +324,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             console.log unitVariants  = unitVariantArray
 
             console.log firstElement = _.first(unitVariantArray)
-            console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
-            globalUnitArrayInt = []
-            $.each(globalUnitVariants, (index,value)->
-                globalUnitArrayInt.push(parseInt(value))
 
-            )
 
             if App.defaults['unitVariant'] != 'All'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
@@ -561,6 +563,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
+
+
+
         events:
             'click ':(e)->
                 console.log rangeArray
@@ -610,6 +615,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     $("#screen-two-button").addClass 'disabled btn-default'
                     $("#screen-two-button").removeClass 'btn-primary'
                     return false
+
+
 
 
 
@@ -687,6 +694,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
         onShow :->
+
             $("#unit-region section").addClass "vs-current" if $("#unit-region section").length < 2
             return
 

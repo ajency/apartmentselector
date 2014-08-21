@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+/** apartmentselector Less file. Include all of your files here **/
 /* jQuery Modal
  * Copyright 2014 Kevin Sylvestre
  * 1.1.6
@@ -9083,7 +9084,7 @@ h5 {
 .boxLong {
   padding: 8px 15px;
   height: 55px;
-  width: 115px;
+  width: 120px;
   font-family: 'kievit';
   font-weight: 500;
   line-height: 1.1;
@@ -9096,7 +9097,7 @@ h5 {
   border: 1px solid #dfe1e5;
   cursor: pointer;
   position: relative;
-  margin: 0 0 10px auto;
+  margin: 0 auto 10px auto;
   font-weight: 700;
   -webkit-transition: all 0.3s ease-out;
   /* Chrome 1-25, Safari 3.2+ */
@@ -9160,14 +9161,15 @@ h5 {
 .box.selected:before,
 .boxLong.selected:before {
   position: absolute;
-  top: 0;
+  top: 1px;
   right: 4px;
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 300;
   font-family: 'Glyphicons Halflings';
   content: '\e089';
 }
-.box.filtered,
-.boxLong.filtered {
+.box.filtered .unitNo,
+.boxLong.filtered .unitNo {
   color: #ff6600;
 }
 .box.other,
@@ -9241,11 +9243,11 @@ h5 {
 }
 /**** Responsive Table Styles ****/
 .unitTable {
-  position: relative;
   width: 100%;
-  max-width: 1170px;
   margin: 1em auto;
+  padding: 10px;
   font-size: 14px;
+  background: #f6f6f7;
 }
 .unitTable:after {
   content: '';
@@ -9255,7 +9257,6 @@ h5 {
 .unitTable::before {
   /* White color gradient on the right */
   content: '';
-  position: absolute;
   top: 0;
   right: -1px;
   height: 100%;
@@ -9268,6 +9269,13 @@ h5 {
 .unitTable.table-end::before {
   display: none;
 }
+.unitTable .unitSlider {
+  margin: auto;
+  width: 100%;
+}
+.unitTable .unitSlider .unitContainer {
+  margin: 0 20px;
+}
 .unitTable .cd-table-container {
   position: relative;
   width: 100%;
@@ -9279,26 +9287,19 @@ h5 {
   white-space: nowrap;
   padding-left: 120px;
 }
-.unitTable .cd-table-row .cd-block {
-  width: 125px;
-  display: inline-block;
-  text-align: center;
+.unitTable .cd-table-column {
+  width: 200px;
+  float: left;
   margin-left: -1px;
-  line-height: 20px;
-  padding: 1em 0;
-  height: 84px;
-  background-color: #f6f6f7;
-  border-bottom: 1px solid #edeef0;
 }
-.unitTable .cd-table-row .cd-block:last-child {
+.unitTable .cd-table-column:last-child {
   border-right: none;
 }
 .unitTable ul > li {
-  position: relative;
   text-align: center;
+  padding-top: 14px;
   height: 84px;
   background-color: #f6f6f7;
-  border-bottom: 1px solid #edeef0;
 }
 .unitTable ul {
   list-style: none;
@@ -9335,11 +9336,7 @@ h5 {
   font-weight: bold;
 }
 .unitTable header.cd-table-column {
-  position: absolute;
-  width: 110px;
   height: 100%;
-  left: 0;
-  top: 0;
   z-index: 10;
   background-color: #f6f6f7;
   margin-left: 0;
@@ -9350,7 +9347,6 @@ h5 {
 .unitTable header.cd-table-column li {
   background-color: #f6f6f7;
   border-bottom: 0;
-  text-align: left;
   padding-top: 22px;
   font-size: 87%;
   font-weight: 700;
@@ -9383,7 +9379,6 @@ h5 {
   border-right: 1px solid #eeeeee;
 }
 .unitTable header.cd-table-column {
-  width: 16.66667%;
   float: left;
   box-shadow: none;
   pointer-events: auto;
@@ -9900,7 +9895,6 @@ body {
   content: "\e014";
 }
 
-/** apartmentselector Less file. Include all of your files here **/
 .aviable:hover {
   fill: #99DD1F  !important;
   cursor: pointer;
@@ -9912,6 +9906,6 @@ body {
   opacity: 0.8;
 }
 .sliderPlans .selected {
-  fill: #ff6600   !important;
+  fill: #99DD1F   !important;
   opacity: 0.8;
 }

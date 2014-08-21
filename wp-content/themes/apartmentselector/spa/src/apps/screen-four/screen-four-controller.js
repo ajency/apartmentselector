@@ -53,16 +53,17 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
-      units = App.currentStore.unit.where({
-        id: App.unit['name']
-      });
-      unitsArray = App.currentStore.unit.toArray();
+      console.log(App.unit['name']);
+      console.log(units = App.master.unit.where({
+        id: parseInt(App.unit['name'])
+      }));
+      unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
         var bedroomArray, building, exceptionObject, floorLayoutimage, floorvalue, positionObject, roomSizesArray, toiletArray, unitTypeModel, unitVariantModel;
-        unitVariantModel = App.currentStore.unit_variant.findWhere({
+        unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
-        unitTypeModel = App.currentStore.unit_type.findWhere({
+        unitTypeModel = App.master.unit_type.findWhere({
           id: value.get('unitType')
         });
         value.set('terracearea', unitVariantModel.get('terracearea'));
@@ -71,7 +72,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         value.set('unittypename', unitTypeModel.get('name'));
         value.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
         value.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
-        building = App.currentStore.building.findWhere({
+        building = App.master.building.findWhere({
           id: value.get('building')
         });
         exceptionObject = building.get('floorexceptionpositions');
@@ -130,7 +131,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       $.each(units, function(index, value) {
         return modelIdArr.push(value.get('id'));
       });
-      index = _.indexOf(modelIdArr, App.unit['name']);
+      index = _.indexOf(modelIdArr, parseInt(App.unit['name']));
       highLength = modelIdArr.length - index;
       i = index;
       while (i < modelIdArr.length) {
@@ -146,7 +147,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       $.each(modelArr, function(index, value) {
         return ModelActualArr.push(unitCollection.get(value));
       });
-      unitCollection = new Backbone.Collection(ModelActualArr);
+      console.log(unitCollection = new Backbone.Collection(ModelActualArr));
       return unitCollection;
     };
 

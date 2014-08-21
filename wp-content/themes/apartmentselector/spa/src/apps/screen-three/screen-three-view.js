@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, emptyChildView, firstElement, flag_set, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -22,7 +22,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block sliderPlans" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="floorsvg"> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block sliderPlans" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -198,15 +198,17 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, floorsvg, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
       source2 = "../wp-content/uploads/2014/08/image/3.svg";
       source3 = "../wp-content/uploads/2014/08/image/4.svg";
+      floorsvg = "../wp-content/uploads/2014/08/image/floor.svg";
       $('<div></div>').load(source).appendTo("#svg1");
       $('<div></div>').load(source1).appendTo("#svg2");
       $('<div></div>').load(source2).appendTo("#svg3");
       $('<div></div>').load(source3).appendTo("#svg4");
+      $('<div></div>').load(floorsvg).appendTo("#floorsvg");
       $('#sliderplans').liquidSlider({
         slideEaseFunction: "fade",
         autoSlide: true,
@@ -381,11 +383,14 @@ define(['marionette'], function(Marionette) {
       return BuildingView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingView.prototype.template = '<a class="link" href="tower{{id}}">{{name}}</a>';
+    BuildingView.prototype.template = '<a class="link" >{{name}}</a>';
 
     BuildingView.prototype.tagName = 'li';
 
     BuildingView.prototype.events = {
+      'click a': function(e) {
+        return e.preventDefault();
+      },
       'click .link': function(e) {
         var params;
         $('#tower' + this.model.get('id')).removeClass('hidden');
@@ -415,86 +420,23 @@ define(['marionette'], function(Marionette) {
     return UnitTypeChildView;
 
   })(Marionette.CompositeView);
-  childViewUnit = (function(_super) {
-    __extends(childViewUnit, _super);
+  unitChildView = (function(_super) {
+    __extends(unitChildView, _super);
 
-    function childViewUnit() {
-      return childViewUnit.__super__.constructor.apply(this, arguments);
+    function unitChildView() {
+      return unitChildView.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/> <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>     												{{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} </div> </div>';
+    unitChildView.prototype.template = '<div class="pull-left light"> <h5 class="rangeName bold m-t-5">Floor {{floor}}</h5> </div> <div class="pull-right text-center"> <div class="unitNo">{{name}}</div> <div class="small">{{unittypename}} {{sellablearea}} Sq.ft.</div> </div><input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/> <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/> <div class="clearfix"></div>';
 
-    childViewUnit.prototype.className = 'cd-block';
+    unitChildView.prototype.className = 'check';
 
-    childViewUnit.prototype.initialize = function() {
-      return this.$el.prop("id", 'unit' + this.model.get("id"));
+    unitChildView.prototype.initialize = function() {
+      return this.$el.prop("id", 'check' + this.model.get("id"));
     };
 
-    childViewUnit.prototype.onShow = function() {
-      var flag, myArray, track;
-      myArray = [];
-      $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor') {
-          return myArray.push({
-            key: index,
-            value: value
-          });
-        }
-      });
-      console.log(myArray);
-      flag = 0;
-      object = this;
-      track = 0;
-      $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
-        paramKey = {};
-        if (value.key === 'budget') {
-          buildingModel = App.master.building.findWhere({
-            'id': object.model.get('building')
-          });
-          floorRise = buildingModel.get('floorrise');
-          floorRiseValue = floorRise[object.model.get('floor')];
-          unitVariantmodel = App.master.unit_variant.findWhere({
-            'id': object.model.get('unitVariant')
-          });
-          unitPrice = object.model.get('unitPrice');
-          budget_arr = value.value.split(' ');
-          budget_price = budget_arr[0].split('-');
-          console.log(budget_price[0] = budget_price[0] + '00000');
-          console.log(budget_price[1] = budget_price[1] + '00000');
-          if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
-            return flag++;
-          }
-        } else if (value.key !== 'floor') {
-          console.log(value.key);
-          console.log(value.value);
-          if (object.model.get(value.key) === parseInt(value.value)) {
-            return console.log(flag++);
-          }
-        }
-      });
-      if (flag === myArray.length) {
-        track = 1;
-      }
-      console.log(flag);
-      if (myArray.length === 0) {
-        track = 1;
-      }
-      console.log(this.model.get('unitType'));
-      console.log(this.model.get('name'));
-      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
-        $('#check' + this.model.get("id")).addClass('box filtered');
-        return $('#flag' + this.model.get("id")).val('1');
-      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14) {
-        return $('#check' + this.model.get("id")).addClass('box sold');
-      } else {
-        $('#check' + this.model.get("id")).addClass('box other');
-        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
-      }
-    };
-
-    childViewUnit.prototype.events = {
-      'click .check': function(e) {
+    unitChildView.prototype.events = {
+      'click ': function(e) {
         var element, index, unitModel, _i, _len;
         unitModel = App.master.unit.findWhere({
           id: this.model.get("id")
@@ -547,43 +489,72 @@ define(['marionette'], function(Marionette) {
       }
     };
 
-    return childViewUnit;
-
-  })(Marionette.ItemView);
-  unitChildView = (function(_super) {
-    __extends(unitChildView, _super);
-
-    function unitChildView() {
-      return unitChildView.__super__.constructor.apply(this, arguments);
-    }
-
-    unitChildView.prototype.template = '<div class="clearfix"></div>';
-
-    unitChildView.prototype.className = 'cd-table-row';
-
-    unitChildView.prototype.childView = childViewUnit;
-
-    unitChildView.prototype.initialize = function() {
-      return this.collection = this.model.get('floorunits');
+    unitChildView.prototype.onShow = function() {
+      var flag, myArray, track;
+      myArray = [];
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All' && index !== 'floor') {
+          return myArray.push({
+            key: index,
+            value: value
+          });
+        }
+      });
+      console.log(myArray);
+      flag = 0;
+      object = this;
+      track = 0;
+      $.each(myArray, function(index, value) {
+        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        paramKey = {};
+        if (value.key === 'budget') {
+          buildingModel = App.master.building.findWhere({
+            'id': object.model.get('building')
+          });
+          floorRise = buildingModel.get('floorrise');
+          floorRiseValue = floorRise[object.model.get('floor')];
+          unitVariantmodel = App.master.unit_variant.findWhere({
+            'id': object.model.get('unitVariant')
+          });
+          unitPrice = object.model.get('unitPrice');
+          budget_arr = value.value.split(' ');
+          budget_price = budget_arr[0].split('-');
+          console.log(budget_price[0] = budget_price[0] + '00000');
+          console.log(budget_price[1] = budget_price[1] + '00000');
+          if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+            return flag++;
+          }
+        } else if (value.key !== 'floor') {
+          console.log(value.key);
+          console.log(value.value);
+          if (object.model.get(value.key) === parseInt(value.value)) {
+            return console.log(flag++);
+          }
+        }
+      });
+      if (flag === myArray.length) {
+        track = 1;
+      }
+      console.log(flag);
+      if (myArray.length === 0) {
+        track = 1;
+      }
+      console.log(this.model.get('unitType'));
+      console.log(this.model.get('name'));
+      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
+        $('#check' + this.model.get("id")).addClass('boxLong filtered');
+        return $('#flag' + this.model.get("id")).val('1');
+      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14) {
+        return $('#check' + this.model.get("id")).addClass('boxLong sold');
+      } else {
+        $('#check' + this.model.get("id")).addClass('boxLong other');
+        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
+      }
     };
 
     return unitChildView;
 
-  })(Marionette.CompositeView);
-  emptyChildView = (function(_super) {
-    __extends(emptyChildView, _super);
-
-    function emptyChildView() {
-      return emptyChildView.__super__.constructor.apply(this, arguments);
-    }
-
-    emptyChildView.prototype.template = 'No units available for the current selection';
-
-    emptyChildView.prototype.className = 'noUnits';
-
-    return emptyChildView;
-
-  })(Marionette.CompositeView);
+  })(Marionette.ItemView);
   UnitView = (function(_super) {
     __extends(UnitView, _super);
 
@@ -591,27 +562,15 @@ define(['marionette'], function(Marionette) {
       return UnitView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitView.prototype.template = '<div class="vs-content"> <div  class="unitTable"> <header class="cd-table-column"> <ul> {{#floorcount}} <li> Floor {{id}} </li> {{/floorcount}} </ul> </header> <div class="cd-table-container"> <div class="cd-table-wrapper"> </div> </div> <em class="cd-scroll-right"></em> </div> </div>';
+    UnitView.prototype.template = '<div class="unitContainer"></div>';
 
     UnitView.prototype.childView = unitChildView;
 
-    UnitView.prototype.emptyView = emptyChildView;
-
-    UnitView.prototype.tagName = "section";
-
-    UnitView.prototype.childViewContainer = '.cd-table-wrapper';
-
-    UnitView.prototype.collectionEvents = {
-      'reset': 'dataUpdated'
-    };
-
-    UnitView.prototype.dataUpdated = function() {
-      return console.log("aaaaaaaaaaaaa");
-    };
+    UnitView.prototype.childViewContainer = '.unitContainer';
 
     UnitView.prototype.initialize = function() {
       this.collection = this.model.get('units');
-      return this.$el.prop("id", 'tower' + this.model.get("buildingid"));
+      return this.$el.prop("id", this.model.get("id"));
     };
 
     return UnitView;
@@ -624,9 +583,21 @@ define(['marionette'], function(Marionette) {
       return UnitTypeView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitTypeView.prototype.className = "vs-wrapper";
+    UnitTypeView.prototype.template = '<div class="unitTable"> <div id="unitsSlider" class="unitSlider"> </div></div>';
 
     UnitTypeView.prototype.childView = UnitView;
+
+    UnitTypeView.prototype.childViewContainer = '.unitSlider';
+
+    UnitTypeView.prototype.onShow = function() {
+      var sudoSlider;
+      return sudoSlider = $("#unitsSlider").sudoSlider({
+        customLink: "a.customLink",
+        prevNext: false,
+        responsive: true,
+        speed: 800
+      });
+    };
 
     return UnitTypeView;
 

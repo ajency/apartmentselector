@@ -68,7 +68,7 @@ define(['marionette'], function(Mariontte) {
           screenoneArray = App.backFilter['screen1'];
           myArray = [];
           $.map(App.defaults, function(value, index) {
-            if (value !== 'All' && index !== 'floor') {
+            if (value !== 'All') {
               return myArray.push({
                 key: index,
                 value: value

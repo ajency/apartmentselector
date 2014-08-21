@@ -222,23 +222,18 @@ function loadFloorRiseOption(floors){
 function getFlatUi(flatNo,exception_no){
 
     html =  '<div class="form-group">'
-        +'<label class="form-label">'
+        +'<div class="row"><div class="col-md-12"><label class="form-label">'
         +'Flat No:'+flatNo
-        +'</label>'
-        +'<span class="help">'
-        +'</span>'
+        +'</label>' 
         +'<div class="row">'
-        +'<div class="col-md-12">'; 
-    html += getImageUploadUi(flatNo,exception_no,'basic'); 
+        +'<div class="col-md-6">'; 
+    html += getImageUploadUi(flatNo,exception_no,'basic')  
+        +'</div><div class="col-md-6">'
     html += getImageUploadUi(flatNo,exception_no,'detailed')
+        +'</div></div>'
         +'</div>'
-        +'</div>'
-        +'</div>'
-        +'<div class="row-fluid">'
-        +'<div class="col-md-12">'
-        +'<img src="">'
-        +'</div>'
-        +'</div>'
+        +'</div>' 
+        +'</div>' 
     return html;
 }
 
@@ -246,7 +241,7 @@ function getImageUploadUi(flatNo,exception_no,field){
 
     prefix = (exception_no!="")? field+'_exception_'+exception_no+'_':field+'_'+exception_no;
     
-    html =  toProperCase(field)+': <span class="btn btn-success fileinput-button">'
+    html =  '<label class="form-label">'+toProperCase(field)+':</label> <span class="btn btn-success fileinput-button">'
             +'<i class="glyphicon glyphicon-plus"></i>'
             +'<span>Select files...</span>'
             +'<input type="hidden" id="fileupload'+prefix+''+flatNo+'_image_id" name="'+prefix+'image_id'+flatNo+'"><input id="fileupload'+prefix+''+flatNo+'" class="fileupload" type="file" name="files">'
@@ -257,10 +252,11 @@ function getImageUploadUi(flatNo,exception_no,field){
             +'<div class="progress-bar progress-bar-success"></div>'
             +'</div>'
             +'<div id="'+prefix+flatNo+'"files" class="files'+prefix+flatNo+'"></div>'
-            +'<br><div class="row-fluid">'
+            +'<br><div class="row">'
             +'<div class="col-md-12">'
             +'<img src="" id="fileupload'+prefix+''+flatNo+'_image_display">'
-            +'</div>';
+            +'</div></div>';
+                 
     return html;
 }
 

@@ -136,6 +136,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             floorUnitsArray = []
             myArray = []
             units = App.master.unit
+            status = App.currentStore.status.findWhere({'name':'Available'})
+            Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
                 if value!='All'
                     if  index != 'unitVariant'
@@ -215,7 +217,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
 
-            countUnits = 0
             flag  = 0
             console.log templateArr
 
@@ -313,254 +314,68 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             console.log unitVariantModels
 
 
-            units.each (item)->
-                if buildingArray.indexOf(item.get 'building') ==  -1
-                    buildingArray.push item.get 'building'
-            $.each(buildingArray, (index,value)->
-                buildingid = value
-                floorArray = []
-                floorCountArray = []
-                unitsArray = []
-                console.log unitsCollection = units.where({building:value})
-                $.each(unitsCollection, (index,value)->
+            floorArray = []
+            floorCountArray = []
+            unitsArray = []
+            buildingvalue = App.defaults['building']
+            if App.defaults['building'] == "All"
+                buildings = App.currentStore.building
+                buildings.each ( item)->
+                    unitsColl = App.master.unit.where({building:item.get('id')})
+                    unitsArray.push({id:item.get('id'),count:unitsColl.length})
+                buildingvalue = _.max(unitsArray,  (model)->
+                    model.count
+                )
+                console.log buildingvalue = buildingvalue.id
+            console.log unitsCollection = units.where({building:parseInt(buildingvalue)})
+            $.each(unitsCollection, (index,value)->
                     if floorArray.indexOf(value.get 'floor') ==  -1
                         floorArray.push value.get 'floor'
                         floorCountArray.push {id:value.get 'floor'}
 
 
 
-                )
-                floorArray = floorArray.sort()
-                floorArray.sort( (a,b) ->
+            )
+            floorArray = floorArray.sort()
+            floorArray.sort( (a,b) ->
                     b - a
-                )
+            )
 
-                floorCountArray.sort( (a,b) ->
+            floorCountArray.sort( (a,b) ->
                     b.id - a.id
-                )
-                $.each(floorArray, (index,value)->
-
-                    floorunits = App.master.unit.where({floor:value,building:buildingid})
-                    floorunits.sort( (a,b) ->
-                        a.get('id') - b.get('id')
-                    )
-                    floorCollection = new Backbone.Collection(floorunits)
-                    unitsArray.push { floorunits : floorCollection }
-
-                    $.each(floorunits, (index,value)->
-                        unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
-                        str = unitType.get 'name'
-                        str = str.replace(/\s/g, '');
-
-                        value.set 'unitTypeName' , str
-                        unitVariant = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
-                        value.set 'unitVariantName' , unitVariant.get 'name'
-
-
-
-
-                    )
-
-
+            )
+            unitArray= []
+            unitAssigned = units.pluck("unitAssigned")
+            console.log uniqunitAssigned = _.uniq(unitAssigned)
+            $.each(uniqunitAssigned, (index,value)->
+                console.log unitAssgendModels = units.where({unitAssigned:value})
+                $.each(unitAssgendModels, (index,value)->
+                    unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
+                    value.set "unittypename" , unitType.get "name"
+                    unitVariant = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
+                    value.set "sellablearea" , unitVariant.get "sellablearea"
 
                 )
+                unitAssgendModels.sort( (a,b)->
+                    b.floor - a.floor
 
-                buildingModel = App.master.building.findWhere({id:value})
-                buildingArrayModel.push buildingModel
-                unitCollection = new Backbone.Collection(unitsArray)
-                unitArray.push {id:value, buildingid:value, units: unitCollection ,floorcount : floorCountArray }
-
-
-
+                )
+                unitAssgendModelsColl = new Backbone.Collection unitAssgendModels
+                unitArray.push({id:value,units:unitAssgendModelsColl})
 
 
 
+            )
+            unitArray.sort( (a,b)->
+                a.id - b.id
 
             )
             console.log unitArray
-            building = App.master.building.toArray()
-            buildingCollection = App.master.building
-            buildingvalue = _.max(unitArray,  (model)->
-                model.units.length
-            )
-            building.sort( (a,b) ->
-                a.get('id') - b.get('id')
-            )
-            modelIdArr = []
-            modelArr = []
-            ModelActualArr = []
-            unitsactual = []
-            $.each(building, (index,value)->
-                modelIdArr.push(value.get('id'))
-
-            )
-            if App.defaults['building'] == 'All'
-                console.log index = _.indexOf(modelIdArr, buildingvalue.id)
-            else
-                console.log index = _.indexOf(modelIdArr, App.defaults['building'])
-            if index == -1
-                index = 0
-            highLength = modelIdArr.length - index
-
-            i = index
-            while(i<modelIdArr.length)
-                modelArr.push(modelIdArr[i])
-                i++
-            j= 0
-            while(j<index)
-                modelArr.push(modelIdArr[j])
-                j++
-
-
-            newunitCollection = new Backbone.Collection(unitArray)
-            console.log modelArr
-            $.each(modelArr, (index,value)->
-                ModelActualArr.push(buildingCollection.get(value))
-                unitsactual.push(newunitCollection.get(value))
-
-            )
-            buildingArray = Array()
-            buildingArrayModel = Array()
-            unitColl = Array()
-            templateArr = []
-            mainunitTypeArray = []
-            mainnewarr =  []
-            mainunique = {}
-            MainCollection = new Backbone.Model()
-            status = App.master.status.findWhere({'name':'Available'})
-            units = App.master.unit.where({'status':status.get('id')})
-            Countunits = App.master.unit.where({'status':status.get('id')})
-            param = {}
-            paramkey = {}
-            flag = 0
-            mainunitsTypeArray = []
-            lunitTypeArray = []
-            lnewarr =  []
-            lunique = {}
-            munitTypeArray = []
-            mnewarr =  []
-            munique = {}
-            hunitTypeArray = []
-            hnewarr =  []
-            hunique = {}
-            mainunitTypeArray = []
-
-
-
-            $.each(units, (index,value)->
-                maxcoll = Array()
-
-                if buildingArray.indexOf(value.get 'building') ==  -1
-                    buildingArray.push value.get 'building'
-
-
-
-                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
-                mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
-            )
-            console.log range
-            if range == 'LOWRISE'
-                $.each(mainunitTypeArray, (key,item)->
-                    if (!lunique[item.id])
-                        lunitTypeArray = []
-                        status = App.master.status.findWhere({'name':'Available'})
-                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
-                        $.each(count, (index,value)->
-                            lowUnits = App.master.range.findWhere({name:'low'})
-                            if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
-                                lunitTypeArray.push value.get 'id'
-                        )
-                        #mainnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length,range:'LOWRISE'})
-                        lunique[item.id] = item;
-
-                )
-                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"LOWRISE"})
-
-            else if range == 'MIDRISE'
-                $.each(mainunitTypeArray, (key,item)->
-                    if (!munique[item.id])
-                        munitTypeArray = []
-                        status = App.master.status.findWhere({'name':'Available'})
-                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
-                        $.each(count, (index,value)->
-
-                            mediumUnits = App.master.range.findWhere({name:'medium'})
-                            if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
-                                munitTypeArray.push value.get 'id'
-                        )
-                        #mainnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length,range:'MEDIUMRISE'})
-                        munique[item.id] = item;
-
-
-                )
-                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"MIDRISE"})
-
-
-            else if range == 'HIGHRISE'
-
-                $.each(mainunitTypeArray, (key,item)->
-                    if (!hunique[item.id])
-                        hunitTypeArray = []
-                        status = App.master.status.findWhere({'name':'Available'})
-                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
-
-                        $.each(count, (index,value)->
-                            highUnits = App.master.range.findWhere({name:'high'})
-                            if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
-                                hunitTypeArray.push value.get 'id'
-                        )
-                        #mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
-                        hunique[item.id] = item;
-
-
-                )
-                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"HIGHRISE"})
-
-            else
-                range = "ALL"
-                $.each(mainunitTypeArray, (key,item)->
-                    if (!hunique[item.id])
-                        hunitTypeArray = []
-                        status = App.master.status.findWhere({'name':'Available'})
-                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
-
-                        $.each(count, (index,value)->
-                            hunitTypeArray.push value.get 'id'
-                        )
-                        #mainnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,range:"HIGHRISE"})
-                        hunique[item.id] = item;
-
-
-                )
-                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"HIGHRISE"})
-                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"MIDRISE"})
-                mainnewarr.push({text :'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',image:'url',rangetext:"LOWRISE"})
-
-
-
-
-
-            console.log mainnewarr
-            if App.defaults['building'] == "All"
-                unitArray.sort( (a,b)->
-                    b.units.length - a.units.length
-
-                )
-                buildingsactual = []
-                unitsactual = []
-                buildingCollection = App.master.building
-                units = new Backbone.Collection(unitArray)
-                $.each(unitArray , (index,value)->
-                    value = value.id
-                    buildingsactual.push(buildingCollection.get(value))
-                    unitsactual.push(units.get(value))
-                )
-                console.log  buildingCollection = new Backbone.Collection(buildingsactual)
-                newunitCollection = new Backbone.Collection(unitsactual)
-            else
-                buildingCollection = new Backbone.Collection(ModelActualArr)
-                console.log newunitCollection = new Backbone.Collection(unitsactual)
-            [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
+            console.log newunitCollection = new Backbone.Collection unitArray
+            buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
+            console.log buildingCollection = new Backbone.Collection buildingModel
+            mainnewarr = ""
+            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
 
 
 

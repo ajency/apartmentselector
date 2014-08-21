@@ -39,6 +39,7 @@ define(['marionette'], function(Marionette) {
       if (params == null) {
         params = {};
       }
+      console.log("router");
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       flag = 0;
@@ -86,6 +87,7 @@ define(['marionette'], function(Marionette) {
           return flag = 1;
         }
       });
+      console.log(flag);
       if (flag === 0) {
         msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
         msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
