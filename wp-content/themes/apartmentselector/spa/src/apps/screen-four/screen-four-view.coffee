@@ -9,7 +9,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="h-align-middle">
-                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
+                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
                             <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
                         </div>
 
@@ -29,6 +29,7 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
             'click #list':(e)->
+
                 console.log App.unit['name']
 
                 console.log cookieOldValue = $.cookie("key")
@@ -48,6 +49,7 @@ define [ 'marionette' ], ( Marionette )->
                     console.log "Already entered"
                     $('#errormsg' ).text "Already entered"
                     $('#errormsg' ).addClass "inline"
+                    $('#list').removeClass "remove"
                     return false
                 console.log App.cookieArray
                 console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
@@ -56,7 +58,35 @@ define [ 'marionette' ], ( Marionette )->
                 console.log $.cookie("key")
                 $('#errormsg' ).text "The selected flat has been added to your WishList"
                 $('#errormsg' ).addClass "inline"
-                @showWishList()
+
+                cart = $("#showRightPush")
+                console.log imgtodrag = $('.remove').find(".glyphicon")
+                if imgtodrag
+                    imgclone = imgtodrag.clone().offset(
+                        top: imgtodrag.offset().top
+                        left: imgtodrag.offset().left
+                    ).css(
+                        opacity: "0.8"
+                        position: "absolute"
+                        color: "#ff6600"
+                        "font-size": "30px"
+                        "z-index": "100"
+                    ).appendTo($("body")).animate(
+                        top: cart.offset().top + 10
+                        left: cart.offset().left + 80
+                        width: 50
+                        height: 50
+                    , 1200, "easeInOutCubic")
+                    imgclone.animate
+                        width: 0
+                        height: 0
+                    , ->
+                        $(this).detach()
+                        return
+                $('#list').removeClass "remove"
+
+
+                #@showWishList()
             'click .del':(e)->
                 console.log App.cookieArray
                 console.log val = $('#'+e.target.id).attr('data-id')
@@ -67,7 +97,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 console.log $.cookie('key')
 
-                @showWishList()
+                #@showWishList()
             'click a':(e)->
                 e.preventDefault()
 
@@ -125,7 +155,7 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
-            @showWishList()
+            #@showWishList()
 
         showWishList:->
             table = ""

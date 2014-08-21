@@ -167,33 +167,7 @@ define [ 'extm'], ( Extm)->
                     .withOptions()
 
 
-            "click #list":->
-                  cart = $("#showRightPush")
-                  imgtodrag = $(this).find(".glyphicon")
-                  if imgtodrag
-                        imgclone = imgtodrag.clone().offset(
-                          top: imgtodrag.offset().top
-                          left: imgtodrag.offset().left
-                        ).css(
-                          opacity: "0.8"
-                          position: "absolute"
-                          color: "#ff6600"
-                          "font-size": "30px"
-                          "z-index": "100"
-                        ).appendTo($("body")).animate(
-                          top: cart.offset().top + 10
-                          left: cart.offset().left + 80
-                          width: 50
-                          height: 50
-                        , 1200, "easeInOutCubic")
-                        imgclone.animate
-                          width: 0
-                          height: 0
-                        , ->
-                          $(this).detach()
-                          return
 
-                  return
 
 
 

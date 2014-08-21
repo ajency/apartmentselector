@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div>';
+    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div>';
 
     ScreenFourLayout.prototype.className = 'page-container row-fluid';
 
@@ -23,7 +23,7 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.events = function() {
       return {
         'click #list': function(e) {
-          var cookieOldValue, key;
+          var cart, cookieOldValue, imgclone, imgtodrag, key;
           console.log(App.unit['name']);
           console.log(cookieOldValue = $.cookie("key"));
           console.log(typeof cookieOldValue);
@@ -42,6 +42,7 @@ define(['marionette'], function(Marionette) {
             console.log("Already entered");
             $('#errormsg').text("Already entered");
             $('#errormsg').addClass("inline");
+            $('#list').removeClass("remove");
             return false;
           }
           console.log(App.cookieArray);
@@ -51,7 +52,32 @@ define(['marionette'], function(Marionette) {
           console.log($.cookie("key"));
           $('#errormsg').text("The selected flat has been added to your WishList");
           $('#errormsg').addClass("inline");
-          return this.showWishList();
+          cart = $("#showRightPush");
+          console.log(imgtodrag = $('.remove').find(".glyphicon"));
+          if (imgtodrag) {
+            imgclone = imgtodrag.clone().offset({
+              top: imgtodrag.offset().top,
+              left: imgtodrag.offset().left
+            }).css({
+              opacity: "0.8",
+              position: "absolute",
+              color: "#ff6600",
+              "font-size": "30px",
+              "z-index": "100"
+            }).appendTo($("body")).animate({
+              top: cart.offset().top + 10,
+              left: cart.offset().left + 80,
+              width: 50,
+              height: 50
+            }, 1200, "easeInOutCubic");
+            imgclone.animate({
+              width: 0,
+              height: 0
+            }, function() {
+              $(this).detach();
+            });
+          }
+          return $('#list').removeClass("remove");
         },
         'click .del': function(e) {
           var index, val;
@@ -60,8 +86,7 @@ define(['marionette'], function(Marionette) {
           console.log(index = App.cookieArray.indexOf(parseInt(val)));
           App.cookieArray.splice(index, 1);
           $.cookie('key', App.cookieArray);
-          console.log($.cookie('key'));
-          return this.showWishList();
+          return console.log($.cookie('key'));
         },
         'click a': function(e) {
           return e.preventDefault();
@@ -116,10 +141,9 @@ define(['marionette'], function(Marionette) {
         autoSlide: true,
         includeTitle: false
       });
-      $('html, body').animate({
+      return $('html, body').animate({
         scrollTop: $('#screen-four-region').offset().top
       }, 'slow');
-      return this.showWishList();
     };
 
     ScreenFourLayout.prototype.showWishList = function() {

@@ -99,7 +99,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, unitArray, unitAssigned, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitvariant;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitvariant;
       console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
@@ -347,11 +347,12 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         return b.id - a.id;
       });
       unitArray = [];
-      unitAssigned = units.pluck("unitAssigned");
+      unitColl = new Backbone.Collection(unitsCollection);
+      unitAssigned = unitColl.pluck("unitAssigned");
       console.log(uniqunitAssigned = _.uniq(unitAssigned));
       $.each(uniqunitAssigned, function(index, value) {
         var unitAssgendModels, unitAssgendModelsColl;
-        console.log(unitAssgendModels = units.where({
+        console.log(unitAssgendModels = unitColl.where({
           unitAssigned: value
         }));
         $.each(unitAssgendModels, function(index, value) {
@@ -365,8 +366,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           });
           return value.set("sellablearea", unitVariant.get("sellablearea"));
         });
+        console.log(unitAssgendModels = _.uniq(unitAssgendModels));
         unitAssgendModels.sort(function(a, b) {
-          return b.floor - a.floor;
+          return b.get('floor') - a.get('floor');
         });
         unitAssgendModelsColl = new Backbone.Collection(unitAssgendModels);
         return unitArray.push({

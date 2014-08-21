@@ -99,34 +99,6 @@ define(['extm'], function(Extm) {
         App.navigate("screen-four");
         msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
-      },
-      "click #list": function() {
-        var cart, imgclone, imgtodrag;
-        cart = $("#showRightPush");
-        imgtodrag = $(this).find(".glyphicon");
-        if (imgtodrag) {
-          imgclone = imgtodrag.clone().offset({
-            top: imgtodrag.offset().top,
-            left: imgtodrag.offset().left
-          }).css({
-            opacity: "0.8",
-            position: "absolute",
-            color: "#ff6600",
-            "font-size": "30px",
-            "z-index": "100"
-          }).appendTo($("body")).animate({
-            top: cart.offset().top + 10,
-            left: cart.offset().left + 80,
-            width: 50,
-            height: 50
-          }, 1200, "easeInOutCubic");
-          imgclone.animate({
-            width: 0,
-            height: 0
-          }, function() {
-            $(this).detach();
-          });
-        }
       }
     };
 
