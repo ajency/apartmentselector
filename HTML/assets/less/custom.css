@@ -7611,6 +7611,116 @@ input.checkbox:checked ~ label:before {
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 /* checkbox focus */
+.compareWishlist {
+  position: relative;
+  width: 92%;
+  max-width: 1170px;
+  margin: 20px auto;
+  /*Compare classes*/
+}
+.compareWishlist.table-end::before {
+  display: none;
+}
+.compareWishlist .cd-table-container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.compareWishlist .cd-table-wrapper {
+  padding-left: 150px;
+  white-space: nowrap;
+}
+.compareWishlist .cd-table-column {
+  width: 150px;
+  display: inline-block;
+  margin-left: -1px;
+}
+.compareWishlist ul > li {
+  text-align: center;
+  padding: 20px;
+  line-height: 1.1;
+  height: 68px;
+  background-color: #f6f6f7;
+  border-bottom: 1px solid #edeef0;
+  white-space: normal;
+  font-weight: 400;
+}
+.compareWishlist ul > li:nth-child(even) {
+  background-color: #fbfbfc;
+}
+.compareWishlist ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.compareWishlist .cd-select {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.compareWishlist header.cd-table-column {
+  position: absolute;
+  width: 150px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  margin-left: 0;
+  pointer-events: none;
+}
+.compareWishlist header.cd-table-column li {
+  background-color: #ffffff;
+  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+.compareWishlist header.cd-table-column li h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+.compareWishlist header.cd-table-column li.noBG {
+  background-color: #ffffff;
+  box-shadow: none;
+}
+@media only screen and (min-width: 870px) {
+  .compareWishlist .cd-table-wrapper {
+    padding-left: 14.66667%;
+    display: flex;
+  }
+  .compareWishlist .cd-table-column {
+    width: 25%;
+  }
+  .compareWishlist header.cd-table-column {
+    width: 14.66667%;
+  }
+}
+.compareWishlist ul .noBG {
+  background-color: transparent;
+}
+.compareWishlist ul .unitName {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 21px;
+  margin-bottom: 10.5px;
+  font-size: 35px;
+  color: #ff6600;
+  margin: 0;
+  font-weight: 400;
+  background-color: transparent;
+}
+.compareWishlist ul .unitName small,
+.compareWishlist ul .unitName .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.compareWishlist ul .unitName small,
+.compareWishlist ul .unitName .small {
+  font-size: 65%;
+}
 body {
   background-color: #ffffff;
 }
