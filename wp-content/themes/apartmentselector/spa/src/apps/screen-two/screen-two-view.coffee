@@ -561,6 +561,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
+
+
+
         events:
             'click ':(e)->
                 console.log rangeArray
@@ -610,6 +613,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     $("#screen-two-button").addClass 'disabled btn-default'
                     $("#screen-two-button").removeClass 'btn-primary'
                     return false
+
+
 
 
 
@@ -687,6 +692,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
         onShow :->
+
             $("#unit-region section").addClass "vs-current" if $("#unit-region section").length < 2
             return
 

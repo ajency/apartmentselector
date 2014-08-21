@@ -122,34 +122,78 @@ define [ 'extm'], ( Extm)->
 
             'click a':(e)->
                 e.preventDefault()
+            'click .selectedunit':(e)->
+                menuRight = document.getElementById("cbp-spmenu-s2")
+                menuTop = document.getElementById("cbp-spmenu-s3")
+                showTop = document.getElementById("showTop")
+                showRightPush = document.getElementById("showRightPush")
+                body = document.body
+                classie.toggle showRightPush, "active"
+                classie.toggle body, "cbp-spmenu-push-toleft"
+                classie.toggle menuRight, "cbp-spmenu-open"
+                App.unit['name'] = e.target.id
+                App.unit['flag'] = 1
+                unitModel = App.master.unit.findWhere({id:parseInt(e.target.id)})
+                App.defaults['unitType'] = unitModel.get 'unitType'
+                App.defaults['building'] =  unitModel.get 'building'
+                console.log rangeModel = App.master.range
+                App.backFilter['screen3'].push("floor")
+                App.backFilter['screen2'].push("floor","unitVariant")
+                rangeModel.each( (item)->
+                    rangeArrayVal = []
+                    i = 0
+                    start = item.get('start')
+                    end = item.get('end')
+                    while parseInt(start) <= parseInt(end)
+                        rangeArrayVal[i] = parseInt(start)
+                        start = parseInt(start) + 1
+                        i++
+                    console.log jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal)
+                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) == 0
+                        console.log "aaaaaaaaaaa"
+                        App.defaults['floor'] = rangeArrayVal.join(',')
 
-            $("#list").on "click", ->
-              cart = $("#showRightPush")
-              imgtodrag = $(this).find(".glyphicon")
-              if imgtodrag
-                imgclone = imgtodrag.clone().offset(
-                  top: imgtodrag.offset().top
-                  left: imgtodrag.offset().left
-                ).css(
-                  opacity: "0.8"
-                  position: "absolute"
-                  color: "#ff6600"
-                  "font-size": "30px"
-                  "z-index": "100"
-                ).appendTo($("body")).animate(
-                  top: cart.offset().top + 10
-                  left: cart.offset().left + 80
-                  width: 50
-                  height: 50
-                , 1200, "easeInOutCubic")
-                imgclone.animate
-                  width: 0
-                  height: 0
-                , ->
-                  $(this).detach()
+
+
+
+                )
+                console.log App.defaults
+                App.navigate "screen-four"
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                msgbus.showApp 'screen:four'
+                .insideRegion  App.layout.screenFourRegion
+                    .withOptions()
+
+
+            "click #list":->
+                  cart = $("#showRightPush")
+                  imgtodrag = $(this).find(".glyphicon")
+                  if imgtodrag
+                        imgclone = imgtodrag.clone().offset(
+                          top: imgtodrag.offset().top
+                          left: imgtodrag.offset().left
+                        ).css(
+                          opacity: "0.8"
+                          position: "absolute"
+                          color: "#ff6600"
+                          "font-size": "30px"
+                          "z-index": "100"
+                        ).appendTo($("body")).animate(
+                          top: cart.offset().top + 10
+                          left: cart.offset().left + 80
+                          width: 50
+                          height: 50
+                        , 1200, "easeInOutCubic")
+                        imgclone.animate
+                          width: 0
+                          height: 0
+                        , ->
+                          $(this).detach()
+                          return
+
                   return
-
-              return
 
 
 
@@ -192,7 +236,7 @@ define [ 'extm'], ( Extm)->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#">'+model.get('name')+'</a>
+                    table += '<li><a href="#" id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
                                         <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
                                             <div class="clearfix"></div>'
 

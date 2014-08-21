@@ -49,16 +49,18 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       this.layout = new ScreenThreeView.ScreenThreeLayout({
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
-        uintVariantIdArray: this.Collection[8],
-        unitVariants: this.Collection[7],
-        templateHelpers: {
-          selection: this.Collection[2],
-          countUnits: this.Collection[3],
-          range: this.Collection[4],
-          high: this.Collection[5],
-          rangetext: this.Collection[6],
-          unitVariants: this.Collection[7]
-        }
+        uintVariantIdArray: this.Collection[8]
+      }, {
+        unitVariants: this.Collection[7]({
+          templateHelpers: {
+            selection: this.Collection[2],
+            countUnits: this.Collection[3],
+            range: this.Collection[4],
+            high: this.Collection[5],
+            rangetext: this.Collection[6],
+            unitVariants: this.Collection[7]
+          }
+        })
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);

@@ -197,6 +197,7 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
+
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 

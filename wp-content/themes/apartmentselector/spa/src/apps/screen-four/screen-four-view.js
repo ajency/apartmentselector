@@ -65,6 +65,47 @@ define(['marionette'], function(Marionette) {
         },
         'click a': function(e) {
           return e.preventDefault();
+        },
+        'click .selectedunit': function(e) {
+          var body, menuRight, menuTop, rangeModel, showRightPush, showTop, unitModel;
+          menuRight = document.getElementById("cbp-spmenu-s2");
+          menuTop = document.getElementById("cbp-spmenu-s3");
+          showTop = document.getElementById("showTop");
+          showRightPush = document.getElementById("showRightPush");
+          body = document.body;
+          classie.toggle(showRightPush, "active");
+          classie.toggle(body, "cbp-spmenu-push-toleft");
+          classie.toggle(menuRight, "cbp-spmenu-open");
+          App.unit['name'] = e.target.id;
+          App.unit['flag'] = 1;
+          unitModel = App.master.unit.findWhere({
+            id: parseInt(e.target.id)
+          });
+          App.defaults['unitType'] = unitModel.get('unitType');
+          App.defaults['building'] = unitModel.get('building');
+          console.log(rangeModel = App.master.range);
+          App.backFilter['screen3'].push("floor");
+          App.backFilter['screen2'].push("floor", "unitVariant");
+          rangeModel.each(function(item) {
+            var end, i, rangeArrayVal, start;
+            rangeArrayVal = [];
+            i = 0;
+            start = item.get('start');
+            end = item.get('end');
+            while (parseInt(start) <= parseInt(end)) {
+              rangeArrayVal[i] = parseInt(start);
+              start = parseInt(start) + 1;
+              i++;
+            }
+            console.log(jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal));
+            if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) === 0) {
+              console.log("aaaaaaaaaaa");
+              return App.defaults['floor'] = rangeArrayVal.join(',');
+            }
+          });
+          console.log(App.defaults);
+          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
         }
       };
     };
@@ -102,7 +143,7 @@ define(['marionette'], function(Marionette) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></li>';
+          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></li>';
         }
         table += '</table>';
       }

@@ -201,6 +201,7 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
 
+
             [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( (el)->
                 new SelectFx(el)
             )
