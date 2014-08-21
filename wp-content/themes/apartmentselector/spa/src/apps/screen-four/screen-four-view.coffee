@@ -110,7 +110,7 @@ define [ 'marionette' ], ( Marionette )->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                App.unit['name'] = e.target.id
+                App.unit['name'] = $('#unit'+e.target.id ).attr('data-id')
                 App.unit['flag'] = 1
                 unitModel = App.master.unit.findWhere({id:parseInt(e.target.id)})
                 App.defaults['unitType'] = unitModel.get 'unitType'
@@ -168,7 +168,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#" id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
+                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'"  class="selectedunit">'+model.get('name')+'</a>
                                                             <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
                                                                 <div class="clearfix"></div>'
 

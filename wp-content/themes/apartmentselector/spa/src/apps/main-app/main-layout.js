@@ -68,7 +68,7 @@ define(['extm'], function(Extm) {
         classie.toggle(showRightPush, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");
         classie.toggle(menuRight, "cbp-spmenu-open");
-        App.unit['name'] = e.target.id;
+        App.unit['name'] = $('#unit' + e.target.id).attr('data-id');
         App.unit['flag'] = 1;
         unitModel = App.master.unit.findWhere({
           id: parseInt(e.target.id)
@@ -146,7 +146,7 @@ define(['extm'], function(Extm) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
+          table += '<li><a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
         }
         table += '</table>';
       }
