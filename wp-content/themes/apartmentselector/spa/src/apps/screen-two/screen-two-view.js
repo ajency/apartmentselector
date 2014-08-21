@@ -112,9 +112,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
         console.log(unitVariantString);
         if (unitVariantString === "All") {
-          return $('#selectall').attr('checked', true);
+          return $('#selectall').prop('checked', true);
         } else {
-          return $('#selectall').attr('checked', false);
+          return $('#selectall').prop('checked', false);
         }
       },
       'click .done': function(e) {

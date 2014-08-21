@@ -180,9 +180,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         unitVariantString = unitVariantArray.join(',')
                 console.log unitVariantString
                 if unitVariantString == "All"
-                    $('#selectall' ).attr 'checked' , true
+                    $('#selectall' ).prop 'checked', true
                 else
-                    $('#selectall' ).attr 'checked', false
+                    $('#selectall' ).prop 'checked', false
 
 
 
