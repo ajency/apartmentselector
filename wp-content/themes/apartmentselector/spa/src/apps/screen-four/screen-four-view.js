@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div>';
+    ScreenFourLayout.prototype.template = '<div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div>';
 
     ScreenFourLayout.prototype.className = 'page-container row-fluid';
 
@@ -23,7 +23,7 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.events = function() {
       return {
         'click #list': function(e) {
-          var cookieOldValue, key;
+          var cart, cookieOldValue, imgclone, imgtodrag, key;
           console.log(App.unit['name']);
           console.log(cookieOldValue = $.cookie("key"));
           console.log(typeof cookieOldValue);
@@ -38,10 +38,12 @@ define(['marionette'], function(Marionette) {
           if (parseInt(key) === -1) {
             $('#errormsg').text("");
             App.cookieArray.push(parseInt(App.unit['name']));
+            $('#list').addClass("remove");
           } else {
             console.log("Already entered");
             $('#errormsg').text("Already entered");
             $('#errormsg').addClass("inline");
+            $('#list').removeClass("remove");
             return false;
           }
           console.log(App.cookieArray);
@@ -51,6 +53,32 @@ define(['marionette'], function(Marionette) {
           console.log($.cookie("key"));
           $('#errormsg').text("The selected flat has been added to your WishList");
           $('#errormsg').addClass("inline");
+          cart = $("#showRightPush");
+          console.log(imgtodrag = $('.remove').find(".glyphicon"));
+          if (imgtodrag) {
+            imgclone = imgtodrag.clone().offset({
+              top: imgtodrag.offset().top,
+              left: imgtodrag.offset().left
+            }).css({
+              opacity: "0.8",
+              position: "absolute",
+              color: "#ff6600",
+              "font-size": "30px",
+              "z-index": "100"
+            }).appendTo($("body")).animate({
+              top: cart.offset().top + 10,
+              left: cart.offset().left + 80,
+              width: 50,
+              height: 50
+            }, 1200, "easeInOutCubic");
+            imgclone.animate({
+              width: 0,
+              height: 0
+            }, function() {
+              $(this).detach();
+            });
+          }
+          $('#list').removeClass("remove");
           return this.showWishList();
         },
         'click .del': function(e) {
@@ -60,6 +88,7 @@ define(['marionette'], function(Marionette) {
           console.log(index = App.cookieArray.indexOf(parseInt(val)));
           App.cookieArray.splice(index, 1);
           $.cookie('key', App.cookieArray);
+          $('#errormsg').text("");
           console.log($.cookie('key'));
           return this.showWishList();
         },
@@ -76,7 +105,7 @@ define(['marionette'], function(Marionette) {
           classie.toggle(showRightPush, "active");
           classie.toggle(body, "cbp-spmenu-push-toleft");
           classie.toggle(menuRight, "cbp-spmenu-open");
-          App.unit['name'] = e.target.id;
+          App.unit['name'] = $('#unit' + e.target.id).attr('data-id');
           App.unit['flag'] = 1;
           unitModel = App.master.unit.findWhere({
             id: parseInt(e.target.id)
@@ -111,6 +140,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
+      var cookieOldValue;
       $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
@@ -119,6 +149,16 @@ define(['marionette'], function(Marionette) {
       $('html, body').animate({
         scrollTop: $('#screen-four-region').offset().top
       }, 'slow');
+      console.log(cookieOldValue = $.cookie("key"));
+      console.log(typeof cookieOldValue);
+      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+        cookieOldValue = [];
+      } else {
+        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+          return parseInt(item);
+        }));
+      }
+      App.cookieArray = cookieOldValue;
       return this.showWishList();
     };
 
@@ -143,10 +183,11 @@ define(['marionette'], function(Marionette) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></li>';
+          table += '<li><a href="#" id="unit' + element + '" data-id="' + element + '"  class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
         }
         table += '</table>';
       }
+      console.log(table);
       return $('#showWishlist').html(table);
     };
 

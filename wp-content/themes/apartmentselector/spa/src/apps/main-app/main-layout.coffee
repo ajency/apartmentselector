@@ -118,6 +118,7 @@ define [ 'extm'], ( Extm)->
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                $('#errormsg' ).text ""
                 @showWishList()
 
             'click a':(e)->
@@ -131,7 +132,7 @@ define [ 'extm'], ( Extm)->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                App.unit['name'] = e.target.id
+                App.unit['name'] = $('#unit'+e.target.id ).attr('data-id')
                 App.unit['flag'] = 1
                 unitModel = App.master.unit.findWhere({id:parseInt(e.target.id)})
                 App.defaults['unitType'] = unitModel.get 'unitType'
@@ -167,33 +168,7 @@ define [ 'extm'], ( Extm)->
                     .withOptions()
 
 
-            "click #list":->
-                  cart = $("#showRightPush")
-                  imgtodrag = $(this).find(".glyphicon")
-                  if imgtodrag
-                        imgclone = imgtodrag.clone().offset(
-                          top: imgtodrag.offset().top
-                          left: imgtodrag.offset().left
-                        ).css(
-                          opacity: "0.8"
-                          position: "absolute"
-                          color: "#ff6600"
-                          "font-size": "30px"
-                          "z-index": "100"
-                        ).appendTo($("body")).animate(
-                          top: cart.offset().top + 10
-                          left: cart.offset().left + 80
-                          width: 50
-                          height: 50
-                        , 1200, "easeInOutCubic")
-                        imgclone.animate
-                          width: 0
-                          height: 0
-                        , ->
-                          $(this).detach()
-                          return
 
-                  return
 
 
 
@@ -224,6 +199,15 @@ define [ 'extm'], ( Extm)->
 
 
             )
+            console.log cookieOldValue = $.cookie("key")
+            console.log typeof cookieOldValue
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+            App.cookieArray = cookieOldValue
             @showWishList()
         showWishList:->
             table = ""
@@ -236,7 +220,7 @@ define [ 'extm'], ( Extm)->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#" id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
+                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
                                         <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
                                             <div class="clearfix"></div>'
 

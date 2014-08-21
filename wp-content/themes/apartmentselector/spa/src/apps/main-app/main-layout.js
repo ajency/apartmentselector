@@ -53,6 +53,7 @@ define(['extm'], function(Extm) {
         console.log(index = App.cookieArray.indexOf(parseInt(val)));
         App.cookieArray.splice(index, 1);
         $.cookie('key', App.cookieArray);
+        $('#errormsg').text("");
         return this.showWishList();
       },
       'click a': function(e) {
@@ -68,7 +69,7 @@ define(['extm'], function(Extm) {
         classie.toggle(showRightPush, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");
         classie.toggle(menuRight, "cbp-spmenu-open");
-        App.unit['name'] = e.target.id;
+        App.unit['name'] = $('#unit' + e.target.id).attr('data-id');
         App.unit['flag'] = 1;
         unitModel = App.master.unit.findWhere({
           id: parseInt(e.target.id)
@@ -99,34 +100,6 @@ define(['extm'], function(Extm) {
         App.navigate("screen-four");
         msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
-      },
-      "click #list": function() {
-        var cart, imgclone, imgtodrag;
-        cart = $("#showRightPush");
-        imgtodrag = $(this).find(".glyphicon");
-        if (imgtodrag) {
-          imgclone = imgtodrag.clone().offset({
-            top: imgtodrag.offset().top,
-            left: imgtodrag.offset().left
-          }).css({
-            opacity: "0.8",
-            position: "absolute",
-            color: "#ff6600",
-            "font-size": "30px",
-            "z-index": "100"
-          }).appendTo($("body")).animate({
-            top: cart.offset().top + 10,
-            left: cart.offset().left + 80,
-            width: 50,
-            height: 50
-          }, 1200, "easeInOutCubic");
-          imgclone.animate({
-            width: 0,
-            height: 0
-          }, function() {
-            $(this).detach();
-          });
-        }
       }
     };
 
@@ -138,7 +111,7 @@ define(['extm'], function(Extm) {
     };
 
     mainView.prototype.onShow = function() {
-      var height;
+      var cookieOldValue, height;
       console.log(height = $(window).scrollTop());
       $(window).scroll(function() {
         height = $(window).scrollTop();
@@ -150,6 +123,16 @@ define(['extm'], function(Extm) {
           return $('.slctnTxt').removeClass('hidden');
         }
       });
+      console.log(cookieOldValue = $.cookie("key"));
+      console.log(typeof cookieOldValue);
+      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+        cookieOldValue = [];
+      } else {
+        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+          return parseInt(item);
+        }));
+      }
+      App.cookieArray = cookieOldValue;
       return this.showWishList();
     };
 
@@ -174,7 +157,7 @@ define(['extm'], function(Extm) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
+          table += '<li><a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
         }
         table += '</table>';
       }

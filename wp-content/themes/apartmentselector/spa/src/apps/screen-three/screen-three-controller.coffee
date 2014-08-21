@@ -166,7 +166,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if value.key == 'floor'
                                 if track == 0
                                     trackArray.push value.value
-                                flag = 1
+                                #flag = 1
                                 track = 1
                     else
                         if value.key == 'unitType'
@@ -181,7 +181,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if value.key == 'floor'
                             if track == 0
                                 trackArray.push value.value
-                            flag = 1
+                            #flag = 1
                             track = 1
 
 
@@ -345,10 +345,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     b.id - a.id
             )
             unitArray= []
-            unitAssigned = units.pluck("unitAssigned")
+            unitColl = new Backbone.Collection unitsCollection
+            unitAssigned = unitColl.pluck("unitAssigned")
             console.log uniqunitAssigned = _.uniq(unitAssigned)
             $.each(uniqunitAssigned, (index,value)->
-                console.log unitAssgendModels = units.where({unitAssigned:value})
+                console.log unitAssgendModels = unitColl.where({unitAssigned:value})
                 $.each(unitAssgendModels, (index,value)->
                     unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
                     value.set "unittypename" , unitType.get "name"
@@ -356,8 +357,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     value.set "sellablearea" , unitVariant.get "sellablearea"
 
                 )
+                console.log unitAssgendModels = _.uniq(unitAssgendModels)
                 unitAssgendModels.sort( (a,b)->
-                    b.floor - a.floor
+                    b.get('floor') - a.get('floor')
 
                 )
                 unitAssgendModelsColl = new Backbone.Collection unitAssgendModels
