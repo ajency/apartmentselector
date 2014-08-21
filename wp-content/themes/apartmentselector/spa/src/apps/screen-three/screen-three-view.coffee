@@ -11,14 +11,14 @@ define [ 'marionette' ], ( Marionette )->
     unitVariants = []
     cloneunitVariantArrayColl = ""
     rangeArray =[]
-
+    countunits = 0
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
                         <div class="col-sm-4">
-                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
-                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
@@ -265,6 +265,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            countunits = 0
             source ="../wp-content/uploads/2014/08/image/1.svg"
             source1 ="../wp-content/uploads/2014/08/image/2.svg"
             source2 ="../wp-content/uploads/2014/08/image/3.svg"
@@ -550,11 +551,13 @@ define [ 'marionette' ], ( Marionette )->
             if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box filtered'
                 $('#flag'+@model.get("id")).val '1'
+                countunits++
             else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box sold'
             else
                 $('#check'+@model.get("id")).addClass 'box other'
                 $('#check'+@model.get("id")).text @model.get 'unitTypeName'
+            $('.count').text countunits
 
 
         events:

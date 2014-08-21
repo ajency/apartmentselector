@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, emptyChildView, firstElement, flag_set, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, countunits, emptyChildView, firstElement, flag_set, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -15,6 +15,7 @@ define(['marionette'], function(Marionette) {
   unitVariants = [];
   cloneunitVariantArrayColl = "";
   rangeArray = [];
+  countunits = 0;
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -22,7 +23,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block sliderPlans" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block sliderPlans" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -199,6 +200,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.onShow = function() {
       var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      countunits = 0;
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
       source2 = "../wp-content/uploads/2014/08/image/3.svg";
@@ -484,13 +486,15 @@ define(['marionette'], function(Marionette) {
       console.log(this.model.get('name'));
       if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
         $('#check' + this.model.get("id")).addClass('box filtered');
-        return $('#flag' + this.model.get("id")).val('1');
+        $('#flag' + this.model.get("id")).val('1');
+        countunits++;
       } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14) {
-        return $('#check' + this.model.get("id")).addClass('box sold');
+        $('#check' + this.model.get("id")).addClass('box sold');
       } else {
         $('#check' + this.model.get("id")).addClass('box other');
-        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
+        $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
       }
+      return $('.count').text(countunits);
     };
 
     childViewUnit.prototype.events = {
