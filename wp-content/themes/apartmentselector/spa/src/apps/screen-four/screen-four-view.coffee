@@ -86,7 +86,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#list').removeClass "remove"
 
 
-                #@showWishList()
+                @showWishList()
             'click .del':(e)->
                 console.log App.cookieArray
                 console.log val = $('#'+e.target.id).attr('data-id')
@@ -97,7 +97,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 console.log $.cookie('key')
 
-                #@showWishList()
+                @showWishList()
             'click a':(e)->
                 e.preventDefault()
 
@@ -155,7 +155,7 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
-            #@showWishList()
+            @showWishList()
 
         showWishList:->
             table = ""
@@ -169,10 +169,11 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
                     table += '<li><a href="#" id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
-                    <a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></li>'
+                                                            <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
+                                                                <div class="clearfix"></div>'
 
                 table += '</table>'
-
+            console.log table
             $('#showWishlist').html table
 
 

@@ -77,7 +77,8 @@ define(['marionette'], function(Marionette) {
               $(this).detach();
             });
           }
-          return $('#list').removeClass("remove");
+          $('#list').removeClass("remove");
+          return this.showWishList();
         },
         'click .del': function(e) {
           var index, val;
@@ -86,7 +87,8 @@ define(['marionette'], function(Marionette) {
           console.log(index = App.cookieArray.indexOf(parseInt(val)));
           App.cookieArray.splice(index, 1);
           $.cookie('key', App.cookieArray);
-          return console.log($.cookie('key'));
+          console.log($.cookie('key'));
+          return this.showWishList();
         },
         'click a': function(e) {
           return e.preventDefault();
@@ -141,9 +143,10 @@ define(['marionette'], function(Marionette) {
         autoSlide: true,
         includeTitle: false
       });
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: $('#screen-four-region').offset().top
       }, 'slow');
+      return this.showWishList();
     };
 
     ScreenFourLayout.prototype.showWishList = function() {
@@ -167,10 +170,11 @@ define(['marionette'], function(Marionette) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  >Remove</a></li>';
+          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
         }
         table += '</table>';
       }
+      console.log(table);
       return $('#showWishlist').html(table);
     };
 
