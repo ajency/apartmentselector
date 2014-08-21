@@ -12,7 +12,7 @@ define [ 'marionette' ], ( Marionette )->
     cloneunitVariantArrayColl = ""
     rangeArray =[]
     countunits = 0
-
+    globalUnitArrayInt = []
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -157,14 +157,9 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 console.log unitVariantArray
-                globalUnitArrayInt = []
 
-                if App.defaults['unitVariant'] != 'All'
-                    globalUnitVariants = App.defaults['unitVariant'].split(',')
-                    $.each(globalUnitVariants, (index,value)->
-                        globalUnitArrayInt.push(parseInt(value))
 
-                    )
+
                 console.log globalUnitArrayInt
                 if globalUnitArrayInt.length != 0
                     if track == 0
@@ -172,9 +167,10 @@ define [ 'marionette' ], ( Marionette )->
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
                         globalUnitArrayInt.push(parseInt(id))
+                        console.log globalUnitArrayInt
                         unitVariantArray = globalUnitArrayInt
 
-                console.log firstElement
+                console.log unitVariantArray = _.uniq(unitVariantArray)
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
 
@@ -182,11 +178,15 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                    if count == unitVariantArray.length
+                    if cloneunitVariantArrayColl.length == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
                         unitVariantString = unitVariantArray.join(',')
+                if unitVariantString == "All"
+                    $('#unselectall' ).attr 'checked' , true
+                else
+                    $('#unselectall' ).attr 'checked', false
 
 
 
@@ -239,7 +239,7 @@ define [ 'marionette' ], ( Marionette )->
                         $('#checklink'+index.get('id')).val '1'
 
 
-
+                    units = cloneunitVariantArrayColl.toArray()
                     units.sort(  (a,b)->
                         a - b
                     )
@@ -266,6 +266,18 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             countunits = 0
+            globalUnitArrayInt = []
+            if App.defaults['unitVariant'] != 'All'
+                globalUnitVariants = App.defaults['unitVariant'].split(',')
+                $.each(globalUnitVariants, (index,value)->
+                    globalUnitArrayInt.push(parseInt(value))
+
+                )
+            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
+                $('#unselectall' ).attr 'checked' ,  true
+            else
+                $('#unselectall' ).attr 'checked', false
+
             source ="../wp-content/uploads/2014/08/image/1.svg"
             source1 ="../wp-content/uploads/2014/08/image/2.svg"
             source2 ="../wp-content/uploads/2014/08/image/3.svg"
@@ -351,12 +363,7 @@ define [ 'marionette' ], ( Marionette )->
             cloneunitVariantArrayColl = unitVariantArrayColl.clone()
             console.log unitVariants  = unitVariantArray
             console.log firstElement = _.first(unitVariantArray)
-            console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
-            globalUnitArrayInt = []
-            $.each(globalUnitVariants, (index,value)->
-                globalUnitArrayInt.push(parseInt(value))
 
-            )
 
             if App.defaults['unitVariant'] != 'All'
                 console.log unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)

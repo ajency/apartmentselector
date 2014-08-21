@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, countunits, emptyChildView, firstElement, flag_set, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, countunits, emptyChildView, firstElement, flag_set, globalUnitArrayInt, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -16,6 +16,7 @@ define(['marionette'], function(Marionette) {
   cloneunitVariantArrayColl = "";
   rangeArray = [];
   countunits = 0;
+  globalUnitArrayInt = [];
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -80,7 +81,7 @@ define(['marionette'], function(Marionette) {
         return e.preventDefault();
       },
       'click .grid-link': function(e) {
-        var globalUnitArrayInt, globalUnitVariants, id, index, track;
+        var id, index, track;
         console.log(unitVariantArray);
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
@@ -101,13 +102,6 @@ define(['marionette'], function(Marionette) {
           $('#checklink' + id).val('1');
         }
         console.log(unitVariantArray);
-        globalUnitArrayInt = [];
-        if (App.defaults['unitVariant'] !== 'All') {
-          globalUnitVariants = App.defaults['unitVariant'].split(',');
-          $.each(globalUnitVariants, function(index, value) {
-            return globalUnitArrayInt.push(parseInt(value));
-          });
-        }
         console.log(globalUnitArrayInt);
         if (globalUnitArrayInt.length !== 0) {
           if (track === 0) {
@@ -115,18 +109,24 @@ define(['marionette'], function(Marionette) {
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
             globalUnitArrayInt.push(parseInt(id));
+            console.log(globalUnitArrayInt);
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        console.log(firstElement);
+        console.log(unitVariantArray = _.uniq(unitVariantArray));
         if (unitVariantArray.length === 0) {
-          return unitVariantString = firstElement.toString();
+          unitVariantString = firstElement.toString();
         } else {
-          if (count === unitVariantArray.length) {
-            return unitVariantString = 'All';
+          if (cloneunitVariantArrayColl.length === unitVariantArray.length) {
+            unitVariantString = 'All';
           } else {
-            return unitVariantString = unitVariantArray.join(',');
+            unitVariantString = unitVariantArray.join(',');
           }
+        }
+        if (unitVariantString === "All") {
+          return $('#unselectall').attr('checked', true);
+        } else {
+          return $('#unselectall').attr('checked', false);
         }
       },
       'click .done': function(e) {
@@ -141,7 +141,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
-        var globalUnitArrayInt, globalUnitVariants;
+        var globalUnitVariants;
         console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox").slideToggle();
@@ -167,12 +167,13 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #unselectall': function(e) {
-        var remainainArray, tempArray, value;
+        var remainainArray, tempArray, units, value;
         if ($('#' + e.target.id).prop('checked') === true) {
           cloneunitVariantArrayColl.each(function(index) {
             $('#gridlink' + index.get('id')).addClass('selected');
             return $('#checklink' + index.get('id')).val('1');
           });
+          units = cloneunitVariantArrayColl.toArray();
           units.sort(function(a, b) {
             return a - b;
           });
@@ -199,8 +200,20 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       countunits = 0;
+      globalUnitArrayInt = [];
+      if (App.defaults['unitVariant'] !== 'All') {
+        globalUnitVariants = App.defaults['unitVariant'].split(',');
+        $.each(globalUnitVariants, function(index, value) {
+          return globalUnitArrayInt.push(parseInt(value));
+        });
+      }
+      if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
+        $('#unselectall').attr('checked', true);
+      } else {
+        $('#unselectall').attr('checked', false);
+      }
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
       source2 = "../wp-content/uploads/2014/08/image/3.svg";
@@ -272,11 +285,6 @@ define(['marionette'], function(Marionette) {
       cloneunitVariantArrayColl = unitVariantArrayColl.clone();
       console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
-      console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
-      globalUnitArrayInt = [];
-      $.each(globalUnitVariants, function(index, value) {
-        return globalUnitArrayInt.push(parseInt(value));
-      });
       if (App.defaults['unitVariant'] !== 'All') {
         console.log(unitVariantArray = _.union(unitVariantArray, unitVariantIdArray));
         $.each(unitVariantArray, function(index, value) {

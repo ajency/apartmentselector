@@ -3,12 +3,12 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, firstElement, globalArrayLength, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, firstElement, globalUnitArrayInt, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
   unitVariantString = '';
-  globalArrayLength = [];
+  globalUnitArrayInt = [];
   firstElement = '';
   rangeArray = [];
   tagsArray = [];
@@ -69,7 +69,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-7'));
       },
       'click .grid-link': function(e) {
-        var globalUnitArrayInt, globalUnitVariants, id, index, track;
+        var id, index, track;
         console.log(unitVariantArray);
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
@@ -90,35 +90,31 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $('#check' + id).val('1');
         }
         console.log(unitVariantArray);
-        globalUnitArrayInt = [];
-        if (App.defaults['unitVariant'] !== 'All') {
-          globalUnitVariants = App.defaults['unitVariant'].split(',');
-          $.each(globalUnitVariants, function(index, value) {
-            globalUnitArrayInt.push(parseInt(value));
-            return globalArrayLength.push(parseInt(value));
-          });
-        }
-        console.log(globalUnitArrayInt);
         if (globalUnitArrayInt.length !== 0) {
           if (track === 0) {
             console.log(track);
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
             globalUnitArrayInt.push(parseInt(id));
-            globalArrayLength.push(parseInt(id));
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        console.log(unitVariantArray);
+        console.log(unitVariantArray = _.uniq(unitVariantArray));
         console.log(firstElement);
         if (unitVariantArray.length === 0) {
-          return unitVariantString = firstElement.toString();
+          unitVariantString = firstElement.toString();
         } else {
-          if (count === unitVariantArray.length) {
-            return unitVariantString = 'All';
+          if (cloneunitVariantArrayColl.length === unitVariantArray.length) {
+            unitVariantString = 'All';
           } else {
-            return unitVariantString = unitVariantArray.join(',');
+            unitVariantString = unitVariantArray.join(',');
           }
+        }
+        console.log(unitVariantString);
+        if (unitVariantString === "All") {
+          return $('#selectall').attr('checked', true);
+        } else {
+          return $('#selectall').attr('checked', false);
         }
       },
       'click .done': function(e) {
@@ -133,7 +129,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
-        var globalUnitArrayInt, globalUnitVariants;
+        var globalUnitVariants;
         console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox1").slideToggle();
@@ -206,7 +202,19 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, globalUnitArrayInt, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var ajaxurl, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      globalUnitArrayInt = [];
+      if (App.defaults['unitVariant'] !== 'All') {
+        globalUnitVariants = App.defaults['unitVariant'].split(',');
+        $.each(globalUnitVariants, function(index, value) {
+          return globalUnitArrayInt.push(parseInt(value));
+        });
+      }
+      if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
+        $('#selectall').attr('checked', true);
+      } else {
+        $('#selectall').attr('checked', false);
+      }
       console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
@@ -221,11 +229,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       cloneunitVariantArrayColl = unitVariantArrayColl.clone();
       console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
-      console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
-      globalUnitArrayInt = [];
-      $.each(globalUnitVariants, function(index, value) {
-        return globalUnitArrayInt.push(parseInt(value));
-      });
       if (App.defaults['unitVariant'] !== 'All') {
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $.each(unitVariantArray, function(index, value) {
