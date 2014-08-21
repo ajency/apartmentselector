@@ -20,15 +20,7 @@ if(!current_user_can('manage_buildings') && !current_user_can('manage_options'))
                                 <div class="grid-body ">
                                     <table class="table table-hover table-condensed tablesorter" id="example">
                                         <thead>
-                                        <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr>
-                                           <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr>
-                                           <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr> 
+                                       
                                         <tr>
                                           <th style="width:10%">Name</th>
                                             <th style="width:20%" class="filter-select filter-onlyAvail" data-placeholder="All" >Phase</th>
@@ -39,9 +31,7 @@ if(!current_user_can('manage_buildings') && !current_user_can('manage_options'))
                                         <tbody>
                                          <tr><td>loading..............</td></tr>
                                         </tbody>
-                                    </table>
-                                    <br>
-                                    <br>
+                                    </table> 
                                 </div>
                             </div>
                         </div>

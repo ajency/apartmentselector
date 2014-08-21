@@ -2140,7 +2140,7 @@ display:none;
   background-color: #e5e9ec; 
   overflow:auto; 
   position:relative;
-  min-height:911px;
+  min-height:100%;
 }
 .page-content.condensed-layout{  
 	margin-left:50px !important;
