@@ -156,6 +156,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
   };
   App.getBudget = function(budget) {
     var budgetUnitArray, budget_arr, status, units, unitsColl;
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     budgetUnitArray = [];
     budget_arr = budget.split('-');
     budget_arr[0] = budget_arr[0] + '00000';

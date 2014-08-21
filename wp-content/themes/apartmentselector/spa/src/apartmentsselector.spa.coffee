@@ -197,6 +197,7 @@ require [ 'plugin-loader'
         App.currentStore.unit
 
     App.getBudget = (budget)->
+        console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         budgetUnitArray = []
         budget_arr = budget.split('-')
         budget_arr[0] = budget_arr[0] + ('00000')

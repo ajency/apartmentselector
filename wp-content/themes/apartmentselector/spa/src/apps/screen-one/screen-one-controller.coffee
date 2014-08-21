@@ -22,6 +22,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
         _unitTypeClicked:=>
+
             App.navigate "screen-two" , trigger:true
 
 
