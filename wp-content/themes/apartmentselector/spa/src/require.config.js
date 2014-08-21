@@ -34,7 +34,7 @@ requirejs.config({
     jqueryEasingmin: 'src/bower_components/preload/jquery.easing.min',
     jqueryliquidslider: 'src/bower_components/preload/jquery.liquid-slider.min',
     jquerytouchswipe: 'src/bower_components/preload/jquery.touchSwipe.min',
-    jqueryCookie: 'src/bower_components/bower_components/jquery-cookie/jquery.cookie',
+    jqueryCookie: 'src/bower_components/jquery-cookie/jquery.cookie',
     scroller: 'src/bower_components/preload/scroller',
     bjqs: 'src/bower_components/preload/bjqs-1.3.min',
     jquerySecret: 'src/bower_components/preload/jquery.secret-source.min'
