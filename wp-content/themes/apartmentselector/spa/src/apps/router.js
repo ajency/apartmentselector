@@ -39,6 +39,7 @@ define(['marionette'], function(Marionette) {
       if (params == null) {
         params = {};
       }
+      console.log("router");
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       flag = 0;

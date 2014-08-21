@@ -99,7 +99,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, buildingvalue, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, unitArray, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsactual, unitslen, unitvariant;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, unitArray, unitAssigned, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitvariant;
       console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
@@ -307,300 +307,83 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         return a - b;
       });
       console.log(unitVariantModels);
-      units.each(function(item) {
-        if (buildingArray.indexOf(item.get('building')) === -1) {
-          return buildingArray.push(item.get('building'));
+      floorArray = [];
+      floorCountArray = [];
+      unitsArray = [];
+      buildingvalue = App.defaults['building'];
+      if (App.defaults['building'] === "All") {
+        buildings = App.currentStore.building;
+        buildings.each(function(item) {
+          var unitsColl;
+          unitsColl = App.master.unit.where({
+            building: item.get('id')
+          });
+          return unitsArray.push({
+            id: item.get('id'),
+            count: unitsColl.length
+          });
+        });
+        buildingvalue = _.max(unitsArray, function(model) {
+          return model.count;
+        });
+        console.log(buildingvalue = buildingvalue.id);
+      }
+      console.log(unitsCollection = units.where({
+        building: parseInt(buildingvalue)
+      }));
+      $.each(unitsCollection, function(index, value) {
+        if (floorArray.indexOf(value.get('floor')) === -1) {
+          floorArray.push(value.get('floor'));
+          return floorCountArray.push({
+            id: value.get('floor')
+          });
         }
       });
-      $.each(buildingArray, function(index, value) {
-        var buildingModel, buildingid, floorArray, floorCountArray, unitCollection, unitsCollection;
-        buildingid = value;
-        floorArray = [];
-        floorCountArray = [];
-        unitsArray = [];
-        console.log(unitsCollection = units.where({
-          building: value
+      floorArray = floorArray.sort();
+      floorArray.sort(function(a, b) {
+        return b - a;
+      });
+      floorCountArray.sort(function(a, b) {
+        return b.id - a.id;
+      });
+      unitArray = [];
+      unitAssigned = units.pluck("unitAssigned");
+      console.log(uniqunitAssigned = _.uniq(unitAssigned));
+      $.each(uniqunitAssigned, function(index, value) {
+        var unitAssgendModels, unitAssgendModelsColl;
+        console.log(unitAssgendModels = units.where({
+          unitAssigned: value
         }));
-        $.each(unitsCollection, function(index, value) {
-          if (floorArray.indexOf(value.get('floor')) === -1) {
-            floorArray.push(value.get('floor'));
-            return floorCountArray.push({
-              id: value.get('floor')
-            });
-          }
-        });
-        floorArray = floorArray.sort();
-        floorArray.sort(function(a, b) {
-          return b - a;
-        });
-        floorCountArray.sort(function(a, b) {
-          return b.id - a.id;
-        });
-        $.each(floorArray, function(index, value) {
-          var floorCollection, floorunits;
-          floorunits = App.master.unit.where({
-            floor: value,
-            building: buildingid
+        $.each(unitAssgendModels, function(index, value) {
+          var unitType, unitVariant;
+          unitType = App.master.unit_type.findWhere({
+            id: value.get('unitType')
           });
-          floorunits.sort(function(a, b) {
-            return a.get('id') - b.get('id');
+          value.set("unittypename", unitType.get("name"));
+          unitVariant = App.master.unit_variant.findWhere({
+            id: value.get('unitVariant')
           });
-          floorCollection = new Backbone.Collection(floorunits);
-          unitsArray.push({
-            floorunits: floorCollection
-          });
-          return $.each(floorunits, function(index, value) {
-            var str, unitType, unitVariant;
-            unitType = App.master.unit_type.findWhere({
-              id: value.get('unitType')
-            });
-            str = unitType.get('name');
-            str = str.replace(/\s/g, '');
-            value.set('unitTypeName', str);
-            unitVariant = App.master.unit_variant.findWhere({
-              id: value.get('unitVariant')
-            });
-            return value.set('unitVariantName', unitVariant.get('name'));
-          });
+          return value.set("sellablearea", unitVariant.get("sellablearea"));
         });
-        buildingModel = App.master.building.findWhere({
-          id: value
+        unitAssgendModels.sort(function(a, b) {
+          return b.floor - a.floor;
         });
-        buildingArrayModel.push(buildingModel);
-        unitCollection = new Backbone.Collection(unitsArray);
+        unitAssgendModelsColl = new Backbone.Collection(unitAssgendModels);
         return unitArray.push({
           id: value,
-          buildingid: value,
-          units: unitCollection,
-          floorcount: floorCountArray
+          units: unitAssgendModelsColl
         });
+      });
+      unitArray.sort(function(a, b) {
+        return a.id - b.id;
       });
       console.log(unitArray);
-      building = App.master.building.toArray();
-      buildingCollection = App.master.building;
-      buildingvalue = _.max(unitArray, function(model) {
-        return model.units.length;
+      console.log(newunitCollection = new Backbone.Collection(unitArray));
+      buildingModel = App.currentStore.building.where({
+        id: parseInt(buildingvalue)
       });
-      building.sort(function(a, b) {
-        return a.get('id') - b.get('id');
-      });
-      modelIdArr = [];
-      modelArr = [];
-      ModelActualArr = [];
-      unitsactual = [];
-      $.each(building, function(index, value) {
-        return modelIdArr.push(value.get('id'));
-      });
-      if (App.defaults['building'] === 'All') {
-        console.log(index = _.indexOf(modelIdArr, buildingvalue.id));
-      } else {
-        console.log(index = _.indexOf(modelIdArr, App.defaults['building']));
-      }
-      if (index === -1) {
-        index = 0;
-      }
-      highLength = modelIdArr.length - index;
-      i = index;
-      while (i < modelIdArr.length) {
-        modelArr.push(modelIdArr[i]);
-        i++;
-      }
-      j = 0;
-      while (j < index) {
-        modelArr.push(modelIdArr[j]);
-        j++;
-      }
-      newunitCollection = new Backbone.Collection(unitArray);
-      console.log(modelArr);
-      $.each(modelArr, function(index, value) {
-        ModelActualArr.push(buildingCollection.get(value));
-        return unitsactual.push(newunitCollection.get(value));
-      });
-      buildingArray = Array();
-      buildingArrayModel = Array();
-      unitColl = Array();
-      templateArr = [];
-      mainunitTypeArray = [];
-      mainnewarr = [];
-      mainunique = {};
-      MainCollection = new Backbone.Model();
-      status = App.master.status.findWhere({
-        'name': 'Available'
-      });
-      units = App.master.unit.where({
-        'status': status.get('id')
-      });
-      Countunits = App.master.unit.where({
-        'status': status.get('id')
-      });
-      param = {};
-      paramkey = {};
-      flag = 0;
-      mainunitsTypeArray = [];
-      lunitTypeArray = [];
-      lnewarr = [];
-      lunique = {};
-      munitTypeArray = [];
-      mnewarr = [];
-      munique = {};
-      hunitTypeArray = [];
-      hnewarr = [];
-      hunique = {};
-      mainunitTypeArray = [];
-      $.each(units, function(index, value) {
-        var maxcoll, unitType;
-        maxcoll = Array();
-        if (buildingArray.indexOf(value.get('building')) === -1) {
-          buildingArray.push(value.get('building'));
-        }
-        unitType = App.master.unit_type.findWhere({
-          id: value.get('unitType')
-        });
-        return mainunitTypeArray.push({
-          id: unitType.get('id'),
-          name: unitType.get('name')
-        });
-      });
-      console.log(range);
-      if (range === 'LOWRISE') {
-        $.each(mainunitTypeArray, function(key, item) {
-          var count;
-          if (!lunique[item.id]) {
-            lunitTypeArray = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            count = App.master.unit.where({
-              unitType: item.id,
-              'status': status.get('id')
-            });
-            $.each(count, function(index, value) {
-              lowUnits = App.master.range.findWhere({
-                name: 'low'
-              });
-              if ((value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) && item.id === value.get('unitType')) {
-                return lunitTypeArray.push(value.get('id'));
-              }
-            });
-            return lunique[item.id] = item;
-          }
-        });
-        mainnewarr.push({
-          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
-          image: 'url',
-          rangetext: "LOWRISE"
-        });
-      } else if (range === 'MIDRISE') {
-        $.each(mainunitTypeArray, function(key, item) {
-          var count;
-          if (!munique[item.id]) {
-            munitTypeArray = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            count = App.master.unit.where({
-              unitType: item.id,
-              'status': status.get('id')
-            });
-            $.each(count, function(index, value) {
-              mediumUnits = App.master.range.findWhere({
-                name: 'medium'
-              });
-              if ((value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) && item.id === value.get('unitType')) {
-                return munitTypeArray.push(value.get('id'));
-              }
-            });
-            return munique[item.id] = item;
-          }
-        });
-        mainnewarr.push({
-          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
-          image: 'url',
-          rangetext: "MIDRISE"
-        });
-      } else if (range === 'HIGHRISE') {
-        $.each(mainunitTypeArray, function(key, item) {
-          var count;
-          if (!hunique[item.id]) {
-            hunitTypeArray = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            count = App.master.unit.where({
-              unitType: item.id,
-              'status': status.get('id')
-            });
-            $.each(count, function(index, value) {
-              highUnits = App.master.range.findWhere({
-                name: 'high'
-              });
-              if ((value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) && item.id === value.get('unitType')) {
-                return hunitTypeArray.push(value.get('id'));
-              }
-            });
-            return hunique[item.id] = item;
-          }
-        });
-        mainnewarr.push({
-          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
-          image: 'url',
-          rangetext: "HIGHRISE"
-        });
-      } else {
-        range = "ALL";
-        $.each(mainunitTypeArray, function(key, item) {
-          var count;
-          if (!hunique[item.id]) {
-            hunitTypeArray = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            count = App.master.unit.where({
-              unitType: item.id,
-              'status': status.get('id')
-            });
-            $.each(count, function(index, value) {
-              return hunitTypeArray.push(value.get('id'));
-            });
-            return hunique[item.id] = item;
-          }
-        });
-        mainnewarr.push({
-          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
-          image: 'url',
-          rangetext: "HIGHRISE"
-        });
-        mainnewarr.push({
-          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
-          image: 'url',
-          rangetext: "MIDRISE"
-        });
-        mainnewarr.push({
-          text: 'Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.',
-          image: 'url',
-          rangetext: "LOWRISE"
-        });
-      }
-      console.log(mainnewarr);
-      if (App.defaults['building'] === "All") {
-        unitArray.sort(function(a, b) {
-          return b.units.length - a.units.length;
-        });
-        buildingsactual = [];
-        unitsactual = [];
-        buildingCollection = App.master.building;
-        units = new Backbone.Collection(unitArray);
-        $.each(unitArray, function(index, value) {
-          value = value.id;
-          buildingsactual.push(buildingCollection.get(value));
-          return unitsactual.push(units.get(value));
-        });
-        console.log(buildingCollection = new Backbone.Collection(buildingsactual));
-        newunitCollection = new Backbone.Collection(unitsactual);
-      } else {
-        buildingCollection = new Backbone.Collection(ModelActualArr);
-        console.log(newunitCollection = new Backbone.Collection(unitsactual));
-      }
+      console.log(buildingCollection = new Backbone.Collection(buildingModel));
+      mainnewarr = "";
       return [buildingCollection, newunitCollection, templateString, Countunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID];
     };
 

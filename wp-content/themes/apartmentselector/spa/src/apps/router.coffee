@@ -36,6 +36,7 @@ define [ 'marionette'], ( Marionette )->
 
 
         show :(params={})->
+            console.log "router"
             App.filter(params)
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion

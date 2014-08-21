@@ -4,21 +4,21 @@ define [ 'marionette' ], ( Marionette )->
     unitVariantArray = ''
     unitVariantIdArray = []
     unitVariantString = ''
-    firstElement =''
+    firstElement = ''
     tagsArray = []
     count = 0
     object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
     rangeArray =[]
-    countunits = 0
-    globalUnitArrayInt = []
+
+
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
                         <div class="col-sm-4">
-                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
-                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
@@ -53,11 +53,15 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
-
+        <div id="floorsvg">
+                                    </div>
                     <div id="vs-container" class="vs-container">
                         <header class="vs-header" id="building-region"></header>
                         <div  id="unit-region"></div>
                     </div>
+
+
+
 
                     <div class="h-align-middle m-t-20 m-b-20">
                         <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a>
@@ -157,9 +161,14 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 console.log unitVariantArray
+                globalUnitArrayInt = []
 
+                if App.defaults['unitVariant'] != 'All'
+                    globalUnitVariants = App.defaults['unitVariant'].split(',')
+                    $.each(globalUnitVariants, (index,value)->
+                        globalUnitArrayInt.push(parseInt(value))
 
-
+                    )
                 console.log globalUnitArrayInt
                 if globalUnitArrayInt.length != 0
                     if track == 0
@@ -167,10 +176,9 @@ define [ 'marionette' ], ( Marionette )->
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
                         globalUnitArrayInt.push(parseInt(id))
-                        console.log globalUnitArrayInt
                         unitVariantArray = globalUnitArrayInt
 
-                console.log unitVariantArray = _.uniq(unitVariantArray)
+                console.log firstElement
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
 
@@ -178,15 +186,11 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                    if cloneunitVariantArrayColl.length == unitVariantArray.length
+                    if count == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
                         unitVariantString = unitVariantArray.join(',')
-                if unitVariantString == "All"
-                    $('#unselectall' ).attr 'checked' , true
-                else
-                    $('#unselectall' ).attr 'checked', false
 
 
 
@@ -197,7 +201,6 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
-
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -209,7 +212,6 @@ define [ 'marionette' ], ( Marionette )->
                 globalUnitArrayInt = []
                 $.each(globalUnitVariants, (index,value)->
                     globalUnitArrayInt.push(parseInt(value))
-
                 )
 
                 if App.defaults['unitVariant'] != 'All'
@@ -223,14 +225,6 @@ define [ 'marionette' ], ( Marionette )->
                         else
                             $('#gridlink'+value).removeClass 'selected'
                             $('#checklink'+value).val '0'
-
-
-
-
-
-
-
-
                     )
             'click #unselectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
@@ -239,7 +233,7 @@ define [ 'marionette' ], ( Marionette )->
                         $('#checklink'+index.get('id')).val '1'
 
 
-                    units = cloneunitVariantArrayColl.toArray()
+
                     units.sort(  (a,b)->
                         a - b
                     )
@@ -265,27 +259,18 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
-            countunits = 0
-            globalUnitArrayInt = []
-            if App.defaults['unitVariant'] != 'All'
-                globalUnitVariants = App.defaults['unitVariant'].split(',')
-                $.each(globalUnitVariants, (index,value)->
-                    globalUnitArrayInt.push(parseInt(value))
 
-                )
-            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
-                $('#unselectall' ).attr 'checked' ,  true
-            else
-                $('#unselectall' ).attr 'checked', false
 
-            source ="../wp-content/uploads/2014/08/image/1.svg"
-            source1 ="../wp-content/uploads/2014/08/image/2.svg"
-            source2 ="../wp-content/uploads/2014/08/image/3.svg"
-            source3 ="../wp-content/uploads/2014/08/image/4.svg"
+            source = "../wp-content/uploads/2014/08/image/1.svg"
+            source1 = "../wp-content/uploads/2014/08/image/2.svg"
+            source2 = "../wp-content/uploads/2014/08/image/3.svg"
+            source3 = "../wp-content/uploads/2014/08/image/4.svg"
+            floorsvg = "../wp-content/uploads/2014/08/image/floor.svg"
             $('<div></div>').load(source).appendTo("#svg1")
             $('<div></div>').load(source1).appendTo("#svg2")
             $('<div></div>').load(source2).appendTo("#svg3")
             $('<div></div>').load(source3).appendTo("#svg4")
+            $('<div></div>').load(floorsvg).appendTo("#floorsvg")
 
             $('#sliderplans').liquidSlider(
                 slideEaseFunction: "fade",
@@ -324,23 +309,12 @@ define [ 'marionette' ], ( Marionette )->
                 else
                     $('.unitTable').removeClass('table-end')
                     $('.cd-scroll-right').show()
-
-
-
-
-
-
             )
             $('.cd-scroll-right').on('click', ()->
                 $this= $(this)
                 column_width = $(this).siblings('.cd-table-container').find('.cd-block').eq(0).css('width').replace('px', '')
                 new_left_scroll = parseInt($('.cd-table-container').scrollLeft()) + parseInt(column_width)
                 $('.cd-table-container').animate( {scrollLeft: new_left_scroll}, 200 )
-
-
-
-
-
             )
 
             $(".variantToggle").click ->
@@ -363,7 +337,12 @@ define [ 'marionette' ], ( Marionette )->
             cloneunitVariantArrayColl = unitVariantArrayColl.clone()
             console.log unitVariants  = unitVariantArray
             console.log firstElement = _.first(unitVariantArray)
+            console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
+            globalUnitArrayInt = []
+            $.each(globalUnitVariants, (index,value)->
+                globalUnitArrayInt.push(parseInt(value))
 
+            )
 
             if App.defaults['unitVariant'] != 'All'
                 console.log unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
@@ -461,11 +440,13 @@ define [ 'marionette' ], ( Marionette )->
 
     class BuildingView extends Marionette.ItemView
 
-        template : '<a class="link" href="tower{{id}}">{{name}}</a>'
+        template : '<a class="link" >{{name}}</a>'
 
         tagName : 'li'
 
         events :
+            'click a':(e)->
+                e.preventDefault()
             'click .link' : ( e )->
                 $( '#tower'+@model.get 'id' ).removeClass 'hidden'
                 App.defaults['building'] = @model.get 'id'
@@ -493,82 +474,38 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-    class childViewUnit extends Marionette.ItemView
-
-        template : '<div id="check{{id}}" class="check" >
-                        <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>
-        <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>     												{{name}}
-        				<div class="small">{{unitTypeName}} {{unitVariantName}} </div>
-        			</div>'
 
 
 
 
-        className : 'cd-block'
+
+
+
+
+    class unitChildView extends Marionette.ItemView
+
+        template : '
+
+                                                              <div class="pull-left light">
+                                                            <h5 class="rangeName bold m-t-5">Floor {{floor}}</h5>
+                                                        </div>
+                                                        <div class="pull-right text-center">
+                                                            <div class="unitNo">{{name}}</div>
+                                                            <div class="small">{{unittypename}} {{sellablearea}} Sq.ft.</div>
+                                                        </div><input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>
+                 <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>
+                                                        <div class="clearfix"></div>
+                                                    '
+
+
+
+        className : 'check'
 
         initialize :->
-            @$el.prop("id", 'unit'+@model.get("id"))
-
-        onShow :->
-            myArray = []
-            $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor'
-                    myArray.push({key:index,value:value})
-
-            )
-            console.log myArray
-            flag = 0
-            object = @
-            track = 0
-            $.each(myArray, (index,value)->
-                paramKey = {}
-                if value.key == 'budget'
-                    buildingModel = App.master.building.findWhere({'id':object.model.get 'building'})
-                    floorRise = buildingModel.get 'floorrise'
-                    floorRiseValue = floorRise[object.model.get 'floor']
-                    unitVariantmodel = App.master.unit_variant.findWhere({'id':object.model.get 'unitVariant'})
-                    #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
-                    unitPrice = object.model.get 'unitPrice'
-                    budget_arr = value.value.split(' ')
-                    budget_price = budget_arr[0].split('-')
-                    console.log budget_price[0] = budget_price[0]+'00000'
-                    console.log budget_price[1] = budget_price[1]+'00000'
-                    if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
-                        flag++
-                else if value.key != 'floor'
-
-                    console.log value.key
-                    console.log value.value
-                    if object.model.get(value.key) == parseInt(value.value)
-                       console.log  flag++
-
-
-            )
-            if flag == myArray.length
-                track =1
-
-
-
-            console.log flag
-            if myArray.length == 0
-                track = 1
-            console.log @model.get('unitType')
-            console.log @model.get('name')
-
-            if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
-                $('#check'+@model.get("id")).addClass 'box filtered'
-                $('#flag'+@model.get("id")).val '1'
-                countunits++
-            else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14
-                $('#check'+@model.get("id")).addClass 'box sold'
-            else
-                $('#check'+@model.get("id")).addClass 'box other'
-                $('#check'+@model.get("id")).text @model.get 'unitTypeName'
-            $('.count').text countunits
-
+            @$el.prop("id", 'check'+@model.get("id"))
 
         events:
-            'click .check':(e)->
+            'click ':(e)->
                 unitModel = App.master.unit.findWhere(id:@model.get("id"))
 
                 console.log rangeArray
@@ -613,76 +550,92 @@ define [ 'marionette' ], ( Marionette )->
                     return false
 
 
+        onShow :->
+            myArray = []
+            $.map(App.defaults, (value, index)->
+                if value!='All' && index != 'floor'
+                    myArray.push({key:index,value:value})
+
+            )
+            console.log myArray
+            flag = 0
+            object = @
+            track = 0
+            $.each(myArray, (index,value)->
+                paramKey = {}
+                if value.key == 'budget'
+                    buildingModel = App.master.building.findWhere({'id':object.model.get 'building'})
+                    floorRise = buildingModel.get 'floorrise'
+                    floorRiseValue = floorRise[object.model.get 'floor']
+                    unitVariantmodel = App.master.unit_variant.findWhere({'id':object.model.get 'unitVariant'})
+                    #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                    unitPrice = object.model.get 'unitPrice'
+                    budget_arr = value.value.split(' ')
+                    budget_price = budget_arr[0].split('-')
+                    console.log budget_price[0] = budget_price[0]+'00000'
+                    console.log budget_price[1] = budget_price[1]+'00000'
+                    if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                        flag++
+                else if value.key != 'floor'
+
+                    console.log value.key
+                    console.log value.value
+                    if object.model.get(value.key) == parseInt(value.value)
+                        console.log  flag++
+
+
+            )
+            if flag == myArray.length
+                track =1
 
 
 
-    class unitChildView extends Marionette.CompositeView
+            console.log flag
+            if myArray.length == 0
+                track = 1
+            console.log @model.get('unitType')
+            console.log @model.get('name')
 
-        template : '<div class="clearfix"></div>'
+            if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
+                $('#check'+@model.get("id")).addClass 'boxLong filtered'
+                $('#flag'+@model.get("id")).val '1'
+            else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14
+                $('#check'+@model.get("id")).addClass 'boxLong sold'
+            else
+                $('#check'+@model.get("id")).addClass 'boxLong other'
+                $('#check'+@model.get("id")).text @model.get 'unitTypeName'
 
 
 
-        className : 'cd-table-row'
-
-
-
-        childView : childViewUnit
 
 
 
 
 
 
-        initialize :->
-            @collection = @model.get 'floorunits'
 
-    class emptyChildView extends Marionette.CompositeView
 
-        template : 'No units available for the current selection'
 
-        className : 'noUnits'
+
+
+
+
+
+
 
 
     class UnitView extends Marionette.CompositeView
 
-        template : '<div class="vs-content">
-                        <div  class="unitTable">
-                            <header class="cd-table-column">
-                    			<ul>
-                                    {{#floorcount}}
-                                    <li>
-                                        Floor {{id}}
-                                    </li>
-                                    {{/floorcount}}
-                    			</ul>
-                    		</header>
-                    		<div class="cd-table-container">
-                                <div class="cd-table-wrapper">
-                                </div>
-                            </div>
-                            <em class="cd-scroll-right"></em>
-                        </div>
-                    </div>'
+        template : '<div class="unitContainer"></div>'
 
 
 
 
         childView : unitChildView
 
-        emptyView : emptyChildView
+        childViewContainer : '.unitContainer'
 
 
-        tagName  : "section"
-
-        childViewContainer : '.cd-table-wrapper'
-
-
-        collectionEvents :
-            'reset'  : 'dataUpdated'
-
-
-        dataUpdated:->
-            console.log "aaaaaaaaaaaaa"
 
 
 
@@ -691,7 +644,8 @@ define [ 'marionette' ], ( Marionette )->
 
         initialize :->
             @collection = @model.get 'units'
-            @$el.prop("id", 'tower'+@model.get("buildingid"))
+            @$el.prop("id", @model.get("id"))
+
 
 
 
@@ -701,10 +655,23 @@ define [ 'marionette' ], ( Marionette )->
 
     class UnitTypeView extends Marionette.CompositeView
 
-        className : "vs-wrapper"
+        template : '<div class="unitTable">
+                                <div id="unitsSlider" class="unitSlider">
+                                    </div></div>'
 
 
         childView : UnitView
+
+        childViewContainer : '.unitSlider'
+
+        onShow:->
+            sudoSlider = $("#unitsSlider").sudoSlider(
+                customLink: "a.customLink"
+                prevNext: false
+                responsive: true
+                speed: 800
+                # continuous:true
+            )
 
 
 
