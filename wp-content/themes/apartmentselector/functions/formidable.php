@@ -371,4 +371,25 @@ function your_custom_validation($errors, $field, $value){
 }
 
 
+function edit_frm_display_value_custom($value, $field, $atts){
 
+ switch( $field->field_key){
+
+ 	case "unittype":
+ 		$unit_type = get_unit_types(array($value));
+ 		$value= $unit_type[0]["name"]; 
+ 	break;
+ 	case "roomsizes":
+ 		 $value_edited = "";
+ 		 foreach($value as $value_item){
+ 		 	$room_type_for_sizes = get_room_type_for_sizes($value_item["room_type"]) ;
+			$value_edited .= $room_type_for_sizes[0]["name"].": ".$value_item["room_size"]." sq ft <br>";
+ 		 }
+ 		$value = $value_edited;
+ 	break;
+ 	default:
+ 	break;
+ }
+ return $value;
+}
+add_filter('frm_display_value_custom','edit_frm_display_value_custom',10,3);
