@@ -90,7 +90,7 @@ define(['extm'], function(Extm) {
             i++;
           }
           console.log(jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal));
-          if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) === 0) {
+          if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
             console.log("aaaaaaaaaaa");
             return App.defaults['floor'] = rangeArrayVal.join(',');
           }

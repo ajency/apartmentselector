@@ -149,7 +149,7 @@ define [ 'extm'], ( Extm)->
                         start = parseInt(start) + 1
                         i++
                     console.log jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal)
-                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) == 0
+                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
                         console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')
 
