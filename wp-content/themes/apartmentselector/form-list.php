@@ -47,8 +47,11 @@ $form_id = $_REQUEST["form_id"];
 
 							<?php 
  							$page = get_page_by_title( 'Add Edit Details' );
-     
-							echo FrmProEntriesController::get_form_results(array('id' => $form_id,'edit_link'=>"Edit",'page_id'=>$page->ID));;
+     						$fields = '';
+							if($form_id ==24){
+								$fields = 'name,unittype,carpetarea,terracearea,sellablearea,persqftprice,premiumaddon,2dlayout,3dlayout,roomsizes,terraceoptions';
+							}
+							echo FrmProEntriesController::get_form_results(array('id' => $form_id,'edit_link'=>"Edit",'page_id'=>$page->ID,'fields'=>$fields));
 							?>
 							 
 						</div><!-- .entry-content -->

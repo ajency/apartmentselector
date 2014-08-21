@@ -416,13 +416,12 @@ $heading = "Edit";
                      foreach($building_exception["flats"] as $building_no_of_flat){
                      ?>
                      <div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats<?php echo($exception_count);?>' ><div class="form-group">
+                            <div class="form-group"><div class="row"><div class="col-md-12">
                             <label class="form-label">
                                 Flat No: <?php echo $building_no_of_flat['flat_no'];?>
-                            </label>
-                            <span class="help">
-                            </span>
+                            </label> 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     Basic: <span class="btn btn-success fileinput-button">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     <span>Select files...</span> 
@@ -440,6 +439,9 @@ $heading = "Edit";
                                             <img src="<?php echo $building_no_of_flat['basic_thumbnail_image_url'];?>" id="fileuploadbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
                                         </div>
                                     </div>
+                                    </div>
+                                <div class="col-md-6">
+
                                     Detailed: <span class="btn btn-success fileinput-button">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     <span>Select files...</span> 
@@ -452,7 +454,7 @@ $heading = "Edit";
                                     </div>
                                     <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
                                     <br>
-                                    <div class="row-fluid">
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <img src="<?php echo $building_no_of_flat['detailed_thumbnail_image_url'];?>" id="fileuploaddetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
                                         </div>
@@ -460,12 +462,12 @@ $heading = "Edit";
                                 </div>
                             </div>
                         </div>
-                    <div class="row-fluid">
-                        <div class="col-md-12">
-                             <img src="">
-                        </div> 
-                    </div>
-                    </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                      
+                      
                      <?php   
                     }
 
