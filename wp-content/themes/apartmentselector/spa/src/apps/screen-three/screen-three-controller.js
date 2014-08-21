@@ -158,7 +158,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 if (track === 0) {
                   trackArray.push(value.value);
                 }
-                flag = 1;
                 _results.push(track = 1);
               } else {
                 _results.push(void 0);
@@ -180,7 +179,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               if (track === 0) {
                 trackArray.push(value.value);
               }
-              flag = 1;
               return track = 1;
             }
           }

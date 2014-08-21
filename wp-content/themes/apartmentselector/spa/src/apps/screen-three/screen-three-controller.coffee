@@ -166,7 +166,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if value.key == 'floor'
                                 if track == 0
                                     trackArray.push value.value
-                                flag = 1
+                                #flag = 1
                                 track = 1
                     else
                         if value.key == 'unitType'
@@ -181,7 +181,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if value.key == 'floor'
                             if track == 0
                                 trackArray.push value.value
-                            flag = 1
+                            #flag = 1
                             track = 1
 
 
