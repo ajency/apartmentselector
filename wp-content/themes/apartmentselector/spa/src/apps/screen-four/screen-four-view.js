@@ -38,6 +38,7 @@ define(['marionette'], function(Marionette) {
           if (parseInt(key) === -1) {
             $('#errormsg').text("");
             App.cookieArray.push(parseInt(App.unit['name']));
+            $('#list').addClass("remove");
           } else {
             console.log("Already entered");
             $('#errormsg').text("Already entered");
@@ -87,6 +88,7 @@ define(['marionette'], function(Marionette) {
           console.log(index = App.cookieArray.indexOf(parseInt(val)));
           App.cookieArray.splice(index, 1);
           $.cookie('key', App.cookieArray);
+          $('#errormsg').text("");
           console.log($.cookie('key'));
           return this.showWishList();
         },
@@ -138,6 +140,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
+      var cookieOldValue;
       $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
@@ -146,6 +149,16 @@ define(['marionette'], function(Marionette) {
       $('html, body').animate({
         scrollTop: $('#screen-four-region').offset().top
       }, 'slow');
+      console.log(cookieOldValue = $.cookie("key"));
+      console.log(typeof cookieOldValue);
+      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+        cookieOldValue = [];
+      } else {
+        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+          return parseInt(item);
+        }));
+      }
+      App.cookieArray = cookieOldValue;
       return this.showWishList();
     };
 

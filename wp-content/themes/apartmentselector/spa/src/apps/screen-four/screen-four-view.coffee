@@ -45,6 +45,7 @@ define [ 'marionette' ], ( Marionette )->
                 if parseInt(key) == -1
                     $('#errormsg' ).text ""
                     App.cookieArray.push(parseInt(App.unit['name']))
+                    $('#list').addClass "remove"
                 else
                     console.log "Already entered"
                     $('#errormsg' ).text "Already entered"
@@ -93,6 +94,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                $('#errormsg' ).text ""
 
 
                 console.log $.cookie('key')
@@ -155,6 +157,15 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
+            console.log cookieOldValue = $.cookie("key")
+            console.log typeof cookieOldValue
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+            App.cookieArray = cookieOldValue
             @showWishList()
 
         showWishList:->

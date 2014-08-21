@@ -53,6 +53,7 @@ define(['extm'], function(Extm) {
         console.log(index = App.cookieArray.indexOf(parseInt(val)));
         App.cookieArray.splice(index, 1);
         $.cookie('key', App.cookieArray);
+        $('#errormsg').text("");
         return this.showWishList();
       },
       'click a': function(e) {
@@ -110,7 +111,7 @@ define(['extm'], function(Extm) {
     };
 
     mainView.prototype.onShow = function() {
-      var height;
+      var cookieOldValue, height;
       console.log(height = $(window).scrollTop());
       $(window).scroll(function() {
         height = $(window).scrollTop();
@@ -122,6 +123,16 @@ define(['extm'], function(Extm) {
           return $('.slctnTxt').removeClass('hidden');
         }
       });
+      console.log(cookieOldValue = $.cookie("key"));
+      console.log(typeof cookieOldValue);
+      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+        cookieOldValue = [];
+      } else {
+        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+          return parseInt(item);
+        }));
+      }
+      App.cookieArray = cookieOldValue;
       return this.showWishList();
     };
 

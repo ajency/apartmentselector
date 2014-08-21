@@ -118,6 +118,7 @@ define [ 'extm'], ( Extm)->
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                $('#errormsg' ).text ""
                 @showWishList()
 
             'click a':(e)->
@@ -198,6 +199,15 @@ define [ 'extm'], ( Extm)->
 
 
             )
+            console.log cookieOldValue = $.cookie("key")
+            console.log typeof cookieOldValue
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+            App.cookieArray = cookieOldValue
             @showWishList()
         showWishList:->
             table = ""
