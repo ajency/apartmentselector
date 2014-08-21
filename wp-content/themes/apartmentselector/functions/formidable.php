@@ -386,10 +386,33 @@ function edit_frm_display_value_custom($value, $field, $atts){
 			$value_edited .= $room_type_for_sizes[0]["name"].": ".$value_item["room_size"]." sq ft <br>";
  		 }
  		$value = $value_edited;
- 	break;
+ 	break; 
  	default:
  	break;
  }
  return $value;
 }
 add_filter('frm_display_value_custom','edit_frm_display_value_custom',10,3);
+
+
+function edit_frm_display_value($value, $field, $atts){
+
+ switch( $field->field_key){
+
+ 
+ 	case "2dlayout":
+ 	  $value_edited = explode("</a>",$value);
+ 	  $value = $value_edited[0]."</a>" ;
+ 
+ 	break;
+ 		case "3dlayout":
+ 	  $value_edited = explode("</a>",$value);
+ 	  $value = $value_edited[0]."</a>" ;
+ 
+ 	break;
+ 	default:
+ 	break;
+ }
+ return $value;
+}
+add_filter('frm_display_value','edit_frm_display_value',10,3);
