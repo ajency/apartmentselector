@@ -36,6 +36,8 @@ requirejs.config
         jquerytouchswipe :'src/bower_components/preload/jquery.touchSwipe.min'
         jqueryCookie :'src/bower_components/jquery-cookie/jquery.cookie'
         scroller : 'src/bower_components/preload/scroller'
+        bjqs :'src/bower_components/preload/bjqs-1.3.min'
+        jquerySecret :'src/bower_components/preload/jquery.secret-source.min'
 
 
 
@@ -73,6 +75,8 @@ requirejs.config
         jquerytouchswipe : ['jquery']
         scroller : ['jquery']
         jqueryCookie : ['jquery']
+        bjqs : ['jquery']
+        jquerySecret: ['jquery']
 
 
 

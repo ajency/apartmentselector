@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, count, emptyChildView, firstElement, flag_set, object, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, childViewUnit, cloneunitVariantArrayColl, count, countunits, emptyChildView, firstElement, flag_set, globalUnitArrayInt, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -12,6 +12,11 @@ define(['marionette'], function(Marionette) {
   tagsArray = [];
   count = 0;
   object = "";
+  unitVariants = [];
+  cloneunitVariantArrayColl = "";
+  rangeArray = [];
+  countunits = 0;
+  globalUnitArrayInt = [];
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -19,7 +24,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> {{#high}} <div class="towerRange"> <h3 class="text-primary text-center semi-bold m-t-0"><u>{{rangetext}}</u></h3> <div class="row m-l-0 m-r-0 m-b-20"> <div class="col-sm-4 col-xs-12"> <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block"> </div> <div class="col-sm-8 col-xs-12 m-t-30"> <p>{{text}}</p> </div> </div> </div> {{/high}} </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block sliderPlans" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -29,14 +34,54 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.events = {
+      'click .unit-hover': function(e) {
+        var element, index, unitModel, _i, _len;
+        console.log(e.target.id);
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(e.target.id)
+        });
+        for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
+          element = rangeArray[index];
+          if (element === e.target.id) {
+            $("#select" + e.target.id).val('1');
+          } else {
+            $("#select" + element).val('0');
+            $('#check' + element).removeClass('selected');
+            if (unitModel.get('status') === 9) {
+              $("#" + element).attr('class', 'unit-hover aviable ');
+            } else if (unitModel.get('status') === 8) {
+              $("#" + element).attr('class', 'unit-hover sold ');
+            }
+            rangeArray = [];
+          }
+        }
+        rangeArray.push(parseInt(e.target.id));
+        $('#check' + e.target.id).addClass("selected");
+        $("#select" + e.target.id).val("1");
+        $("#screen-three-button").removeClass('disabled btn-default');
+        return $("#screen-three-button").addClass('btn-primary');
+      },
+      'mouseover .unit-hover': function(e) {
+        var unitModel;
+        console.log(e.target.id);
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(e.target.id)
+        });
+        if (unitModel.get('status') === 9) {
+          return $("#" + e.target.id).attr('class', 'unit-hover aviable');
+        } else if (unitModel.get('status') === 8) {
+          return $("#" + e.target.id).attr('class', 'unit-hover sold');
+        }
+      },
       'click #screen-three-button': function(e) {
+        rangeArray = [];
         return this.trigger('unit:item:selected');
       },
       'click a': function(e) {
         return e.preventDefault();
       },
       'click .grid-link': function(e) {
-        var globalUnitArrayInt, globalUnitVariants, id, index, track;
+        var id, index, track;
         console.log(unitVariantArray);
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
@@ -57,13 +102,6 @@ define(['marionette'], function(Marionette) {
           $('#checklink' + id).val('1');
         }
         console.log(unitVariantArray);
-        globalUnitArrayInt = [];
-        if (App.defaults['unitVariant'] !== 'All') {
-          globalUnitVariants = App.defaults['unitVariant'].split(',');
-          $.each(globalUnitVariants, function(index, value) {
-            return globalUnitArrayInt.push(parseInt(value));
-          });
-        }
         console.log(globalUnitArrayInt);
         if (globalUnitArrayInt.length !== 0) {
           if (track === 0) {
@@ -71,18 +109,24 @@ define(['marionette'], function(Marionette) {
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
             globalUnitArrayInt.push(parseInt(id));
+            console.log(globalUnitArrayInt);
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        console.log(firstElement);
+        console.log(unitVariantArray = _.uniq(unitVariantArray));
         if (unitVariantArray.length === 0) {
-          return unitVariantString = firstElement.toString();
+          unitVariantString = firstElement.toString();
         } else {
-          if (count === unitVariantArray.length) {
-            return unitVariantString = 'All';
+          if (cloneunitVariantArrayColl.length === unitVariantArray.length) {
+            unitVariantString = 'All';
           } else {
-            return unitVariantString = unitVariantArray.join(',');
+            unitVariantString = unitVariantArray.join(',');
           }
+        }
+        if (unitVariantString === "All") {
+          return $('#unselectall').attr('checked', true);
+        } else {
+          return $('#unselectall').attr('checked', false);
         }
       },
       'click .done': function(e) {
@@ -97,7 +141,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
-        var globalUnitArrayInt, globalUnitVariants;
+        var globalUnitVariants;
         console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox").slideToggle();
@@ -123,36 +167,72 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #unselectall': function(e) {
-        var remainainArray, units, value;
+        var remainainArray, tempArray, units, value;
         if ($('#' + e.target.id).prop('checked') === true) {
-          if (unitVariantIdArray.length === 0) {
-            units = unitVariantArray;
-          } else {
-            units = unitVariantIdArray;
-          }
-          $.each(units, function(index, value) {
-            $('#gridlink' + value).addClass('selected');
-            return $('#checklink' + value).val('1');
+          cloneunitVariantArrayColl.each(function(index) {
+            $('#gridlink' + index.get('id')).addClass('selected');
+            return $('#checklink' + index.get('id')).val('1');
           });
+          units = cloneunitVariantArrayColl.toArray();
           units.sort(function(a, b) {
             return a - b;
           });
-          console.log(unitVariantArray = units);
           return unitVariantString = 'All';
         } else {
-          console.log(value = _.first(unitVariantArray));
-          remainainArray = _.rest(unitVariantArray);
+          tempArray = [];
+          cloneunitVariantArrayColl.each(function(value) {
+            return tempArray.push(parseInt(value.get('id')));
+          });
+          console.log(value = _.first(tempArray));
+          remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#gridlink' + value).removeClass('selected');
-            return $('#checklink' + value).val('0');
+            $('#checklink' + value).val('0');
+            index = unitVariantArray.indexOf(parseInt(value));
+            if (index !== -1) {
+              return unitVariantArray.splice(index, 1);
+            }
           });
+          console.log(unitVariantArray);
           return unitVariantString = value.toString();
         }
       }
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, globalUnitArrayInt, globalUnitVariants, scr, testtext, unitVariantArrayText;
+      var $columns_number, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      countunits = 0;
+      globalUnitArrayInt = [];
+      if (App.defaults['unitVariant'] !== 'All') {
+        globalUnitVariants = App.defaults['unitVariant'].split(',');
+        $.each(globalUnitVariants, function(index, value) {
+          return globalUnitArrayInt.push(parseInt(value));
+        });
+      }
+      if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
+        $('#unselectall').attr('checked', true);
+      } else {
+        $('#unselectall').attr('checked', false);
+      }
+      source = "../wp-content/uploads/2014/08/image/1.svg";
+      source1 = "../wp-content/uploads/2014/08/image/2.svg";
+      source2 = "../wp-content/uploads/2014/08/image/3.svg";
+      source3 = "../wp-content/uploads/2014/08/image/4.svg";
+      $('<div></div>').load(source).appendTo("#svg1");
+      $('<div></div>').load(source1).appendTo("#svg2");
+      $('<div></div>').load(source2).appendTo("#svg3");
+      $('<div></div>').load(source3).appendTo("#svg4");
+      $('#sliderplans').liquidSlider({
+        slideEaseFunction: "fade",
+        autoSlide: true,
+        includeTitle: false,
+        fadeOutDuration: 1000,
+        minHeight: 500,
+        forceAutoSlide: true,
+        autoSlideInterval: 5000,
+        dynamicArrows: false,
+        fadeInDuration: 1000
+      });
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
       } else if (App.screenOneFilter['key'] === 'budget') {
@@ -200,12 +280,11 @@ define(['marionette'], function(Marionette) {
         $(this).toggleClass("selected");
       });
       console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      unitVariantsArray = Marionette.getOption(this, 'unitVariants');
+      unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
+      cloneunitVariantArrayColl = unitVariantArrayColl.clone();
+      console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
-      console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
-      globalUnitArrayInt = [];
-      $.each(globalUnitVariants, function(index, value) {
-        return globalUnitArrayInt.push(parseInt(value));
-      });
       if (App.defaults['unitVariant'] !== 'All') {
         console.log(unitVariantArray = _.union(unitVariantArray, unitVariantIdArray));
         $.each(unitVariantArray, function(index, value) {
@@ -257,6 +336,10 @@ define(['marionette'], function(Marionette) {
       theidtodel = $(this).parent('li').attr('id');
       return object.delItem($('#' + theidtodel).attr('data-itemNum'));
     });
+
+    ScreenThreeLayout.prototype.call = function() {
+      return console.log("aaaaaaaaaaaaaaaaaaa");
+    };
 
     ScreenThreeLayout.prototype.doListing = function() {
       $('#tagslist1 ul li').remove();
@@ -349,7 +432,7 @@ define(['marionette'], function(Marionette) {
       return childViewUnit.__super__.constructor.apply(this, arguments);
     }
 
-    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} Sqft</div> </div>';
+    childViewUnit.prototype.template = '<div id="check{{id}}" class="check" > <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/> <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>     												{{name}} <div class="small">{{unitTypeName}} {{unitVariantName}} </div> </div>';
 
     childViewUnit.prototype.className = 'cd-block';
 
@@ -409,26 +492,69 @@ define(['marionette'], function(Marionette) {
       }
       console.log(this.model.get('unitType'));
       console.log(this.model.get('name'));
-      if (track === 1 && this.model.get('status') === 9) {
+      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
         $('#check' + this.model.get("id")).addClass('box filtered');
-        return $('#flag' + this.model.get("id")).val('1');
-      } else if (track === 1 && this.model.get('status') === 8) {
-        return $('#check' + this.model.get("id")).addClass('box sold');
+        $('#flag' + this.model.get("id")).val('1');
+        countunits++;
+      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14) {
+        $('#check' + this.model.get("id")).addClass('box sold');
       } else {
         $('#check' + this.model.get("id")).addClass('box other');
-        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
+        $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
       }
+      return $('.count').text(countunits);
     };
 
     childViewUnit.prototype.events = {
       'click .check': function(e) {
-        console.log($('#flag' + this.model.get("id")));
-        App.unit['name'] = this.model.get("id");
-        App.backFilter['screen3'].push('floor');
-        if (parseInt($('#flag' + this.model.get("id")).val()) === 1) {
-          console.log($("#screen-three-button"));
+        var element, index, unitModel, _i, _len;
+        unitModel = App.master.unit.findWhere({
+          id: this.model.get("id")
+        });
+        console.log(rangeArray);
+        for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
+          element = rangeArray[index];
+          if (element === this.model.get('id')) {
+            $("#select" + this.model.get('id')).val('1');
+          } else {
+            $("#select" + element).val('0');
+            $('#check' + element).removeClass('selected');
+            if (unitModel.get('status') === 9) {
+              $("#" + element).attr('class', 'unit-hover aviable ');
+            } else if (unitModel.get('status') === 8) {
+              $("#" + element).attr('class', 'unit-hover sold ');
+            }
+            rangeArray = [];
+          }
+        }
+        if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
+          rangeArray.push(this.model.get('id'));
+          $('#check' + this.model.get("id")).addClass("selected");
+          $("#select" + this.model.get('id')).val("1");
+          if (unitModel.get('status') === 9) {
+            $("#" + this.model.get("id")).attr('class', 'unit-hover aviable selected');
+          } else if (unitModel.get('status') === 8) {
+            $("#" + this.model.get("id")).attr('class', 'unit-hover sold selected');
+          }
+          console.log($('#select' + this.model.get("id")));
+          App.unit['name'] = this.model.get("id");
+          App.backFilter['screen3'].push('floor');
           $("#screen-three-button").removeClass('disabled btn-default');
-          return $("#screen-three-button").addClass('btn-primary');
+          $("#screen-three-button").addClass('btn-primary');
+        } else {
+          rangeArray = [];
+          $("#select" + this.model.get('id')).val("0");
+          $('#check' + this.model.get('id')).removeClass('selected');
+          if (unitModel.get('status') === 9) {
+            $("#" + this.model.get("id")).attr('class', 'unit-hover aviable ');
+          } else if (unitModel.get('status') === 8) {
+            $("#" + this.model.get("id")).attr('class', 'unit-hover sold ');
+          }
+        }
+        if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
+          $("#screen-three-button").addClass('disabled btn-default');
+          $("#screen-three-button").removeClass('btn-primary');
+          return false;
         }
       }
     };

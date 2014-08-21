@@ -96,6 +96,7 @@ define [ 'marionette'], ( Marionette )->
                     flag = 1
 
             )
+            console.log flag
             if flag == 0
                 msgbus.showApp 'main:app'
                 .insideRegion  App.mainRegion

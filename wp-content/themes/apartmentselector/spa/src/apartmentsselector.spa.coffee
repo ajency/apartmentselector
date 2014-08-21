@@ -58,7 +58,7 @@ require [ 'plugin-loader'
         'status': new Backbone.Collection  STATUS
 
     # global variable to keep track of the unit the user has clicked on
-    App.unit = {name:''}
+    App.unit = {name:'',flag:0}
 
     # global variable to keep track of the filter the user has selected  on the first screen
     App.screenOneFilter = {key:'',value:''}
@@ -74,6 +74,8 @@ require [ 'plugin-loader'
     App.layout = ""
 
     App.cookieArray = []
+
+    App.range = range
 
     
     #filter function which takes the parameters into account anf filters the current store.

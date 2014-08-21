@@ -79,7 +79,7 @@ define [ 'marionette' ], ( Mariontte )->
                     screenoneArray  = App.backFilter['screen1']
                     myArray = []
                     $.map(App.defaults, (value, index)->
-                        if value!='All' && index != 'floor'
+                        if value!='All'
                             myArray.push({key:index,value:value})
 
                     )
@@ -113,6 +113,8 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
+
+
             $(window).scroll( ()->
                 height = $(window).scrollTop()
                 if height == 0

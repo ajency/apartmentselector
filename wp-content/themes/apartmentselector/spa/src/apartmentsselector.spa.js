@@ -31,7 +31,8 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
     'status': new Backbone.Collection(STATUS)
   };
   App.unit = {
-    name: ''
+    name: '',
+    flag: 0
   };
   App.screenOneFilter = {
     key: '',
@@ -52,6 +53,7 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
   };
   App.layout = "";
   App.cookieArray = [];
+  App.range = range;
   App.filter = function(params) {
     var budgetUnitArray, buildingArray, buildingModel, buildings, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
     if (params == null) {

@@ -21,6 +21,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
+        unitVariants: this.Collection[7],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
@@ -49,6 +50,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
+        unitVariants: this.Collection[7],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
@@ -97,7 +99,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, buildingvalue, countUnits, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, unitArray, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsactual, unitslen, unitvariant;
+      var Countunits, MainCollection, ModelActualArr, building, buildingArray, buildingArrayModel, buildingCollection, buildings, buildingsactual, buildingvalue, first, flag, floorCollunits, floorUnitsArray, highLength, highUnits, hnewarr, hunique, hunitTypeArray, i, index, j, lnewarr, lowUnits, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mediumUnits, mnewarr, modelArr, modelIdArr, munique, munitTypeArray, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, unitArray, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsactual, unitslen, unitvariant;
       console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
@@ -112,6 +114,12 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       floorUnitsArray = [];
       myArray = [];
       units = App.master.unit;
+      status = App.currentStore.status.findWhere({
+        'name': 'Available'
+      });
+      Countunits = App.currentStore.unit.where({
+        'status': status.get('id')
+      });
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
           if (index !== 'unitVariant') {
@@ -205,7 +213,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       } else {
         templateString = templateArr.join(',');
       }
-      countUnits = 0;
       flag = 0;
       console.log(templateArr);
       console.log(templateString);
@@ -594,7 +601,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         buildingCollection = new Backbone.Collection(ModelActualArr);
         console.log(newunitCollection = new Backbone.Collection(unitsactual));
       }
-      return [buildingCollection, newunitCollection, templateString, floorCollunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID];
+      return [buildingCollection, newunitCollection, templateString, Countunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {

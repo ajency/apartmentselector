@@ -50,8 +50,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 collection : mainCollection
 
         _getSelelctedUnit:->
-
-            units = App.currentStore.unit.where({id:App.unit['name']})
+            console.log App.unit['name']
+            console.log units = App.currentStore.unit.where({id:parseInt(App.unit['name'])})
             unitsArray = App.currentStore.unit.toArray()
             $.each(units, (index,value)->
 
@@ -126,7 +126,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 modelIdArr.push(value.get('id'))
 
             )
-            index = _.indexOf(modelIdArr, App.unit['name'])
+            index = _.indexOf(modelIdArr, parseInt(App.unit['name']))
             highLength = modelIdArr.length - index
             i = index
             while(i<modelIdArr.length)
@@ -148,7 +148,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 ModelActualArr.push(unitCollection.get(value))
 
             )
-            unitCollection = new Backbone.Collection(ModelActualArr)
+            console.log unitCollection = new Backbone.Collection(ModelActualArr)
             unitCollection
 
 

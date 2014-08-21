@@ -8,15 +8,17 @@ define [ 'marionette' ], ( Marionette )->
     tagsArray = []
     count = 0
     object = ""
-
-
-
+    unitVariants = []
+    cloneunitVariantArrayColl = ""
+    rangeArray =[]
+    countunits = 0
+    globalUnitArrayInt = []
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
                         <div class="col-sm-4">
-                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
-                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+                    <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary count"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
@@ -65,20 +67,20 @@ define [ 'marionette' ], ( Marionette )->
 
                     </div>
                 <div class="col-sm-8">
-                    {{#high}}
-                    <div class="towerRange">
-                        <h3 class="text-primary text-center semi-bold m-t-0"><u>{{rangetext}}</u></h3>
-                        <div class="row m-l-0 m-r-0 m-b-20">
-                            <div class="col-sm-4 col-xs-12">
-                                <img src="../HTML/assets/img/floor-rise.jpg" class="img-responsive center-block">
-                            </div>
+                    <div class="liquid-slider center-block sliderPlans" id="sliderplans">
 
-                            <div class="col-sm-8 col-xs-12 m-t-30">
-                                <p>{{text}}</p>
-                            </div>
-                        </div>
+
+                    <div id="svg1">
                     </div>
-                    {{/high}}
+
+                    <div id="svg2">
+                    </div>
+
+                    <div id="svg3">
+                    </div>
+                    <div id="svg4">
+                    </div>
+                    </div>
                     </div>
                     </div>'
 
@@ -96,7 +98,39 @@ define [ 'marionette' ], ( Marionette )->
             unitRegion : '#unit-region'
 
         events:
+            'click .unit-hover':(e)->
+                console.log(e.target.id)
+                unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
+                for element , index in rangeArray
+                    if element == e.target.id
+                        $("#select"+e.target.id).val '1'
+                    else
+                        $("#select"+element).val '0'
+                        $('#check'+element).removeClass 'selected'
+                        if unitModel.get('status') == 9
+                            $("#"+element).attr('class','unit-hover aviable ')
+                        else if unitModel.get('status') == 8
+                            $("#"+element).attr('class','unit-hover sold ')
+                        rangeArray = []
+                rangeArray.push parseInt(e.target.id)
+                $('#check'+e.target.id).addClass "selected"
+
+                $("#select"+e.target.id).val "1"
+                $("#screen-three-button").removeClass 'disabled btn-default'
+                $("#screen-three-button").addClass 'btn-primary'
+
+            'mouseover .unit-hover':(e)->
+                console.log(e.target.id)
+
+                unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
+                if unitModel.get('status') == 9
+                    $("#"+e.target.id).attr('class','unit-hover aviable')
+                else if unitModel.get('status') == 8
+                    $("#"+e.target.id).attr('class','unit-hover sold')
+
+
             'click #screen-three-button':(e)->
+                rangeArray = []
                 @trigger 'unit:item:selected'
 
             'click a':(e)->
@@ -123,14 +157,9 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 console.log unitVariantArray
-                globalUnitArrayInt = []
 
-                if App.defaults['unitVariant'] != 'All'
-                    globalUnitVariants = App.defaults['unitVariant'].split(',')
-                    $.each(globalUnitVariants, (index,value)->
-                        globalUnitArrayInt.push(parseInt(value))
 
-                    )
+
                 console.log globalUnitArrayInt
                 if globalUnitArrayInt.length != 0
                     if track == 0
@@ -138,9 +167,10 @@ define [ 'marionette' ], ( Marionette )->
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
                         globalUnitArrayInt.push(parseInt(id))
+                        console.log globalUnitArrayInt
                         unitVariantArray = globalUnitArrayInt
 
-                console.log firstElement
+                console.log unitVariantArray = _.uniq(unitVariantArray)
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
 
@@ -148,11 +178,15 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                    if count == unitVariantArray.length
+                    if cloneunitVariantArrayColl.length == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
                         unitVariantString = unitVariantArray.join(',')
+                if unitVariantString == "All"
+                    $('#unselectall' ).attr 'checked' , true
+                else
+                    $('#unselectall' ).attr 'checked', false
 
 
 
@@ -163,6 +197,7 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
+
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -199,33 +234,70 @@ define [ 'marionette' ], ( Marionette )->
                     )
             'click #unselectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
-                    if unitVariantIdArray.length == 0
-                        units = unitVariantArray
-                    else
-                        units = unitVariantIdArray
-                    $.each(units, (index,value)->
-                        $('#gridlink'+value).addClass 'selected'
-                        $('#checklink'+value).val '1'
+                    cloneunitVariantArrayColl.each ( index)->
+                        $('#gridlink'+index.get('id')).addClass 'selected'
+                        $('#checklink'+index.get('id')).val '1'
 
 
-                    )
+                    units = cloneunitVariantArrayColl.toArray()
                     units.sort(  (a,b)->
                         a - b
                     )
-                    console.log unitVariantArray = units
                     unitVariantString = 'All'
                 else
-                    console.log value = _.first(unitVariantArray)
-                    remainainArray = _.rest(unitVariantArray)
+                    tempArray = []
+                    cloneunitVariantArrayColl.each ( value)->
+                        tempArray.push(parseInt(value.get('id')))
+
+
+                    console.log value = _.first(tempArray)
+                    remainainArray = _.rest(tempArray)
                     $.each(remainainArray, (index,value)->
                         $('#gridlink'+value).removeClass 'selected'
                         $('#checklink'+value).val '0'
+                        index = unitVariantArray.indexOf(parseInt(value))
+                        if index != -1
+                            unitVariantArray.splice( index, 1 )
 
 
                     )
+                    console.log unitVariantArray
                     unitVariantString = value.toString()
 
         onShow:->
+            countunits = 0
+            globalUnitArrayInt = []
+            if App.defaults['unitVariant'] != 'All'
+                globalUnitVariants = App.defaults['unitVariant'].split(',')
+                $.each(globalUnitVariants, (index,value)->
+                    globalUnitArrayInt.push(parseInt(value))
+
+                )
+            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
+                $('#unselectall' ).attr 'checked' ,  true
+            else
+                $('#unselectall' ).attr 'checked', false
+
+            source ="../wp-content/uploads/2014/08/image/1.svg"
+            source1 ="../wp-content/uploads/2014/08/image/2.svg"
+            source2 ="../wp-content/uploads/2014/08/image/3.svg"
+            source3 ="../wp-content/uploads/2014/08/image/4.svg"
+            $('<div></div>').load(source).appendTo("#svg1")
+            $('<div></div>').load(source1).appendTo("#svg2")
+            $('<div></div>').load(source2).appendTo("#svg3")
+            $('<div></div>').load(source3).appendTo("#svg4")
+
+            $('#sliderplans').liquidSlider(
+                slideEaseFunction: "fade",
+                autoSlide: true,
+                includeTitle:false,
+                fadeOutDuration: 1000,
+                minHeight: 500,
+                forceAutoSlide: true,
+                autoSlideInterval: 5000,
+                dynamicArrows: false,
+                fadeInDuration: 1000
+            )
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'
@@ -286,13 +358,12 @@ define [ 'marionette' ], ( Marionette )->
                 return
 
             console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            unitVariantsArray  = Marionette.getOption( @, 'unitVariants' )
+            unitVariantArrayColl = new Backbone.Collection unitVariantsArray
+            cloneunitVariantArrayColl = unitVariantArrayColl.clone()
+            console.log unitVariants  = unitVariantArray
             console.log firstElement = _.first(unitVariantArray)
-            console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
-            globalUnitArrayInt = []
-            $.each(globalUnitVariants, (index,value)->
-                globalUnitArrayInt.push(parseInt(value))
 
-            )
 
             if App.defaults['unitVariant'] != 'All'
                 console.log unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
@@ -342,6 +413,9 @@ define [ 'marionette' ], ( Marionette )->
                 theidtodel = $(this).parent('li').attr('id')
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
+        call:->
+            console.log "aaaaaaaaaaaaaaaaaaa"
+
 
         doListing:->
             $('#tagslist1 ul li').remove()
@@ -422,8 +496,9 @@ define [ 'marionette' ], ( Marionette )->
     class childViewUnit extends Marionette.ItemView
 
         template : '<div id="check{{id}}" class="check" >
-                        <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>     												{{name}}
-        				<div class="small">{{unitTypeName}} {{unitVariantName}} Sqft</div>
+                        <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>
+        <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>     												{{name}}
+        				<div class="small">{{unitTypeName}} {{unitVariantName}} </div>
         			</div>'
 
 
@@ -479,27 +554,63 @@ define [ 'marionette' ], ( Marionette )->
                 track = 1
             console.log @model.get('unitType')
             console.log @model.get('name')
-            if track==1 && @model.get('status') == 9
+
+            if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box filtered'
                 $('#flag'+@model.get("id")).val '1'
-            else if track==1 &&  @model.get('status') == 8
+                countunits++
+            else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14
                 $('#check'+@model.get("id")).addClass 'box sold'
-
             else
                 $('#check'+@model.get("id")).addClass 'box other'
                 $('#check'+@model.get("id")).text @model.get 'unitTypeName'
+            $('.count').text countunits
 
 
         events:
             'click .check':(e)->
-                console.log $('#flag'+@model.get("id"))
-                App.unit['name'] = @model.get("id")
-                App.backFilter['screen3'].push 'floor'
-                if parseInt($('#flag'+@model.get("id")).val()) == 1
-                    console.log $("#screen-three-button")
+                unitModel = App.master.unit.findWhere(id:@model.get("id"))
+
+                console.log rangeArray
+                for element , index in rangeArray
+                    if element == @model.get('id')
+                        $("#select"+@model.get('id')).val '1'
+                    else
+                        $("#select"+element).val '0'
+                        $('#check'+element).removeClass 'selected'
+                        if unitModel.get('status') == 9
+                            $("#"+element).attr('class','unit-hover aviable ')
+                        else if unitModel.get('status') == 8
+                            $("#"+element).attr('class','unit-hover sold ')
+                        rangeArray = []
+                if  parseInt($("#select"+@model.get('id')).val()) == 0
+                    rangeArray.push @model.get('id')
+                    $('#check'+@model.get("id")).addClass "selected"
+
+                    $("#select"+@model.get('id')).val "1"
+
+                    if unitModel.get('status') == 9
+                        $("#"+@model.get("id")).attr('class','unit-hover aviable selected')
+                    else if unitModel.get('status') == 8
+                        $("#"+@model.get("id")).attr('class','unit-hover sold selected')
+                    console.log $('#select'+@model.get("id"))
+                    App.unit['name'] = @model.get("id")
+                    App.backFilter['screen3'].push 'floor'
                     $("#screen-three-button").removeClass 'disabled btn-default'
                     $("#screen-three-button").addClass 'btn-primary'
                     #@trigger 'unit:item:selected'
+                else
+                    rangeArray=[]
+                    $("#select"+@model.get('id')).val "0"
+                    $('#check'+@model.get('id')).removeClass 'selected'
+                    if unitModel.get('status') == 9
+                        $("#"+@model.get("id")).attr('class','unit-hover aviable ')
+                    else if unitModel.get('status') == 8
+                        $("#"+@model.get("id")).attr('class','unit-hover sold ')
+                if parseInt($("#select"+@model.get('id')).val()) == 0
+                    $("#screen-three-button").addClass 'disabled btn-default'
+                    $("#screen-three-button").removeClass 'btn-primary'
+                    return false
 
 
 

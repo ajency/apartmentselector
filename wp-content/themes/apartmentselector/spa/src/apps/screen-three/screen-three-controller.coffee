@@ -10,7 +10,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 countUnits : @Collection[3]
                 uintVariantId : @Collection[8]
                 uintVariantIdArray : @Collection[8]
-
+                unitVariants:@Collection[7]
                 templateHelpers:
                     selection :@Collection[2]
                     countUnits : @Collection[3]
@@ -50,7 +50,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         countUnits : @Collection[3]
                         uintVariantId : @Collection[8]
                         uintVariantIdArray : @Collection[8]
-
+                        unitVariants:@Collection[7]
                         templateHelpers:
                                 selection :@Collection[2]
                                 countUnits : @Collection[3]
@@ -136,6 +136,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             floorUnitsArray = []
             myArray = []
             units = App.master.unit
+            status = App.currentStore.status.findWhere({'name':'Available'})
+            Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
                 if value!='All'
                     if  index != 'unitVariant'
@@ -215,7 +217,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
 
-            countUnits = 0
             flag  = 0
             console.log templateArr
 
@@ -560,7 +561,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             else
                 buildingCollection = new Backbone.Collection(ModelActualArr)
                 console.log newunitCollection = new Backbone.Collection(unitsactual)
-            [buildingCollection,newunitCollection,templateString,floorCollunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
+            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
 
 
 
