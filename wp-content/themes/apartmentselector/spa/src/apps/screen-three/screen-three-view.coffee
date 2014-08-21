@@ -491,7 +491,7 @@ define [ 'marionette' ], ( Marionette )->
                                                         </div>
                                                         <div class="pull-right text-center">
                                                             <div class="unitNo">{{name}}</div>
-                                                            <div class="small">1BHK 860 SQF</div>
+                                                            <div class="small">{{unittypename}} {{sellablearea}} Sq.ft.</div>
                                                         </div><input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>
                  <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>
                                                         <div class="clearfix"></div>

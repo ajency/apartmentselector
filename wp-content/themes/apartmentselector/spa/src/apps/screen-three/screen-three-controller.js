@@ -354,6 +354,17 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         console.log(unitAssgendModels = units.where({
           unitAssigned: value
         }));
+        $.each(unitAssgendModels, function(index, value) {
+          var unitType, unitVariant;
+          unitType = App.master.unit_type.findWhere({
+            id: value.get('unitType')
+          });
+          value.set("unittypename", unitType.get("name"));
+          unitVariant = App.master.unit_variant.findWhere({
+            id: value.get('unitVariant')
+          });
+          return value.set("sellablearea", unitVariant.get("sellablearea"));
+        });
         unitAssgendModels.sort(function(a, b) {
           return b.floor - a.floor;
         });

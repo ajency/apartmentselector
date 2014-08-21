@@ -51,12 +51,12 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
         _getSelelctedUnit:->
             console.log App.unit['name']
-            console.log units = App.currentStore.unit.where({id:parseInt(App.unit['name'])})
-            unitsArray = App.currentStore.unit.toArray()
+            console.log units = App.master.unit.where({id:parseInt(App.unit['name'])})
+            unitsArray = App.master.unit.toArray()
             $.each(units, (index,value)->
 
-                unitVariantModel = App.currentStore.unit_variant.findWhere({id:value.get('unitVariant')})
-                unitTypeModel = App.currentStore.unit_type.findWhere({id:value.get('unitType')})
+                unitVariantModel = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
+                unitTypeModel = App.master.unit_type.findWhere({id:value.get('unitType')})
                 value.set 'terracearea' , unitVariantModel.get('terracearea')
                 value.set 'sellablearea' , unitVariantModel.get('sellablearea')
                 value.set 'carpetarea' , unitVariantModel.get('carpetarea')
@@ -64,7 +64,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
                 value.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
-                building = App.currentStore.building.findWhere({id:value.get('building')})
+                building = App.master.building.findWhere({id:value.get('building')})
                 exceptionObject = building.get 'floorexceptionpositions'
                 console.log exceptionObject[0].floors
                 console.log floorvalue = $.inArray( value.get('floor'),exceptionObject[0].floors)

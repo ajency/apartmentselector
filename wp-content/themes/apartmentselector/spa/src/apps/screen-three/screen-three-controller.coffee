@@ -349,6 +349,13 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             console.log uniqunitAssigned = _.uniq(unitAssigned)
             $.each(uniqunitAssigned, (index,value)->
                 console.log unitAssgendModels = units.where({unitAssigned:value})
+                $.each(unitAssgendModels, (index,value)->
+                    unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
+                    value.set "unittypename" , unitType.get "name"
+                    unitVariant = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
+                    value.set "sellablearea" , unitVariant.get "sellablearea"
+
+                )
                 unitAssgendModels.sort( (a,b)->
                     b.floor - a.floor
 
