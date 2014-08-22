@@ -544,10 +544,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 lfloorvalue = ""
                 mfloorvalue = ""
                 hfloorvalue = ""
+                disablehigh = "other"
+                disablemedium = "other"
+                disablelow = "other"
+                lfloorvalue = 'Floors '+floorriserange[0].start+'-'+floorriserange[0].end
+                mfloorvalue = 'Floors '+floorriserange[1].start+'-'+floorriserange[1].end
+                hfloorvalue = 'Floors '+floorriserange[2].start+'-'+floorriserange[2].end
+
+
+
 
                 $.each(lowArray , (index,value)->
-
-                    lfloorvalue = 'Floors '+floorriserange[0].start+'-'+floorriserange[0].end
+                    disablelow = ""
                     unitmodel = App.currentStore.unit.findWhere({id:value})
                     unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
                     unitCollection = App.currentStore.unit.where({unitType: unittypemodel.get( 'id' ) } )
@@ -564,8 +572,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 )
 
                 $.each(mediumArray , (index,value)->
-
-                    mfloorvalue = 'Floors '+floorriserange[1].start+'-'+floorriserange[1].end
+                    disablemedium = ""
                     unitmodel = App.currentStore.unit.findWhere({id:value})
                     unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
                     munitTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
@@ -584,8 +591,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 )
 
                 $.each(highArray , (index,value)->
-
-                    hfloorvalue = 'Floors '+floorriserange[2].start+'-'+floorriserange[2].end
+                    disablehigh = ""
                     unitmodel = App.currentStore.unit.findWhere({id:value})
                     unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
                     hunitTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
@@ -607,9 +613,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     hclassname = ""
                     mclassname = ""
                     lclassname = ""
-                mainArray.push({count:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid,unittypes:hnewarr,classname:hclassname,rangetext:'HIGHRISE',rangeNo:hfloorvalue})
-                mainArray.push({count: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid,unittypes:mnewarr,classname:mclassname,rangetext:'MIDRISE',rangeNo:mfloorvalue})
-                mainArray.push({count: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr,classname:lclassname,rangetext:'LOWRISE',rangeNo:lfloorvalue})
+                mainArray.push({count:highArray.length,low_max_val: high_max_val,low_min_val:high_min_val,range:'high',buildingid:buildingid,unittypes:hnewarr,classname:hclassname,rangetext:'HIGHRISE',rangeNo:hfloorvalue,disable:disablehigh})
+                mainArray.push({count: mediumArray.length,low_max_val: medium_max_val,low_min_val:medium_min_val,range:'medium',buildingid:buildingid,unittypes:mnewarr,classname:mclassname,rangetext:'MIDRISE',rangeNo:mfloorvalue,disable:disablemedium})
+                mainArray.push({count: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr,classname:lclassname,rangetext:'LOWRISE',rangeNo:lfloorvalue,disable:disablelow})
 
                 itemCollection = new Backbone.Collection(mainArray)
                 buildingModel = App.currentStore.building.findWhere({id:value})

@@ -380,7 +380,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       buildingUnits = [];
       console.log(buildingArray);
       $.each(buildingArray, function(index, value) {
-        var availableunits, buildingid, data, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, hfloorvalue, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lfloorvalue, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, mfloorvalue, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
+        var availableunits, buildingid, data, disablehigh, disablelow, disablemedium, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, hfloorvalue, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lfloorvalue, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, mfloorvalue, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
@@ -651,9 +651,15 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         lfloorvalue = "";
         mfloorvalue = "";
         hfloorvalue = "";
+        disablehigh = "other";
+        disablemedium = "other";
+        disablelow = "other";
+        lfloorvalue = 'Floors ' + floorriserange[0].start + '-' + floorriserange[0].end;
+        mfloorvalue = 'Floors ' + floorriserange[1].start + '-' + floorriserange[1].end;
+        hfloorvalue = 'Floors ' + floorriserange[2].start + '-' + floorriserange[2].end;
         $.each(lowArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
-          lfloorvalue = 'Floors ' + floorriserange[0].start + '-' + floorriserange[0].end;
+          disablelow = "";
           unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
@@ -676,7 +682,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         $.each(mediumArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
-          mfloorvalue = 'Floors ' + floorriserange[1].start + '-' + floorriserange[1].end;
+          disablemedium = "";
           unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
@@ -703,7 +709,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         $.each(highArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
-          hfloorvalue = 'Floors ' + floorriserange[2].start + '-' + floorriserange[2].end;
+          disablehigh = "";
           unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
@@ -743,7 +749,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: hnewarr,
           classname: hclassname,
           rangetext: 'HIGHRISE',
-          rangeNo: hfloorvalue
+          rangeNo: hfloorvalue,
+          disable: disablehigh
         });
         mainArray.push({
           count: mediumArray.length,
@@ -754,7 +761,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: mnewarr,
           classname: mclassname,
           rangetext: 'MIDRISE',
-          rangeNo: mfloorvalue
+          rangeNo: mfloorvalue,
+          disable: disablemedium
         });
         mainArray.push({
           count: lowArray.length,
@@ -765,7 +773,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: lnewarr,
           classname: lclassname,
           rangetext: 'LOWRISE',
-          rangeNo: lfloorvalue
+          rangeNo: lfloorvalue,
+          disable: disablelow
         });
         itemCollection = new Backbone.Collection(mainArray);
         buildingModel = App.currentStore.building.findWhere({
