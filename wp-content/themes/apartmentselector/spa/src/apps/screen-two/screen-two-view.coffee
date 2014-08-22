@@ -99,7 +99,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
             'mouseover a':(e)->
-                console.log id  = e.target.id
+                id  = e.target.id
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
 
@@ -124,7 +124,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .remodalcheck':(e)->
-                console.log @
                 #App.navigate "modal"
                 e.preventDefault()
 
@@ -188,7 +187,25 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .done':(e)->
+                q = 1
+                $.map(App.backFilter, (value, index)->
 
+                    if q!=1
+                        console.log index
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
                 console.log unitVariantString
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
@@ -231,14 +248,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
 
             'click #selectall':(e)->
-                console.log cloneunitVariantArrayColl
                 if $('#'+e.target.id).prop('checked') == true
                     cloneunitVariantArrayColl.each ( index)->
                         console.log index.get('id')
                         $('#grid'+index.get('id')).addClass 'selected'
                         $('#check'+index.get('id')).val '1'
 
-
+                        unitVariantArray.push(index.get('id'))
+                    unitVariantArray = _.uniq(unitVariantArray)
                     units = cloneunitVariantArrayColl.toArray()
                     units.sort(  (a,b)->
                         a.get('id') - b.get('id')
@@ -335,18 +352,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     console.log key
                     if key == true
                         $('#grid'+value).addClass 'selected'
+                        $('#check'+value).val '1'
                     else
                         console.log index = unitVariantArray.indexOf(parseInt(value))
                         $('#grid'+value).removeClass 'selected'
                         $('#check'+value).val '0'
-
-
-
-
-
-
-
-
+                )
+            else
+                console.log unitVariantArray = unitVariantArray
+                $.each(unitVariantArray, (index,value)->
+                    $('#grid'+value).addClass 'selected'
+                    $('#check'+value).val '1'
 
                 )
 
@@ -455,6 +471,25 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     unitvariantarrayValues.push(value.id)
 
                 )
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        console.log index
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
                 App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
                 console.log App.defaults['unitVariant']
                 App.currentStore.unit.reset UNITS
@@ -578,9 +613,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log index
                         screenArray  = App.backFilter[index]
                         for element in screenArray
-                            key = App.defaults.hasOwnProperty(element)
-                            if key == true
-                                App.defaults[element] = 'All'
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
                     q++
 
                 )
