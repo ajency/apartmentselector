@@ -31,7 +31,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var first, flag, highUnits, lowUnits, mediumUnits, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
+      var buildingModel, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
       templateArr = [];
       flag = 0;
       myArray = [];
@@ -123,25 +123,20 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         templateArr.push('All');
       }
       if (flag === 1) {
-        first = _.first(trackArray);
-        lowUnits = App.master.range.findWhere({
-          name: 'low'
+        buildingModel = App.currentStore.building.findWhere({
+          id: App.defaults['building']
         });
-        if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
+        floorriserange = buildingModel.get('floorriserange');
+        first = _.first(trackArray);
+        if (parseInt(first) >= parseInt(floorriserange[0].start) && parseInt(first) <= parseInt(floorriserange[0].end)) {
           range = 'LOWRISE';
           templateArr.push(range);
         }
-        mediumUnits = App.master.range.findWhere({
-          name: 'medium'
-        });
-        if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
+        if (parseInt(first) >= parseInt(floorriserange[1].start) && parseInt(first) <= parseInt(floorriserange[1].end)) {
           range = 'MIDRISE';
           templateArr.push(range);
         }
-        highUnits = App.master.range.findWhere({
-          name: 'high'
-        });
-        if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
+        if (parseInt(first) >= parseInt(floorriserange[2].start) && parseInt(first) <= parseInt(floorriserange[2].end)) {
           range = 'HIGHRISE';
           templateArr.push(range);
         }

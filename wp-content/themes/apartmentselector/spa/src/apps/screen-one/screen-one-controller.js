@@ -53,10 +53,10 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       priceUnits = App.currentStore.unit;
       priceUnits.each(function(item) {
         var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
-        buildingModel = App.currentStore.building.findWhere({
+        console.log(buildingModel = App.currentStore.building.findWhere({
           'id': item.get('building')
-        });
-        floorRise = buildingModel.get('floorrise');
+        }));
+        console.log(floorRise = buildingModel.get('floorrise'));
         floorRiseValue = floorRise[item.get('floor')];
         unitVariantmodel = App.currentStore.unit_variant.findWhere({
           'id': item.get('unitVariant')

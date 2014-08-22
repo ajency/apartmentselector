@@ -380,7 +380,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       buildingUnits = [];
       console.log(buildingArray);
       $.each(buildingArray, function(index, value) {
-        var availableunits, buildingid, data, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
+        var availableunits, buildingid, data, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, hfloorvalue, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lfloorvalue, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, mfloorvalue, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
@@ -408,6 +408,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         totalunits = App.currentStore.unit.where({
           'building': value
         });
+        buildingModel = App.currentStore.building.findWhere({
+          id: buildingid
+        });
+        floorriserange = buildingModel.get('floorriserange');
         $.each(totalunits, function(index, value) {
           var viewsData;
           viewsData = value.get('views');
@@ -448,10 +452,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               building: buildingid
             });
             $.each(count, function(index, value) {
-              lowUnits = App.currentStore.range.findWhere({
-                name: 'low'
-              });
-              if ((value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) && item.id === value.get('unitType')) {
+              if ((value.get('floor') >= parseInt(floorriserange[0].start) && value.get('floor') <= parseInt(floorriserange[0].end)) && item.id === value.get('unitType')) {
                 return lunitTypeArray.push(value);
               }
             });
@@ -496,10 +497,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               building: buildingid
             });
             $.each(count, function(index, value) {
-              mediumUnits = App.currentStore.range.findWhere({
-                name: 'medium'
-              });
-              if ((value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) && item.id === value.get('unitType')) {
+              if ((value.get('floor') >= parseInt(floorriserange[1].start) && value.get('floor') <= parseInt(floorriserange[1].end)) && item.id === value.get('unitType')) {
                 return munitTypeArray.push(value);
               }
             });
@@ -545,10 +543,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               building: buildingid
             }));
             $.each(count, function(index, value) {
-              highUnits = App.currentStore.range.findWhere({
-                name: 'high'
-              });
-              if ((value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) && item.id === value.get('unitType')) {
+              if ((value.get('floor') >= parseInt(floorriserange[2].start) && value.get('floor') <= parseInt(floorriserange[2].end)) && item.id === value.get('unitType')) {
                 return hunitTypeArray.push(value);
               }
             });
@@ -604,22 +599,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         unitTypeArray = [];
         $.each(newunits, function(index, value) {
           var unitType;
-          lowUnits = App.currentStore.range.findWhere({
-            name: 'low'
-          });
-          if (value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) {
+          if (value.get('floor') >= parseInt(floorriserange[0].start) && value.get('floor') <= parseInt(floorriserange[0].end)) {
             lowArray.push(value.get('id'));
           }
-          mediumUnits = App.currentStore.range.findWhere({
-            name: 'medium'
-          });
-          if (value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) {
+          if (value.get('floor') >= parseInt(floorriserange[1].start) && value.get('floor') <= parseInt(floorriserange[1].end)) {
             mediumArray.push(value.get('id'));
           }
-          highUnits = App.currentStore.range.findWhere({
-            name: 'high'
-          });
-          if (value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) {
+          if (value.get('floor') >= parseInt(floorriserange[2].start) && value.get('floor') <= parseInt(floorriserange[2].end)) {
             highArray.push(value.get('id'));
           }
           unitType = App.currentStore.unit_type.findWhere({
@@ -662,8 +648,12 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         medium_min_val = 0;
         high_min_val = 0;
         high_max_val = 0;
+        lfloorvalue = "";
+        mfloorvalue = "";
+        hfloorvalue = "";
         $.each(lowArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
+          lfloorvalue = 'Floors ' + floorriserange[0].start + '-' + floorriserange[0].end;
           unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
@@ -686,6 +676,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         $.each(mediumArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
+          mfloorvalue = 'Floors ' + floorriserange[1].start + '-' + floorriserange[1].end;
           unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
@@ -712,6 +703,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         $.each(highArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
+          hfloorvalue = 'Floors ' + floorriserange[2].start + '-' + floorriserange[2].end;
           unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
@@ -751,7 +743,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: hnewarr,
           classname: hclassname,
           rangetext: 'HIGHRISE',
-          rangeNo: 'Floors 11-15'
+          rangeNo: hfloorvalue
         });
         mainArray.push({
           count: mediumArray.length,
@@ -762,7 +754,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: mnewarr,
           classname: mclassname,
           rangetext: 'MIDRISE',
-          rangeNo: 'Floors 6-10'
+          rangeNo: mfloorvalue
         });
         mainArray.push({
           count: lowArray.length,
@@ -773,7 +765,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: lnewarr,
           classname: lclassname,
           rangetext: 'LOWRISE',
-          rangeNo: 'Floors 1-5'
+          rangeNo: lfloorvalue
         });
         itemCollection = new Backbone.Collection(mainArray);
         buildingModel = App.currentStore.building.findWhere({

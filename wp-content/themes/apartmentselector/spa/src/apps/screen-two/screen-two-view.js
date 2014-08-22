@@ -429,7 +429,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     UnitViewChildView.prototype.events = {
       'click ': function(e) {
-        var element, end, i, index, param, rangeArrayVal, rangeModel, rangeString, start, _i, _len;
+        var buildingModel, element, floorriserange, i, index, rangeArrayVal, rangeString, _i, _len;
         console.log(rangeArray);
         for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
           element = rangeArray[index];
@@ -446,20 +446,26 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           rangeArray.push(this.model.get('range') + this.model.get('buildingid'));
           $('#range' + this.model.get('range') + this.model.get('buildingid')).addClass('selected');
           $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("1");
-          param = {};
-          param['name'] = this.model.get('range');
-          console.log(param);
-          rangeModel = App.currentStore.range.findWhere(param);
+          buildingModel = App.currentStore.building.findWhere({
+            id: this.model.get('buildingid')
+          });
+          floorriserange = buildingModel.get('floorriserange');
           rangeArrayVal = [];
           i = 0;
-          start = rangeModel.get('start');
-          end = rangeModel.get('end');
-          while (parseInt(start) <= parseInt(end)) {
-            rangeArrayVal[i] = start;
-            start = parseInt(start) + 1;
-            i++;
-          }
-          rangeArrayVal;
+          object = this;
+          $.each(floorriserange, function(index, value) {
+            var end, start;
+            if (object.model.get('range') === value.name) {
+              start = parseInt(value.start);
+              end = parseInt(value.end);
+              while (parseInt(start) <= parseInt(end)) {
+                rangeArrayVal[i] = start;
+                start = parseInt(start) + 1;
+                i++;
+              }
+              return rangeArrayVal;
+            }
+          });
           rangeString = rangeArrayVal.join(',');
           App.defaults['floor'] = rangeString;
           App.backFilter['screen2'].push('floor');

@@ -583,19 +583,28 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     $('#range'+@model.get('range')+@model.get('buildingid')).addClass 'selected'
 
                     $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "1"
-                    param = {}
-                    param['name'] = @model.get 'range'
-                    console.log param
-                    rangeModel = App.currentStore.range.findWhere(param)
+                    buildingModel = App.currentStore.building.findWhere({id:@model.get('buildingid')})
+                    floorriserange = buildingModel.get 'floorriserange'
+                    #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
                     rangeArrayVal = []
                     i = 0
-                    start = rangeModel.get('start')
-                    end = rangeModel.get('end')
-                    while parseInt(start) <= parseInt(end)
-                        rangeArrayVal[i] = start
-                        start = parseInt(start) + 1
-                        i++
-                    rangeArrayVal
+                    object = @
+                    $.each(floorriserange, (index,value)->
+                        if object.model.get('range') == value.name
+                            start = parseInt(value.start)
+                            end = parseInt(value.end)
+                            while parseInt(start) <= parseInt(end)
+                                rangeArrayVal[i] = start
+                                start = parseInt(start) + 1
+                                i++
+                            rangeArrayVal
+
+
+
+                    )
+
+
+
                     rangeString = rangeArrayVal.join(',')
 
 
