@@ -10093,13 +10093,15 @@ body {
   text-transform: capitalize;
   font-weight: 700;
 }
-.taglist ul li .closeButton {
+.taglist ul li .closeButton,
+.taglist ul li .closeButton1 {
   display: inline;
   cursor: pointer;
   color: #999999;
   padding: 1px 2px 1px 6px;
 }
-.taglist ul li .closeButton:after {
+.taglist ul li .closeButton:after,
+.taglist ul li .closeButton1:after {
   font-family: 'Glyphicons Halflings';
   content: "\e014";
   display: inline-block;
