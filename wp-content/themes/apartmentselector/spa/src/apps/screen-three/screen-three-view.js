@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, object, rangeunitArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, globalUnitArrayInt, object, rangeunitArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -15,6 +15,7 @@ define(['marionette'], function(Marionette) {
   unitVariants = [];
   cloneunitVariantArrayColl = "";
   rangeunitArray = [];
+  globalUnitArrayInt = [];
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -78,7 +79,7 @@ define(['marionette'], function(Marionette) {
         return e.preventDefault();
       },
       'click .grid-link': function(e) {
-        var globalUnitArrayInt, globalUnitVariants, id, index, track;
+        var id, index, track;
         console.log(unitVariantArray);
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
@@ -99,13 +100,6 @@ define(['marionette'], function(Marionette) {
           $('#checklink' + id).val('1');
         }
         console.log(unitVariantArray);
-        globalUnitArrayInt = [];
-        if (App.defaults['unitVariant'] !== 'All') {
-          globalUnitVariants = App.defaults['unitVariant'].split(',');
-          $.each(globalUnitVariants, function(index, value) {
-            return globalUnitArrayInt.push(parseInt(value));
-          });
-        }
         console.log(globalUnitArrayInt);
         if (globalUnitArrayInt.length !== 0) {
           if (track === 0) {
@@ -116,19 +110,28 @@ define(['marionette'], function(Marionette) {
             unitVariantArray = globalUnitArrayInt;
           }
         }
+        unitVariantArray = _.uniq(unitVariantArray);
         console.log(firstElement);
         if (unitVariantArray.length === 0) {
-          return unitVariantString = firstElement.toString();
+          unitVariantString = firstElement.toString();
         } else {
-          if (count === unitVariantArray.length) {
-            return unitVariantString = 'All';
+          if (cloneunitVariantArrayColl.length === unitVariantArray.length) {
+            unitVariantString = 'All';
           } else {
-            return unitVariantString = unitVariantArray.join(',');
+            unitVariantString = unitVariantArray.join(',');
           }
+        }
+        console.log(unitVariantString);
+        if (unitVariantString === "All") {
+          return $('#unselectall').prop('checked', true);
+        } else {
+          return $('#unselectall').prop('checked', false);
         }
       },
       'click .done': function(e) {
         var params;
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-three");
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
@@ -139,7 +142,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
-        var globalUnitArrayInt, globalUnitVariants;
+        var globalUnitVariants;
         console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox").slideToggle();
@@ -165,14 +168,17 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #unselectall': function(e) {
-        var remainainArray, tempArray, value;
+        var remainainArray, tempArray, units, value;
         if ($('#' + e.target.id).prop('checked') === true) {
           cloneunitVariantArrayColl.each(function(index) {
             $('#gridlink' + index.get('id')).addClass('selected');
-            return $('#checklink' + index.get('id')).val('1');
+            $('#checklink' + index.get('id')).val('1');
+            return unitVariantArray.push(index.get('id'));
           });
+          unitVariantArray = _.uniq(unitVariantArray);
+          units = cloneunitVariantArrayColl.toArray();
           units.sort(function(a, b) {
-            return a - b;
+            return a.get('id') - b.get('id');
           });
           return unitVariantString = 'All';
         } else {
@@ -197,7 +203,12 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, floorsvg, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, floorsvg, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
+        $('#unselectall').prop('checked', true);
+      } else {
+        $('#unselectall').prop('checked', false);
+      }
       rangeunitArray = [];
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
@@ -273,10 +284,12 @@ define(['marionette'], function(Marionette) {
       console.log(unitVariants = unitVariantArray);
       console.log(firstElement = _.first(unitVariantArray));
       console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
-      globalUnitArrayInt = [];
-      $.each(globalUnitVariants, function(index, value) {
-        return globalUnitArrayInt.push(parseInt(value));
-      });
+      if (App.defaults['unitVariant'] !== 'All') {
+        globalUnitVariants = App.defaults['unitVariant'].split(',');
+        $.each(globalUnitVariants, function(index, value) {
+          return globalUnitArrayInt.push(parseInt(value));
+        });
+      }
       if (App.defaults['unitVariant'] !== 'All') {
         console.log(unitVariantArray = _.union(unitVariantArray, unitVariantIdArray));
         $.each(unitVariantArray, function(index, value) {
@@ -292,6 +305,12 @@ define(['marionette'], function(Marionette) {
             $('#gridlink' + value).removeClass('selected');
             return $('#checklink' + value).val('0');
           }
+        });
+      } else {
+        unitVariantArray = unitVariantArray;
+        $.each(unitVariantArray, function(index, value) {
+          $('#gridlink' + value).addClass('selected');
+          return $('#checklink' + value).val('1');
         });
       }
       $('html, body').animate({
@@ -323,7 +342,7 @@ define(['marionette'], function(Marionette) {
       return object = this;
     };
 
-    $(document).on("click", ".closeButton", function() {
+    $(document).on("click", ".closeButton1", function() {
       var theidtodel;
       theidtodel = $(this).parent('li').attr('id');
       return object.delItem($('#' + theidtodel).attr('data-itemNum'));
@@ -336,7 +355,7 @@ define(['marionette'], function(Marionette) {
     ScreenThreeLayout.prototype.doListing = function() {
       $('#tagslist1 ul li').remove();
       $.each(tagsArray, function(index, value) {
-        return $('#tagslist1 ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton"></div></li>');
+        return $('#tagslist1 ul').append('<li id="uli-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton1"></div></li>');
       });
       if (tagsArray.length === 1) {
         return $('.closeButton').addClass('hidden');
@@ -357,19 +376,20 @@ define(['marionette'], function(Marionette) {
       console.log(index = key);
       if (index >= 0) {
         tagsArray.splice(index, 1);
-        $('#li-item-' + delnum).remove();
+        $('#uli-item-' + delnum).remove();
         unitvariantarrayValues = [];
         $.each(tagsArray, function(index, value) {
           return unitvariantarrayValues.push(value.id);
         });
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-three");
         App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
         console.log(App.defaults['unitVariant']);
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
-        App.filter(params = {});
-        return this.trigger('unit:variants:selected');
+        return App.filter(params = {});
       }
     };
 

@@ -11,7 +11,7 @@ define [ 'marionette' ], ( Marionette )->
     unitVariants = []
     cloneunitVariantArrayColl = ""
     rangeunitArray =[]
-
+    globalUnitArrayInt = []
 
     class ScreenThreeLayout extends Marionette.LayoutView
 
@@ -160,14 +160,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 console.log unitVariantArray
-                globalUnitArrayInt = []
 
-                if App.defaults['unitVariant'] != 'All'
-                    globalUnitVariants = App.defaults['unitVariant'].split(',')
-                    $.each(globalUnitVariants, (index,value)->
-                        globalUnitArrayInt.push(parseInt(value))
-
-                    )
                 console.log globalUnitArrayInt
                 if globalUnitArrayInt.length != 0
                     if track == 0
@@ -177,6 +170,7 @@ define [ 'marionette' ], ( Marionette )->
                         globalUnitArrayInt.push(parseInt(id))
                         unitVariantArray = globalUnitArrayInt
 
+                unitVariantArray = _.uniq(unitVariantArray)
                 console.log firstElement
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
@@ -185,15 +179,22 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                    if count == unitVariantArray.length
+                    if cloneunitVariantArrayColl.length == unitVariantArray.length
                         unitVariantString = 'All'
 
                     else
                         unitVariantString = unitVariantArray.join(',')
+                console.log unitVariantString
+                if unitVariantString == "All"
+                    $('#unselectall' ).prop 'checked', true
+                else
+                    $('#unselectall' ).prop 'checked', false
 
 
 
             'click .done':(e)->
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-three"
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
@@ -230,11 +231,13 @@ define [ 'marionette' ], ( Marionette )->
                     cloneunitVariantArrayColl.each ( index)->
                         $('#gridlink'+index.get('id')).addClass 'selected'
                         $('#checklink'+index.get('id')).val '1'
+                        unitVariantArray.push(index.get('id'))
+                    unitVariantArray = _.uniq(unitVariantArray)
 
 
-
+                    units = cloneunitVariantArrayColl.toArray()
                     units.sort(  (a,b)->
-                        a - b
+                        a.get('id') - b.get('id')
                     )
                     unitVariantString = 'All'
                 else
@@ -258,6 +261,10 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
+                $('#unselectall' ).prop 'checked', true
+            else
+                $('#unselectall' ).prop 'checked', false
 
             rangeunitArray=[]
             source = "../wp-content/uploads/2014/08/image/1.svg"
@@ -337,11 +344,14 @@ define [ 'marionette' ], ( Marionette )->
             console.log unitVariants  = unitVariantArray
             console.log firstElement = _.first(unitVariantArray)
             console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
-            globalUnitArrayInt = []
-            $.each(globalUnitVariants, (index,value)->
-                globalUnitArrayInt.push(parseInt(value))
 
-            )
+
+            if App.defaults['unitVariant'] != 'All'
+                globalUnitVariants = App.defaults['unitVariant'].split(',')
+                $.each(globalUnitVariants, (index,value)->
+                    globalUnitArrayInt.push(parseInt(value))
+
+                )
 
             if App.defaults['unitVariant'] != 'All'
                 console.log unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
@@ -357,15 +367,24 @@ define [ 'marionette' ], ( Marionette )->
                         $('#gridlink'+value).removeClass 'selected'
                         $('#checklink'+value).val '0'
 
-
-
-
-
-
-
-
+                )
+            else
+                unitVariantArray = unitVariantArray
+                $.each(unitVariantArray, (index,value)->
+                    $('#gridlink'+value).addClass 'selected'
+                    $('#checklink'+value).val '1'
 
                 )
+
+
+
+
+
+
+
+
+
+
             $('html, body').animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
@@ -387,7 +406,7 @@ define [ 'marionette' ], ( Marionette )->
 
             @doListing()
             object = @
-        $(document).on("click", ".closeButton",  ()->
+        $(document).on("click", ".closeButton1",  ()->
                 theidtodel = $(this).parent('li').attr('id')
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
@@ -398,7 +417,7 @@ define [ 'marionette' ], ( Marionette )->
         doListing:->
             $('#tagslist1 ul li').remove()
             $.each(tagsArray,  (index, value) ->
-                $('#tagslist1 ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton"></div></li>')
+                $('#tagslist1 ul').append('<li id="uli-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton1"></div></li>')
             )
             if tagsArray.length == 1
                 $('.closeButton').addClass 'hidden'
@@ -416,12 +435,14 @@ define [ 'marionette' ], ( Marionette )->
             console.log index = key
             if (index >= 0)
                 tagsArray.splice(index, 1)
-                $('#li-item-' + delnum).remove()
+                $('#uli-item-' + delnum).remove()
                 unitvariantarrayValues = []
                 $.each(tagsArray , (index,value)->
                     unitvariantarrayValues.push(value.id)
 
                 )
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-three"
                 App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
                 console.log App.defaults['unitVariant']
                 App.currentStore.unit.reset UNITS
@@ -429,7 +450,7 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.filter(params={})
-                @trigger 'unit:variants:selected'
+                #@trigger 'unit:variants:selected'
 
 
 

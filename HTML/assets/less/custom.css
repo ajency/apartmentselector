@@ -7175,6 +7175,9 @@ h5 {
   height: 65px;
   padding: 12px 15px;
 }
+.boxLong.other {
+  line-height: inherit;
+}
 /**** Responsive Table Styles ****/
 .unitTable {
   width: 100%;
@@ -7673,15 +7676,33 @@ input.checkbox:checked ~ label:before {
   background-color: #ffffff;
   box-shadow: 2px 0 0 rgba(0, 0, 0, 0.1);
   text-align: left;
-}
-.compareWishlist header.cd-table-column li h4 {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 14px;
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 700;
 }
+.compareWishlist header.cd-table-column li small,
+.compareWishlist header.cd-table-column li .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.compareWishlist header.cd-table-column li small,
+.compareWishlist header.cd-table-column li .small {
+  font-size: 75%;
+}
 .compareWishlist header.cd-table-column li.noBG {
   background-color: #ffffff;
   box-shadow: none;
+}
+.compareWishlist header.cd-table-column .first {
+  border-top: 1px solid #cccccc;
 }
 @media only screen and (min-width: 870px) {
   .compareWishlist .cd-table-wrapper {
@@ -7694,6 +7715,18 @@ input.checkbox:checked ~ label:before {
   .compareWishlist header.cd-table-column {
     width: 14.66667%;
   }
+}
+.compareWishlist ul {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  border-top: 1px solid #cccccc;
+}
+.compareWishlist ul:nth-child(2) {
+  margin-top: 0;
+}
+.compareWishlist ul:nth-child(1) {
+  margin-bottom: 0;
+  border: none;
 }
 .compareWishlist ul .noBG {
   background-color: transparent;
@@ -7720,6 +7753,41 @@ input.checkbox:checked ~ label:before {
 .compareWishlist ul .unitName small,
 .compareWishlist ul .unitName .small {
   font-size: 65%;
+}
+.compareWishlist ul .first {
+  border-top: 1px solid #cccccc;
+  margin-top: 45px;
+}
+.compareWishlist ul .last {
+  margin-bottom: 10px;
+}
+.compareHeader {
+  position: absolute;
+  left: 15px;
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 18px;
+  margin-top: -25px;
+  font-weight: 700;
+  color: #ff6600;
+}
+.compareHeader small,
+.compareHeader .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.compareHeader small,
+.compareHeader .small {
+  font-size: 75%;
+}
+.compareHeader span {
+  color: #999999;
+  font-size: 16px;
 }
 body {
   background-color: #ffffff;
