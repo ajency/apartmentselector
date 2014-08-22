@@ -429,7 +429,23 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     UnitViewChildView.prototype.events = {
       'click ': function(e) {
-        var buildingModel, element, floorriserange, i, index, rangeArrayVal, rangeString, _i, _len;
+        var buildingModel, element, floorriserange, i, index, q, rangeArrayVal, rangeString, _i, _len;
+        q = 1;
+        $.map(App.backFilter, function(value, index) {
+          var element, key, screenArray, _i, _len;
+          if (q !== 1) {
+            console.log(index);
+            screenArray = App.backFilter[index];
+            for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
+              element = screenArray[_i];
+              key = App.defaults.hasOwnProperty(element);
+              if (key === true) {
+                App.defaults[element] = 'All';
+              }
+            }
+          }
+          return q++;
+        });
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
         App.navigate("screen-two");

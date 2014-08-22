@@ -570,6 +570,20 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         events:
 
             'click ':(e)->
+
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        console.log index
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            key = App.defaults.hasOwnProperty(element)
+                            if key == true
+                                App.defaults[element] = 'All'
+                    q++
+
+                )
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate "screen-two"

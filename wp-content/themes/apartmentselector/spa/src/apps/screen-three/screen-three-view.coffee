@@ -506,6 +506,7 @@ define [ 'marionette' ], ( Marionette )->
         events:
 
             'click ':(e)->
+
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate "screen-three"
                 App.currentStore.unit.reset UNITS

@@ -26,6 +26,15 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unittype'+@model.get("id"))
 
         unitTypeSelected : ( evt )->
+            $.map(App.backFilter, (value, index)->
+                console.log index
+                screenArray  = App.backFilter[index]
+                for element in screenArray
+                    key = App.defaults.hasOwnProperty(element)
+                    if key == true
+                        App.defaults[element] = 'All'
+
+            )
             App.layout.screenTwoRegion.el.innerHTML = ""
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""
@@ -155,6 +164,15 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'click .cs-selected':(e)->
+                $.map(App.backFilter, (value, index)->
+                    screenArray  = App.backFilter[index]
+                    for element in screenArray
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            App.defaults[element] = 'All'
+
+                )
+
                 App.layout.screenTwoRegion.el.innerHTML = ""
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
