@@ -73,7 +73,6 @@ require [ 'plugin-loader'
 
     App.layout = ""
 
-    App.cookieArray = []
 
     App.range = range
 

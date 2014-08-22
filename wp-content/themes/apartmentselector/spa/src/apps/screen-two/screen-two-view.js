@@ -112,9 +112,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
         console.log(unitVariantString);
         if (unitVariantString === "All") {
-          return $('#selectall').attr('checked', true);
+          return $('#selectall').prop('checked', true);
         } else {
-          return $('#selectall').attr('checked', false);
+          return $('#selectall').prop('checked', false);
         }
       },
       'click .done': function(e) {
@@ -187,7 +187,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #screen-two-button': function(e) {
-        rangeArray = [];
         return this.trigger('unit:count:selected');
       }
     };
@@ -203,6 +202,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.onShow = function() {
       var ajaxurl, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      rangeArray = [];
       globalUnitArrayInt = [];
       if (App.defaults['unitVariant'] !== 'All') {
         globalUnitVariants = App.defaults['unitVariant'].split(',');
@@ -211,9 +211,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
       }
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
-        $('#selectall').attr('checked', true);
+        $('#selectall').prop('checked', true);
       } else {
-        $('#selectall').attr('checked', false);
+        $('#selectall').prop('checked', false);
       }
       console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
@@ -423,55 +423,86 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
+    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
 
     UnitViewChildView.prototype.className = 'towerSelect';
 
     UnitViewChildView.prototype.events = {
       'click ': function(e) {
-        var element, end, i, index, param, rangeArrayVal, rangeModel, rangeString, start, _i, _len;
+        var buildingModel, element, floorriserange, i, index, q, rangeArrayVal, rangeString, _i, _len;
+        q = 1;
+        $.map(App.backFilter, function(value, index) {
+          var element, key, screenArray, _i, _len;
+          if (q !== 1) {
+            console.log(index);
+            screenArray = App.backFilter[index];
+            for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
+              element = screenArray[_i];
+              key = App.defaults.hasOwnProperty(element);
+              if (key === true) {
+                App.defaults[element] = 'All';
+              }
+            }
+          }
+          return q++;
+        });
+        App.layout.screenThreeRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-two");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
         console.log(rangeArray);
-        for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
-          element = rangeArray[index];
-          if (element === this.model.get('range') + this.model.get('buildingid')) {
-            $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val('1');
+        if (this.model.get('count') !== 0) {
+          for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
+            element = rangeArray[index];
+            if (element === this.model.get('range') + this.model.get('buildingid')) {
+              $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val('1');
+            } else {
+              $("#checkrange" + element).val('0');
+              $('#range' + element).removeClass('selected');
+              rangeArray = [];
+            }
+          }
+          console.log($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val());
+          if (parseInt($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val()) === 0) {
+            rangeArray.push(this.model.get('range') + this.model.get('buildingid'));
+            $('#range' + this.model.get('range') + this.model.get('buildingid')).addClass('selected');
+            $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("1");
+            buildingModel = App.currentStore.building.findWhere({
+              id: this.model.get('buildingid')
+            });
+            floorriserange = buildingModel.get('floorriserange');
+            rangeArrayVal = [];
+            i = 0;
+            object = this;
+            $.each(floorriserange, function(index, value) {
+              var end, start;
+              if (object.model.get('range') === value.name) {
+                start = parseInt(value.start);
+                end = parseInt(value.end);
+                while (parseInt(start) <= parseInt(end)) {
+                  rangeArrayVal[i] = start;
+                  start = parseInt(start) + 1;
+                  i++;
+                }
+                return rangeArrayVal;
+              }
+            });
+            rangeString = rangeArrayVal.join(',');
+            App.defaults['floor'] = rangeString;
+            App.backFilter['screen2'].push('floor');
+            App.defaults['building'] = parseInt(this.model.get('buildingid'));
+            App.backFilter['screen2'].push('building');
+            console.log($('#screen-two-button'));
+            $('#screen-two-button').removeClass('disabled btn-default');
+            $("#screen-two-button").addClass('btn-primary');
           } else {
-            $("#checkrange" + element).val('0');
-            $('#range' + element).removeClass('selected');
             rangeArray = [];
+            $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("0");
+            $('#range' + this.model.get('range') + this.model.get('buildingid')).removeClass('selected');
           }
-        }
-        console.log($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val());
-        if (parseInt($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val()) === 0) {
-          rangeArray.push(this.model.get('range') + this.model.get('buildingid'));
-          $('#range' + this.model.get('range') + this.model.get('buildingid')).addClass('selected');
-          $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("1");
-          param = {};
-          param['name'] = this.model.get('range');
-          console.log(param);
-          rangeModel = App.currentStore.range.findWhere(param);
-          rangeArrayVal = [];
-          i = 0;
-          start = rangeModel.get('start');
-          end = rangeModel.get('end');
-          while (parseInt(start) <= parseInt(end)) {
-            rangeArrayVal[i] = start;
-            start = parseInt(start) + 1;
-            i++;
-          }
-          rangeArrayVal;
-          rangeString = rangeArrayVal.join(',');
-          App.defaults['floor'] = rangeString;
-          App.backFilter['screen2'].push('floor');
-          App.defaults['building'] = parseInt(this.model.get('buildingid'));
-          App.backFilter['screen2'].push('building');
-          console.log($('#screen-two-button'));
-          $('#screen-two-button').removeClass('disabled btn-default');
-          $("#screen-two-button").addClass('btn-primary');
-        } else {
-          rangeArray = [];
-          $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("0");
-          $('#range' + this.model.get('range') + this.model.get('buildingid')).removeClass('selected');
         }
         if (parseInt($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val()) === 0) {
           $("#screen-two-button").addClass('disabled btn-default');

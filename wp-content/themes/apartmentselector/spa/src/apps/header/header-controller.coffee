@@ -85,22 +85,23 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 templateArr.push 'All'
 
             if(flag==1)
+                buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
+                floorriserange = buildingModel.get 'floorriserange'
+                #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+
                 first = _.first(trackArray)
-                lowUnits = App.master.range.findWhere({name:'low'})
-                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                if parseInt(first) >= parseInt(floorriserange[0].start) &&  parseInt(first) <= parseInt(floorriserange[0].end)
                     range = 'LOWRISE'
                     templateArr.push range
 
 
 
-                mediumUnits = App.master.range.findWhere({name:'medium'})
-                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                if parseInt(first) >= parseInt(floorriserange[1].start) &&  parseInt(first) <= parseInt(floorriserange[1].end)
                     range = 'MIDRISE'
                     templateArr.push range
 
 
-                highUnits = App.master.range.findWhere({name:'high'})
-                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                if parseInt(first) >= parseInt(floorriserange[2].start) &&  parseInt(first) <= parseInt(floorriserange[2].end)
                     range = 'HIGHRISE'
                     templateArr.push range
                 templateString  = templateArr.join('|')

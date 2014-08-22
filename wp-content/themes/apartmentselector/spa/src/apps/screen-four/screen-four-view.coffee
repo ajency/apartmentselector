@@ -9,7 +9,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="h-align-middle">
-                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
+                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
                             <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
                         </div>
 
@@ -29,6 +29,7 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
             'click #list':(e)->
+
                 console.log App.unit['name']
 
                 console.log cookieOldValue = $.cookie("key")
@@ -39,15 +40,17 @@ define [ 'marionette' ], ( Marionette )->
                     console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                             parseInt(item)
                     )
-                console.log key = $.inArray(App.unit['name'] , cookieOldValue)
+                console.log key = $.inArray(parseInt(App.unit['name']) , cookieOldValue)
 
                 if parseInt(key) == -1
                     $('#errormsg' ).text ""
                     App.cookieArray.push(parseInt(App.unit['name']))
+                    $('#list').addClass "remove"
                 else
                     console.log "Already entered"
                     $('#errormsg' ).text "Already entered"
                     $('#errormsg' ).addClass "inline"
+                    $('#list').removeClass "remove"
                     return false
                 console.log App.cookieArray
                 console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
@@ -56,6 +59,34 @@ define [ 'marionette' ], ( Marionette )->
                 console.log $.cookie("key")
                 $('#errormsg' ).text "The selected flat has been added to your WishList"
                 $('#errormsg' ).addClass "inline"
+
+                cart = $("#showRightPush")
+                console.log imgtodrag = $('.remove').find(".glyphicon")
+                if imgtodrag
+                    imgclone = imgtodrag.clone().offset(
+                        top: imgtodrag.offset().top
+                        left: imgtodrag.offset().left
+                    ).css(
+                        opacity: "0.8"
+                        position: "absolute"
+                        color: "#ff6600"
+                        "font-size": "30px"
+                        "z-index": "100"
+                    ).appendTo($("body")).animate(
+                        top: cart.offset().top + 10
+                        left: cart.offset().left + 80
+                        width: 50
+                        height: 50
+                    , 1200, "easeInOutCubic")
+                    imgclone.animate
+                        width: 0
+                        height: 0
+                    , ->
+                        $(this).detach()
+                        return
+                $('#list').removeClass "remove"
+
+
                 @showWishList()
             'click .del':(e)->
                 console.log App.cookieArray
@@ -63,6 +94,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                $('#errormsg' ).text ""
 
 
                 console.log $.cookie('key')
@@ -80,28 +112,31 @@ define [ 'marionette' ], ( Marionette )->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                App.unit['name'] = e.target.id
+                App.unit['name'] = $('#'+e.target.id ).attr('data-id')
                 App.unit['flag'] = 1
-                unitModel = App.master.unit.findWhere({id:parseInt(e.target.id)})
+                unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
                 App.defaults['unitType'] = unitModel.get 'unitType'
                 App.defaults['building'] =  unitModel.get 'building'
                 console.log rangeModel = App.master.range
                 App.backFilter['screen3'].push("floor")
                 App.backFilter['screen2'].push("floor","unitVariant")
-                rangeModel.each( (item)->
-                    rangeArrayVal = []
-                    i = 0
-                    start = item.get('start')
-                    end = item.get('end')
+                buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                floorriserange = buildingModel.get 'floorriserange'
+                #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                rangeArrayVal = []
+                i = 0
+                object = @
+                $.each(floorriserange, (index,value)->
+                    start = parseInt(value.start)
+                    end = parseInt(value.end)
                     while parseInt(start) <= parseInt(end)
-                        rangeArrayVal[i] = parseInt(start)
+                        rangeArrayVal[i] = start
                         start = parseInt(start) + 1
                         i++
-                    console.log jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal)
-                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) == 0
+                    rangeArrayVal
+                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
                         console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')
-
 
 
 
@@ -125,6 +160,15 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
+            console.log cookieOldValue = $.cookie("key")
+            console.log typeof cookieOldValue
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+            App.cookieArray = cookieOldValue
             @showWishList()
 
         showWishList:->
@@ -138,11 +182,12 @@ define [ 'marionette' ], ( Marionette )->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#" id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
-                    <a href="#" class="del" id="'+element+'" data-id="'+element+'"  >Remove</a></li>'
+                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'"  class="selectedunit">'+model.get('name')+'</a>
+                                                            <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
+                                                                <div class="clearfix"></div>'
 
                 table += '</table>'
-
+            console.log table
             $('#showWishlist').html table
 
 

@@ -28,6 +28,30 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
       var buildings, element, index, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
+      $.map(App.backFilter, function(value, index) {
+        var element, key, screenArray, _i, _len, _results;
+        console.log(index);
+        screenArray = App.backFilter[index];
+        _results = [];
+        for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
+          element = screenArray[_i];
+          key = App.defaults.hasOwnProperty(element);
+          if (key === true) {
+            _results.push(App.defaults[element] = 'All');
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
+      });
+      App.layout.screenTwoRegion.el.innerHTML = "";
+      App.layout.screenThreeRegion.el.innerHTML = "";
+      App.layout.screenFourRegion.el.innerHTML = "";
+      App.navigate("screen-one");
+      App.currentStore.unit.reset(UNITS);
+      App.currentStore.building.reset(BUILDINGS);
+      App.currentStore.unit_type.reset(UNITTYPES);
+      App.currentStore.unit_variant.reset(UNITVARIANTS);
       evt.preventDefault();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
@@ -145,6 +169,29 @@ define(['marionette'], function(Marionette) {
       },
       'click .cs-selected': function(e) {
         var budget_val, buildings, element, newColl, newUnits, uniqBuildings, _i, _len;
+        $.map(App.backFilter, function(value, index) {
+          var element, key, screenArray, _i, _len, _results;
+          screenArray = App.backFilter[index];
+          _results = [];
+          for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
+            element = screenArray[_i];
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              _results.push(App.defaults[element] = 'All');
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
+        });
+        App.layout.screenTwoRegion.el.innerHTML = "";
+        App.layout.screenThreeRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-one");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
         for (_i = 0, _len = unitType.length; _i < _len; _i++) {
           element = unitType[_i];
           $('a').removeClass('selected');

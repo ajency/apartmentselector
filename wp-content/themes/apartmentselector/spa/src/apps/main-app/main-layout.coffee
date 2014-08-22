@@ -118,6 +118,7 @@ define [ 'extm'], ( Extm)->
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                $('#errormsg' ).text ""
                 @showWishList()
 
             'click a':(e)->
@@ -131,32 +132,42 @@ define [ 'extm'], ( Extm)->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                App.unit['name'] = e.target.id
+                App.unit['name'] = $('#'+e.target.id ).attr('data-id')
                 App.unit['flag'] = 1
-                unitModel = App.master.unit.findWhere({id:parseInt(e.target.id)})
+                console.log $('#'+e.target.id ).attr('data-id')
+                console.log unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
                 App.defaults['unitType'] = unitModel.get 'unitType'
                 App.defaults['building'] =  unitModel.get 'building'
                 console.log rangeModel = App.master.range
                 App.backFilter['screen3'].push("floor")
                 App.backFilter['screen2'].push("floor","unitVariant")
-                rangeModel.each( (item)->
-                    rangeArrayVal = []
-                    i = 0
-                    start = item.get('start')
-                    end = item.get('end')
+                console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                floorriserange = buildingModel.get 'floorriserange'
+                #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                rangeArrayVal = []
+                i = 0
+                object = @
+                $.each(floorriserange, (index,value)->
+                    start = parseInt(value.start)
+                    end = parseInt(value.end)
                     while parseInt(start) <= parseInt(end)
-                        rangeArrayVal[i] = parseInt(start)
+                        rangeArrayVal[i] = start
                         start = parseInt(start) + 1
                         i++
-                    console.log jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal)
+                    console.log rangeArrayVal
                     if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
                         console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')
 
 
 
-
                 )
+
+
+
+
+
+
                 console.log App.defaults
                 App.navigate "screen-four"
                 msgbus.showApp 'header'
@@ -167,33 +178,7 @@ define [ 'extm'], ( Extm)->
                     .withOptions()
 
 
-            "click #list":->
-                  cart = $("#showRightPush")
-                  imgtodrag = $(this).find(".glyphicon")
-                  if imgtodrag
-                        imgclone = imgtodrag.clone().offset(
-                          top: imgtodrag.offset().top
-                          left: imgtodrag.offset().left
-                        ).css(
-                          opacity: "0.8"
-                          position: "absolute"
-                          color: "#ff6600"
-                          "font-size": "30px"
-                          "z-index": "100"
-                        ).appendTo($("body")).animate(
-                          top: cart.offset().top + 10
-                          left: cart.offset().left + 80
-                          width: 50
-                          height: 50
-                        , 1200, "easeInOutCubic")
-                        imgclone.animate
-                          width: 0
-                          height: 0
-                        , ->
-                          $(this).detach()
-                          return
 
-                  return
 
 
 
@@ -224,6 +209,15 @@ define [ 'extm'], ( Extm)->
 
 
             )
+            console.log cookieOldValue = $.cookie("key")
+            console.log typeof cookieOldValue
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+            App.cookieArray = cookieOldValue
             @showWishList()
         showWishList:->
             table = ""
@@ -236,7 +230,7 @@ define [ 'extm'], ( Extm)->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#" id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
+                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
                                         <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
                                             <div class="clearfix"></div>'
 

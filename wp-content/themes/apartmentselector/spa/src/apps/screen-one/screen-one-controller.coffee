@@ -44,8 +44,8 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             priceUnits = App.currentStore.unit
             priceUnits.each ( item)->
                 #calculating the price value
-                buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
-                floorRise = buildingModel.get 'floorrise'
+                console.log buildingModel = App.currentStore.building.findWhere({'id':item.get 'building'})
+                console.log floorRise = buildingModel.get 'floorrise'
                 floorRiseValue = floorRise[item.get 'floor']
                 unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
                 #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')

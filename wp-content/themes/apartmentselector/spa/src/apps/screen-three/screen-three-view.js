@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, object, rangeArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, object, rangeunitArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -14,7 +14,7 @@ define(['marionette'], function(Marionette) {
   object = "";
   unitVariants = [];
   cloneunitVariantArrayColl = "";
-  rangeArray = [];
+  rangeunitArray = [];
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -38,8 +38,8 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(e.target.id)
         });
-        for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
-          element = rangeArray[index];
+        for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
+          element = rangeunitArray[index];
           if (element === e.target.id) {
             $("#select" + e.target.id).val('1');
           } else {
@@ -50,10 +50,10 @@ define(['marionette'], function(Marionette) {
             } else if (unitModel.get('status') === 8) {
               $("#" + element).attr('class', 'unit-hover sold ');
             }
-            rangeArray = [];
+            rangeunitArray = [];
           }
         }
-        rangeArray.push(parseInt(e.target.id));
+        rangeunitArray.push(parseInt(e.target.id));
         $('#check' + e.target.id).addClass("selected");
         $("#select" + e.target.id).val("1");
         $("#screen-three-button").removeClass('disabled btn-default');
@@ -72,7 +72,6 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #screen-three-button': function(e) {
-        rangeArray = [];
         return this.trigger('unit:item:selected');
       },
       'click a': function(e) {
@@ -199,6 +198,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.onShow = function() {
       var $columns_number, floorsvg, globalUnitArrayInt, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      rangeunitArray = [];
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
       source2 = "../wp-content/uploads/2014/08/image/3.svg";
@@ -438,12 +438,18 @@ define(['marionette'], function(Marionette) {
     unitChildView.prototype.events = {
       'click ': function(e) {
         var element, index, unitModel, _i, _len;
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-three");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
         unitModel = App.master.unit.findWhere({
           id: this.model.get("id")
         });
-        console.log(rangeArray);
-        for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
-          element = rangeArray[index];
+        console.log(rangeunitArray);
+        for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
+          element = rangeunitArray[index];
           if (element === this.model.get('id')) {
             $("#select" + this.model.get('id')).val('1');
           } else {
@@ -454,11 +460,11 @@ define(['marionette'], function(Marionette) {
             } else if (unitModel.get('status') === 8) {
               $("#" + element).attr('class', 'unit-hover sold ');
             }
-            rangeArray = [];
+            rangeunitArray = [];
           }
         }
         if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
-          rangeArray.push(this.model.get('id'));
+          rangeunitArray.push(this.model.get('id'));
           $('#check' + this.model.get("id")).addClass("selected");
           $("#select" + this.model.get('id')).val("1");
           if (unitModel.get('status') === 9) {
@@ -472,7 +478,7 @@ define(['marionette'], function(Marionette) {
           $("#screen-three-button").removeClass('disabled btn-default');
           $("#screen-three-button").addClass('btn-primary');
         } else {
-          rangeArray = [];
+          rangeunitArray = [];
           $("#select" + this.model.get('id')).val("0");
           $('#check' + this.model.get('id')).removeClass('selected');
           if (unitModel.get('status') === 9) {

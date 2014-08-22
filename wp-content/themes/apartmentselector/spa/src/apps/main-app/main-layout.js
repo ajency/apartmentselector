@@ -53,13 +53,14 @@ define(['extm'], function(Extm) {
         console.log(index = App.cookieArray.indexOf(parseInt(val)));
         App.cookieArray.splice(index, 1);
         $.cookie('key', App.cookieArray);
+        $('#errormsg').text("");
         return this.showWishList();
       },
       'click a': function(e) {
         return e.preventDefault();
       },
       'click .selectedunit': function(e) {
-        var body, menuRight, menuTop, rangeModel, showRightPush, showTop, unitModel;
+        var body, buildingModel, floorriserange, i, menuRight, menuTop, object, rangeArrayVal, rangeModel, showRightPush, showTop, unitModel;
         menuRight = document.getElementById("cbp-spmenu-s2");
         menuTop = document.getElementById("cbp-spmenu-s3");
         showTop = document.getElementById("showTop");
@@ -68,28 +69,34 @@ define(['extm'], function(Extm) {
         classie.toggle(showRightPush, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");
         classie.toggle(menuRight, "cbp-spmenu-open");
-        App.unit['name'] = e.target.id;
+        App.unit['name'] = $('#' + e.target.id).attr('data-id');
         App.unit['flag'] = 1;
-        unitModel = App.master.unit.findWhere({
-          id: parseInt(e.target.id)
-        });
+        console.log($('#' + e.target.id).attr('data-id'));
+        console.log(unitModel = App.master.unit.findWhere({
+          id: parseInt($('#' + e.target.id).attr('data-id'))
+        }));
         App.defaults['unitType'] = unitModel.get('unitType');
         App.defaults['building'] = unitModel.get('building');
         console.log(rangeModel = App.master.range);
         App.backFilter['screen3'].push("floor");
         App.backFilter['screen2'].push("floor", "unitVariant");
-        rangeModel.each(function(item) {
-          var end, i, rangeArrayVal, start;
-          rangeArrayVal = [];
-          i = 0;
-          start = item.get('start');
-          end = item.get('end');
+        console.log(buildingModel = App.master.building.findWhere({
+          id: unitModel.get('building')
+        }));
+        floorriserange = buildingModel.get('floorriserange');
+        rangeArrayVal = [];
+        i = 0;
+        object = this;
+        $.each(floorriserange, function(index, value) {
+          var end, start;
+          start = parseInt(value.start);
+          end = parseInt(value.end);
           while (parseInt(start) <= parseInt(end)) {
-            rangeArrayVal[i] = parseInt(start);
+            rangeArrayVal[i] = start;
             start = parseInt(start) + 1;
             i++;
           }
-          console.log(jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal));
+          console.log(rangeArrayVal);
           if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
             console.log("aaaaaaaaaaa");
             return App.defaults['floor'] = rangeArrayVal.join(',');
@@ -99,34 +106,6 @@ define(['extm'], function(Extm) {
         App.navigate("screen-four");
         msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
-      },
-      "click #list": function() {
-        var cart, imgclone, imgtodrag;
-        cart = $("#showRightPush");
-        imgtodrag = $(this).find(".glyphicon");
-        if (imgtodrag) {
-          imgclone = imgtodrag.clone().offset({
-            top: imgtodrag.offset().top,
-            left: imgtodrag.offset().left
-          }).css({
-            opacity: "0.8",
-            position: "absolute",
-            color: "#ff6600",
-            "font-size": "30px",
-            "z-index": "100"
-          }).appendTo($("body")).animate({
-            top: cart.offset().top + 10,
-            left: cart.offset().left + 80,
-            width: 50,
-            height: 50
-          }, 1200, "easeInOutCubic");
-          imgclone.animate({
-            width: 0,
-            height: 0
-          }, function() {
-            $(this).detach();
-          });
-        }
       }
     };
 
@@ -138,7 +117,7 @@ define(['extm'], function(Extm) {
     };
 
     mainView.prototype.onShow = function() {
-      var height;
+      var cookieOldValue, height;
       console.log(height = $(window).scrollTop());
       $(window).scroll(function() {
         height = $(window).scrollTop();
@@ -150,6 +129,16 @@ define(['extm'], function(Extm) {
           return $('.slctnTxt').removeClass('hidden');
         }
       });
+      console.log(cookieOldValue = $.cookie("key"));
+      console.log(typeof cookieOldValue);
+      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+        cookieOldValue = [];
+      } else {
+        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+          return parseInt(item);
+        }));
+      }
+      App.cookieArray = cookieOldValue;
       return this.showWishList();
     };
 
@@ -174,7 +163,7 @@ define(['extm'], function(Extm) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li><a href="#" id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
+          table += '<li><a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a></li> <div class="clearfix"></div>';
         }
         table += '</table>';
       }

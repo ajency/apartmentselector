@@ -180,9 +180,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         unitVariantString = unitVariantArray.join(',')
                 console.log unitVariantString
                 if unitVariantString == "All"
-                    $('#selectall' ).attr 'checked' , true
+                    $('#selectall' ).prop 'checked', true
                 else
-                    $('#selectall' ).attr 'checked', false
+                    $('#selectall' ).prop 'checked', false
 
 
 
@@ -264,7 +264,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     unitVariantString = value.toString()
 
             'click #screen-two-button':(e)->
-                rangeArray = []
+                #rangeArray = []
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
@@ -297,6 +297,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            rangeArray = []
             globalUnitArrayInt = []
             if App.defaults['unitVariant'] != 'All'
                 globalUnitVariants = App.defaults['unitVariant'].split(',')
@@ -305,9 +306,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
-                $('#selectall' ).attr 'checked' ,  true
+                $('#selectall' ).prop 'checked', true
             else
-                $('#selectall' ).attr 'checked', false
+                $('#selectall' ).prop 'checked', false
             console.log document.getElementsByTagName('g')['highlighttower13']
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
@@ -548,7 +549,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}}">
+                    <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}">
                         <div class="pull-left light">
                             <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
                             <div class="small">{{rangeNo}}</div>
@@ -567,50 +568,82 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         events:
+
             'click ':(e)->
+
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        console.log index
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            key = App.defaults.hasOwnProperty(element)
+                            if key == true
+                                App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
                 console.log rangeArray
-                for element , index in rangeArray
-                    if element == @model.get('range')+@model.get('buildingid')
-                        $("#checkrange"+@model.get('range')+@model.get('buildingid')).val '1'
+                if @model.get('count') !=0
+                    for element , index in rangeArray
+                        if element == @model.get('range')+@model.get('buildingid')
+                            $("#checkrange"+@model.get('range')+@model.get('buildingid')).val '1'
+                        else
+                            $("#checkrange"+element).val '0'
+                            $('#range'+element).removeClass 'selected'
+                            rangeArray = []
+                    console.log $("#checkrange"+@model.get('range')+@model.get('buildingid')).val()
+
+                    if  parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
+                        rangeArray.push @model.get('range')+@model.get('buildingid')
+                        $('#range'+@model.get('range')+@model.get('buildingid')).addClass 'selected'
+
+                        $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "1"
+                        buildingModel = App.currentStore.building.findWhere({id:@model.get('buildingid')})
+                        floorriserange = buildingModel.get 'floorriserange'
+                        #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                        rangeArrayVal = []
+                        i = 0
+                        object = @
+                        $.each(floorriserange, (index,value)->
+                            if object.model.get('range') == value.name
+                                start = parseInt(value.start)
+                                end = parseInt(value.end)
+                                while parseInt(start) <= parseInt(end)
+                                    rangeArrayVal[i] = start
+                                    start = parseInt(start) + 1
+                                    i++
+                                rangeArrayVal
+
+
+
+                        )
+
+
+
+                        rangeString = rangeArrayVal.join(',')
+
+
+                        App.defaults['floor'] = rangeString
+                        App.backFilter['screen2'].push 'floor'
+                        App.defaults['building'] = parseInt(@model.get 'buildingid')
+                        App.backFilter['screen2'].push 'building'
+                        console.log $('#screen-two-button')
+                        $('#screen-two-button').removeClass 'disabled btn-default'
+                        $("#screen-two-button").addClass 'btn-primary'
+                        #@trigger 'unit:count:selected'
                     else
-                        $("#checkrange"+element).val '0'
-                        $('#range'+element).removeClass 'selected'
-                        rangeArray = []
-                console.log $("#checkrange"+@model.get('range')+@model.get('buildingid')).val()
-
-                if  parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
-                    rangeArray.push @model.get('range')+@model.get('buildingid')
-                    $('#range'+@model.get('range')+@model.get('buildingid')).addClass 'selected'
-
-                    $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "1"
-                    param = {}
-                    param['name'] = @model.get 'range'
-                    console.log param
-                    rangeModel = App.currentStore.range.findWhere(param)
-                    rangeArrayVal = []
-                    i = 0
-                    start = rangeModel.get('start')
-                    end = rangeModel.get('end')
-                    while parseInt(start) <= parseInt(end)
-                        rangeArrayVal[i] = start
-                        start = parseInt(start) + 1
-                        i++
-                    rangeArrayVal
-                    rangeString = rangeArrayVal.join(',')
-
-
-                    App.defaults['floor'] = rangeString
-                    App.backFilter['screen2'].push 'floor'
-                    App.defaults['building'] = parseInt(@model.get 'buildingid')
-                    App.backFilter['screen2'].push 'building'
-                    console.log $('#screen-two-button')
-                    $('#screen-two-button').removeClass 'disabled btn-default'
-                    $("#screen-two-button").addClass 'btn-primary'
-                    #@trigger 'unit:count:selected'
-                else
-                    rangeArray=[]
-                    $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "0"
-                    $('#range'+@model.get('range')+@model.get('buildingid')).removeClass 'selected'
+                        rangeArray=[]
+                        $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "0"
+                        $('#range'+@model.get('range')+@model.get('buildingid')).removeClass 'selected'
                 if parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
                     $("#screen-two-button").addClass 'disabled btn-default'
                     $("#screen-two-button").removeClass 'btn-primary'

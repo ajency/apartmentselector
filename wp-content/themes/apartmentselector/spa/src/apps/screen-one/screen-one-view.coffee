@@ -26,6 +26,23 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unittype'+@model.get("id"))
 
         unitTypeSelected : ( evt )->
+            $.map(App.backFilter, (value, index)->
+                console.log index
+                screenArray  = App.backFilter[index]
+                for element in screenArray
+                    key = App.defaults.hasOwnProperty(element)
+                    if key == true
+                        App.defaults[element] = 'All'
+
+            )
+            App.layout.screenTwoRegion.el.innerHTML = ""
+            App.layout.screenThreeRegion.el.innerHTML = ""
+            App.layout.screenFourRegion.el.innerHTML = ""
+            App.navigate "screen-one"
+            App.currentStore.unit.reset UNITS
+            App.currentStore.building.reset BUILDINGS
+            App.currentStore.unit_type.reset UNITTYPES
+            App.currentStore.unit_variant.reset UNITVARIANTS
             evt.preventDefault()
             $("li").removeClass 'cs-selected'
             $(".cs-placeholder").text('Undecided')
@@ -147,6 +164,23 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'click .cs-selected':(e)->
+                $.map(App.backFilter, (value, index)->
+                    screenArray  = App.backFilter[index]
+                    for element in screenArray
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            App.defaults[element] = 'All'
+
+                )
+
+                App.layout.screenTwoRegion.el.innerHTML = ""
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-one"
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
                 for element in unitType
                     $('a' ).removeClass 'selected'
                     $("#check"+element).val "0"
