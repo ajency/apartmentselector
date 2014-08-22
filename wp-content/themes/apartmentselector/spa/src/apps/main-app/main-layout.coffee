@@ -154,7 +154,7 @@ define [ 'extm'], ( Extm)->
                         rangeArrayVal[i] = start
                         start = parseInt(start) + 1
                         i++
-                    console.loog rangeArrayVal
+                    console.log rangeArrayVal
                     if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
                         console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')

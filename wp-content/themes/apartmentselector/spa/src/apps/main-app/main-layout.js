@@ -96,7 +96,7 @@ define(['extm'], function(Extm) {
             start = parseInt(start) + 1;
             i++;
           }
-          console.loog(rangeArrayVal);
+          console.log(rangeArrayVal);
           if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
             console.log("aaaaaaaaaaa");
             return App.defaults['floor'] = rangeArrayVal.join(',');
