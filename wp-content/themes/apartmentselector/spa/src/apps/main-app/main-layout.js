@@ -60,7 +60,7 @@ define(['extm'], function(Extm) {
         return e.preventDefault();
       },
       'click .selectedunit': function(e) {
-        var body, menuRight, menuTop, rangeModel, showRightPush, showTop, unitModel;
+        var body, buildingModel, floorriserange, i, menuRight, menuTop, object, rangeArrayVal, rangeModel, showRightPush, showTop, unitModel;
         menuRight = document.getElementById("cbp-spmenu-s2");
         menuTop = document.getElementById("cbp-spmenu-s3");
         showTop = document.getElementById("showTop");
@@ -69,29 +69,34 @@ define(['extm'], function(Extm) {
         classie.toggle(showRightPush, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");
         classie.toggle(menuRight, "cbp-spmenu-open");
-        App.unit['name'] = $('.selectedunit').attr('data-id');
+        App.unit['name'] = $('#' + e.target.id).attr('data-id');
         App.unit['flag'] = 1;
-        console.log($('.selectedunit').attr('data-id'));
+        console.log($('#' + e.target.id).attr('data-id'));
         console.log(unitModel = App.master.unit.findWhere({
-          id: parseInt($('.selectedunit').attr('data-id'))
+          id: parseInt($('#' + e.target.id).attr('data-id'))
         }));
         App.defaults['unitType'] = unitModel.get('unitType');
         App.defaults['building'] = unitModel.get('building');
         console.log(rangeModel = App.master.range);
         App.backFilter['screen3'].push("floor");
         App.backFilter['screen2'].push("floor", "unitVariant");
-        rangeModel.each(function(item) {
-          var end, i, rangeArrayVal, start;
-          rangeArrayVal = [];
-          i = 0;
-          start = item.get('start');
-          end = item.get('end');
+        console.log(buildingModel = App.master.building.findWhere({
+          id: unitModel.get('building')
+        }));
+        floorriserange = buildingModel.get('floorriserange');
+        rangeArrayVal = [];
+        i = 0;
+        object = this;
+        $.each(floorriserange, function(index, value) {
+          var end, start;
+          start = parseInt(value.start);
+          end = parseInt(value.end);
           while (parseInt(start) <= parseInt(end)) {
-            rangeArrayVal[i] = parseInt(start);
+            rangeArrayVal[i] = start;
             start = parseInt(start) + 1;
             i++;
           }
-          console.log(jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal));
+          console.loog(rangeArrayVal);
           if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
             console.log("aaaaaaaaaaa");
             return App.defaults['floor'] = rangeArrayVal.join(',');

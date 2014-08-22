@@ -132,33 +132,42 @@ define [ 'extm'], ( Extm)->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                App.unit['name'] = $('.selectedunit' ).attr('data-id')
+                App.unit['name'] = $('#'+e.target.id ).attr('data-id')
                 App.unit['flag'] = 1
-                console.log $('.selectedunit' ).attr('data-id')
-                console.log unitModel = App.master.unit.findWhere({id:parseInt($('.selectedunit' ).attr('data-id'))})
+                console.log $('#'+e.target.id ).attr('data-id')
+                console.log unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
                 App.defaults['unitType'] = unitModel.get 'unitType'
                 App.defaults['building'] =  unitModel.get 'building'
                 console.log rangeModel = App.master.range
                 App.backFilter['screen3'].push("floor")
                 App.backFilter['screen2'].push("floor","unitVariant")
-                rangeModel.each( (item)->
-                    rangeArrayVal = []
-                    i = 0
-                    start = item.get('start')
-                    end = item.get('end')
+                console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                floorriserange = buildingModel.get 'floorriserange'
+                #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                rangeArrayVal = []
+                i = 0
+                object = @
+                $.each(floorriserange, (index,value)->
+                    start = parseInt(value.start)
+                    end = parseInt(value.end)
                     while parseInt(start) <= parseInt(end)
-                        rangeArrayVal[i] = parseInt(start)
+                        rangeArrayVal[i] = start
                         start = parseInt(start) + 1
                         i++
-                    console.log jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal)
+                    console.loog rangeArrayVal
                     if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
                         console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')
 
 
 
-
                 )
+
+
+
+
+
+
                 console.log App.defaults
                 App.navigate "screen-four"
                 msgbus.showApp 'header'
