@@ -7,7 +7,7 @@ define [ 'marionette' ], ( Marionette )->
     firstElement = ''
     tagsArray = []
     count = 0
-    object = ""
+    object1 = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
     rangeunitArray =[]
@@ -405,10 +405,11 @@ define [ 'marionette' ], ( Marionette )->
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()
-            object = @
+            object1 = @
         $(document).on("click", ".closeButton1",  ()->
-                theidtodel = $(this).parent('li').attr('id')
-                object.delItem($('#' + theidtodel).attr('data-itemNum'))
+                console.log theidtodel = $(this).parent('li').attr('id')
+                console.log object1
+                object1.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
         call:->
             console.log "aaaaaaaaaaaaaaaaaaa"
@@ -420,7 +421,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#tagslist1 ul').append('<li id="uli-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton1"></div></li>')
             )
             if tagsArray.length == 1
-                $('.closeButton').addClass 'hidden'
+                $('.closeButton1').addClass 'hidden'
 
         delItem:(delnum)->
             removeItem = delnum
@@ -450,7 +451,7 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.filter(params={})
-                #@trigger 'unit:variants:selected'
+                @trigger 'unit:variants:selected'
 
 
 

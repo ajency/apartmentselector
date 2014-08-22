@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, globalUnitArrayInt, object, rangeunitArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, globalUnitArrayInt, object1, rangeunitArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
   firstElement = '';
   tagsArray = [];
   count = 0;
-  object = "";
+  object1 = "";
   unitVariants = [];
   cloneunitVariantArrayColl = "";
   rangeunitArray = [];
@@ -339,13 +339,14 @@ define(['marionette'], function(Marionette) {
         });
       }
       this.doListing();
-      return object = this;
+      return object1 = this;
     };
 
     $(document).on("click", ".closeButton1", function() {
       var theidtodel;
-      theidtodel = $(this).parent('li').attr('id');
-      return object.delItem($('#' + theidtodel).attr('data-itemNum'));
+      console.log(theidtodel = $(this).parent('li').attr('id'));
+      console.log(object1);
+      return object1.delItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
     ScreenThreeLayout.prototype.call = function() {
@@ -358,7 +359,7 @@ define(['marionette'], function(Marionette) {
         return $('#tagslist1 ul').append('<li id="uli-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton1"></div></li>');
       });
       if (tagsArray.length === 1) {
-        return $('.closeButton').addClass('hidden');
+        return $('.closeButton1').addClass('hidden');
       }
     };
 
@@ -389,7 +390,8 @@ define(['marionette'], function(Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
-        return App.filter(params = {});
+        App.filter(params = {});
+        return this.trigger('unit:variants:selected');
       }
     };
 
@@ -516,7 +518,7 @@ define(['marionette'], function(Marionette) {
     };
 
     unitChildView.prototype.onShow = function() {
-      var flag, myArray, track;
+      var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
         if (value !== 'All' && index !== 'floor') {
