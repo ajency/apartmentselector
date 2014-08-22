@@ -112,9 +112,9 @@ define [ 'marionette' ], ( Marionette )->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                App.unit['name'] = $('#unit'+e.target.id ).attr('data-id')
+                App.unit['name'] = $('.selectedunit' ).attr('data-id')
                 App.unit['flag'] = 1
-                unitModel = App.master.unit.findWhere({id:parseInt(e.target.id)})
+                unitModel = App.master.unit.findWhere({id:parseInt($('.selectedunit' ).attr('data-id'))})
                 App.defaults['unitType'] = unitModel.get 'unitType'
                 App.defaults['building'] =  unitModel.get 'building'
                 console.log rangeModel = App.master.range
