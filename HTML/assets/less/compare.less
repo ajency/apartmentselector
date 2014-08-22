@@ -58,15 +58,21 @@
             background-color: @color-white;
             box-shadow: 2px 0 0 rgba(0, 0, 0, 0.1);
             text-align: left;
-            h4 {
-                margin-top: 0;
-                margin-bottom: 0;
-                .bold;
-            }
+            .h5 ;
+            margin-top: 0;
+            margin-bottom: 0;
+            .bold;
+            
             &.noBG{
                 background-color: @color-white;
                 box-shadow: none;
             }
+        }
+        .first{
+            border-top: 1px solid lighten(@gray-light, 20%);
+        }
+        .last{
+            // border-bottom: 1px solid lighten(@gray-light, 20%);
         }
     }
     @media only screen and (min-width: 870px) {
@@ -84,6 +90,16 @@
     }
     /*Compare classes*/
     ul{
+        margin-top: 20px;
+        margin-bottom: 50px;
+        border-top: 1px solid lighten(@gray-light, 20%);
+        &:nth-child(2){
+            margin-top: 0;
+        }
+        &:nth-child(1){
+            margin-bottom: 0;
+            border: none;
+        }
         .noBG{
             background-color: transparent;
         }
@@ -100,6 +116,30 @@
                 // margin-top: 10px;
             }
         }
+        .first{
+            border-top: 1px solid lighten(@gray-light, 20%);
+            margin-top: 45px;
+            &:before{
+                // content: 'Floors';
+            }
+        }
+        .last{
+            // border-bottom: 1px solid lighten(@gray-light, 20%);
+            margin-bottom: 10px;
+        }
     }    
+}
+
+.compareHeader{
+    position: absolute;
+    left: 15px;
+    .h4;
+    margin-top: -25px;
+    .bold;
+    color: @color-primary;
+    span{
+        color: @gray-light;
+        font-size: 16px;
+    }
 }
 
