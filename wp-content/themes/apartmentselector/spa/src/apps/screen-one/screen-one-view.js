@@ -28,6 +28,14 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
       var buildings, element, index, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
+      App.layout.screenTwoRegion.el.innerHTML = "";
+      App.layout.screenThreeRegion.el.innerHTML = "";
+      App.layout.screenFourRegion.el.innerHTML = "";
+      App.navigate("screen-one");
+      App.currentStore.unit.reset(UNITS);
+      App.currentStore.building.reset(BUILDINGS);
+      App.currentStore.unit_type.reset(UNITTYPES);
+      App.currentStore.unit_variant.reset(UNITVARIANTS);
       evt.preventDefault();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
@@ -145,6 +153,14 @@ define(['marionette'], function(Marionette) {
       },
       'click .cs-selected': function(e) {
         var budget_val, buildings, element, newColl, newUnits, uniqBuildings, _i, _len;
+        App.layout.screenTwoRegion.el.innerHTML = "";
+        App.layout.screenThreeRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-one");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
         for (_i = 0, _len = unitType.length; _i < _len; _i++) {
           element = unitType[_i];
           $('a').removeClass('selected');

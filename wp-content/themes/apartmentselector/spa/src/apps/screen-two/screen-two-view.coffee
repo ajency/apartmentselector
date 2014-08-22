@@ -264,7 +264,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     unitVariantString = value.toString()
 
             'click #screen-two-button':(e)->
-                rangeArray = []
+                #rangeArray = []
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
@@ -297,6 +297,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            rangeArray = []
             globalUnitArrayInt = []
             if App.defaults['unitVariant'] != 'All'
                 globalUnitVariants = App.defaults['unitVariant'].split(',')
@@ -567,7 +568,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         events:
+
             'click ':(e)->
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
                 console.log rangeArray
                 if @model.get('count') !=0
                     for element , index in rangeArray

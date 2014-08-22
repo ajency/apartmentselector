@@ -187,7 +187,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #screen-two-button': function(e) {
-        rangeArray = [];
         return this.trigger('unit:count:selected');
       }
     };
@@ -203,6 +202,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.onShow = function() {
       var ajaxurl, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      rangeArray = [];
       globalUnitArrayInt = [];
       if (App.defaults['unitVariant'] !== 'All') {
         globalUnitVariants = App.defaults['unitVariant'].split(',');
@@ -430,6 +430,13 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     UnitViewChildView.prototype.events = {
       'click ': function(e) {
         var buildingModel, element, floorriserange, i, index, rangeArrayVal, rangeString, _i, _len;
+        App.layout.screenThreeRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-two");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
         console.log(rangeArray);
         if (this.model.get('count') !== 0) {
           for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {

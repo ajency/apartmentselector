@@ -10,7 +10,7 @@ define [ 'marionette' ], ( Marionette )->
     object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
-    rangeArray =[]
+    rangeunitArray =[]
 
 
     class ScreenThreeLayout extends Marionette.LayoutView
@@ -105,7 +105,7 @@ define [ 'marionette' ], ( Marionette )->
             'click .unit-hover':(e)->
                 console.log(e.target.id)
                 unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
-                for element , index in rangeArray
+                for element , index in rangeunitArray
                     if element == e.target.id
                         $("#select"+e.target.id).val '1'
                     else
@@ -115,8 +115,8 @@ define [ 'marionette' ], ( Marionette )->
                             $("#"+element).attr('class','unit-hover aviable ')
                         else if unitModel.get('status') == 8
                             $("#"+element).attr('class','unit-hover sold ')
-                        rangeArray = []
-                rangeArray.push parseInt(e.target.id)
+                        rangeunitArray = []
+                rangeunitArray.push parseInt(e.target.id)
                 $('#check'+e.target.id).addClass "selected"
 
                 $("#select"+e.target.id).val "1"
@@ -134,7 +134,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'click #screen-three-button':(e)->
-                rangeArray = []
                 @trigger 'unit:item:selected'
 
             'click a':(e)->
@@ -260,7 +259,7 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
 
-
+            rangeunitArray=[]
             source = "../wp-content/uploads/2014/08/image/1.svg"
             source1 = "../wp-content/uploads/2014/08/image/2.svg"
             source2 = "../wp-content/uploads/2014/08/image/3.svg"
@@ -505,11 +504,18 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'check'+@model.get("id"))
 
         events:
+
             'click ':(e)->
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-three"
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
                 unitModel = App.master.unit.findWhere(id:@model.get("id"))
 
-                console.log rangeArray
-                for element , index in rangeArray
+                console.log rangeunitArray
+                for element , index in rangeunitArray
                     if element == @model.get('id')
                         $("#select"+@model.get('id')).val '1'
                     else
@@ -519,9 +525,9 @@ define [ 'marionette' ], ( Marionette )->
                             $("#"+element).attr('class','unit-hover aviable ')
                         else if unitModel.get('status') == 8
                             $("#"+element).attr('class','unit-hover sold ')
-                        rangeArray = []
+                        rangeunitArray = []
                 if  parseInt($("#select"+@model.get('id')).val()) == 0
-                    rangeArray.push @model.get('id')
+                    rangeunitArray.push @model.get('id')
                     $('#check'+@model.get("id")).addClass "selected"
 
                     $("#select"+@model.get('id')).val "1"
@@ -537,7 +543,7 @@ define [ 'marionette' ], ( Marionette )->
                     $("#screen-three-button").addClass 'btn-primary'
                     #@trigger 'unit:item:selected'
                 else
-                    rangeArray=[]
+                    rangeunitArray=[]
                     $("#select"+@model.get('id')).val "0"
                     $('#check'+@model.get('id')).removeClass 'selected'
                     if unitModel.get('status') == 9
