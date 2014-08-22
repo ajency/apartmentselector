@@ -180,9 +180,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         unitVariantString = unitVariantArray.join(',')
                 console.log unitVariantString
                 if unitVariantString == "All"
-                    $('#selectall' ).attr 'checked' , true
+                    $('#selectall' ).prop 'checked', true
                 else
-                    $('#selectall' ).attr 'checked', false
+                    $('#selectall' ).prop 'checked', false
 
 
 
@@ -305,9 +305,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
-                $('#selectall' ).attr 'checked' ,  true
+                $('#selectall' ).prop 'checked', true
             else
-                $('#selectall' ).attr 'checked', false
+                $('#selectall' ).prop 'checked', false
             console.log document.getElementsByTagName('g')['highlighttower13']
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'

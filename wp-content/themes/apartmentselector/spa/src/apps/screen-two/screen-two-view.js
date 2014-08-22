@@ -112,9 +112,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
         console.log(unitVariantString);
         if (unitVariantString === "All") {
-          return $('#selectall').attr('checked', true);
+          return $('#selectall').prop('checked', true);
         } else {
-          return $('#selectall').attr('checked', false);
+          return $('#selectall').prop('checked', false);
         }
       },
       'click .done': function(e) {
@@ -211,9 +211,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
       }
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
-        $('#selectall').attr('checked', true);
+        $('#selectall').prop('checked', true);
       } else {
-        $('#selectall').attr('checked', false);
+        $('#selectall').prop('checked', false);
       }
       console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
