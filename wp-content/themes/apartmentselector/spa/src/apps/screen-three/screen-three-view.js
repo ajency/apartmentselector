@@ -210,6 +210,7 @@ define(['marionette'], function(Marionette) {
         $('#unselectall').prop('checked', false);
       }
       rangeunitArray = [];
+      globalUnitArrayInt = [];
       source = "../wp-content/uploads/2014/08/image/1.svg";
       source1 = "../wp-content/uploads/2014/08/image/2.svg";
       source2 = "../wp-content/uploads/2014/08/image/3.svg";
@@ -365,6 +366,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.delItem = function(delnum) {
       var i, index, key, params, removeItem, unitvariantarrayValues;
+      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
       removeItem = delnum;
       i = 0;
       key = "";

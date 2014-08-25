@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return PopItemview.__super__.constructor.apply(this, arguments);
     }
 
-    PopItemview.prototype.template = ' <ul> <li class="unitName"> <div class="small"> Tower 1</div>{{name}} </li> </ul> <!--BHK--> <ul> <li> {{unitTypeName}} </li> </ul> <!--Floor Info--> <ul> <li> {{flooRange}} </li> <li> {{floor}} </li> </ul> <!--View Info--> <ul> <li> SE </li> <li> Lake </li> </ul> <!--Area--> <ul> <li> 684 </li> <li> {{sellablearea}} </li> <li> {{carpetarea}} </li> </ul>';
+    PopItemview.prototype.template = ' <ul> <li class="unitName"> <div class="small"> Tower 1</div>{{name}} </li> </ul> <!--BHK--> <ul> <li> {{unitTypeName}} </li> </ul> <!--Floor Info--> <ul> <li> {{flooRange}} </li> <li> {{floor}} </li> </ul> <!--View Info--> <ul> <li> {{facings}} </li> <li> {{views}} </li> </ul> <!--Area--> <ul> <li> 684 </li> <li> {{sellablearea}} </li> <li> {{carpetarea}} </li> </ul>';
 
     PopItemview.prototype.className = 'cd-table-column';
 

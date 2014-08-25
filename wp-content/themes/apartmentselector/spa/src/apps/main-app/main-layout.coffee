@@ -120,7 +120,6 @@ define [ 'extm'], ( Extm)->
                 console.log $.cookie("key")
                 win = window.open(SITEURL+"/wishlist/#wishList", '_blank')
                 win.focus()
-                App.backFilter['back'] = Backbone.history.fragment
                 menuRight = document.getElementById("cbp-spmenu-s2")
                 menuTop = document.getElementById("cbp-spmenu-s3")
                 showTop = document.getElementById("showTop")
@@ -129,7 +128,7 @@ define [ 'extm'], ( Extm)->
                 classie.toggle showRightPush, "active"
                 classie.toggle body, "cbp-spmenu-push-toleft"
                 classie.toggle menuRight, "cbp-spmenu-open"
-                #App.navigate "wishList" , trigger:true
+
 
             'click .del':(e)->
                 console.log App.cookieArray = App.cookieArray

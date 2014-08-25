@@ -55,7 +55,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
                     )
-                    #viewModelArray = []
+                    viewModelArray = []
                     #facingModelArray = []
                     unitTypeModel = App.master.unit_type.findWhere({id:unitModel.get 'unitType'})
                     unitTypeModelName = unitTypeModel.get('name' ).split(' ')
@@ -64,16 +64,20 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set "carpetarea" ,unitVariantModel.get 'carpetarea'
                     unitModel.set "unitTypeName" ,unitTypeModelName[0]
                     unitModel.set "buidlingName" ,buildingModel.get 'name'
-                    #viewsArray = unitModel.get('views' ).split(',')
-                    #for element in viewsArray
-                    #viewModel = App.master.view.findWhere({id:parseInt(element)})
-                    #viewModelArray.push(viewModel.get('name'))
-                    #unitModel.set 'views',viewModelArray.join(',')
-                    #facingssArray = unitModel.get('facing' ).split(',')
-                    #for element in facingssArray
-                    #facingModel = App.master.facings.findWhere({id:parseInt(element)})
-                    #facingModelArray.push(facingModel.get('name'))
-                    #unitModel.set 'facings',facingModelArray.join(',')
+                    console.log unitModel.get('views')
+                    if unitModel.get('views') != ""
+                        viewsArray = unitModel.get('views')
+                        console.log viewsArray.length
+                        for element in viewsArray
+                            viewModel = App.master.view.findWhere({id:parseInt(element)})
+                            viewModelArray.push(viewModel.get('name'))
+                    unitModel.set 'views',viewModelArray.join(',')
+                    facingssArray = unitModel.get('facing' )
+                    if facingssArray.length != 0
+                        for element in facingssArray
+                            facingModel = App.master.facings.findWhere({id:parseInt(element)})
+                            facingModelArray.push(facingModel.get('name'))
+                            unitModel.set 'facings',facingModelArray.join(',')
                     unitModelArray.push(unitModel)
                 unitCollection = new Backbone.Collection unitModelArray
                 unitCollection
