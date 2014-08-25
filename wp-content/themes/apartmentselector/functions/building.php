@@ -612,7 +612,7 @@ function get_building_by_id($building_id){
    
    $building_no_of_flats = maybe_unserialize(get_option('building_'.$building_id.'_no_of_flats'));
  
-   $building_no_of_flats = get_flats_details($building_no_of_flats);
+   $building_no_of_flats = get_flats_details($building_no_of_flats,array('no_image'=>false));
 
    $building_floor_rise =  maybe_unserialize(get_option('building_'.$building_id.'_floor_rise')) ;
    
@@ -624,7 +624,7 @@ function get_building_by_id($building_id){
    
    foreach($building_exceptions as $building_exception){
  
-        $building_exception["flats"] = get_flats_details($building_exception["flats"]);
+        $building_exception["flats"] = get_flats_details($building_exception["flats"],array('no_image'=>false));
 
         $building_exceptions_updated[] = $building_exception;
    }
@@ -656,27 +656,39 @@ function get_building_floorrise($building_id,$floor){
    return $floorrise;
 }
 //get additional info of flats and pass to the flats array as additional attributes e.g. image path
-function get_flats_details($flats){
+function get_flats_details($flats,$args=array()){
 
     $flats_updated = array();
+
+    extract( $args, EXTR_OVERWRITE );
+
+    $no_image = isset($no_image)?$no_image:true;
+
+    if($no_image==false){
+        $no_image='';
+        $no_image_big ='';
+        }else{
+        $no_image=get_no_image_150x150();
+        $no_image_big =get_no_image_big();
+    }
 
      foreach($flats as $flat){
 //wp_get_attachment_image_src
             $flat['basic_thumbnail_image_url'] =  wp_get_attachment_thumb_url($flat["basic_image_id"]);
             
-            $flat['basic_thumbnail_image_url']  = $flat['basic_thumbnail_image_url'] ==false?get_no_image_150x150():$flat['basic_thumbnail_image_url']; 
+            $flat['basic_thumbnail_image_url']  = $flat['basic_thumbnail_image_url'] ==false?$no_image:$flat['basic_thumbnail_image_url']; 
             
             $flat['detailed_thumbnail_image_url'] =  wp_get_attachment_thumb_url($flat["detailed_image_id"]);
             
-            $flat['detailed_thumbnail_image_url']  = $flat['detailed_thumbnail_image_url'] ==false?get_no_image_150x150():$flat['detailed_thumbnail_image_url']; 
+            $flat['detailed_thumbnail_image_url']  = $flat['detailed_thumbnail_image_url'] ==false?$no_image:$flat['detailed_thumbnail_image_url']; 
             
              $flat['basic_image_url'] =  wp_get_attachment_image_src($flat["basic_image_id"], 'large' );
             
-            $flat['basic_image_url']  = $flat['basic_image_url'] ==false?get_no_image_big():$flat['basic_image_url'][0]; 
+            $flat['basic_image_url']  = $flat['basic_image_url'] ==false?$no_image_big:$flat['basic_image_url'][0]; 
             
             $flat['detailed_image_url'] =  wp_get_attachment_image_src($flat["detailed_image_id"], 'large' );
             
-            $flat['detailed_image_url']  = $flat['detailed_image_url'] ==false?get_no_image_big():$flat['detailed_image_url'][0]; 
+            $flat['detailed_image_url']  = $flat['detailed_image_url'] ==false?$no_image_big:$flat['detailed_image_url'][0]; 
             
 
             $flats_updated[]  =  $flat;

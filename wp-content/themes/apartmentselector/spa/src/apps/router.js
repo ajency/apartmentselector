@@ -12,6 +12,7 @@ define(['marionette'], function(Marionette) {
     }
 
     ApartmentSelector.prototype.appRoutes = {
+      'wishList': 'showpopup',
       'screen-four': 'showSelectedUnit',
       'screen-three': 'showUnits',
       'screen-two': 'show',
@@ -32,13 +33,14 @@ define(['marionette'], function(Marionette) {
       }
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      return msgbus.showApp('screen:one').insideRegion(App.mainRegion).withOptions();
+      return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
     },
     show: function(params) {
       var flag;
       if (params == null) {
         params = {};
       }
+      console.log("router");
       App.filter(params);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       flag = 0;
@@ -86,6 +88,7 @@ define(['marionette'], function(Marionette) {
           return flag = 1;
         }
       });
+      console.log(flag);
       if (flag === 0) {
         msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
         msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
@@ -95,6 +98,7 @@ define(['marionette'], function(Marionette) {
       return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
     },
     showpopup: function() {
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('popup').insideRegion(App.mainRegion).withOptions();
     }
   };

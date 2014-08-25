@@ -34,8 +34,11 @@ requirejs.config({
     jqueryEasingmin: 'src/bower_components/preload/jquery.easing.min',
     jqueryliquidslider: 'src/bower_components/preload/jquery.liquid-slider.min',
     jquerytouchswipe: 'src/bower_components/preload/jquery.touchSwipe.min',
-    jqueryCookie: 'src/bower_components/jquery-cookie/jquery.cookie',
-    scroller: 'src/bower_components/preload/scroller'
+    scroller: 'src/bower_components/preload/scroller',
+    bjqs: 'src/bower_components/preload/bjqs-1.3.min',
+    jquerySecret: 'src/bower_components/preload/jquery.secret-source.min',
+    sudoSlider: 'src/bower_components/preload/jquery.sudoSlider.min',
+    jqueryCookie: 'src/bower_components/jquery-cookie/jquery.cookie'
   },
   shim: {
     jquery: ['underscore'],
@@ -70,6 +73,9 @@ requirejs.config({
     jqueryliquidslider: ['jquery'],
     jquerytouchswipe: ['jquery'],
     scroller: ['jquery'],
-    jqueryCookie: ['jquery']
+    jqueryCookie: ['jquery'],
+    bjqs: ['jquery'],
+    jquerySecret: ['jquery'],
+    sudoSlider: ['jquery']
   }
 });

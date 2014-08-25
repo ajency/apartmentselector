@@ -3,6 +3,7 @@ define [ 'marionette'], ( Marionette )->
     class ApartmentSelector extends Marionette.AppRouter
 
         appRoutes:
+            'wishList' :  'showpopup'
             'screen-four' : 'showSelectedUnit'
             'screen-three' : 'showUnits'
             'screen-two'  : 'show'
@@ -10,7 +11,6 @@ define [ 'marionette'], ( Marionette )->
             ':params' : 'showValues'
             #':params' : 'show'
             'screen-two/:params'  : 'show'
-
             'screen-three/:params' : 'showUnits'
             'screen-four/:params' : 'showSelectedUnit'
 
@@ -29,13 +29,14 @@ define [ 'marionette'], ( Marionette )->
             .insideRegion  App.headerRegion
                 .withOptions()
             msgbus.showApp 'screen:one'
-            .insideRegion  App.mainRegion
+            .insideRegion  App.layout.screenOneRegion
                 .withOptions()
 
 
 
 
         show :(params={})->
+            console.log "router"
             App.filter(params)
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
@@ -96,6 +97,7 @@ define [ 'marionette'], ( Marionette )->
                     flag = 1
 
             )
+            console.log flag
             if flag == 0
                 msgbus.showApp 'main:app'
                 .insideRegion  App.mainRegion
@@ -115,6 +117,9 @@ define [ 'marionette'], ( Marionette )->
 
 
         showpopup:->
+            msgbus.showApp 'header'
+            .insideRegion  App.headerRegion
+                .withOptions()
             msgbus.showApp 'popup'
             .insideRegion  App.mainRegion
                 .withOptions()

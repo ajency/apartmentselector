@@ -4,7 +4,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
         initialize :(opt = {})->
 
-            @model = @_getHeader()
+            console.log @model = @_getHeader()
 
             @view = view = @_getHeaderView @model
 
@@ -85,22 +85,23 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 templateArr.push 'All'
 
             if(flag==1)
+                console.log buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
+                floorriserange = buildingModel.get 'floorriserange'
+                #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+
                 first = _.first(trackArray)
-                lowUnits = App.master.range.findWhere({name:'low'})
-                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                if parseInt(first) >= parseInt(floorriserange[0].start) &&  parseInt(first) <= parseInt(floorriserange[0].end)
                     range = 'LOWRISE'
                     templateArr.push range
 
 
 
-                mediumUnits = App.master.range.findWhere({name:'medium'})
-                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                if parseInt(first) >= parseInt(floorriserange[1].start) &&  parseInt(first) <= parseInt(floorriserange[1].end)
                     range = 'MIDRISE'
                     templateArr.push range
 
 
-                highUnits = App.master.range.findWhere({name:'high'})
-                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                if parseInt(first) >= parseInt(floorriserange[2].start) &&  parseInt(first) <= parseInt(floorriserange[2].end)
                     range = 'HIGHRISE'
                     templateArr.push range
                 templateString  = templateArr.join('|')
@@ -109,8 +110,13 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 templateString  = templateArr.join('|')
 
             textClass = "hidden"
-            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+            btnClass = ""
+            if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
                 textClass = ""
+            else if window.location.href.indexOf('wishList') > -1
+                templateString = "WishList Comparison"
+                textClass = ""
+                btnClass = "hidden"
             else
                 templateString = "Apartment Selector"
 

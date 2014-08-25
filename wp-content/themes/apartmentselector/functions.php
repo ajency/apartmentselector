@@ -136,6 +136,7 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "UNITTYPES", get_unit_types() );
             wp_localize_script( "requirejs", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "requirejs", "VIEWS", get_views() );
+            wp_localize_script( "requirejs", "FACINGS", get_facings() );
 
 
         }
@@ -185,6 +186,7 @@ if (! is_development_environment() ) {
             wp_localize_script( "$module-script", "UNITTYPES", get_unit_types() );
             wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "$module-script", "VIEWS", get_views() );
+            wp_localize_script( "$module-script", "FACINGS", get_facings() );
         }
     }
 
@@ -233,7 +235,7 @@ function get_current_version() {
 function is_single_page_app( $module_name ) {
 
     // add slugs of SPA pages here
-    $spa_pages = array( 'apartment-selector','apartmentsselector' );
+    $spa_pages = array( 'apartment-selector','apartmentsselector','wishlist' );
 
     return in_array( $module_name, $spa_pages );
 

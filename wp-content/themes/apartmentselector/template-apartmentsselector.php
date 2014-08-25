@@ -44,6 +44,7 @@
 
 <!-- main-region -->
 <div id="main-region"></div>
+<div id="wishlist-region"></div>
 
 <!-- footer-region -->
 <div id="footer-region"></div>

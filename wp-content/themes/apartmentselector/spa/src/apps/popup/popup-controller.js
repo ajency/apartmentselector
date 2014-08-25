@@ -24,158 +24,91 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     PopupController.prototype._getPopupView = function(Collection) {
       console.log(Collection);
       return new PopupView({
-        templateHelpers: {
-          high: Collection[0],
-          medium: Collection[1],
-          low: Collection[2]
-        }
+        collection: Collection
       });
     };
 
     PopupController.prototype._getUnitsCountCollection = function() {
-      var Countunits, MainCollection, buildingArray, buildingArrayModel, flag, hnewarr, hunique, hunitTypeArray, lnewarr, lunique, lunitTypeArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mnewarr, munique, munitTypeArray, param, paramkey, status, templateArr, unitColl, units;
-      buildingArray = Array();
-      buildingArrayModel = Array();
-      unitColl = Array();
-      templateArr = [];
-      mainunitTypeArray = [];
-      mainnewarr = [];
-      mainunique = {};
-      MainCollection = new Backbone.Model();
-      status = App.currentStore.status.findWhere({
-        'name': 'Available'
-      });
-      units = App.currentStore.unit.where({
-        'status': status.get('id')
-      });
-      Countunits = App.currentStore.unit.where({
-        'status': status.get('id')
-      });
-      param = {};
-      paramkey = {};
-      flag = 0;
-      mainunitsTypeArray = [];
-      lunitTypeArray = [];
-      lnewarr = [];
-      lunique = {};
-      munitTypeArray = [];
-      mnewarr = [];
-      munique = {};
-      hunitTypeArray = [];
-      hnewarr = [];
-      hunique = {};
-      $.each(units, function(index, value) {
-        var lowUnits, maxcoll, unitType, unittypemodel;
-        maxcoll = Array();
-        if (buildingArray.indexOf(value.get('building')) === -1) {
-          buildingArray.push(value.get('building'));
-        }
-        lowUnits = App.currentStore.range.findWhere({
-          name: 'low'
-        });
-        if (value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) {
-          unittypemodel = App.currentStore.unit_type.findWhere({
-            id: value.get('unitType')
+      var buildingModel, cookeArray, element, facingModel, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      console.log(cookeArray = localStorage.getItem("cookievalue").split(','));
+      unitModelArray = [];
+      if (cookeArray.length !== 0) {
+        for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
+          element = cookeArray[_i];
+          unitModel = App.master.unit.findWhere({
+            id: parseInt(element)
           });
-          mainunitsTypeArray.push({
-            id: unittypemodel.get('id'),
-            name: unittypemodel.get('name')
-          });
-        }
-        unitType = App.currentStore.unit_type.findWhere({
-          id: value.get('unitType')
-        });
-        return mainunitTypeArray.push({
-          id: unitType.get('id'),
-          name: unitType.get('name')
-        });
-      });
-      $.each(mainunitsTypeArray, function(key, item) {
-        var count;
-        if (!lunique[item.id]) {
-          lunitTypeArray = [];
-          status = App.currentStore.status.findWhere({
-            'name': 'Available'
-          });
-          count = App.currentStore.unit.where({
-            unitType: item.id,
-            'status': status.get('id')
-          });
-          $.each(count, function(index, value) {
-            var lowUnits;
-            lowUnits = App.currentStore.range.findWhere({
-              name: 'low'
-            });
-            if ((value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) && item.id === value.get('unitType')) {
-              return lunitTypeArray.push(value.get('id'));
+          console.log(buildingModel = App.master.building.findWhere({
+            id: unitModel.get('building')
+          }));
+          floorriserange = buildingModel.get('floorriserange');
+          rangeArrayVal = [];
+          i = 0;
+          $.each(floorriserange, function(index, value) {
+            var end, rangename, start;
+            rangeArrayVal = [];
+            i = 0;
+            start = parseInt(value.start);
+            end = parseInt(value.end);
+            while (parseInt(start) <= parseInt(end)) {
+              rangeArrayVal[i] = start;
+              start = parseInt(start) + 1;
+              i++;
+            }
+            console.log(rangeArrayVal);
+            rangename = "";
+            if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
+              if (value.name === "medium") {
+                rangename = "mid";
+              } else {
+                rangename = value.name;
+              }
+              console.log(rangename);
+              rangename = _.str.capitalize(rangename);
+              return unitModel.set("flooRange", rangename + 'rise');
             }
           });
-          lnewarr.push({
-            id: item.id,
-            name: item.name,
-            count: lunitTypeArray.length
+          viewModelArray = [];
+          unitTypeModel = App.master.unit_type.findWhere({
+            id: unitModel.get('unitType')
           });
-          return lunique[item.id] = item;
-        }
-      });
-      $.each(mainunitsTypeArray, function(key, item) {
-        var count;
-        if (!munique[item.id]) {
-          munitTypeArray = [];
-          status = App.currentStore.status.findWhere({
-            'name': 'Available'
+          unitTypeModelName = unitTypeModel.get('name').split(' ');
+          unitVariantModel = App.master.unit_variant.findWhere({
+            id: unitModel.get('unitVariant')
           });
-          count = App.currentStore.unit.where({
-            unitType: item.id,
-            'status': status.get('id')
-          });
-          $.each(count, function(index, value) {
-            var mediumUnits;
-            mediumUnits = App.currentStore.range.findWhere({
-              name: 'medium'
-            });
-            if ((value.get('floor') >= mediumUnits.get('start') && value.get('floor') <= mediumUnits.get('end')) && item.id === value.get('unitType')) {
-              return munitTypeArray.push(value.get('id'));
+          unitModel.set("sellablearea", unitVariantModel.get('sellablearea'));
+          unitModel.set("carpetarea", unitVariantModel.get('carpetarea'));
+          unitModel.set("unitTypeName", unitTypeModelName[0]);
+          unitModel.set("buidlingName", buildingModel.get('name'));
+          console.log(unitModel.get('views'));
+          if (unitModel.get('views') !== "") {
+            viewsArray = unitModel.get('views');
+            console.log(viewsArray.length);
+            for (_j = 0, _len1 = viewsArray.length; _j < _len1; _j++) {
+              element = viewsArray[_j];
+              viewModel = App.master.view.findWhere({
+                id: parseInt(element)
+              });
+              viewModelArray.push(viewModel.get('name'));
             }
-          });
-          mnewarr.push({
-            id: item.id,
-            name: item.name,
-            count: munitTypeArray.length
-          });
-          return munique[item.id] = item;
-        }
-      });
-      $.each(mainunitsTypeArray, function(key, item) {
-        var count;
-        if (!hunique[item.id]) {
-          hunitTypeArray = [];
-          status = App.currentStore.status.findWhere({
-            'name': 'Available'
-          });
-          count = App.currentStore.unit.where({
-            unitType: item.id,
-            'status': status.get('id')
-          });
-          $.each(count, function(index, value) {
-            var highUnits;
-            highUnits = App.currentStore.range.findWhere({
-              name: 'high'
-            });
-            if ((value.get('floor') >= highUnits.get('start') && value.get('floor') <= highUnits.get('end')) && item.id === value.get('unitType')) {
-              return hunitTypeArray.push(value.get('id'));
+          }
+          unitModel.set('views', viewModelArray.join(','));
+          facingssArray = unitModel.get('facing');
+          if (facingssArray.length !== 0) {
+            for (_k = 0, _len2 = facingssArray.length; _k < _len2; _k++) {
+              element = facingssArray[_k];
+              facingModel = App.master.facings.findWhere({
+                id: parseInt(element)
+              });
+              facingModelArray.push(facingModel.get('name'));
+              unitModel.set('facings', facingModelArray.join(','));
             }
-          });
-          hnewarr.push({
-            id: item.id,
-            name: item.name,
-            count: hunitTypeArray.length
-          });
-          return hunique[item.id] = item;
+          }
+          unitModelArray.push(unitModel);
         }
-      });
-      console.log(hnewarr);
-      return [hnewarr, mnewarr, lnewarr];
+        unitCollection = new Backbone.Collection(unitModelArray);
+        return unitCollection;
+      }
     };
 
     return PopupController;

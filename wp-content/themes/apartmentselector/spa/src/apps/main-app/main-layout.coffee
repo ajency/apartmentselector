@@ -27,11 +27,14 @@ define [ 'extm'], ( Extm)->
 
         _getView: =>
             new mainView
+                templateHelpers:
+                    SITEURL : SITEURL
 
 
     class mainView extends Marionette.LayoutView
 
         template: '
+
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>
@@ -42,7 +45,8 @@ define [ 'extm'], ( Extm)->
                     </ul>
                 </li>
             </ul>
-        </nav>
+
+       <a href="#" id="compare" >Compare</a>         </nav>
 
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <div class="row m-l-0 m-r-0">
@@ -112,44 +116,90 @@ define [ 'extm'], ( Extm)->
         </div>'
 
         events:
+            'click #compare':(e)->
+                console.log $.cookie("key")
+                win = window.open(SITEURL+"/wishlist/#wishList", '_blank')
+                win.focus()
+                menuRight = document.getElementById("cbp-spmenu-s2")
+                menuTop = document.getElementById("cbp-spmenu-s3")
+                showTop = document.getElementById("showTop")
+                showRightPush = document.getElementById("showRightPush")
+                body = document.body
+                classie.toggle showRightPush, "active"
+                classie.toggle body, "cbp-spmenu-push-toleft"
+                classie.toggle menuRight, "cbp-spmenu-open"
+
+
             'click .del':(e)->
                 console.log App.cookieArray = App.cookieArray
                 console.log val = $('#'+e.target.id).attr('data-id')
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                localStorage.setItem("cookievalue", App.cookieArray)
+                $('#errormsg' ).text ""
                 @showWishList()
 
             'click a':(e)->
                 e.preventDefault()
+            'click .selectedunit':(e)->
+                menuRight = document.getElementById("cbp-spmenu-s2")
+                menuTop = document.getElementById("cbp-spmenu-s3")
+                showTop = document.getElementById("showTop")
+                showRightPush = document.getElementById("showRightPush")
+                body = document.body
+                classie.toggle showRightPush, "active"
+                classie.toggle body, "cbp-spmenu-push-toleft"
+                classie.toggle menuRight, "cbp-spmenu-open"
+                App.unit['name'] = $('#'+e.target.id ).attr('data-id')
+                App.unit['flag'] = 1
+                console.log $('#'+e.target.id ).attr('data-id')
+                console.log unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
+                App.defaults['unitType'] = unitModel.get 'unitType'
+                App.defaults['building'] =  unitModel.get 'building'
+                console.log rangeModel = App.master.range
+                App.backFilter['screen3'].push("floor")
+                App.backFilter['screen2'].push("floor","unitVariant")
+                console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                floorriserange = buildingModel.get 'floorriserange'
+                #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                object = @
+                rangeArrayVal = []
+                $.each(floorriserange, (index,value)->
+                    rangeArrayVal = []
+                    i = 0
 
-            $("#list").on "click", ->
-              cart = $("#showRightPush")
-              imgtodrag = $(this).find(".glyphicon")
-              if imgtodrag
-                imgclone = imgtodrag.clone().offset(
-                  top: imgtodrag.offset().top
-                  left: imgtodrag.offset().left
-                ).css(
-                  opacity: "0.8"
-                  position: "absolute"
-                  color: "#ff6600"
-                  "font-size": "30px"
-                  "z-index": "100"
-                ).appendTo($("body")).animate(
-                  top: cart.offset().top + 10
-                  left: cart.offset().left + 80
-                  width: 50
-                  height: 50
-                , 1200, "easeInOutCubic")
-                imgclone.animate
-                  width: 0
-                  height: 0
-                , ->
-                  $(this).detach()
-                  return
+                    start = parseInt(value.start)
+                    end = parseInt(value.end)
+                    while parseInt(start) <= parseInt(end)
+                        rangeArrayVal[i] = start
+                        start = parseInt(start) + 1
+                        i++
+                    console.log rangeArrayVal
+                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
+                        console.log "aaaaaaaaaaa"
+                        App.defaults['floor'] = rangeArrayVal.join(',')
 
-              return
+
+
+                )
+
+
+
+
+
+
+                console.log App.defaults
+                App.navigate "screen-four"
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                msgbus.showApp 'screen:four'
+                .insideRegion  App.layout.screenFourRegion
+                    .withOptions()
+
+
+
 
 
 
@@ -180,6 +230,16 @@ define [ 'extm'], ( Extm)->
 
 
             )
+            console.log cookieOldValue = $.cookie("key")
+            console.log typeof cookieOldValue
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+            App.cookieArray = cookieOldValue
+            localStorage.setItem("cookievalue" , App.cookieArray)
             @showWishList()
         showWishList:->
             table = ""
@@ -192,7 +252,7 @@ define [ 'extm'], ( Extm)->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#">'+model.get('name')+'</a>
+                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
                                         <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
                                             <div class="clearfix"></div>'
 

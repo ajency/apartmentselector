@@ -3,7 +3,7 @@
 
 # add your required plugins here.
 define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','mapplic_new','jqueryEasingmin'
-,'jquerytouchswipe','jqueryliquidslider','jqueryCookie'], ->
+,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -35,6 +35,7 @@ require [ 'plugin-loader'
         footerRegion : '#footer-region'
         filterRegion : '#filter-region'
         mainRegion : '#main-region'
+        wishListRegion : '#wishlist-region'
 
 
     # current store
@@ -46,6 +47,7 @@ require [ 'plugin-loader'
         'unit_type' : new Backbone.Collection  UNITTYPES
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
+        'facings': new Backbone.Collection  FACINGS
 
     # master store
     App.master =
@@ -56,15 +58,16 @@ require [ 'plugin-loader'
         'unit_type' : new Backbone.Collection  UNITTYPES
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
+        'facings': new Backbone.Collection  FACINGS
 
     # global variable to keep track of the unit the user has clicked on
-    App.unit = {name:''}
+    App.unit = {name:'',flag:0}
 
     # global variable to keep track of the filter the user has selected  on the first screen
     App.screenOneFilter = {key:'',value:''}
 
     # global variable to keep track of the filter the user has selected on the previous screen
-    App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
+    App.backFilter = {'screen1':[],'screen2':[],'screen3':[],'back':""}
 
     # global variable to keep track of the filtr the user has selected
     App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All'}
@@ -73,7 +76,8 @@ require [ 'plugin-loader'
 
     App.layout = ""
 
-    App.cookieArray = []
+
+    App.range = range
 
     
     #filter function which takes the parameters into account anf filters the current store.
@@ -195,6 +199,7 @@ require [ 'plugin-loader'
         App.currentStore.unit
 
     App.getBudget = (budget)->
+        console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         budgetUnitArray = []
         budget_arr = budget.split('-')
         budget_arr[0] = budget_arr[0] + ('00000')

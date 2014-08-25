@@ -48,23 +48,55 @@ function displaySlider(floors){
         values: handlers,
         slide: function (evt, ui) {
             updateColors(ui.values);
-             console.log(ui.values[0])
-             console.log(ui.values[1])
-             if(ui.values[0]==0){
-                ui.values[0] = 1
-             }
-             if(ui.values[1]==0){
-                ui.values[1] = 1
-             }
-            $("#lowrisefrom").val(1)
+             console.log("0=>"+ui.values[0])
+             console.log("1=>"+ui.values[1])
+         
+            lowrisefrom = (ui.values[0]>0)?1:0;
+
+            $("#lowrisefrom").val(lowrisefrom)
             $("#lowriseto").val(ui.values[0])
-            $("#lowrise-range").html("Floors "+$("#lowrisefrom").val()+"-"+$("#lowriseto").val())
-            $("#midrisefrom").val(parseInt(ui.values[0])+1)
+
+            if(lowrisefrom==0){
+                $("#lowrise-range").html("None")
+           
+            }else
+            {
+
+                $("#lowrise-range").html("Floors "+$("#lowrisefrom").val()+"-"+$("#lowriseto").val())
+           
+            }
+
+
+            //midrise
+
+            midrisefrom = (ui.values[1]>0)?parseInt(ui.values[0])+1:0;
+            $("#midrisefrom").val(midrisefrom)
             $("#midriseto").val(ui.values[1])
-            $("#midrise-range").html("Floors "+$("#midrisefrom").val()+"-"+$("#midriseto").val())
-            $("#highrisefrom").val(parseInt(ui.values[1])+1)
-            $("#highriseto").val(floors)
-             $("#highrise-range").html("Floors "+$("#highrisefrom").val()+"-"+$("#highriseto").val())
+
+              if(midrisefrom==0){
+                $("#midrise-range").html("None")
+           
+            }else
+            {
+
+                $("#midrise-range").html("Floors "+$("#midrisefrom").val()+"-"+$("#midriseto").val())
+            
+            }
+
+             highrisefrom = (ui.values[1]!=floors)?parseInt(ui.values[1])+1:0;
+             highriseto =  (highrisefrom==0)?0:floors;
+            $("#highrisefrom").val(highrisefrom)
+            $("#highriseto").val(highriseto)
+             if(highrisefrom==0){
+                $("#highrise-range").html("None")
+           
+            }else
+            {
+
+                $("#highrise-range").html("Floors "+$("#highrisefrom").val()+"-"+$("#highriseto").val())
+            
+            }
+             
         }
     });
     
@@ -222,23 +254,18 @@ function loadFloorRiseOption(floors){
 function getFlatUi(flatNo,exception_no){
 
     html =  '<div class="form-group">'
-        +'<label class="form-label">'
+        +'<div class="row"><div class="col-md-12"><label class="form-label">'
         +'Flat No:'+flatNo
-        +'</label>'
-        +'<span class="help">'
-        +'</span>'
+        +'</label>' 
         +'<div class="row">'
-        +'<div class="col-md-12">'; 
-    html += getImageUploadUi(flatNo,exception_no,'basic'); 
+        +'<div class="col-md-6">'; 
+    html += getImageUploadUi(flatNo,exception_no,'basic')  
+        +'</div><div class="col-md-6">'
     html += getImageUploadUi(flatNo,exception_no,'detailed')
+        +'</div></div>'
         +'</div>'
-        +'</div>'
-        +'</div>'
-        +'<div class="row-fluid">'
-        +'<div class="col-md-12">'
-        +'<img src="">'
-        +'</div>'
-        +'</div>'
+        +'</div>' 
+        +'</div>' 
     return html;
 }
 
@@ -246,7 +273,7 @@ function getImageUploadUi(flatNo,exception_no,field){
 
     prefix = (exception_no!="")? field+'_exception_'+exception_no+'_':field+'_'+exception_no;
     
-    html =  toProperCase(field)+': <span class="btn btn-success fileinput-button">'
+    html =  '<label class="form-label">'+toProperCase(field)+':</label> <span class="btn btn-success fileinput-button">'
             +'<i class="glyphicon glyphicon-plus"></i>'
             +'<span>Select files...</span>'
             +'<input type="hidden" id="fileupload'+prefix+''+flatNo+'_image_id" name="'+prefix+'image_id'+flatNo+'"><input id="fileupload'+prefix+''+flatNo+'" class="fileupload" type="file" name="files">'
@@ -257,10 +284,11 @@ function getImageUploadUi(flatNo,exception_no,field){
             +'<div class="progress-bar progress-bar-success"></div>'
             +'</div>'
             +'<div id="'+prefix+flatNo+'"files" class="files'+prefix+flatNo+'"></div>'
-            +'<br><div class="row-fluid">'
+            +'<br><div class="row">'
             +'<div class="col-md-12">'
             +'<img src="" id="fileupload'+prefix+''+flatNo+'_image_display">'
-            +'</div>';
+            +'</div></div>';
+                 
     return html;
 }
 

@@ -24,6 +24,7 @@ Version:        0.1.0
 @import "font.less";
 @import "checkbox.less";
 @import "costsheet.less";
+@import "compare.less";
 
 
 body{
@@ -177,7 +178,7 @@ body{
 			border-radius: 30px;
 			text-transform: capitalize;
 			.bold;
-			.closeButton{
+			.closeButton, .closeButton1{
 				display: inline;
 				cursor: pointer;
 				color: @gray-light;
@@ -194,14 +195,24 @@ body{
 }
 
 .cbp-spmenu-vertical{
+	background-color: darken(@color-primary, 25%);
+	border-left: 1px solid darken(@color-primary, 15%);
 	& > ul{
 		list-style-type: none;
 		padding: 0;
-		& > li a{
-			.h4;
-			.bold;
-			color: @color-primary;
-		}
+		& > li{
+			color: lighten(@gray-light, 30%);
+			a{
+				.h4;
+				.bold;
+				color: lighten(@gray-light, 30%);
+				border-bottom: 1px solid darken(@color-primary, 15%);
+			}
+		} 
+	}
+	h3{
+		background-color: darken(@color-primary, 20%);
+		color: lighten(@gray-light, 30%);
 	}
 	.menuWishlist{
 		list-style-type: none;
@@ -211,7 +222,7 @@ body{
 				border: 0;
 				margin: 0;
 				float: left;
-				color: @gray-dark;
+				color: @color-white;
 			}
 			.del{
 				float: right;
@@ -225,4 +236,3 @@ body{
 		}
 	}
 }
-

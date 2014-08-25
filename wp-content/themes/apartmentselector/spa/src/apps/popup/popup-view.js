@@ -3,7 +3,21 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Mariontte) {
-  var PopupView;
+  var PopItemview, PopupView;
+  PopItemview = (function(_super) {
+    __extends(PopItemview, _super);
+
+    function PopItemview() {
+      return PopItemview.__super__.constructor.apply(this, arguments);
+    }
+
+    PopItemview.prototype.template = ' <ul> <li class="unitName"> <div class="small"> Tower 1</div>{{name}} </li> </ul> <!--BHK--> <ul> <li> {{unitTypeName}} </li> </ul> <!--Floor Info--> <ul> <li> {{flooRange}} </li> <li> {{floor}} </li> </ul> <!--View Info--> <ul> <li> {{facings}} </li> <li> {{views}} </li> </ul> <!--Area--> <ul> <li> 684 </li> <li> {{sellablearea}} </li> <li> {{carpetarea}} </li> </ul>';
+
+    PopItemview.prototype.className = 'cd-table-column';
+
+    return PopItemview;
+
+  })(Marionette.ItemView);
   return PopupView = (function(_super) {
     __extends(PopupView, _super);
 
@@ -11,42 +25,21 @@ define(['marionette'], function(Mariontte) {
       return PopupView.__super__.constructor.apply(this, arguments);
     }
 
-    PopupView.prototype.template = '<div class="remodal towerPopup" data-remodal-id="modal"> <div class="header navbar navbar-inverse "> <!-- <div class="backBtn"> <a href="#" class="text-white remodal-close"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> --> <div class="m-t-15"> <h4 class="text-white m-t-15">WHAT IS THE FLOOR RISE?</h4> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header"> <ul class="vs-nav"> <li><a href="#section-1">HIGHRISE</a></li> <li><a href="#section-2">MIDRISE</a></li> <li><a href="#section-3">LOWRISE</a></li> </ul> </header> <div class="vs-wrapper"> <section id="section-1"> <div class="vs-content"> <div class="row"> <div class="col-sm-4 col-xs-9"> <img src="assets/img/floor-rise.jpg" class="img-responsive"> </div> <div class="col-sm-8 col-xs-3"> <div class="row"> {{#high}}         									<div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/high}} </div> <div class="row"> <div class="col-sm-12 hidden-xs m-t-30 p-l-0"> <div class="col"> <p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> </div> </div> <div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div> </div> <div class="clearfix visible-xs"></div> <div class="viewsNo m-t-20"> <div class="row"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div> </div> </div> </section> <section id="section-2"> <div class="vs-content"> <div class="row"> <div class="col-sm-4 col-xs-9"> <img src="assets/img/floor-rise.jpg" class="img-responsive"> </div> <div class="col-sm-8 col-xs-3"> <div class="row"> {{#medium}}         									<div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/medium}} </div> <div class="row"> <div class="col-sm-12 hidden-xs m-t-30 p-l-0"> <div class="col"> <p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> </div> </div> <div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div> </div> <div class="clearfix visible-xs"></div> <div class="viewsNo m-t-20"> <div class="row"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div> </div> </div> </section> <section id="section-3"> <div class="vs-content"> <div class="row"> <div class="col-sm-4 col-xs-9"> <img src="assets/img/floor-rise.jpg" class="img-responsive"> </div> <div class="col-sm-8 col-xs-3"> <div class="row"> {{#low}}         									<div class="col-sm-4 p-l-0 p-r-0"> <h1><small>Total {{name}}</small><br>{{count}}</h1> </div> {{/low}} </div> <div class="row"> <div class="col-sm-12 hidden-xs m-t-30 p-l-0"> <div class="col"> <p>Climb leg make muffins or sweet beast play time and hate dog or chew foot. Stretch climb leg. Play time give attitude for all of a sudden go crazy chase imaginary bugs lick butt. Claw drapes burrow under covers so hide when guests come over, inspect anything brought into the house hopped up on goofballs. Nap all day swat at dog and rub face on everything stick butt in face all of a sudden go crazy need to chase tail yet rub face on everything. Give attitude chew iPad power cord, and stick butt in face or chase imaginary bugs. Hate dog destroy couch or under the bed and nap all day. Hate dog flop over and missing until dinner time. Chew iPad power cord stick butt in face so leave hair everywhere. Stretch swat at dog. Stand in front of the computer screen hunt anything that moves yet behind the couch or lick butt intrigued by the shower. Give attitude hate dog but chase imaginary bugs sleep on keyboard or play time.</p> </div> </div> </div> <div class="row"> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> <div class="col-sm-4"> </div> </div> </div> <div class="clearfix visible-xs"></div> <div class="viewsNo m-t-20"> <div class="row"> <div class="col-xs-4"> <h4> NO OF <span class="text-primary bold">VIEWS</span> </H4> </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> <div class="col-xs-4"> Garden view<br> Pond View<br> Manas Lake<br> Eco pond </div> </div> </div> </div> </div> </section> </div> </div><!-- /vs-container --> </div>';
+    PopupView.prototype.template = '<div id="cd-table" class="compareWishlist"> <header class="cd-table-column"> <ul> <li class="noBG unitName"> </li> </ul> <ul> <li> BHK </li> </ul> <div class="compareHeader"><span class="sky-flag"></span> Floor Info </div> <ul> <li> Floor Range </li> <li> Floor </li> </ul> <div class="compareHeader"><span class="sky-location"></span> View Info</div> <ul> <li> Facing </li> <li> Views </li> </ul> <div class="compareHeader"><span class="sky-maximize"></span> Area <small>(Sq. Ft.)</small></div> <ul> <li> Total Area </li> <li> Chargeable Area </li> <li> Carpet Area </li> </ul> </header> <div class="cd-table-container"> <div class="cd-table-wrapper"></div></div></div><em class="cd-scroll-right"></em>';
+
+    PopupView.prototype.childView = PopItemview;
+
+    PopupView.prototype.childViewContainer = '.cd-table-wrapper';
+
+    PopupView.prototype.className = 'page-container row-fluid';
 
     PopupView.prototype.events = {
       'click a': function(e) {
-        return console.log(e);
-      },
-      'click .remodal-close': function(e) {
-        var params;
-        console.log("aaaaaaaaaaaa");
-        App.filter(params = {});
-        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-        return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
+        return e.preventDefault();
       }
-    };
-
-    PopupView.prototype.onShow = function() {
-      var instance, scr;
-      scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js';
-      document.body.appendChild(scr);
-      instance = $('.remodal.towerPopup').remodal();
-      if (instance) {
-        instance.open();
-      }
-      return $('.remodal-close').click(function(e) {
-        var params;
-        console.log(e);
-        e.preventDefault();
-        App.navigate('screen-two');
-        App.filter(params = {});
-        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-        return msgbus.showApp('screen:two').insideRegion(App.mainRegion).withOptions();
-      });
     };
 
     return PopupView;
 
-  })(Marionette.ItemView);
+  })(Marionette.CompositeView);
 });
