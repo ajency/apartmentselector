@@ -648,9 +648,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         buildingModel = App.currentStore.building.findWhere({id:@model.get('buildingid')})
                         floorriserange = buildingModel.get 'floorriserange'
                         #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                        object = @
                         rangeArrayVal = []
                         i = 0
-                        object = @
                         $.each(floorriserange, (index,value)->
                             if object.model.get('range') == value.name
                                 start = parseInt(value.start)
@@ -666,7 +666,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         )
 
 
-
+                        console.log rangeArrayVal
                         rangeString = rangeArrayVal.join(',')
 
 

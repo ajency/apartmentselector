@@ -32,6 +32,7 @@ define [ 'extm'], ( Extm)->
     class mainView extends Marionette.LayoutView
 
         template: '
+
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>
@@ -42,7 +43,8 @@ define [ 'extm'], ( Extm)->
                     </ul>
                 </li>
             </ul>
-        </nav>
+
+       <a href="#" id="compare" >Comapre</a>         </nav>
 
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <div class="row m-l-0 m-r-0">
@@ -112,12 +114,28 @@ define [ 'extm'], ( Extm)->
         </div>'
 
         events:
+            'click #compare':(e)->
+                console.log $.cookie("key")
+                win = window.open("http://localhost/apartmentselector/wishList/#wishList", '_blank')
+                win.focus()
+                App.backFilter['back'] = Backbone.history.fragment
+                menuRight = document.getElementById("cbp-spmenu-s2")
+                menuTop = document.getElementById("cbp-spmenu-s3")
+                showTop = document.getElementById("showTop")
+                showRightPush = document.getElementById("showRightPush")
+                body = document.body
+                classie.toggle showRightPush, "active"
+                classie.toggle body, "cbp-spmenu-push-toleft"
+                classie.toggle menuRight, "cbp-spmenu-open"
+                #App.navigate "wishList" , trigger:true
+
             'click .del':(e)->
                 console.log App.cookieArray = App.cookieArray
                 console.log val = $('#'+e.target.id).attr('data-id')
                 console.log index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
+                localStorage.setItem("cookievalue", App.cookieArray)
                 $('#errormsg' ).text ""
                 @showWishList()
 
@@ -144,10 +162,12 @@ define [ 'extm'], ( Extm)->
                 console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
-                rangeArrayVal = []
-                i = 0
                 object = @
+                rangeArrayVal = []
                 $.each(floorriserange, (index,value)->
+                    rangeArrayVal = []
+                    i = 0
+
                     start = parseInt(value.start)
                     end = parseInt(value.end)
                     while parseInt(start) <= parseInt(end)
@@ -218,6 +238,7 @@ define [ 'extm'], ( Extm)->
                     parseInt(item)
                 )
             App.cookieArray = cookieOldValue
+            localStorage.setItem("cookievalue" , App.cookieArray)
             @showWishList()
         showWishList:->
             table = ""

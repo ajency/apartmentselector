@@ -17,110 +17,65 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
         _getPopupView:(Collection)->
             console.log Collection
             new PopupView
-                templateHelpers:
-                    high : Collection[0]
-                    medium : Collection[1]
-                    low : Collection[2]
+                collection : Collection
+
 
         _getUnitsCountCollection:->
-            buildingArray = Array()
-            buildingArrayModel = Array()
-            unitColl = Array()
-            templateArr = []
-            mainunitTypeArray = []
-            mainnewarr =  []
-            mainunique = {}
-            MainCollection = new Backbone.Model()
-            status = App.currentStore.status.findWhere({'name':'Available'})
-            units = App.currentStore.unit.where({'status':status.get('id')})
-            Countunits = App.currentStore.unit.where({'status':status.get('id')})
-            param = {}
-            paramkey = {}
-            flag = 0
-            mainunitsTypeArray = []
-            lunitTypeArray = []
-            lnewarr =  []
-            lunique = {}
-            munitTypeArray = []
-            mnewarr =  []
-            munique = {}
-            hunitTypeArray = []
-            hnewarr =  []
-            hunique = {}
+            console.log cookeArray = localStorage.getItem("cookievalue" ).split(',')
+            unitModelArray = []
+            if cookeArray.length != 0
+                for element in cookeArray
+                    unitModel = App.master.unit.findWhere({id:parseInt(element)})
+                    console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                    floorriserange = buildingModel.get 'floorriserange'
+                    #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                    rangeArrayVal = []
+                    i = 0
+                    $.each(floorriserange, (index,value)->
+                        rangeArrayVal = []
+                        i = 0
+                        start = parseInt(value.start)
+                        end = parseInt(value.end)
+                        while parseInt(start) <= parseInt(end)
+                            rangeArrayVal[i] = start
+                            start = parseInt(start) + 1
+                            i++
+                        console.log rangeArrayVal
+                        rangename = ""
+                        if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
+                            if value.name == "medium"
+                                rangename = "mid"
+                            else
+                                rangename = value.name
+                            console.log rangename
+                            rangename = _.str.capitalize rangename
+                            unitModel.set "flooRange" ,rangename+'rise'
 
 
 
-            $.each(units, (index,value)->
-                maxcoll = Array()
-
-                if buildingArray.indexOf(value.get 'building') ==  -1
-                    buildingArray.push value.get 'building'
-
-
-                lowUnits = App.currentStore.range.findWhere({name:'low'})
-                if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
-                    unittypemodel = App.currentStore.unit_type.findWhere({id :  value.get( 'unitType' ) })
-
-                    mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
-
-
-                unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
-                mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
-            )
-            $.each(mainunitsTypeArray, (key,item)->
-                if (!lunique[item.id])
-                    lunitTypeArray = []
-                    status = App.currentStore.status.findWhere({'name':'Available'})
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-                    $.each(count, (index,value)->
-                        lowUnits = App.currentStore.range.findWhere({name:'low'})
-                        if (value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end') && item.id == value.get('unitType')
-                            lunitTypeArray.push value.get 'id'
                     )
-                    lnewarr.push({id:item.id,name:item.name,count:lunitTypeArray.length})
-                    lunique[item.id] = item;
+                    #viewModelArray = []
+                    #facingModelArray = []
+                    unitTypeModel = App.master.unit_type.findWhere({id:unitModel.get 'unitType'})
+                    unitTypeModelName = unitTypeModel.get('name' ).split(' ')
+                    unitVariantModel = App.master.unit_variant.findWhere({id:unitModel.get 'unitVariant'})
+                    unitModel.set "sellablearea" ,unitVariantModel.get 'sellablearea'
+                    unitModel.set "carpetarea" ,unitVariantModel.get 'carpetarea'
+                    unitModel.set "unitTypeName" ,unitTypeModelName[0]
+                    #viewsArray = unitModel.get('views' ).split(',')
+                    #for element in viewsArray
+                    #viewModel = App.master.view.findWhere({id:parseInt(element)})
+                    #viewModelArray.push(viewModel.get('name'))
+                    #unitModel.set 'views',viewModelArray.join(',')
+                    #facingssArray = unitModel.get('facing' ).split(',')
+                    #for element in facingssArray
+                    #facingModel = App.master.facings.findWhere({id:parseInt(element)})
+                    #facingModelArray.push(facingModel.get('name'))
+                    #unitModel.set 'facings',facingModelArray.join(',')
+                    unitModelArray.push(unitModel)
+                unitCollection = new Backbone.Collection unitModelArray
+                unitCollection
 
-            )
-
-            $.each(mainunitsTypeArray, (key,item)->
-                if (!munique[item.id])
-                    munitTypeArray = []
-                    status = App.currentStore.status.findWhere({'name':'Available'})
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-                    $.each(count, (index,value)->
-
-                        mediumUnits = App.currentStore.range.findWhere({name:'medium'})
-                        if (value.get('floor') >= mediumUnits.get('start') &&  value.get('floor') <= mediumUnits.get 'end') && item.id == value.get('unitType')
-                            munitTypeArray.push value.get 'id'
-                    )
-                    mnewarr.push({id:item.id,name:item.name,count:munitTypeArray.length})
-                    munique[item.id] = item;
-
-
-            )
-
-            $.each(mainunitsTypeArray, (key,item)->
-                if (!hunique[item.id])
-                    hunitTypeArray = []
-                    status = App.currentStore.status.findWhere({'name':'Available'})
-                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-
-                    $.each(count, (index,value)->
-                        highUnits = App.currentStore.range.findWhere({name:'high'})
-                        if (value.get('floor') >= highUnits.get('start') &&  value.get('floor') <= highUnits.get 'end') && item.id == value.get('unitType')
-                            hunitTypeArray.push value.get 'id'
-                    )
-                    hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length})
-                    hunique[item.id] = item;
-
-
-            )
-
-
-
-
-            console.log hnewarr
-            [hnewarr,mnewarr,lnewarr]
 
 
 

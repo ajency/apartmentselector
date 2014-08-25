@@ -3,7 +3,7 @@
 
 # add your required plugins here.
 define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','mapplic_new','jqueryEasingmin'
-,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider'], ->
+,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -35,6 +35,7 @@ require [ 'plugin-loader'
         footerRegion : '#footer-region'
         filterRegion : '#filter-region'
         mainRegion : '#main-region'
+        wishListRegion : '#wishlist-region'
 
 
     # current store
@@ -46,6 +47,7 @@ require [ 'plugin-loader'
         'unit_type' : new Backbone.Collection  UNITTYPES
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
+        'facings': new Backbone.Collection  FACINGS
 
     # master store
     App.master =
@@ -56,6 +58,7 @@ require [ 'plugin-loader'
         'unit_type' : new Backbone.Collection  UNITTYPES
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
+        'facings': new Backbone.Collection  FACINGS
 
     # global variable to keep track of the unit the user has clicked on
     App.unit = {name:'',flag:0}
@@ -64,7 +67,7 @@ require [ 'plugin-loader'
     App.screenOneFilter = {key:'',value:''}
 
     # global variable to keep track of the filter the user has selected on the previous screen
-    App.backFilter = {'screen1':[],'screen2':[],'screen3':[]}
+    App.backFilter = {'screen1':[],'screen2':[],'screen3':[],'back':""}
 
     # global variable to keep track of the filtr the user has selected
     App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All'}

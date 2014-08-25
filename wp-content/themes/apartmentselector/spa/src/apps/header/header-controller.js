@@ -16,7 +16,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       if (opt == null) {
         opt = {};
       }
-      this.model = this._getHeader();
+      console.log(this.model = this._getHeader());
       this.view = view = this._getHeaderView(this.model);
       return this.show(view);
     };
@@ -31,7 +31,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var buildingModel, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
+      var btnClass, buildingModel, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
       templateArr = [];
       flag = 0;
       myArray = [];
@@ -123,9 +123,9 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         templateArr.push('All');
       }
       if (flag === 1) {
-        buildingModel = App.currentStore.building.findWhere({
+        console.log(buildingModel = App.currentStore.building.findWhere({
           id: App.defaults['building']
-        });
+        }));
         floorriserange = buildingModel.get('floorriserange');
         first = _.first(trackArray);
         if (parseInt(first) >= parseInt(floorriserange[0].start) && parseInt(first) <= parseInt(floorriserange[0].end)) {
@@ -145,8 +145,13 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         templateString = templateArr.join('|');
       }
       textClass = "hidden";
+      btnClass = "";
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
         textClass = "";
+      } else if (window.location.href.indexOf('wishList') > -1) {
+        templateString = "WishList Comparison";
+        textClass = "";
+        btnClass = "hidden";
       } else {
         templateString = "Apartment Selector";
       }

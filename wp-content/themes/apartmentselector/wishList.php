@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: apartmentsselector-template
+ * Template Name: wishList-template
  *
- 
+
  */
 ?>
 
@@ -20,6 +20,7 @@
 <head>
     <script type="text/javascript"  src="../wp-content/themes/apartmentselector/js/src/preload/modernizr.custom.js"></script>
     <script type="text/javascript"  src="../wp-content/themes/apartmentselector/js/src/preload/classie.js"></script>
+
 
     <meta charset="<?php bloginfo( 'charset' ); ?>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -44,21 +45,14 @@
 
 <!-- main-region -->
 <div id="main-region"></div>
-<div id="wishlist-region"></div>
+
 
 <!-- footer-region -->
 <div id="footer-region"></div>
 
 
 
-<div id="mapid"  >
 
-    <?php //echo do_shortcode('[mapplic id="2"]'); ?>
-
-
-
-
-</div>
 
 
 

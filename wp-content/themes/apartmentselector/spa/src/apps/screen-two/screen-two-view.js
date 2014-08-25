@@ -531,9 +531,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               id: this.model.get('buildingid')
             });
             floorriserange = buildingModel.get('floorriserange');
+            object = this;
             rangeArrayVal = [];
             i = 0;
-            object = this;
             $.each(floorriserange, function(index, value) {
               var end, start;
               if (object.model.get('range') === value.name) {
@@ -547,6 +547,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
                 return rangeArrayVal;
               }
             });
+            console.log(rangeArrayVal);
             rangeString = rangeArrayVal.join(',');
             App.defaults['floor'] = rangeString;
             App.backFilter['screen2'].push('floor');

@@ -50,6 +50,7 @@ define(['marionette'], function(Marionette) {
           console.log(App.cookieArray = $.merge(App.cookieArray, cookieOldValue));
           console.log(App.cookieArray = _.uniq(App.cookieArray));
           $.cookie('key', App.cookieArray);
+          localStorage.setItem("cookievalue", App.cookieArray);
           console.log($.cookie("key"));
           $('#errormsg').text("The selected flat has been added to your WishList");
           $('#errormsg').addClass("inline");
@@ -88,6 +89,7 @@ define(['marionette'], function(Marionette) {
           console.log(index = App.cookieArray.indexOf(parseInt(val)));
           App.cookieArray.splice(index, 1);
           $.cookie('key', App.cookieArray);
+          localStorage.setItem("cookievalue", App.cookieArray);
           $('#errormsg').text("");
           console.log($.cookie('key'));
           return this.showWishList();

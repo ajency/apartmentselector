@@ -7,7 +7,7 @@ define [ 'marionette' ], ( Mariontte )->
                         <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
         		    </div>
 
-                    <div class="rightBtns">
+                    <div class="rightBtns {{btnClass}}">
                         <a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>
                         <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a>
                     </div>
@@ -74,6 +74,8 @@ define [ 'marionette' ], ( Mariontte )->
 
 
 
+
+
                 else
                     App.backFilter['screen2'] = []
                     screenoneArray  = App.backFilter['screen1']
@@ -113,14 +115,19 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
-
-
+            console.log "wwwwwwwwwww"
+            flag = 0
+            console.log window.location.href.indexOf('wishList')
+            if window.location.href.indexOf('wishList') > -1
+                flag = 1
             $(window).scroll( ()->
-                height = $(window).scrollTop()
-                if height == 0
-                    $('.backBtn').addClass 'hidden'
-                    $('.slctnTxt').addClass 'hidden'
-                    $('h3').addClass 'step1'
+                    flag = 0
+                    height = $(window).scrollTop()
+                    console.log flag
+                    if height == 0 && flag == 0
+                        $('.backBtn').addClass 'hidden'
+                        $('.slctnTxt').addClass 'hidden'
+                        $('h3').addClass 'step1'
 
 
 
@@ -151,7 +158,14 @@ define [ 'marionette' ], ( Mariontte )->
               return
 
 
-            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+            if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+                console.log "aaaaaaaaaaa"
+
+            else if  window.location.href.indexOf('wishList') > -1
+                $('.rightBtns').addClass 'hidden'
+                $('.backBtn').addClass 'hidden'
+                $('.slctnTxt').addClass 'hidden'
+                $('h3').addClass 'step1'
 
             else
                 $('.backBtn').addClass 'hidden'

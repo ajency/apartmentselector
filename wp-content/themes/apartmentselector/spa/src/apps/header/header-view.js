@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns"> <a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h5 class="text-white m-t-20 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h3> </div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns {{btnClass}}"> <a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h5 class="text-white m-t-20 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h3> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 
@@ -95,11 +95,19 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, disableOther, menuRight, menuTop, showRightPush, showTop;
+      var body, disableOther, flag, menuRight, menuTop, showRightPush, showTop;
+      console.log("wwwwwwwwwww");
+      flag = 0;
+      console.log(window.location.href.indexOf('wishList'));
+      if (window.location.href.indexOf('wishList') > -1) {
+        flag = 1;
+      }
       $(window).scroll(function() {
         var height;
+        flag = 0;
         height = $(window).scrollTop();
-        if (height === 0) {
+        console.log(flag);
+        if (height === 0 && flag === 0) {
           $('.backBtn').addClass('hidden');
           $('.slctnTxt').addClass('hidden');
           return $('h3').addClass('step1');
@@ -130,7 +138,12 @@ define(['marionette'], function(Mariontte) {
         disableOther("showRightPush");
       };
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
-
+        return console.log("aaaaaaaaaaa");
+      } else if (window.location.href.indexOf('wishList') > -1) {
+        $('.rightBtns').addClass('hidden');
+        $('.backBtn').addClass('hidden');
+        $('.slctnTxt').addClass('hidden');
+        return $('h3').addClass('step1');
       } else {
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');

@@ -4,7 +4,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
         initialize :(opt = {})->
 
-            @model = @_getHeader()
+            console.log @model = @_getHeader()
 
             @view = view = @_getHeaderView @model
 
@@ -85,7 +85,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 templateArr.push 'All'
 
             if(flag==1)
-                buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
+                console.log buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
 
@@ -110,8 +110,13 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 templateString  = templateArr.join('|')
 
             textClass = "hidden"
-            if window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+            btnClass = ""
+            if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
                 textClass = ""
+            else if window.location.href.indexOf('wishList') > -1
+                templateString = "WishList Comparison"
+                textClass = ""
+                btnClass = "hidden"
             else
                 templateString = "Apartment Selector"
 
