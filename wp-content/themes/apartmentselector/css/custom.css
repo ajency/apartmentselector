@@ -7743,6 +7743,7 @@ input.checkbox:checked ~ label:before {
   margin: 0;
   font-weight: 400;
   background-color: transparent;
+  height: 80px;
 }
 .compareWishlist ul .unitName small,
 .compareWishlist ul .unitName .small {
