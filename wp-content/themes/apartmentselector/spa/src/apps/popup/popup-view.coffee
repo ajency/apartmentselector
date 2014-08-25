@@ -29,10 +29,10 @@ define [ 'marionette' ], ( Mariontte )->
         						<!--View Info-->
         						<ul>
         							<li>
-        								SE
+        								{{facings}}
         							</li>
         							<li>
-        								Lake
+        								{{views}}
         							</li>
         						</ul>
 

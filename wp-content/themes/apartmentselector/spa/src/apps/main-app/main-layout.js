@@ -55,7 +55,6 @@ define(['extm'], function(Extm) {
         console.log($.cookie("key"));
         win = window.open(SITEURL + "/wishlist/#wishList", '_blank');
         win.focus();
-        App.backFilter['back'] = Backbone.history.fragment;
         menuRight = document.getElementById("cbp-spmenu-s2");
         menuTop = document.getElementById("cbp-spmenu-s3");
         showTop = document.getElementById("showTop");

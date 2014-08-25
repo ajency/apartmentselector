@@ -29,7 +29,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function() {
-      var buildingModel, cookeArray, element, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, _i, _len;
+      var buildingModel, cookeArray, element, facingModel, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       console.log(cookeArray = localStorage.getItem("cookievalue").split(','));
       unitModelArray = [];
       if (cookeArray.length !== 0) {
@@ -68,6 +68,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
               return unitModel.set("flooRange", rangename + 'rise');
             }
           });
+          viewModelArray = [];
           unitTypeModel = App.master.unit_type.findWhere({
             id: unitModel.get('unitType')
           });
@@ -79,6 +80,30 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set("carpetarea", unitVariantModel.get('carpetarea'));
           unitModel.set("unitTypeName", unitTypeModelName[0]);
           unitModel.set("buidlingName", buildingModel.get('name'));
+          console.log(unitModel.get('views'));
+          if (unitModel.get('views') !== "") {
+            viewsArray = unitModel.get('views');
+            console.log(viewsArray.length);
+            for (_j = 0, _len1 = viewsArray.length; _j < _len1; _j++) {
+              element = viewsArray[_j];
+              viewModel = App.master.view.findWhere({
+                id: parseInt(element)
+              });
+              viewModelArray.push(viewModel.get('name'));
+            }
+          }
+          unitModel.set('views', viewModelArray.join(','));
+          facingssArray = unitModel.get('facing');
+          if (facingssArray.length !== 0) {
+            for (_k = 0, _len2 = facingssArray.length; _k < _len2; _k++) {
+              element = facingssArray[_k];
+              facingModel = App.master.facings.findWhere({
+                id: parseInt(element)
+              });
+              facingModelArray.push(facingModel.get('name'));
+              unitModel.set('facings', facingModelArray.join(','));
+            }
+          }
           unitModelArray.push(unitModel);
         }
         unitCollection = new Backbone.Collection(unitModelArray);
