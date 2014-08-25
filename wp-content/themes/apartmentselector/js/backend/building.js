@@ -48,23 +48,55 @@ function displaySlider(floors){
         values: handlers,
         slide: function (evt, ui) {
             updateColors(ui.values);
-             console.log(ui.values[0])
-             console.log(ui.values[1])
-             if(ui.values[0]==0){
-                ui.values[0] = 1
-             }
-             if(ui.values[1]==0){
-                ui.values[1] = 1
-             }
-            $("#lowrisefrom").val(1)
+             console.log("0=>"+ui.values[0])
+             console.log("1=>"+ui.values[1])
+         
+            lowrisefrom = (ui.values[0]>0)?1:0;
+
+            $("#lowrisefrom").val(lowrisefrom)
             $("#lowriseto").val(ui.values[0])
-            $("#lowrise-range").html("Floors "+$("#lowrisefrom").val()+"-"+$("#lowriseto").val())
-            $("#midrisefrom").val(parseInt(ui.values[0])+1)
+
+            if(lowrisefrom==0){
+                $("#lowrise-range").html("None")
+           
+            }else
+            {
+
+                $("#lowrise-range").html("Floors "+$("#lowrisefrom").val()+"-"+$("#lowriseto").val())
+           
+            }
+
+
+            //midrise
+
+            midrisefrom = (ui.values[1]>0)?parseInt(ui.values[0])+1:0;
+            $("#midrisefrom").val(midrisefrom)
             $("#midriseto").val(ui.values[1])
-            $("#midrise-range").html("Floors "+$("#midrisefrom").val()+"-"+$("#midriseto").val())
-            $("#highrisefrom").val(parseInt(ui.values[1])+1)
-            $("#highriseto").val(floors)
-             $("#highrise-range").html("Floors "+$("#highrisefrom").val()+"-"+$("#highriseto").val())
+
+              if(midrisefrom==0){
+                $("#midrise-range").html("None")
+           
+            }else
+            {
+
+                $("#midrise-range").html("Floors "+$("#midrisefrom").val()+"-"+$("#midriseto").val())
+            
+            }
+
+             highrisefrom = (ui.values[1]!=floors)?parseInt(ui.values[1])+1:0;
+             highriseto =  (highrisefrom==0)?0:floors;
+            $("#highrisefrom").val(highrisefrom)
+            $("#highriseto").val(highriseto)
+             if(highrisefrom==0){
+                $("#highrise-range").html("None")
+           
+            }else
+            {
+
+                $("#highrise-range").html("Floors "+$("#highrisefrom").val()+"-"+$("#highriseto").val())
+            
+            }
+             
         }
     });
     
