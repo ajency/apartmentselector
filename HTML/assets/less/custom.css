@@ -7965,9 +7965,16 @@ body {
   display: inline-block;
   font-size: 12px;
 }
+.cbp-spmenu-vertical {
+  background-color: #803300;
+  border-left: 1px solid #b34700;
+}
 .cbp-spmenu-vertical > ul {
   list-style-type: none;
   padding: 0;
+}
+.cbp-spmenu-vertical > ul > li {
+  color: #e5e5e5;
 }
 .cbp-spmenu-vertical > ul > li a {
   font-family: 'kievit';
@@ -7978,7 +7985,8 @@ body {
   margin-bottom: 10.5px;
   font-size: 18px;
   font-weight: 700;
-  color: #ff6600;
+  color: #e5e5e5;
+  border-bottom: 1px solid #b34700;
 }
 .cbp-spmenu-vertical > ul > li a small,
 .cbp-spmenu-vertical > ul > li a .small {
@@ -7990,6 +7998,10 @@ body {
 .cbp-spmenu-vertical > ul > li a .small {
   font-size: 75%;
 }
+.cbp-spmenu-vertical h3 {
+  background-color: #993d00;
+  color: #e5e5e5;
+}
 .cbp-spmenu-vertical .menuWishlist {
   list-style-type: none;
 }
@@ -7998,7 +8010,7 @@ body {
   border: 0;
   margin: 0;
   float: left;
-  color: #333333;
+  color: #ffffff;
 }
 .cbp-spmenu-vertical .menuWishlist li .del {
   float: right;
