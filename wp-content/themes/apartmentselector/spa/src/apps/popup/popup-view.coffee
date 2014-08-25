@@ -59,7 +59,7 @@ define [ 'marionette' ], ( Mariontte )->
 
                        			<header class="cd-table-column">
                 				<ul>
-                					<li class="noBG">
+                					<li class="noBG unitName">
 
                 					</li>
                 				</ul>
@@ -68,7 +68,7 @@ define [ 'marionette' ], ( Mariontte )->
                 						BHK
                 					</li>
                 				</ul>
-                				<div class="compareHeader"><span class="sky-location"></span> Floor Info </div>
+                				<div class="compareHeader"><span class="sky-flag"></span> Floor Info </div>
                 				<ul>
                 					<li>
                 						Floor Range
@@ -77,7 +77,7 @@ define [ 'marionette' ], ( Mariontte )->
                 						Floor
                 					</li>
                 				</ul>
-                				<div class="compareHeader"><span class="sky-milestone"></span> View Info</div>
+                				<div class="compareHeader"><span class="sky-location"></span> View Info</div>
                 				<ul>
                 					<li>
                 						Facing
@@ -86,7 +86,7 @@ define [ 'marionette' ], ( Mariontte )->
                 						Views
                 					</li>
                 				</ul>
-                				<div class="compareHeader"><span class="sky-mirror"></span> Area <small>(Sq. Ft.)</small></div>
+                				<div class="compareHeader"><span class="sky-maximize"></span> Area <small>(Sq. Ft.)</small></div>
                 				<ul>
                 					<li>
                 						Total Area
@@ -105,6 +105,8 @@ define [ 'marionette' ], ( Mariontte )->
         childView  : PopItemview
 
         childViewContainer : '.cd-table-wrapper'
+
+        className : 'page-container row-fluid'
 
         events:
             'click a':(e)->
