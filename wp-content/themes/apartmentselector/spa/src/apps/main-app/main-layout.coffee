@@ -45,8 +45,8 @@ define [ 'extm'], ( Extm)->
                     </ul>
                 </li>
             </ul>
-
-       <a href="#" id="compare" >Compare</a>         </nav>
+            <a href="#" id="compare" >Compare</a>
+        </nav>
 
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <div class="row m-l-0 m-r-0">
