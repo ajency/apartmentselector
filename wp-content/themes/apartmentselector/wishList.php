@@ -2,7 +2,6 @@
 /**
  * Template Name: wishList-template
  *
-
  */
 ?>
 

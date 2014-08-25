@@ -25,11 +25,13 @@ define(['marionette'], function(Mariontte) {
       return PopupView.__super__.constructor.apply(this, arguments);
     }
 
-    PopupView.prototype.template = '<div id="cd-table" class="compareWishlist"> <header class="cd-table-column"> <ul> <li class="noBG"> </li> </ul> <ul> <li> BHK </li> </ul> <div class="compareHeader"><span class="sky-location"></span> Floor Info </div> <ul> <li> Floor Range </li> <li> Floor </li> </ul> <div class="compareHeader"><span class="sky-milestone"></span> View Info</div> <ul> <li> Facing </li> <li> Views </li> </ul> <div class="compareHeader"><span class="sky-mirror"></span> Area <small>(Sq. Ft.)</small></div> <ul> <li> Total Area </li> <li> Chargeable Area </li> <li> Carpet Area </li> </ul> </header> <div class="cd-table-container"> <div class="cd-table-wrapper"></div></div></div><em class="cd-scroll-right"></em>';
+    PopupView.prototype.template = '<div id="cd-table" class="compareWishlist"> <header class="cd-table-column"> <ul> <li class="noBG unitName"> </li> </ul> <ul> <li> BHK </li> </ul> <div class="compareHeader"><span class="sky-flag"></span> Floor Info </div> <ul> <li> Floor Range </li> <li> Floor </li> </ul> <div class="compareHeader"><span class="sky-location"></span> View Info</div> <ul> <li> Facing </li> <li> Views </li> </ul> <div class="compareHeader"><span class="sky-maximize"></span> Area <small>(Sq. Ft.)</small></div> <ul> <li> Total Area </li> <li> Chargeable Area </li> <li> Carpet Area </li> </ul> </header> <div class="cd-table-container"> <div class="cd-table-wrapper"></div></div></div><em class="cd-scroll-right"></em>';
 
     PopupView.prototype.childView = PopItemview;
 
     PopupView.prototype.childViewContainer = '.cd-table-wrapper';
+
+    PopupView.prototype.className = 'page-container row-fluid';
 
     PopupView.prototype.events = {
       'click a': function(e) {
