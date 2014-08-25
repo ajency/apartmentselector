@@ -27,6 +27,8 @@ define [ 'extm'], ( Extm)->
 
         _getView: =>
             new mainView
+                templateHelpers:
+                    SITEURL : SITEURL
 
 
     class mainView extends Marionette.LayoutView
@@ -44,7 +46,7 @@ define [ 'extm'], ( Extm)->
                 </li>
             </ul>
 
-       <a href="#" id="compare" >Comapre</a>         </nav>
+       <a href="#" id="compare" >Compare</a>         </nav>
 
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <div class="row m-l-0 m-r-0">
@@ -116,7 +118,7 @@ define [ 'extm'], ( Extm)->
         events:
             'click #compare':(e)->
                 console.log $.cookie("key")
-                win = window.open("http://localhost/apartmentselector/wishList/#wishList", '_blank')
+                win = window.open(SITEURL+"/wishlist/#wishList", '_blank')
                 win.focus()
                 App.backFilter['back'] = Backbone.history.fragment
                 menuRight = document.getElementById("cbp-spmenu-s2")

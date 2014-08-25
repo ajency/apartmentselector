@@ -5,7 +5,7 @@ define [ 'marionette' ], ( Mariontte )->
 
         template : ' <ul>
         							<li class="unitName">
-        								{{name}}<span class="small"> T1</span>
+        								<div class="small"> Tower 1</div>{{name}}
         							</li>
         						</ul>
 

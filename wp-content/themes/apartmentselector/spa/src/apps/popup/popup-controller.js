@@ -78,6 +78,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set("sellablearea", unitVariantModel.get('sellablearea'));
           unitModel.set("carpetarea", unitVariantModel.get('carpetarea'));
           unitModel.set("unitTypeName", unitTypeModelName[0]);
+          unitModel.set("buidlingName", buildingModel.get('name'));
           unitModelArray.push(unitModel);
         }
         unitCollection = new Backbone.Collection(unitModelArray);

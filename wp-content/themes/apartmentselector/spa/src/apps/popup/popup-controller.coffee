@@ -20,6 +20,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 collection : Collection
 
 
+
         _getUnitsCountCollection:->
             console.log cookeArray = localStorage.getItem("cookievalue" ).split(',')
             unitModelArray = []
@@ -62,6 +63,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set "sellablearea" ,unitVariantModel.get 'sellablearea'
                     unitModel.set "carpetarea" ,unitVariantModel.get 'carpetarea'
                     unitModel.set "unitTypeName" ,unitTypeModelName[0]
+                    unitModel.set "buidlingName" ,buildingModel.get 'name'
                     #viewsArray = unitModel.get('views' ).split(',')
                     #for element in viewsArray
                     #viewModel = App.master.view.findWhere({id:parseInt(element)})
