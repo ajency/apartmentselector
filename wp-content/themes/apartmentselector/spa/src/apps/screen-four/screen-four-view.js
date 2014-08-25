@@ -34,26 +34,32 @@ define(['marionette'], function(Marionette) {
               return parseInt(item);
             }));
           }
-          console.log(key = $.inArray(parseInt(App.unit['name']), cookieOldValue));
-          if (parseInt(key) === -1) {
-            $('#errormsg').text("");
-            App.cookieArray.push(parseInt(App.unit['name']));
-            $('#list').addClass("remove");
-          } else {
-            console.log("Already entered");
-            $('#errormsg').text("Already entered");
-            $('#errormsg').addClass("inline");
-            $('#list').removeClass("remove");
+          console.log(cookieOldValue.length);
+          if (cookieOldValue.length >= 4) {
+            $('#errormsg').text("Cannot add more than 4 units");
             return false;
+          } else {
+            console.log(key = $.inArray(parseInt(App.unit['name']), cookieOldValue));
+            if (parseInt(key) === -1) {
+              $('#errormsg').text("");
+              App.cookieArray.push(parseInt(App.unit['name']));
+              $('#list').addClass("remove");
+            } else {
+              console.log("Already entered");
+              $('#errormsg').text("Already entered");
+              $('#errormsg').addClass("inline");
+              $('#list').removeClass("remove");
+              return false;
+            }
+            console.log(App.cookieArray);
+            console.log(App.cookieArray = $.merge(App.cookieArray, cookieOldValue));
+            console.log(App.cookieArray = _.uniq(App.cookieArray));
+            $.cookie('key', App.cookieArray);
+            localStorage.setItem("cookievalue", App.cookieArray);
+            console.log($.cookie("key"));
+            $('#errormsg').text("The selected flat has been added to your WishList");
+            $('#errormsg').addClass("inline");
           }
-          console.log(App.cookieArray);
-          console.log(App.cookieArray = $.merge(App.cookieArray, cookieOldValue));
-          console.log(App.cookieArray = _.uniq(App.cookieArray));
-          $.cookie('key', App.cookieArray);
-          localStorage.setItem("cookievalue", App.cookieArray);
-          console.log($.cookie("key"));
-          $('#errormsg').text("The selected flat has been added to your WishList");
-          $('#errormsg').addClass("inline");
           cart = $("#showRightPush");
           console.log(imgtodrag = $('.remove').find(".glyphicon"));
           if (imgtodrag) {
@@ -174,7 +180,7 @@ define(['marionette'], function(Marionette) {
       table = "";
       console.log(typeof $.cookie("key"));
       if ($.cookie("key") !== void 0 && $.cookie("key") !== "") {
-        selectedUnitsArray = $.cookie("key").split(",");
+        console.log(selectedUnitsArray = $.cookie("key").split(","));
         table = "<table>";
         for (_i = 0, _len = selectedUnitsArray.length; _i < _len; _i++) {
           element = selectedUnitsArray[_i];

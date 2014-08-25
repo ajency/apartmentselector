@@ -66,9 +66,9 @@ define(['extm'], function(Extm) {
       },
       'click .del': function(e) {
         var index, val;
-        console.log(App.cookieArray = App.cookieArray);
-        console.log(val = $('#' + e.target.id).attr('data-id'));
-        console.log(index = App.cookieArray.indexOf(parseInt(val)));
+        App.cookieArray = App.cookieArray;
+        val = $('#' + e.target.id).attr('data-id');
+        index = App.cookieArray.indexOf(parseInt(val));
         App.cookieArray.splice(index, 1);
         $.cookie('key', App.cookieArray);
         localStorage.setItem("cookievalue", App.cookieArray);
@@ -90,18 +90,17 @@ define(['extm'], function(Extm) {
         classie.toggle(menuRight, "cbp-spmenu-open");
         App.unit['name'] = $('#' + e.target.id).attr('data-id');
         App.unit['flag'] = 1;
-        console.log($('#' + e.target.id).attr('data-id'));
-        console.log(unitModel = App.master.unit.findWhere({
+        unitModel = App.master.unit.findWhere({
           id: parseInt($('#' + e.target.id).attr('data-id'))
-        }));
+        });
         App.defaults['unitType'] = unitModel.get('unitType');
         App.defaults['building'] = unitModel.get('building');
-        console.log(rangeModel = App.master.range);
+        rangeModel = App.master.range;
         App.backFilter['screen3'].push("floor");
         App.backFilter['screen2'].push("floor", "unitVariant");
-        console.log(buildingModel = App.master.building.findWhere({
+        buildingModel = App.master.building.findWhere({
           id: unitModel.get('building')
-        }));
+        });
         floorriserange = buildingModel.get('floorriserange');
         object = this;
         rangeArrayVal = [];
@@ -116,13 +115,10 @@ define(['extm'], function(Extm) {
             start = parseInt(start) + 1;
             i++;
           }
-          console.log(rangeArrayVal);
           if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
-            console.log("aaaaaaaaaaa");
             return App.defaults['floor'] = rangeArrayVal.join(',');
           }
         });
-        console.log(App.defaults);
         App.navigate("screen-four");
         msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
@@ -149,14 +145,13 @@ define(['extm'], function(Extm) {
           return $('.slctnTxt').removeClass('hidden');
         }
       });
-      console.log(cookieOldValue = $.cookie("key"));
-      console.log(typeof cookieOldValue);
+      cookieOldValue = $.cookie("key");
       if (cookieOldValue === void 0 || $.cookie("key") === "") {
         cookieOldValue = [];
       } else {
-        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+        cookieOldValue = $.cookie("key").split(',').map(function(item) {
           return parseInt(item);
-        }));
+        });
       }
       App.cookieArray = cookieOldValue;
       localStorage.setItem("cookievalue", App.cookieArray);
@@ -166,9 +161,8 @@ define(['extm'], function(Extm) {
     mainView.prototype.showWishList = function() {
       var building, element, model, selectedUnitsArray, table, unitType, unitVariant, _i, _len;
       table = "";
-      console.log(typeof $.cookie("key"));
       if ($.cookie("key") !== void 0 && $.cookie("key") !== "") {
-        selectedUnitsArray = $.cookie("key").split(",");
+        console.log(selectedUnitsArray = $.cookie("key").split(","));
         table = "<table>";
         for (_i = 0, _len = selectedUnitsArray.length; _i < _len; _i++) {
           element = selectedUnitsArray[_i];

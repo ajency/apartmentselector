@@ -40,26 +40,32 @@ define [ 'marionette' ], ( Marionette )->
                     console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                             parseInt(item)
                     )
-                console.log key = $.inArray(parseInt(App.unit['name']) , cookieOldValue)
-
-                if parseInt(key) == -1
-                    $('#errormsg' ).text ""
-                    App.cookieArray.push(parseInt(App.unit['name']))
-                    $('#list').addClass "remove"
-                else
-                    console.log "Already entered"
-                    $('#errormsg' ).text "Already entered"
-                    $('#errormsg' ).addClass "inline"
-                    $('#list').removeClass "remove"
+                console.log cookieOldValue.length
+                if cookieOldValue.length >= 4
+                    $('#errormsg' ).text "Cannot add more than 4 units"
                     return false
-                console.log App.cookieArray
-                console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
-                console.log App.cookieArray = _.uniq(App.cookieArray)
-                $.cookie('key',App.cookieArray)
-                localStorage.setItem("cookievalue", App.cookieArray)
-                console.log $.cookie("key")
-                $('#errormsg' ).text "The selected flat has been added to your WishList"
-                $('#errormsg' ).addClass "inline"
+                else
+
+                    console.log key = $.inArray(parseInt(App.unit['name']) , cookieOldValue)
+
+                    if parseInt(key) == -1
+                        $('#errormsg' ).text ""
+                        App.cookieArray.push(parseInt(App.unit['name']))
+                        $('#list').addClass "remove"
+                    else
+                        console.log "Already entered"
+                        $('#errormsg' ).text "Already entered"
+                        $('#errormsg' ).addClass "inline"
+                        $('#list').removeClass "remove"
+                        return false
+                    console.log App.cookieArray
+                    console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
+                    console.log App.cookieArray = _.uniq(App.cookieArray)
+                    $.cookie('key',App.cookieArray)
+                    localStorage.setItem("cookievalue", App.cookieArray)
+                    console.log $.cookie("key")
+                    $('#errormsg' ).text "The selected flat has been added to your WishList"
+                    $('#errormsg' ).addClass "inline"
 
                 cart = $("#showRightPush")
                 console.log imgtodrag = $('.remove').find(".glyphicon")
@@ -177,7 +183,7 @@ define [ 'marionette' ], ( Marionette )->
             table = ""
             console.log typeof $.cookie("key")
             if $.cookie("key")!= undefined && $.cookie("key") != ""
-                selectedUnitsArray = $.cookie("key").split(",")
+                console.log selectedUnitsArray = $.cookie("key").split(",")
                 table = "<table>"
                 for element in selectedUnitsArray
                     model = App.master.unit.findWhere(id:parseInt(element))
