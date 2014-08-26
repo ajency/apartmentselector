@@ -116,6 +116,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
             )
+            costSheetArray = []
+
             units.sort( (a,b) ->
                 a.get('id') - b.get('id')
             )
