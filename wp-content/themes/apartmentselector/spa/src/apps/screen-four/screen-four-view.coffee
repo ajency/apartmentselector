@@ -1,4 +1,7 @@
 define [ 'marionette' ], ( Marionette )->
+
+    perFlag = 0
+    object =""
     class ScreenFourLayout extends Marionette.LayoutView
 
         template : '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer">
@@ -27,68 +30,34 @@ define [ 'marionette' ], ( Marionette )->
         						<p class="italic">Tagline comes here</p>
         					</div>
 
-        					<dl class="invoice-meta">
-        						<h5 class="invoice-number bold m-t-0">Proposal No.</h5>
-        						<dd>6859</dd>
-        						<h5 class="invoice-date bold m-t-0">Date</h5>
-        						<dd>19/08/2014</dd>
-        						<h5 class="invoice-due bold m-t-0">Due Date</h5>
-        						<dd>18/09/2014</dd>
-        					</dl>
+       <div>Payment Plans<select id="paymentplans">
+
+       {{#paymentplans}}
+
+       <option value="{{id}}">{{name}}</option>{{/paymentplans}}
+        </select>
+        </br>Discount :
+                                            Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/>
+
+                                            Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/>
+
+                                            <input type="text" id="discountvalue" value=""/>
+
+
+                                            <input type="text" id="discountper" value="" class="hidden" /><br/>
+                                            Actual Payment : <input type="text" id="payment" value=""/></div>
+
         				</header>
         				<!-- e: invoice header -->
 
 
-        				<section id="parties">
 
-        					<div class="invoice-to">
-        						<h3>Proposal To:</h3>
-        						<div id="hcard-Hiram-Roth" class="vcard">
-        							<a class="url fn" href="http://memory-alpha.org">Hiram Roth</a>
-        							<div class="org">United Federation of Planets</div>
-        							<a class="email" href="mailto:president.roth@ufop.uni">president.roth@ufop.uni</a>
-
-        							<div class="adr">
-        								<div class="street-address">2269 Elba Lane</div>
-        								<span class="locality">Paris</span>
-        								<span class="country-name">France</span>
-        							</div>
-
-        							<div class="tel">888-555-2311</div>
-        						</div><!-- e: vcard -->
-        					</div><!-- e invoice-to -->
-
-
-        					<div class="invoice-from">
-        						<h3>Proposal From:</h3>
-        						<div id="hcard-Admiral-Valdore" class="vcard">
-        							<a class="url fn" href="http://memory-alpha.org">Admiral Valdore</a>
-        							<div class="org">Romulan Empire</div>
-        							<a class="email" href="mailto:admiral.valdore@theempire.uni">admiral.valdore@theempire.uni</a>
-
-        							<div class="adr">
-        								<div class="street-address">5151 Pardek Memorial Way</div>
-        								<span class="locality">Krocton Segment</span>
-        								<span class="country-name">Romulus</span>
-        							</div>
-
-        							<div class="tel">000-555-9988</div>
-        						</div><!-- e: vcard -->
-        					</div><!-- e invoice-from -->
-
-
-        					<div class="invoice-status p-t-25">
-        						<!-- <h3>Proposal Status</h3> -->
-        						<div>Some info</div>
-        					</div><!-- e: invoice-status -->
-
-        				</section><!-- e: invoice partis -->
 
 
         				<section class="invoice-financials">
 
-        					<div class="invoice-items">
-        						<table>
+                            <div class="invoice-items">
+        						<table id="costSheetTable">
         							<caption>Your Invoice</caption>
         							<thead>
         								<tr>
@@ -98,34 +67,32 @@ define [ 'marionette' ], ( Marionette )->
         								</tr>
         							</thead>
         							<tbody>
-        								<tr>
-        									<th>Romulan Warbird</th>
-        									<td>1</td>
-        									<td>$36,000</td>
-        								</tr>
-        								<tr>
-        									<th>Romulan Troops</th>
-        									<td>10</td>
-        									<td>$7,650</td>
-        								</tr>
-        								<tr>
-        									<th>Kestrel-class Shuttle</th>
-        									<td>1</td>
-        									<td>$10,220</td>
-        								</tr>
-        								<tr>
-        									<th>Clocking Device</th>
-        									<td>1</td>
-        									<td>$50,000</td>
-        								</tr>
+
         							</tbody>
-        							<tfoot>
-        								<tr>
-        									<td colspan="3">Amounts in bars of Gold Pressed Latinum</td>
-        								</tr>
-        							</tfoot>
+
         						</table>
-        					</div><!-- e: invoice items -->
+        					</div>
+
+
+
+
+       <div class="invoice-items">
+                						<table id="paymentTable">
+                							<caption>Schedule of Payments</caption>
+                							<thead>
+                								<tr>
+                									<th>Item &amp; Description</th>
+                									<th>Quantity</th>
+                									<th>Price (GPL)</th>
+                								</tr>
+                							</thead>
+                							<tbody>
+
+                							</tbody>
+
+                						</table>
+                					</div>
+<!-- e: invoice items -->
 
 
         					<div class="invoice-totals">
@@ -326,6 +293,47 @@ define [ 'marionette' ], ( Marionette )->
 
 
         onShow:->
+
+            $(document).on('open', '.remodal',  () ->
+                $('.radioClass').on('click' , ()->
+                    console.log $('input[name=discountradio]:checked').val()
+                    if parseInt($('input[name=discountradio]:checked').val()) == 1
+                        $('#discountvalue').removeClass "hidden"
+                        $('#discountper').addClass "hidden"
+                        perFlag = 1
+                    else
+                        $('#discountvalue').addClass "hidden"
+                        $('#discountper').removeClass "hidden"
+                        perFlag = 2
+
+                )
+                $('#discountvalue').on('change' , ()->
+                    perFlag = 1
+                    object.generateCostSheet()
+
+
+                )
+                $('#discountper').on('change' , ()->
+                    perFlag = 2
+                    object.generateCostSheet()
+
+
+                )
+                $('#payment').on('change' , ()->
+                    object.generateCostSheet()
+
+
+                )
+                $('#paymentplans').on('change' , ()->
+                    id = $('#'+this.id ).val()
+                    object.generatePaymentSchedule(id)
+
+
+                )
+            )
+            scr = document.createElement('script')
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
+            document.body.appendChild(scr)
             $('#slider-plans').liquidSlider(
                     slideEaseFunction: "easeInOutQuad",
                     autoSlide: true,
@@ -344,6 +352,8 @@ define [ 'marionette' ], ( Marionette )->
                 )
             App.cookieArray = cookieOldValue
             @showWishList()
+            object = @
+            @generateCostSheet()
 
         showWishList:->
             table = ""
@@ -363,6 +373,68 @@ define [ 'marionette' ], ( Marionette )->
                 table += '</table>'
             console.log table
             $('#showWishlist').html table
+
+
+        generateCostSheet:->
+            $('table#costSheetTable tr' ).remove()
+            costSheetArray = []
+            console.log App.unit['name']
+            console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
+            costSheetArray.push(uniVariantModel.get('sellablearea'))
+            costSheetArray.push(uniVariantModel.get('persqftprice'))
+            discount = 0
+            console.log perFlag
+            if perFlag== 1
+                console.log parseFloat(uniVariantModel.get('sellablearea'))
+                console.log parseFloat(uniVariantModel.get('persqftprice'))
+                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+            else if perFlag == 2
+                pervalue = parseFloat($('#discountper').val())/100
+                discount = (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue))
+            discount = Math.ceil(discount.toFixed(2));
+
+            revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(uniVariantModel.get('persqftprice'))*parseFloat(discount))
+            costSheetArray.push(revisedrate)
+            basicCost = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(revisedrate)
+            costSheetArray.push(basicCost)
+            costSheetArray.push(discount)
+            table = ""
+            milesstones = '<select id="milestones">'
+            for element in MILESTONES
+                milesstones += '<option value="'+element.id+'">'+element.name+'</option>'
+
+            milesstones += '</select>'
+            maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
+            table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td></tr>
+                       <tr><td>Rate Per Sq. Ft. Rs.</td><td>'+costSheetArray[1]+'</td></tr>
+                        <tr><td>Revised Rate</td><td>'+costSheetArray[2]+'</td></tr>
+                        <tr><td>Basic Cost Rs.</td><td>'+costSheetArray[3]+'</td></tr>
+
+                        <tr><td>Infrastructure and Developement Charges.</td><td></td></tr>
+
+                        <tr><td>Agreement Amount Rs.</td><td></td></tr>
+
+           <tr><td>Stamp Duty Rs.</td><td></td></tr>
+            <tr><td>Registration Amount Rs.</td><td></td></tr>
+            <tr><td>VAT  Rs.</td><td></td></tr>
+            <tr><td>Service Tax Rs.</td><td></td></tr>
+
+           <tr><td>Total Cost Rs.</td><td></td></tr>
+            <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td></tr>
+            <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>'+costSheetArray[4]+'</td></tr>
+                        <tr><td>Actual Payment</td><td>'+$('#payment').val()+'</td></tr>
+                        <tr><td>Milestone Completed Till Date</td><td>'+milesstones+'</td></tr>'
+            console.log $('table#costSheetTable tbody' )
+            $('table#costSheetTable tbody' ).append table
+            id = $('#paymentplans' ).val()
+            object.generatePaymentSchedule(id)
+
+        generatePaymentSchedule:(id)->
+            console.log id
+
+
+
 
 
 

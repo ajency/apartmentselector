@@ -6,7 +6,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
         initialize :(opt)->
             @Collection = @_getSelelctedUnit()
 
-            @layout = new ScreenFourView.ScreenFourLayout()
+            @layout = new ScreenFourView.ScreenFourLayout(
+                templateHelpers:
+                    paymentplans :@Collection[1]
+            )
 
 
             @listenTo @layout, "show", @showViews
@@ -15,8 +18,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
             @show @layout
 
         showViews:=>
-            @unitCollection = @Collection
-            @mainCollection = @Collection
+            @unitCollection = @Collection[0]
+            @mainCollection = @Collection[0]
             @showUnitRegion @unitCollection
             @showMainRegion @mainCollection
 
@@ -116,7 +119,9 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
             )
-            costSheetArray = []
+
+
+
 
             units.sort( (a,b) ->
                 a.get('id') - b.get('id')
@@ -150,8 +155,11 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 ModelActualArr.push(unitCollection.get(value))
 
             )
+
             console.log unitCollection = new Backbone.Collection(ModelActualArr)
-            unitCollection
+            [unitCollection , PAYMENTPLANS]
+
+
 
 
 

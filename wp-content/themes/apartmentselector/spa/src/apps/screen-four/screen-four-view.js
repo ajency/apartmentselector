@@ -3,7 +3,9 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView;
+  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView, object, perFlag;
+  perFlag = 0;
+  object = "";
   ScreenFourLayout = (function(_super) {
     __extends(ScreenFourLayout, _super);
 
@@ -11,7 +13,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <dl class="invoice-meta"> <h5 class="invoice-number bold m-t-0">Proposal No.</h5> <dd>6859</dd> <h5 class="invoice-date bold m-t-0">Date</h5> <dd>19/08/2014</dd> <h5 class="invoice-due bold m-t-0">Due Date</h5> <dd>18/09/2014</dd> </dl> </header> <!-- e: invoice header --> <section id="parties"> <div class="invoice-to"> <h3>Proposal To:</h3> <div id="hcard-Hiram-Roth" class="vcard"> <a class="url fn" href="http://memory-alpha.org">Hiram Roth</a> <div class="org">United Federation of Planets</div> <a class="email" href="mailto:president.roth@ufop.uni">president.roth@ufop.uni</a> <div class="adr"> <div class="street-address">2269 Elba Lane</div> <span class="locality">Paris</span> <span class="country-name">France</span> </div> <div class="tel">888-555-2311</div> </div><!-- e: vcard --> </div><!-- e invoice-to --> <div class="invoice-from"> <h3>Proposal From:</h3> <div id="hcard-Admiral-Valdore" class="vcard"> <a class="url fn" href="http://memory-alpha.org">Admiral Valdore</a> <div class="org">Romulan Empire</div> <a class="email" href="mailto:admiral.valdore@theempire.uni">admiral.valdore@theempire.uni</a> <div class="adr"> <div class="street-address">5151 Pardek Memorial Way</div> <span class="locality">Krocton Segment</span> <span class="country-name">Romulus</span> </div> <div class="tel">000-555-9988</div> </div><!-- e: vcard --> </div><!-- e invoice-from --> <div class="invoice-status p-t-25"> <!-- <h3>Proposal Status</h3> --> <div>Some info</div> </div><!-- e: invoice-status --> </section><!-- e: invoice partis --> <section class="invoice-financials"> <div class="invoice-items"> <table> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> <tr> <th>Romulan Warbird</th> <td>1</td> <td>$36,000</td> </tr> <tr> <th>Romulan Troops</th> <td>10</td> <td>$7,650</td> </tr> <tr> <th>Kestrel-class Shuttle</th> <td>1</td> <td>$10,220</td> </tr> <tr> <th>Clocking Device</th> <td>1</td> <td>$50,000</td> </tr> </tbody> <tfoot> <tr> <td colspan="3">Amounts in bars of Gold Pressed Latinum</td> </tr> </tfoot> </table> </div><!-- e: invoice items --> <div class="invoice-totals"> <table> <caption>Totals:</caption> <tbody> <tr> <th>Subtotal:</th> <td></td> <td>$103,850</td> </tr> <tr> <th>Tax:</th> <td>5%</td> <td>$5,192</td> </tr> <tr> <th>Total:</th> <td></td> <td>$109,042</td> </tr> </tbody> </table> <div class="invoice-pay"> <h5>Pay with...</h5> <ul> <li> <a href="#" class="gcheckout">Checkout with Google</a> </li> <li> <a href="#" class="acheckout">Checkout with Amazon</a> </li> </ul> </div> </div><!-- e: invoice totals --> <div class="invoice-notes"> <h6>Notes &amp; Information:</h6> <p>This invoice contains a incomplete list of items destroyed by the Federation ship Enterprise on Startdate 5401.6 in an unprovked attacked on a peaceful &amp; wholly scientific mission to Outpost 775.</p> <p>The Romulan people demand immediate compensation for the loss of their Warbird, Shuttle, Cloaking Device, and to a lesser extent thier troops.</p> <p>Failure to provide adequate compensation for the above losses will result in an immediate increase in Neutral Zone patrols &amp; a formal complaint will be filed in the form of increased aggresion on human populated worlds within the neutral zone.</p> </div><!-- e: invoice-notes --> </section><!-- e: invoice financials --> <footer id="footer"> <p> Crafted with Romulan State Required Levels of Attention by <a href="http://sprresponsive.com">sprResponsive</a>. </p> </footer> </div><!-- e: invoice --> </div>';
+    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value=""/> <input type="text" id="discountper" value="" class="hidden" /><br/> Actual Payment : <input type="text" id="payment" value=""/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> <div class="invoice-totals"> <table> <caption>Totals:</caption> <tbody> <tr> <th>Subtotal:</th> <td></td> <td>$103,850</td> </tr> <tr> <th>Tax:</th> <td>5%</td> <td>$5,192</td> </tr> <tr> <th>Total:</th> <td></td> <td>$109,042</td> </tr> </tbody> </table> <div class="invoice-pay"> <h5>Pay with...</h5> <ul> <li> <a href="#" class="gcheckout">Checkout with Google</a> </li> <li> <a href="#" class="acheckout">Checkout with Amazon</a> </li> </ul> </div> </div><!-- e: invoice totals --> <div class="invoice-notes"> <h6>Notes &amp; Information:</h6> <p>This invoice contains a incomplete list of items destroyed by the Federation ship Enterprise on Startdate 5401.6 in an unprovked attacked on a peaceful &amp; wholly scientific mission to Outpost 775.</p> <p>The Romulan people demand immediate compensation for the loss of their Warbird, Shuttle, Cloaking Device, and to a lesser extent thier troops.</p> <p>Failure to provide adequate compensation for the above losses will result in an immediate increase in Neutral Zone patrols &amp; a formal complaint will be filed in the form of increased aggresion on human populated worlds within the neutral zone.</p> </div><!-- e: invoice-notes --> </section><!-- e: invoice financials --> <footer id="footer"> <p> Crafted with Romulan State Required Levels of Attention by <a href="http://sprresponsive.com">sprResponsive</a>. </p> </footer> </div><!-- e: invoice --> </div>';
 
     ScreenFourLayout.prototype.regions = {
       unitRegion: '#unitblock-region',
@@ -102,7 +104,7 @@ define(['marionette'], function(Marionette) {
           return e.preventDefault();
         },
         'click .selectedunit': function(e) {
-          var body, buildingModel, floorriserange, i, menuRight, menuTop, object, rangeArrayVal, rangeModel, showRightPush, showTop, unitModel;
+          var body, buildingModel, floorriserange, i, menuRight, menuTop, rangeArrayVal, rangeModel, showRightPush, showTop, unitModel;
           menuRight = document.getElementById("cbp-spmenu-s2");
           menuTop = document.getElementById("cbp-spmenu-s3");
           showTop = document.getElementById("showTop");
@@ -151,7 +153,40 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
-      var cookieOldValue;
+      var cookieOldValue, scr;
+      $(document).on('open', '.remodal', function() {
+        $('.radioClass').on('click', function() {
+          console.log($('input[name=discountradio]:checked').val());
+          if (parseInt($('input[name=discountradio]:checked').val()) === 1) {
+            $('#discountvalue').removeClass("hidden");
+            $('#discountper').addClass("hidden");
+            return perFlag = 1;
+          } else {
+            $('#discountvalue').addClass("hidden");
+            $('#discountper').removeClass("hidden");
+            return perFlag = 2;
+          }
+        });
+        $('#discountvalue').on('change', function() {
+          perFlag = 1;
+          return object.generateCostSheet();
+        });
+        $('#discountper').on('change', function() {
+          perFlag = 2;
+          return object.generateCostSheet();
+        });
+        $('#payment').on('change', function() {
+          return object.generateCostSheet();
+        });
+        return $('#paymentplans').on('change', function() {
+          var id;
+          id = $('#' + this.id).val();
+          return object.generatePaymentSchedule(id);
+        });
+      });
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js';
+      document.body.appendChild(scr);
       $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
@@ -170,7 +205,9 @@ define(['marionette'], function(Marionette) {
         }));
       }
       App.cookieArray = cookieOldValue;
-      return this.showWishList();
+      this.showWishList();
+      object = this;
+      return this.generateCostSheet();
     };
 
     ScreenFourLayout.prototype.showWishList = function() {
@@ -200,6 +237,54 @@ define(['marionette'], function(Marionette) {
       }
       console.log(table);
       return $('#showWishlist').html(table);
+    };
+
+    ScreenFourLayout.prototype.generateCostSheet = function() {
+      var basicCost, costSheetArray, discount, element, id, maintenance, milesstones, pervalue, revisedrate, table, uniVariantModel, unitModel, _i, _len;
+      $('table#costSheetTable tr').remove();
+      costSheetArray = [];
+      console.log(App.unit['name']);
+      console.log(unitModel = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      }));
+      uniVariantModel = App.master.unit_variant.findWhere({
+        id: unitModel.get('unitVariant')
+      });
+      costSheetArray.push(uniVariantModel.get('sellablearea'));
+      costSheetArray.push(uniVariantModel.get('persqftprice'));
+      discount = 0;
+      console.log(perFlag);
+      if (perFlag === 1) {
+        console.log(parseFloat(uniVariantModel.get('sellablearea')));
+        console.log(parseFloat(uniVariantModel.get('persqftprice')));
+        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
+      } else if (perFlag === 2) {
+        pervalue = parseFloat($('#discountper').val()) / 100;
+        discount = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue);
+      }
+      discount = Math.ceil(discount.toFixed(2));
+      revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(discount));
+      costSheetArray.push(revisedrate);
+      basicCost = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(revisedrate);
+      costSheetArray.push(basicCost);
+      costSheetArray.push(discount);
+      table = "";
+      milesstones = '<select id="milestones">';
+      for (_i = 0, _len = MILESTONES.length; _i < _len; _i++) {
+        element = MILESTONES[_i];
+        milesstones += '<option value="' + element.id + '">' + element.name + '</option>';
+      }
+      milesstones += '</select>';
+      maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100;
+      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td></td></tr> <tr><td>Agreement Amount Rs.</td><td></td></tr> <tr><td>Stamp Duty Rs.</td><td></td></tr> <tr><td>Registration Amount Rs.</td><td></td></tr> <tr><td>VAT  Rs.</td><td></td></tr> <tr><td>Service Tax Rs.</td><td></td></tr> <tr><td>Total Cost Rs.</td><td></td></tr> <tr><td>Maintenance Deposit.</td><td>' + maintenance + '</td></tr> <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>' + costSheetArray[4] + '</td></tr> <tr><td>Actual Payment</td><td>' + $('#payment').val() + '</td></tr> <tr><td>Milestone Completed Till Date</td><td>' + milesstones + '</td></tr>';
+      console.log($('table#costSheetTable tbody'));
+      $('table#costSheetTable tbody').append(table);
+      id = $('#paymentplans').val();
+      return object.generatePaymentSchedule(id);
+    };
+
+    ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
+      return console.log(id);
     };
 
     return ScreenFourLayout;

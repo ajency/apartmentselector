@@ -3,7 +3,7 @@
 
 # add your required plugins here.
 define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','mapplic_new','jqueryEasingmin'
-,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring','jqueryRemodal'], ->
+,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
@@ -48,6 +48,7 @@ require [ 'plugin-loader'
         'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
+
 
     # master store
     App.master =

@@ -15,14 +15,18 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype.initialize = function(opt) {
       this.Collection = this._getSelelctedUnit();
-      this.layout = new ScreenFourView.ScreenFourLayout();
+      this.layout = new ScreenFourView.ScreenFourLayout({
+        templateHelpers: {
+          paymentplans: this.Collection[1]
+        }
+      });
       this.listenTo(this.layout, "show", this.showViews);
       return this.show(this.layout);
     };
 
     ScreenFourController.prototype.showViews = function() {
-      this.unitCollection = this.Collection;
-      this.mainCollection = this.Collection;
+      this.unitCollection = this.Collection[0];
+      this.mainCollection = this.Collection[0];
       this.showUnitRegion(this.unitCollection);
       return this.showMainRegion(this.mainCollection);
     };
@@ -52,7 +56,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     };
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
-      var ModelActualArr, costSheetArray, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
+      var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
       console.log(App.unit['name']);
       console.log(units = App.master.unit.where({
         id: parseInt(App.unit['name'])
@@ -122,7 +126,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
         return value.set('toiletArray', toiletArray);
       });
-      costSheetArray = [];
       units.sort(function(a, b) {
         return a.get('id') - b.get('id');
       });
@@ -149,7 +152,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         return ModelActualArr.push(unitCollection.get(value));
       });
       console.log(unitCollection = new Backbone.Collection(ModelActualArr));
-      return unitCollection;
+      return [unitCollection, PAYMENTPLANS];
     };
 
     return ScreenFourController;

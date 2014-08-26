@@ -137,6 +137,8 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "requirejs", "VIEWS", get_views() );
             wp_localize_script( "requirejs", "FACINGS", get_facings() );
+            wp_localize_script( "requirejs", "PAYMENTPLANS", get_payment_plans() );
+            wp_localize_script( "requirejs", "MILESTONES", get_milestones() );
 
 
         }
@@ -187,6 +189,8 @@ if (! is_development_environment() ) {
             wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "$module-script", "VIEWS", get_views() );
             wp_localize_script( "$module-script", "FACINGS", get_facings() );
+            wp_localize_script( "$module-script", "PAYMENTPLANS", get_payment_plans() );
+            wp_localize_script( "$module-script", "MILESTONES", get_milestones() );
         }
     }
 
