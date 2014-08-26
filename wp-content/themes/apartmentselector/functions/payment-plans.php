@@ -47,8 +47,8 @@ function get_payment_plans(){
  
    	$payment_plans = $wpdb->get_results($query,ARRAY_A);
  
- 	 $payment_plans_data = [];
- 	 $miles_stone_data = [];
+ 	 $payment_plans_data = array();
+ 	 $miles_stone_data = array();
    	foreach($payment_plans as $payment_plan){ 
    			$option_value= maybe_unserialize($payment_plan["value"]);
    			$miles_stones =  $option_value["milestones"] ;
