@@ -163,7 +163,7 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                            $unit_types = get_unit_types();
 
                             foreach ($unit_types as $unit_type_item){
-                               
+                               $unit_variant  = array();
                                 foreach($membership_fees as $membership_fee){
                                     if($membership_fee["unit_type"]==$unit_type_item['id']){
 

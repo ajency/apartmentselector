@@ -43,12 +43,21 @@ function get_payment_plans(){
 
     global $wpdb;
 
-    $query= "SELECT option_name as  name, option_id as id FROM ".$wpdb->prefix ."options where option_id in($payment_plans)  ";
+    $query= "SELECT option_name as  name, option_id as id , option_value as  value  FROM ".$wpdb->prefix ."options where option_id in($payment_plans)  ";
  
    	$payment_plans = $wpdb->get_results($query,ARRAY_A);
  
-
-	return $payment_plans; 
+ 	 $payment_plans_data = [];
+ 	 $miles_stone_data = [];
+   	foreach($payment_plans as $payment_plan){ 
+   			$option_value= maybe_unserialize($payment_plan["value"]);
+   			$miles_stones =  $option_value["milestones"] ;
+   			 
+   			$payment_plans_data[] = array("id"=>$payment_plan["id"],
+   										"name"=>$payment_plan["name"],
+   										"milestones"=>$option_value["milestones"] ); 
+   	}
+	return $payment_plans_data; 
 }
 
 function get_payment_by_id($id){
