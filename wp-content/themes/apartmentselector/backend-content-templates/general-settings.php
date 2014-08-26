@@ -96,21 +96,24 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                     </div> 
                     <div class="well">
                      <div class="form-group">
-                         <ul class="add-more-list" id="infrastructure-list">
+                         <ul class="add-more-list full-width" id="infrastructure-list">
                          <?php
                             if(!count($infrastructure_charges)){
                                     ?>
                                     <li id="item-1">
                                         <div class="row">
+										<div class="form-group">
                                             <div class="col-md-2"><label class="form-label form-label-inline">
                                                 Rs.</label> 
                                                 </div>
                                         <div class="col-md-8">
-                                            <input type="text" name="infrastructure_charges[]" class="infrastructure_charges" id="infrastructure_charges_1"   class="form-control">
+                                            <input type="text" name="infrastructure_charges[]" class="infrastructure_charges form-control" id="infrastructure_charges_1"   >
                                         </div>
                                         <div class="col-md-2">
+										<div class="form-label-inline">
                                             <a href="javascript:void(0)" item="1" class="infrastructure-charges-remove"><i class="fa fa-trash-o thrash" item="1"></i></a></div>
                                         </div>
+										</div>
                                     </li>
                                     <?php
 
@@ -125,10 +128,12 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                                 Rs.</label> 
                                                 </div>
                                         <div class="col-md-8">
-                                            <input type="text" name="infrastructure_charges[]" class="infrastructure_charges" id="infrastructure_charges_<?php echo $key+1;?>"  value="<?php echo $infrastructure_charge;?>"  class="form-control">
+                                            <input type="text" name="infrastructure_charges[]" class="infrastructure_charges form-control" id="infrastructure_charges_<?php echo $key+1;?>"  value="<?php echo $infrastructure_charge;?>"  >
                                         </div>
                                         <div class="col-md-2">
+										<div class="form-label-inline">
                                             <a href="javascript:void(0)" item="<?php echo $key+1;?>" class="infrastructure-charges-remove"><i class="fa fa-trash-o thrash" item="<?php echo $key+1;?>"></i></a></div>
+											</div>
                                         </div>
                                     </li>
                                         <?php
@@ -140,8 +145,9 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                          ?>
                             
                          </ul>
-                     </div>
-                     <a class="btn btn-default" href="javascript:void(0)" id="add-more-infrastructure-charges" count="<?php echo $count;?>">+Add More</a>
+                     </div></div>
+                     <!--<a class="btn btn-default" href="javascript:void(0)" id="add-more-infrastructure-charges" count="<?php echo $count;?>">+Add More</a>-->
+					 <button class="btn btn-primary" type="button" href="javascript:void(0)" id="add-more-infrastructure-charges" count="<?php echo $count;?>"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add More</button>
                     </div>
 
                        <div class="form-group">
@@ -188,7 +194,7 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                         <label class="form-label form-label-inline">
                                         Rs.</label>
                                     </div>
-                                    <div class="col-md-7"><input type="text" name="unit_type_membership_fees" class="unit_type_membership_fees" id="unit_type_membership_fees_<?php echo  $unit_type_item['id'];?>" unit-type="<?php echo  $unit_type_item['id'];?>"  class="form-control" value="<?php echo @$unit_type_membership_fees;?>" <?php if(count($unit_variant)!=0){?> readonly <?php } ?>></div> 
+                                    <div class="col-md-7"><input type="text" name="unit_type_membership_fees" class="unit_type_membership_fees form-control" id="unit_type_membership_fees_<?php echo  $unit_type_item['id'];?>" unit-type="<?php echo  $unit_type_item['id'];?>"  class="form-control" value="<?php echo @$unit_type_membership_fees;?>" <?php if(count($unit_variant)!=0){?> readonly <?php } ?>></div> 
                                    
                                      
                                     
