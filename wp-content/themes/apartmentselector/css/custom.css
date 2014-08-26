@@ -8237,3 +8237,39 @@ body {
 .cbp-spmenu-vertical .menuWishlist li .del:before {
   content: "\e014";
 }
+.cbp-spmenu-top {
+  top: -310px;
+}
+.cbp-spmenu-horizontal {
+  border-bottom: 1px solid #803300;
+}
+.cbp-spmenu-horizontal .blockTitle {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eeeeee;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.cbp-spmenu-horizontal .floorPlan {
+  background: url('../images/floor-plan.jpg');
+  width: 230px;
+  height: 260px;
+}
+.cbp-spmenu-horizontal .summaryBox {
+  height: 100%;
+  background-color: #803300;
+  color: #cc5200;
+  padding-bottom: 10px;
+}
+.cbp-spmenu-horizontal .summaryBox .blockTitle {
+  border-bottom: 1px solid #993d00;
+}
+.cbp-spmenu-horizontal .section {
+  margin-top: 25px;
+  color: #ffffff;
+}
+.cbp-spmenu-horizontal .section .small {
+  color: #cc5200;
+  text-transform: uppercase;
+  font-weight: 400;
+}

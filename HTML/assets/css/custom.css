@@ -8237,3 +8237,8 @@ body {
 .cbp-spmenu-vertical .menuWishlist li .del:before {
   content: "\e014";
 }
+.cbp-spmenu-horizontal .floorPlan {
+  background: url('../images/floor-plan.jpg');
+  width: 230px;
+  height: 260px;
+}
