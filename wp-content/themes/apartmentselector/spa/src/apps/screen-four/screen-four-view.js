@@ -240,7 +240,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generateCostSheet = function() {
-      var basicCost, costSheetArray, discount, element, id, maintenance, milesstones, pervalue, revisedrate, table, uniVariantModel, unitModel, _i, _len;
+      var agreement, basicCost, costSheetArray, discount, element, id, maintenance, milesstones, pervalue, revisedrate, table, uniVariantModel, unitModel, _i, _len;
       $('table#costSheetTable tr').remove();
       costSheetArray = [];
       console.log(App.unit['name']);
@@ -276,7 +276,8 @@ define(['marionette'], function(Marionette) {
       }
       milesstones += '</select>';
       maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100;
-      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td></td></tr> <tr><td>Agreement Amount Rs.</td><td></td></tr> <tr><td>Stamp Duty Rs.</td><td></td></tr> <tr><td>Registration Amount Rs.</td><td></td></tr> <tr><td>VAT  Rs.</td><td></td></tr> <tr><td>Service Tax Rs.</td><td></td></tr> <tr><td>Total Cost Rs.</td><td></td></tr> <tr><td>Maintenance Deposit.</td><td>' + maintenance + '</td></tr> <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>' + costSheetArray[4] + '</td></tr> <tr><td>Actual Payment</td><td>' + $('#payment').val() + '</td></tr> <tr><td>Milestone Completed Till Date</td><td>' + milesstones + '</td></tr>';
+      agreement = parseFloat(basicCost) + 0;
+      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td></td></tr> <tr><td>Agreement Amount Rs.</td><td>' + agreement + '</td></tr> <tr><td>Stamp Duty Rs.</td><td></td></tr> <tr><td>Registration Amount Rs.</td><td></td></tr> <tr><td>VAT  Rs.</td><td></td></tr> <tr><td>Service Tax Rs.</td><td></td></tr> <tr><td>Total Cost Rs.</td><td></td></tr> <tr><td>Maintenance Deposit.</td><td>' + maintenance + '</td></tr> <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>' + costSheetArray[4] + '</td></tr> <tr><td>Actual Payment</td><td>' + $('#payment').val() + '</td></tr> <tr><td>Milestone Completed Till Date</td><td>' + milesstones + '</td></tr>';
       console.log($('table#costSheetTable tbody'));
       $('table#costSheetTable tbody').append(table);
       id = $('#paymentplans').val();
@@ -284,7 +285,8 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
-      return console.log(id);
+      console.log(id);
+      return $('table#paymentTable tr').remove();
     };
 
     return ScreenFourLayout;

@@ -406,6 +406,7 @@ define [ 'marionette' ], ( Marionette )->
 
             milesstones += '</select>'
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
+            agreement = parseFloat(basicCost) + 0
             table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td></tr>
                        <tr><td>Rate Per Sq. Ft. Rs.</td><td>'+costSheetArray[1]+'</td></tr>
                         <tr><td>Revised Rate</td><td>'+costSheetArray[2]+'</td></tr>
@@ -413,7 +414,7 @@ define [ 'marionette' ], ( Marionette )->
 
                         <tr><td>Infrastructure and Developement Charges.</td><td></td></tr>
 
-                        <tr><td>Agreement Amount Rs.</td><td></td></tr>
+                        <tr><td>Agreement Amount Rs.</td><td>'+agreement+'</td></tr>
 
            <tr><td>Stamp Duty Rs.</td><td></td></tr>
             <tr><td>Registration Amount Rs.</td><td></td></tr>
@@ -432,6 +433,8 @@ define [ 'marionette' ], ( Marionette )->
 
         generatePaymentSchedule:(id)->
             console.log id
+            $('table#paymentTable tr' ).remove()
+
 
 
 
