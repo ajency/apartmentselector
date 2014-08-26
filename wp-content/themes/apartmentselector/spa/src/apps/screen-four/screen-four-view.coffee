@@ -327,6 +327,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#paymentplans').on('change' , ()->
                     id = $('#'+this.id ).val()
                     object.generatePaymentSchedule(id)
+                    object.getMilestones(id)
 
 
                 )
@@ -400,11 +401,13 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(basicCost)
             costSheetArray.push(discount)
             table = ""
-            milesstones = '<select id="milestones">'
-            for element in MILESTONES
-                milesstones += '<option value="'+element.id+'">'+element.name+'</option>'
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            console.log planselectedValue = buildingModel.get('payment_plan')
+            console.log milestoneselectedValue = buildingModel.get('milestone')
+            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
+            $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
+            id1=$('#paymentplans').val()
 
-            milesstones += '</select>'
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
             agreement = parseFloat(basicCost) + 0
             table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td></tr>
@@ -425,15 +428,47 @@ define [ 'marionette' ], ( Marionette )->
             <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td></tr>
             <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>'+costSheetArray[4]+'</td></tr>
                         <tr><td>Actual Payment</td><td>'+$('#payment').val()+'</td></tr>
-                        <tr><td>Milestone Completed Till Date</td><td>'+milesstones+'</td></tr>'
+                        <tr><td>Milestone Completed Till Date</td><td><select id="milestones"></select></td></tr>'
             console.log $('table#costSheetTable tbody' )
             $('table#costSheetTable tbody' ).append table
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
+            object.getMilestones(id1)
 
         generatePaymentSchedule:(id)->
             console.log id
             $('table#paymentTable tr' ).remove()
+            paymentColl = new Backbone.Collection PAYMENTPLANS
+            milestones = paymentColl.get(parseInt(id))
+            milestonesArray = milestones.get('milestones')
+            milestonesArray = milestonesArray.sort( (a,b)->
+                parseInt( a.sort_index) - parseInt( b.sort_index)
+            )
+            console.log milestonesArray
+            table = ""
+            milestoneColl = new Backbone.Collection MILESTONES
+            for element in milestonesArray
+                console.log milestoneModel = milestoneColl.get(element.milestone)
+                table += '<tr><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td></tr> '
+            $('table#paymentTable tbody' ).append table
+
+
+        getMilestones:(id)->
+            milesstones = ''
+            $('#milestones option' ).remove()
+            paymentColl = new Backbone.Collection PAYMENTPLANS
+            milestones = paymentColl.get(parseInt(id))
+            milestonesArray = milestones.get('milestones')
+            milestonesArray = milestonesArray.sort( (a,b)->
+                parseInt( a.sort_index) - parseInt( b.sort_index)
+            )
+            console.log milestonesArray
+            milestoneColl = new Backbone.Collection MILESTONES
+            for element in milestonesArray
+                console.log milestoneModel = milestoneColl.get(element.milestone)
+                milesstones += '<option value="'+element.milestone+'">'+milestoneModel.get('name')+'</option>'
+            $('#milestones' ).append milesstones
+
 
 
 
