@@ -16,12 +16,16 @@ function ajax_save_settings(){
     $vat = $_REQUEST["vat"];
 
     $sales_tax = $_REQUEST["sales_tax"]; 
+    
+    $stamp_duty = $_REQUEST["stamp_duty"]; 
+    
+    $registration_amount = $_REQUEST["registration_amount"]; 
 
     $infrastructure_charges = $_REQUEST["infrastructure_charges"];
 
     $membership_fees = $_REQUEST["membership_fees"]; 
  	
- 	$settings = array('vat'=>$vat,'sales_tax'=>$sales_tax,'infrastructure_charges'=>$infrastructure_charges,'membership_fees'=>$membership_fees);
+ 	$settings = array('stamp_duty'=>$stamp_duty,'registration_amount'=>$registration_amount,'vat'=>$vat,'sales_tax'=>$sales_tax,'infrastructure_charges'=>$infrastructure_charges,'membership_fees'=>$membership_fees);
  	
  	update_option('apartment_selector_settings',serialize($settings));
  	
