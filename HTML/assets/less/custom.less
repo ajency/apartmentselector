@@ -237,6 +237,41 @@ body{
 	}
 }
 
+.cbp-spmenu-top{
+	top: -310px;
+}
 .cbp-spmenu-horizontal{
+	border-bottom: 1px solid darken(@color-primary, 25%);
+	.blockTitle{
+		padding-top: 10px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid @gray-lighter;
+		text-transform: uppercase;
+		.bold;
+	}
+
+	.floorPlan{
+		background: url('../images/floor-plan.jpg');
+		width: 230px;
+		height: 260px;
+	}
+	.summaryBox{
+		height: 100%;
+		background-color: darken(@color-primary, 25%);
+		color: darken(@color-primary, 10%);
+		padding-bottom: 10px;
+		.blockTitle{
+			border-bottom: 1px solid darken(@color-primary, 20%);
+		}
+	}
+	.section{
+		margin-top: 25px;
+		color: @color-white;
+		.small{
+			color: darken(@color-primary, 10%);
+			text-transform: uppercase;
+			.light;
+		}
+	}
 	
 }

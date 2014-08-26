@@ -50,10 +50,13 @@ define [ 'extm'], ( Extm)->
 
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <div class="row m-l-0 m-r-0">
-                <div class="col-md-2">
-                    <h3>Additional Filters</h3>
+                <div class="col-sm-3">
+                    <!--<h3>Additional Filters</h3>-->
+                    <div class="small blockTitle">Select Position</div>
+                    <div class="floorPlan"></div>
                 </div>
-                <div class="col-md-8 b-l b-r b-grey">
+                <div class="col-sm-3 b-l b-r b-grey">
+                    <div class="small blockTitle">Select View</div>
                     <div class="filterBox">
                         <input type="checkbox" name="fliter1" id="fliter1" class="checkbox" value="0"/>
                         <label for="fliter1">Filter 1</label>
@@ -86,6 +89,10 @@ define [ 'extm'], ( Extm)->
                         <input type="checkbox" name="fliter8" id="fliter8" class="checkbox" value="0"/>
                         <label for="fliter8">Filter 8</label>
                     </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-sm-3 b-r b-grey">
+                    <div class="small blockTitle">Select Facing</div>
                     <div class="filterBox">
                         <input type="checkbox" name="fliter9" id="fliter9" class="checkbox" value="0"/>
                         <label for="fliter9">Filter 9</label>
@@ -94,10 +101,49 @@ define [ 'extm'], ( Extm)->
                         <input type="checkbox" name="fliter10" id="fliter10" class="checkbox" value="0"/>
                         <label for="fliter10">Filter 10</label>
                     </div>
+                    <div class="filterBox">
+                        <input type="checkbox" name="fliter11" id="fliter11" class="checkbox" value="0"/>
+                        <label for="fliter11">Filter 11</label>
+                    </div>
+                    <div class="filterBox">
+                        <input type="checkbox" name="fliter12" id="fliter12" class="checkbox" value="0"/>
+                        <label for="fliter12">Filter 12</label>
+                    </div>
+                    <div class="filterBox">
+                        <input type="checkbox" name="fliter13" id="fliter13" class="checkbox" value="0"/>
+                        <label for="fliter13">Filter 13</label>
+                    </div>
+                    <div class="filterBox">
+                        <input type="checkbox" name="fliter14" id="fliter14" class="checkbox" value="0"/>
+                        <label for="fliter14">Filter 14</label>
+                    </div>
+                    <div class="filterBox">
+                        <input type="checkbox" name="fliter15" id="fliter15" class="checkbox" value="0"/>
+                        <label for="fliter15">Filter 15</label>
+                    </div>
+                    <div class="filterBox">
+                        <input type="checkbox" name="fliter16" id="fliter16" class="checkbox" value="0"/>
+                        <label for="fliter16">Filter 16</label>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-sm-3 summaryBox">
+                    <div class="small blockTitle">Option Selected</div>
+                    <div class="section">
+                        <div class="small">Position</div>
+                        5
+                    </div>
+                    <div class="section">
+                        <div class="small">View</div>
+                        Lake, Garden
+                    </div>
+                    <div class="section">
+                        <div class="small">Facing</div>
+                        SE
+                    </div>
+                    
                     <a href="#" class="btn btn-primary m-t-20 m-b-10" id="">Apply</a>
+                    
                 </div>
             </div>
         </nav>
