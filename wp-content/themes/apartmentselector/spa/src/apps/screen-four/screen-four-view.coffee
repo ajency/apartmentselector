@@ -323,6 +323,8 @@ define [ 'marionette' ], ( Marionette )->
             @showWishList()
             object = @
             @generateCostSheet()
+            perFlag = ""
+            costSheetArray = []
 
         showWishList:->
             table = ""

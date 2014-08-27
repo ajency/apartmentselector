@@ -155,7 +155,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
-      var cookieOldValue, scr;
+      var cookieOldValue, costSheetArray, scr;
       $(document).on('open', '.remodal', function() {
         $('.radioClass').on('click', function() {
           console.log($('input[name=discountradio]:checked').val());
@@ -217,7 +217,9 @@ define(['marionette'], function(Marionette) {
       App.cookieArray = cookieOldValue;
       this.showWishList();
       object = this;
-      return this.generateCostSheet();
+      this.generateCostSheet();
+      perFlag = "";
+      return costSheetArray = [];
     };
 
     ScreenFourLayout.prototype.showWishList = function() {
