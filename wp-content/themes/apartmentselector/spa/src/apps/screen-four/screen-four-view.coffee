@@ -42,7 +42,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="grid-block-4">
                                     <a class="grid-link" data-remodal-target="modal">
                                         <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3>
-                                        <h4 class="m-t-0 m-b-0">Costsheet</h4>
+                                        <h4 class="m-t-0 m-b-0">Cost Sheet</h4>
                                     </a>
                                 </div>
                             </div>

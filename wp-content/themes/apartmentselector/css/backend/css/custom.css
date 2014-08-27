@@ -516,7 +516,13 @@ color: #006CD9;
 }
 
 .add-more-list { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-.full-width{width:100% !important;}
+.full-width{
+	width:100% !important;
+	}
+	
+.custli{
+	padding-left:6px !important;
+}
  
  
  

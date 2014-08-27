@@ -88,7 +88,8 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                         <div class="input-with-icon  right">
                         <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label form-label-prefix-long">Infrastructure Charges</label>
+                            <!--<label class="form-label form-label-prefix-long">Infrastructure Charges</label>-->
+							<h4>Infrastructure Charges</h>
                                  </div>
                                 
                            
@@ -121,8 +122,9 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                             }else{
 
                                 foreach($infrastructure_charges as $key => $infrastructure_charge){
-                                        ?>
-                                        <li id="item-<?php echo $key+1;?>">
+                                        ?><div class="form-group">
+                                        <li id="item-<?php echo $key+1;?>" class="custli">
+										<div class="form-group">
                                         <div class="row">
                                             <div class="col-md-2"><label class="form-label form-label-inline">
                                                 Rs.</label> 
@@ -135,6 +137,8 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                             <a href="javascript:void(0)" item="<?php echo $key+1;?>" class="infrastructure-charges-remove"><i class="fa fa-trash-o thrash" item="<?php echo $key+1;?>"></i></a></div>
 											</div>
                                         </div>
+										</div>
+										</div>
                                     </li>
                                         <?php
                                     }?>
@@ -155,7 +159,8 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                         <div class="input-with-icon  right">
                         <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label form-label-prefix-long">Membership Fees</label>
+                            <!--<label class="form-label form-label-prefix-long">Membership Fees</label>-->
+							<h4>Membership Fees</h4>
                                  </div>
                                 
                            
@@ -181,40 +186,55 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                     }
                                 }
                                 ?>
+								<div class="form-group">
                                 <div class="row">
                                 
-                                    <div class="col-md-1">
+                                    <!--<div class="col-md-1">
                                     <input type="radio" checked value="unit_type" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>">
                                     </div>
                                     <div class="col-md-3">
                                         
                                             <label class="form-label form-label-inline"><?php echo  $unit_type_item['name'];?></label>
-                                    </div>
+                                    </div>-->
+									<div class="col-md-3">
+										<div class="radio">
+											<input type="radio" checked value="unit_type" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>" id="unit_type<?php echo  $unit_type_item['id'];?>">
+											<label class="form-label form-label-inline" for="unit_type<?php echo  $unit_type_item['id'];?>"><?php echo  $unit_type_item['name'];?></label>
+										</div>
+									</div>
+									
                                     <div class="col-md-1">
                                         <label class="form-label form-label-inline">
                                         Rs.</label>
                                     </div>
-                                    <div class="col-md-7"><input type="text" name="unit_type_membership_fees" class="unit_type_membership_fees form-control" id="unit_type_membership_fees_<?php echo  $unit_type_item['id'];?>" unit-type="<?php echo  $unit_type_item['id'];?>"  class="form-control" value="<?php echo @$unit_type_membership_fees;?>" <?php if(count($unit_variant)!=0){?> readonly <?php } ?>></div> 
+                                    <div class="col-md-8"><input type="text" name="unit_type_membership_fees" class="unit_type_membership_fees form-control" id="unit_type_membership_fees_<?php echo  $unit_type_item['id'];?>" unit-type="<?php echo  $unit_type_item['id'];?>"   value="<?php echo @$unit_type_membership_fees;?>" <?php if(count($unit_variant)!=0){?> readonly <?php } ?>></div> 
                                    
                                      
                                     
-                                </div> 
+                                </div>
+							</div>								
                                 <div class="row">
                                 
-                                     <div class="col-md-1">
+                                     <!--<div class="col-md-1">
                                     <input type="radio" <?php if(count($unit_variant)!=0){?> checked <?php } ?> value="unit_variant" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>">
                                     </div>
                                     <div class="col-md-11">
                                             <label class="form-label form-label-prefix-long">Add Fees For <?php echo  $unit_type_item['name'];?> Variants</label>
-                                    </div>
+                                    </div>-->
+									<div class="col-md-12">
+										<div class="radio">
+											<input type="radio" <?php if(count($unit_variant)!=0){?> checked <?php } ?> value="unit_variant" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>" id="unit_variant<?php echo  $unit_type_item['id'];?>">
+											<label class="form-label form-label-prefix-long" for="unit_variant<?php echo  $unit_type_item['id'];?>">Add Fees For <?php echo  $unit_type_item['name'];?> Variants</label>
+										</div>
+									</div>
                                       
                                 </div> 
                                 
                                  <div class="row" <?php if(count($unit_variant)==0){?> style="display:none" <?php } ?> id="unit-variants-<?php echo  $unit_type_item['id'];?>">
                                 
-                                    <div class="col-md-1">
-                                     </div>
-                                    <div class="col-md-11">
+                                    <!--<div class="col-md-1">
+                                     </div>-->
+                                    <div class="col-md-12">
                                         <?php
                                          $unit_variants = get_unit_variants_by_unit_type($unit_type_item['id']);
                                          foreach ($unit_variants as $unit_variant_item){
@@ -228,6 +248,7 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
 
                                                         }
                                          ?>
+										 <div class="form-group">
                                          <div class="row">
                                         <div class="col-md-3">
                                             <label class="form-label form-label-inline"><?php echo  $unit_variant_item['variant_name'];?></label>
@@ -236,9 +257,10 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                         <label class="form-label form-label-inline">
                                         Rs.</label>
                                     </div>
-                                        <div class="col-md-7"><input type="text" name="unit_variants_membership_fees[]" id="unit_variants_membership_fees<?php echo  $unit_variant_item['variant_id'];?>" variant="<?php echo  $unit_variant_item['variant_id'];?>" class="unit_variants_membership_fees_<?php echo  $unit_type_item['id'];?>" class="form-control" value="<?php echo @$unit_variant_membership_fees;?>"></div> 
+                                        <div class="col-md-8"><input type="text" name="unit_variants_membership_fees[]" id="unit_variants_membership_fees<?php echo  $unit_variant_item['variant_id'];?>" variant="<?php echo  $unit_variant_item['variant_id'];?>" class="unit_variants_membership_fees_<?php echo  $unit_type_item['id'];?> form-control" value="<?php echo @$unit_variant_membership_fees;?>"></div> 
                                        
                                         </div>
+										</div>
                                           
                                         <?php }
 
