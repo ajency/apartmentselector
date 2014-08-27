@@ -300,6 +300,16 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
             )
+            $(document).on('opened', '.remodal',  () ->
+                $('#infra').on('change' , ()->
+                    console.log "qqqqqqqqqqqqq"
+                    id = $('#paymentplans' ).val()
+                    object.generatePaymentSchedule(id)
+                    object.getMilestones(id)
+
+
+                )
+            )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
@@ -394,11 +404,11 @@ define [ 'marionette' ], ( Marionette )->
                 membershipfees = unitVariantMemeber.get('membership_fees')
             else
                 membershipfees = unitTypeMemeber.get('membership_fees')
-            infratxt = '<select id="infra">'
+            infratxt = ''
             for element,index in infraArray
                 infratxt += '<option value="'+element+'">'+element+'</option>'
-            infratxt += '</select>'
             console.log infratxt
+
 
 
             table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td><td>'+costSheetArray[0]+'</td></tr>
@@ -406,8 +416,10 @@ define [ 'marionette' ], ( Marionette )->
                         <tr><td>Revised Rate</td><td>--</td><td>'+costSheetArray[2]+'</td></tr>
                         <tr><td>Basic Cost Rs.</td><td>'+(costSheetArray[0] * costSheetArray[1])+'</td><td>'+costSheetArray[3]+'</td></tr>
 
-                        <tr><td>Infrastructure and Developement Charges.</td><td>'+infratxt+'</td><td>'+infratxt+'</td></tr>'
+                        <tr><td>Infrastructure and Developement Charges.</td><td><select id="infra1"></select></td><td><select id="infra"></select></td></tr>'
             $('table#costSheetTable tbody' ).append table
+            $('#infra' ).append infratxt
+            $('#infra1' ).append infratxt
             table = ""
             console.log $('#infra').val()
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
@@ -464,6 +476,14 @@ define [ 'marionette' ], ( Marionette )->
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
             object.getMilestones(id1)
+            $('#infra').on('change' , ()->
+                console.log "qqqqqqqqqqqqq"
+                id = $('#paymentplans' ).val()
+                object.generatePaymentSchedule(id)
+                object.getMilestones(id)
+
+
+            )
 
         generatePaymentSchedule:(id)->
             #get_apratment_selector_settings()

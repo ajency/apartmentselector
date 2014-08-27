@@ -194,6 +194,15 @@ define(['marionette'], function(Marionette) {
           return object.getMilestones(id);
         });
       });
+      $(document).on('opened', '.remodal', function() {
+        return $('#infra').on('change', function() {
+          var id;
+          console.log("qqqqqqqqqqqqq");
+          id = $('#paymentplans').val();
+          object.generatePaymentSchedule(id);
+          return object.getMilestones(id);
+        });
+      });
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js';
       document.body.appendChild(scr);
@@ -310,15 +319,16 @@ define(['marionette'], function(Marionette) {
       } else {
         membershipfees = unitTypeMemeber.get('membership_fees');
       }
-      infratxt = '<select id="infra">';
+      infratxt = '';
       for (index = _i = 0, _len = infraArray.length; _i < _len; index = ++_i) {
         element = infraArray[index];
         infratxt += '<option value="' + element + '">' + element + '</option>';
       }
-      infratxt += '</select>';
       console.log(infratxt);
-      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>--</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + (costSheetArray[0] * costSheetArray[1]) + '</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td>' + infratxt + '</td><td>' + infratxt + '</td></tr>';
+      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>--</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + (costSheetArray[0] * costSheetArray[1]) + '</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td><select id="infra1"></select></td><td><select id="infra"></select></td></tr>';
       $('table#costSheetTable tbody').append(table);
+      $('#infra').append(infratxt);
+      $('#infra1').append(infratxt);
       table = "";
       console.log($('#infra').val());
       basicCost1 = costSheetArray[0] * costSheetArray[1];
@@ -362,7 +372,13 @@ define(['marionette'], function(Marionette) {
       $('table#costSheetTable tbody').append(table);
       id = $('#paymentplans').val();
       object.generatePaymentSchedule(id);
-      return object.getMilestones(id1);
+      object.getMilestones(id1);
+      return $('#infra').on('change', function() {
+        console.log("qqqqqqqqqqqqq");
+        id = $('#paymentplans').val();
+        object.generatePaymentSchedule(id);
+        return object.getMilestones(id);
+      });
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
