@@ -407,11 +407,14 @@ define [ 'marionette' ], ( Marionette )->
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             console.log membership_feesColl = new Backbone.Collection membership_fees
+            console.log parseInt(unitModel.get('unitType'))
             console.log parseInt(unitModel.get('unitVariant'))
             console.log unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
             if unitTypeMemeber.get('membership_fees') == 0
-                unitVariantMemeber = membership_feesColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
-                membershipfees = unitVariantMemeber.get('membership_fees')
+                console.log unitVariantMemeber = unitTypeMemeber.get('unit_variant')
+                unitVariantMemeberColl = new Backbone.Collection unitVariantMemeber
+                univariantmem = unitVariantMemeberColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
+                membershipfees = univariantmem.get('membership_fees')
             else
                 membershipfees = unitTypeMemeber.get('membership_fees')
             infratxt = ''
