@@ -361,7 +361,7 @@ define [ 'marionette' ], ( Marionette )->
                 discount = (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue))
             discount = Math.ceil(discount.toFixed(2));
 
-            revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(uniVariantModel.get('persqftprice'))*parseFloat(discount))
+            revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
             basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)
@@ -377,10 +377,18 @@ define [ 'marionette' ], ( Marionette )->
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
             SettingModel = new Backbone.Model SETTINGS
             stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt =( basicCost * parseFloat(SettingModel.get('registration_amount')))
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
             vat = (basicCost * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
             infraArray = SettingModel.get('infrastructure_charges' )
+            membership_fees = SettingModel.get('membership_fees' )
+            membership_feesColl = new Backbone.Collection membership_fees
+            unitTypeMemeber = membership_feesColl.findWhere({unit_type:unitModel.get('unitType')})
+            if unitTypeMemeber == ""
+                unitVariantMemeber = membership_feesColl.findWhere({unit_type:unitModel.get('unitvariant')})
+                membershipfees = unitVariantMemeber.get('membership_fees')
+            else
+                membershipfees = unitTypeMemeber.get('membership_fees')
             infratxt = '<select id="infra">'
             for element,index in infraArray
                 infratxt += '<option value="'+element+'">'+element+'</option>'
@@ -388,16 +396,24 @@ define [ 'marionette' ], ( Marionette )->
             console.log infratxt
 
 
-            table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td></tr>
-                       <tr><td>Rate Per Sq. Ft. Rs.</td><td>'+costSheetArray[1]+'</td></tr>
-                        <tr><td>Revised Rate</td><td>'+costSheetArray[2]+'</td></tr>
-                        <tr><td>Basic Cost Rs.</td><td>'+costSheetArray[3]+'</td></tr>
+            table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td><td>'+costSheetArray[0]+'</td></tr>
+                       <tr><td>Rate Per Sq. Ft. Rs.</td><td>'+costSheetArray[1]+'</td><td>'+costSheetArray[1]+'</td></tr>
+                        <tr><td>Revised Rate</td><td>--</td><td>'+costSheetArray[2]+'</td></tr>
+                        <tr><td>Basic Cost Rs.</td><td>'+(costSheetArray[0] * costSheetArray[1])+'</td><td>'+costSheetArray[3]+'</td></tr>
 
-                        <tr><td>Infrastructure and Developement Charges.</td><td>'+infratxt+'</td></tr>'
+                        <tr><td>Infrastructure and Developement Charges.</td><td>'+infratxt+'</td><td>'+infratxt+'</td></tr>'
             $('table#costSheetTable tbody' ).append table
             table = ""
             console.log $('#infra').val()
+            basicCost1 = (costSheetArray[0] * costSheetArray[1])
+            agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
+            stamp_duty1 = (basicCost1 * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
+            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
+            vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
+            totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
+            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance)
 
 
             paymentColl = new Backbone.Collection PAYMENTPLANS
@@ -421,20 +437,21 @@ define [ 'marionette' ], ( Marionette )->
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
             finalcost = parseFloat(totalcost) + parseFloat(maintenance)
             console.log table
-            table += '<tr><td>Agreement Amount Rs.</td><td>'+agreement+'</td></tr>
-                        <tr><td>Stamp Duty Rs.</td><td>'+stamp_duty+'</td></tr>
-                        <tr><td>Registration Amount Rs.</td><td>'+reg_amt+'</td></tr>
-                        <tr><td>VAT  Rs.</td><td>'+vat+'</td></tr>
-                        <tr><td>Service Tax Rs.</td><td>'+sales_tax+'</td></tr>
+            table += '<tr><td>Agreement Amount Rs.</td><td>'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</td><td>'+agreement+'</td></tr>
+                        <tr><td>Stamp Duty Rs.</td><td>'+stamp_duty1+'</td><td>'+stamp_duty+'</td></tr>
+                        <tr><td>Registration Amount Rs.</td><td>'+reg_amt1+'</td><td>'+reg_amt+'</td></tr>
+                        <tr><td>VAT  Rs.</td><td>'+vat1+'</td><td>'+vat+'</td></tr>
+                        <tr><td>Service Tax Rs.</td><td>'+sales_tax1+'</td><td>'+sales_tax+'</td></tr>
 
-                       <tr><td>Total Cost Rs.</td><td>'+totalcost+'</td></tr>
-                        <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td></tr>
-                        <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>'+costSheetArray[4]+'</td></tr>
-                                    <tr><td>Actual Payment</td><td>'+$('#payment').val()+'</td></tr>
-                                    <tr><td>Milestone Completed Till Date</td><td><select id="milestones"></select></td></tr>
-                        <tr><td>Actual Receivable As On Date</td><td>'+count+'</td></tr>
-                        <tr><td>Add On Payment</td><td>'+addon+'</td></tr>
-                        <tr><td>Final Cost</td><td>'+finalcost+'</td></tr>'
+                       <tr><td>Total Cost Rs.</td><td>'+totalcost1+'</td><td>'+totalcost+'</td></tr>
+                        <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td><td>'+maintenance+'</td></tr>
+                        <tr><td>Club membership + Service Tax.</td><td>'+membershipfees+'</td><td>'+membershipfees+'</td></tr>
+                        <tr><td>Discount</td><td></td><td>'+costSheetArray[4]+'</td></tr>
+                                    <tr><td>Actual Payment</td><td></td><td>'+$('#payment').val()+'</td></tr>
+                                    <tr><td>Milestone Completed Till Date</td><td></td><td><select id="milestones"></select></td></tr>
+                        <tr><td>Actual Receivable As On Date</td><td></td><td>'+count+'</td></tr>
+                        <tr><td>Add On Payment</td><td></td><td>'+addon+'</td></tr>
+                        <tr><td>Final Cost</td><td>'+finalcost1+'</td><td>'+finalcost+'</td></tr>'
             console.log $('table#costSheetTable tbody' )
             $('table#costSheetTable tbody' ).append table
             id = $('#paymentplans' ).val()
@@ -449,7 +466,6 @@ define [ 'marionette' ], ( Marionette )->
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
             console.log milestonesArrayColl = new Backbone.Collection milestonesArray
-            console.log milestoneselectedValue
             console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':'48'})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
