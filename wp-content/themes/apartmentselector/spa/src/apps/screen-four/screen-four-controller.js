@@ -63,7 +63,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       }));
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
-        var bedroomArray, building, exceptionObject, floorLayoutimage, floorvalue, positionObject, roomSizesArray, toiletArray, unitTypeModel, unitVariantModel;
+        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorvalue, positionObject, roomSizesArray, roomsizearray, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
         unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -99,32 +99,46 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           });
         }
         console.log(roomSizesArray = unitVariantModel.get('roomsizes'));
-        bedroomArray = [];
-        toiletArray = [];
+        roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
-          if (value1.room_type === 'Bedroom') {
-            bedroomArray.push({
-              size: value1.room_size
-            });
-          }
-          if (value1.room_type === 'Toilet') {
-            toiletArray.push({
-              size: value1.room_size
-            });
-          }
-          if (value1.room_type === 'Kitchen') {
-            value.set('Kitchen', value1.room_size);
-          }
-          if (value1.room_type === 'Terrace') {
-            value.set('Terrace', value1.room_size);
-          }
-          if (value1.room_type === 'Terrace') {
-            return value.set('Terrace', value1.room_size);
-          }
+          return roomsizearray.push({
+            size: value1.room_size,
+            type: value1.room_type
+          });
         });
+        viewModelArray = [];
+        facingModelArray = [];
+        console.log(value.get('views'));
+        if (value.get('views') !== "") {
+          viewsArray = value.get('views');
+          console.log(viewsArray.length);
+          for (_i = 0, _len = viewsArray.length; _i < _len; _i++) {
+            element = viewsArray[_i];
+            viewModel = App.master.view.findWhere({
+              id: parseInt(element)
+            });
+            viewModelArray.push(viewModel.get('name'));
+          }
+        } else {
+          viewModelArray.push('-----');
+        }
+        value.set('views', viewModelArray.join(','));
+        facingssArray = value.get('facing');
+        if (facingssArray.length !== 0) {
+          for (_j = 0, _len1 = facingssArray.length; _j < _len1; _j++) {
+            element = facingssArray[_j];
+            facingModel = App.master.facings.findWhere({
+              id: parseInt(element)
+            });
+            facingModelArray.push(facingModel.get('name'));
+          }
+        } else {
+          facingModelArray.push('-----');
+        }
+        value.set('facings', facingModelArray.join(','));
         value.set('floorLayoutimage', floorLayoutimage);
         value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
-        return value.set('toiletArray', toiletArray);
+        return value.set('roomsizearray', roomsizearray);
       });
       units.sort(function(a, b) {
         return a.get('id') - b.get('id');

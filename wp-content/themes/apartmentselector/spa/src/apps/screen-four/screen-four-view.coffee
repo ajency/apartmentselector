@@ -894,13 +894,13 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="unitBox">
-                                            <div class="rooms">Bedroom 1: <h4 class="size">60 Sq.Ft.</h4></div>
-                                            <div class="rooms">Bedroom 2: <h4 class="size">25 Sq.Ft.</h4></div>
-                                            <div class="rooms">Bedroom 3: <h4 class="size">34 Sq.Ft.</h4></div>
-                                            <div class="rooms">Bathroom: <h4 class="size">20 Sq.Ft.</h4></div>
-                                            <div class="rooms">Study: <h4 class="size">25 Sq.Ft.</h4></div>
-                                            <div class="rooms">Terrace: <h4 class="size">15 Sq.Ft.</h4></div>
-                                            <h4 class="titles"><span class="sky-maximize"></span> Room Sizes</h4>
+
+                                            {{#roomsizearray}}
+                                             <div class="rooms">{{type}}<h4 class="size">{{size}} Sq.Ft.</h4></div>
+
+
+                                    {{/roomsizearray}}
+                                    <h4 class="titles"><span class="sky-maximize"></span> Room Sizes</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -913,13 +913,13 @@ define [ 'marionette' ], ( Marionette )->
                                     </div>
                                     <div class="col-md-4">
                                         <div class="unitBox facing">
-                                            <h4 class="view">SE</h4>
+                                            <h4 class="view">{{facings}}</h4>
                                             <h4 class="titles"><span class="sky-location"></span> Facing</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="unitBox facing">
-                                            <h4 class="view">Garden, Lake</h4>
+                                            <h4 class="view">{{views}}</h4>
                                             <h4 class="titles"><span class="sky-map"></span> Views</h4>
                                         </div>
                                     </div>
