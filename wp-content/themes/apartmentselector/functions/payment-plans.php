@@ -52,11 +52,20 @@ function get_payment_plans(){
    	foreach($payment_plans as $payment_plan){ 
    			$option_value= maybe_unserialize($payment_plan["value"]);
    			$miles_stones =  $option_value["milestones"] ;
+
+   			$milestones = $option_value["milestones"] ;
+
+			$milestones_data = array();
+   			foreach($milestones as $milestone){
+
+   					$milestones_data[] = array('sort_index'=>intval($milestone['sort_index']),'milestone'=>intval($milestone['milestone']),'payment_percentage'=>intval($milestone['payment_percentage']));
+   			}
    			 
    			$payment_plans_data[] = array("id"=>$payment_plan["id"],
    										"name"=>$payment_plan["name"],
-   										"milestones"=>$option_value["milestones"] ); 
-   	}
+   										"milestones"=>$milestones_data ); 
+   			}
+   
 	return $payment_plans_data; 
 }
 

@@ -15,14 +15,18 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype.initialize = function(opt) {
       this.Collection = this._getSelelctedUnit();
-      this.layout = new ScreenFourView.ScreenFourLayout();
+      this.layout = new ScreenFourView.ScreenFourLayout({
+        templateHelpers: {
+          paymentplans: this.Collection[1]
+        }
+      });
       this.listenTo(this.layout, "show", this.showViews);
       return this.show(this.layout);
     };
 
     ScreenFourController.prototype.showViews = function() {
-      this.unitCollection = this.Collection;
-      this.mainCollection = this.Collection;
+      this.unitCollection = this.Collection[0];
+      this.mainCollection = this.Collection[0];
       this.showUnitRegion(this.unitCollection);
       return this.showMainRegion(this.mainCollection);
     };
@@ -148,7 +152,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         return ModelActualArr.push(unitCollection.get(value));
       });
       console.log(unitCollection = new Backbone.Collection(ModelActualArr));
-      return unitCollection;
+      return [unitCollection, PAYMENTPLANS];
     };
 
     return ScreenFourController;

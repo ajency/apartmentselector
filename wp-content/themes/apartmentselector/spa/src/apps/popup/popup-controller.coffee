@@ -56,7 +56,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
                     )
                     viewModelArray = []
-                    #facingModelArray = []
+                    facingModelArray = []
                     unitTypeModel = App.master.unit_type.findWhere({id:unitModel.get 'unitType'})
                     unitTypeModelName = unitTypeModel.get('name' ).split(' ')
                     unitVariantModel = App.master.unit_variant.findWhere({id:unitModel.get 'unitVariant'})
@@ -71,13 +71,20 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         for element in viewsArray
                             viewModel = App.master.view.findWhere({id:parseInt(element)})
                             viewModelArray.push(viewModel.get('name'))
+                    else
+                        viewModelArray.push('-----')
                     unitModel.set 'views',viewModelArray.join(',')
                     facingssArray = unitModel.get('facing' )
                     if facingssArray.length != 0
                         for element in facingssArray
                             facingModel = App.master.facings.findWhere({id:parseInt(element)})
                             facingModelArray.push(facingModel.get('name'))
-                            unitModel.set 'facings',facingModelArray.join(',')
+
+                    else
+                        facingModelArray.push('-----')
+
+                    unitModel.set 'facings',facingModelArray.join(',')
+
                     unitModelArray.push(unitModel)
                 unitCollection = new Backbone.Collection unitModelArray
                 unitCollection

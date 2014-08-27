@@ -177,9 +177,9 @@ define [ 'extm'], ( Extm)->
 
 
             'click .del':(e)->
-                console.log App.cookieArray = App.cookieArray
-                console.log val = $('#'+e.target.id).attr('data-id')
-                console.log index = App.cookieArray.indexOf( parseInt(val) )
+                App.cookieArray = App.cookieArray
+                val = $('#'+e.target.id).attr('data-id')
+                index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
@@ -199,14 +199,13 @@ define [ 'extm'], ( Extm)->
                 classie.toggle menuRight, "cbp-spmenu-open"
                 App.unit['name'] = $('#'+e.target.id ).attr('data-id')
                 App.unit['flag'] = 1
-                console.log $('#'+e.target.id ).attr('data-id')
-                console.log unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
+                unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
                 App.defaults['unitType'] = unitModel.get 'unitType'
                 App.defaults['building'] =  unitModel.get 'building'
-                console.log rangeModel = App.master.range
+                rangeModel = App.master.range
                 App.backFilter['screen3'].push("floor")
                 App.backFilter['screen2'].push("floor","unitVariant")
-                console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
                 object = @
@@ -221,9 +220,7 @@ define [ 'extm'], ( Extm)->
                         rangeArrayVal[i] = start
                         start = parseInt(start) + 1
                         i++
-                    console.log rangeArrayVal
                     if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
-                        console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')
 
 
@@ -235,7 +232,6 @@ define [ 'extm'], ( Extm)->
 
 
 
-                console.log App.defaults
                 App.navigate "screen-four"
                 msgbus.showApp 'header'
                 .insideRegion  App.headerRegion
@@ -276,12 +272,11 @@ define [ 'extm'], ( Extm)->
 
 
             )
-            console.log cookieOldValue = $.cookie("key")
-            console.log typeof cookieOldValue
+            cookieOldValue = $.cookie("key")
             if cookieOldValue == undefined || $.cookie("key") == ""
                 cookieOldValue = []
             else
-                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                     parseInt(item)
                 )
             App.cookieArray = cookieOldValue
@@ -289,9 +284,8 @@ define [ 'extm'], ( Extm)->
             @showWishList()
         showWishList:->
             table = ""
-            console.log typeof $.cookie("key")
             if $.cookie("key")!= undefined && $.cookie("key") != ""
-                selectedUnitsArray = $.cookie("key").split(",")
+                console.log selectedUnitsArray = $.cookie("key").split(",")
                 table = "<table>"
                 for element in selectedUnitsArray
                     model = App.master.unit.findWhere(id:parseInt(element))

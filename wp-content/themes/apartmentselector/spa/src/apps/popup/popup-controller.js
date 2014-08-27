@@ -29,7 +29,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function() {
-      var buildingModel, cookeArray, element, facingModel, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       console.log(cookeArray = localStorage.getItem("cookievalue").split(','));
       unitModelArray = [];
       if (cookeArray.length !== 0) {
@@ -69,6 +69,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             }
           });
           viewModelArray = [];
+          facingModelArray = [];
           unitTypeModel = App.master.unit_type.findWhere({
             id: unitModel.get('unitType')
           });
@@ -91,6 +92,8 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
               });
               viewModelArray.push(viewModel.get('name'));
             }
+          } else {
+            viewModelArray.push('-----');
           }
           unitModel.set('views', viewModelArray.join(','));
           facingssArray = unitModel.get('facing');
@@ -101,9 +104,11 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
                 id: parseInt(element)
               });
               facingModelArray.push(facingModel.get('name'));
-              unitModel.set('facings', facingModelArray.join(','));
             }
+          } else {
+            facingModelArray.push('-----');
           }
+          unitModel.set('facings', facingModelArray.join(','));
           unitModelArray.push(unitModel);
         }
         unitCollection = new Backbone.Collection(unitModelArray);
