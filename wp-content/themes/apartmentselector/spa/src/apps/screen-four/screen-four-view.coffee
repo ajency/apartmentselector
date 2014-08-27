@@ -72,10 +72,10 @@ define [ 'marionette' ], ( Marionette )->
 
                                             Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/>
 
-                                            <input type="text" id="discountvalue" value=""/>
+                                            <input type="text" id="discountvalue" value="" class="numeric" />
 
 
-                                            <input type="text" id="discountper" value="" class="hidden" /><br/>
+                                            <input type="text" id="discountper" value="" class="numeric hidden" /><br/>
                                             Actual Payment : <input type="text" id="payment" value="0"/></div>
 
         				</header>
@@ -328,6 +328,15 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
+                $('.numeric').on('keypress', (e)->
+                    keyCode = e.keyCode
+                    ret = ((keyCode >= 48 && keyCode <= 57) )
+                    return ret
+
+
+
+                )
+
             )
             $(document).on('opened', '.remodal',  () ->
                 $('#infra').on('change' , ()->
@@ -364,6 +373,7 @@ define [ 'marionette' ], ( Marionette )->
             @generateCostSheet()
             perFlag = ""
             costSheetArray = []
+            flag = 0
 
         showWishList:->
             table = ""
@@ -426,11 +436,14 @@ define [ 'marionette' ], ( Marionette )->
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             console.log membership_feesColl = new Backbone.Collection membership_fees
+            console.log parseInt(unitModel.get('unitType'))
             console.log parseInt(unitModel.get('unitVariant'))
             console.log unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
             if unitTypeMemeber.get('membership_fees') == 0
-                unitVariantMemeber = membership_feesColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
-                membershipfees = unitVariantMemeber.get('membership_fees')
+                console.log unitVariantMemeber = unitTypeMemeber.get('unit_variant')
+                unitVariantMemeberColl = new Backbone.Collection unitVariantMemeber
+                univariantmem = unitVariantMemeberColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
+                membershipfees = univariantmem.get('membership_fees')
             else
                 membershipfees = unitTypeMemeber.get('membership_fees')
             infratxt = ''
@@ -529,6 +542,12 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
+            if milestonemodel == undefined
+                flag = 0
+                console.log "unnnn"
+                console.log milesotneVal = _.first(milestonesArray)
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+
             console.log milestonesArray
             table = ""
             milestoneColl = new Backbone.Collection MILESTONES
@@ -540,6 +559,9 @@ define [ 'marionette' ], ( Marionette )->
                     trClass = "milestoneReached"
                 else
                     trClass = ""
+                if flag == 0
+                    trClass = ""
+
                 console.log milestoneModel = milestoneColl.get(element.milestone)
                 table += '<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
                             <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr> '

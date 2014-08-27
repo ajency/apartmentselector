@@ -15,7 +15,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>--> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> <div class="step4Actions"> <div class="grid-container"> <div class="grid-block-4"> <a class="grid-link"> <h3 class="m-t-0 m-b-0 remove" name="list" id="list"><span class="skyicon sky-heart"></span></h3> <h4 class="m-t-0 m-b-0">Add to Wishlist</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link"> <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3> <h4 class="m-t-0 m-b-0">Print</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link"> <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3> <h4 class="m-t-0 m-b-0">Email</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link" data-remodal-target="modal"> <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3> <h4 class="m-t-0 m-b-0">Costsheet</h4> </a> </div> </div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value=""/> <input type="text" id="discountper" value="" class="hidden" /><br/> Actual Payment : <input type="text" id="payment" value="0"/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div>';
+    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>--> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> <div class="step4Actions"> <div class="grid-container"> <div class="grid-block-4"> <a class="grid-link"> <h3 class="m-t-0 m-b-0 remove" name="list" id="list"><span class="skyicon sky-heart"></span></h3> <h4 class="m-t-0 m-b-0">Add to Wishlist</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link"> <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3> <h4 class="m-t-0 m-b-0">Print</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link"> <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3> <h4 class="m-t-0 m-b-0">Email</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link" data-remodal-target="modal"> <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3> <h4 class="m-t-0 m-b-0">Costsheet</h4> </a> </div> </div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value="" class="numeric" /> <input type="text" id="discountper" value="" class="numeric hidden" /><br/> Actual Payment : <input type="text" id="payment" value="0"/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div>';
 
     ScreenFourLayout.prototype.regions = {
       unitRegion: '#unitblock-region',
@@ -155,7 +155,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
-      var cookieOldValue, costSheetArray, scr;
+      var cookieOldValue, costSheetArray, flag, scr;
       $(document).on('open', '.remodal', function() {
         $('.radioClass').on('click', function() {
           console.log($('input[name=discountradio]:checked').val());
@@ -186,12 +186,18 @@ define(['marionette'], function(Marionette) {
           object.generatePaymentSchedule(id);
           return object.getMilestones(id);
         });
-        return $('#infra').on('change', function() {
+        $('#infra').on('change', function() {
           var id;
           console.log("qqqqqqqqqqqqq");
           id = $('#paymentplans').val();
           object.generatePaymentSchedule(id);
           return object.getMilestones(id);
+        });
+        return $('.numeric').on('keypress', function(e) {
+          var keyCode, ret;
+          keyCode = e.keyCode;
+          ret = keyCode >= 48 && keyCode <= 57;
+          return ret;
         });
       });
       $(document).on('opened', '.remodal', function() {
@@ -228,7 +234,8 @@ define(['marionette'], function(Marionette) {
       object = this;
       this.generateCostSheet();
       perFlag = "";
-      return costSheetArray = [];
+      costSheetArray = [];
+      return flag = 0;
     };
 
     ScreenFourLayout.prototype.showWishList = function() {
@@ -261,7 +268,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generateCostSheet = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, vat, vat1, _i, _j, _len, _len1;
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _j, _len, _len1;
       $('table#costSheetTable tr').remove();
       costSheetArray = [];
       console.log(App.unit['name']);
@@ -307,15 +314,18 @@ define(['marionette'], function(Marionette) {
       infraArray = SettingModel.get('infrastructure_charges');
       membership_fees = SettingModel.get('membership_fees');
       console.log(membership_feesColl = new Backbone.Collection(membership_fees));
+      console.log(parseInt(unitModel.get('unitType')));
       console.log(parseInt(unitModel.get('unitVariant')));
       console.log(unitTypeMemeber = membership_feesColl.findWhere({
         unit_type: parseInt(unitModel.get('unitType'))
       }));
       if (unitTypeMemeber.get('membership_fees') === 0) {
-        unitVariantMemeber = membership_feesColl.findWhere({
+        console.log(unitVariantMemeber = unitTypeMemeber.get('unit_variant'));
+        unitVariantMemeberColl = new Backbone.Collection(unitVariantMemeber);
+        univariantmem = unitVariantMemeberColl.findWhere({
           unit_variant: parseInt(unitModel.get('unitVariant'))
         });
-        membershipfees = unitVariantMemeber.get('membership_fees');
+        membershipfees = univariantmem.get('membership_fees');
       } else {
         membershipfees = unitTypeMemeber.get('membership_fees');
       }
@@ -382,7 +392,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
-      var buildingModel, element, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, percentageValue, percentageValue1, table, trClass, unitModel, _i, _len;
+      var buildingModel, element, flag, milesotneVal, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, percentageValue, percentageValue1, table, trClass, unitModel, _i, _len;
       console.log(id);
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
@@ -401,6 +411,14 @@ define(['marionette'], function(Marionette) {
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
+      if (milestonemodel === void 0) {
+        flag = 0;
+        console.log("unnnn");
+        console.log(milesotneVal = _.first(milestonesArray));
+        milestonemodel = milestonesArrayColl.findWhere({
+          'milestone': parseInt(milesotneVal.milestone)
+        });
+      }
       console.log(milestonesArray);
       table = "";
       milestoneColl = new Backbone.Collection(MILESTONES);
@@ -411,6 +429,9 @@ define(['marionette'], function(Marionette) {
         if (element.sort_index <= milestonemodel.get('sort_index')) {
           trClass = "milestoneReached";
         } else {
+          trClass = "";
+        }
+        if (flag === 0) {
           trClass = "";
         }
         console.log(milestoneModel = milestoneColl.get(element.milestone));
