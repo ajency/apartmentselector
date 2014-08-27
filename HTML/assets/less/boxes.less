@@ -6,7 +6,7 @@
 	.clearfix;
 	.grid-link {
 		// border: 0px solid transparent;
-	    box-shadow: 0 0 0 1px lighten(@color-grey, 30%) inset, 2px 2px 2px lighten(@color-primary, 35%);
+	    box-shadow: 0 0 0 1px lighten(@color-grey, 30%), 2px 2px 2px lighten(@color-primary, 35%);
 	    display: table;
 	    height: 100%;
 	    padding: 10px;
@@ -217,6 +217,53 @@
 	    	&:nth-child(3n) {
 		    	margin-right: 1.77305%;
 		    }
+	    }
+	}
+
+	/**** Block Type 4 ****/
+	.grid-block-4 {
+		display: inline-block;
+		// float: left;
+	    margin: 0 1.77305% 1.77305% 0;
+	    padding: 1px;
+	    width: 45.2394%;
+		margin-right: 3.52113%;
+	    .grid-link {
+		    padding: 10px 0;
+		    text-align: center;
+		    transition: color 250ms ease-out 0s;
+		    width: 100%;
+		    // font-size: 0.8rem;
+		    font-style: normal;
+		    // font-weight: 500;
+		    // line-height: 16px;
+		    text-transform: capitalize;
+
+	    	&.selected{
+	        	&:before{
+	        		top: 6px;
+	        	}
+	        }
+	        &:hover{
+	        	padding: 9px;
+	        }
+	    }
+	    &:nth-child(2n) {
+	    	margin-right: 0;
+	    }
+	    @media (min-width: 768px) {
+	    	width: 21.2394%;
+	    	margin-right: 3.52113%;
+	    	.grid-link {
+    			display: block;
+    			// font-size: 1rem;
+	    	}
+	    	&:nth-child(2n) {
+	    		margin-right: 3.52113%;
+	    	}
+	    	&:last-child {
+	    		margin-right: 0;
+	    	}
 	    }
 	}
 }

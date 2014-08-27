@@ -38,7 +38,7 @@ define [ 'extm'], ( Extm)->
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>
-                <li ><a href="#"><span class="glyphicon glyphicon-star"></span> Wishlist</a>
+                <li ><a href="#"><span class="glyphicon glyphicon-heart"></span> Wishlist</a>
                     <ul class="menuWishlist" id="showWishlist">
                         <li><a href="#">Wishlist 1</a></li>
                         <li><a href="#">Wishlist 2</a></li>

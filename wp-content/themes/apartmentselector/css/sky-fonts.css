@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?ext4ap');
-	src:url('../fonts/icomoon.eot?#iefixext4ap') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?ext4ap') format('woff'),
-		url('../fonts/icomoon.ttf?ext4ap') format('truetype'),
-		url('../fonts/icomoon.svg?ext4ap#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?w17a1t');
+	src:url('../fonts/icomoon.eot?#iefixw17a1t') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?w17a1t') format('woff'),
+		url('../fonts/icomoon.ttf?w17a1t') format('truetype'),
+		url('../fonts/icomoon.svg?w17a1t#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,21 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.sky-mail:before {
+	content: "\e002";
+}
+.sky-printer:before {
+	content: "\e020";
+}
+.sky-heart:before {
+	content: "\e024";
+}
+.sky-layers:before {
+	content: "\e031";
+}
+.sky-paper:before {
+	content: "\e034";
+}
 .sky-umbrella:before {
 	content: "\e060";
 }
@@ -91,4 +106,10 @@
 }
 .sky-help:before {
 	content: "\e127";
+}
+.sky-coin:before {
+	content: "\e601";
+}
+.sky-banknote:before {
+	content: "\e600";
 }
