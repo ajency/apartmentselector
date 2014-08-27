@@ -198,8 +198,8 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                     </div>-->
 									<div class="col-md-3">
 										<div class="radio">
-											<input type="radio" checked value="unit_type" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>" id="demoid">
-											<label class="form-label form-label-inline" for="demoid"><?php echo  $unit_type_item['name'];?></label>
+											<input type="radio" checked value="unit_type" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>" id="unit_type<?php echo  $unit_type_item['id'];?>">
+											<label class="form-label form-label-inline" for="unit_type<?php echo  $unit_type_item['id'];?>"><?php echo  $unit_type_item['name'];?></label>
 										</div>
 									</div>
 									
@@ -223,8 +223,8 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                                     </div>-->
 									<div class="col-md-12">
 										<div class="radio">
-											<input type="radio" <?php if(count($unit_variant)!=0){?> checked <?php } ?> value="unit_variant" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>" id="demoidd">
-											<label class="form-label form-label-prefix-long" for="demoidd">Add Fees For <?php echo  $unit_type_item['name'];?> Variants</label>
+											<input type="radio" <?php if(count($unit_variant)!=0){?> checked <?php } ?> value="unit_variant" unit-type="<?php echo  $unit_type_item['id'];?>"  class="membership_fee_options" name="unit_fees_<?php echo  $unit_type_item['id'];?>" id="unit_variant<?php echo  $unit_type_item['id'];?>">
+											<label class="form-label form-label-prefix-long" for="unit_variant<?php echo  $unit_type_item['id'];?>">Add Fees For <?php echo  $unit_type_item['name'];?> Variants</label>
 										</div>
 									</div>
                                       
