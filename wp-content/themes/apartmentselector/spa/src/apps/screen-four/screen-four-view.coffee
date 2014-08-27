@@ -318,6 +318,30 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
+                $('#discountvalue').on('change' , ()->
+                    perFlag = 1
+                    object.generateCostSheet()
+
+
+                )
+                $('#discountper').on('change' , ()->
+                    perFlag = 2
+                    object.generateCostSheet()
+
+
+                )
+                $('#payment').on('change' , ()->
+                    object.generateCostSheet()
+
+
+                )
+                $('#paymentplans').on('change' , ()->
+                    id = $('#'+this.id ).val()
+                    object.generatePaymentSchedule(id)
+                    object.getMilestones(id)
+
+
+                )
             )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
@@ -497,8 +521,33 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
+            $('#discountvalue').on('change' , ()->
+                perFlag = 1
+                object.generateCostSheet()
+
+
+            )
+            $('#discountper').on('change' , ()->
+                perFlag = 2
+                object.generateCostSheet()
+
+
+            )
+            $('#payment').on('change' , ()->
+                object.generateCostSheet()
+
+
+            )
+            $('#paymentplans').on('change' , ()->
+                id = $('#'+this.id ).val()
+                object.generatePaymentSchedule(id)
+                object.getMilestones(id)
+
+
+            )
 
         generatePaymentSchedule:(id)->
+            flag = 0
             #get_apratment_selector_settings()
             console.log id
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
@@ -514,7 +563,7 @@ define [ 'marionette' ], ( Marionette )->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
             if milestonemodel == undefined
-                flag = 0
+                flag = 1
                 console.log "unnnn"
                 console.log milesotneVal = _.first(milestonesArray)
                 milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
@@ -530,7 +579,7 @@ define [ 'marionette' ], ( Marionette )->
                     trClass = "milestoneReached"
                 else
                     trClass = ""
-                if flag == 0
+                if flag == 1
                     trClass = ""
 
                 console.log milestoneModel = milestoneColl.get(element.milestone)

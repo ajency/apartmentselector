@@ -201,10 +201,27 @@ define(['marionette'], function(Marionette) {
         });
       });
       $(document).on('opened', '.remodal', function() {
-        return $('#infra').on('change', function() {
+        $('#infra').on('change', function() {
           var id;
           console.log("qqqqqqqqqqqqq");
           id = $('#paymentplans').val();
+          object.generatePaymentSchedule(id);
+          return object.getMilestones(id);
+        });
+        $('#discountvalue').on('change', function() {
+          perFlag = 1;
+          return object.generateCostSheet();
+        });
+        $('#discountper').on('change', function() {
+          perFlag = 2;
+          return object.generateCostSheet();
+        });
+        $('#payment').on('change', function() {
+          return object.generateCostSheet();
+        });
+        return $('#paymentplans').on('change', function() {
+          var id;
+          id = $('#' + this.id).val();
           object.generatePaymentSchedule(id);
           return object.getMilestones(id);
         });
@@ -383,9 +400,25 @@ define(['marionette'], function(Marionette) {
       id = $('#paymentplans').val();
       object.generatePaymentSchedule(id);
       object.getMilestones(id1);
-      return $('#infra').on('change', function() {
+      $('#infra').on('change', function() {
         console.log("qqqqqqqqqqqqq");
         id = $('#paymentplans').val();
+        object.generatePaymentSchedule(id);
+        return object.getMilestones(id);
+      });
+      $('#discountvalue').on('change', function() {
+        perFlag = 1;
+        return object.generateCostSheet();
+      });
+      $('#discountper').on('change', function() {
+        perFlag = 2;
+        return object.generateCostSheet();
+      });
+      $('#payment').on('change', function() {
+        return object.generateCostSheet();
+      });
+      return $('#paymentplans').on('change', function() {
+        id = $('#' + this.id).val();
         object.generatePaymentSchedule(id);
         return object.getMilestones(id);
       });
@@ -393,6 +426,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
       var buildingModel, element, flag, milesotneVal, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, percentageValue, percentageValue1, table, trClass, unitModel, _i, _len;
+      flag = 0;
       console.log(id);
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
@@ -412,7 +446,7 @@ define(['marionette'], function(Marionette) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
       if (milestonemodel === void 0) {
-        flag = 0;
+        flag = 1;
         console.log("unnnn");
         console.log(milesotneVal = _.first(milestonesArray));
         milestonemodel = milestonesArrayColl.findWhere({
@@ -431,7 +465,7 @@ define(['marionette'], function(Marionette) {
         } else {
           trClass = "";
         }
-        if (flag === 0) {
+        if (flag === 1) {
           trClass = "";
         }
         console.log(milestoneModel = milestoneColl.get(element.milestone));
