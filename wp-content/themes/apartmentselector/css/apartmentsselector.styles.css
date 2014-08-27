@@ -9433,7 +9433,8 @@ h5 {
   width: 100%;
 }
 .unitTable .unitSlider .unitContainer {
-  margin: 0 20px;
+  width: 90%;
+  margin: auto;
 }
 .unitTable .cd-table-container {
   position: relative;
@@ -10021,13 +10022,8 @@ input.checkbox:checked ~ label:before {
 .invoice-totals tbody th,
 .invoice-items tbody td,
 .invoice-totals tbody td {
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding: 6px 5px 6px 10px;
   background: #fff;
-}
-.invoice-items tbody td,
-.invoice-totals tbody td {
-  text-align: center;
 }
 .invoice-items tfoot td,
 .invoice-totals tfoot td {
@@ -10320,11 +10316,11 @@ body {
   width: 100%;
   z-index: 9999;
 }
-.header.navbar h5 {
+.header.navbar h4 {
   text-align: left;
   margin-left: 65px;
 }
-.header.navbar h5.step1 {
+.header.navbar h4.step1 {
   text-align: center;
   margin-left: 0;
 }
@@ -10366,7 +10362,7 @@ body {
   .page-container {
     padding-top: 90px !important;
   }
-  .header.navbar h5 {
+  .header.navbar h4 {
     text-align: center;
     margin-left: 0;
   }
