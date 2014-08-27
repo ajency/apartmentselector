@@ -7786,6 +7786,11 @@ input.checkbox:checked ~ label:before {
 #footer {
   border-top: 1px solid #000;
 }
+tr.milestoneReached th,
+tr.milestoneReached td {
+  background-color: #ffa366;
+  color: #ffffff;
+}
 /* some margin for middling sceens */
 @media only screen and (min-width: 420px) and (max-width: 869px) {
   #invoice {
