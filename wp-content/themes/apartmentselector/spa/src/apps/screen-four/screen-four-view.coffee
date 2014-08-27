@@ -4,6 +4,7 @@ define [ 'marionette' ], ( Marionette )->
     object = ""
     agreementValue = ""
     agreementValue1 = ""
+    infraid = ""
     class ScreenFourLayout extends Marionette.LayoutView
 
         template : '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer">
@@ -319,12 +320,20 @@ define [ 'marionette' ], ( Marionette )->
                     object.getMilestones(id)
 
 
+
                 )
                 $('#infra').on('change' , ()->
                     console.log "qqqqqqqqqqqqq"
-                    id = $('#paymentplans' ).val()
-                    object.generatePaymentSchedule(id)
-                    object.getMilestones(id)
+                    console.log infraid = $('#infra' ).val()
+                    object.updated()
+
+
+
+                )
+                $('#infra1').on('change' , ()->
+                    console.log "qqqqqqqqqqqqq"
+                    console.log infraid = $('#infra' ).val()
+                    object.updated()
 
 
                 )
@@ -341,9 +350,16 @@ define [ 'marionette' ], ( Marionette )->
             $(document).on('opened', '.remodal',  () ->
                 $('#infra').on('change' , ()->
                     console.log "qqqqqqqqqqqqq"
-                    id = $('#paymentplans' ).val()
-                    object.generatePaymentSchedule(id)
-                    object.getMilestones(id)
+                    console.log infraid = $('#infra' ).val()
+                    object.updated()
+
+
+
+                )
+                $('#infra1').on('change' , ()->
+                    console.log "qqqqqqqqqqqqq"
+                    console.log infraid = $('#infra' ).val()
+                    object.updated()
 
 
                 )
@@ -368,6 +384,7 @@ define [ 'marionette' ], ( Marionette )->
                     id = $('#'+this.id ).val()
                     object.generatePaymentSchedule(id)
                     object.getMilestones(id)
+
 
 
                 )
@@ -398,6 +415,7 @@ define [ 'marionette' ], ( Marionette )->
             perFlag = ""
             costSheetArray = []
             flag = 0
+            count = 0
 
         showWishList:->
             table = ""
@@ -471,8 +489,14 @@ define [ 'marionette' ], ( Marionette )->
             else
                 membershipfees = unitTypeMemeber.get('membership_fees')
             infratxt = ''
+
             for element,index in infraArray
-                infratxt += '<option value="'+element+'">'+element+'</option>'
+                selected = ""
+                if parseInt(element) == infraid
+                    selected = "selected"
+                else
+                    selected = ""
+                infratxt += '<option value="'+element+'" '+selected+'>'+element+'</option>'
             console.log infratxt
 
 
@@ -486,6 +510,9 @@ define [ 'marionette' ], ( Marionette )->
             $('table#costSheetTable tbody' ).append table
             $('#infra' ).append infratxt
             $('#infra1' ).append infratxt
+            console.log infraid
+
+
             table = ""
             console.log $('#infra').val()
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
@@ -510,6 +537,10 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
+            if milestonemodel == undefined
+                console.log milesotneVal = _.first(milestonesArray)
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+
             console.log milestonesArray
             milestoneColl = new Backbone.Collection MILESTONES
             count = 0
@@ -522,21 +553,22 @@ define [ 'marionette' ], ( Marionette )->
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
             finalcost = parseFloat(totalcost) + parseFloat(maintenance)
             console.log table
-            table += '<tr><td>Agreement Amount Rs.</td><td>'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</td><td>'+agreement+'</td></tr>
+            table += '<tr><td>Agreement Amount Rs.</td><td><span id="agreement1">'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</span></td>
+                        <td><span id="agreement">'+agreement+'</span></td></tr>
                         <tr><td>Stamp Duty Rs.</td><td>'+stamp_duty1+'</td><td>'+stamp_duty+'</td></tr>
                         <tr><td>Registration Amount Rs.</td><td>'+reg_amt1+'</td><td>'+reg_amt+'</td></tr>
                         <tr><td>VAT  Rs.</td><td>'+vat1+'</td><td>'+vat+'</td></tr>
                         <tr><td>Service Tax Rs.</td><td>'+sales_tax1+'</td><td>'+sales_tax+'</td></tr>
 
-                       <tr><td>Total Cost Rs.</td><td>'+totalcost1+'</td><td>'+totalcost+'</td></tr>
+                       <tr><td>Total Cost Rs.</td><td><span id="totalcost1">'+totalcost1+'</span></td><td><span id="totalcost">'+totalcost+'</span></td></tr>
                         <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td><td>'+maintenance+'</td></tr>
                         <tr><td>Club membership + Service Tax.</td><td>'+membershipfees+'</td><td>'+membershipfees+'</td></tr>
                         <tr><td>Discount</td><td></td><td>'+costSheetArray[4]+'</td></tr>
                                     <tr><td>Actual Payment</td><td></td><td>'+$('#payment').val()+'</td></tr>
                                     <tr><td>Milestone Completed Till Date</td><td></td><td><select id="milestones"></select></td></tr>
-                        <tr><td>Actual Receivable As On Date</td><td></td><td>'+count+'</td></tr>
-                        <tr><td>Add On Payment</td><td></td><td>'+addon+'</td></tr>
-                        <tr><td>Final Cost</td><td>'+finalcost1+'</td><td>'+finalcost+'</td></tr>'
+                        <tr><td>Actual Receivable As On Date</td><td></td><td><span id="rec">'+count+'</span></td></tr>
+                        <tr><td>Add On Payment</td><td></td><td><span id="addonpay">'+addon+'</span></td></tr>
+                        <tr><td>Final Cost</td><td><span id="finalcost1">'+finalcost1+'</span></td><td><span id="finalcost">'+finalcost+'</span></td></tr>'
             console.log $('table#costSheetTable tbody' )
             $('table#costSheetTable tbody' ).append table
             id = $('#paymentplans' ).val()
@@ -544,9 +576,15 @@ define [ 'marionette' ], ( Marionette )->
             object.getMilestones(id1)
             $('#infra').on('change' , ()->
                 console.log "qqqqqqqqqqqqq"
-                id = $('#paymentplans' ).val()
-                object.generatePaymentSchedule(id)
-                object.getMilestones(id)
+                console.log infraid = $('#infra' ).val()
+                object.updated()
+
+
+            )
+            $('#infra1').on('change' , ()->
+                console.log "qqqqqqqqqqqqq"
+                console.log infraid = $('#infra' ).val()
+                object.updated()
 
 
             )
@@ -599,6 +637,7 @@ define [ 'marionette' ], ( Marionette )->
 
             console.log milestonesArray
             table = ""
+            count = 0
             milestoneColl = new Backbone.Collection MILESTONES
             for element in milestonesArray
                 percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
@@ -606,6 +645,8 @@ define [ 'marionette' ], ( Marionette )->
 
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
+                    percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
+                    count = count + percentageValue
                 else
                     trClass = ""
                 if flag == 1
@@ -614,6 +655,10 @@ define [ 'marionette' ], ( Marionette )->
                 console.log milestoneModel = milestoneColl.get(element.milestone)
                 table += '<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
                             <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr> '
+            $('#rec' ).text count
+            addon = $('#payment' ).val() - count
+            $('#addonpay' ).text addon
+
             $('table#paymentTable tbody' ).append table
 
 
@@ -632,6 +677,113 @@ define [ 'marionette' ], ( Marionette )->
                 console.log milestoneModel = milestoneColl.get(element.milestone)
                 milesstones += '<option value="'+element.milestone+'">'+milestoneModel.get('name')+'</option>'
             $('#milestones' ).append milesstones
+
+        updated:->
+
+            costSheetArray = []
+            console.log App.unit['name']
+            console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
+            costSheetArray.push(uniVariantModel.get('sellablearea'))
+            costSheetArray.push(uniVariantModel.get('persqftprice'))
+            discount = 0
+            console.log perFlag
+            if perFlag== 1
+                console.log parseFloat(uniVariantModel.get('sellablearea'))
+                console.log parseFloat(uniVariantModel.get('persqftprice'))
+                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+            else if perFlag == 2
+                pervalue = parseFloat($('#discountper').val())/100
+                discount = (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue))
+            discount = Math.ceil(discount.toFixed(2));
+
+            revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(discount))
+            costSheetArray.push(revisedrate)
+            basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
+            costSheetArray.push(basicCost)
+            costSheetArray.push(discount)
+            table = ""
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            console.log planselectedValue = buildingModel.get('payment_plan')
+            console.log milestoneselectedValue = buildingModel.get('milestone')
+            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
+            $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
+            id1=$('#paymentplans').val()
+
+            maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
+            SettingModel = new Backbone.Model SETTINGS
+            stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
+            vat = (basicCost * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
+            infraArray = SettingModel.get('infrastructure_charges' )
+            membership_fees = SettingModel.get('membership_fees' )
+            console.log membership_feesColl = new Backbone.Collection membership_fees
+            console.log parseInt(unitModel.get('unitType'))
+            console.log parseInt(unitModel.get('unitVariant'))
+            console.log unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
+            if unitTypeMemeber.get('membership_fees') == 0
+                console.log unitVariantMemeber = unitTypeMemeber.get('unit_variant')
+                unitVariantMemeberColl = new Backbone.Collection unitVariantMemeber
+                univariantmem = unitVariantMemeberColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
+                membershipfees = univariantmem.get('membership_fees')
+            else
+                membershipfees = unitTypeMemeber.get('membership_fees')
+
+
+
+
+
+
+
+
+            table = ""
+            console.log $('#infra').val()
+            basicCost1 = (costSheetArray[0] * costSheetArray[1])
+            agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
+            agreementValue1 = agreement1
+            agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
+            agreementValue = agreement
+            $('#agreement' ).text agreement
+            $('#agreement1' ).text agreement1
+            stamp_duty1 = (basicCost1 * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
+            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
+            vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
+            totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
+            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance)
+            $('#totalcost1' ).text totalcost1
+            $('#finalcost1' ).text totalcost1
+
+
+            paymentColl = new Backbone.Collection PAYMENTPLANS
+            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+            milestonesArray = milestones.get('milestones')
+            console.log milestonesArrayColl = new Backbone.Collection milestonesArray
+            console.log milestoneselectedValue
+            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+            milestonesArray = milestonesArray.sort( (a,b)->
+                parseInt( a.sort_index) - parseInt( b.sort_index)
+            )
+            if milestonemodel == undefined
+                console.log milesotneVal = _.first(milestonesArray)
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+
+            console.log milestonesArray
+            milestoneColl = new Backbone.Collection MILESTONES
+            count = 0
+            for element in milestonesArray
+                if element.sort_index <= milestonemodel.get('sort_index')
+                    percentageValue = (agreement * ((parseFloat(element.payment_percentage))/100))
+                    count = count + percentageValue
+            addon = parseFloat($('#payment').val()) - parseFloat(count)
+
+            totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
+            finalcost = parseFloat(totalcost) + parseFloat(maintenance)
+            $('#totalcost' ).text totalcost
+            $('#finalcost' ).text totalcost
+
+
 
 
 
