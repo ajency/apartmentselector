@@ -3,9 +3,11 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView, object, perFlag;
+  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView, agreementValue, agreementValue1, object, perFlag;
   perFlag = 0;
   object = "";
+  agreementValue = "";
+  agreementValue1 = "";
   ScreenFourLayout = (function(_super) {
     __extends(ScreenFourLayout, _super);
 
@@ -318,7 +320,9 @@ define(['marionette'], function(Marionette) {
       console.log($('#infra').val());
       basicCost1 = costSheetArray[0] * costSheetArray[1];
       agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
+      agreementValue1 = agreement1;
       agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
+      agreementValue = agreement;
       stamp_duty1 = (basicCost1 * (parseFloat(SettingModel.get('stamp_duty')) / 100)) + 110;
       reg_amt1 = parseFloat(SettingModel.get('registration_amount'));
       vat1 = basicCost1 * (parseFloat(SettingModel.get('vat')) / 100);
@@ -342,7 +346,7 @@ define(['marionette'], function(Marionette) {
       for (_j = 0, _len1 = milestonesArray.length; _j < _len1; _j++) {
         element = milestonesArray[_j];
         if (element.sort_index <= milestonemodel.get('sort_index')) {
-          percentageValue = (basicCost * parseFloat(element.payment_percentage)) / 100;
+          percentageValue = agreement * ((parseFloat(element.payment_percentage)) / 100);
           count = count + percentageValue;
         }
       }
@@ -359,7 +363,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
-      var buildingModel, element, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, table, trClass, unitModel, _i, _len;
+      var buildingModel, element, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, percentageValue, percentageValue1, table, trClass, unitModel, _i, _len;
       console.log(id);
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
@@ -383,13 +387,15 @@ define(['marionette'], function(Marionette) {
       milestoneColl = new Backbone.Collection(MILESTONES);
       for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
         element = milestonesArray[_i];
+        percentageValue = agreementValue * ((parseFloat(element.payment_percentage)) / 100);
+        percentageValue1 = agreementValue1 * ((parseFloat(element.payment_percentage)) / 100);
         if (element.sort_index <= milestonemodel.get('sort_index')) {
           trClass = "milestoneReached";
         } else {
           trClass = "";
         }
         console.log(milestoneModel = milestoneColl.get(element.milestone));
-        table += '<tr><td>' + milestoneModel.get('name') + '</td><td>' + element.payment_percentage + '</td></tr> ';
+        table += '<tr class="' + trClass + '"><td>' + milestoneModel.get('name') + '</td><td>' + element.payment_percentage + '</td> <td>' + percentageValue1 + '</td><td>' + percentageValue + '</td></tr> ';
       }
       return $('table#paymentTable tbody').append(table);
     };

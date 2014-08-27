@@ -2,6 +2,8 @@ define [ 'marionette' ], ( Marionette )->
 
     perFlag = 0
     object =""
+    agreementValue = ""
+    agreementValue1 = ""
     class ScreenFourLayout extends Marionette.LayoutView
 
         template : '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer">
@@ -407,7 +409,9 @@ define [ 'marionette' ], ( Marionette )->
             console.log $('#infra').val()
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
             agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
+            agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
+            agreementValue = agreement
             stamp_duty1 = (basicCost1 * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
@@ -430,7 +434,7 @@ define [ 'marionette' ], ( Marionette )->
             count = 0
             for element in milestonesArray
                 if element.sort_index <= milestonemodel.get('sort_index')
-                    percentageValue = (basicCost * parseFloat(element.payment_percentage))/100
+                    percentageValue = (agreement * ((parseFloat(element.payment_percentage))/100))
                     count = count + percentageValue
             addon = parseFloat($('#payment').val()) - parseFloat(count)
 
@@ -477,12 +481,16 @@ define [ 'marionette' ], ( Marionette )->
             table = ""
             milestoneColl = new Backbone.Collection MILESTONES
             for element in milestonesArray
+                percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
+                percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
+
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
                 else
                     trClass = ""
                 console.log milestoneModel = milestoneColl.get(element.milestone)
-                table += '<tr><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td></tr> '
+                table += '<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
+                            <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr> '
             $('table#paymentTable tbody' ).append table
 
 
