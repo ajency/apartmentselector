@@ -43,10 +43,10 @@ define [ 'marionette' ], ( Marionette )->
 
                                             Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/>
 
-                                            <input type="text" id="discountvalue" value=""/>
+                                            <input type="text" id="discountvalue" value="" class="numeric" />
 
 
-                                            <input type="text" id="discountper" value="" class="hidden" /><br/>
+                                            <input type="text" id="discountper" value="" class="numeric hidden" /><br/>
                                             Actual Payment : <input type="text" id="payment" value="0"/></div>
 
         				</header>
@@ -299,6 +299,15 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
+                $('.numeric').on('keypress', (e)->
+                    keyCode = e.keyCode
+                    ret = ((keyCode >= 48 && keyCode <= 57) )
+                    return ret
+
+
+
+                )
+
             )
             $(document).on('opened', '.remodal',  () ->
                 $('#infra').on('change' , ()->
@@ -335,6 +344,7 @@ define [ 'marionette' ], ( Marionette )->
             @generateCostSheet()
             perFlag = ""
             costSheetArray = []
+            flag = 0
 
         showWishList:->
             table = ""
@@ -500,6 +510,12 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
+            if milestonemodel == undefined
+                flag = 0
+                console.log "unnnn"
+                console.log milesotneVal = _.first(milestonesArray)
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+
             console.log milestonesArray
             table = ""
             milestoneColl = new Backbone.Collection MILESTONES
@@ -511,6 +527,9 @@ define [ 'marionette' ], ( Marionette )->
                     trClass = "milestoneReached"
                 else
                     trClass = ""
+                if flag == 0
+                    trClass = ""
+
                 console.log milestoneModel = milestoneColl.get(element.milestone)
                 table += '<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
                             <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr> '
