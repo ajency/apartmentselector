@@ -4,7 +4,35 @@ function get_apratment_selector_settings(){
 
 	$settings = maybe_unserialize(get_option('apartment_selector_settings'));
 
-	return $settings;
+    $membership_fees = array();
+    
+    foreach($settings["membership_fees"] as $membership_fee){
+
+        $membership_fee["unit_type"] = intval($membership_fee["unit_type"]) ;
+                
+        $membership_fee["membership_fees"] = floatval($membership_fee["membership_fees"]) ;
+        
+        if(isset($membership_fee["unit_variant"])){
+            
+            $unit_varint_membership_fee = array();
+            
+            foreach($membership_fee["unit_variant"] as $unit_variant){ 
+                
+                $unit_variant["unit_variant"] = intval($unit_variant["unit_variant"]) ;
+                
+                $unit_variant["membership_fees"] = floatval($unit_variant["membership_fees"]) ;
+                
+                $unit_varint_membership_fee[] = $unit_variant;
+            }
+          $membership_fee["unit_variant"] =  $unit_varint_membership_fee; 
+        }
+                
+        $membership_fees[] = $membership_fee;
+    }
+    
+    $settings["membership_fees"] = $membership_fees;
+	
+    return $settings["membership_fees"];
 }
 
 function ajax_save_settings(){
