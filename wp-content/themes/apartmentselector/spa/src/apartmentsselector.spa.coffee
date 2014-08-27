@@ -49,6 +49,7 @@ require [ 'plugin-loader'
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
 
+
     # master store
     App.master =
         'unit' : new Backbone.Collection UNITS
