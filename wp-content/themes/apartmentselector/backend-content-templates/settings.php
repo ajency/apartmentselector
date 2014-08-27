@@ -13,6 +13,8 @@ $vat = isset($settings["vat"])?$settings["vat"]:0;
 $sales_tax = isset($settings["sales_tax"])?$settings["sales_tax"]:0;  
 $infrastructure_charges = isset($settings["infrastructure_charges"])?$settings["infrastructure_charges"]:0;  
 $membership_fees = isset($settings["membership_fees"])?$settings["membership_fees"]:0;   
+$stamp_duty = isset($settings["stamp_duty"])?$settings["stamp_duty"]:0;   
+$registration_amount = isset($settings["registration_amount"])?$settings["registration_amount"]:0;   
  
 ?>
 <div class="page-title"> <i class="icon-custom-left"></i>
@@ -62,6 +64,23 @@ $membership_fees = isset($settings["membership_fees"])?$settings["membership_fee
                             Rs.<input type="text" name="membership_fees" id="membership_fees" class="form-control form-control-small" value="<?php echo @$membership_fees;?>">
                         </div>
                     </div>
+                    <div class="form-group">
+                       <div class="input-with-icon  right">
+                             <label class="form-label form-label-inline">Registration Amount</label>
+                        <span class="help"></span>
+                        
+                            Rs.<input type="text" name="registration_amount" id="registration_amount" class="form-control form-control-small" value="<?php echo @$registration_amount;?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <div class="input-with-icon  right">
+                             <label class="form-label form-label-inline">Stamp Duty</label>
+                        <span class="help"></span>
+                        
+                            <input type="text" name="stamp_duty" id="stamp_duty" class="form-control form-control-small" value="<?php echo @$stamp_duty;?>">
+                        </div>
+                    </div>
+                     
                      
                      
 
