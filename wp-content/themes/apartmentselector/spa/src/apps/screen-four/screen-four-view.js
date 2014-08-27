@@ -200,7 +200,7 @@ define(['marionette'], function(Marionette) {
         return $('.numeric').on('keypress', function(e) {
           var keyCode, ret;
           keyCode = e.keyCode;
-          ret = keyCode >= 48 && keyCode <= 57;
+          ret = (keyCode >= 48 && keyCode <= 57) || keyCode === 46;
           return ret;
         });
       });
