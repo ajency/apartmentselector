@@ -32,7 +32,7 @@ function get_apratment_selector_settings(){
     
     $settings["membership_fees"] = $membership_fees;
 	
-    return $settings["membership_fees"];
+    return $settings;
 }
 
 function ajax_save_settings(){
