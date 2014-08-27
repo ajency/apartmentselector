@@ -15,7 +15,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value=""/> <input type="text" id="discountper" value="" class="hidden" /><br/> Actual Payment : <input type="text" id="payment" value=""/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div>';
+    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value=""/> <input type="text" id="discountper" value="" class="hidden" /><br/> Actual Payment : <input type="text" id="payment" value="0"/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div>';
 
     ScreenFourLayout.prototype.regions = {
       unitRegion: '#unitblock-region',
@@ -297,13 +297,14 @@ define(['marionette'], function(Marionette) {
       sales_tax = basicCost * (parseFloat(SettingModel.get('sales_tax')) / 100);
       infraArray = SettingModel.get('infrastructure_charges');
       membership_fees = SettingModel.get('membership_fees');
-      membership_feesColl = new Backbone.Collection(membership_fees);
-      unitTypeMemeber = membership_feesColl.findWhere({
-        unit_type: '9'
-      });
-      if (unitTypeMemeber === "") {
+      console.log(membership_feesColl = new Backbone.Collection(membership_fees));
+      console.log(parseInt(unitModel.get('unitVariant')));
+      console.log(unitTypeMemeber = membership_feesColl.findWhere({
+        unit_type: parseInt(unitModel.get('unitType'))
+      }));
+      if (unitTypeMemeber.get('membership_fees') === 0) {
         unitVariantMemeber = membership_feesColl.findWhere({
-          unit_type: unitModel.get('unitvariant')
+          unit_variant: parseInt(unitModel.get('unitVariant'))
         });
         membershipfees = unitVariantMemeber.get('membership_fees');
       } else {

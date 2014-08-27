@@ -47,7 +47,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                                             <input type="text" id="discountper" value="" class="hidden" /><br/>
-                                            Actual Payment : <input type="text" id="payment" value=""/></div>
+                                            Actual Payment : <input type="text" id="payment" value="0"/></div>
 
         				</header>
         				<!-- e: invoice header -->
@@ -386,10 +386,11 @@ define [ 'marionette' ], ( Marionette )->
             sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
-            membership_feesColl = new Backbone.Collection membership_fees
-            unitTypeMemeber = membership_feesColl.findWhere({unit_type:'9'})
-            if unitTypeMemeber == ""
-                unitVariantMemeber = membership_feesColl.findWhere({unit_type:unitModel.get('unitvariant')})
+            console.log membership_feesColl = new Backbone.Collection membership_fees
+            console.log parseInt(unitModel.get('unitVariant'))
+            console.log unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
+            if unitTypeMemeber.get('membership_fees') == 0
+                unitVariantMemeber = membership_feesColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
                 membershipfees = unitVariantMemeber.get('membership_fees')
             else
                 membershipfees = unitTypeMemeber.get('membership_fees')
