@@ -208,8 +208,6 @@ define(['marionette'], function(Marionette) {
       return UnitsView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitsView.prototype.template = '<a class="link" href="unit{{id}}">Flat No {{name}}</a>';
-
     UnitsView.prototype.tagName = 'li';
 
     UnitsView.prototype.className = 'vs-nav-current';
@@ -240,7 +238,7 @@ define(['marionette'], function(Marionette) {
       return UnitMainView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitMainView.prototype.template = '<div class="vs-content"> <div class="row"> <div class="col-sm-7 p-b-10"> <div class="liquid-slider center-block" id="slider-plans"> <div> <h2 class="title">2D Layout</h2> <img src="{{TwoDimage}}" class="img-responsive"> </div> <div> <h2 class="title">3D Layout</h2> <img src="{{ThreeDimage}}" class="img-responsive"> </div> <div> <h2 class="title">Floor Layout</h2> <img src="{{floorLayoutimage}}" class="img-responsive"> </div> <div> <h2 class="title">Building Position</h2> <img src="{{BuildingPositionimage}}" class="img-responsive"> </div> </div> </div> <div class="col-sm-5"> <h4 class="bold">FLAT SUMMARY</h4> <div class="summary"> <div class="row"> <div class="col-xs-6">CARPET AREA</div> <div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">TERRACE AREA</div> <div class="col-xs-6 text-right text-primary">{{terracearea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">CHARGEABLE AREA</div> <div class="col-xs-6 text-right text-primary">{{sellablearea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">PRICE per SQ.FT - starts from</div> <div class="col-xs-6 text-right text-primary">-</div> </div> </div> </div> </div> <div class="row m-t-20 p-t-20 b-grey b-t"> <div class="col-md-6 p-b-10"> <h4 class="bold">ROOM DIMENSIONS</h4> <div class="summary"> <div class="row p-b-10"> <div class="col-sm-6"> TERRACE <h3 class="text-primary"</h3> </div> <div class="col-sm-6"> TOILET {{#toiletArray}}                                             <h3 class="text-primary">{{size}}</h3> {{/toiletArray}} 										</div> </div> <div class="row m-t-20"> <div class="col-sm-6"> LIVING ROOM <h3 class="text-primary"></h3> </div> <div class="col-sm-6"> KITCHEN <h3 class="text-primary"></h3> </div> </div> </div> </div> <div class="col-md-6"> <h4 class="bold">ROOM DIMENSIONS</h4> <div class="summary facilities"> <div class="row"> </div> <div class="row m-t-20"> </div> </div> </div> </div> </div>';
+    UnitMainView.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4 p-b-10"> <div class="liquid-slider center-block" id="slider-plans"> <div> <h2 class="title">2D Layout</h2> <img src="{{TwoDimage}}" class="img-responsive"> </div> <div> <h2 class="title">3D Layout</h2> <img src="{{ThreeDimage}}" class="img-responsive"> </div> <div> <h2 class="title">Floor Layout</h2> <img src="{{floorLayoutimage}}" class="img-responsive"> </div> <div> <h2 class="title">Building Position</h2> <img src="{{BuildingPositionimage}}" class="img-responsive"> </div> </div> </div> <!--<div class="col-sm-8"> <h4 class="bold">FLAT SUMMARY</h4> <div class="summary"> <div class="row"> <div class="col-xs-6">CARPET AREA</div> <div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">TERRACE AREA</div> <div class="col-xs-6 text-right text-primary">{{terracearea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">CHARGEABLE AREA</div> <div class="col-xs-6 text-right text-primary">{{sellablearea}} sqft</div> </div> <div class="row"> <div class="col-xs-6">PRICE per SQ.FT - starts from</div> <div class="col-xs-6 text-right text-primary">-</div> </div> </div> </div>--> <div class="col-sm-8 b-grey b-l"> <div class="unitDetails"> <div class="unitBox unitNmbr"> <h3>{{name}}</h3> <h4 class="titles"><span class="sky-flag"></span> Flat No.</h4> </div> <div class="unitBox chargeArea"> <h3>{{sellablearea}} <span class="light">Sq.Ft.</span></h3> <h4 class="titles"><span class="sky-banknote"></span> Chargeable Area</h4> </div> <div class="clearfix"></div> <div class="unitBox"> <div class="rooms">Bedroom 1: <h4 class="size">60 Sq.Ft.</h4></div> <div class="rooms">Bedroom 2: <h4 class="size">25 Sq.Ft.</h4></div> <div class="rooms">Bedroom 3: <h4 class="size">34 Sq.Ft.</h4></div> <div class="rooms">Bathroom: <h4 class="size">20 Sq.Ft.</h4></div> <div class="rooms">Study: <h4 class="size">25 Sq.Ft.</h4></div> <div class="rooms">Terrace: <h4 class="size">15 Sq.Ft.</h4></div> <h4 class="titles"><span class="sky-maximize"></span> Room Sizes</h4> </div> <div class="unitBox facing"> <h4 class="view">w/ Dining</h4> <h4 class="titles"><span class="sky-content-left"></span> Terrace</h4> </div> <div class="unitBox facing"> <h4 class="view">SE</h4> <h4 class="titles"><span class="sky-location"></span> Facing</h4> </div> <div class="unitBox facing"> <h4 class="view">Garden, Lake</h4> <h4 class="titles"><span class="sky-map"></span> Views</h4> </div> <div class="clearfix"></div> </div> </div> </div> <!--<div class="row m-l-0 m-r-0 m-t-20 p-t-20 b-grey b-t"> <div class="col-md-6 p-b-10"> <h4 class="bold">ROOM DIMENSIONS</h4> <div class="summary"> <div class="row p-b-10"> <div class="col-sm-6"> TERRACE <h3 class="text-primary"</h3> </div> <div class="col-sm-6"> TOILET {{#toiletArray}} <h3 class="text-primary">{{size}}</h3> {{/toiletArray}} </div> </div> <div class="row m-t-20"> <div class="col-sm-6"> LIVING ROOM <h3 class="text-primary"></h3> </div> <div class="col-sm-6"> KITCHEN <h3 class="text-primary"></h3> </div> </div> </div> </div> <div class="col-md-6"> <h4 class="bold">ROOM DIMENSIONS</h4> <div class="summary facilities"> <div class="row"> </div> <div class="row m-t-20"> </div> </div> </div> </div>-->';
 
     UnitMainView.prototype.tagName = "section";
 
@@ -253,9 +251,11 @@ define(['marionette'], function(Marionette) {
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false,
-        minHeight: 500,
-        autoSlideInterval: 500,
-        forceAutoSlide: true
+        minHeight: 300,
+        autoSlideInterval: 4000,
+        forceAutoSlide: true,
+        mobileNavigation: false,
+        hideArrowsWhenMobile: false
       });
     };
 

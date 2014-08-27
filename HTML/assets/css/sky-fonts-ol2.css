@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-f5ix50');
-	src:url('../fonts/icomoon.eot?#iefix-f5ix50') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?-f5ix50') format('woff'),
-		url('../fonts/icomoon.ttf?-f5ix50') format('truetype'),
-		url('../fonts/icomoon.svg?-f5ix50#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?ext4ap');
+	src:url('../fonts/icomoon.eot?#iefixext4ap') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?ext4ap') format('woff'),
+		url('../fonts/icomoon.ttf?ext4ap') format('truetype'),
+		url('../fonts/icomoon.svg?ext4ap#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,9 +23,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.sky-layers:before {
-	content: "\e031";
-}
 .sky-umbrella:before {
 	content: "\e060";
 }
@@ -94,7 +91,4 @@
 }
 .sky-help:before {
 	content: "\e127";
-}
-.sky-banknote:before {
-	content: "\e600";
 }
