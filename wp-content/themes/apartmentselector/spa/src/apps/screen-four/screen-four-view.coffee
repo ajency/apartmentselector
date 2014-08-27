@@ -95,57 +95,15 @@ define [ 'marionette' ], ( Marionette )->
 <!-- e: invoice items -->
 
 
-        					<div class="invoice-totals">
-        						<table>
-        							<caption>Totals:</caption>
-        							<tbody>
-        								<tr>
-        									<th>Subtotal:</th>
-        									<td></td>
-        									<td>$103,850</td>
-        								</tr>
-        								<tr>
-        									<th>Tax:</th>
-        									<td>5%</td>
-        									<td>$5,192</td>
-        								</tr>
-        								<tr>
-        									<th>Total:</th>
-        									<td></td>
-        									<td>$109,042</td>
-        								</tr>
-        							</tbody>
-        						</table>
-
-        						<div class="invoice-pay">
-        							<h5>Pay with...</h5>
-        							<ul>
-        								<li>
-        									<a href="#" class="gcheckout">Checkout with Google</a>
-        								</li>
-        								<li>
-        									<a href="#" class="acheckout">Checkout with Amazon</a>
-        								</li>
-        							</ul>
-        						</div>
-        					</div><!-- e: invoice totals -->
 
 
-        					<div class="invoice-notes">
-        						<h6>Notes &amp; Information:</h6>
-        						<p>This invoice contains a incomplete list of items destroyed by the Federation ship Enterprise on Startdate 5401.6 in an unprovked attacked on a peaceful &amp; wholly scientific mission to Outpost 775.</p>
-        						<p>The Romulan people demand immediate compensation for the loss of their Warbird, Shuttle, Cloaking Device, and to a lesser extent thier troops.</p>
-        						<p>Failure to provide adequate compensation for the above losses will result in an immediate increase in Neutral Zone patrols &amp; a formal complaint will be filed in the form of increased aggresion on human populated worlds within the neutral zone.</p>
-        					</div><!-- e: invoice-notes -->
+
+
 
         				</section><!-- e: invoice financials -->
 
 
-        				<footer id="footer">
-        					<p>
-        						Crafted with Romulan State Required Levels of Attention by <a href="http://sprresponsive.com">sprResponsive</a>.
-        					</p>
-        				</footer>
+
         			</div><!-- e: invoice -->
         	</div>'
 
@@ -331,6 +289,14 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
+                $('#infra').on('change' , ()->
+                    console.log "qqqqqqqqqqqqq"
+                    id = $('#paymentplans' ).val()
+                    object.generatePaymentSchedule(id)
+                    object.getMilestones(id)
+
+
+                )
             )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
@@ -397,7 +363,7 @@ define [ 'marionette' ], ( Marionette )->
 
             revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(uniVariantModel.get('persqftprice'))*parseFloat(discount))
             costSheetArray.push(revisedrate)
-            basicCost = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(revisedrate)
+            basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)
             costSheetArray.push(discount)
             table = ""
@@ -409,26 +375,66 @@ define [ 'marionette' ], ( Marionette )->
             id1=$('#paymentplans').val()
 
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
-            agreement = parseFloat(basicCost) + 0
+            SettingModel = new Backbone.Model SETTINGS
+            stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
+            reg_amt =( basicCost * parseFloat(SettingModel.get('registration_amount')))
+            vat = (basicCost * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
+            infraArray = SettingModel.get('infrastructure_charges' )
+            infratxt = '<select id="infra">'
+            for element,index in infraArray
+                infratxt += '<option value="'+element+'">'+element+'</option>'
+            infratxt += '</select>'
+            console.log infratxt
+
+
             table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td></tr>
                        <tr><td>Rate Per Sq. Ft. Rs.</td><td>'+costSheetArray[1]+'</td></tr>
                         <tr><td>Revised Rate</td><td>'+costSheetArray[2]+'</td></tr>
                         <tr><td>Basic Cost Rs.</td><td>'+costSheetArray[3]+'</td></tr>
 
-                        <tr><td>Infrastructure and Developement Charges.</td><td></td></tr>
+                        <tr><td>Infrastructure and Developement Charges.</td><td>'+infratxt+'</td></tr>'
+            $('table#costSheetTable tbody' ).append table
+            table = ""
+            console.log $('#infra').val()
+            agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
 
-                        <tr><td>Agreement Amount Rs.</td><td>'+agreement+'</td></tr>
 
-           <tr><td>Stamp Duty Rs.</td><td></td></tr>
-            <tr><td>Registration Amount Rs.</td><td></td></tr>
-            <tr><td>VAT  Rs.</td><td></td></tr>
-            <tr><td>Service Tax Rs.</td><td></td></tr>
+            paymentColl = new Backbone.Collection PAYMENTPLANS
+            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+            milestonesArray = milestones.get('milestones')
+            console.log milestonesArrayColl = new Backbone.Collection milestonesArray
+            console.log milestoneselectedValue
+            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':'48'})
+            milestonesArray = milestonesArray.sort( (a,b)->
+                parseInt( a.sort_index) - parseInt( b.sort_index)
+            )
+            console.log milestonesArray
+            milestoneColl = new Backbone.Collection MILESTONES
+            count = 0
+            for element in milestonesArray
+                if element.sort_index <= milestonemodel.get('sort_index')
+                    percentageValue = (basicCost * parseFloat(element.payment_percentage))/100
+                    count = count + percentageValue
+            addon = parseFloat($('#payment').val()) - parseFloat(count)
 
-           <tr><td>Total Cost Rs.</td><td></td></tr>
-            <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td></tr>
-            <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>'+costSheetArray[4]+'</td></tr>
-                        <tr><td>Actual Payment</td><td>'+$('#payment').val()+'</td></tr>
-                        <tr><td>Milestone Completed Till Date</td><td><select id="milestones"></select></td></tr>'
+            totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
+            finalcost = parseFloat(totalcost) + parseFloat(maintenance)
+            console.log table
+            table += '<tr><td>Agreement Amount Rs.</td><td>'+agreement+'</td></tr>
+                        <tr><td>Stamp Duty Rs.</td><td>'+stamp_duty+'</td></tr>
+                        <tr><td>Registration Amount Rs.</td><td>'+reg_amt+'</td></tr>
+                        <tr><td>VAT  Rs.</td><td>'+vat+'</td></tr>
+                        <tr><td>Service Tax Rs.</td><td>'+sales_tax+'</td></tr>
+
+                       <tr><td>Total Cost Rs.</td><td>'+totalcost+'</td></tr>
+                        <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td></tr>
+                        <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>'+costSheetArray[4]+'</td></tr>
+                                    <tr><td>Actual Payment</td><td>'+$('#payment').val()+'</td></tr>
+                                    <tr><td>Milestone Completed Till Date</td><td><select id="milestones"></select></td></tr>
+                        <tr><td>Actual Receivable As On Date</td><td>'+count+'</td></tr>
+                        <tr><td>Add On Payment</td><td>'+addon+'</td></tr>
+                        <tr><td>Final Cost</td><td>'+finalcost+'</td></tr>'
             console.log $('table#costSheetTable tbody' )
             $('table#costSheetTable tbody' ).append table
             id = $('#paymentplans' ).val()
@@ -436,11 +442,15 @@ define [ 'marionette' ], ( Marionette )->
             object.getMilestones(id1)
 
         generatePaymentSchedule:(id)->
+            #get_apratment_selector_settings()
             console.log id
             $('table#paymentTable tr' ).remove()
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
+            console.log milestonesArrayColl = new Backbone.Collection milestonesArray
+            console.log milestoneselectedValue
+            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':'48'})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
@@ -448,6 +458,10 @@ define [ 'marionette' ], ( Marionette )->
             table = ""
             milestoneColl = new Backbone.Collection MILESTONES
             for element in milestonesArray
+                if element.sort_index <= milestonemodel.get('sort_index')
+                    trClass = "milestoneReached"
+                else
+                    trClass = ""
                 console.log milestoneModel = milestoneColl.get(element.milestone)
                 table += '<tr><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td></tr> '
             $('table#paymentTable tbody' ).append table

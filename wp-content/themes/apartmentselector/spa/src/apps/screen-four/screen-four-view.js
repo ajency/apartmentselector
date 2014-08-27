@@ -13,7 +13,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value=""/> <input type="text" id="discountper" value="" class="hidden" /><br/> Actual Payment : <input type="text" id="payment" value=""/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> <div class="invoice-totals"> <table> <caption>Totals:</caption> <tbody> <tr> <th>Subtotal:</th> <td></td> <td>$103,850</td> </tr> <tr> <th>Tax:</th> <td>5%</td> <td>$5,192</td> </tr> <tr> <th>Total:</th> <td></td> <td>$109,042</td> </tr> </tbody> </table> <div class="invoice-pay"> <h5>Pay with...</h5> <ul> <li> <a href="#" class="gcheckout">Checkout with Google</a> </li> <li> <a href="#" class="acheckout">Checkout with Amazon</a> </li> </ul> </div> </div><!-- e: invoice totals --> <div class="invoice-notes"> <h6>Notes &amp; Information:</h6> <p>This invoice contains a incomplete list of items destroyed by the Federation ship Enterprise on Startdate 5401.6 in an unprovked attacked on a peaceful &amp; wholly scientific mission to Outpost 775.</p> <p>The Romulan people demand immediate compensation for the loss of their Warbird, Shuttle, Cloaking Device, and to a lesser extent thier troops.</p> <p>Failure to provide adequate compensation for the above losses will result in an immediate increase in Neutral Zone patrols &amp; a formal complaint will be filed in the form of increased aggresion on human populated worlds within the neutral zone.</p> </div><!-- e: invoice-notes --> </section><!-- e: invoice financials --> <footer id="footer"> <p> Crafted with Romulan State Required Levels of Attention by <a href="http://sprresponsive.com">sprResponsive</a>. </p> </footer> </div><!-- e: invoice --> </div>';
+    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"><div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a> <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div> </div> </div></div><div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h4 class="bold">Estimated Cost</h4> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p> </div> <div>Payment Plans<select id="paymentplans"> {{#paymentplans}} <option value="{{id}}">{{name}}</option>{{/paymentplans}} </select> </br>Discount : Value<input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Percentage<input type="radio" class="radioClass" name="discountradio" value="2"/> <input type="text" id="discountvalue" value=""/> <input type="text" id="discountper" value="" class="hidden" /><br/> Actual Payment : <input type="text" id="payment" value=""/></div> </header> <!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <div class="invoice-items"> <table id="paymentTable"> <caption>Schedule of Payments</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table> </div> <!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div>';
 
     ScreenFourLayout.prototype.regions = {
       unitRegion: '#unitblock-region',
@@ -178,9 +178,16 @@ define(['marionette'], function(Marionette) {
         $('#payment').on('change', function() {
           return object.generateCostSheet();
         });
-        return $('#paymentplans').on('change', function() {
+        $('#paymentplans').on('change', function() {
           var id;
           id = $('#' + this.id).val();
+          object.generatePaymentSchedule(id);
+          return object.getMilestones(id);
+        });
+        return $('#infra').on('change', function() {
+          var id;
+          console.log("qqqqqqqqqqqqq");
+          id = $('#paymentplans').val();
           object.generatePaymentSchedule(id);
           return object.getMilestones(id);
         });
@@ -241,7 +248,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generateCostSheet = function() {
-      var agreement, basicCost, buildingModel, costSheetArray, discount, id, id1, maintenance, milestoneselectedValue, pervalue, planselectedValue, revisedrate, table, uniVariantModel, unitModel;
+      var SettingModel, addon, agreement, basicCost, buildingModel, costSheetArray, count, discount, element, finalcost, id, id1, index, infraArray, infratxt, maintenance, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, revisedrate, sales_tax, stamp_duty, table, totalcost, uniVariantModel, unitModel, vat, _i, _j, _len, _len1;
       $('table#costSheetTable tr').remove();
       costSheetArray = [];
       console.log(App.unit['name']);
@@ -266,7 +273,7 @@ define(['marionette'], function(Marionette) {
       discount = Math.ceil(discount.toFixed(2));
       revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(discount));
       costSheetArray.push(revisedrate);
-      basicCost = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(revisedrate);
+      basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
       costSheetArray.push(basicCost);
       costSheetArray.push(discount);
       table = "";
@@ -279,8 +286,50 @@ define(['marionette'], function(Marionette) {
       $("#milestones option[value=" + milestoneselectedValue + "]").prop('selected', true);
       id1 = $('#paymentplans').val();
       maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100;
-      agreement = parseFloat(basicCost) + 0;
-      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td></td></tr> <tr><td>Agreement Amount Rs.</td><td>' + agreement + '</td></tr> <tr><td>Stamp Duty Rs.</td><td></td></tr> <tr><td>Registration Amount Rs.</td><td></td></tr> <tr><td>VAT  Rs.</td><td></td></tr> <tr><td>Service Tax Rs.</td><td></td></tr> <tr><td>Total Cost Rs.</td><td></td></tr> <tr><td>Maintenance Deposit.</td><td>' + maintenance + '</td></tr> <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>' + costSheetArray[4] + '</td></tr> <tr><td>Actual Payment</td><td>' + $('#payment').val() + '</td></tr> <tr><td>Milestone Completed Till Date</td><td><select id="milestones"></select></td></tr>';
+      SettingModel = new Backbone.Model(SETTINGS);
+      stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty')) / 100)) + 110;
+      reg_amt = basicCost * parseFloat(SettingModel.get('registration_amount'));
+      vat = basicCost * (parseFloat(SettingModel.get('vat')) / 100);
+      sales_tax = basicCost * (parseFloat(SettingModel.get('sales_tax')) / 100);
+      infraArray = SettingModel.get('infrastructure_charges');
+      infratxt = '<select id="infra">';
+      for (index = _i = 0, _len = infraArray.length; _i < _len; index = ++_i) {
+        element = infraArray[index];
+        infratxt += '<option value="' + element + '">' + element + '</option>';
+      }
+      infratxt += '</select>';
+      console.log(infratxt);
+      table += '<tr><td>Chargeable Area</td><td>' + costSheetArray[0] + '</td></tr> <tr><td>Rate Per Sq. Ft. Rs.</td><td>' + costSheetArray[1] + '</td></tr> <tr><td>Revised Rate</td><td>' + costSheetArray[2] + '</td></tr> <tr><td>Basic Cost Rs.</td><td>' + costSheetArray[3] + '</td></tr> <tr><td>Infrastructure and Developement Charges.</td><td>' + infratxt + '</td></tr>';
+      $('table#costSheetTable tbody').append(table);
+      table = "";
+      console.log($('#infra').val());
+      agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
+      paymentColl = new Backbone.Collection(PAYMENTPLANS);
+      milestones = paymentColl.get(parseInt($('#paymentplans').val()));
+      milestonesArray = milestones.get('milestones');
+      console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
+      console.log(milestoneselectedValue);
+      console.log(milestonemodel = milestonesArrayColl.findWhere({
+        'milestone': '48'
+      }));
+      milestonesArray = milestonesArray.sort(function(a, b) {
+        return parseInt(a.sort_index) - parseInt(b.sort_index);
+      });
+      console.log(milestonesArray);
+      milestoneColl = new Backbone.Collection(MILESTONES);
+      count = 0;
+      for (_j = 0, _len1 = milestonesArray.length; _j < _len1; _j++) {
+        element = milestonesArray[_j];
+        if (element.sort_index <= milestonemodel.get('sort_index')) {
+          percentageValue = (basicCost * parseFloat(element.payment_percentage)) / 100;
+          count = count + percentageValue;
+        }
+      }
+      addon = parseFloat($('#payment').val()) - parseFloat(count);
+      totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat(reg_amt) + parseFloat(vat) + parseFloat(sales_tax);
+      finalcost = parseFloat(totalcost) + parseFloat(maintenance);
+      console.log(table);
+      table += '<tr><td>Agreement Amount Rs.</td><td>' + agreement + '</td></tr> <tr><td>Stamp Duty Rs.</td><td>' + stamp_duty + '</td></tr> <tr><td>Registration Amount Rs.</td><td>' + reg_amt + '</td></tr> <tr><td>VAT  Rs.</td><td>' + vat + '</td></tr> <tr><td>Service Tax Rs.</td><td>' + sales_tax + '</td></tr> <tr><td>Total Cost Rs.</td><td>' + totalcost + '</td></tr> <tr><td>Maintenance Deposit.</td><td>' + maintenance + '</td></tr> <tr><td>Club membership + Service Tax.</td><td></td></tr>                                                  <tr><td>Discount</td><td>' + costSheetArray[4] + '</td></tr> <tr><td>Actual Payment</td><td>' + $('#payment').val() + '</td></tr> <tr><td>Milestone Completed Till Date</td><td><select id="milestones"></select></td></tr> <tr><td>Actual Receivable As On Date</td><td>' + count + '</td></tr> <tr><td>Add On Payment</td><td>' + addon + '</td></tr> <tr><td>Final Cost</td><td>' + finalcost + '</td></tr>';
       console.log($('table#costSheetTable tbody'));
       $('table#costSheetTable tbody').append(table);
       id = $('#paymentplans').val();
@@ -289,12 +338,17 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
-      var element, milestoneColl, milestoneModel, milestones, milestonesArray, paymentColl, table, _i, _len;
+      var element, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, table, trClass, _i, _len;
       console.log(id);
       $('table#paymentTable tr').remove();
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt(id));
       milestonesArray = milestones.get('milestones');
+      console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
+      console.log(milestoneselectedValue);
+      console.log(milestonemodel = milestonesArrayColl.findWhere({
+        'milestone': '48'
+      }));
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
@@ -303,6 +357,11 @@ define(['marionette'], function(Marionette) {
       milestoneColl = new Backbone.Collection(MILESTONES);
       for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
         element = milestonesArray[_i];
+        if (element.sort_index <= milestonemodel.get('sort_index')) {
+          trClass = "milestoneReached";
+        } else {
+          trClass = "";
+        }
         console.log(milestoneModel = milestoneColl.get(element.milestone));
         table += '<tr><td>' + milestoneModel.get('name') + '</td><td>' + element.payment_percentage + '</td></tr> ';
       }
