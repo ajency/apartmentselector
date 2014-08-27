@@ -383,7 +383,7 @@ define [ 'marionette' ], ( Marionette )->
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             membership_feesColl = new Backbone.Collection membership_fees
-            unitTypeMemeber = membership_feesColl.findWhere({unit_type:unitModel.get('unitType')})
+            unitTypeMemeber = membership_feesColl.findWhere({unit_type:'9'})
             if unitTypeMemeber == ""
                 unitVariantMemeber = membership_feesColl.findWhere({unit_type:unitModel.get('unitvariant')})
                 membershipfees = unitVariantMemeber.get('membership_fees')
@@ -421,7 +421,7 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestones.get('milestones')
             console.log milestonesArrayColl = new Backbone.Collection milestonesArray
             console.log milestoneselectedValue
-            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':'48'})
+            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
@@ -461,12 +461,15 @@ define [ 'marionette' ], ( Marionette )->
         generatePaymentSchedule:(id)->
             #get_apratment_selector_settings()
             console.log id
+            unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+
             $('table#paymentTable tr' ).remove()
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
             console.log milestonesArrayColl = new Backbone.Collection milestonesArray
-            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':'48'})
+            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )

@@ -295,7 +295,7 @@ define(['marionette'], function(Marionette) {
       membership_fees = SettingModel.get('membership_fees');
       membership_feesColl = new Backbone.Collection(membership_fees);
       unitTypeMemeber = membership_feesColl.findWhere({
-        unit_type: unitModel.get('unitType')
+        unit_type: '9'
       });
       if (unitTypeMemeber === "") {
         unitVariantMemeber = membership_feesColl.findWhere({
@@ -331,7 +331,7 @@ define(['marionette'], function(Marionette) {
       console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
       console.log(milestoneselectedValue);
       console.log(milestonemodel = milestonesArrayColl.findWhere({
-        'milestone': '48'
+        'milestone': parseInt(buildingModel.get('milestone'))
       }));
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
@@ -359,15 +359,21 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
-      var element, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, table, trClass, _i, _len;
+      var buildingModel, element, milestoneColl, milestoneModel, milestonemodel, milestones, milestonesArray, milestonesArrayColl, paymentColl, table, trClass, unitModel, _i, _len;
       console.log(id);
+      unitModel = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      });
+      buildingModel = App.master.building.findWhere({
+        id: unitModel.get('building')
+      });
       $('table#paymentTable tr').remove();
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt(id));
       milestonesArray = milestones.get('milestones');
       console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
       console.log(milestonemodel = milestonesArrayColl.findWhere({
-        'milestone': '48'
+        'milestone': parseInt(buildingModel.get('milestone'))
       }));
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
