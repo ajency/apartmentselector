@@ -34,8 +34,9 @@
 // 	color: @color-primary;
 // }
 
+
 .unitDetails{
-	padding: 10px;
+	// padding: 10px;
 	text-align: center;
 
 	.unitBox{
@@ -43,7 +44,7 @@
 		padding: 10px 0 0;
 		// -webkit-box-shadow: 0px 2px 4px 1px @gray-lighter;
 		// 		box-shadow: 0px 2px 4px 1px @gray-lighter;
-		margin: 0 1% 15px;
+		margin: 0 0 15px;
 
 		h3{
 			margin-top: 0;
@@ -86,26 +87,50 @@
 	}
 
 	.unitNmbr{
-		width: 48%;
-		float: left;
+		// width: 48%;
+		// float: left;
 		h3{
 			color: @color-primary;
 		}
 	}
 
 	.chargeArea{
-		width: 48%;
-		float: left;
+		// width: 48%;
+		// float: left;
 		// border-left: none;
 	}
 
 	.facing{
-		width: 31.33%;
-		float: left;
+		// width: 31.33%;
+		// float: left;
 		h4.view{
 			.bold;
 			color: @gray-light;
 			.italic;
+		}
+	}
+}
+
+.step4Actions{
+	background-color: darken(@gray-lighter, 10%);
+	padding-top: 10px;
+	margin-top: 20px;
+	.grid-block-4{
+		background-color: @color-white;
+		h3{
+			// color: lighten(@gray-light, 20%);
+			color: lighten(@color-primary, 20%);
+			.ease;
+		}
+		h4{
+			.bold;
+			color: @gray-light;
+		}
+		&:hover{
+			h3{
+				color: @color-primary;
+				.ease;
+			}
 		}
 	}
 }

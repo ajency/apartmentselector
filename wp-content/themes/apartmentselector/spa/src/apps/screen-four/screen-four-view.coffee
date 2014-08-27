@@ -9,8 +9,37 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="h-align-middle">
-                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
+                            <a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" name="list" id="list"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>
                             <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
+                        </div>
+
+                        <div class="step4Actions">
+                            <div class="grid-container">
+                                <div class="grid-block-4">
+                                    <a class="grid-link">
+                                        <h3 class="m-t-0 m-b-0"><span class="sky-heart"></span></h3>
+                                        <h4 class="m-t-0 m-b-0">Add to Wishlist</h4>
+                                    </a>
+                                </div>
+                                <div class="grid-block-4">
+                                    <a class="grid-link">
+                                        <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3>
+                                        <h4 class="m-t-0 m-b-0">Print</h4>
+                                    </a>
+                                </div>
+                                <div class="grid-block-4">
+                                    <a class="grid-link">
+                                        <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3>
+                                        <h4 class="m-t-0 m-b-0">Email</h4>
+                                    </a>
+                                </div>
+                                <div class="grid-block-4">
+                                    <a class="grid-link">
+                                        <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3>
+                                        <h4 class="m-t-0 m-b-0">Costsheet</h4>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>'
 
@@ -276,41 +305,57 @@ define [ 'marionette' ], ( Marionette )->
 							</div>
 						</div>-->
                         <div class="col-sm-8 b-grey b-l">
+
                             <div class="unitDetails">
-                                <div class="unitBox unitNmbr">
-                                    <h3>{{name}}</h3>
-                                    <h4 class="titles"><span class="sky-flag"></span> Flat No.</h4>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="unitBox unitNmbr">
+                                            <h3>{{name}}</h3>
+                                            <h4 class="titles"><span class="sky-flag"></span> Flat No.</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="unitBox chargeArea">
+                                            <h3>{{sellablearea}} <span class="light">Sq.Ft.</span></h3>
+                                            <h4 class="titles"><span class="sky-banknote"></span> Chargeable Area</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="unitBox chargeArea">
-                                    <h3>{{sellablearea}} <span class="light">Sq.Ft.</span></h3>
-                                    <h4 class="titles"><span class="sky-banknote"></span> Chargeable Area</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="unitBox">
+                                            <div class="rooms">Bedroom 1: <h4 class="size">60 Sq.Ft.</h4></div>
+                                            <div class="rooms">Bedroom 2: <h4 class="size">25 Sq.Ft.</h4></div>
+                                            <div class="rooms">Bedroom 3: <h4 class="size">34 Sq.Ft.</h4></div>
+                                            <div class="rooms">Bathroom: <h4 class="size">20 Sq.Ft.</h4></div>
+                                            <div class="rooms">Study: <h4 class="size">25 Sq.Ft.</h4></div>
+                                            <div class="rooms">Terrace: <h4 class="size">15 Sq.Ft.</h4></div>
+                                            <h4 class="titles"><span class="sky-maximize"></span> Room Sizes</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="clearfix"></div>
-
-                                <div class="unitBox">
-                                    <div class="rooms">Bedroom 1: <h4 class="size">60 Sq.Ft.</h4></div>
-                                    <div class="rooms">Bedroom 2: <h4 class="size">25 Sq.Ft.</h4></div>
-                                    <div class="rooms">Bedroom 3: <h4 class="size">34 Sq.Ft.</h4></div>
-                                    <div class="rooms">Bathroom: <h4 class="size">20 Sq.Ft.</h4></div>
-                                    <div class="rooms">Study: <h4 class="size">25 Sq.Ft.</h4></div>
-                                    <div class="rooms">Terrace: <h4 class="size">15 Sq.Ft.</h4></div>
-                                    <h4 class="titles"><span class="sky-maximize"></span> Room Sizes</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="unitBox facing">
+                                            <h4 class="view">w/ Dining</h4>
+                                            <h4 class="titles"><span class="sky-content-left"></span> Terrace</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="unitBox facing">
+                                            <h4 class="view">SE</h4>
+                                            <h4 class="titles"><span class="sky-location"></span> Facing</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="unitBox facing">
+                                            <h4 class="view">Garden, Lake</h4>
+                                            <h4 class="titles"><span class="sky-map"></span> Views</h4>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="unitBox facing">
-                                    <h4 class="view">w/ Dining</h4>
-                                    <h4 class="titles"><span class="sky-content-left"></span> Terrace</h4>
-                                </div>
-                                <div class="unitBox facing">
-                                    <h4 class="view">SE</h4>
-                                    <h4 class="titles"><span class="sky-location"></span> Facing</h4>
-                                </div>
-                                <div class="unitBox facing">
-                                    <h4 class="view">Garden, Lake</h4>
-                                    <h4 class="titles"><span class="sky-map"></span> Views</h4>
-                                </div>
-                                <div class="clearfix"></div>
                             </div>
+
                         </div>
 					</div>
 					<!--<div class="row m-l-0 m-r-0 m-t-20 p-t-20 b-grey b-t">
