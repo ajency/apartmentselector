@@ -27,7 +27,7 @@ define [ 'marionette' ], ( Marionette )->
 
         unitTypeSelected : ( evt )->
             $.map(App.backFilter, (value, index)->
-                console.log index
+                
                 screenArray  = App.backFilter[index]
                 for element in screenArray
                     key = App.defaults.hasOwnProperty(element)
@@ -48,9 +48,9 @@ define [ 'marionette' ], ( Marionette )->
             $(".cs-placeholder").text('Undecided')
 
             $('a' ).removeClass 'selected'
-            console.log unitType
+            
             for element , index in unitType
-                console.log $("#check"+element).val()
+                
                 if parseInt(element) == parseInt(@model.get('id'))
                     $("#check"+@model.get 'id').val '1'
                 else
@@ -58,7 +58,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitType = []
                     App.backFilter['screen1'] = []
 
-            console.log $("#check"+@model.get 'id').val()
+            
             if  parseInt($("#check"+@model.get 'id').val()) == 0
                 unitType.push @model.get 'id'
                 App.backFilter['screen1'].push 'unitType'
@@ -78,8 +78,7 @@ define [ 'marionette' ], ( Marionette )->
 
             unitTypeString = unitType.join(',')
             App.defaults['unitType'] = unitTypeString
-            console.log App.backFilter['screen1']
-            console.log App.backFilter['screen1']
+            
 
             App.screenOneFilter['value'] = unitTypeString
             App.screenOneFilter['key'] = 'unitType'
@@ -91,7 +90,7 @@ define [ 'marionette' ], ( Marionette )->
             newUnits = App.currentStore.unit.where(unitType:parseInt(App.defaults['unitType']),status:status.get('id'))
             newColl = new Backbone.Collection newUnits
             buildings = newColl.pluck("building")
-            console.log uniqBuildings = _.uniq(buildings)
+            uniqBuildings = _.uniq(buildings)
             @showHighlightedTowers(uniqBuildings)
 
         object = @
@@ -100,10 +99,9 @@ define [ 'marionette' ], ( Marionette )->
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#hglighttower"+index.get('id')).attr('class','overlay')
-            console.log building = uniqBuildings
+            building = uniqBuildings
             $.each(uniqBuildings, (index,value)->
                 buidlingValue = App.master.building.findWhere(id:parseInt(value))
-                console.log $("#hglighttower"+buidlingValue.get('id'))
                 $("#hglighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
 
 
@@ -193,7 +191,7 @@ define [ 'marionette' ], ( Marionette )->
                 newUnits = App.getBudget(budget_val[0])
                 newColl = new Backbone.Collection newUnits
                 buildings = newColl.pluck("building")
-                console.log uniqBuildings = _.uniq(buildings)
+                uniqBuildings = _.uniq(buildings)
                 @showHighlightedTowers(uniqBuildings)
 
             'click a':(e)->
@@ -201,15 +199,14 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'mouseover a':(e)->
-                console.log id  = e.target.id
-                console.log locationData = m.getLocationData(id)
+                id  = e.target.id
+                locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
 
 
             'click .tower-over':(e)->
                 e.preventDefault()
-                console.log e.target.id
-                console.log id  = e.target.id
+                id  = e.target.id
                 m.showLocation(id, 800)
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
@@ -217,12 +214,10 @@ define [ 'marionette' ], ( Marionette )->
         showHighlightedTowers:(uniqBuildings)->
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
-                console.log index.get('id')
                 $("#hglighttower"+index.get('id')).attr('class','overlay')
-            console.log building = uniqBuildings
+            building = uniqBuildings
             $.each(uniqBuildings, (index,value)->
                 buidlingValue = App.master.building.findWhere(id:parseInt(value))
-                console.log $("#hglighttower"+buidlingValue.get('id'))
                 $("#hglighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
 
 

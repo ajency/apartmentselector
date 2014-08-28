@@ -106,16 +106,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             'click a':(e)->
                 e.preventDefault()
-                console.log e.target.id
-                console.log id  = e.target.id
+                id  = e.target.id
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id)
                 #m.showTooltip(locationData)
 
             'click .tower-link':(e)->
                 e.preventDefault()
-                console.log e.target.id
-                console.log id  = e.target.id
+                id  = e.target.id
                 m.showLocation(id, 800)
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
@@ -129,42 +127,36 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .scroll':(e)->
-                console.log $('#'+e.target.id ).attr('data-id')
                 $('html, body').animate({ scrollTop : 0 }, 'slow')
                 @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-7')
 
             'click .grid-link':(e)->
-                console.log unitVariantArray
                 count = unitVariantArray.length
                 id = $('#'+e.target.id).attr('data-id')
                 track = 0
                 if $('#check'+id).val() == '1'
-                    console.log id
-                    console.log index = unitVariantArray.indexOf(parseInt(id))
+                    index = unitVariantArray.indexOf(parseInt(id))
                     if index != -1
                         unitVariantArray.splice( index, 1 )
                         $('#check'+id).val '0'
                         track = 0
                         unitVariantIdArray.push(parseInt(id))
                 else
-                    console.log "aaaaaaaaaa"
                     track = 1
                     unitVariantArray.push(parseInt(id))
                     $('#check'+id).val '1'
 
 
-                console.log unitVariantArray
+                
 
                 if globalUnitArrayInt.length != 0
                     if track == 0
-                        console.log track
                         unitVariantArray = _.intersection(unitVariantArray,globalUnitArrayInt)
                     else
                         globalUnitArrayInt.push(parseInt(id))
                         unitVariantArray = globalUnitArrayInt
 
-                console.log unitVariantArray = _.uniq(unitVariantArray)
-                console.log firstElement
+                unitVariantArray = _.uniq(unitVariantArray)
                 if unitVariantArray.length == 0
                     unitVariantString = firstElement.toString()
 
@@ -177,7 +169,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     else
                         unitVariantString = unitVariantArray.join(',')
-                console.log unitVariantString
                 if unitVariantString == "All"
                     $('#selectall' ).prop 'checked', true
                 else
@@ -191,7 +182,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $.map(App.backFilter, (value, index)->
 
                     if q!=1
-                        console.log index
                         screenArray  = App.backFilter[index]
                         for element in screenArray
                             if element == 'unitVariant'
@@ -206,7 +196,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate "screen-two"
-                console.log unitVariantString
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
@@ -216,10 +205,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:variants:selected'
 
             'click .cancel':(e)->
-                console.log unitVariantIdArray
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $(".variantBox1").slideToggle()
-                console.log globalUnitVariants = App.defaults['unitVariant'].split(',')
+                globalUnitVariants = App.defaults['unitVariant'].split(',')
                 globalUnitArrayInt = []
                 $.each(globalUnitVariants, (index,value)->
                     globalUnitArrayInt.push(parseInt(value))
@@ -228,9 +216,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 if App.defaults['unitVariant'] != 'All'
                     $.each(unitVariantArray, (index,value)->
-                        console.log value
                         key = _.contains(globalUnitArrayInt,parseInt(value))
-                        console.log key
                         if key == true
                             $('#grid'+value).addClass 'selected'
                             $('#check'+value).val '1'
@@ -250,7 +236,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click #selectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
                     cloneunitVariantArrayColl.each ( index)->
-                        console.log index.get('id')
                         $('#grid'+index.get('id')).addClass 'selected'
                         $('#check'+index.get('id')).val '1'
 
@@ -267,7 +252,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         tempArray.push(parseInt(value.get('id')))
 
 
-                    console.log value = _.first(tempArray)
+                    value = _.first(tempArray)
                     remainainArray = _.rest(tempArray)
                     $.each(remainainArray, (index,value)->
                         $('#grid'+value).removeClass 'selected'
@@ -285,7 +270,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
-            console.log building = Marionette.getOption( @, 'buildingColl' ).toArray()
+            building = Marionette.getOption( @, 'buildingColl' ).toArray()
             buidlingValue = _.first(building)
 
             setTimeout( ()->
@@ -326,7 +311,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('#selectall' ).prop 'checked', true
             else
                 $('#selectall' ).prop 'checked', false
-            console.log document.getElementsByTagName('g')['highlighttower13']
             if App.screenOneFilter['key'] == 'unitType'
                 $('.unittype' ).removeClass 'hidden'
             else if App.screenOneFilter['key'] == 'budget'
@@ -335,31 +319,29 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('.refresh' ).removeClass 'hidden'
 
 
-            console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
             unitVariantsArray  = Marionette.getOption( @, 'unitVariants' )
             unitVariantArrayColl = new Backbone.Collection unitVariantsArray
             cloneunitVariantArrayColl = unitVariantArrayColl.clone()
-            console.log unitVariants  = unitVariantArray
+            unitVariants  = unitVariantArray
 
-            console.log firstElement = _.first(unitVariantArray)
+            firstElement = _.first(unitVariantArray)
 
 
             if App.defaults['unitVariant'] != 'All'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $.each(unitVariantArray, (index,value)->
-                    console.log value
                     key = _.contains(globalUnitArrayInt,parseInt(value))
-                    console.log key
                     if key == true
                         $('#grid'+value).addClass 'selected'
                         $('#check'+value).val '1'
                     else
-                        console.log index = unitVariantArray.indexOf(parseInt(value))
+                        index = unitVariantArray.indexOf(parseInt(value))
                         $('#grid'+value).removeClass 'selected'
                         $('#check'+value).val '0'
                 )
             else
-                console.log unitVariantArray = unitVariantArray
+                unitVariantArray = unitVariantArray
                 $.each(unitVariantArray, (index,value)->
                     $('#grid'+value).addClass 'selected'
                     $('#check'+value).val '1'
@@ -420,12 +402,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             tagsArray = []
-            console.log testtext = App.defaults['unitVariant']
+            testtext = App.defaults['unitVariant']
             if testtext != 'All'
                 unitVariantArrayText = testtext.split(',')
                 $.each(unitVariantArrayText, (index,value)->
-                    console.log value
-                    console.log unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
+                    unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
                     tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
 
 

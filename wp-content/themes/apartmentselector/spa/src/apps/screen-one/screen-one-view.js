@@ -30,7 +30,6 @@ define(['marionette'], function(Marionette) {
       var buildings, element, index, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
       $.map(App.backFilter, function(value, index) {
         var element, key, screenArray, _i, _len, _results;
-        console.log(index);
         screenArray = App.backFilter[index];
         _results = [];
         for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
@@ -56,10 +55,8 @@ define(['marionette'], function(Marionette) {
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
       $('a').removeClass('selected');
-      console.log(unitType);
       for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
         element = unitType[index];
-        console.log($("#check" + element).val());
         if (parseInt(element) === parseInt(this.model.get('id'))) {
           $("#check" + this.model.get('id')).val('1');
         } else {
@@ -68,7 +65,6 @@ define(['marionette'], function(Marionette) {
           App.backFilter['screen1'] = [];
         }
       }
-      console.log($("#check" + this.model.get('id')).val());
       if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
         unitType.push(this.model.get('id'));
         App.backFilter['screen1'].push('unitType');
@@ -87,8 +83,6 @@ define(['marionette'], function(Marionette) {
       }
       unitTypeString = unitType.join(',');
       App.defaults['unitType'] = unitTypeString;
-      console.log(App.backFilter['screen1']);
-      console.log(App.backFilter['screen1']);
       App.screenOneFilter['value'] = unitTypeString;
       App.screenOneFilter['key'] = 'unitType';
       $("#finalButton").removeClass('disabled btn-default');
@@ -106,7 +100,7 @@ define(['marionette'], function(Marionette) {
       });
       newColl = new Backbone.Collection(newUnits);
       buildings = newColl.pluck("building");
-      console.log(uniqBuildings = _.uniq(buildings));
+      uniqBuildings = _.uniq(buildings);
       return this.showHighlightedTowers(uniqBuildings);
     };
 
@@ -118,13 +112,12 @@ define(['marionette'], function(Marionette) {
       masterbuilding.each(function(index) {
         return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
       });
-      console.log(building = uniqBuildings);
+      building = uniqBuildings;
       return $.each(uniqBuildings, function(index, value) {
         var buidlingValue;
         buidlingValue = App.master.building.findWhere({
           id: parseInt(value)
         });
-        console.log($("#hglighttower" + buidlingValue.get('id')));
         return $("#hglighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
       });
     };
@@ -206,7 +199,7 @@ define(['marionette'], function(Marionette) {
         newUnits = App.getBudget(budget_val[0]);
         newColl = new Backbone.Collection(newUnits);
         buildings = newColl.pluck("building");
-        console.log(uniqBuildings = _.uniq(buildings));
+        uniqBuildings = _.uniq(buildings);
         return this.showHighlightedTowers(uniqBuildings);
       },
       'click a': function(e) {
@@ -214,15 +207,14 @@ define(['marionette'], function(Marionette) {
       },
       'mouseover a': function(e) {
         var id, locationData;
-        console.log(id = e.target.id);
-        console.log(locationData = m.getLocationData(id));
+        id = e.target.id;
+        locationData = m.getLocationData(id);
         return m.showTooltip(locationData);
       },
       'click .tower-over': function(e) {
         var id, locationData;
         e.preventDefault();
-        console.log(e.target.id);
-        console.log(id = e.target.id);
+        id = e.target.id;
         m.showLocation(id, 800);
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData);
@@ -233,16 +225,14 @@ define(['marionette'], function(Marionette) {
       var building, masterbuilding;
       masterbuilding = App.master.building;
       masterbuilding.each(function(index) {
-        console.log(index.get('id'));
         return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
       });
-      console.log(building = uniqBuildings);
+      building = uniqBuildings;
       return $.each(uniqBuildings, function(index, value) {
         var buidlingValue;
         buidlingValue = App.master.building.findWhere({
           id: parseInt(value)
         });
-        console.log($("#hglighttower" + buidlingValue.get('id')));
         return $("#hglighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
       });
     };

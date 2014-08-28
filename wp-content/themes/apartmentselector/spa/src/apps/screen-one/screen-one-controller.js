@@ -53,10 +53,10 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
       priceUnits = App.currentStore.unit;
       priceUnits.each(function(item) {
         var buildingModel, floorRise, floorRiseValue, unitPrice, unitVariantmodel;
-        console.log(buildingModel = App.currentStore.building.findWhere({
+        buildingModel = App.currentStore.building.findWhere({
           'id': item.get('building')
-        }));
-        console.log(floorRise = buildingModel.get('floorrise'));
+        });
+        floorRise = buildingModel.get('floorrise');
         floorRiseValue = floorRise[item.get('floor')];
         unitVariantmodel = App.currentStore.unit_variant.findWhere({
           'id': item.get('unitVariant')
@@ -125,7 +125,6 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
           name: element
         });
       }
-      console.log(modelArray);
       collection.add(modelArray);
       newUnits = App.currentStore.unit.where();
       return [collection, rangeArray];
