@@ -30,6 +30,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
 
     PopupController.prototype._getUnitsCountCollection = function() {
       var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      console.log(localStorage.getItem("cookievalue"));
       console.log(cookeArray = localStorage.getItem("cookievalue").split(','));
       unitModelArray = [];
       if (cookeArray.length !== 0) {

@@ -6,6 +6,7 @@ define('apps-loader', ['src/apps/footer/footer-controller', 'src/apps/header/hea
 require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/classes/ap-store', 'src/apps/router', 'apps-loader'], function(plugins, range, Extm) {
   var staticApps;
   window.App = new Extm.Application;
+  App.layout = "";
   App.addRegions({
     headerRegion: '#header-region',
     footerRegion: '#footer-region',
@@ -33,14 +34,6 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
     'status': new Backbone.Collection(STATUS),
     'facings': new Backbone.Collection(FACINGS)
   };
-  App.unit = {
-    name: '',
-    flag: 0
-  };
-  App.screenOneFilter = {
-    key: '',
-    value: ''
-  };
   App.backFilter = {
     'screen1': [],
     'screen2': [],
@@ -53,10 +46,9 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
     "building": 'All',
     "unitVariant": 'All',
     'floor': 'All',
-    'view': 'All'
+    'view': 'All',
+    'facing': 'All'
   };
-  App.layout = "";
-  App.range = range;
   App.filter = function(params) {
     var budgetUnitArray, buildingArray, buildingModel, buildings, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
     if (params == null) {
@@ -80,14 +72,15 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
           App.defaults[param_key[0]] = param_key[1];
         }
       }
-      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'];
     } else {
-      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'];
     }
+    console.log(params);
     param_arr = params.split('&');
     budgetUnitArray = [];
     $.each(param_arr, function(index, value) {
-      var budget_val, collection, param_val, param_val_arr, paramkey, value_arr;
+      var budget_val, collection, param_val, param_val_arr, paramkey, unitSplitArray, units, value_arr;
       value_arr = value.split('=');
       param_key = value_arr[0];
       param_val = value_arr[1];
@@ -96,12 +89,23 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
       paramkey[param_key] = parseInt(param_val);
       if (param_val_arr.length > 1) {
         collection = [];
+        unitSplitArray = [];
         $.each(param_val_arr, function(index, value) {
-          var collectionNew;
+          var collectionNew, units;
           paramkey = {};
           collectionNew = [];
           paramkey[param_key] = parseInt(value);
-          collectionNew = App.currentStore.unit.where(paramkey);
+          console.log(collectionNew = App.currentStore.unit.where(paramkey));
+          if (collectionNew.length === 0) {
+            console.log(units = App.currentStore.unit);
+            units.each(function(item) {
+              console.log(item.get('facing'));
+              console.log(value);
+              if ($.inArray(value, item.get('views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
+                return unitSplitArray.push(item);
+              }
+            }, collectionNew = unitSplitArray);
+          }
           return $.each(collectionNew, function(index, value) {
             return collection.push(value);
           });
@@ -114,7 +118,19 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
           budgetUnitArray = App.getBudget(budget_val[0]);
           collection = budgetUnitArray;
         } else {
+          unitSplitArray = [];
           collection = App.currentStore.unit.where(paramkey);
+          console.log(units = App.currentStore.unit);
+          if (collection.length === 0) {
+            units.each(function(item) {
+              console.log(item.get('views'));
+              console.log(value_arr[1]);
+              if ($.inArray(value_arr[1], item.get('views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
+                return unitSplitArray.push(item);
+              }
+            });
+            collection = unitSplitArray;
+          }
         }
       }
       return App.currentStore.unit.reset(collection);
@@ -194,6 +210,14 @@ require(['plugin-loader', 'spec/javascripts/fixtures/json/range', 'extm', 'src/c
   };
   App.currentRoute = [];
   staticApps = [];
+  App.unit = {
+    name: '',
+    flag: 0
+  };
+  App.screenOneFilter = {
+    key: '',
+    value: ''
+  };
   if (window.location.hash === '') {
     App.filter();
     staticApps.push(['header', App.headerRegion]);

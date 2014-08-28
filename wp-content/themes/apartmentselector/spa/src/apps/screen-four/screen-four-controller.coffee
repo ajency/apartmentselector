@@ -14,6 +14,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
             @listenTo @layout, "show", @showViews
 
+            @listenTo @layout, "get:perSqft:price", @getPerSqFtPrice
+
+
+
 
             @show @layout
 
@@ -36,6 +40,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
         showMainRegion:(mainCollection)->
             itemview2 = @getUnitsView mainCollection
             @layout.mainRegion.show itemview2
+
+
 
 
 
@@ -178,6 +184,22 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
             console.log unitCollection = new Backbone.Collection(ModelActualArr)
             [unitCollection , PAYMENTPLANS]
+
+
+        getPerSqFtPrice:->
+            console.log 'unitttttttttttttttttttttttttttttttttt'+App.unit['name']
+            unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            object = @
+            $.ajax(
+                method: "POST" ,
+                url : AJAXURL+'?action=get_unit_variants_persqftprice',
+                data : 'unitvaraintid='+unitModel.get('variant_id'),
+                success :(result)-> console.log "eeeeeeeeeeeeeeeeee" ,
+                error:(result)->
+
+            )
+
+
 
 
 

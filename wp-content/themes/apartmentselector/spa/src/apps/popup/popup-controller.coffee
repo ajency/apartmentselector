@@ -22,6 +22,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
         _getUnitsCountCollection:->
+            console.log localStorage.getItem("cookievalue" )
             console.log cookeArray = localStorage.getItem("cookievalue" ).split(',')
             unitModelArray = []
             if cookeArray.length != 0

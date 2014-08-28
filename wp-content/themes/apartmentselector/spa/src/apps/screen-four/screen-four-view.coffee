@@ -283,7 +283,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
         onShow:->
-
+            @trigger "get:perSqft:price"
             $(document).on('open', '.remodal',  () ->
                 $('.radioClass').on('click' , ()->
                     console.log $('input[name=discountradio]:checked').val()
@@ -347,48 +347,7 @@ define [ 'marionette' ], ( Marionette )->
                 )
 
             )
-            $(document).on('opened', '.remodal',  () ->
-                $('#infra').on('change' , ()->
-                    console.log "qqqqqqqqqqqqq"
-                    console.log infraid = $('#infra' ).val()
-                    object.updated()
 
-
-
-                )
-                $('#infra1').on('change' , ()->
-                    console.log "qqqqqqqqqqqqq"
-                    console.log infraid = $('#infra' ).val()
-                    object.updated()
-
-
-                )
-                $('#discountvalue').on('change' , ()->
-                    perFlag = 1
-                    object.generateCostSheet()
-
-
-                )
-                $('#discountper').on('change' , ()->
-                    perFlag = 2
-                    object.generateCostSheet()
-
-
-                )
-                $('#payment').on('change' , ()->
-                    object.generateCostSheet()
-
-
-                )
-                $('#paymentplans').on('change' , ()->
-                    id = $('#'+this.id ).val()
-                    object.generatePaymentSchedule(id)
-                    object.getMilestones(id)
-
-
-
-                )
-            )
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
@@ -988,6 +947,7 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow:->
+            console.log @model.get("unitVariant")
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad",
                 autoSlide: true,

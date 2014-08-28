@@ -21,6 +21,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, "get:perSqft:price", this.getPerSqFtPrice);
       return this.show(this.layout);
     };
 
@@ -174,6 +175,24 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       });
       console.log(unitCollection = new Backbone.Collection(ModelActualArr));
       return [unitCollection, PAYMENTPLANS];
+    };
+
+    ScreenFourController.prototype.getPerSqFtPrice = function() {
+      var object, unitModel;
+      console.log('unitttttttttttttttttttttttttttttttttt' + App.unit['name']);
+      unitModel = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      });
+      object = this;
+      return $.ajax({
+        method: "POST",
+        url: AJAXURL + '?action=get_unit_variants_persqftprice',
+        data: 'unitvaraintid=' + unitModel.get('variant_id'),
+        success: function(result) {
+          return console.log("eeeeeeeeeeeeeeeeee");
+        },
+        error: function(result) {}
+      });
     };
 
     return ScreenFourController;

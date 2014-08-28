@@ -157,6 +157,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.onShow = function() {
       var cookieOldValue, costSheetArray, count, flag, scr;
+      this.trigger("get:perSqft:price");
       $(document).on('open', '.remodal', function() {
         $('.radioClass').on('click', function() {
           console.log($('input[name=discountradio]:checked').val());
@@ -202,35 +203,6 @@ define(['marionette'], function(Marionette) {
           keyCode = e.keyCode;
           ret = (keyCode >= 48 && keyCode <= 57) || keyCode === 46;
           return ret;
-        });
-      });
-      $(document).on('opened', '.remodal', function() {
-        $('#infra').on('change', function() {
-          console.log("qqqqqqqqqqqqq");
-          console.log(infraid = $('#infra').val());
-          return object.updated();
-        });
-        $('#infra1').on('change', function() {
-          console.log("qqqqqqqqqqqqq");
-          console.log(infraid = $('#infra').val());
-          return object.updated();
-        });
-        $('#discountvalue').on('change', function() {
-          perFlag = 1;
-          return object.generateCostSheet();
-        });
-        $('#discountper').on('change', function() {
-          perFlag = 2;
-          return object.generateCostSheet();
-        });
-        $('#payment').on('change', function() {
-          return object.generateCostSheet();
-        });
-        return $('#paymentplans').on('change', function() {
-          var id;
-          id = $('#' + this.id).val();
-          object.generatePaymentSchedule(id);
-          return object.getMilestones(id);
         });
       });
       scr = document.createElement('script');
@@ -686,6 +658,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitMainView.prototype.onShow = function() {
+      console.log(this.model.get("unitVariant"));
       return $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
