@@ -399,6 +399,7 @@ echo $response;
 exit;
 }
 add_action('wp_ajax_get_unit_variants_persqftprice','ajax_get_unit_variants_persqftprice'); 
+add_action('wp_ajax_nopriv_get_unit_variants_persqftprice','ajax_get_unit_variants_persqftprice'); 
 
 
 //function to get names of the room types for sizes 
