@@ -527,6 +527,12 @@ function addException(exception_no){
                     no_of_flats: { 
                         required: true
                     },
+                    building_payment_plan: { 
+                        required: true
+                    },
+                    building_milestone: { 
+                        required: true
+                    },
                     
                 },
 
@@ -578,9 +584,10 @@ function addException(exception_no){
         });
 
             $.each(sortedresponse, function(i, val) {
+                selected =  (i==0)?val.milestone:selected;
                 $("#building_milestone").append(new Option(val.name, val.milestone));
             });
-
+             $("#building_milestone").val(selected)
         });
         }
    });
