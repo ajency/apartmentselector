@@ -30,6 +30,8 @@ $heading = "Edit";
 
     $building_milestone = $building["milestone"];
 
+    $building_milestone_completion = $building["milestonecompletion"];
+
     $building_views = $building["buildingviews"];
 
     $position_in_project = $building["positioninproject"];
@@ -203,13 +205,61 @@ $heading = "Edit";
                         <option value="<?php echo $payment_plan_milestone['milestone']; ?>"  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?>><?php echo  $payment_plan_milestone['name']?></option>
                     <?php }
 
-                    } ?>
+                    }else{
+                        ?>
+
+                        <?php
+                        } ?>
 
                 </select>
             </div>
         </div>
     </div>
-    
+    <div id="milestone-completion" <?php if(!isset($building_payment_plan)){?>style="display:none"<?php }?>>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="form-label">
+                    Milestone Completions
+                </label>
+
+                 
+            </div>
+        </div>
+
+         <div class="well">
+                         <div class="form-group">
+                             <ul class="milestone-completion form-control-list" id="milestone-completion-item-container">
+                                <?php
+                                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
+
+                                    foreach ($payment_plan_milestones as $payment_plan_milestone){
+                                
+                                        if(is_array($building_milestone_completion)){
+                                            $completion_date = $building_milestone_completion[$payment_plan_milestone['milestone']];
+                                        }
+                                ?>
+                                        <li >
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <div class="col-md-7"><label class="form-label form-label-inline-long">
+                                                            <?php echo  $payment_plan_milestone['name']?></label> 
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input type="text"  name="milestone_completion_<?php echo  $payment_plan_milestone['milestone']?>"  class="milestone-completion-date form-control-medium"  value="<?php echo $completion_date;?>"  >
+                                                    </div>
+                                                     
+                                                </div>
+                                            </div>
+                                        </li>
+                                <?php
+
+                                }?>
+                                       
+                             </ul>
+                         </div>
+            </div>
+              
+    </div>
     <div class="col-md-12">
         <div class="form-group">
             <label class="form-label">

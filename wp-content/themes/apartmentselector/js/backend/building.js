@@ -18,6 +18,8 @@ if($("#slider").length!=0){
     displaySlider($("#no_of_floors").val())
 }
 
+$('.milestone-completion-date').datepicker({ dateFormat: 'dd/mm/yy' });
+
 function updateSlider(){
 
        $("#lowrisefrom").val(0)
@@ -527,6 +529,12 @@ function addException(exception_no){
                     no_of_flats: { 
                         required: true
                     },
+                    building_payment_plan: { 
+                        required: true
+                    },
+                    building_milestone: { 
+                        required: true
+                    },
                     
                 },
 
@@ -578,12 +586,42 @@ function addException(exception_no){
         });
 
             $.each(sortedresponse, function(i, val) {
+                selected =  (i==0)?val.milestone:selected;
                 $("#building_milestone").append(new Option(val.name, val.milestone));
             });
-
+             $("#building_milestone").val(selected);
+              milestoneCompletionUi(sortedresponse);
         });
         }
+
+       
    });
+
+   function milestoneCompletionUi(milestone){
+
+    $("#milestone-completion-item-container").html("")
+    html = "";
+    $.each(sortedresponse, function(i, val) {
+                selected =  (i==0)?val.milestone:selected;
+               
+
+                html +='<li >'
+                html +='<div class="row">'
+                html +='<div class="form-group">'
+                html +='<div class="col-md-7"><label class="form-label form-label-inline-long">'
+                html += val.name+'</label> '
+                html +='</div>'
+                html +='<div class="col-md-5">'
+                html +='<input type="text" item="'+val.milestone+'"  name="milestone_completion_'+val.milestone+'" class="milestone-completion-date form-control-medium"  data-date-format="dd/mm/yyyy"   >'
+                html +='</div>'
+                html +='</div>'
+                html +='</div>'
+                html +='</li>'
+            });
+ $("#milestone-completion-item-container").html(html)
+    $('.milestone-completion-date').datepicker({ dateFormat: 'dd/mm/yy' });
+
+   }
  
 })
 

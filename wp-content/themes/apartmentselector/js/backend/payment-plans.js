@@ -137,6 +137,12 @@ $(document).on("click", "#save_payment_plan", function(e) {
                 showCustomError($("#add-more-milstones"),"Add all selected milestone percentages");
                 return;
             } 
+
+            if(sumMilstonePercentage(milestones)!=100){
+                 showCustomError($("#add-more-milstones"),"Milestone percentages should add up to 100");
+                return;
+            }
+  
  
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")
 
@@ -198,6 +204,18 @@ function getSelectedMilstones(){
 
 }
 
+
+function sumMilstonePercentage(milestones){
+
+    milestonePaymentPercentage = 0
+
+     $.each(milestones, function(i, val) {
+        console.log(val.payment_percentage)
+        milestonePaymentPercentage += parseFloat(val.payment_percentage)
+     });
+ 
+     return milestonePaymentPercentage;
+}
    //validations 
     $('form').validate({
                 focusInvalid: false, 
