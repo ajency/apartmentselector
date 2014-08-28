@@ -261,6 +261,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            $('#mainsvg' ).text ""
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
                 $('#unselectall' ).prop 'checked', true
             else
@@ -278,6 +279,8 @@ define [ 'marionette' ], ( Marionette )->
             $('<div></div>').load(source2).appendTo("#svg3")
             $('<div></div>').load(source3).appendTo("#svg4")
             $('<div></div>').load(floorsvg).appendTo("#floorsvg")
+            $('<div></div>').load(floorsvg).appendTo("#mainsvg")
+
 
             $('#sliderplans').liquidSlider(
                 slideEaseFunction: "fade",

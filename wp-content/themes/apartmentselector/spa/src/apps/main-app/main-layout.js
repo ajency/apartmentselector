@@ -4,7 +4,11 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm'], function(Extm) {
-  var MainController, mainView;
+  var MainController, facing, facingnames, mainView, view, viewnames;
+  view = [];
+  facing = [];
+  facingnames = [];
+  viewnames = [];
   MainController = (function(_super) {
     __extends(MainController, _super);
 
@@ -32,7 +36,9 @@ define(['extm'], function(Extm) {
     MainController.prototype._getView = function() {
       return new mainView({
         templateHelpers: {
-          SITEURL: SITEURL
+          SITEURL: SITEURL,
+          VIEWS: VIEWS,
+          FACINGS: FACINGS
         }
       });
     };
@@ -47,9 +53,50 @@ define(['extm'], function(Extm) {
       return mainView.__super__.constructor.apply(this, arguments);
     }
 
-    mainView.prototype.template = '<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2"> <h3>My Menu</h3> <ul> <li ><a href="#"><span class="glyphicon glyphicon-heart"></span> Wishlist</a> <ul class="menuWishlist" id="showWishlist"> <li><a href="#">Wishlist 1</a></li> <li><a href="#">Wishlist 2</a></li> </ul> </li> </ul> <a href="#" id="compare" >Compare</a> </nav> <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3"> <div class="row m-l-0 m-r-0"> <div class="col-sm-3"> <!--<h3>Additional Filters</h3>--> <div class="small blockTitle">Select Position</div> <div class="floorPlan"></div> </div> <div class="col-sm-3 b-l b-r b-grey"> <div class="small blockTitle">Select View</div> <div class="filterBox"> <input type="checkbox" name="fliter1" id="fliter1" class="checkbox" value="0"/> <label for="fliter1">Filter 1</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter2" id="fliter2" class="checkbox" value="0"/> <label for="fliter2">Filter 2</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter3" id="fliter3" class="checkbox" value="0"/> <label for="fliter3">Filter 3</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter4" id="fliter4" class="checkbox" value="0"/> <label for="fliter4">Filter 4</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter5" id="fliter5" class="checkbox" value="0"/> <label for="fliter5">Filter 5</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter6" id="fliter6" class="checkbox" value="0"/> <label for="fliter6">Filter 6</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter7" id="fliter7" class="checkbox" value="0"/> <label for="fliter7">Filter 7</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter8" id="fliter8" class="checkbox" value="0"/> <label for="fliter8">Filter 8</label> </div> <div class="clearfix"></div> </div> <div class="col-sm-3 b-r b-grey"> <div class="small blockTitle">Select Facing</div> <div class="filterBox"> <input type="checkbox" name="fliter9" id="fliter9" class="checkbox" value="0"/> <label for="fliter9">Filter 9</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter10" id="fliter10" class="checkbox" value="0"/> <label for="fliter10">Filter 10</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter11" id="fliter11" class="checkbox" value="0"/> <label for="fliter11">Filter 11</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter12" id="fliter12" class="checkbox" value="0"/> <label for="fliter12">Filter 12</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter13" id="fliter13" class="checkbox" value="0"/> <label for="fliter13">Filter 13</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter14" id="fliter14" class="checkbox" value="0"/> <label for="fliter14">Filter 14</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter15" id="fliter15" class="checkbox" value="0"/> <label for="fliter15">Filter 15</label> </div> <div class="filterBox"> <input type="checkbox" name="fliter16" id="fliter16" class="checkbox" value="0"/> <label for="fliter16">Filter 16</label> </div> <div class="clearfix"></div> </div> <div class="col-sm-3 summaryBox"> <div class="small blockTitle">Option Selected</div> <div class="section"> <div class="small">Position</div> 5 </div> <div class="section"> <div class="small">View</div> Lake, Garden </div> <div class="section"> <div class="small">Facing</div> SE </div> <a href="#" class="btn btn-primary m-t-20 m-b-10" id="">Apply</a> </div> </div> </nav> <div id="screen-one-region" > </div> <div id="screen-two-region" > </div> <div id="screen-three-region" > </div> <div id="screen-four-region" > </div>';
+    mainView.prototype.template = '<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2"> <h3>My Menu</h3> <ul> <li ><a href="#"><span class="glyphicon glyphicon-heart"></span> Wishlist</a> <ul class="menuWishlist" id="showWishlist"> <li><a href="#">Wishlist 1</a></li> <li><a href="#">Wishlist 2</a></li> </ul> </li> </ul> <a href="#" id="compare" >Compare</a> </nav> <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3"> <div class="row m-l-0 m-r-0"> <div class="col-sm-3"> <!--<h3>Additional Filters</h3>--> <div class="small blockTitle">Select Position</div> <div id="mainsvg"><label id="floorText">Floormap can be selected only on screen three</label></div> </div> <div class="col-sm-3 b-l b-r b-grey"> <div class="small blockTitle">Select View</div> {{#VIEWS}} <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" class="checkbox view" value="{{id}}"/> <label for="view{{id}}">{{name}}</label> </div> {{/VIEWS}} <div class="clearfix"></div> </div> <div class="col-sm-3 b-r b-grey"> <div class="small blockTitle">Select Facing</div> {{#FACINGS}} <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" class="checkbox facing" value="{{id}}"/> <label for="facing{{id}}">{{name}}</label> </div> {{/FACINGS}} <div class="clearfix"></div> </div> <div class="col-sm-3 summaryBox"> <div class="small blockTitle">Option Selected</div> <div class="section"> <div class="small">Position</div> 5 </div> <div class="section"> <div class="small" >View</div> <span id="viewName"></span> </div> <div class="section"> <div class="small" >Facing</div> <span id="facingName"></span> </div> <a href="#" class="btn btn-primary m-t-20 m-b-10" id="">Apply</a> </div> </div> </nav> <div id="screen-one-region" > </div> <div id="screen-two-region" > </div> <div id="screen-three-region" > </div> <div id="screen-four-region" > </div>';
 
     mainView.prototype.events = {
+      'click .view': function(e) {
+        var index, viewString;
+        viewString = 'All';
+        if ($('#' + e.target.id).prop('checked') === true) {
+          view.push($('#' + e.target.id).val());
+          viewnames.push($('#' + e.target.id).attr('data-name'));
+        } else {
+          console.log(index = view.indexOf($('#' + e.target.id).val()));
+          if (index !== -1) {
+            view.splice(index, 1);
+            viewnames.splice(index, 1);
+          }
+        }
+        if (view.length !== 0) {
+          viewString = view.join(',');
+        }
+        App.defaults['view'] = viewString;
+        $('#viewName').text(viewnames.join(','));
+        return console.log(App.defaults);
+      },
+      'click .facing': function(e) {
+        var facingString, index;
+        facingString = 'All';
+        console.log($('#' + e.target.id));
+        if ($('#' + e.target.id).prop('checked') === true) {
+          facing.push($('#' + e.target.id).val());
+          facingnames.push($('#' + e.target.id).attr('data-name'));
+        } else {
+          console.log(index = facing.indexOf($('#' + e.target.id).val()));
+          if (index !== -1) {
+            facing.splice(index, 1);
+            facingnames.splice(index, 1);
+          }
+        }
+        if (facing.length !== 0) {
+          facingString = facing.join(',');
+        }
+        App.defaults['facing'] = facingString;
+        $('#facingName').text(facingnames.join(','));
+        return console.log(App.defaults);
+      },
       'click #compare': function(e) {
         var body, menuRight, menuTop, showRightPush, showTop, win;
         console.log($.cookie("key"));

@@ -90,7 +90,7 @@ add_action( 'init', 'apartmentselector_after_init' );
 
 
 if ( is_development_environment() ) {
-
+ 
     function apartmentselector_dev_enqueue_scripts() {
 
     //check not to enqueue frontend scritps for backend
@@ -140,6 +140,7 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "PAYMENTPLANS", get_payment_plans() );
             wp_localize_script( "requirejs", "MILESTONES", get_milestones() );
             wp_localize_script( "requirejs", "SETTINGS", get_apratment_selector_settings() );
+            wp_localize_script( "requirejs", "USER", get_ap_current_user() );
 
 
         }
@@ -193,6 +194,7 @@ if (! is_development_environment() ) {
             wp_localize_script( "$module-script", "PAYMENTPLANS", get_payment_plans() );
             wp_localize_script( "$module-script", "MILESTONES", get_milestones() );
             wp_localize_script( "$module-script", "SETTINGS", get_apratment_selector_settings() );
+            wp_localize_script( "$module-script", "USER", get_ap_current_user() );
         }
     }
 

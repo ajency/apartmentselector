@@ -29,6 +29,8 @@ require [ 'plugin-loader'
     # global application object
     window.App = new Extm.Application
 
+    App.layout = ""
+
     # add your application main regions here
     App.addRegions
         headerRegion : '#header-region'
@@ -61,24 +63,18 @@ require [ 'plugin-loader'
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
 
-    # global variable to keep track of the unit the user has clicked on
-    App.unit = {name:'',flag:0}
-
-    # global variable to keep track of the filter the user has selected  on the first screen
-    App.screenOneFilter = {key:'',value:''}
-
     # global variable to keep track of the filter the user has selected on the previous screen
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[],'back':""}
 
     # global variable to keep track of the filtr the user has selected
-    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All'}
+    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All'}
 
 
 
-    App.layout = ""
 
 
-    App.range = range
+
+
 
     
     #filter function which takes the parameters into account anf filters the current store.
@@ -107,16 +103,16 @@ require [ 'plugin-loader'
 
             #set the params with the filters selected by the user
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&facing='+App.defaults['facing']
         else
 
             #url doesnt contain any parameters take the value of the defaults
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&facing='+App.defaults['facing']
 
 
 
-
+        console.log params
         param_arr = params.split('&')
         budgetUnitArray = []
         $.each(param_arr, (index,value)->
@@ -130,11 +126,24 @@ require [ 'plugin-loader'
             if param_val_arr.length > 1
                 collection = []
                 #loop through each value
+                unitSplitArray = []
                 $.each(param_val_arr, (index,value)->
                     paramkey = {}
                     collectionNew = []
+
                     paramkey[param_key] = parseInt(value)
-                    collectionNew = App.currentStore.unit.where(paramkey)
+                    console.log collectionNew = App.currentStore.unit.where(paramkey)
+                    if collectionNew.length == 0
+                        console.log units = App.currentStore.unit
+                        units.each( (item)->
+                            console.log item.get('facing')
+                            console.log value
+                            if $.inArray(value,item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                                unitSplitArray.push item
+
+                        collectionNew = unitSplitArray
+
+                        )
                     #loop through the filtered collection and get the updated collection
                     $.each(collectionNew , (index,value)->
                         collection.push value
@@ -157,7 +166,18 @@ require [ 'plugin-loader'
                     collection  = budgetUnitArray
                     #if filter is set to a value
                 else
+                    unitSplitArray = []
                     collection =  App.currentStore.unit.where(paramkey)
+                    console.log units = App.currentStore.unit
+                    if collection.length == 0
+                        units.each( (item)->
+                            console.log item.get('views')
+                            console.log value_arr[1]
+                            if $.inArray(value_arr[1],item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                                unitSplitArray.push item
+                        )
+                        collection = unitSplitArray
+
 
 
             App.currentStore.unit.reset collection
@@ -229,6 +249,14 @@ require [ 'plugin-loader'
     staticApps = [
 
     ]
+
+    # global variable to keep track of the unit the user has clicked on
+    App.unit = {name:'',flag:0}
+
+    # global variable to keep track of the filter the user has selected  on the first screen
+    App.screenOneFilter = {key:'',value:''}
+
+
 
     if window.location.hash is ''
         App.filter()

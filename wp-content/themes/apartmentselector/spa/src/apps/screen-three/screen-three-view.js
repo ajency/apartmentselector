@@ -204,6 +204,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.onShow = function() {
       var $columns_number, floorsvg, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      $('#mainsvg').text("");
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
         $('#unselectall').prop('checked', true);
       } else {
@@ -221,6 +222,7 @@ define(['marionette'], function(Marionette) {
       $('<div></div>').load(source2).appendTo("#svg3");
       $('<div></div>').load(source3).appendTo("#svg4");
       $('<div></div>').load(floorsvg).appendTo("#floorsvg");
+      $('<div></div>').load(floorsvg).appendTo("#mainsvg");
       $('#sliderplans').liquidSlider({
         slideEaseFunction: "fade",
         autoSlide: true,

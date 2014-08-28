@@ -160,6 +160,7 @@ define(['marionette'], function(Marionette) {
       $(".discountToggle").click(function() {
         $(".discountBox").slideToggle();
       });
+      this.trigger("get:perSqft:price");
       $(document).on('open', '.remodal', function() {
         $('.radioClass').on('click', function() {
           console.log($('input[name=discountradio]:checked').val());
@@ -207,35 +208,6 @@ define(['marionette'], function(Marionette) {
           return ret;
         });
       });
-      $(document).on('opened', '.remodal', function() {
-        $('#infra').on('change', function() {
-          console.log("qqqqqqqqqqqqq");
-          console.log(infraid = $('#infra').val());
-          return object.updated();
-        });
-        $('#infra1').on('change', function() {
-          console.log("qqqqqqqqqqqqq");
-          console.log(infraid = $('#infra').val());
-          return object.updated();
-        });
-        $('#discountvalue').on('change', function() {
-          perFlag = 1;
-          return object.generateCostSheet();
-        });
-        $('#discountper').on('change', function() {
-          perFlag = 2;
-          return object.generateCostSheet();
-        });
-        $('#payment').on('change', function() {
-          return object.generateCostSheet();
-        });
-        return $('#paymentplans').on('change', function() {
-          var id;
-          id = $('#' + this.id).val();
-          object.generatePaymentSchedule(id);
-          return object.getMilestones(id);
-        });
-      });
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js';
       document.body.appendChild(scr);
@@ -259,7 +231,6 @@ define(['marionette'], function(Marionette) {
       App.cookieArray = cookieOldValue;
       this.showWishList();
       object = this;
-      this.generateCostSheet();
       perFlag = "";
       costSheetArray = [];
       flag = 0;
@@ -295,6 +266,10 @@ define(['marionette'], function(Marionette) {
       return $('#showWishlist').html(table);
     };
 
+    ScreenFourLayout.prototype.onShowCostSheet = function() {
+      return this.generateCostSheet();
+    };
+
     ScreenFourLayout.prototype.generateCostSheet = function() {
       var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _j, _len, _len1;
       $('table#costSheetTable tr').remove();
@@ -307,19 +282,19 @@ define(['marionette'], function(Marionette) {
         id: unitModel.get('unitVariant')
       });
       costSheetArray.push(uniVariantModel.get('sellablearea'));
-      costSheetArray.push(uniVariantModel.get('persqftprice'));
+      costSheetArray.push(unitModel.get('persqftprice'));
       discount = 0;
       console.log(perFlag);
       if (perFlag === 1) {
         console.log(parseFloat(uniVariantModel.get('sellablearea')));
-        console.log(parseFloat(uniVariantModel.get('persqftprice')));
-        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
+        console.log(parseFloat(unitModel.get('persqftprice')));
+        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
       } else if (perFlag === 2) {
         pervalue = parseFloat($('#discountper').val()) / 100;
-        discount = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue);
+        discount = parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue);
       }
       discount = Math.ceil(discount.toFixed(2));
-      revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(discount));
+      revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount));
       costSheetArray.push(revisedrate);
       basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
       costSheetArray.push(basicCost);
@@ -539,19 +514,19 @@ define(['marionette'], function(Marionette) {
         id: unitModel.get('unitVariant')
       });
       costSheetArray.push(uniVariantModel.get('sellablearea'));
-      costSheetArray.push(uniVariantModel.get('persqftprice'));
+      costSheetArray.push(unitModel.get('persqftprice'));
       discount = 0;
       console.log(perFlag);
       if (perFlag === 1) {
         console.log(parseFloat(uniVariantModel.get('sellablearea')));
-        console.log(parseFloat(uniVariantModel.get('persqftprice')));
-        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
+        console.log(parseFloat(unitModel.get('persqftprice')));
+        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
       } else if (perFlag === 2) {
         pervalue = parseFloat($('#discountper').val()) / 100;
-        discount = parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue);
+        discount = parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue);
       }
       discount = Math.ceil(discount.toFixed(2));
-      revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(discount));
+      revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount));
       costSheetArray.push(revisedrate);
       basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
       costSheetArray.push(basicCost);
@@ -689,6 +664,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitMainView.prototype.onShow = function() {
+      console.log(this.model.get("unitVariant"));
       return $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,

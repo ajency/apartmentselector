@@ -349,7 +349,10 @@ Version:        0.1.0
   margin-top:9px;  
   width:75px;
 }
-
+.form-label-inline-long{
+  margin-top:9px;  
+  width:100%;
+}
 .form-label-prefix{ 
   width:15px;
 }
@@ -376,7 +379,7 @@ color: #006CD9;
 #milestone-list li span { position: absolute; margin-left: -1.3em; }
 
 .form-control-medium{
-  width:250px !important;
+  width:150px !important;
   display:inline !important;
  }
 .form-control-small{
@@ -523,6 +526,7 @@ color: #006CD9;
 .custli{
 	padding-left:6px !important;
 }
+ .form-control-list { list-style-type: none; margin: 0; padding: 0;   }
  
  
  
