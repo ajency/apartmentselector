@@ -834,57 +834,15 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<div class="row m-l-0 m-r-0">
         						<div class="col-sm-4 p-b-10">
-        							<div class="liquid-slider center-block" id="slider-plans">
-        								<div>
-        									<h2 class="title">2D Layout</h2>
-        									<img src="{{TwoDimage}}" class="img-responsive">
-        								</div>
-        								<div>
-        									<h2 class="title">3D Layout</h2>
-        									<img src="{{ThreeDimage}}" class="img-responsive">
-        								</div>
-        								<div>
-        									<h2 class="title">Floor Layout</h2>
-        									<img src="{{floorLayoutimage}}" class="img-responsive">
-        								</div>
-        								<div>
-        									<h2 class="title">Building Position</h2>
-        									<img src="{{BuildingPositionimage}}" class="img-responsive">
-        								</div>
-        							</div>
-        						</div>
-        						<!--<div class="col-sm-8">
-        							<h4 class="bold">FLAT SUMMARY</h4>
-        							<div class="summary">
-                                        <div class="row">
-        									<div class="col-xs-6">CARPET AREA</div>
-        									<div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div>
-        								</div>
-        								<div class="row">
-        									<div class="col-xs-6">TERRACE AREA</div>
-        									<div class="col-xs-6 text-right text-primary">{{terracearea}} sqft</div>
-        								</div>
-        								<div class="row">
-        									<div class="col-xs-6">CHARGEABLE AREA</div>
-        									<div class="col-xs-6 text-right text-primary">{{sellablearea}} sqft</div>
-        								</div>
-        								<div class="row">
-        									<div class="col-xs-6">PRICE per SQ.FT - starts from</div>
-        									<div class="col-xs-6 text-right text-primary">-</div>
-        								</div>
-        							</div>
-        						</div>-->
-                                <div class="col-sm-8 b-grey b-l">
-
                                     <div class="unitDetails">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-lg-6">
                                                 <div class="unitBox unitNmbr">
                                                     <h3>{{name}}</h3>
                                                     <h4 class="titles"><span class="sky-flag"></span> Flat No.</h4>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-lg-6">
                                                 <div class="unitBox chargeArea">
                                                     <h3>{{sellablearea}} <span class="light">Sq.Ft.</span></h3>
                                                     <h4 class="titles"><span class="sky-banknote"></span> Chargeable Area</h4>
@@ -925,7 +883,49 @@ define [ 'marionette' ], ( Marionette )->
                                             </div>
                                         </div>
                                     </div>
+        						</div>
 
+        						<!--<div class="col-sm-8">
+        							<h4 class="bold">FLAT SUMMARY</h4>
+        							<div class="summary">
+                                        <div class="row">
+        									<div class="col-xs-6">CARPET AREA</div>
+        									<div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-xs-6">TERRACE AREA</div>
+        									<div class="col-xs-6 text-right text-primary">{{terracearea}} sqft</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-xs-6">CHARGEABLE AREA</div>
+        									<div class="col-xs-6 text-right text-primary">{{sellablearea}} sqft</div>
+        								</div>
+        								<div class="row">
+        									<div class="col-xs-6">PRICE per SQ.FT - starts from</div>
+        									<div class="col-xs-6 text-right text-primary">-</div>
+        								</div>
+        							</div>
+        						</div>-->
+
+                                <div class="col-sm-8 b-grey b-l">
+                                    <div class="liquid-slider center-block" id="slider-plans">
+                                        <div>
+                                            <h2 class="title">2D Layout</h2>
+                                            <img src="{{TwoDimage}}" class="img-responsive">
+                                        </div>
+                                        <div>
+                                            <h2 class="title">3D Layout</h2>
+                                            <img src="{{ThreeDimage}}" class="img-responsive">
+                                        </div>
+                                        <div>
+                                            <h2 class="title">Floor Layout</h2>
+                                            <img src="{{floorLayoutimage}}" class="img-responsive">
+                                        </div>
+                                        <div>
+                                            <h2 class="title">Building Position</h2>
+                                            <img src="{{BuildingPositionimage}}" class="img-responsive">
+                                        </div>
+                                    </div>
                                 </div>
         					</div>
         					<!--<div class="row m-l-0 m-r-0 m-t-20 p-t-20 b-grey b-t">
@@ -996,7 +996,8 @@ define [ 'marionette' ], ( Marionette )->
                 autoSlideInterval: 4000,
                 forceAutoSlide: true,
                 mobileNavigation: false,
-                hideArrowsWhenMobile: false
+                hideArrowsWhenMobile: false,
+                dynamicTabsAlign: "center"
 
 
             )
