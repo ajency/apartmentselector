@@ -379,10 +379,28 @@ function get_unit_variants_persqftprice($variant_id=0){
    
  
 
- return ($results[$variant_id]->metas['persqftprice']);
+ return (floatval($results[$variant_id]->metas['persqftprice']));
  
 
 }
+
+
+//get_unit_variants_persqftprice
+function ajax_get_unit_variants_persqftprice(){
+ 
+$variant_id = $_REQUEST["variant_id"]; 
+
+$response = json_encode( get_unit_variants_persqftprice($variant_id) );
+
+header( "Content-Type: application/json" );
+
+echo $response;
+
+exit;
+}
+add_action('wp_ajax_get_unit_variants_persqftprice','ajax_get_unit_variants_persqftprice'); 
+
+
 //function to get names of the room types for sizes 
 function get_room_type_for_sizes_name($data){
 

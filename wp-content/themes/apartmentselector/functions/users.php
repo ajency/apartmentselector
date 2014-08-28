@@ -265,5 +265,5 @@ function get_ap_current_user(){
 
     }
 
-    formatted_echo($ap_current_user);
+    
 }
