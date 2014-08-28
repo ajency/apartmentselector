@@ -355,8 +355,7 @@ function get_unit_variants($variant_id=0){
                                     'name'=>$result->metas['name'] ,
                                     'carpetarea'=>$result->metas['carpetarea'] ,
                                     'sellablearea'=>$result->metas['sellablearea'],
-                                    'terracearea'=>$result->metas['terracearea'], 
-                                    'persqftprice'=>$result->metas['persqftprice'],
+                                    'terracearea'=>$result->metas['terracearea'],  
                                     'premiumaddon'=>$result->metas['premiumaddon'],
                                     'url2dlayout_image'=>$url2dlayout_image[0],
                                     'url3dlayout_image'=>$url3dlayout_image[0],
@@ -369,6 +368,21 @@ function get_unit_variants($variant_id=0){
 }
 
 
+function get_unit_variants_persqftprice($variant_id=0){
+
+    global $frm_entry;
+    if($variant_id==0){
+     $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
+    }else{
+       $results=   $frm_entry->getAll(array('it.id' => $variant_id),'','',true);  
+    }
+   
+ 
+
+ return ($results[$variant_id]->metas['persqftprice']);
+ 
+
+}
 //function to get names of the room types for sizes 
 function get_room_type_for_sizes_name($data){
 
