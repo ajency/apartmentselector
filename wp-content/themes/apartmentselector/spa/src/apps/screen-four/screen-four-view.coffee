@@ -370,7 +370,7 @@ define [ 'marionette' ], ( Marionette )->
             App.cookieArray = cookieOldValue
             @showWishList()
             object = @
-            @generateCostSheet()
+            #@generateCostSheet()
             perFlag = ""
             costSheetArray = []
             flag = 0
@@ -395,6 +395,9 @@ define [ 'marionette' ], ( Marionette )->
             console.log table
             $('#showWishlist').html table
 
+        onShowCostSheet:->
+            @generateCostSheet()
+
 
         generateCostSheet:->
             $('table#costSheetTable tr' ).remove()
@@ -403,19 +406,19 @@ define [ 'marionette' ], ( Marionette )->
             console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
-            costSheetArray.push(uniVariantModel.get('persqftprice'))
+            costSheetArray.push(unitModel.get('persqftprice'))
             discount = 0
             console.log perFlag
             if perFlag== 1
                 console.log parseFloat(uniVariantModel.get('sellablearea'))
-                console.log parseFloat(uniVariantModel.get('persqftprice'))
-                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+                console.log parseFloat(unitModel.get('persqftprice'))
+                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
                 pervalue = parseFloat($('#discountper').val())/100
-                discount = (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue))
+                discount = (parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue))
             discount = Math.ceil(discount.toFixed(2));
 
-            revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(discount))
+            revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
             basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)
@@ -644,19 +647,19 @@ define [ 'marionette' ], ( Marionette )->
             console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
-            costSheetArray.push(uniVariantModel.get('persqftprice'))
+            costSheetArray.push(unitModel.get('persqftprice'))
             discount = 0
             console.log perFlag
             if perFlag== 1
                 console.log parseFloat(uniVariantModel.get('sellablearea'))
-                console.log parseFloat(uniVariantModel.get('persqftprice'))
-                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(uniVariantModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+                console.log parseFloat(unitModel.get('persqftprice'))
+                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
                 pervalue = parseFloat($('#discountper').val())/100
-                discount = (parseFloat(uniVariantModel.get('persqftprice')) * parseFloat(pervalue))
+                discount = (parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue))
             discount = Math.ceil(discount.toFixed(2));
 
-            revisedrate = parseFloat(uniVariantModel.get('persqftprice')) - (parseFloat(discount))
+            revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
             basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)

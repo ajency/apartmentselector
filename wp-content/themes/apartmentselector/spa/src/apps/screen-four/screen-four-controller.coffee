@@ -194,8 +194,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 method: "POST" ,
                 url : AJAXURL+'?action=get_unit_variants_persqftprice',
                 data : 'variant_id='+unitModel.get('unitVariant'),
-                success :(result)-> console.log "eeeeeeeeeeeeeeeeee" ,
+                success :(result)-> 
+                    console.log "vieew"
                     unitModel.set 'persqftprice' , result
+                    object.layout.triggerMethod "show:cost:sheet" 
                 error:(result)->
 
             )
