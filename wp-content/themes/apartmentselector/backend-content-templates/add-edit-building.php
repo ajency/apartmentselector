@@ -203,7 +203,11 @@ $heading = "Edit";
                         <option value="<?php echo $payment_plan_milestone['milestone']; ?>"  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?>><?php echo  $payment_plan_milestone['name']?></option>
                     <?php }
 
-                    } ?>
+                    }else{
+                        ?>
+
+                        <?php
+                        } ?>
 
                 </select>
             </div>
