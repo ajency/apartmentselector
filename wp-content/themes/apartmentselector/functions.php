@@ -90,7 +90,7 @@ add_action( 'init', 'apartmentselector_after_init' );
 
 
 if ( is_development_environment() ) {
-
+ 
     function apartmentselector_dev_enqueue_scripts() {
 
     //check not to enqueue frontend scritps for backend

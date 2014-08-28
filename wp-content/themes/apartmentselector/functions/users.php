@@ -224,16 +224,19 @@ function get_ap_current_user(){
     global $user_ID,  $wp_roles ;
 
     $ap_current_user = array();
-    if($user_ID!=0){
+      $user_info = wp_get_current_user(); 
 
-        $user_info = get_userdata( $user_ID );
+ 
+    if($user_info->ID!=0){
+
+        
         $ap_current_user['id'] = $user_ID;
 
-        $ap_current_user['user_login'] = $user_info->user_login;
+        $ap_current_user['user_login'] = $user_info->data->user_login;
 
-        $ap_current_user['user_email'] = $user_info->user_email;
+        $ap_current_user['user_email'] = $user_info->data->user_email;
 
-        $ap_current_user['display_name'] = $user_info->display_name; 
+        $ap_current_user['display_name'] = $user_info->data->display_name; 
 
         $ap_current_user['role'] =  key($user_info->caps) ;
 
@@ -265,5 +268,5 @@ function get_ap_current_user(){
 
     }
 
-    
+    return  $ap_current_user ;
 }
