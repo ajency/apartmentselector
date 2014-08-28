@@ -601,6 +601,7 @@ define [ 'marionette' ], ( Marionette )->
             table = ""
             count = 0
             milestoneColl = new Backbone.Collection MILESTONES
+            milestonecompletion: {48:'26/08/2014', 52:'30/08/2014'}
             for element in milestonesArray
                 percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
                 percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))

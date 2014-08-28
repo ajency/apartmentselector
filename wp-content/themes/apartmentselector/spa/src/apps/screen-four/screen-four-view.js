@@ -457,6 +457,12 @@ define(['marionette'], function(Marionette) {
       table = "";
       count = 0;
       milestoneColl = new Backbone.Collection(MILESTONES);
+      ({
+        milestonecompletion: {
+          48: '26/08/2014',
+          52: '30/08/2014'
+        }
+      });
       for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
         element = milestonesArray[_i];
         percentageValue = agreementValue * ((parseFloat(element.payment_percentage)) / 100);
