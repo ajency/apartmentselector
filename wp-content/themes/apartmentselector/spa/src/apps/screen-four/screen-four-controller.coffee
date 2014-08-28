@@ -93,26 +93,46 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                 console.log roomSizesArray = unitVariantModel.get 'roomsizes'
-                bedroomArray = []
-                toiletArray = []
+                roomsizearray = []
                 $.each(roomSizesArray, (index,value1)->
-                    if value1.room_type == 'Bedroom'
-                        bedroomArray.push({size: value1.room_size})
-                    if value1.room_type == 'Toilet'
-                        toiletArray.push({size: value1.room_size})
-                    if value1.room_type == 'Kitchen'
-                        value.set 'Kitchen' , value1.room_size
-                    if value1.room_type == 'Terrace'
-                        value.set 'Terrace' , value1.room_size
-                    if value1.room_type == 'Terrace'
-                        value.set 'Terrace' , value1.room_size
+                    roomsizearray.push({size: value1.room_size, type: value1.room_type})
+
 
 
 
                 )
+                viewModelArray = []
+                facingModelArray = []
+                console.log value.get('views')
+                if value.get('views') != ""
+                    viewsArray = value.get('views')
+                    console.log viewsArray.length
+                    for element in viewsArray
+                        viewModel = App.master.view.findWhere({id:parseInt(element)})
+                        viewModelArray.push(viewModel.get('name'))
+                else
+                    viewModelArray.push('-----')
+                value.set 'views',viewModelArray.join(',')
+                facingssArray = value.get('facing' )
+                if facingssArray.length != 0
+                    for element in facingssArray
+                        facingModel = App.master.facings.findWhere({id:parseInt(element)})
+                        facingModelArray.push(facingModel.get('name'))
+
+                else
+                    facingModelArray.push('-----')
+
+                terraceoptions = unitVariantModel.get 'terraceoptions'
+                if terraceoptions == null
+                    terraceoptionstext = '---------'
+                else
+                    terraceoptionstext = unitVariantModel.get 'terraceoptions'
+
+                value.set 'facings',facingModelArray.join(',')
                 value.set 'floorLayoutimage' , floorLayoutimage
                 value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
-                value.set 'toiletArray' , toiletArray
+                value.set 'roomsizearray' , roomsizearray
+                value.set 'terraceoptions' , terraceoptionstext
 
 
 
