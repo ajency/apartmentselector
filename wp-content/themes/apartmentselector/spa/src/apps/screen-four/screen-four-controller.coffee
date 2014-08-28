@@ -193,8 +193,9 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
             $.ajax(
                 method: "POST" ,
                 url : AJAXURL+'?action=get_unit_variants_persqftprice',
-                data : 'unitvaraintid='+unitModel.get('variant_id'),
+                data : 'variant_id='+unitModel.get('unitVariant'),
                 success :(result)-> console.log "eeeeeeeeeeeeeeeeee" ,
+                    unitModel.set 'persqftprice' , result
                 error:(result)->
 
             )
