@@ -19,10 +19,11 @@
 
 	function init() {
 
-		var container = document.getElementById( 'vs-container' ),
+		var container = document.getElementById( 'vs-container2' ),
+			container1 = document.getElementById( 'Layer_2' ),
 			wrapper = container.querySelector( 'div.vs-wrapper' ),
 			sections = Array.prototype.slice.call( wrapper.querySelectorAll( 'section' ) ),
-			links = Array.prototype.slice.call( container.querySelectorAll( 'header.vs-header > ul.vs-nav > li' ) ),
+			links = Array.prototype.slice.call( container1.querySelectorAll( 'a.tower-link' ) ),
 			sectionsCount = sections.length,
 			transEndEventNames = {
 				'WebkitTransition': 'webkitTransitionEnd',
@@ -33,6 +34,8 @@
 			},
 			transEndEventName = transEndEventNames[Modernizr.prefixed( 'transition' )],
 			eventtype = mobilecheck() ? 'touchstart' : 'click';
+			console.log(sections);
+			console.log(links);
 
 		// add navigation elements
 		if( sectionsCount >= 3 && Modernizr.csstransforms3d ) {
@@ -122,7 +125,7 @@
 
 						current = current > 0 ? current - 1 : sectionsCount - 1;
 					}
-
+					console.log("Remove"+invDir);
 					classie.remove( container, 'vs-move-' + invDir );
 					isAnimating = false;
 				}

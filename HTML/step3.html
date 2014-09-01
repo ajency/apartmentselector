@@ -51,12 +51,12 @@
 		
 		<h3 class="text-center introTxt m-b-30">We have <span class="bold text-primary">25 options</span> for 1BHK <br><small>Select your flat to get started</small></h3>
 
-		<a class="customLink" data-target="1">Link to slide number 1</a><br />
+		<div id="links"><a class="customLink" data-target="1">Link to slide number 1</a><br />
 		<a class="customLink" data-target="next">Link to the next slide</a><br />
 		<a class="customLink" data-target="last">Link to the last slide</a><br />
 		<a class="customLink" data-target="prev">Link to the previous slide</a><br />
 		<a class="customLink" data-target="3">Link to slide number 3</a><br />
-		<a class="customLink" data-target="first">Link to the first slide</a><br />
+		<a class="customLink" data-target="first">Link to the first slide</a><br /></div>
 
 		<div class="unitTable" id="slider">
 			<div>
@@ -1631,6 +1631,11 @@
 
 	var sudoSlider = $("#slider").sudoSlider({
        customLink:'a.customLink',
+       prevNext:false
+    });
+	var sudoSlider = $("#links").sudoSlider({
+       customLink:'a.customLink',
+	   slideCount: 3,
        prevNext:false
     });
 

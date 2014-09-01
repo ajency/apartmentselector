@@ -322,6 +322,7 @@ define [ 'marionette' ], ( Marionette )->
                 @trigger "get:perSqft:price"
             else
                 $('.costsheetbutton').hide()
+                #@trigger "get:perSqft:price"
                 
 
             $(document).on('open', '.remodal',  () ->
