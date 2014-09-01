@@ -165,7 +165,7 @@ define(['marionette'], function(Marionette) {
       if (usermodel.get('id') !== "0" && $.inArray('see_cost_sheet', capability) >= 0) {
         this.trigger("get:perSqft:price");
       } else {
-        this.trigger("get:perSqft:price");
+        $('.costsheetbutton').hide();
       }
       $(document).on('open', '.remodal', function() {
         $('.radioClass').on('click', function() {
