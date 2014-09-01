@@ -524,6 +524,44 @@ div.cs-skin-underline {
 	content: "\e600";
 }
 
+@font-face {
+	font-family: 'cost-icons';
+	src:url('../fonts/cost-icons.eot?ytzu8v');
+	src:url('../fonts/cost-icons.eot?#iefixytzu8v') format('embedded-opentype'),
+		url('../fonts/cost-icons.woff?ytzu8v') format('woff'),
+		url('../fonts/cost-icons.ttf?ytzu8v') format('truetype'),
+		url('../fonts/cost-icons.svg?ytzu8v#cost-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="cost-"], [class*=" cost-"] {
+	font-family: 'cost-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.cost-uniE600:before {
+	content: "\e600";
+}
+.cost-office:before {
+	content: "\e601";
+}
+.cost-paint-format:before {
+	content: "\e602";
+}
+.cost-library:before {
+	content: "\e603";
+}
+
 /*
  *  Liquid Slider v2
  *  Copyright 2012 Kevin Batdorf
@@ -9932,8 +9970,8 @@ input.checkbox:checked ~ label:before {
   color: #999999;
 }
 .paymentDetails {
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
   margin-top: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -9947,6 +9985,62 @@ input.checkbox:checked ~ label:before {
 }
 .discountBox {
   display: none;
+}
+.costsRow {
+  width: 100%;
+  padding: 10px 8px;
+  border-bottom: 1px solid #eeeeee;
+  font-weight: 400;
+}
+.costsRow .costCell {
+  display: inline-block;
+  width: 24%;
+  text-align: right;
+}
+.costsRow .costCell.discCol {
+  visibility: hidden;
+}
+.costsRow .costCell.discCol.showDisc {
+  visibility: visible;
+}
+.costsRow .costName {
+  width: 48%;
+  text-align: left;
+}
+.costsRow.totals {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  border-top: 2px solid #ffa366;
+  border-bottom: 2px solid #ffa366;
+  margin-bottom: 25px;
+}
+.costsRow.totals small,
+.costsRow.totals .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.costsRow.totals small,
+.costsRow.totals .small {
+  font-size: 75%;
+}
+.costsRow.totals.title {
+  border: none;
+  background-color: #ffa366;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+.headers {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eeeeee;
 }
 .this-is {
   padding: 0;
@@ -10550,7 +10644,7 @@ body {
   content: "\e014";
 }
 .cbp-spmenu-top {
-  top: -310px;
+  top: -400px;
 }
 @media (max-width: 767px) {
   .cbp-spmenu-top {

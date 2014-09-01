@@ -137,7 +137,9 @@ define [ 'marionette' ], ( Marionette )->
             				<section class="invoice-financials">
 
                                 <div class="invoice-items">
-            						<table id="costSheetTable">
+            						<div id="costSheetTable">
+                                    </div>
+                                    <!--<table id="costSheetTable">
             							<caption>Your Invoice</caption>
             							<thead>
             								<tr>
@@ -150,7 +152,7 @@ define [ 'marionette' ], ( Marionette )->
 
             							</tbody>
 
-            						</table>
+            						</table>-->
             					</div>
 
                                 <div class="invoice-items">
@@ -448,7 +450,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
         generateCostSheet:->
-            $('table#costSheetTable tr' ).remove()
+            $('#costSheetTable' ).text ""
             costSheetArray = []
             console.log App.unit['name']
             $('.flatno').text App.unit['name']
@@ -517,13 +519,66 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            table += '<tr><td>Chargeable Area</td><td>'+costSheetArray[0]+'</td><td>'+costSheetArray[0]+'</td></tr>
-                                   <tr><td>Rate Per Sq. Ft. Rs.</td><td>'+costSheetArray[1]+'</td><td>'+costSheetArray[1]+'</td></tr>
-                                    <tr><td>Revised Rate</td><td>--</td><td>'+costSheetArray[2]+'</td></tr>
-                                    <tr><td>Basic Cost Rs.</td><td>'+(costSheetArray[0] * costSheetArray[1])+'</td><td>'+costSheetArray[3]+'</td></tr>
+            table += '  
+                        <div class="costsRow totals title">
+                            <div class="costCell costName">Cost Type</div>
+                            <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div>
+                            <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div>
+                        </div>
+                        
+                        <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5>
 
-                                    <tr><td>Infrastructure and Developement Charges.</td><td><select id="infra1"></select></td><td><select id="infra"></select></td></tr>'
-            $('table#costSheetTable tbody' ).append table
+                        <div class="costsRow">
+                            <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
+                            <div class="costCell discCol showDisc">'+costSheetArray[0]+'</div>
+                            <div class="costCell">'+costSheetArray[0]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Rate per Sq.Ft.</div>
+                            <div class="costCell discCol showDisc">'+costSheetArray[1]+'</div>
+                            <div class="costCell">'+costSheetArray[1]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Revised Rate</div>
+                            <div class="costCell discCol showDisc">--</div>
+                            <div class="costCell">'+costSheetArray[2]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Basic Cost</div>
+                            <div class="costCell discCol showDisc">'+(costSheetArray[0] * costSheetArray[1])+'</div>
+                            <div class="costCell">'+costSheetArray[3]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Infrastructure and Developement Charges</div>
+                            <div class="costCell discCol showDisc"><select id="infra1"></select></div>
+                            <div class="costCell"><select id="infra"></select></div>
+                        </div>
+                        <!--<tr>
+                            <td>Chargeable Area</td>
+                            <td>'+costSheetArray[0]+'</td>
+                            <td>'+costSheetArray[0]+'</td>
+                        </tr>
+                        <tr>
+                            <td>Rate Per Sq. Ft. Rs.</td>
+                            <td>'+costSheetArray[1]+'</td>
+                            <td>'+costSheetArray[1]+'</td>
+                        </tr>
+                        <tr>
+                            <td>Revised Rate</td>
+                            <td>--</td>
+                            <td>'+costSheetArray[2]+'</td>
+                        </tr>
+                        <tr>
+                            <td>Basic Cost Rs.</td>
+                            <td>'+(costSheetArray[0] * costSheetArray[1])+'</td>
+                            <td>'+costSheetArray[3]+'</td>
+                        </tr>
+                        <tr>
+                            <td>Infrastructure and Developement Charges.</td>
+                            <td><select id="infra1"></select></td>
+                            <td><select id="infra"></select></td>
+                        </tr>-->'
+            $('#costSheetTable' ).append table
             $('#infra' ).append infratxt
             $('#infra1' ).append infratxt
             console.log infraid
@@ -583,24 +638,133 @@ define [ 'marionette' ], ( Marionette )->
             console.log table
             $('.totalcost').text totalcost
             $('.rec').text count
-            table += '<tr><td>Agreement Amount Rs.</td><td><span id="agreement1">'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</span></td>
-                                    <td><span id="agreement">'+agreement+'</span></td></tr>
-                                    <tr><td>Stamp Duty Rs.</td><td>'+stamp_duty1+'</td><td>'+stamp_duty+'</td></tr>
-                                    <tr><td>Registration Amount Rs.</td><td>'+reg_amt1+'</td><td>'+reg_amt+'</td></tr>
-                                    <tr><td>VAT  Rs.</td><td>'+vat1+'</td><td>'+vat+'</td></tr>
-                                    <tr><td>Service Tax Rs.</td><td>'+sales_tax1+'</td><td>'+sales_tax+'</td></tr>
+            table += '  <div class="costsRow totals">
+                            <div class="costCell costName">Agreement Amount</div>
+                            <div class="costCell discCol showDisc"><span id="agreement1">'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</span></div>
+                            <div class="costCell"><span id="agreement">'+agreement+'</span></div>
+                        </div>
 
-                                   <tr><td>Total Cost Rs.</td><td><span id="totalcost1">'+totalcost1+'</span></td><td><span id="totalcost">'+totalcost+'</span></td></tr>
-                                    <tr><td>Maintenance Deposit.</td><td>'+maintenance+'</td><td>'+maintenance+'</td></tr>
-                                    <tr><td>Club membership + Service Tax.</td><td>'+membershipfees+'</td><td>'+membershipfees+'</td></tr>
-                                    <tr><td>Discount</td><td></td><td>'+costSheetArray[4]+'</td></tr>
-                                                <tr><td>Actual Payment</td><td></td><td>'+$('#payment').val()+'</td></tr>
-                                                <tr><td>Milestone Completed Till Date</td><td></td><td><select id="milestones"></select></td></tr>
-                                    <tr><td>Actual Receivable As On Date</td><td></td><td><span id="rec">'+count+'</span></td></tr>
-                                    <tr><td>Add On Payment</td><td></td><td><span id="addonpay">'+addon+'</span></td></tr>
-                                    <tr><td>Final Cost</td><td><span id="finalcost1">'+finalcost1+'</span></td><td><span id="finalcost">'+finalcost+'</span></td></tr>'
-            console.log $('table#costSheetTable tbody' )
-            $('table#costSheetTable tbody' ).append table
+                        <h5 class="headers"><span class="cost-library"></span> Government Charges</h5>
+                        <div class="costsRow">
+                            <div class="costCell costName">Stamp Duty</div>
+                            <div class="costCell discCol showDisc">'+stamp_duty1+'</div>
+                            <div class="costCell">'+stamp_duty+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Registration Amount</div>
+                            <div class="costCell discCol showDisc">'+reg_amt1+'</div>
+                            <div class="costCell">'+reg_amt+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">VAT</div>
+                            <div class="costCell discCol showDisc">'+vat1+'</div>
+                            <div class="costCell">'+vat+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Service Tax</div>
+                            <div class="costCell discCol showDisc">'+sales_tax1+'</div>
+                            <div class="costCell">'+sales_tax+'</div>
+                        </div>
+                        <div class="costsRow totals">
+                            <div class="costCell costName">Total Cost</div>
+                            <div class="costCell discCol showDisc">'+totalcost1+'</div>
+                            <div class="costCell">'+totalcost+'</div>
+                        </div>
+
+                        <h5 class="headers"><span class="cost-paint-format"></span> Other Costs</h5>
+                        <div class="costsRow">
+                            <div class="costCell costName">Maintenance Deposit</div>
+                            <div class="costCell discCol showDisc">'+maintenance+'</div>
+                            <div class="costCell">'+maintenance+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Club membership + Service Tax</div>
+                            <div class="costCell discCol showDisc">'+membershipfees+'</div>
+                            <div class="costCell">'+membershipfees+'</div>
+                        </div>
+                        <div class="costsRow totals">
+                            <div class="costCell costName">Final Cost</div>
+                            <div class="costCell discCol showDisc"><span id="finalcost1">'+finalcost1+'</span></div>
+                            <div class="costCell"><span id="finalcost">'+finalcost+'</span></div>
+                        </div>
+
+                        <!--<tr>
+                            <td>Agreement Amount Rs.</td>
+                            <td><span id="agreement1">'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</span></td>
+                            <td><span id="agreement">'+agreement+'</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Stamp Duty Rs.</td>
+                            <td>'+stamp_duty1+'</td>
+                            <td>'+stamp_duty+'</td>
+                        </tr>
+                        <tr>
+                            <td>Registration Amount Rs.</td>
+                            <td>'+reg_amt1+'</td>
+                            <td>'+reg_amt+'</td>
+                        </tr>
+                        <tr>
+                            <td>VAT  Rs.</td>
+                            <td>'+vat1+'</td>
+                            <td>'+vat+'</td>
+                        </tr>
+                        <tr>
+                            <td>Service Tax Rs.</td>
+                            <td>'+sales_tax1+'</td>
+                            <td>'+sales_tax+'</td>
+                        </tr>
+                        <tr>
+                            <td>Total Cost Rs.</td>
+                            <td><span id="totalcost1">'+totalcost1+'</span></td>
+                            <td><span id="totalcost">'+totalcost+'</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Maintenance Deposit.</td>
+                            <td>'+maintenance+'</td>
+                            <td>'+maintenance+'</td>
+                        </tr>
+                        <tr>
+                            <td>Club membership + Service Tax.</td>
+                            <td>'+membershipfees+'</td>
+                            <td>'+membershipfees+'</td>
+                        </tr>
+
+                        <tr>
+                            <td>Discount</td>
+                            <td></td>
+                            <td>'+costSheetArray[4]+'</td>
+                        </tr>
+                        <tr>
+                            <td>Actual Payment</td>
+                            <td></td>
+                            <td>'+$('#payment').val()+'</td>
+                        </tr>
+                        <tr>
+                            <td>Milestone Completed Till Date</td>
+                            <td></td>
+                            <td><select id="milestones"></select></td>
+                        </tr>
+                        <tr>
+                            <td>Actual Receivable As On Date</td>
+                            <td></td>
+                            <td><span id="rec">'+count+'</span></td>
+                        </tr>
+                        <tr>
+                            <td>Add On Payment</td>
+                            <td></td>
+                            <td><span id="addonpay">'+addon+'</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Final Cost</td>
+                            <td><span id="finalcost1">'+finalcost1+'</span></td>
+                            <td><span id="finalcost">'+finalcost+'</span></td>
+                        </tr>-->'
+            # console.log $('table#costSheetTable tbody' )
+            $('#costSheetTable' ).append table
+
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
             #object.getMilestones(id1)
