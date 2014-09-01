@@ -156,19 +156,10 @@ define [ 'marionette' ], ( Marionette )->
             					</div>
 
                                 <div class="invoice-items">
-            						<table id="paymentTable">
-            							<caption>Schedule of Payments</caption>
-            							<thead>
-            								<tr>
-            									<th>Item &amp; Description</th>
-            									<th>Quantity</th>
-            									<th>Price (GPL)</th>
-            								</tr>
-            							</thead>
-            							<tbody>
+                                    <h4 class="text-primary">Payment Schedule</h4>
+            						<ul id="paymentTable">
 
-            							</tbody>
-            						</table>
+            						</ul>
             					</div><!-- e: invoice items -->
 
             				</section><!-- e: invoice financials -->
@@ -813,7 +804,7 @@ define [ 'marionette' ], ( Marionette )->
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             #milestonecompletion = buildingModel.get 'milestonecompletion'
-            $('table#paymentTable tr' ).remove()
+            $('#paymentTable' ).text ""
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
@@ -864,8 +855,16 @@ define [ 'marionette' ], ( Marionette )->
                     trClass = ""
 
                 console.log milestoneModel = milestoneColl.get(element.milestone)
-                table += '<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
-                                            <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr> '
+                table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
+                            <li class="milestoneList '+trClass+'">
+                                <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: 15-12-2014)</span></div>
+                                <div class="msVal">'+percentageValue1+'</div>
+                                <div class="msVal">'+percentageValue+'</div>
+                                <span class="barBg" style="width:'+element.payment_percentage+'%"></span>
+                            </li>
+                            <div class="clearfix"></div>
+                            <!--<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
+                                            <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr>--> '
             $('#rec' ).text count
             $('.rec' ).text count
             console.log $('#payment' ).val()
@@ -876,7 +875,7 @@ define [ 'marionette' ], ( Marionette )->
                 addon = $('#payment' ).val() - count
             $('.addonpay' ).text addon
 
-            $('table#paymentTable tbody' ).append table
+            $('#paymentTable' ).append table
 
 
         getMilestones:(id)->
