@@ -526,7 +526,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id);
                 #m.showTooltip(locationData);
-                App.navigate "tower"+@model.get('id') , trigger:true
+                #App.navigate "tower"+@model.get('id') , trigger:true
 
         showHighlightedBuildings:(id={})->
             masterbuilding = App.master.building

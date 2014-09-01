@@ -401,10 +401,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         i = 1;
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
-        this.showHighlightedBuildings(this.model.get('id'));
-        return App.navigate("tower" + this.model.get('id'), {
-          trigger: true
-        });
+        return this.showHighlightedBuildings(this.model.get('id'));
       }
     };
 
