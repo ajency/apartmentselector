@@ -377,9 +377,27 @@ function get_unit_variants_persqftprice($variant_id=0){
        $results=   $frm_entry->getAll(array('it.id' => $variant_id),'','',true);  
     }
    
+ $persqftprice = floatval($results[$variant_id]->metas['persqftprice']);
+
+ return ($persqftprice=="")?0:$persqftprice;
  
 
- return (floatval($results[$variant_id]->metas['persqftprice']));
+}
+
+function get_unit_variants_sellablearea($variant_id=0){
+
+    global $frm_entry;
+    if($variant_id==0){
+     $results=   $frm_entry->getAll(array('it.form_id' => 24),'','',true);
+    }else{
+       $results=   $frm_entry->getAll(array('it.id' => $variant_id),'','',true);  
+    }
+   
+ 
+   
+ $sellablearea = floatval($results[$variant_id]->metas['sellablearea']);
+
+ return ($sellablearea=="")?0:$sellablearea; 
  
 
 }
@@ -508,15 +526,13 @@ function get_unit_price($unit_id)
     $unit_building =   get_post_meta($unit_id, 'building', true);
 
     $floor =   get_post_meta($unit_id, 'floor', true);
-
-    $variant_data = (get_unit_variants($unit_variant));
+ 
+    $persqftprice   = get_unit_variants_persqftprice($unit_variant);
      
-    $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
-
-    $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
+    $sellablearea = get_unit_variants_sellablearea($unit_variant); 
 
     $floorrise = get_building_floorrise($unit_building,$floor);
-
+ 
     return  (intval($persqftprice)+intval($floorrise))* intval($sellablearea);
   
 }
@@ -534,9 +550,9 @@ function get_premium_unit_price($unit_id){
 
     $variant_data = (get_unit_variants($unit_variant));
      
-    $persqftprice =  ($variant_data[0]["persqftprice"]=="")?0:$variant_data[0]["persqftprice"];
-
-    $sellablearea = ($variant_data[0]["sellablearea"]=="")?0:$variant_data[0]["sellablearea"]; 
+    $persqftprice   = get_unit_variants_persqftprice($unit_variant);
+     
+    $sellablearea = get_unit_variants_sellablearea($unit_variant); 
 
     $floorrise = get_building_floorrise($unit_building,$floor);
 

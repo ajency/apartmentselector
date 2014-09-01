@@ -41,7 +41,7 @@ define [ 'marionette' ], ( Marionette )->
                                             <h4 class="m-t-0 m-b-0">Email</h4>
                                         </a>
                                     </div>
-                                    <div class="grid-block-4">
+                                    <div class="grid-block-4 costsheetbutton" >
                                         <a class="grid-link" data-remodal-target="modal">
                                             <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3>
                                             <h4 class="m-t-0 m-b-0">Cost Sheet</h4>
@@ -58,7 +58,7 @@ define [ 'marionette' ], ( Marionette )->
             			<div id="invoice" class="paid">
 
             				<div class="this-is">
-            					<h3 class="light">Estimated Cost for Flat No. <span class="text-primary">1006</span> in <span class="text-primary">Tower 3</span></h3>
+            					<h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3>
             				</div><!-- invoice headline -->
 
             				<header id="header">
@@ -70,11 +70,11 @@ define [ 'marionette' ], ( Marionette )->
                                         </div>
                                         <div class="col-sm-5">
                                             <h5>Prepared by:</h5>
-                                            <h4>Rob Sales</h4>
+                                            <h4 class="preparedby"></h4>
                                         </div>
                                         <div class="col-sm-2">
                                             <h5>Prepared on:</h5>
-                                            <h4>28/05/14</h4>
+                                            <h4 class="preparedon"></h4>
                                         </div>
                                     </div>
             						<!--<h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2>
@@ -84,15 +84,15 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="paymentDetails">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <h5>Total Cost:</h5> <h4>Rs. 50,00,000</h4>
+                                            <h5 >Total Cost:</h5> <h4>Rs. <span class="totalcost"></span></h4>
                                         </div>
                                         <div class="col-sm-6">
-                                            <h5>Amount Receivable as on Date:</h5> <h4>Rs. 10,00,000</h4>
+                                            <h5 >Amount Receivable as on Date:</h5> <h4>Rs. <span class="rec"></span></h4>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <h5>Current Milestone:</h5> <h4>Stage 2</h4>
+                                            <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4>
                                         </div>
                                         <div class="col-sm-6 form-inline">
                                             <h5>Actual Payment:</h5> 
@@ -123,7 +123,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 <input type="text" id="discountvalue" value="" class="numeric form-control" />
                                                 <input type="text" id="discountper" value="" class="numeric hidden form-control" />
                                                 <br>
-                                                <h5>Add On Payment: </h5><h4> Rs. 5,00,000</h4>
+                                                <h5>Add On Payment: </h5><h4> Rs. <span class="addonpay"></span></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -325,7 +325,13 @@ define [ 'marionette' ], ( Marionette )->
                 $(".discountBox").slideToggle()
                 return
 
-            @trigger "get:perSqft:price"
+            usermodel = new Backbone.Model USER
+            capability = usermodel.get('all_caps')
+            if usermodel.get('id') != "0" && $.inArray('see_cost_sheet',capability) >= 0
+                @trigger "get:perSqft:price"
+            else
+                $('.costsheetbutton').hide()
+                
 
             $(document).on('open', '.remodal',  () ->
                 $('.radioClass').on('click' , ()->
@@ -360,7 +366,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#paymentplans').on('change' , ()->
                     id = $('#'+this.id ).val()
                     object.generatePaymentSchedule(id)
-                    object.getMilestones(id)
+                    #object.getMilestones(id)
 
 
 
@@ -443,9 +449,14 @@ define [ 'marionette' ], ( Marionette )->
 
 
         generateCostSheet:->
-            # $('#costSheetTable' ).remove()
+            $('#costSheetTable' ).text ""
             costSheetArray = []
             console.log App.unit['name']
+            $('.flatno').text App.unit['name']
+            usermodel = new Backbone.Model USER
+            $('.preparedby').text usermodel.get 'display_name'
+            date = new Date()
+            $('.preparedon').text date.getDate()+'/'+(parseInt(date.getMonth()) + 1)+'/'+date.getFullYear()
             console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
@@ -468,10 +479,11 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(discount)
             table = ""
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            $('.building').text buildingModel.get 'name'
             console.log planselectedValue = buildingModel.get('payment_plan')
             console.log milestoneselectedValue = buildingModel.get('milestone')
             $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
-            $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
+            #$("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1=$('#paymentplans').val()
 
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
@@ -509,8 +521,8 @@ define [ 'marionette' ], ( Marionette )->
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
-                            <div class="costCell discCol showDisc">Revised Rate <span class="cost-uniE600"></span></div>
-                            <div class="costCell">Basic Rate <span class="cost-uniE600"></span></div>
+                            <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div>
+                            <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div>
                         </div>
                         
                         <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5>
@@ -595,9 +607,17 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
+            console.log milestoneCollection = new Backbone.Collection MILESTONES
             if milestonemodel == undefined
                 console.log milesotneVal = _.first(milestonesArray)
-                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                console.log milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
+                $('.currentmile').text milestonename.get 'name'
+                
+            else
+                console.log milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
+                $('.currentmile').text milstoneModelName.get 'name'
+            
 
             console.log milestonesArray
             milestoneColl = new Backbone.Collection MILESTONES
@@ -606,11 +626,17 @@ define [ 'marionette' ], ( Marionette )->
                 if element.sort_index <= milestonemodel.get('sort_index')
                     percentageValue = (agreement * ((parseFloat(element.payment_percentage))/100))
                     count = count + percentageValue
-            addon = parseFloat($('#payment').val()) - parseFloat(count)
+            if  $('#payment').val() == 0
+                addon = 0
+            else
+
+                addon = parseFloat($('#payment').val()) - parseFloat(count)
 
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
             finalcost = parseFloat(totalcost) + parseFloat(maintenance)
             console.log table
+            $('.totalcost').text totalcost
+            $('.rec').text count
             table += '  <div class="costsRow totals">
                             <div class="costCell costName">Agreement Amount</div>
                             <div class="costCell discCol showDisc"><span id="agreement1">'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</span></div>
@@ -737,9 +763,10 @@ define [ 'marionette' ], ( Marionette )->
                         </tr>-->'
             # console.log $('table#costSheetTable tbody' )
             $('#costSheetTable' ).append table
+
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
-            object.getMilestones(id1)
+            #object.getMilestones(id1)
             $('#infra').on('change' , ()->
                 console.log "qqqqqqqqqqqqq"
                 console.log infraid = $('#infra' ).val()
@@ -774,7 +801,7 @@ define [ 'marionette' ], ( Marionette )->
             $('#paymentplans').on('change' , ()->
                 id = $('#'+this.id ).val()
                 object.generatePaymentSchedule(id)
-                object.getMilestones(id)
+                #object.getMilestones(id)
 
 
             )
@@ -785,7 +812,7 @@ define [ 'marionette' ], ( Marionette )->
             console.log id
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
-
+            #milestonecompletion = buildingModel.get 'milestonecompletion'
             $('table#paymentTable tr' ).remove()
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
@@ -795,20 +822,38 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
+            milestoneCollection = new Backbone.Collection MILESTONES
+            
+
             if milestonemodel == undefined
                 flag = 1
                 console.log "unnnn"
                 console.log milesotneVal = _.first(milestonesArray)
-                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                console.log milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
+                $('.currentmile').text milestonename.get 'name'
+            else
+                milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
+                $('.currentmile').text milstoneModelName.get 'name'
+
 
             console.log milestonesArray
             table = ""
             count = 0
             milestoneColl = new Backbone.Collection MILESTONES
+            milestonecompletion = {48:'26/08/2014', 52:'30/08/2014'}
             for element in milestonesArray
                 percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
                 percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
+                console.log proposed_date = $.map(milestonecompletion, (index,value)->
+                    console.log element.milestone
+                    console.log value
+                    if parseInt(element.milestone) == parseInt(value)
+                        return index
 
+                    )
+                if proposed_date.length == 0
+                    proposed_date = ''
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
                     percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
@@ -822,8 +867,14 @@ define [ 'marionette' ], ( Marionette )->
                 table += '<tr class="'+trClass+'"><td>'+milestoneModel.get('name')+'</td><td>'+element.payment_percentage+'</td>
                                             <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr> '
             $('#rec' ).text count
-            addon = $('#payment' ).val() - count
-            $('#addonpay' ).text addon
+            $('.rec' ).text count
+            console.log $('#payment' ).val()
+            if $('#payment' ).val() == 0
+                addon = 0
+
+            else
+                addon = $('#payment' ).val() - count
+            $('.addonpay' ).text addon
 
             $('table#paymentTable tbody' ).append table
 
