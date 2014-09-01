@@ -78,7 +78,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="m-t-10 text-center">
                         <h4 class="bold m-t-0">Where is this tower located in the project?</h4>
                         <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>
-                        <div id="mapplic1" class="towersMap center-block"></div>
+                        <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                     </div>
                 </div>
                     </div>'
@@ -114,9 +114,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .tower-link':(e)->
                 e.preventDefault()
                 id  = e.target.id
-                m.showLocation(id, 800)
-                locationData = m.getLocationData(id)
-                m.showTooltip(locationData)
+                #location.href = "tower13"
+                #m.showLocation(id, 800)
+                #locationData = m.getLocationData(id)
+                #m.showTooltip(locationData)
 
 
 
@@ -126,9 +127,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 e.preventDefault()
 
 
-            'click .scroll':(e)->
-                $('html, body').animate({ scrollTop : 0 }, 'slow')
-                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-7')
+            'click .tower-link':(e)->
+                #$('html, body').animate({ scrollTop : 0 }, 'slow')
+                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
 
             'click .grid-link':(e)->
                 count = unitVariantArray.length
@@ -349,15 +350,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 )
 
 
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
-
-            document.body.appendChild(scr)
-
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
-            document.body.appendChild(scr)
-
             $(".variantToggle1").click ->
                 $(this).toggleClass("open")
                 $(".variantBox1").slideToggle()
@@ -417,6 +409,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             @doListing()
             object = @
+            scr = document.createElement('script')
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
+
+            document.body.appendChild(scr)
+            scr = document.createElement('script')
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
+            document.body.appendChild(scr)
+
+           
+            
+
+            
         $(document).on("click", ".closeButton",  ()->
                 console.log object
                 theidtodel = $(this).parent('li').attr('id')
@@ -522,7 +526,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id);
                 #m.showTooltip(locationData);
-                #App.navigate "tower"+@model.get('id') , trigger:true
+                App.navigate "tower"+@model.get('id') , trigger:true
 
         showHighlightedBuildings:(id={})->
             masterbuilding = App.master.building

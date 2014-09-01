@@ -22,7 +22,7 @@
 		var container = document.getElementById( 'vs-container2' ),
 			wrapper = container.querySelector( 'div.vs-wrapper' ),
 			sections = Array.prototype.slice.call( wrapper.querySelectorAll( 'section' ) ),
-			links = Array.prototype.slice.call( container.querySelectorAll( 'header.vs-header > ul.vs-nav > li' ) ),
+			links = Array.prototype.slice.call( container.querySelectorAll( 'header.vs-header > ul.vs-nav > li') ),
 			sectionsCount = sections.length,
 			transEndEventNames = {
 				'WebkitTransition': 'webkitTransitionEnd',
@@ -33,6 +33,8 @@
 			},
 			transEndEventName = transEndEventNames[Modernizr.prefixed( 'transition' )],
 			eventtype = mobilecheck() ? 'touchstart' : 'click';
+			console.log(sections);
+			console.log(links);
 
 		// add navigation elements
 		if( sectionsCount >= 3 && Modernizr.csstransforms3d ) {
