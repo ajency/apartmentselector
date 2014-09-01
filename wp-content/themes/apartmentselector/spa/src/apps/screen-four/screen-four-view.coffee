@@ -328,8 +328,8 @@ define [ 'marionette' ], ( Marionette )->
             if usermodel.get('id') != "0" && $.inArray('see_cost_sheet',capability) >= 0
                 @trigger "get:perSqft:price"
             else
-                #$('.costsheetbutton').hide()
-                @trigger "get:perSqft:price"
+                $('.costsheetbutton').hide()
+                
 
             $(document).on('open', '.remodal',  () ->
                 $('.radioClass').on('click' , ()->
