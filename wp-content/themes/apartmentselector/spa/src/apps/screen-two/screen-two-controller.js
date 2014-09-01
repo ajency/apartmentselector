@@ -42,7 +42,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
-      console.log(id);
       this.Collection = this._getUnitsCountCollection(id);
       this.layout = new ScreenTwoView.ScreenTwoLayout({
         collection: this.Collection[1],
@@ -172,7 +171,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             }
             return _results;
           } else {
-            console.log(value);
             if (index === 'unitType') {
               key = App.currentStore.unit_type.findWhere({
                 id: parseInt(value)
@@ -241,13 +239,12 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           }
         }
       });
-      console.log(myArray);
       status = App.master.status.findWhere({
         'name': 'Available'
       });
-      console.log(unitslen = App.master.unit.where({
+      unitslen = App.master.unit.where({
         'status': status.get('id')
-      }));
+      });
       $.each(unitslen, function(index, value1) {
         var floorArray, floorstring;
         if (App.defaults['floor'] !== 'All') {
@@ -282,28 +279,25 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             unitPrice = value1.get('unitPrice');
             budget_arr = value.value.split(' ');
             budget_price = budget_arr[0].split('-');
-            console.log(budget_price[0] = budget_price[0] + '00000');
-            console.log(budget_price[1] = budget_price[1] + '00000');
+            budget_price[0] = budget_price[0] + '00000';
+            budget_price[1] = budget_price[1] + '00000';
             if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
               return flag++;
             }
           } else if (value.key !== 'floor') {
-            console.log(value.key);
-            console.log(value1.get(value.key) + '== ' + parseInt(value.value));
+            value1.get(value.key) + '== ' + parseInt(value.value);
             if (value1.get(value.key) === parseInt(value.value)) {
               return flag++;
             }
           }
         });
-        console.log(flag);
         if (flag === myArray.length) {
           return floorCollunits.push(value1);
         }
       });
-      console.log(floorCollunits);
       floorCollection = new Backbone.Collection(floorCollunits);
       unitvariant = floorCollection.pluck("unitVariant");
-      console.log(uniqUnitvariant = _.uniq(unitvariant));
+      uniqUnitvariant = _.uniq(unitvariant);
       unitVariantModels = [];
       unitVariantID = [];
       $.each(uniqUnitvariant, function(index, value) {
@@ -324,7 +318,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       unitVariantID.sort(function(a, b) {
         return a - b;
       });
-      console.log(units);
       $.each(units, function(index, value) {
         var maxcoll, unitType, unittypemodel;
         maxcoll = Array();
@@ -378,7 +371,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         }
       });
       buildingUnits = [];
-      console.log(buildingArray);
       $.each(buildingArray, function(index, value) {
         var availableunits, buildingid, data, disablehigh, disablelow, disablemedium, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, hfloorvalue, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lfloorvalue, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, mfloorvalue, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
@@ -417,7 +409,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           viewsData = value.get('views');
           return viewmodels = $.merge(viewmodels, viewsData);
         });
-        console.log(uniqueViewArry = _.uniq(viewmodels));
+        uniqueViewArry = _.uniq(viewmodels);
         variantsDataValues = [];
         data = [];
         $.each(uniqueViewArry, function(index, value) {
@@ -436,7 +428,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             return data = [];
           }
         });
-        console.log(variantsDataValues);
         flag = 0;
         flag1 = 0;
         $.each(mainunitsTypeArray, function(key, item) {
@@ -536,12 +527,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            console.log(buildingid);
-            console.log(count = App.currentStore.unit.where({
+            count = App.currentStore.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
-            }));
+            });
             $.each(count, function(index, value) {
               if ((value.get('floor') >= parseInt(floorriserange[2].start) && value.get('floor') <= parseInt(floorriserange[2].end)) && item.id === value.get('unitType')) {
                 return hunitTypeArray.push(value);
@@ -555,8 +545,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
                 return flag5 = 1;
               }
             });
-            console.log(flag4);
-            console.log(flag5);
             if (parseInt(flag4) === 1) {
               hclassname = 'twoBHK';
             }
@@ -566,7 +554,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             if (parseInt(flag4) === 1 && parseInt(flag5) === 1) {
               hclassname = 'multiBHK';
             }
-            console.log(hclassname);
             hnewarr.push({
               id: item.id,
               name: item.name,
@@ -627,7 +614,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
               'status': status.get('id'),
               'building': buildingid
             });
-            console.log(item.id);
             if (parseInt(item.id) === 9) {
               classname = 'twoBHK m-l-20';
             } else {
@@ -793,8 +779,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         return buildingArrayModel.push(buildingModel);
       });
-      console.log(unitColl);
-      console.log(buildingUnits);
       if (buildingUnits.length === 2) {
         buildingUnits.push({
           id: 100,
@@ -850,7 +834,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       buildingvalue = _.max(buildingUnits, function(model) {
         return model.count;
       });
-      console.log(buildingvalue);
       buildingUnits.sort(function(a, b) {
         return a.id - b.id;
       });
@@ -860,20 +843,17 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       $.each(buildingUnits, function(index, value) {
         return modelIdArr.push(value.id);
       });
-      console.log(buildingUnits);
-      console.log(paramid);
       key = _.isEmpty(paramid);
       if (key === true) {
         index = _.indexOf(modelIdArr, buildingvalue.id);
         modelArr.push(buildingvalue.id);
       } else {
-        console.log(keycheck = _.findWhere(buildingUnits, {
+        keycheck = _.findWhere(buildingUnits, {
           name: paramid
-        }));
+        });
         index = _.indexOf(modelIdArr, keycheck.id);
         modelArr.push(keycheck.id);
       }
-      console.log(modelArr);
       highLength = modelIdArr.length - index;
       i = index + 1;
       while (i < modelIdArr.length) {
@@ -885,12 +865,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         modelArr.push(modelIdArr[j]);
         j++;
       }
-      console.log(modelArr);
       if (modelArr.length === 2) {
         arrayvalue = _.last(modelArr);
         modelArr.push(arrayvalue);
       }
-      console.log(modelArr);
       buildingsactual = [];
       unitsactual = [];
       buildingCollection = new Backbone.Collection(buildingArrayModel);
@@ -900,7 +878,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingsactual.push(buildingCollection.get(value));
         return unitsactual.push(units.get(value));
       });
-      console.log(buildingsactual);
       buildingCollection = new Backbone.Collection(buildingsactual);
       units = new Backbone.Collection(unitsactual);
       return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID, unitVariantID];

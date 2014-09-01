@@ -45,14 +45,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'click a': function(e) {
         var id;
         e.preventDefault();
-        console.log(e.target.id);
-        return console.log(id = e.target.id);
+        return id = e.target.id;
       },
       'click .tower-link': function(e) {
         var id, locationData;
         e.preventDefault();
-        console.log(e.target.id);
-        console.log(id = e.target.id);
+        id = e.target.id;
         m.showLocation(id, 800);
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData);
@@ -61,7 +59,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return e.preventDefault();
       },
       'click .scroll': function(e) {
-        console.log($('#' + e.target.id).attr('data-id'));
         $('html, body').animate({
           scrollTop: 0
         }, 'slow');
@@ -69,13 +66,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .grid-link': function(e) {
         var id, index, track;
-        console.log(unitVariantArray);
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
         track = 0;
         if ($('#check' + id).val() === '1') {
-          console.log(id);
-          console.log(index = unitVariantArray.indexOf(parseInt(id)));
+          index = unitVariantArray.indexOf(parseInt(id));
           if (index !== -1) {
             unitVariantArray.splice(index, 1);
             $('#check' + id).val('0');
@@ -83,23 +78,19 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantIdArray.push(parseInt(id));
           }
         } else {
-          console.log("aaaaaaaaaa");
           track = 1;
           unitVariantArray.push(parseInt(id));
           $('#check' + id).val('1');
         }
-        console.log(unitVariantArray);
         if (globalUnitArrayInt.length !== 0) {
           if (track === 0) {
-            console.log(track);
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
             globalUnitArrayInt.push(parseInt(id));
             unitVariantArray = globalUnitArrayInt;
           }
         }
-        console.log(unitVariantArray = _.uniq(unitVariantArray));
-        console.log(firstElement);
+        unitVariantArray = _.uniq(unitVariantArray);
         if (unitVariantArray.length === 0) {
           unitVariantString = firstElement.toString();
         } else {
@@ -109,7 +100,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
-        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#selectall').prop('checked', true);
         } else {
@@ -122,7 +112,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $.map(App.backFilter, function(value, index) {
           var element, key, screenArray, _i, _len;
           if (q !== 1) {
-            console.log(index);
             screenArray = App.backFilter[index];
             for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
               element = screenArray[_i];
@@ -141,7 +130,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
         App.navigate("screen-two");
-        console.log(unitVariantString);
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
@@ -152,10 +140,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .cancel': function(e) {
         var globalUnitVariants;
-        console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox1").slideToggle();
-        console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+        globalUnitVariants = App.defaults['unitVariant'].split(',');
         globalUnitArrayInt = [];
         $.each(globalUnitVariants, function(index, value) {
           return globalUnitArrayInt.push(parseInt(value));
@@ -163,9 +150,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         if (App.defaults['unitVariant'] !== 'All') {
           return $.each(unitVariantArray, function(index, value) {
             var key;
-            console.log(value);
             key = _.contains(globalUnitArrayInt, parseInt(value));
-            console.log(key);
             if (key === true) {
               $('#grid' + value).addClass('selected');
               return $('#check' + value).val('1');
@@ -180,7 +165,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         var remainainArray, tempArray, units, value;
         if ($('#' + e.target.id).prop('checked') === true) {
           cloneunitVariantArrayColl.each(function(index) {
-            console.log(index.get('id'));
             $('#grid' + index.get('id')).addClass('selected');
             $('#check' + index.get('id')).val('1');
             return unitVariantArray.push(index.get('id'));
@@ -196,7 +180,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           cloneunitVariantArrayColl.each(function(value) {
             return tempArray.push(parseInt(value.get('id')));
           });
-          console.log(value = _.first(tempArray));
+          value = _.first(tempArray);
           remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#grid' + value).removeClass('selected');
@@ -216,7 +200,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.showHighlightedTowers = function() {
       var buidlingValue, building;
-      console.log(building = Marionette.getOption(this, 'buildingColl').toArray());
+      building = Marionette.getOption(this, 'buildingColl').toArray();
       buidlingValue = _.first(building);
       return setTimeout(function() {
         return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
@@ -238,7 +222,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       } else {
         $('#selectall').prop('checked', false);
       }
-      console.log(document.getElementsByTagName('g')['highlighttower13']);
       if (App.screenOneFilter['key'] === 'unitType') {
         $('.unittype').removeClass('hidden');
       } else if (App.screenOneFilter['key'] === 'budget') {
@@ -246,30 +229,28 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       } else if (App.screenOneFilter['key'] === "") {
         $('.refresh').removeClass('hidden');
       }
-      console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      unitVariantArray = Marionette.getOption(this, 'uintVariantId');
       unitVariantsArray = Marionette.getOption(this, 'unitVariants');
       unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
       cloneunitVariantArrayColl = unitVariantArrayColl.clone();
-      console.log(unitVariants = unitVariantArray);
-      console.log(firstElement = _.first(unitVariantArray));
+      unitVariants = unitVariantArray;
+      firstElement = _.first(unitVariantArray);
       if (App.defaults['unitVariant'] !== 'All') {
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $.each(unitVariantArray, function(index, value) {
           var key;
-          console.log(value);
           key = _.contains(globalUnitArrayInt, parseInt(value));
-          console.log(key);
           if (key === true) {
             $('#grid' + value).addClass('selected');
             return $('#check' + value).val('1');
           } else {
-            console.log(index = unitVariantArray.indexOf(parseInt(value)));
+            index = unitVariantArray.indexOf(parseInt(value));
             $('#grid' + value).removeClass('selected');
             return $('#check' + value).val('0');
           }
         });
       } else {
-        console.log(unitVariantArray = unitVariantArray);
+        unitVariantArray = unitVariantArray;
         $.each(unitVariantArray, function(index, value) {
           $('#grid' + value).addClass('selected');
           return $('#check' + value).val('1');
@@ -310,15 +291,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
       tagsArray = [];
-      console.log(testtext = App.defaults['unitVariant']);
+      testtext = App.defaults['unitVariant'];
       if (testtext !== 'All') {
         unitVariantArrayText = testtext.split(',');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
-          console.log(value);
-          console.log(unitVariantModel = App.master.unit_variant.findWhere({
+          unitVariantModel = App.master.unit_variant.findWhere({
             id: parseInt(value)
-          }));
+          });
           return tagsArray.push({
             id: value,
             area: unitVariantModel.get('sellablearea') + 'Sq.ft.'

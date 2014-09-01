@@ -41,7 +41,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @show @layout
 
         showUpdateBuilding:(id)=>
-            console.log id
             @Collection = @_getUnitsCountCollection(id)
 
             @layout = new ScreenTwoView.ScreenTwoLayout(
@@ -162,7 +161,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                                 templateArr.push value
                                 #flag = 1
                     else
-                        console.log value
                         if index == 'unitType'
                             key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
@@ -215,9 +213,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         myArray.push({key:index,value:value})
 
             )
-            console.log myArray
             status = App.master.status.findWhere({'name':'Available'})
-            console.log unitslen = App.master.unit.where({'status':status.get('id')})
+            unitslen = App.master.unit.where({'status':status.get('id')})
 
 
             $.each(unitslen, (index,value1)->
@@ -253,20 +250,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         unitPrice = value1.get 'unitPrice'
                         budget_arr = value.value.split(' ')
                         budget_price = budget_arr[0].split('-')
-                        console.log budget_price[0] = budget_price[0]+'00000'
-                        console.log budget_price[1] = budget_price[1]+'00000'
+                        budget_price[0] = budget_price[0]+'00000'
+                        budget_price[1] = budget_price[1]+'00000'
                         if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                             flag++
                     else if value.key != 'floor'
-                        console.log value.key
-                        console.log value1.get(value.key) + '== ' + parseInt(value.value)
+                        value1.get(value.key) + '== ' + parseInt(value.value)
                         if value1.get(value.key) == parseInt(value.value)
 
                             flag++
 
 
                 )
-                console.log flag
                 if flag == myArray.length
                     floorCollunits.push(value1)
 
@@ -275,11 +270,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             )
-            console.log floorCollunits
+            
 
             floorCollection = new Backbone.Collection(floorCollunits)
             unitvariant = floorCollection.pluck("unitVariant")
-            console.log uniqUnitvariant = _.uniq(unitvariant)
+            uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
             unitVariantID = []
 
@@ -297,7 +292,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 a - b
 
             )
-            console.log units
             $.each(units, (index,value)->
                 maxcoll = Array()
 
@@ -337,7 +331,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             buildingUnits = []
-            console.log buildingArray
             $.each(buildingArray, (index,value)->
                 buildingid = value
                 unitTypeArray = Array()
@@ -370,7 +363,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     viewsData = value.get('views')
                     viewmodels = $.merge(viewmodels, viewsData)
                 )
-                console.log uniqueViewArry = _.uniq(viewmodels);
+                uniqueViewArry = _.uniq(viewmodels);
                 variantsDataValues = []
                 data = []
                 $.each(uniqueViewArry, (index,value)->
@@ -384,7 +377,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
                 )
-                console.log variantsDataValues
                 flag = 0
                 flag1 = 0
                 $.each(mainunitsTypeArray, (key,item)->
@@ -458,8 +450,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!hunique[item.id])
                         hunitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
-                        console.log buildingid
-                        console.log count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
 
                         $.each(count, (index,value)->
                             if (value.get('floor') >= parseInt(floorriserange[2].start) &&  value.get('floor') <= parseInt(floorriserange[2].end)) && item.id == value.get('unitType')
@@ -473,8 +464,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                         )
 
-                        console.log flag4
-                        console.log flag5
                         if parseInt(flag4) == 1
                             hclassname = 'twoBHK'
                         if parseInt(flag5) == 1
@@ -482,7 +471,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if parseInt(flag4) == 1 && parseInt(flag5) == 1
                             hclassname = 'multiBHK'
 
-                        console.log hclassname
                         hnewarr.push({id:item.id,name:item.name,count:hunitTypeArray.length,classname:hclassname})
                         hunique[item.id] = item;
 
@@ -525,7 +513,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!unique[item.id])
                         status = App.currentStore.status.findWhere({'name':'Available'})
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
-                        console.log item.id
                         if parseInt(item.id) == 9
                             classname = 'twoBHK m-l-20'
                         else
@@ -624,8 +611,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingArrayModel.push(buildingModel)
 
             )
-            console.log unitColl
-            console.log buildingUnits
             if buildingUnits.length == 2
                 buildingUnits.push({id:100,count:0,name:'tower'+100})
                 mainArray.push({count:0,low_max_val: 0,low_min_val:0,range:'high',buildingid:100,unittypes:0,classname:"",rangetext:'HIGHRISE',rangeNo:'Floors 11-15'})
@@ -638,7 +623,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             buildingvalue = _.max(buildingUnits,  (model)->
                 model.count
             )
-            console.log buildingvalue
             buildingUnits.sort( (a,b)->
                 a.id - b.id
 
@@ -650,19 +634,17 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 modelIdArr.push(value.id)
 
             )
-            console.log buildingUnits
-            console.log paramid
             key =  _.isEmpty(paramid)
             if key == true
                 index = _.indexOf(modelIdArr, buildingvalue.id)
                 modelArr.push buildingvalue.id
 
             else
-                console.log keycheck = _.findWhere(buildingUnits, {name:paramid})
+                keycheck = _.findWhere(buildingUnits, {name:paramid})
                 index = _.indexOf(modelIdArr, keycheck.id)
                 modelArr.push keycheck.id
 
-            console.log modelArr
+            
             highLength = modelIdArr.length - index
             i = index + 1
             while(i<modelIdArr.length)
@@ -672,11 +654,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             while(j<index)
                 modelArr.push(modelIdArr[j])
                 j++
-            console.log modelArr
+            
             if modelArr.length == 2
                 arrayvalue = _.last(modelArr)
                 modelArr.push(arrayvalue)
-            console.log modelArr
+            
 
             buildingsactual = []
             unitsactual = []
@@ -687,7 +669,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingsactual.push(buildingCollection.get(value))
                 unitsactual.push(units.get(value))
             )
-            console.log buildingsactual
+            
             buildingCollection = new Backbone.Collection(buildingsactual)
             units = new Backbone.Collection(unitsactual)
 

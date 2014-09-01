@@ -9922,13 +9922,40 @@ input.checkbox:checked ~ label:before {
   max-width: 840px;
   margin: 20px auto;
   background: #f5f5f5;
+  text-align: left;
+}
+#invoice h5,
+#invoice h4 {
+  font-weight: 700;
+}
+#invoice h5 {
+  color: #999999;
+}
+.paymentDetails {
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.paymentDetails h4,
+.paymentDetails h5 {
+  display: inline-block;
+}
+.discountToggle {
+  cursor: pointer;
+}
+.discountBox {
+  display: none;
 }
 .this-is {
-  padding: 8px 0;
+  padding: 0;
+  text-align: center;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
 }
 #header {
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 .invoice-meta {
@@ -10021,7 +10048,7 @@ input.checkbox:checked ~ label:before {
 .invoice-totals tbody th,
 .invoice-items tbody td,
 .invoice-totals tbody td {
-  padding: 6px 5px 6px 10px;
+  padding: 10px 5px 10px 10px;
   background: #fff;
 }
 .invoice-items tfoot td,
@@ -10100,22 +10127,6 @@ tr.milestoneReached td {
   }
   #header {
     overflow: hidden;
-    padding-top: 40px;
-  }
-  .invoice-intro {
-    float: left;
-    width: 50%;
-    text-align: left;
-  }
-  .invoice-intro p {
-    text-align: left;
-  }
-  .invoice-meta {
-    float: right;
-    width: 40%;
-  }
-  .invoice-meta dd {
-    text-align: right;
   }
   .invoice-to,
   .invoice-from,
