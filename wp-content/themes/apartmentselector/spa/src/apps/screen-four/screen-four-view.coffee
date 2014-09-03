@@ -804,7 +804,7 @@ define [ 'marionette' ], ( Marionette )->
             console.log id
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
-            #milestonecompletion = buildingModel.get 'milestonecompletion'
+            milestonecompletion = buildingModel.get 'milestonecompletion'
             $('#paymentTable' ).text ""
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
@@ -833,7 +833,7 @@ define [ 'marionette' ], ( Marionette )->
             table = ""
             count = 0
             milestoneColl = new Backbone.Collection MILESTONES
-            milestonecompletion = {48:'26/08/2014', 52:'30/08/2014'}
+            #milestonecompletion = {48:'26/08/2014', 52:'30/08/2014'}
             for element in milestonesArray
                 percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
                 percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
@@ -858,7 +858,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log milestoneModel = milestoneColl.get(element.milestone)
                 table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
                             <li class="milestoneList '+trClass+'">
-                                <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: 15-12-2014)</span></div>
+                                <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
                                 <div class="msVal">'+percentageValue1+'</div>
                                 <div class="msVal">'+percentageValue+'</div>
                                 <span class="barBg" style="width:'+element.payment_percentage+'%"></span>

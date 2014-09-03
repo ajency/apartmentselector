@@ -456,6 +456,7 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: unitModel.get('building')
       });
+      milestonecompletion = buildingModel.get('milestonecompletion');
       $('#paymentTable').text("");
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt(id));
@@ -485,10 +486,6 @@ define(['marionette'], function(Marionette) {
       table = "";
       count = 0;
       milestoneColl = new Backbone.Collection(MILESTONES);
-      milestonecompletion = {
-        48: '26/08/2014',
-        52: '30/08/2014'
-      };
       for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
         element = milestonesArray[_i];
         percentageValue = agreementValue * ((parseFloat(element.payment_percentage)) / 100);
@@ -514,7 +511,7 @@ define(['marionette'], function(Marionette) {
           trClass = "";
         }
         console.log(milestoneModel = milestoneColl.get(element.milestone));
-        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: 15-12-2014)</span></div> <div class="msVal">' + percentageValue1 + '</div> <div class="msVal">' + percentageValue + '</div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div> <!--<tr class="' + trClass + '"><td>' + milestoneModel.get('name') + '</td><td>' + element.payment_percentage + '</td> <td>' + percentageValue1 + '</td><td>' + percentageValue + '</td></tr>--> ';
+        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal">' + percentageValue1 + '</div> <div class="msVal">' + percentageValue + '</div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div> <!--<tr class="' + trClass + '"><td>' + milestoneModel.get('name') + '</td><td>' + element.payment_percentage + '</td> <td>' + percentageValue1 + '</td><td>' + percentageValue + '</td></tr>--> ';
       }
       $('#rec').text(count);
       $('.rec').text(count);
