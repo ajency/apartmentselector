@@ -618,7 +618,7 @@ define [ 'marionette' ], ( Marionette )->
                 if element.sort_index <= milestonemodel.get('sort_index')
                     percentageValue = (agreement * ((parseFloat(element.payment_percentage))/100))
                     count = count + percentageValue
-            if  $('#payment').val() == 0
+            if  parseInt($('#payment').val()) == 0
                 addon = 0
             else
 
@@ -869,7 +869,7 @@ define [ 'marionette' ], ( Marionette )->
             $('#rec' ).text count
             $('.rec' ).text count
             console.log $('#payment' ).val()
-            if $('#payment' ).val() == 0
+            if parseInt($('#payment' ).val()) == 0
                 addon = 0
 
             else

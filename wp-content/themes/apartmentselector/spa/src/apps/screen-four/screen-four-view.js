@@ -405,7 +405,7 @@ define(['marionette'], function(Marionette) {
           count = count + percentageValue;
         }
       }
-      if ($('#payment').val() === 0) {
+      if (parseInt($('#payment').val()) === 0) {
         addon = 0;
       } else {
         addon = parseFloat($('#payment').val()) - parseFloat(count);
@@ -516,7 +516,7 @@ define(['marionette'], function(Marionette) {
       $('#rec').text(count);
       $('.rec').text(count);
       console.log($('#payment').val());
-      if ($('#payment').val() === 0) {
+      if (parseInt($('#payment').val()) === 0) {
         addon = 0;
       } else {
         addon = $('#payment').val() - count;
