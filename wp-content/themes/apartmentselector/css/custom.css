@@ -7814,9 +7814,115 @@ input.checkbox:checked ~ label:before {
 }
 .costsRow.totals.title {
   border: none;
-  background-color: #ffa366;
+  background-color: #ff6600;
   color: #ffffff;
   margin-bottom: 15px;
+}
+#paymentTable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.msPercent {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 21px;
+  margin-bottom: 10.5px;
+  font-size: 35px;
+  font-weight: 400;
+  margin-top: 0;
+  margin-right: 10px;
+  float: left;
+}
+.msPercent small,
+.msPercent .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.msPercent small,
+.msPercent .small {
+  font-size: 65%;
+}
+.milestoneList {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 18px;
+  margin: 0;
+  font-weight: 700;
+  position: relative;
+  width: 90%;
+  border: 2px solid #d9d9d9;
+  padding: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+.milestoneList small,
+.milestoneList .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.milestoneList small,
+.milestoneList .small {
+  font-size: 75%;
+}
+.milestoneList .msName {
+  z-index: 2;
+  position: relative;
+  width: 48%;
+  display: inline-block;
+}
+.milestoneList .msName .completionDate {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  color: #999999;
+}
+.milestoneList .msName .completionDate small,
+.milestoneList .msName .completionDate .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.milestoneList .msName .completionDate small,
+.milestoneList .msName .completionDate .small {
+  font-size: 75%;
+}
+.milestoneList .msVal {
+  z-index: 2;
+  position: relative;
+  width: 24%;
+  display: inline-block;
+  text-align: right;
+}
+.milestoneList .barBg {
+  position: absolute;
+  height: 100%;
+  background-color: #d9d9d9;
+  left: 0;
+  top: 0;
+}
+.milestoneList.milestoneReached {
+  border-color: #ffc299;
+}
+.milestoneList.milestoneReached .msName .completionDate {
+  display: none;
+}
+.milestoneList.milestoneReached .barBg {
+  background-color: #ffc299;
 }
 .headers {
   margin-bottom: 5px;

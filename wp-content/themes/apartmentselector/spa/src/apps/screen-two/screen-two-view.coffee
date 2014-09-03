@@ -63,7 +63,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="towerTable">
                         <div class="tableBody">
-            				<div id="vs-container2" class="vs-container">
+            				<div id="vs-container2" class="vs-container vs-triplelayout">
             				    <header class="vs-header" id="building-region"></header>
             				    <div id="unit-region"></div>
                             </div>
@@ -514,6 +514,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         template : '<a  class="link" href="tower{{id}}">{{name}}</a>'
 
         tagName : 'li'
+
+        className : 'vs-nav-current'
 
         events:
             'click .link':->

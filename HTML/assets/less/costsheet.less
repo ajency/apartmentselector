@@ -81,13 +81,77 @@
 		// color: @color-white;
 		&.title{
 			border: none;
-			background-color: lighten(@color-primary, 20%);
+			// background-color: lighten(@color-primary, 20%);
+			background-color: @color-primary;
 			color: @color-white;
 			margin-bottom: 15px;
 		}
 	}
 	&:nth-child(2n){
 		// background-color: @gray-lighter;
+	}
+}
+
+#paymentTable{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.msPercent{
+	.h3;
+	.light;
+	margin-top: 0;
+	margin-right: 10px;
+	float: left;
+}
+.milestoneList{
+	.h4;
+	margin: 0;
+	.bold;
+	position: relative;
+	width: 90%;
+	border: 2px solid lighten(@gray-light, 25%);
+	padding: 10px;
+	margin-bottom: 10px;
+	float: right;
+
+	.msName{
+		z-index: 2;
+		position: relative;
+		width: 48%;
+		display: inline-block;
+		.completionDate{
+			.h5;
+			.bold;
+			margin: 0;
+			color: @gray-light;
+		}
+	}
+	.msVal{
+		z-index: 2;
+		position: relative;
+		width: 24%;
+		display: inline-block;
+		text-align: right;
+	}
+	.barBg{
+		position: absolute;
+		height: 100%;
+		background-color: lighten(@gray-light, 25%);
+		// background-color: @gray-lighter;
+		left: 0;
+		top: 0;
+	}
+	&.milestoneReached{
+		border-color: lighten(@color-primary, 30%);
+		.msName{
+			.completionDate{
+				display: none;
+			}
+		}
+		.barBg{
+			background-color: lighten(@color-primary, 30%);
+		}
 	}
 }
 
