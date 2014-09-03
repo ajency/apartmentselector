@@ -195,10 +195,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     ScreenTwoLayout.prototype.showHighlightedTowers = function() {
       var buidlingValue, building;
       building = Marionette.getOption(this, 'buildingColl').toArray();
-      buidlingValue = _.first(building);
+      console.log(buidlingValue = _.first(building));
       return setTimeout(function() {
         return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
-      }, 1000);
+      }, 2000);
     };
 
     ScreenTwoLayout.prototype.onShow = function() {

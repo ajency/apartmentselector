@@ -128,8 +128,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .tower-link':(e)->
-                #$('html, body').animate({ scrollTop : 0 }, 'slow')
                 @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
+
+
 
             'click .grid-link':(e)->
                 count = unitVariantArray.length
@@ -272,11 +273,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         showHighlightedTowers:()->
             building = Marionette.getOption( @, 'buildingColl' ).toArray()
-            buidlingValue = _.first(building)
+            console.log buidlingValue = _.first(building)
 
             setTimeout( ()->
                 $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
-            , 1000)
+            , 2000)
+        
 
 
 
