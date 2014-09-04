@@ -10699,6 +10699,7 @@ body {
 }
 .cbp-spmenu-vertical > ul {
   list-style-type: none;
+  padding-bottom: 0;
   padding: 0;
 }
 .cbp-spmenu-vertical > ul > li {
@@ -10714,7 +10715,8 @@ body {
   font-size: 18px;
   font-weight: 700;
   color: #e5e5e5;
-  border-bottom: 1px solid #b34700;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 .cbp-spmenu-vertical > ul > li a small,
 .cbp-spmenu-vertical > ul > li a .small {
@@ -10726,12 +10728,18 @@ body {
 .cbp-spmenu-vertical > ul > li a .small {
   font-size: 75%;
 }
+.cbp-spmenu-vertical > ul > li a:hover {
+  text-decoration: none;
+}
 .cbp-spmenu-vertical h3 {
   background-color: #993d00;
   color: #e5e5e5;
 }
 .cbp-spmenu-vertical .menuWishlist {
   list-style-type: none;
+  padding-top: 10.5px;
+  padding-bottom: 5px;
+  background-color: #702d00;
 }
 .cbp-spmenu-vertical .menuWishlist li a {
   padding: 5px 0;
@@ -10748,6 +10756,12 @@ body {
 }
 .cbp-spmenu-vertical .menuWishlist li .del:before {
   content: "\e014";
+}
+.cbp-spmenu-vertical .compareBtn {
+  font-size: 87%;
+  padding-left: 40px;
+  border: none;
+  border-bottom: 1px solid #b34700;
 }
 .cbp-spmenu-top {
   top: -400px;
@@ -10789,6 +10803,10 @@ body {
   color: #cc5200;
   text-transform: uppercase;
   font-weight: 400;
+}
+/*Map Zoom Icon hidden*/
+a.im-clear-button {
+  display: none;
 }
 
 .aviable:hover {
