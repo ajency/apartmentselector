@@ -9274,6 +9274,21 @@ h5 {
   color: #ff6600;
   border-color: #ff6600;
 }
+/*Arrows for Tower Selection*/
+.vs-nav-right a:after {
+  content: "\e080";
+  font-family: 'Glyphicons Halflings';
+  position: absolute;
+  right: -30px;
+  color: #d5d5d5;
+}
+.vs-nav-left a:before {
+  content: "\e079";
+  font-family: 'Glyphicons Halflings';
+  position: absolute;
+  left: -30px;
+  color: #d5d5d5;
+}
 .box,
 .boxLong {
   padding: 8px 15px;
