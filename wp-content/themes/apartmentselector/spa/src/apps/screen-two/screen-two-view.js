@@ -32,6 +32,20 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       unitRegion: '#unit-region'
     };
 
+    ScreenTwoLayout.prototype.onAfterRender = function(Collection) {
+      console.log("building");
+      console.log(this.itemview1 = new UnitTypeChildView({
+        collection: Collection[0]
+      }));
+      this.itemview2 = new UnitTypeView({
+        collection: Collection[1]
+      });
+      this.$el.empty();
+      this.itemview1.delegateEvents();
+      this.$el.append(this.itemview1.render().el);
+      return this.$el.append(this.itemview2.render().el);
+    };
+
     ScreenTwoLayout.prototype.events = {
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();
@@ -193,9 +207,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.showHighlightedTowers = function() {
-      var buidlingValue, building;
+      var buidlingValue, building, masterbuilding;
+      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
       building = Marionette.getOption(this, 'buildingColl').toArray();
       console.log(buidlingValue = _.first(building));
+      masterbuilding = App.master.building;
+      masterbuilding.each(function(index) {
+        return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
+      });
       return setTimeout(function() {
         return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
       }, 2000);
@@ -262,6 +281,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $(this).toggleClass("selected");
       });
       i = 1;
+      console.log($('#mapplic1').text());
       while (window['mapplic' + i] !== void 0) {
         params = window['mapplic' + i];
         selector = '#mapplic' + i;

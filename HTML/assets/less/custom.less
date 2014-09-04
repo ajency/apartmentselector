@@ -200,6 +200,7 @@ body{
 	border-left: 1px solid darken(@color-primary, 15%);
 	& > ul{
 		list-style-type: none;
+		padding-bottom: 0;
 		padding: 0;
 		& > li{
 			color: lighten(@gray-light, 30%);
@@ -207,7 +208,12 @@ body{
 				.h4;
 				.bold;
 				color: lighten(@gray-light, 30%);
-				border-bottom: 1px solid darken(@color-primary, 15%);
+				// border-bottom: 1px solid darken(@color-primary, 15%);
+				border-bottom: none;
+				margin-bottom: 0;
+				&:hover{
+					text-decoration: none;
+				}
 			}
 		} 
 	}
@@ -217,6 +223,9 @@ body{
 	}
 	.menuWishlist{
 		list-style-type: none;
+		padding-top: 10.5px;
+		padding-bottom: 5px;
+		background-color: darken(@color-primary, 28%);
 		li{		
 			a{
 				padding: 5px 0;
@@ -235,6 +244,15 @@ body{
 				}
 			}
 		}
+	}
+
+	.compareBtn{
+		.small;
+		// text-align: right;
+		padding-left: 40px;
+		border: none;
+		// background-color: darken(@color-primary, 28%);
+		border-bottom: 1px solid darken(@color-primary, 15%);
 	}
 }
 
@@ -280,5 +298,10 @@ body{
 			.light;
 		}
 	}
-	
+}
+
+
+/*Map Zoom Icon hidden*/
+a.im-clear-button{
+	display: none;
 }

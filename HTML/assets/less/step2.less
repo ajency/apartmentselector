@@ -79,3 +79,23 @@
 		}
 	}
 }
+
+/*Arrows for Tower Selection*/
+.vs-nav-right a{
+	&:after{
+		content: "\e080";
+		font-family: 'Glyphicons Halflings';
+		position: absolute;
+		right: -30px;
+		color: darken(@gray-lighter, 10%);
+	}
+}
+.vs-nav-left a{
+	&:before{
+		content: "\e079";
+		font-family: 'Glyphicons Halflings';
+		position: absolute;
+		left: -30px;
+		color: darken(@gray-lighter, 10%);
+	}
+}

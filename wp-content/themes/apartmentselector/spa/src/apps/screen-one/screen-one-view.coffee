@@ -38,7 +38,7 @@ define [ 'marionette' ], ( Marionette )->
             App.layout.screenTwoRegion.el.innerHTML = ""
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""
-            App.navigate "screen-one"
+            App.navigate ""
             App.currentStore.unit.reset UNITS
             App.currentStore.building.reset BUILDINGS
             App.currentStore.unit_type.reset UNITTYPES
@@ -65,6 +65,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
                 $("#check"+@model.get 'id').val "1"
             else
+                @unHighlightedTowers()
                 unitType=[]
                 App.backFilter['screen1'] = []
                 #index = unitType.indexOf( @model.get 'id' )
@@ -106,6 +107,11 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
+        unHighlightedTowers:->
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                $("#hglighttower"+index.get('id')).attr('class','overlay')
+           
 
 
 
@@ -174,7 +180,7 @@ define [ 'marionette' ], ( Marionette )->
                 App.layout.screenTwoRegion.el.innerHTML = ""
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
-                App.navigate "screen-one"
+                App.navigate ""
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
