@@ -631,7 +631,7 @@ define [ 'marionette' ], ( Marionette )->
             $('.rec').text count
             table += '  <div class="costsRow totals">
                             <div class="costCell costName">Agreement Amount</div>
-                            <div class="costCell discCol showDisc"><span id="agreement1">'+$('#infra').val()+(costSheetArray[0] * costSheetArray[1])+'</span></div>
+                            <div class="costCell discCol showDisc"><span id="agreement1">'+agreement1+'</span></div>
                             <div class="costCell"><span id="agreement">'+agreement+'</span></div>
                         </div>
 
