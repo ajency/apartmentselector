@@ -280,7 +280,6 @@ define(['marionette'], function(Marionette) {
       $('#costSheetTable').text("");
       costSheetArray = [];
       console.log(App.unit['name']);
-      $('.flatno').text(App.unit['name']);
       usermodel = new Backbone.Model(USER);
       $('.preparedby').text(usermodel.get('display_name'));
       date = new Date();
@@ -288,6 +287,7 @@ define(['marionette'], function(Marionette) {
       console.log(unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
       }));
+      $('.flatno').text(unitModel.get('name'));
       uniVariantModel = App.master.unit_variant.findWhere({
         id: unitModel.get('unitVariant')
       });

@@ -58,7 +58,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
-      console.log(App.unit['name']);
+      console.log(App.unit);
       console.log(units = App.master.unit.where({
         id: parseInt(App.unit['name'])
       }));

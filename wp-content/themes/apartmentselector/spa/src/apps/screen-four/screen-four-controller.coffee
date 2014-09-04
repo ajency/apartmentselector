@@ -59,7 +59,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 collection : mainCollection
 
         _getSelelctedUnit:->
-            console.log App.unit['name']
+            console.log App.unit
             console.log units = App.master.unit.where({id:parseInt(App.unit['name'])})
             unitsArray = App.master.unit.toArray()
             $.each(units, (index,value)->

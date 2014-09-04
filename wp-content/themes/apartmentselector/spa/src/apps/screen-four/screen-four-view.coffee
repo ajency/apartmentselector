@@ -444,12 +444,13 @@ define [ 'marionette' ], ( Marionette )->
             $('#costSheetTable' ).text ""
             costSheetArray = []
             console.log App.unit['name']
-            $('.flatno').text App.unit['name']
             usermodel = new Backbone.Model USER
             $('.preparedby').text usermodel.get 'display_name'
             date = new Date()
             $('.preparedon').text date.getDate()+'/'+(parseInt(date.getMonth()) + 1)+'/'+date.getFullYear()
             console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            $('.flatno').text unitModel.get 'name'
+            
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
             costSheetArray.push(unitModel.get('persqftprice'))
