@@ -112,13 +112,13 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 console.log value.get('views')
                 if value.get('views') != ""
                     viewsArray = value.get('views')
-                    console.log viewsArray.length
+                    console.log viewsArray
                     for element in viewsArray
                         viewModel = App.master.view.findWhere({id:parseInt(element)})
                         viewModelArray.push(viewModel.get('name'))
                 else
                     viewModelArray.push('-----')
-                value.set 'views',viewModelArray.join(',')
+                value.set 'views_name',viewModelArray.join(', ')
                 facingssArray = value.get('facing' )
                 if facingssArray.length != 0
                     for element in facingssArray
@@ -134,7 +134,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 else
                     terraceoptionstext = unitVariantModel.get 'terraceoptions'
 
-                value.set 'facings',facingModelArray.join(',')
+                value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
                 value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
                 value.set 'roomsizearray' , roomsizearray
