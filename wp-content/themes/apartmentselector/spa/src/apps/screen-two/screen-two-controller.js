@@ -42,29 +42,31 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
+      var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
+      document.body.appendChild(scr);
       this.Collection = this._getUnitsCountCollection(id);
-      this.layout = new ScreenTwoView.ScreenTwoLayout({
-        collection: this.Collection[1],
-        buildingColl: this.Collection[0],
-        uintVariantId: this.Collection[9],
-        uintVariantIdArray: this.Collection[10],
-        unitVariants: this.Collection[8],
-        templateHelpers: {
-          selection: this.Collection[2],
-          unitsCount: this.Collection[3],
-          unittypes: this.Collection[4],
-          high: this.Collection[5],
-          medium: this.Collection[6],
-          low: this.Collection[7],
-          unitVariants: this.Collection[8],
-          AJAXURL: AJAXURL
-        }
+      itemview1 = new ScreenTwoView.UnitTypeChildView({
+        collection: this.Collection[0]
       });
-      this.listenTo(this.layout, "show", this.showViews);
-      this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
-      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
-      this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
-      return this.show(this.layout);
+      itemview2 = new ScreenTwoView.UnitTypeView({
+        collection: this.Collection[1]
+      });
+      console.log(this.layout);
+      this.layout.buildingRegion.$el.empty();
+      itemview1.delegateEvents();
+      this.layout.unitRegion.$el.empty();
+      this.layout.buildingRegion.$el.append(itemview1.render().el);
+      this.layout.unitRegion.$el.append(itemview2.render().el);
+      console.log(id);
+      building = this.Collection[0].toArray();
+      console.log(buidlingValue = _.first(building));
+      masterbuilding = App.master.building;
+      masterbuilding.each(function(index) {
+        return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
+      });
+      return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
     };
 
     ScreenTwoController.prototype.showViews = function() {
