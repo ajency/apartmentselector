@@ -95,6 +95,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
+             
+    
+
+               
+    
+
         events:
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
@@ -564,6 +570,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             #m.showLocation(id, 800)
 
             #App.navigate "tower"+model.get('id') , trigger:true
+
+        
 
 
 

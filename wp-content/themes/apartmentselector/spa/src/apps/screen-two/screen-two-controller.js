@@ -42,13 +42,29 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
-      var itemview2;
       this.Collection = this._getUnitsCountCollection(id);
-      itemview2 = new ScreenTwoView.UnitTypeChildView({
-        collection: this.Collection[1]
+      this.layout = new ScreenTwoView.ScreenTwoLayout({
+        collection: this.Collection[1],
+        buildingColl: this.Collection[0],
+        uintVariantId: this.Collection[9],
+        uintVariantIdArray: this.Collection[10],
+        unitVariants: this.Collection[8],
+        templateHelpers: {
+          selection: this.Collection[2],
+          unitsCount: this.Collection[3],
+          unittypes: this.Collection[4],
+          high: this.Collection[5],
+          medium: this.Collection[6],
+          low: this.Collection[7],
+          unitVariants: this.Collection[8],
+          AJAXURL: AJAXURL
+        }
       });
-      this.layout.unitRegion.show(itemview2);
-      return this.listenTo(this.layout, "show", this.layout.unitRegion.show(itemview2));
+      this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
+      return this.show(this.layout);
     };
 
     ScreenTwoController.prototype.showViews = function() {
