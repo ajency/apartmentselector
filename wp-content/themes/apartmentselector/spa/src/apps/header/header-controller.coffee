@@ -104,10 +104,10 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 if parseInt(first) >= parseInt(floorriserange[2].start) &&  parseInt(first) <= parseInt(floorriserange[2].end)
                     range = 'HIGHRISE'
                     templateArr.push range
-                templateString  = templateArr.join('|')
+                templateString  = templateArr.join(' | ')
 
             else
-                templateString  = templateArr.join('|')
+                templateString  = templateArr.join(' | ')
 
             textClass = "hidden"
             btnClass = ""
