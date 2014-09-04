@@ -41,34 +41,38 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @show @layout
 
         showUpdateBuilding:(id)=>
+            scr = document.createElement('script')
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
+
+            document.body.appendChild(scr)
             @Collection = @_getUnitsCountCollection(id)
 
-            @layout = new ScreenTwoView.ScreenTwoLayout(
-                collection:@Collection[1]
-                buildingColl : @Collection[0]
-                uintVariantId : @Collection[9]
-                uintVariantIdArray : @Collection[10]
-                unitVariants:@Collection[8]
-                templateHelpers:
-                    selection :@Collection[2]
-                    unitsCount:@Collection[3]
-                    unittypes:  @Collection[4]
-                    high : @Collection[5]
-                    medium : @Collection[6]
-                    low : @Collection[7]
-                    unitVariants:@Collection[8]
-                    AJAXURL : AJAXURL)
+            itemview1 = new ScreenTwoView.UnitTypeChildView
+                collection : @Collection[0]
 
+            itemview2 = new ScreenTwoView.UnitTypeView
+                collection : @Collection[1]
 
-            @listenTo @layout, "show", @showViews
+            console.log @layout
+            @layout.buildingRegion.$el.empty();
+            itemview1.delegateEvents();
+            @layout.unitRegion.$el.empty();
+            @layout.buildingRegion.$el.append(itemview1.render().el ); 
+            @layout.unitRegion.$el.append(itemview2.render().el ); 
+            console.log id
+            building = @Collection[0].toArray()
+            console.log buidlingValue = _.first(building)
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                $("#highlighttower"+index.get('id')).attr('class','overlay')
+            $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
+            
+            
+            
 
-            @listenTo @layout, "show:updated:building", @showUpdateBuilding
+            
 
-            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
-
-            @listenTo @layout, 'unit:count:selected', @_unitCountSelected
-
-            @show @layout
+            
 
 
 

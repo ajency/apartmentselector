@@ -95,6 +95,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
+        onAfterRender:(Collection)->
+            console.log "building"
+            console.log @itemview1 = new UnitTypeChildView
+                collection : Collection[0]
+
+            @itemview2 = new UnitTypeView
+                collection : Collection[1]
+            this.$el.empty();
+            this.itemview1.delegateEvents();
+            this.$el.append(@itemview1.render().el ); 
+            this.$el.append(@itemview2.render().el );            
+            
+
+                
+                
+
              
     
 
@@ -278,9 +294,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
+            console.log "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
             building = Marionette.getOption( @, 'buildingColl' ).toArray()
             console.log buidlingValue = _.first(building)
-
+            masterbuilding = App.master.building
+            masterbuilding.each ( index)->
+                $("#highlighttower"+index.get('id')).attr('class','overlay')
             setTimeout( ()->
                 $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
             , 2000)
@@ -376,6 +395,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             i = 1
+            console.log $('#mapplic1').text()
             while (window['mapplic' + i] != undefined)
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
