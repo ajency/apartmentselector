@@ -43,32 +43,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
         showUpdateBuilding:(id)=>
             @Collection = @_getUnitsCountCollection(id)
 
-            @layout = new ScreenTwoView.ScreenTwoLayout(
-                collection:@Collection[1]
-                buildingColl : @Collection[0]
-                uintVariantId : @Collection[9]
-                uintVariantIdArray : @Collection[10]
-                unitVariants:@Collection[8]
-                templateHelpers:
-                    selection :@Collection[2]
-                    unitsCount:@Collection[3]
-                    unittypes:  @Collection[4]
-                    high : @Collection[5]
-                    medium : @Collection[6]
-                    low : @Collection[7]
-                    unitVariants:@Collection[8]
-                    AJAXURL : AJAXURL)
+            itemview2 = new ScreenTwoView.UnitTypeChildView
+                collection : @Collection[1]
 
+            @layout.unitRegion.show itemview2
 
-            @listenTo @layout, "show", @showViews
-
-            @listenTo @layout, "show:updated:building", @showUpdateBuilding
-
-            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
-
-            @listenTo @layout, 'unit:count:selected', @_unitCountSelected
-
-            @show @layout
+            @listenTo @layout, "show", @layout.unitRegion.show itemview2
 
 
 

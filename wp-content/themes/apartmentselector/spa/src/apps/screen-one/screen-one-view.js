@@ -46,7 +46,7 @@ define(['marionette'], function(Marionette) {
       App.layout.screenTwoRegion.el.innerHTML = "";
       App.layout.screenThreeRegion.el.innerHTML = "";
       App.layout.screenFourRegion.el.innerHTML = "";
-      App.navigate("screen-one");
+      App.navigate("");
       App.currentStore.unit.reset(UNITS);
       App.currentStore.building.reset(BUILDINGS);
       App.currentStore.unit_type.reset(UNITTYPES);
@@ -71,6 +71,7 @@ define(['marionette'], function(Marionette) {
         $('#unittype' + this.model.get("id") + ' a').addClass('selected');
         $("#check" + this.model.get('id')).val("1");
       } else {
+        this.unHighlightedTowers();
         unitType = [];
         App.backFilter['screen1'] = [];
         $("#check" + this.model.get('id')).val("0");
@@ -119,6 +120,14 @@ define(['marionette'], function(Marionette) {
           id: parseInt(value)
         });
         return $("#hglighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
+      });
+    };
+
+    UnitTypeView.prototype.unHighlightedTowers = function() {
+      var masterbuilding;
+      masterbuilding = App.master.building;
+      return masterbuilding.each(function(index) {
+        return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
       });
     };
 
@@ -180,7 +189,7 @@ define(['marionette'], function(Marionette) {
         App.layout.screenTwoRegion.el.innerHTML = "";
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
-        App.navigate("screen-one");
+        App.navigate("");
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
