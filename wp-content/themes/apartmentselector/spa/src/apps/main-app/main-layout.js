@@ -216,7 +216,7 @@ define(['extm'], function(Extm) {
       table = "";
       if ($.cookie("key") !== void 0 && $.cookie("key") !== "") {
         console.log(selectedUnitsArray = $.cookie("key").split(","));
-        table = "<table>";
+        table = "";
         for (_i = 0, _len = selectedUnitsArray.length; _i < _len; _i++) {
           element = selectedUnitsArray[_i];
           model = App.master.unit.findWhere({
@@ -233,7 +233,6 @@ define(['extm'], function(Extm) {
           });
           table += '<li> <a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a> <div class="clearfix"></div> </li>';
         }
-        table += '</table>';
       }
       console.log(table);
       return $('#showWishlist').html(table);
