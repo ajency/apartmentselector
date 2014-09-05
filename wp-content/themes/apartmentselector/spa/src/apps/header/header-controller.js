@@ -140,9 +140,9 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
           range = 'HIGHRISE';
           templateArr.push(range);
         }
-        templateString = templateArr.join('|');
+        templateString = templateArr.join(' | ');
       } else {
-        templateString = templateArr.join('|');
+        templateString = templateArr.join(' | ');
       }
       textClass = "hidden";
       btnClass = "";

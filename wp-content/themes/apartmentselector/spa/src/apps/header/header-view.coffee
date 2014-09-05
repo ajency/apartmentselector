@@ -8,7 +8,7 @@ define [ 'marionette' ], ( Mariontte )->
         		    </div>
 
                     <div class="rightBtns {{btnClass}}">
-                        <a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>
+                        <!--<a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>-->
                         <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a>
                     </div>
 
@@ -136,19 +136,19 @@ define [ 'marionette' ], ( Mariontte )->
             )
 
             disableOther = (button) ->
-              classie.toggle showTop, "disabled"  if button isnt "showTop"
+              # classie.toggle showTop, "disabled"  if button isnt "showTop"
               classie.toggle showRightPush, "disabled"  if button isnt "showRightPush"
               return
             menuRight = document.getElementById("cbp-spmenu-s2")
             menuTop = document.getElementById("cbp-spmenu-s3")
-            showTop = document.getElementById("showTop")
+            # showTop = document.getElementById("showTop")
             showRightPush = document.getElementById("showRightPush")
             body = document.body
-            showTop.onclick = ->
-              classie.toggle this, "active"
-              classie.toggle menuTop, "cbp-spmenu-open"
-              disableOther "showTop"
-              return
+            # showTop.onclick = ->
+            #   classie.toggle this, "active"
+            #   classie.toggle menuTop, "cbp-spmenu-open"
+            #   disableOther "showTop"
+            #   return
 
             showRightPush.onclick = ->
               classie.toggle this, "active"

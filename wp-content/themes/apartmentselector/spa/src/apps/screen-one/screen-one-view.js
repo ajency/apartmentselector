@@ -248,6 +248,19 @@ define(['marionette'], function(Marionette) {
 
     ScreenOneView.prototype.onShow = function() {
       var ajaxurl, i, params, selector;
+      $("#finalButton").jBox("Notice", {
+        target: $(window),
+        position: {
+          y: 'top',
+          x: 'center'
+        },
+        autoClose: 2500,
+        animation: {
+          open: 'flip',
+          close: 'slide:top'
+        },
+        content: $('#notify')
+      });
       [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function(el) {
         return new SelectFx(el);
       });

@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns {{btnClass}}"> <a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h4 class="text-white m-t-15 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h4> </div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns {{btnClass}}"> <!--<a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>--> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h4 class="text-white m-t-15 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h4> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 
@@ -95,7 +95,7 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, disableOther, flag, menuRight, menuTop, showRightPush, showTop;
+      var body, disableOther, flag, menuRight, menuTop, showRightPush;
       console.log("wwwwwwwwwww");
       flag = 0;
       console.log(window.location.href.indexOf('wishList'));
@@ -114,23 +114,14 @@ define(['marionette'], function(Mariontte) {
         }
       });
       disableOther = function(button) {
-        if (button !== "showTop") {
-          classie.toggle(showTop, "disabled");
-        }
         if (button !== "showRightPush") {
           classie.toggle(showRightPush, "disabled");
         }
       };
       menuRight = document.getElementById("cbp-spmenu-s2");
       menuTop = document.getElementById("cbp-spmenu-s3");
-      showTop = document.getElementById("showTop");
       showRightPush = document.getElementById("showRightPush");
       body = document.body;
-      showTop.onclick = function() {
-        classie.toggle(this, "active");
-        classie.toggle(menuTop, "cbp-spmenu-open");
-        disableOther("showTop");
-      };
       showRightPush.onclick = function() {
         classie.toggle(this, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");

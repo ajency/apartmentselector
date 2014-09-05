@@ -39,6 +39,8 @@ requirejs.config
         jquerySecret :'src/bower_components/preload/jquery.secret-source.min'
         sudoSlider :'src/bower_components/preload/jquery.sudoSlider.min'
         jqueryCookie :'src/bower_components/bower_components/jquery-cookie/jquery.cookie'
+        jbox :'src/bower_components/jbox/Source/jBox.min'
+
 
 
 
@@ -80,6 +82,7 @@ requirejs.config
         bjqs : ['jquery']
         jquerySecret: ['jquery']
         sudoSlider: ['jquery']
+        jbox: ['jquery']
 
 
 
