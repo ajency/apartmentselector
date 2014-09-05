@@ -464,14 +464,18 @@ define [ 'marionette' ], ( Marionette )->
                 pervalue = parseFloat($('#discountper').val())/100
                 discount = (parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue))
             discount = Math.ceil(discount.toFixed(2));
-
-            revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount))
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            floorRise = buildingModel.get 'floorrise'
+            floorRiseValue = floorRise[unitModel.get 'floor']
+            
+            ratePerSqFtPrice = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
+            
+            revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
             basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)
             costSheetArray.push(discount)
             table = ""
-            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             $('.building').text buildingModel.get 'name'
             console.log planselectedValue = buildingModel.get('payment_plan')
             console.log milestoneselectedValue = buildingModel.get('milestone')
@@ -509,6 +513,9 @@ define [ 'marionette' ], ( Marionette )->
                 infratxt += '<option value="'+element+'" '+selected+'>'+element+'</option>'
             console.log infratxt
 
+            basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]))
+            
+
 
 
             table += '  
@@ -526,6 +533,11 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
+                            <div class="costCell costName">Floorrise</div>
+                            <div class="costCell discCol showDisc">'+floorRiseValue+'</div>
+                            <div class="costCell">'+floorRiseValue+'</div>
+                        </div>
+                        <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft.</div>
                             <div class="costCell discCol showDisc">'+costSheetArray[1]+'</div>
                             <div class="costCell">'+costSheetArray[1]+'</div>
@@ -537,8 +549,8 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Basic Cost</div>
-                            <div class="costCell discCol showDisc">'+(costSheetArray[0] * costSheetArray[1])+'</div>
-                            <div class="costCell">'+costSheetArray[3]+'</div>
+                            <div class="costCell discCol showDisc">'+basicCost1+'</div>
+                            <div class="costCell">'+basicCost+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Infrastructure and Developement Charges</div>
@@ -578,7 +590,6 @@ define [ 'marionette' ], ( Marionette )->
 
             table = ""
             console.log $('#infra').val()
-            basicCost1 = (costSheetArray[0] * costSheetArray[1])
             agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())

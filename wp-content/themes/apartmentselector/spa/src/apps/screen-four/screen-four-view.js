@@ -276,7 +276,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generateCostSheet = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
       $('#costSheetTable').text("");
       costSheetArray = [];
       console.log(App.unit['name']);
@@ -304,15 +304,18 @@ define(['marionette'], function(Marionette) {
         discount = parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue);
       }
       discount = Math.ceil(discount.toFixed(2));
-      revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount));
+      buildingModel = App.master.building.findWhere({
+        id: unitModel.get('building')
+      });
+      floorRise = buildingModel.get('floorrise');
+      floorRiseValue = floorRise[unitModel.get('floor')];
+      ratePerSqFtPrice = parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue);
+      revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount));
       costSheetArray.push(revisedrate);
       basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
       costSheetArray.push(basicCost);
       costSheetArray.push(discount);
       table = "";
-      buildingModel = App.master.building.findWhere({
-        id: unitModel.get('building')
-      });
       $('.building').text(buildingModel.get('name'));
       console.log(planselectedValue = buildingModel.get('payment_plan'));
       console.log(milestoneselectedValue = buildingModel.get('milestone'));
@@ -354,14 +357,14 @@ define(['marionette'], function(Marionette) {
         infratxt += '<option value="' + element + '" ' + selected + '>' + element + '</option>';
       }
       console.log(infratxt);
-      table += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc">' + costSheetArray[1] + '</div> <div class="costCell">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc">--</div> <div class="costCell">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc">' + (costSheetArray[0] * costSheetArray[1]) + '</div> <div class="costCell">' + costSheetArray[3] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc"><select id="infra1"></select></div> <div class="costCell"><select id="infra"></select></div> </div> <!--<tr> <td>Chargeable Area</td> <td>' + costSheetArray[0] + '</td> <td>' + costSheetArray[0] + '</td> </tr> <tr> <td>Rate Per Sq. Ft. Rs.</td> <td>' + costSheetArray[1] + '</td> <td>' + costSheetArray[1] + '</td> </tr> <tr> <td>Revised Rate</td> <td>--</td> <td>' + costSheetArray[2] + '</td> </tr> <tr> <td>Basic Cost Rs.</td> <td>' + (costSheetArray[0] * costSheetArray[1]) + '</td> <td>' + costSheetArray[3] + '</td> </tr> <tr> <td>Infrastructure and Developement Charges.</td> <td><select id="infra1"></select></td> <td><select id="infra"></select></td> </tr>-->';
+      basicCost1 = parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]);
+      table += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc">' + costSheetArray[1] + '</div> <div class="costCell">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc">--</div> <div class="costCell">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc">' + basicCost1 + '</div> <div class="costCell">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc"><select id="infra1"></select></div> <div class="costCell"><select id="infra"></select></div> </div> <!--<tr> <td>Chargeable Area</td> <td>' + costSheetArray[0] + '</td> <td>' + costSheetArray[0] + '</td> </tr> <tr> <td>Rate Per Sq. Ft. Rs.</td> <td>' + costSheetArray[1] + '</td> <td>' + costSheetArray[1] + '</td> </tr> <tr> <td>Revised Rate</td> <td>--</td> <td>' + costSheetArray[2] + '</td> </tr> <tr> <td>Basic Cost Rs.</td> <td>' + (costSheetArray[0] * costSheetArray[1]) + '</td> <td>' + costSheetArray[3] + '</td> </tr> <tr> <td>Infrastructure and Developement Charges.</td> <td><select id="infra1"></select></td> <td><select id="infra"></select></td> </tr>-->';
       $('#costSheetTable').append(table);
       $('#infra').append(infratxt);
       $('#infra1').append(infratxt);
       console.log(infraid);
       table = "";
       console.log($('#infra').val());
-      basicCost1 = costSheetArray[0] * costSheetArray[1];
       agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
       agreementValue1 = agreement1;
       agreement = parseFloat(basicCost) + parseFloat($('#infra').val());

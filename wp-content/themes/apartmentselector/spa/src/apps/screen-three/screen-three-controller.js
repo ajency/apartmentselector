@@ -99,7 +99,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitvariant;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
       console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
@@ -221,7 +221,11 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       console.log(unitslen = App.master.unit.where({
         'status': status.get('id')
       }));
-      $.each(unitslen, function(index, value1) {
+      console.log(unitslen1 = App.master.unit.where({
+        'status': status.get('id'),
+        'building': parseInt(App.defaults['building'])
+      }));
+      $.each(unitslen1, function(index, value1) {
         var floorArray, floorstring;
         if (App.defaults['floor'] !== 'All') {
           floorstring = App.defaults['floor'];
@@ -349,8 +353,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       unitAssigned = unitColl.pluck("unitAssigned");
       console.log(uniqunitAssigned = _.uniq(unitAssigned));
       $.each(uniqunitAssigned, function(index, value) {
-        var unitAssgendModels, unitAssgendModelsColl;
-        console.log(unitAssgendModels = unitColl.where({
+        var floorColl, unitAssgendModels, unitAssgendModelsColl;
+        floorColl = new Backbone.Collection(floorUnitsArray);
+        console.log(unitAssgendModels = floorColl.where({
           unitAssigned: value
         }));
         $.each(unitAssgendModels, function(index, value) {
