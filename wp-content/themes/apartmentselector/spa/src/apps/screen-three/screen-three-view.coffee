@@ -103,6 +103,13 @@ define [ 'marionette' ], ( Marionette )->
 
         events:
             'click .unit-hover':(e)->
+                sudoSlider = $("#unitsSlider").sudoSlider(
+                customLink: "a.customLink"
+                prevNext: false
+                responsive: true
+                speed: 800
+                # continuous:true
+                )
                 console.log(e.target.id)
                 unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
                 for element , index in rangeunitArray
@@ -261,6 +268,13 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            sudoSlider = $("#unitsSlider").sudoSlider(
+                customLink: "a.customLink"
+                prevNext: false
+                responsive: true
+                speed: 800
+                # continuous:true
+            )
             $('#mainsvg' ).text ""
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
                 $('#unselectall' ).prop 'checked', true
@@ -269,10 +283,10 @@ define [ 'marionette' ], ( Marionette )->
 
             rangeunitArray=[]
             globalUnitArrayInt = []
-            source = "../wp-content/uploads/2014/08/image/1.svg"
-            source1 = "../wp-content/uploads/2014/08/image/2.svg"
-            source2 = "../wp-content/uploads/2014/08/image/3.svg"
-            source3 = "../wp-content/uploads/2014/08/image/4.svg"
+            source = "../wp-content/uploads/2014/08/image/image-1.svg"
+            source1 = "../wp-content/uploads/2014/08/image/image-1.svg"
+            source2 = "../wp-content/uploads/2014/08/image/image-1.svg"
+            source3 = "../wp-content/uploads/2014/08/image/image-1.svg"
             floorsvg = "../wp-content/uploads/2014/08/image/floor.svg"
             $('<div></div>').load(source).appendTo("#svg1")
             $('<div></div>').load(source1).appendTo("#svg2")

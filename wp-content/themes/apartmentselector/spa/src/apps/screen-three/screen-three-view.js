@@ -203,7 +203,13 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, floorsvg, globalUnitVariants, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, floorsvg, globalUnitVariants, source, source1, source2, source3, sudoSlider, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      sudoSlider = $("#unitsSlider").sudoSlider({
+        customLink: "a.customLink",
+        prevNext: false,
+        responsive: true,
+        speed: 800
+      });
       $('#mainsvg').text("");
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
         $('#unselectall').prop('checked', true);
@@ -212,10 +218,10 @@ define(['marionette'], function(Marionette) {
       }
       rangeunitArray = [];
       globalUnitArrayInt = [];
-      source = "../wp-content/uploads/2014/08/image/1.svg";
-      source1 = "../wp-content/uploads/2014/08/image/2.svg";
-      source2 = "../wp-content/uploads/2014/08/image/3.svg";
-      source3 = "../wp-content/uploads/2014/08/image/4.svg";
+      source = "../wp-content/uploads/2014/08/image/image-1.svg";
+      source1 = "../wp-content/uploads/2014/08/image/image-1.svg";
+      source2 = "../wp-content/uploads/2014/08/image/image-1.svg";
+      source3 = "../wp-content/uploads/2014/08/image/image-1.svg";
       floorsvg = "../wp-content/uploads/2014/08/image/floor.svg";
       $('<div></div>').load(source).appendTo("#svg1");
       $('<div></div>').load(source1).appendTo("#svg2");
