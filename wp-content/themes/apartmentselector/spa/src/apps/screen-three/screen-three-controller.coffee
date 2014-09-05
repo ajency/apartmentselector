@@ -225,9 +225,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             console.log myArray
             status = App.master.status.findWhere({'name':'Available'})
             console.log unitslen = App.master.unit.where({'status':status.get('id')})
+            console.log unitslen1 = App.master.unit.where({'status':status.get('id'),'building':parseInt(App.defaults['building'])})
 
 
-            $.each(unitslen, (index,value1)->
+            $.each(unitslen1, (index,value1)->
 
                 if App.defaults['floor'] !='All'
                     floorstring = App.defaults['floor']
@@ -349,7 +350,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             unitAssigned = unitColl.pluck("unitAssigned")
             console.log uniqunitAssigned = _.uniq(unitAssigned)
             $.each(uniqunitAssigned, (index,value)->
-                console.log unitAssgendModels = unitColl.where({unitAssigned:value})
+                floorColl =  new Backbone.Collection floorUnitsArray
+                console.log unitAssgendModels = floorColl.where({unitAssigned:value})
                 $.each(unitAssgendModels, (index,value)->
                     unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
                     value.set "unittypename" , unitType.get "name"
