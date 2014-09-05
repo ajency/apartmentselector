@@ -111,6 +111,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       if (paramid == null) {
         paramid = {};
       }
+      console.log(paramid);
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -125,7 +126,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       status = App.currentStore.status.findWhere({
         'name': 'Available'
       });
-      units = App.currentStore.unit.where({
+      units = App.master.unit.where({
         'status': status.get('id')
       });
       Countunits = App.currentStore.unit.where({
@@ -150,13 +151,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             for (_i = 0, _len = valuearr.length; _i < _len; _i++) {
               element = valuearr[_i];
               if (index === 'unitType') {
-                key = App.currentStore.unit_type.findWhere({
+                key = App.master.unit_type.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
               }
               if (index === 'building') {
-                key = App.currentStore.building.findWhere({
+                key = App.master.building.findWhere({
                   id: parseInt(element)
                 });
                 templateArr.push(key.get('name'));
@@ -174,13 +175,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             return _results;
           } else {
             if (index === 'unitType') {
-              key = App.currentStore.unit_type.findWhere({
+              key = App.master.unit_type.findWhere({
                 id: parseInt(value)
               });
               templateArr.push(key.get('name'));
             }
             if (index === 'building') {
-              key = App.currentStore.building.findWhere({
+              key = App.master.building.findWhere({
                 id: parseInt(value)
               });
               templateArr.push(key.get('name'));
@@ -200,23 +201,23 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       }
       if (flag === 1) {
         first = _.first(templateArr);
-        buildingModel = App.currentStore.building.findWhere({
+        buildingModel = App.master.building.findWhere({
           id: App.building['name']
         });
         floorriserange = buildingModel.get('floorriserange');
-        lowUnits = App.currentStore.range.findWhere({
+        lowUnits = App.master.range.findWhere({
           name: 'low'
         });
         if (parseInt(first) >= lowUnits.get('start') && parseInt(first) <= lowUnits.get('end')) {
           range = 'LOWRISE' + ',' + buildingModel.get('name');
         }
-        mediumUnits = App.currentStore.range.findWhere({
+        mediumUnits = App.master.range.findWhere({
           name: 'medium'
         });
         if (parseInt(first) >= mediumUnits.get('start') && parseInt(first) <= mediumUnits.get('end')) {
           range = 'MIDRISE' + ',' + buildingModel.get('name');
         }
-        highUnits = App.currentStore.range.findWhere({
+        highUnits = App.master.range.findWhere({
           name: 'high'
         });
         if (parseInt(first) >= highUnits.get('start') && parseInt(first) <= highUnits.get('end')) {
@@ -326,11 +327,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         if (buildingArray.indexOf(value.get('building')) === -1) {
           buildingArray.push(value.get('building'));
         }
-        lowUnits = App.currentStore.range.findWhere({
+        lowUnits = App.master.range.findWhere({
           name: 'low'
         });
         if (value.get('floor') >= lowUnits.get('start') && value.get('floor') <= lowUnits.get('end')) {
-          unittypemodel = App.currentStore.unit_type.findWhere({
+          unittypemodel = App.master.unit_type.findWhere({
             id: value.get('unitType')
           });
           mainunitsTypeArray.push({
@@ -338,7 +339,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             name: unittypemodel.get('name')
           });
         }
-        unitType = App.currentStore.unit_type.findWhere({
+        unitType = App.master.unit_type.findWhere({
           id: value.get('unitType')
         });
         return mainunitTypeArray.push({
@@ -350,10 +351,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         var classname, count;
         if (!mainunique[item.id]) {
           if (item.id !== 14) {
-            status = App.currentStore.status.findWhere({
+            status = App.master.status.findWhere({
               'name': 'Available'
             });
-            count = App.currentStore.unit.where({
+            count = App.master.unit.where({
               unitType: item.id,
               'status': status.get('id')
             });
@@ -402,7 +403,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         totalunits = App.currentStore.unit.where({
           'building': value
         });
-        buildingModel = App.currentStore.building.findWhere({
+        buildingModel = App.master.building.findWhere({
           id: buildingid
         });
         floorriserange = buildingModel.get('floorriserange');
@@ -439,7 +440,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.currentStore.unit.where({
+            count = App.master.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
@@ -484,7 +485,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.currentStore.unit.where({
+            count = App.master.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
@@ -529,7 +530,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.currentStore.unit.where({
+            count = App.master.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
@@ -572,7 +573,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         totalfloorcollection = new Backbone.Collection(totalunits);
         floors = totalfloorcollection.pluck("floor");
         uniqFloors = _.uniq(floors);
-        newunits = App.currentStore.unit.where({
+        newunits = App.master.unit.where({
           'building': value,
           'status': status.get('id')
         });
@@ -597,7 +598,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           if (value.get('floor') >= parseInt(floorriserange[2].start) && value.get('floor') <= parseInt(floorriserange[2].end)) {
             highArray.push(value.get('id'));
           }
-          unitType = App.currentStore.unit_type.findWhere({
+          unitType = App.master.unit_type.findWhere({
             id: value.get('unitType')
           });
           return unitTypeArray.push({
@@ -611,7 +612,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.currentStore.unit.where({
+            count = App.master.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               'building': buildingid
@@ -648,19 +649,19 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         $.each(lowArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
           disablelow = "";
-          unitmodel = App.currentStore.unit.findWhere({
+          unitmodel = App.master.unit.findWhere({
             id: value
           });
-          unittypemodel = App.currentStore.unit_type.findWhere({
+          unittypemodel = App.master.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
-          unitCollection = App.currentStore.unit.where({
+          unitCollection = App.master.unit.where({
             unitType: unittypemodel.get('id')
           });
           max_coll = Array();
           $.each(unitCollection, function(index, value) {
             var variantmodel;
-            variantmodel = App.currentStore.unit_variant.findWhere({
+            variantmodel = App.master.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return max_coll.push(variantmodel.get('sellablearea'));
@@ -671,23 +672,23 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         $.each(mediumArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
           disablemedium = "";
-          unitmodel = App.currentStore.unit.findWhere({
+          unitmodel = App.master.unit.findWhere({
             id: value
           });
-          unittypemodel = App.currentStore.unit_type.findWhere({
+          unittypemodel = App.master.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
           munitTypeArray.push({
             id: unittypemodel.get('id'),
             name: unittypemodel.get('name')
           });
-          unitCollection = App.currentStore.unit.where({
+          unitCollection = App.master.unit.where({
             unitType: unittypemodel.get('id')
           });
           max_coll = Array();
           $.each(unitCollection, function(index, value) {
             var variantmodel;
-            variantmodel = App.currentStore.unit_variant.findWhere({
+            variantmodel = App.master.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return max_coll.push(variantmodel.get('sellablearea'));
@@ -698,23 +699,23 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         $.each(highArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
           disablehigh = "";
-          unitmodel = App.currentStore.unit.findWhere({
+          unitmodel = App.master.unit.findWhere({
             id: value
           });
-          unittypemodel = App.currentStore.unit_type.findWhere({
+          unittypemodel = App.master.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
           hunitTypeArray.push({
             id: unittypemodel.get('id'),
             name: unittypemodel.get('name')
           });
-          unitCollection = App.currentStore.unit.where({
+          unitCollection = App.master.unit.where({
             unitType: unittypemodel.get('id')
           });
           max_coll = Array();
           $.each(unitCollection, function(index, value) {
             var variantmodel;
-            variantmodel = App.currentStore.unit_variant.findWhere({
+            variantmodel = App.master.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return max_coll.push(variantmodel.get('sellablearea'));
@@ -765,7 +766,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           disable: disablelow
         });
         itemCollection = new Backbone.Collection(mainArray);
-        buildingModel = App.currentStore.building.findWhere({
+        buildingModel = App.master.building.findWhere({
           id: value
         });
         unitColl.push({
@@ -880,8 +881,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingsactual.push(buildingCollection.get(value));
         return unitsactual.push(units.get(value));
       });
-      buildingCollection = new Backbone.Collection(buildingsactual);
-      units = new Backbone.Collection(unitsactual);
+      console.log(buildingCollection = new Backbone.Collection(buildingsactual));
+      console.log(units = new Backbone.Collection(unitsactual));
       return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID, unitVariantID];
     };
 

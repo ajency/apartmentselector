@@ -303,10 +303,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('.All' ).removeClass 'hidden'
 
 
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js'
-            document.body.appendChild(scr)
-
+            
             $columns_number = $('.unitTable .cd-table-container').find('.cd-block').length
 
             $('.cd-table-container').on('scroll', ()->

@@ -124,6 +124,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         _getUnitsCountCollection:(paramid={})->
+            console.log paramid
             buildingArray = Array()
             buildingArrayModel = Array()
             unitColl = Array()
@@ -136,7 +137,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             mainunique = {}
             MainCollection = new Backbone.Model()
             status = App.currentStore.status.findWhere({'name':'Available'})
-            units = App.currentStore.unit.where({'status':status.get('id')})
+            units = App.master.unit.where({'status':status.get('id')})
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             param = {}
             paramkey = {}
@@ -153,10 +154,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if valuearr.length > 1
                         for element  in valuearr
                             if index == 'unitType'
-                                key = App.currentStore.unit_type.findWhere({id:parseInt(element)})
+                                key = App.master.unit_type.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
                             if index == 'building'
-                                key = App.currentStore.building.findWhere({id:parseInt(element)})
+                                key = App.master.building.findWhere({id:parseInt(element)})
                                 templateArr.push key.get 'name'
                             if index == 'budget'
                                 budget_Val = value+'lakhs'
@@ -166,10 +167,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                                 #flag = 1
                     else
                         if index == 'unitType'
-                            key = App.currentStore.unit_type.findWhere({id:parseInt(value)})
+                            key = App.master.unit_type.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
                         if index == 'building'
-                            key = App.currentStore.building.findWhere({id:parseInt(value)})
+                            key = App.master.building.findWhere({id:parseInt(value)})
                             templateArr.push key.get 'name'
                         if index == 'budget'
                             budget_Val = value
@@ -186,20 +187,20 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 templateArr.push 'All'
             if(flag==1)
                 first = _.first(templateArr)
-                buildingModel = App.currentStore.building.findWhere({id:App.building['name']})
+                buildingModel = App.master.building.findWhere({id:App.building['name']})
                 floorriserange = buildingModel.get('floorriserange')
-                lowUnits = App.currentStore.range.findWhere({name:'low'})
+                lowUnits = App.master.range.findWhere({name:'low'})
                 if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
                     range = 'LOWRISE'+',' +buildingModel.get('name')
 
 
 
-                mediumUnits = App.currentStore.range.findWhere({name:'medium'})
+                mediumUnits = App.master.range.findWhere({name:'medium'})
                 if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
                     range = 'MIDRISE'+',' +buildingModel.get('name')
 
 
-                highUnits = App.currentStore.range.findWhere({name:'high'})
+                highUnits = App.master.range.findWhere({name:'high'})
                 if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
                     range = 'HIGHRISE'+',' +buildingModel.get('name')
                 templateString = range
@@ -303,14 +304,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     buildingArray.push value.get 'building'
 
 
-                lowUnits = App.currentStore.range.findWhere({name:'low'})
+                lowUnits = App.master.range.findWhere({name:'low'})
                 if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
-                    unittypemodel = App.currentStore.unit_type.findWhere({id :  value.get( 'unitType' ) })
+                    unittypemodel = App.master.unit_type.findWhere({id :  value.get( 'unitType' ) })
 
                     mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
 
 
-                unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
+                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
                 mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
 
@@ -318,9 +319,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             $.each(mainunitTypeArray, (key,item)->
                 if (!mainunique[item.id])
                     if item.id != 14
-                        status = App.currentStore.status.findWhere({'name':'Available'})
+                        status = App.master.status.findWhere({'name':'Available'})
 
-                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id')})
 
                         if parseInt(item.id) == 9
                             classname = 'twoBHK'
@@ -359,7 +360,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 hclassname = ""
                 status = App.currentStore.status.findWhere({'name':'Available'})
                 totalunits = App.currentStore.unit.where({'building':value})
-                buildingModel = App.currentStore.building.findWhere({id:buildingid})
+                buildingModel = App.master.building.findWhere({id:buildingid})
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
 
@@ -387,7 +388,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!lunique[item.id])
                         lunitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
-                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
                         $.each(count, (index,value)->
                             #lowUnits = App.currentStore.range.findWhere({name:'low'})
                             if (value.get('floor') >= parseInt(floorriserange[0].start) &&  value.get('floor') <= parseInt(floorriserange[0].end)) && item.id == value.get('unitType')
@@ -422,7 +423,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!munique[item.id])
                         munitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
-                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
                         $.each(count, (index,value)->
                             if (value.get('floor') >= parseInt(floorriserange[1].start) &&  value.get('floor') <= parseInt(floorriserange[1].end)) && item.id == value.get('unitType')
                                 munitTypeArray.push value
@@ -454,7 +455,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (!hunique[item.id])
                         hunitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
-                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id'),building:buildingid})
 
                         $.each(count, (index,value)->
                             if (value.get('floor') >= parseInt(floorriserange[2].start) &&  value.get('floor') <= parseInt(floorriserange[2].end)) && item.id == value.get('unitType')
@@ -489,7 +490,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 totalfloorcollection = new Backbone.Collection(totalunits)
                 floors = totalfloorcollection.pluck("floor")
                 uniqFloors = _.uniq(floors)
-                newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
+                newunits = App.master.unit.where({'building':value,'status':status.get('id')})
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
                 mediumArray = Array()
@@ -509,14 +510,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     if (value.get('floor') >= parseInt(floorriserange[2].start) &&  value.get('floor') <= parseInt(floorriserange[2].end))
                         highArray.push value.get 'id'
 
-                    unitType = App.currentStore.unit_type.findWhere({id:value.get 'unitType'})
+                    unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
                     unitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
 
                 )
                 $.each(unitTypeArray, (key,item)->
                     if (!unique[item.id])
                         status = App.currentStore.status.findWhere({'name':'Available'})
-                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
+                        count = App.master.unit.where({unitType:item.id,'status':status.get('id'),'building':buildingid})
                         if parseInt(item.id) == 9
                             classname = 'twoBHK m-l-20'
                         else
@@ -547,13 +548,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 $.each(lowArray , (index,value)->
                     disablelow = ""
-                    unitmodel = App.currentStore.unit.findWhere({id:value})
-                    unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
-                    unitCollection = App.currentStore.unit.where({unitType: unittypemodel.get( 'id' ) } )
+                    unitmodel = App.master.unit.findWhere({id:value})
+                    unittypemodel = App.master.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
+                    unitCollection = App.master.unit.where({unitType: unittypemodel.get( 'id' ) } )
                     max_coll = Array()
                     $.each(unitCollection, (index,value)->
 
-                        variantmodel = App.currentStore.unit_variant.findWhere({id: value.get( 'unitVariant' )} )
+                        variantmodel = App.master.unit_variant.findWhere({id: value.get( 'unitVariant' )} )
                         max_coll.push variantmodel.get 'sellablearea'
 
 
@@ -564,15 +565,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 $.each(mediumArray , (index,value)->
                     disablemedium = ""
-                    unitmodel = App.currentStore.unit.findWhere({id:value})
-                    unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
+                    unitmodel = App.master.unit.findWhere({id:value})
+                    unittypemodel = App.master.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
                     munitTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
 
-                    unitCollection = App.currentStore.unit.where({unitType: unittypemodel.get( 'id' ) } )
+                    unitCollection = App.master.unit.where({unitType: unittypemodel.get( 'id' ) } )
                     max_coll = Array()
                     $.each(unitCollection, (index,value)->
 
-                        variantmodel = App.currentStore.unit_variant.findWhere({id: value.get( 'unitVariant' )} )
+                        variantmodel = App.master.unit_variant.findWhere({id: value.get( 'unitVariant' )} )
                         max_coll.push variantmodel.get 'sellablearea'
 
 
@@ -583,15 +584,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 $.each(highArray , (index,value)->
                     disablehigh = ""
-                    unitmodel = App.currentStore.unit.findWhere({id:value})
-                    unittypemodel = App.currentStore.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
+                    unitmodel = App.master.unit.findWhere({id:value})
+                    unittypemodel = App.master.unit_type.findWhere({id :  unitmodel.get( 'unitType' ) })
                     hunitTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
 
-                    unitCollection = App.currentStore.unit.where({unitType: unittypemodel.get( 'id' ) } )
+                    unitCollection = App.master.unit.where({unitType: unittypemodel.get( 'id' ) } )
                     max_coll = Array()
                     $.each(unitCollection, (index,value)->
 
-                        variantmodel = App.currentStore.unit_variant.findWhere({id: value.get( 'unitVariant' )} )
+                        variantmodel = App.master.unit_variant.findWhere({id: value.get( 'unitVariant' )} )
                         max_coll.push variantmodel.get 'sellablearea'
 
 
@@ -609,7 +610,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 mainArray.push({count: lowArray.length,low_max_val: low_max_val,low_min_val:low_min_val,range:'low',buildingid:buildingid,unittypes:lnewarr,classname:lclassname,rangetext:'LOWRISE',rangeNo:lfloorvalue,disable:disablelow})
 
                 itemCollection = new Backbone.Collection(mainArray)
-                buildingModel = App.currentStore.building.findWhere({id:value})
+                buildingModel = App.master.building.findWhere({id:value})
                 unitColl.push {id:buildingModel.get('id'),buildingname: buildingModel.get('name') , units: itemCollection ,buildingid:buildingModel.get('id'),
                 unittypes:newarr,availableunits:availableunits.length,totalunits:totalunits.length,totalfloors:uniqFloors.length,views:variantsDataValues}
                 buildingArrayModel.push(buildingModel)
@@ -674,8 +675,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitsactual.push(units.get(value))
             )
             
-            buildingCollection = new Backbone.Collection(buildingsactual)
-            units = new Backbone.Collection(unitsactual)
+            console.log buildingCollection = new Backbone.Collection(buildingsactual)
+            console.log units = new Backbone.Collection(unitsactual)
 
 
             [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID]

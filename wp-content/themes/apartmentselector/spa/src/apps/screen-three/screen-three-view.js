@@ -203,7 +203,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, floorsvg, globalUnitVariants, scr, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, floorsvg, globalUnitVariants, source, source1, source2, source3, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       $('#mainsvg').text("");
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
         $('#unselectall').prop('checked', true);
@@ -243,9 +243,6 @@ define(['marionette'], function(Marionette) {
       } else {
         $('.All').removeClass('hidden');
       }
-      scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main.js';
-      document.body.appendChild(scr);
       $columns_number = $('.unitTable .cd-table-container').find('.cd-block').length;
       $('.cd-table-container').on('scroll', function() {
         var $this, table_viewport, total_table_width;
