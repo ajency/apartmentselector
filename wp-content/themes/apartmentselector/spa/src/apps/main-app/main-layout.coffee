@@ -130,6 +130,8 @@ You can compare up to 4 apartments!</div>
                 val = $('#'+e.target.id).attr('data-id')
                 index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
+                if App.cookieArray.length <= 1
+                    $('#compare').hide()
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
                 $('#errormsg' ).text ""
@@ -229,7 +231,7 @@ You can compare up to 4 apartments!</div>
                 cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                     parseInt(item)
                 )
-            if cookieOldValue.length < 1
+            if cookieOldValue.length <= 1
                 $('#compare').hide()
                 
             App.cookieArray = cookieOldValue

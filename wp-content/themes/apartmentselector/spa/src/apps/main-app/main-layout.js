@@ -117,6 +117,9 @@ define(['extm'], function(Extm) {
         val = $('#' + e.target.id).attr('data-id');
         index = App.cookieArray.indexOf(parseInt(val));
         App.cookieArray.splice(index, 1);
+        if (App.cookieArray.length <= 1) {
+          $('#compare').hide();
+        }
         $.cookie('key', App.cookieArray);
         localStorage.setItem("cookievalue", App.cookieArray);
         $('#errormsg').text("");
@@ -200,7 +203,7 @@ define(['extm'], function(Extm) {
           return parseInt(item);
         });
       }
-      if (cookieOldValue.length < 1) {
+      if (cookieOldValue.length <= 1) {
         $('#compare').hide();
       }
       App.cookieArray = cookieOldValue;

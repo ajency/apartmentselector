@@ -97,6 +97,9 @@ define(['marionette'], function(Marionette) {
           console.log(val = $('#' + e.target.id).attr('data-id'));
           console.log(index = App.cookieArray.indexOf(parseInt(val)));
           App.cookieArray.splice(index, 1);
+          if (App.cookieArray.length <= 1) {
+            $('#compare').hide();
+          }
           $.cookie('key', App.cookieArray);
           localStorage.setItem("cookievalue", App.cookieArray);
           $('#errormsg').text("");
@@ -248,6 +251,9 @@ define(['marionette'], function(Marionette) {
       console.log(typeof $.cookie("key"));
       if ($.cookie("key") !== void 0 && $.cookie("key") !== "") {
         console.log(selectedUnitsArray = $.cookie("key").split(","));
+        if (selectedUnitsArray.length > 1) {
+          $('#compare').show();
+        }
         table = "<table>";
         for (_i = 0, _len = selectedUnitsArray.length; _i < _len; _i++) {
           element = selectedUnitsArray[_i];
