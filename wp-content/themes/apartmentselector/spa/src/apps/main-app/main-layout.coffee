@@ -44,14 +44,13 @@ define [ 'extm'], ( Extm)->
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>
-                <li ><a href="#"><span class="glyphicon glyphicon-heart"></span> Wishlist</a>
+                <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Wishlist</a>
                     <ul class="menuWishlist" id="showWishlist">
-                        <li><a href="#">Wishlist 1</a></li>
-                        <li><a href="#">Wishlist 2</a></li>
                     </ul>
                 </li>
+                <a href="#" id="compare" class="compareBtn">Compare</a>
             </ul>
-            <a href="#" id="compare" >Compare</a>
+            
         </nav>
 
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
@@ -285,9 +284,13 @@ define [ 'extm'], ( Extm)->
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
-                                        <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
-                                            <div class="clearfix"></div>'
+                    table +='
+                                <li>
+                                    <a href="#" id="unit'+element+'" data-id="'+element+'" class="selectedunit">'+model.get('name')+'</a>
+                                    <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a>
+                                    <div class="clearfix"></div>
+                                </li>
+                            '
 
                 table += '</table>'
             console.log table
