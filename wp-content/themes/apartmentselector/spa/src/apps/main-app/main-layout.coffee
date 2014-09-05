@@ -40,7 +40,10 @@ define [ 'extm'], ( Extm)->
     class mainView extends Marionette.LayoutView
 
         template: '
-
+        <div id="notify" class="notifyBox" style="display:none;">
+            You have clicked on a box!
+        </div>
+        <div>dfsfsfs</div>
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>
@@ -50,13 +53,13 @@ define [ 'extm'], ( Extm)->
                 </li>
                 <a href="#" id="compare" class="compareBtn">Compare</a>
             </ul>
-            
+            <div id="comparetext">Compare Apartments here!
+You can add Apartments to your wish list by clicking on the \'Add to wish list\' button on the view Apartment page after you have made a selection!
+You can compare up to 4 apartments!</div>
+
         </nav>
 
-        <div id="notify" class="notifyBox" style="display:none;">
-            You have clicked on a box!
-        </div>
-
+        
         <div id="screen-one-region" >
 
         </div>
@@ -199,6 +202,7 @@ define [ 'extm'], ( Extm)->
 
 
         onShow:->
+
             console.log height = $(window).scrollTop()
 
             $(window).scroll( ()->
@@ -225,6 +229,9 @@ define [ 'extm'], ( Extm)->
                 cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                     parseInt(item)
                 )
+            if cookieOldValue.length < 1
+                $('#compare').hide()
+                
             App.cookieArray = cookieOldValue
             localStorage.setItem("cookievalue" , App.cookieArray)
             @showWishList()

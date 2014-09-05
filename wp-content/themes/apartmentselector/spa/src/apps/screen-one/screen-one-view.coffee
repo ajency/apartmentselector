@@ -238,18 +238,20 @@ define [ 'marionette' ], ( Marionette )->
 
 
         onShow:->
+            
+            $('#finalButton').on('click',  ()->
+                new jBox('Notice', 
+                    content: 'Wait 1 Second',
+                    autoClose: 1000
+                )
 
-            $("#finalButton").jBox "Notice",
-              target: $(window)
-              position:
-                y: 'top'
-                x: 'center'
-              autoClose: 2500
-              animation: {
-                open: 'flip', 
-                close: 'slide:top'
-              }
-              content: $('#notify')
+
+
+
+            )
+            
+            
+
 
 
             [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( (el)->
