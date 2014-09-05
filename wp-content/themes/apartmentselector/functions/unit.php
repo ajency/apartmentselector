@@ -841,3 +841,56 @@ function ajax_get_server_block_date(){
     exit;
 }
 add_action('wp_ajax_get_server_block_date','ajax_get_server_block_date'); 
+
+
+
+function get_unit_single_details($id){
+
+    $result = get_post($id);
+
+    $unit_variant =   get_post_meta($result->ID, 'unit_variant', true);
+    
+    $unit_facing =   maybe_unserialize(get_post_meta($result->ID, 'facing', true));
+
+        if(is_array($unit_facing)){
+
+               $unit_facing = array_map ('intval', $unit_facing);
+
+        }else{
+
+            $unit_facing = array();
+
+        }
+
+   
+    $apartment_views =   get_post_meta($result->ID, 'apartment_views', true);
+
+    $persqftprice    =   get_unit_variants_persqftprice($unit_variant);
+
+    return array(
+                'id' => $id,
+
+                'views'=>$apartment_views,
+
+                'facings'=>$unit_facing,
+
+                'persqftprice'=>$persqftprice,
+
+            );
+
+}
+
+
+function ajax_get_unit_single_details(){
+
+    $id = $_REQUEST["id"];  
+
+    $response = json_encode(get_unit_single_details($id));
+
+    header( "Content-Type: application/json" );
+
+    echo $response;
+
+    exit;
+}
+add_action('wp_ajax_get_unit_single_details','ajax_get_unit_single_details'); 
