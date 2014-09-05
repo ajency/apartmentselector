@@ -223,10 +223,8 @@ body{
 	}
 	.menuWishlist{
 		list-style-type: none;
-		padding-top: 10.5px;
-		padding-bottom: 5px;
 		background-color: darken(@color-primary, 28%);
-		li{		
+		li{
 			a{
 				padding: 5px 0;
 				border: 0;
@@ -242,6 +240,12 @@ body{
 				&:before{
 					content: "\e014";
 				}
+			}
+			&:first-child{
+				padding-top: 10.5px;
+			}
+			&:last-child{
+				padding-bottom: 10.5px;
 			}
 		}
 	}
@@ -320,10 +324,12 @@ a.im-clear-button{
 	.jBox-content{
 		.h4;
 		.bold;
-		background-color: darken(@color-primary, 10%);
-		padding: 15px 10px;
+		// background-color: darken(@color-primary, 10%);
+		background-color: @gray-light;
+		padding: 20px 10px;
 		margin: 0;
 		color: @color-white;
+		// color: @color-primary;
 		width: 100%;
 		text-align: center;
 	}

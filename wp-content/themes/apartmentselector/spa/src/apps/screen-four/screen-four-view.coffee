@@ -426,17 +426,19 @@ define [ 'marionette' ], ( Marionette )->
                 console.log selectedUnitsArray = $.cookie("key").split(",")
                 if selectedUnitsArray.length > 1
                     $('#compare').show()
-                table = "<table>"
+                table = ""
                 for element in selectedUnitsArray
                     model = App.master.unit.findWhere(id:parseInt(element))
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
-                    table += '<li><a href="#" id="unit'+element+'" data-id="'+element+'"  class="selectedunit">'+model.get('name')+'</a>
-                                                                                <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a></li>
-                                                                                    <div class="clearfix"></div>'
+                    table +='<li>
+                                <a href="#" id="unit'+element+'" data-id="'+element+'"  class="selectedunit">'+model.get('name')+'</a>
+                                <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a>
+                                <div class="clearfix"></div>
+                            </li>'
 
-                table += '</table>'
+                # table += '</table>'
             console.log table
             $('#showWishlist').html table
 

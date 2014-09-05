@@ -11305,8 +11305,6 @@ body {
 }
 .cbp-spmenu-vertical .menuWishlist {
   list-style-type: none;
-  padding-top: 10.5px;
-  padding-bottom: 5px;
   background-color: #702d00;
 }
 .cbp-spmenu-vertical .menuWishlist li a {
@@ -11324,6 +11322,12 @@ body {
 }
 .cbp-spmenu-vertical .menuWishlist li .del:before {
   content: "\e014";
+}
+.cbp-spmenu-vertical .menuWishlist li:first-child {
+  padding-top: 10.5px;
+}
+.cbp-spmenu-vertical .menuWishlist li:last-child {
+  padding-bottom: 10.5px;
 }
 .cbp-spmenu-vertical .compareBtn {
   font-size: 87%;
@@ -11393,8 +11397,8 @@ a.im-clear-button {
   margin-bottom: 10.5px;
   font-size: 18px;
   font-weight: 700;
-  background-color: #cc5200;
-  padding: 15px 10px;
+  background-color: #999999;
+  padding: 20px 10px;
   margin: 0;
   color: #ffffff;
   width: 100%;
