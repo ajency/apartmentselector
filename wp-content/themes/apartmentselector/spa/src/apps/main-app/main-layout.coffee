@@ -241,7 +241,7 @@ You can compare up to 4 apartments!</div>
             table = ""
             if $.cookie("key")!= undefined && $.cookie("key") != ""
                 console.log selectedUnitsArray = $.cookie("key").split(",")
-                table = "<table>"
+                table = ""
                 for element in selectedUnitsArray
                     model = App.master.unit.findWhere(id:parseInt(element))
                     unitType = App.master.unit_type.findWhere(id:model.get('unitType'))
@@ -255,7 +255,7 @@ You can compare up to 4 apartments!</div>
                                 </li>
                             '
 
-                table += '</table>'
+                # table += '</table>'
             console.log table
             $('#showWishlist').html table
 
