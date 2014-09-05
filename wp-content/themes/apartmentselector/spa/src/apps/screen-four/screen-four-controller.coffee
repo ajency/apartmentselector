@@ -59,6 +59,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 collection : mainCollection
 
         _getSelelctedUnit:->
+            @getPerSqFtPrice
             console.log App.unit
             console.log units = App.master.unit.where({id:parseInt(App.unit['name'])})
             unitsArray = App.master.unit.toArray()
@@ -196,7 +197,9 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 data : 'id='+unitModel.get('id'),
                 success :(result)-> 
                     console.log "vieew"
-                    unitModel.set 'persqftprice' , result
+                    unitModel.set 'persqftprice' , result.persqftprice
+                    unitModel.set 'views' , result.views
+                    unitModel.set 'facing' , result.facings
                     object.layout.triggerMethod "show:cost:sheet" 
                 error:(result)->
 

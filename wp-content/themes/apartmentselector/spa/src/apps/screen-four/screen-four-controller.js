@@ -58,6 +58,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
+      this.getPerSqFtPrice;
       console.log(App.unit);
       console.log(units = App.master.unit.where({
         id: parseInt(App.unit['name'])
@@ -190,7 +191,9 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         data: 'id=' + unitModel.get('id'),
         success: function(result) {
           console.log("vieew");
-          unitModel.set('persqftprice', result);
+          unitModel.set('persqftprice', result.persqftprice);
+          unitModel.set('views', result.views);
+          unitModel.set('facing', result.facings);
           return object.layout.triggerMethod("show:cost:sheet");
         },
         error: function(result) {}
