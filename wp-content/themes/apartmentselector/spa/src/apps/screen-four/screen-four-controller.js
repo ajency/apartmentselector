@@ -186,8 +186,8 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       object = this;
       return $.ajax({
         method: "POST",
-        url: AJAXURL + '?action=get_unit_variants_persqftprice',
-        data: 'variant_id=' + unitModel.get('unitVariant'),
+        url: AJAXURL + '?action=get_unit_single_details',
+        data: 'id=' + unitModel.get('id'),
         success: function(result) {
           console.log("vieew");
           unitModel.set('persqftprice', result);

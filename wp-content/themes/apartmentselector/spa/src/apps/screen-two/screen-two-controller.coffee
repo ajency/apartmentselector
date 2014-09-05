@@ -137,7 +137,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             mainunique = {}
             MainCollection = new Backbone.Model()
             status = App.currentStore.status.findWhere({'name':'Available'})
-            units = App.master.unit.where({'status':status.get('id')})
+            key =  _.isEmpty(paramid)
+            if key == true
+                units = App.currentStore.unit.where({'status':status.get('id')})
+            else
+               units = App.master.unit.where({'status':status.get('id')}) 
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             param = {}
             paramkey = {}

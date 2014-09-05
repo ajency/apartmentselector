@@ -222,6 +222,21 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.onShow = function() {
       var ajaxurl, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      $('#screen-two-button').on('click', function() {
+        return new jBox('Notice', {
+          content: 'Wait 1 Second',
+          autoClose: 2000,
+          addClass: 'notifyBox',
+          position: {
+            x: 'center',
+            y: 'top'
+          },
+          animation: {
+            open: 'flip',
+            close: 'slide:top'
+          }
+        });
+      });
       rangeArray = [];
       globalUnitArrayInt = [];
       if (App.defaults['unitVariant'] !== 'All') {

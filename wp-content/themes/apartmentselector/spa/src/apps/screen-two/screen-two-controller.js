@@ -126,9 +126,16 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       status = App.currentStore.status.findWhere({
         'name': 'Available'
       });
-      units = App.master.unit.where({
-        'status': status.get('id')
-      });
+      key = _.isEmpty(paramid);
+      if (key === true) {
+        units = App.currentStore.unit.where({
+          'status': status.get('id')
+        });
+      } else {
+        units = App.master.unit.where({
+          'status': status.get('id')
+        });
+      }
       Countunits = App.currentStore.unit.where({
         'status': status.get('id')
       });
@@ -138,7 +145,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       mainunitsTypeArray = [];
       mainArray = [];
       $.each(App.defaults, function(index, value) {
-        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+        var budget_Val, element, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
           param[index] = value;
           string_val = _.isString(value);

@@ -268,6 +268,24 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            $('#screen-three-button').on('click',  ()->
+                new jBox('Notice', 
+                    content: 'Wait 1 Second',
+                    autoClose: 2000
+                    addClass: 'notifyBox'
+                    position:
+                        x: 'center'
+                        y: 'top'
+                    animation:
+                        open: 'flip'
+                        close: 'slide:top'
+                    # fade: 1000
+                )
+
+
+
+
+            )
             sudoSlider = $("#unitsSlider").sudoSlider(
                 customLink: "a.customLink"
                 prevNext: false
