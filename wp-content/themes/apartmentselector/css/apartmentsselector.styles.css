@@ -11377,7 +11377,14 @@ a.im-clear-button {
   display: none;
 }
 /*Notification Popup*/
-.notifyBox {
+.jBox-Notice .jBox-content {
+  border-radius: 0;
+  padding: 0;
+}
+.jBox-wrapper {
+  width: 100%;
+}
+.notifyBox .jBox-content {
   font-family: 'kievit';
   font-weight: 500;
   line-height: 1.1;
@@ -11393,22 +11400,15 @@ a.im-clear-button {
   width: 100%;
   text-align: center;
 }
-.notifyBox small,
-.notifyBox .small {
+.notifyBox .jBox-content small,
+.notifyBox .jBox-content .small {
   font-weight: normal;
   line-height: 1;
   color: #999999;
 }
-.notifyBox small,
-.notifyBox .small {
+.notifyBox .jBox-content small,
+.notifyBox .jBox-content .small {
   font-size: 75%;
-}
-.jBox-Notice .jBox-content {
-  border-radius: 0;
-  padding: 0;
-}
-.jBox-wrapper {
-  width: 100%;
 }
 
 .aviable:hover {

@@ -251,7 +251,16 @@ define(['marionette'], function(Marionette) {
       $('#finalButton').on('click', function() {
         return new jBox('Notice', {
           content: 'Wait 1 Second',
-          autoClose: 1000
+          autoClose: 2000,
+          addClass: 'notifyBox',
+          position: {
+            x: 'center',
+            y: 'top'
+          },
+          animation: {
+            open: 'flip',
+            close: 'slide:top'
+          }
         });
       });
       [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function(el) {
