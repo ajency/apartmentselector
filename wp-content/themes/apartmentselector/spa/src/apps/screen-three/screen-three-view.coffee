@@ -12,7 +12,9 @@ define [ 'marionette' ], ( Marionette )->
     cloneunitVariantArrayColl = ""
     rangeunitArray =[]
     globalUnitArrayInt = []
-
+    position = ""
+    unitAssigedArray = []
+    sudoSlider = ""
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<div class="row m-l-0 m-r-0">
@@ -71,20 +73,14 @@ define [ 'marionette' ], ( Marionette )->
 
                     </div>
                 <div class="col-sm-8">
-                    <div class="liquid-slider center-block sliderPlans" id="sliderplans">
+                    <span>Flat No : </span><span id="flatno"></span>
 
 
-                    <div id="svg1">
+                    <div id="positionsvg">
                     </div>
 
-                    <div id="svg2">
-                    </div>
-
-                    <div id="svg3">
-                    </div>
-                    <div id="svg4">
-                    </div>
-                    </div>
+                    
+                  
                     </div>
                     </div>'
 
@@ -101,20 +97,74 @@ define [ 'marionette' ], ( Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
+        object = @
+
         events:
+            'click .customLink':(e)->
+                console.log id = parseInt(e.target.id)
+                console.log unitAssigedArray
+                for element , index in unitAssigedArray
+                    console.log element
+                    if element == parseInt(id)
+                        $('#'+element).attr('class','floor-pos position')
+                    else
+                        $('#'+element).attr('class','floor-pos ')
+                        
+                unitAssigedArray.push id
+                @loadsvg(id)
+
             'click .unit-hover':(e)->
-                sudoSlider = $("#unitsSlider").sudoSlider(
-                customLink: "a.customLink"
-                prevNext: false
-                responsive: true
-                speed: 800
-                # continuous:true
-                )
                 console.log(e.target.id)
-                unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
+                console.log buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+                console.log buildinArray = buildingCollection.toArray()
+                console.log building  = _.first(buildinArray)
+                buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgposition = ""
+                unitvalues = ""
+                indexvalue = ""
+                $.each(svgdata, (index,value)->
+                    console.log value
+                    $.each(value, (ind,val)->
+                        console.log val
+                        $.map(val.svposition, (index1,val1)->
+                            console.log index1
+                            console.log position
+                            if position == index1
+                                svgposition = val.svgfile
+                                console.log unitsarray = val.units
+                                console.log indexvalue = unitsarray[position]
+                                
+
+
+                            )
+                        
+
+
+
+                        )
+
+
+
+                    )
+                flatid = $('#'+e.target.id).attr('data-id')
+                console.log unit = indexvalue[parseInt(flatid)]
+                unitModel = App.master.unit.findWhere(id:parseInt(unit))
+                console.log unitAssigedArray
+                for element , index in unitAssigedArray
+                    console.log element
+                    if element == parseInt(unitModel.get('unitAssigned'))
+                        $('#'+element).attr('class','floor-pos position')
+                    else
+                        $('#'+element).attr('class','floor-pos ')
+                        
+                unitAssigedArray.push unitModel.get('unitAssigned')
+                $('#'+unitModel.get('unitAssigned')).attr('class','position')
+                sudoSlider.goToSlide(unitModel.get('unitAssigned'));
+                console.log rangeunitArray
                 for element , index in rangeunitArray
-                    if element == e.target.id
-                        $("#select"+e.target.id).val '1'
+                    if element == parseInt(unit)
+                        $("#select"+unit).val '1'
                     else
                         $("#select"+element).val '0'
                         $('#check'+element).removeClass 'selected'
@@ -123,20 +173,53 @@ define [ 'marionette' ], ( Marionette )->
                         else if unitModel.get('status') == 8
                             $("#"+element).attr('class','unit-hover sold ')
                         rangeunitArray = []
-                rangeunitArray.push parseInt(e.target.id)
-                $('#check'+e.target.id).addClass "selected"
+                rangeunitArray.push parseInt(unit)
+                $('#check'+unit).addClass "selected"
 
-                $("#select"+e.target.id).val "1"
+                $("#select"+unit).val "1"
                 $("#screen-three-button").removeClass 'disabled btn-default'
                 $("#screen-three-button").addClass 'btn-primary'
 
             'mouseover .unit-hover':(e)->
-                console.log(e.target.id)
+                buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+                buildinArray = buildingCollection.toArray()
+                building  = _.first(buildinArray)
+                buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgposition = ""
+                unitvalues = ""
+                indexvalue = ""
+                $.each(svgdata, (index,value)->
+                    $.each(value, (ind,val)->
+                        $.map(val.svposition, (index1,val1)->
+                            if position == index1
+                                svgposition = val.svgfile
+                                unitsarray = val.units
+                                indexvalue = unitsarray[position]
+                                
 
-                unitModel = App.master.unit.findWhere(id:parseInt(e.target.id))
-                if unitModel.get('status') == 9
+
+                            )
+                        
+
+
+
+                        )
+
+
+
+                    )
+                flatid = $('#'+e.target.id).attr('data-id')
+                unit = indexvalue[parseInt(flatid)]
+
+                unitModel = App.master.unit.findWhere(id:parseInt(unit))
+                console.log this
+                $('#flatno').text unitModel.get('name')
+                if parseInt(unitModel.get('status')) == 9
+                    console.log "qq"
                     $("#"+e.target.id).attr('class','unit-hover aviable')
-                else if unitModel.get('status') == 8
+                else if parseInt(unitModel.get('status')) == 8
+                    console.log "ww"
                     $("#"+e.target.id).attr('class','unit-hover sold')
 
 
@@ -287,33 +370,24 @@ define [ 'marionette' ], ( Marionette )->
 
             )
             sudoSlider = $("#unitsSlider").sudoSlider(
-                customLink: "a.customLink"
-                prevNext: false
-                responsive: true
-                speed: 800
-                # continuous:true
+                    customLink: "a"
+                    prevNext: false
+                    responsive: true
+                    speed: 800
+                    # continuous:true
             )
+                
             $('#mainsvg' ).text ""
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
                 $('#unselectall' ).prop 'checked', true
             else
                 $('#unselectall' ).prop 'checked', false
 
-            rangeunitArray=[]
+            rangeunitArray= []
             globalUnitArrayInt = []
-            source = "../wp-content/uploads/2014/08/image/image-1.svg"
-            source1 = "../wp-content/uploads/2014/08/image/image-1.svg"
-            source2 = "../wp-content/uploads/2014/08/image/image-1.svg"
-            source3 = "../wp-content/uploads/2014/08/image/image-1.svg"
-            floorsvg = "../wp-content/uploads/2014/08/image/floor.svg"
-            $('<div></div>').load(source).appendTo("#svg1")
-            $('<div></div>').load(source1).appendTo("#svg2")
-            $('<div></div>').load(source2).appendTo("#svg3")
-            $('<div></div>').load(source3).appendTo("#svg4")
-            $('<div></div>').load(floorsvg).appendTo("#floorsvg")
-            $('<div></div>').load(floorsvg).appendTo("#mainsvg")
 
-
+            @loadbuildingsvg()
+            
             $('#sliderplans').liquidSlider(
                 slideEaseFunction: "fade",
                 autoSlide: true,
@@ -439,13 +513,76 @@ define [ 'marionette' ], ( Marionette )->
 
             @doListing()
             object1 = @
+            setTimeout( ()->
+                $('#'+1).attr('class','floor-pos position')
+            , 2000)
+            unitAssigedArray.push "1"
+            
+            
+            
         $(document).on("click", ".closeButton1",  ()->
                 console.log theidtodel = $(this).parent('li').attr('id')
                 console.log object1
                 object1.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
-        call:->
-            console.log "aaaaaaaaaaaaaaaaaaa"
+        loadbuildingsvg:->
+            console.log buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            console.log buildinArray = buildingCollection.toArray()
+            console.log building  = _.first(buildinArray)
+            buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+            svgpath = buildingModel.get 'svgfile'
+            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
+            if buildingModel.get('id') == 11
+                path = "../wp-content/uploads/2014/08/image/floor.svg"
+            else
+                path = ""
+            $('<div></div>').load(path).appendTo("#floorsvg")
+            @loadsvg()
+
+        loadsvg:(floorid)->
+            console.log floorid
+            console.log buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            console.log buildinArray = buildingCollection.toArray()
+            console.log building  = _.first(buildinArray)
+            buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+            svgpath = buildingModel.get 'svgfile'
+            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+            if buildingModel.get('id') == 11
+                if floorid == undefined
+                    floorid = 1
+            
+                
+            
+            
+            svgposition = ""
+            unitvalues = ""
+            indexvalue = ""
+            $('#positionsvg').text ""
+            $.each(svgdata, (index,value)->
+                console.log value
+                $.each(value, (ind,val)->
+                    console.log val
+                    $.map(val.svposition, (index1,val1)->
+                        console.log index1
+                        if floorid == index1
+                            svgposition = val.svgfile
+                            console.log unitsarray = val.units
+                            console.log indexvalue = unitsarray[floorid]
+
+
+                        )
+                    
+
+
+
+                    )
+
+
+
+                )
+            position = floorid
+            $('<div></div>').load(svgposition).appendTo("#positionsvg")
+
 
 
         doListing:->
@@ -729,7 +866,7 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             sudoSlider = $("#unitsSlider").sudoSlider(
-                customLink: "a.customLink"
+                customLink: "a"
                 prevNext: false
                 responsive: true
                 speed: 800

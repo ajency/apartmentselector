@@ -58,14 +58,13 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
-      this.getPerSqFtPrice;
       console.log(App.unit);
       console.log(units = App.master.unit.where({
         id: parseInt(App.unit['name'])
       }));
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
-        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorvalue, positionObject, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
+        var building, exceptionObject, floorLayoutimage, floorvalue, positionObject, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel;
         unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -108,42 +107,12 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             type: value1.room_type
           });
         });
-        viewModelArray = [];
-        facingModelArray = [];
-        console.log(value.get('views'));
-        if (value.get('views') !== "") {
-          viewsArray = value.get('views');
-          console.log(viewsArray);
-          for (_i = 0, _len = viewsArray.length; _i < _len; _i++) {
-            element = viewsArray[_i];
-            viewModel = App.master.view.findWhere({
-              id: parseInt(element)
-            });
-            viewModelArray.push(viewModel.get('name'));
-          }
-        } else {
-          viewModelArray.push('-----');
-        }
-        value.set('views_name', viewModelArray.join(', '));
-        facingssArray = value.get('facing');
-        if (facingssArray.length !== 0) {
-          for (_j = 0, _len1 = facingssArray.length; _j < _len1; _j++) {
-            element = facingssArray[_j];
-            facingModel = App.master.facings.findWhere({
-              id: parseInt(element)
-            });
-            facingModelArray.push(facingModel.get('name'));
-          }
-        } else {
-          facingModelArray.push('-----');
-        }
         terraceoptions = unitVariantModel.get('terraceoptions');
         if (terraceoptions === null) {
           terraceoptionstext = '---------';
         } else {
           terraceoptionstext = unitVariantModel.get('terraceoptions');
         }
-        value.set('facings_name', facingModelArray.join(', '));
         value.set('floorLayoutimage', floorLayoutimage);
         value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
         value.set('roomsizearray', roomsizearray);
@@ -192,9 +161,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         success: function(result) {
           console.log("vieew");
           unitModel.set('persqftprice', result.persqftprice);
-          unitModel.set('views', result.views);
-          unitModel.set('facing', result.facings);
-          return object.layout.triggerMethod("show:cost:sheet");
+          return object.layout.triggerMethod("show:cost:sheet", result);
         },
         error: function(result) {}
       });

@@ -7,6 +7,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             @Collection = @_getUnits()
 
             @layout = new ScreenThreeView.ScreenThreeLayout(
+                buildingCollection : @Collection[0]
                 countUnits : @Collection[3]
                 uintVariantId : @Collection[8]
                 uintVariantIdArray : @Collection[8]
@@ -47,6 +48,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
                 @layout = new ScreenThreeView.ScreenThreeLayout(
+                        buildingCollection : @Collection[0]
                         countUnits : @Collection[3]
                         uintVariantId : @Collection[8]
                         uintVariantIdArray : @Collection[8]

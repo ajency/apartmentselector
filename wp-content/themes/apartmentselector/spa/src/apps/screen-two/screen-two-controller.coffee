@@ -368,24 +368,24 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
 
-                $.each(totalunits, (index,value)->
-                    viewsData = value.get('views')
-                    viewmodels = $.merge(viewmodels, viewsData)
-                )
-                uniqueViewArry = _.uniq(viewmodels);
+                #$.each(totalunits, (index,value)->
+                    #viewsData = value.get('views')
+                    #viewmodels = $.merge(viewmodels, viewsData)
+                #)
+                #uniqueViewArry = _.uniq(viewmodels);
                 variantsDataValues = []
                 data = []
-                $.each(uniqueViewArry, (index,value)->
-                    viewModel = App.master.view.findWhere({id:parseInt(value)})
+                #$.each(uniqueViewArry, (index,value)->
+                    #viewModel = App.master.view.findWhere({id:parseInt(value)})
 
-                    data.push({id:viewModel.get('id'),name:viewModel.get('name')})
-                    if data.length == 2
-                        variantsDataValues.push({data:data})
-                        data = []
+                    #data.push({id:viewModel.get('id'),name:viewModel.get('name')})
+                    #if data.length == 2
+                        #variantsDataValues.push({data:data})
+                        #data = []
 
 
 
-                )
+                #)
                 flag = 0
                 flag1 = 0
                 $.each(mainunitsTypeArray, (key,item)->

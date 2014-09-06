@@ -11425,6 +11425,11 @@ a.im-clear-button {
   cursor: pointer;
   opacity: 0.8;
 }
+.position {
+  fill: #F60   !important;
+  cursor:pointer;
+  
+}
 .sliderPlans .selected {
   fill: #99DD1F   !important;
   opacity: 0.8;
