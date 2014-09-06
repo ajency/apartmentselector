@@ -601,13 +601,13 @@ define(['marionette'], function(Marionette) {
             if (floorid === index1) {
               svgposition = val.svgfile;
               console.log(unitsarray = val.units);
-              return console.log(indexvalue = unitsarray[floorid]);
+              console.log(indexvalue = unitsarray[floorid]);
+              return $('<div></div>').load(svgposition).appendTo("#positionsvg");
             }
           });
         });
       });
-      position = floorid;
-      return $('<div></div>').load(svgposition).appendTo("#positionsvg");
+      return position = floorid;
     };
 
     ScreenThreeLayout.prototype.doListing = function() {

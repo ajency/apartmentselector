@@ -568,6 +568,7 @@ define [ 'marionette' ], ( Marionette )->
                             svgposition = val.svgfile
                             console.log unitsarray = val.units
                             console.log indexvalue = unitsarray[floorid]
+                            $('<div></div>').load(svgposition).appendTo("#positionsvg")
 
 
                         )
@@ -581,7 +582,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
             position = floorid
-            $('<div></div>').load(svgposition).appendTo("#positionsvg")
+            
 
 
 
