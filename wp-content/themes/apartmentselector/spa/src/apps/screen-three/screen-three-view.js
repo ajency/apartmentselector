@@ -202,6 +202,7 @@ define(['marionette'], function(Marionette) {
         });
         console.log(this);
         $('#flatno').text(unitModel.get('name'));
+        $('.unit-hover').css('content', unitModel.get('name'));
         if (parseInt(unitModel.get('status')) === 9) {
           console.log("qq");
           return $("#" + e.target.id).attr('class', 'unit-hover aviable');
@@ -541,10 +542,10 @@ define(['marionette'], function(Marionette) {
       ];
       if (buildingModel.get('id') === 11) {
         path = "../wp-content/uploads/2014/08/image/floor.svg";
+        $('<div></div>').load(path).appendTo("#floorsvg");
       } else {
         path = "";
       }
-      $('<div></div>').load(path).appendTo("#floorsvg");
       return this.loadsvg();
     };
 

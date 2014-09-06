@@ -215,6 +215,7 @@ define [ 'marionette' ], ( Marionette )->
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
                 console.log this
                 $('#flatno').text unitModel.get('name')
+                $('.unit-hover').css('content', unitModel.get('name'))
                 if parseInt(unitModel.get('status')) == 9
                     console.log "qq"
                     $("#"+e.target.id).attr('class','unit-hover aviable')
@@ -534,9 +535,10 @@ define [ 'marionette' ], ( Marionette )->
             svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if buildingModel.get('id') == 11
                 path = "../wp-content/uploads/2014/08/image/floor.svg"
+                $('<div></div>').load(path).appendTo("#floorsvg")
             else
                 path = ""
-            $('<div></div>').load(path).appendTo("#floorsvg")
+            
             @loadsvg()
 
         loadsvg:(floorid)->
