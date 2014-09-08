@@ -8314,6 +8314,11 @@ tr.milestoneReached td {
   color: #999999;
   font-size: 16px;
 }
+.layouts li img {
+  width: 35px;
+  border-radius: 25px;
+  box-shadow: 1px 1px 5px #999999;
+}
 body {
   background-color: #ffffff;
 }
