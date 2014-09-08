@@ -442,8 +442,29 @@ define [ 'marionette' ], ( Marionette )->
             console.log table
             $('#showWishlist').html table
 
-        onShowCostSheet:->
+        onShowCostSheet:(value)->
             @generateCostSheet()
+            viewModelArray = []
+            facingModelArray = []
+            console.log value.views
+            if value.views.length != 0
+                viewsArray = value.views
+                console.log viewsArray
+                for element in viewsArray
+                    viewModel = App.master.view.findWhere({id:parseInt(element)})
+                    viewModelArray.push(viewModel.get('name'))
+            else
+                viewModelArray.push('-----')
+            $('.viewclass').text viewModelArray.join(', ')
+            facingssArray = value.facings
+            if facingssArray.length != 0
+                for element in facingssArray
+                    facingModel = App.master.facings.findWhere({id:parseInt(element)})
+                    facingModelArray.push(facingModel.get('name'))
+
+            else
+                facingModelArray.push('-----')
+            $('.facingclass').text facingModelArray.join(', ')
 
 
         generateCostSheet:->
@@ -1106,13 +1127,13 @@ define [ 'marionette' ], ( Marionette )->
                                     </div>
                                     <div class="col-md-4">
                                         <div class="unitBox facing">
-                                            <h4 class="view">{{facings_name}}</h4>
+                                            <h4 class="view facingclass">{{facings_name}}</h4>
                                             <h4 class="titles"><span class="sky-location"></span> Facing</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="unitBox facing">
-                                            <h4 class="view">{{views_name}}</h4>
+                                            <h4 class="view viewclass">{{views_name}}</h4>
                                             <h4 class="titles"><span class="sky-map"></span> Views</h4>
                                         </div>
                                     </div>

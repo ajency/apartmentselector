@@ -18,6 +18,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype.initialize = function() {
       this.Collection = this._getUnits();
       this.layout = new ScreenThreeView.ScreenThreeLayout({
+        buildingCollection: this.Collection[0],
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
@@ -47,6 +48,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     ScreenThreeController.prototype._showBuildings = function() {
       this.Collection = this._getUnits();
       this.layout = new ScreenThreeView.ScreenThreeLayout({
+        buildingCollection: this.Collection[0],
         countUnits: this.Collection[3],
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],

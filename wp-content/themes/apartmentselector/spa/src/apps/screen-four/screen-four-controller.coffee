@@ -107,26 +107,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                 )
-                viewModelArray = []
-                facingModelArray = []
-                console.log value.get('views')
-                if value.get('views') != ""
-                    viewsArray = value.get('views')
-                    console.log viewsArray
-                    for element in viewsArray
-                        viewModel = App.master.view.findWhere({id:parseInt(element)})
-                        viewModelArray.push(viewModel.get('name'))
-                else
-                    viewModelArray.push('-----')
-                value.set 'views_name',viewModelArray.join(', ')
-                facingssArray = value.get('facing' )
-                if facingssArray.length != 0
-                    for element in facingssArray
-                        facingModel = App.master.facings.findWhere({id:parseInt(element)})
-                        facingModelArray.push(facingModel.get('name'))
-
-                else
-                    facingModelArray.push('-----')
+                
 
                 terraceoptions = unitVariantModel.get 'terraceoptions'
                 if terraceoptions == null
@@ -134,7 +115,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 else
                     terraceoptionstext = unitVariantModel.get 'terraceoptions'
 
-                value.set 'facings_name',facingModelArray.join(', ')
+                #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
                 value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
                 value.set 'roomsizearray' , roomsizearray
@@ -192,12 +173,12 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
             object = @
             $.ajax(
                 method: "POST" ,
-                url : AJAXURL+'?action=get_unit_variants_persqftprice',
-                data : 'variant_id='+unitModel.get('unitVariant'),
+                url : AJAXURL+'?action=get_unit_single_details',
+                data : 'id='+unitModel.get('id'),
                 success :(result)-> 
                     console.log "vieew"
-                    unitModel.set 'persqftprice' , result
-                    object.layout.triggerMethod "show:cost:sheet" 
+                    unitModel.set 'persqftprice' , result.persqftprice
+                    object.layout.triggerMethod "show:cost:sheet" , result
                 error:(result)->
 
             )

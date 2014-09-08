@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, globalUnitArrayInt, object1, rangeunitArray, tagsArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, firstElement, flag_set, globalUnitArrayInt, object1, position, rangeunitArray, sudoSlider, tagsArray, unitAssigedArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -16,14 +16,19 @@ define(['marionette'], function(Marionette) {
   cloneunitVariantArrayColl = "";
   rangeunitArray = [];
   globalUnitArrayInt = [];
+  position = "";
+  unitAssigedArray = [];
+  sudoSlider = "";
   ScreenThreeLayout = (function(_super) {
+    var object;
+
     __extends(ScreenThreeLayout, _super);
 
     function ScreenThreeLayout() {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="floorsvg"> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div class="liquid-slider center-block sliderPlans" id="sliderplans"> <div id="svg1"> </div> <div id="svg2"> </div> <div id="svg3"> </div> <div id="svg4"> </div> </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="floorsvg"> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <span>Flat No : </span><span id="flatno"></span> <div id="positionsvg"> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -32,17 +37,100 @@ define(['marionette'], function(Marionette) {
       unitRegion: '#unit-region'
     };
 
+    object = ScreenThreeLayout;
+
     ScreenThreeLayout.prototype.events = {
+      'click .customLink': function(e) {
+        var element, id, index, _i, _len;
+        console.log(id = parseInt(e.target.id));
+        console.log(unitAssigedArray);
+        for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
+          element = unitAssigedArray[index];
+          console.log(element);
+          if (element === parseInt(id)) {
+            $('#' + element).attr('class', 'floor-pos position');
+          } else {
+            $('#' + element).attr('class', 'floor-pos ');
+          }
+        }
+        unitAssigedArray.push(id);
+        return this.loadsvg(id);
+      },
       'click .unit-hover': function(e) {
-        var element, index, unitModel, _i, _len;
+        var buildinArray, building, buildingCollection, buildingModel, element, flatid, index, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues, _i, _j, _len, _len1;
         console.log(e.target.id);
-        unitModel = App.master.unit.findWhere({
-          id: parseInt(e.target.id)
+        console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
+        console.log(buildinArray = buildingCollection.toArray());
+        console.log(building = _.first(buildinArray));
+        buildingModel = App.master.building.findWhere({
+          id: parseInt(building.get('id'))
         });
-        for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
+        svgdata = [
+          [
+            {
+              svposition: [1],
+              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
+              units: {
+                1: {
+                  1: 49,
+                  2: 52,
+                  3: 61,
+                  4: 67,
+                  5: 73,
+                  6: 80,
+                  7: 85,
+                  8: 90,
+                  9: 98,
+                  10: 113,
+                  11: 142,
+                  12: 152
+                }
+              }
+            }
+          ]
+        ];
+        svgposition = "";
+        unitvalues = "";
+        indexvalue = "";
+        $.each(svgdata, function(index, value) {
+          console.log(value);
+          return $.each(value, function(ind, val) {
+            console.log(val);
+            return $.map(val.svposition, function(index1, val1) {
+              var unitsarray;
+              console.log(index1);
+              console.log(position);
+              if (position === index1) {
+                svgposition = val.svgfile;
+                console.log(unitsarray = val.units);
+                return console.log(indexvalue = unitsarray[position]);
+              }
+            });
+          });
+        });
+        flatid = $('#' + e.target.id).attr('data-id');
+        console.log(unit = indexvalue[parseInt(flatid)]);
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(unit)
+        });
+        console.log(unitAssigedArray);
+        for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
+          element = unitAssigedArray[index];
+          console.log(element);
+          if (element === parseInt(unitModel.get('unitAssigned'))) {
+            $('#' + element).attr('class', 'floor-pos position');
+          } else {
+            $('#' + element).attr('class', 'floor-pos ');
+          }
+        }
+        unitAssigedArray.push(unitModel.get('unitAssigned'));
+        $('#' + unitModel.get('unitAssigned')).attr('class', 'position');
+        sudoSlider.goToSlide(unitModel.get('unitAssigned'));
+        console.log(rangeunitArray);
+        for (index = _j = 0, _len1 = rangeunitArray.length; _j < _len1; index = ++_j) {
           element = rangeunitArray[index];
-          if (element === e.target.id) {
-            $("#select" + e.target.id).val('1');
+          if (element === parseInt(unit)) {
+            $("#select" + unit).val('1');
           } else {
             $("#select" + element).val('0');
             $('#check' + element).removeClass('selected');
@@ -54,21 +142,72 @@ define(['marionette'], function(Marionette) {
             rangeunitArray = [];
           }
         }
-        rangeunitArray.push(parseInt(e.target.id));
-        $('#check' + e.target.id).addClass("selected");
-        $("#select" + e.target.id).val("1");
+        rangeunitArray.push(parseInt(unit));
+        $('#check' + unit).addClass("selected");
+        $("#select" + unit).val("1");
         $("#screen-three-button").removeClass('disabled btn-default');
         return $("#screen-three-button").addClass('btn-primary');
       },
       'mouseover .unit-hover': function(e) {
-        var unitModel;
-        console.log(e.target.id);
-        unitModel = App.master.unit.findWhere({
-          id: parseInt(e.target.id)
+        var buildinArray, building, buildingCollection, buildingModel, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
+        buildingCollection = Marionette.getOption(this, 'buildingCollection');
+        buildinArray = buildingCollection.toArray();
+        building = _.first(buildinArray);
+        buildingModel = App.master.building.findWhere({
+          id: parseInt(building.get('id'))
         });
-        if (unitModel.get('status') === 9) {
+        svgdata = [
+          [
+            {
+              svposition: [1],
+              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
+              units: {
+                1: {
+                  1: 49,
+                  2: 52,
+                  3: 61,
+                  4: 67,
+                  5: 73,
+                  6: 80,
+                  7: 85,
+                  8: 90,
+                  9: 98,
+                  10: 113,
+                  11: 142,
+                  12: 152
+                }
+              }
+            }
+          ]
+        ];
+        svgposition = "";
+        unitvalues = "";
+        indexvalue = "";
+        $.each(svgdata, function(index, value) {
+          return $.each(value, function(ind, val) {
+            return $.map(val.svposition, function(index1, val1) {
+              var unitsarray;
+              if (position === index1) {
+                svgposition = val.svgfile;
+                unitsarray = val.units;
+                return indexvalue = unitsarray[position];
+              }
+            });
+          });
+        });
+        flatid = $('#' + e.target.id).attr('data-id');
+        unit = indexvalue[parseInt(flatid)];
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(unit)
+        });
+        console.log(this);
+        $('#flatno').text(unitModel.get('name'));
+        $('.unit-hover').css('content', unitModel.get('name'));
+        if (parseInt(unitModel.get('status')) === 9) {
+          console.log("qq");
           return $("#" + e.target.id).attr('class', 'unit-hover aviable');
-        } else if (unitModel.get('status') === 8) {
+        } else if (parseInt(unitModel.get('status')) === 8) {
+          console.log("ww");
           return $("#" + e.target.id).attr('class', 'unit-hover sold');
         }
       },
@@ -203,9 +342,24 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, floorsvg, globalUnitVariants, source, source1, source2, source3, sudoSlider, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, globalUnitVariants, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      $('#screen-three-button').on('click', function() {
+        return new jBox('Notice', {
+          content: 'Wait 1 Second',
+          autoClose: 2000,
+          addClass: 'notifyBox',
+          position: {
+            x: 'center',
+            y: 'top'
+          },
+          animation: {
+            open: 'flip',
+            close: 'slide:top'
+          }
+        });
+      });
       sudoSlider = $("#unitsSlider").sudoSlider({
-        customLink: "a.customLink",
+        customLink: "a",
         prevNext: false,
         responsive: true,
         speed: 800
@@ -218,17 +372,7 @@ define(['marionette'], function(Marionette) {
       }
       rangeunitArray = [];
       globalUnitArrayInt = [];
-      source = "../wp-content/uploads/2014/08/image/image-1.svg";
-      source1 = "../wp-content/uploads/2014/08/image/image-1.svg";
-      source2 = "../wp-content/uploads/2014/08/image/image-1.svg";
-      source3 = "../wp-content/uploads/2014/08/image/image-1.svg";
-      floorsvg = "../wp-content/uploads/2014/08/image/floor.svg";
-      $('<div></div>').load(source).appendTo("#svg1");
-      $('<div></div>').load(source1).appendTo("#svg2");
-      $('<div></div>').load(source2).appendTo("#svg3");
-      $('<div></div>').load(source3).appendTo("#svg4");
-      $('<div></div>').load(floorsvg).appendTo("#floorsvg");
-      $('<div></div>').load(floorsvg).appendTo("#mainsvg");
+      this.loadbuildingsvg();
       $('#sliderplans').liquidSlider({
         slideEaseFunction: "fade",
         autoSlide: true,
@@ -345,7 +489,11 @@ define(['marionette'], function(Marionette) {
         });
       }
       this.doListing();
-      return object1 = this;
+      object1 = this;
+      setTimeout(function() {
+        return $('#' + 1).attr('class', 'floor-pos position');
+      }, 2000);
+      return unitAssigedArray.push("1");
     };
 
     $(document).on("click", ".closeButton1", function() {
@@ -355,8 +503,112 @@ define(['marionette'], function(Marionette) {
       return object1.delItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
-    ScreenThreeLayout.prototype.call = function() {
-      return console.log("aaaaaaaaaaaaaaaaaaa");
+    ScreenThreeLayout.prototype.loadbuildingsvg = function() {
+      var buildinArray, building, buildingCollection, buildingModel, path, svgdata, svgpath;
+      console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
+      console.log(buildinArray = buildingCollection.toArray());
+      console.log(building = _.first(buildinArray));
+      buildingModel = App.master.building.findWhere({
+        id: parseInt(building.get('id'))
+      });
+      svgpath = buildingModel.get('svgfile');
+      svgdata = [
+        [
+          {
+            svposition: [1],
+            svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
+            units: [
+              {
+                1: [
+                  {
+                    1: 49,
+                    2: 52,
+                    3: 61,
+                    4: 67,
+                    5: 73,
+                    6: 80,
+                    7: 85,
+                    8: 90,
+                    9: 98,
+                    10: 113,
+                    11: 142,
+                    12: 152
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ];
+      if (buildingModel.get('id') === 11) {
+        path = "../wp-content/uploads/2014/08/image/floor.svg";
+        $('<div></div>').load(path).appendTo("#floorsvg");
+      } else {
+        path = "";
+      }
+      return this.loadsvg();
+    };
+
+    ScreenThreeLayout.prototype.loadsvg = function(floorid) {
+      var buildinArray, building, buildingCollection, buildingModel, indexvalue, svgdata, svgpath, svgposition, unitvalues;
+      console.log(floorid);
+      console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
+      console.log(buildinArray = buildingCollection.toArray());
+      console.log(building = _.first(buildinArray));
+      buildingModel = App.master.building.findWhere({
+        id: parseInt(building.get('id'))
+      });
+      svgpath = buildingModel.get('svgfile');
+      svgdata = [
+        [
+          {
+            svposition: [1],
+            svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
+            units: {
+              1: {
+                1: 49,
+                2: 52,
+                3: 61,
+                4: 67,
+                5: 73,
+                6: 80,
+                7: 85,
+                8: 90,
+                9: 98,
+                10: 113,
+                11: 142,
+                12: 152
+              }
+            }
+          }
+        ]
+      ];
+      if (buildingModel.get('id') === 11) {
+        if (floorid === void 0) {
+          floorid = 1;
+        }
+      }
+      svgposition = "";
+      unitvalues = "";
+      indexvalue = "";
+      $('#positionsvg').text("");
+      $.each(svgdata, function(index, value) {
+        console.log(value);
+        return $.each(value, function(ind, val) {
+          console.log(val);
+          return $.map(val.svposition, function(index1, val1) {
+            var unitsarray;
+            console.log(index1);
+            if (floorid === index1) {
+              svgposition = val.svgfile;
+              console.log(unitsarray = val.units);
+              console.log(indexvalue = unitsarray[floorid]);
+              return $('<div></div>').load(svgposition).appendTo("#positionsvg");
+            }
+          });
+        });
+      });
+      return position = floorid;
     };
 
     ScreenThreeLayout.prototype.doListing = function() {
@@ -625,9 +877,8 @@ define(['marionette'], function(Marionette) {
     UnitTypeView.prototype.childViewContainer = '.unitSlider';
 
     UnitTypeView.prototype.onShow = function() {
-      var sudoSlider;
       return sudoSlider = $("#unitsSlider").sudoSlider({
-        customLink: "a.customLink",
+        customLink: "a",
         prevNext: false,
         responsive: true,
         speed: 800

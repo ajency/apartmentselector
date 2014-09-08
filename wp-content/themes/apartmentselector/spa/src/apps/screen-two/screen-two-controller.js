@@ -126,9 +126,16 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       status = App.currentStore.status.findWhere({
         'name': 'Available'
       });
-      units = App.master.unit.where({
-        'status': status.get('id')
-      });
+      key = _.isEmpty(paramid);
+      if (key === true) {
+        units = App.currentStore.unit.where({
+          'status': status.get('id')
+        });
+      } else {
+        units = App.master.unit.where({
+          'status': status.get('id')
+        });
+      }
       Countunits = App.currentStore.unit.where({
         'status': status.get('id')
       });
@@ -138,7 +145,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       mainunitsTypeArray = [];
       mainArray = [];
       $.each(App.defaults, function(index, value) {
-        var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
+        var budget_Val, element, string_val, valuearr, _i, _len, _results;
         if (value !== 'All') {
           param[index] = value;
           string_val = _.isString(value);
@@ -375,7 +382,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       buildingUnits = [];
       $.each(buildingArray, function(index, value) {
-        var availableunits, buildingid, data, disablehigh, disablelow, disablemedium, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, hfloorvalue, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lfloorvalue, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, mfloorvalue, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, uniqueViewArry, unitTypeArray, variantsDataValues, viewmodels;
+        var availableunits, buildingid, data, disablehigh, disablelow, disablemedium, flag1, flag2, flag3, flag4, flag5, floors, hclassname, hcount, hfloorvalue, highArray, high_max_val, high_min_val, hunique, hunitTypeArray, itemCollection, lclassname, lcount, lfloorvalue, lowArray, low_max_val, low_min_val, lunique, lunitTypeArray, mclassname, mcount, mediumArray, medium_max_val, medium_min_val, mfloorvalue, munique, munitTypeArray, newarr, newunits, totalfloorcollection, totalunits, uniqFloors, unique, unitTypeArray, variantsDataValues, viewmodels;
         buildingid = value;
         unitTypeArray = Array();
         newarr = [];
@@ -407,30 +414,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           id: buildingid
         });
         floorriserange = buildingModel.get('floorriserange');
-        $.each(totalunits, function(index, value) {
-          var viewsData;
-          viewsData = value.get('views');
-          return viewmodels = $.merge(viewmodels, viewsData);
-        });
-        uniqueViewArry = _.uniq(viewmodels);
         variantsDataValues = [];
         data = [];
-        $.each(uniqueViewArry, function(index, value) {
-          var viewModel;
-          viewModel = App.master.view.findWhere({
-            id: parseInt(value)
-          });
-          data.push({
-            id: viewModel.get('id'),
-            name: viewModel.get('name')
-          });
-          if (data.length === 2) {
-            variantsDataValues.push({
-              data: data
-            });
-            return data = [];
-          }
-        });
         flag = 0;
         flag1 = 0;
         $.each(mainunitsTypeArray, function(key, item) {
