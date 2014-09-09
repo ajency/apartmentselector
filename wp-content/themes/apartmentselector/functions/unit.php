@@ -892,3 +892,4 @@ function ajax_get_unit_single_details(){
     exit;
 }
 add_action('wp_ajax_get_unit_single_details','ajax_get_unit_single_details'); 
+add_action('wp_ajax_nopriv_get_unit_single_details','ajax_get_unit_single_details'); 
