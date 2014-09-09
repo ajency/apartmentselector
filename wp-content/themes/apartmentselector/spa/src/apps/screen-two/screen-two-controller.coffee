@@ -280,7 +280,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             
-
+            console.log floorCollunits.length
             floorCollection = new Backbone.Collection(floorCollunits)
             unitvariant = floorCollection.pluck("unitVariant")
             uniqUnitvariant = _.uniq(unitvariant)
@@ -494,7 +494,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 totalfloorcollection = new Backbone.Collection(totalunits)
                 floors = totalfloorcollection.pluck("floor")
                 uniqFloors = _.uniq(floors)
-                newunits = App.master.unit.where({'building':value,'status':status.get('id')})
+                newunits = floorCollection.where({'building':value,'status':status.get('id')})
+                console.log newunits.length
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
                 mediumArray = Array()
