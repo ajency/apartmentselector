@@ -27,7 +27,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
             unitModelArray = []
             if cookeArray.length != 0
                 for element in cookeArray
-                    unitModel = App.master.unit.findWhere({id:parseInt(element)})
+                    console.log unitModel = App.master.unit.findWhere({id:parseInt(element)})
                     console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
                     floorriserange = buildingModel.get 'floorriserange'
                     #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]

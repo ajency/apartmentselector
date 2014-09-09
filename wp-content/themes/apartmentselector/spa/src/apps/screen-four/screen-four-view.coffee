@@ -313,7 +313,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
         onShow:->
-
+            @trigger "get:perSqft:price"
             $(".discountToggle").click ->
                 $(".discountBox").slideToggle()
                 return
@@ -321,7 +321,7 @@ define [ 'marionette' ], ( Marionette )->
             usermodel = new Backbone.Model USER
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_cost_sheet',capability) >= 0
-                @trigger "get:perSqft:price"
+                console.log ""
             else
                 $('.costsheetbutton').hide()
                 #@trigger "get:perSqft:price"
@@ -443,10 +443,12 @@ define [ 'marionette' ], ( Marionette )->
             $('#showWishlist').html table
 
         onShowCostSheet:(value)->
+            console.log units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             @generateCostSheet()
             viewModelArray = []
             facingModelArray = []
             console.log value.views
+            units.set 'views' , value.views
             if value.views.length != 0
                 viewsArray = value.views
                 console.log viewsArray
@@ -457,6 +459,7 @@ define [ 'marionette' ], ( Marionette )->
                 viewModelArray.push('-----')
             $('.viewclass').text viewModelArray.join(', ')
             facingssArray = value.facings
+            units.set 'facing' , value.facings
             if facingssArray.length != 0
                 for element in facingssArray
                     facingModel = App.master.facings.findWhere({id:parseInt(element)})

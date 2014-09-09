@@ -36,9 +36,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
       if (cookeArray.length !== 0) {
         for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
           element = cookeArray[_i];
-          unitModel = App.master.unit.findWhere({
+          console.log(unitModel = App.master.unit.findWhere({
             id: parseInt(element)
-          });
+          }));
           console.log(buildingModel = App.master.building.findWhere({
             id: unitModel.get('building')
           }));
