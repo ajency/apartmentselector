@@ -205,6 +205,116 @@ You can compare up to 4 apartments!</div>
 
         onShow:->
 
+            $.reject
+                # Specifies which browsers/versions will be blocked
+                reject:
+                    # all: true # Covers Everything (Nothing blocked)
+                    msie: 8 # Covers MSIE <= 6 (Blocked by default)
+                    # chrome: true
+
+                #
+                #         * Many possible combinations.
+                #         * You can specify browser (msie, chrome, firefox)
+                #         * You can specify rendering engine (geko, trident)
+                #         * You can specify OS (Win, Mac, Linux, Solaris, iPhone, iPad)
+                #         *
+                #         * You can specify versions of each.
+                #         * Examples: msie9: true, firefox8: true,
+                #         *
+                #         * You can specify the highest number to reject.
+                #         * Example: msie: 9 (9 and lower are rejected.
+                #         *
+                #         * There is also "unknown" that covers what isn't detected
+                #         * Example: unknown: true
+                #         
+                display: [] # What browsers to display and their order (default set below)
+                browserShow: true # Should the browser options be shown?
+                browserInfo: # Settings for which browsers to display
+                    chrome:
+                        
+                        # Text below the icon
+                        text: "Google Chrome"
+                        
+                        # URL For icon/text link
+                        url: "http://www.google.com/chrome/"
+
+                    
+                    # (Optional) Use "allow" to customized when to show this option
+                    # Example: to show chrome only for IE users
+                    # allow: { all: false, msie: true }
+                    firefox:
+                        text: "Mozilla Firefox"
+                        url: "http://www.mozilla.com/firefox/"
+                        # allow: false
+
+                    safari:
+                        text: "Safari"
+                        url: "http://www.apple.com/safari/download/"
+                        # allow: false
+
+                    opera:
+                        text: "Opera"
+                        url: "http://www.opera.com/download/"
+                        # allow: false
+
+                    msie:
+                        text: "Internet Explorer"
+                        url: "http://www.microsoft.com/windows/Internet-explorer/"
+                        allow: false
+
+                
+                # Pop-up Window Text
+                header: "<div class='skyiLogo'></div>Oops! Your browser isn't supported!"
+                paragraph1: "Your browser is out of date, and is not compatible with " + "our website."
+                paragraph2: "A list of the most popular web browsers can be found below. Just click on the icons to go to the download page."
+                
+                # Allow closing of window
+                close: false
+                
+                # Message displayed below closing link
+                closeMessage: "By closing this window you acknowledge that your experience " + "on this website may be degraded"
+                closeLink: "Close This Window"
+                closeURL: "#"
+                
+                # Allows closing of window with esc key
+                closeESC: false
+                
+                # Use cookies to remmember if window was closed previously?
+                closeCookie: false
+                
+                # Cookie settings are only used if closeCookie is true
+                cookieSettings:
+                    
+                    # Path for the cookie to be saved on
+                    # Should be root domain in most cases
+                    path: "/"
+                    
+                    # Expiration Date (in seconds)
+                    # 0 (default) means it ends with the current session
+                    expires: 0
+
+                
+                # Path where images are located
+                imagePath: "../wp-content/themes/apartmentselector/images/"
+                
+                # Background color for overlay
+                overlayBgColor: "#fff"
+                
+                # Background transparency (0-1)
+                overlayOpacity: 1
+                
+                # Fade in time on open ('slow','medium','fast' or integer in ms)
+                fadeInTime: "1"
+                
+                # Fade out time on close ('slow','medium','fast' or integer in ms)
+                fadeOutTime: "fast"
+                
+                # Google Analytics Link Tracking (Optional)
+                # Set to true to enable
+                # Note: Analytics tracking code must be added separately
+                analytics: false
+
+            
             console.log height = $(window).scrollTop()
 
             $(window).scroll( ()->
@@ -258,6 +368,7 @@ You can compare up to 4 apartments!</div>
                 # table += '</table>'
             console.log table
             $('#showWishlist').html table
+
 
 
 

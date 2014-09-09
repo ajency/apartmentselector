@@ -40,7 +40,8 @@ requirejs.config({
     sudoSlider: 'src/bower_components/preload/jquery.sudoSlider.min',
     jqueryCookie: 'src/bower_components/jquery-cookie/jquery.cookie',
     jbox: 'src/bower_components/jbox/Source/jBox.min',
-    fancybox: 'src/bower_components/fancybox/source/jquery.fancybox'
+    fancybox: 'src/bower_components/fancybox/source/jquery.fancybox',
+    jReject: 'src/bower_components/jReject/js/jquery.reject'
   },
   shim: {
     jquery: ['underscore'],
@@ -80,6 +81,7 @@ requirejs.config({
     jquerySecret: ['jquery'],
     sudoSlider: ['jquery'],
     jbox: ['jquery'],
-    fancybox: ['jquery']
+    fancybox: ['jquery'],
+    jReject: ['jquery']
   }
 });

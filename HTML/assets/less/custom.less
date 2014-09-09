@@ -334,3 +334,50 @@ a.im-clear-button{
 		text-align: center;
 	}
 }
+
+/*Browser not supported*/
+#jr_header{
+	.h2;
+	.medium;
+	color: @color-primary;
+	text-align: center;
+	margin-top: 0;
+
+	.skyiLogo{
+		height: 60px;
+		width: 40px;
+		margin: 0 auto 10px;
+		background: url('../images/skyi-logoS-1.png');
+		background-size: 40px 60px;
+	}
+}
+
+#jr_inner{
+	width: 800px !important;
+	max-width: 800px !important;
+	border: none;
+	box-shadow: 0 0 0 1px lighten(@color-grey, 30%), 2px 2px 2px lighten(@color-primary, 35%);
+	p{
+		.light;
+		text-align: center;
+	}
+
+	ul{
+		text-align: center;
+		margin-top: 20px;
+		li{
+			display: inline-block;
+			float: none;
+
+			&:hover{
+				// box-shadow: 0 0 0 1px lighten(@color-grey, 30%), 2px 2px 2px lighten(@color-primary, 35%);
+			}
+			
+			a{
+				.light;
+				.small;
+			}
+		}
+
+	}
+}
