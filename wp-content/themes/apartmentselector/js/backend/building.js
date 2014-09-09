@@ -9,11 +9,24 @@ jQuery(document).ready(function($) {
         fileUploadByIndex(file_field);
     });
 
-if($("#fileuploadposition_in_project").length>0){
-
-    fileUploadById("position_in_project")
+if($("#fileuploadposition_in_project_basic").length>0){
+ 
+    fileUploadById("position_in_project_basic")
 }
-
+if($("#fileuploadposition_in_project_detailed").length>0){
+ 
+    fileUploadById("position_in_project_detailed")
+}
+if($("#fileuploadexception_1_basic").length>0){
+ 
+    fileUploadById("exception_1_basic")
+}
+if($("#fileuploadexception_1_detailed").length>0){
+ 
+    fileUploadById("exception_1_detailed")
+}
+ 
+    
 if($("#slider").length!=0){
     displaySlider($("#no_of_floors").val())
 }
@@ -151,8 +164,12 @@ $(document).on("change", ".no_of_flats", function(e) {
 
     $(document).on("change", "#no_of_floors", function(e) {
 
-        loadExceptionsOption($(e.target).val());
-
+         loadExceptionsOption($(e.target).val());
+        if($(e.target).val()!=""){
+            $("#floorrise-container-main").show()
+        }else{
+            $("#floorrise-container-main").hide()
+        }
         loadFloorRiseOption($(e.target).val());
  
         updateSlider()
@@ -209,7 +226,11 @@ function loadExceptionsOption(floors){
             $(".exception_container").html(addException(1))
 
             $("#exceptions_count").val(1)
-            
+
+            fileUploadById("exception_1_basic")
+         
+            fileUploadById("exception_1_detailed")
+          
        }
       
 
@@ -294,6 +315,50 @@ function getImageUploadUi(flatNo,exception_no,field){
     return html;
 }
 
+function getImageUploadUi(flatNo,exception_no,field){
+
+    prefix = (exception_no!="")? field+'_exception_'+exception_no+'_':field+'_'+exception_no;
+    
+    html =  '<label class="form-label">'+toProperCase(field)+':</label> <span class="btn btn-success fileinput-button">'
+            +'<i class="glyphicon glyphicon-plus"></i>'
+            +'<span>Select files...</span>'
+            +'<input type="hidden" id="fileupload'+prefix+''+flatNo+'_image_id" name="'+prefix+'image_id'+flatNo+'"><input id="fileupload'+prefix+''+flatNo+'" class="fileupload" type="file" name="files">'
+            +'</span>'
+            +'<br>'
+            +'<br>'
+            +'<div id="progress'+prefix+flatNo+'" class="progress">'
+            +'<div class="progress-bar progress-bar-success"></div>'
+            +'</div>'
+            +'<div id="'+prefix+flatNo+'"files" class="files'+prefix+flatNo+'"></div>'
+            +'<br><div class="row">'
+            +'<div class="col-md-12">'
+            +'<img src="" id="fileupload'+prefix+''+flatNo+'_image_display">'
+            +'</div></div>';
+                 
+    return html;
+}
+
+function getexceptionUploadUi( exception_no,postfix ){
+
+       html =  '<div class="input-with-icon  right">'
+            +'           <span class="btn btn-success fileinput-button">'
+            +'               <span>Select file..</span>'
+            +'                <input type="hidden" class="exception_'+exception_no+'_'+postfix+'" id="exception_'+exception_no+'_'+postfix+'" name="exception_'+exception_no+'_'+postfix+'" value=""><input id="fileuploadexception_'+exception_no+'_'+postfix+'" class="fileuploadexception_'+exception_no+'_'+postfix+'" type="file" name="files">'
+            +'            </span> '
+            +'            <div id="progressexception_'+exception_no+'_'+postfix+'" class="progress" >'
+            +'                <div class="progress-bar progress-bar-success"></div>'
+            +'            </div>'
+            +'            <div id="filesexception_'+exception_no+'_'+postfix+'" class="files"></div>'
+            +'           <br>'
+            +'            <div class="row-fluid">'
+            +'                <div class="col-md-12">'
+            +'                    <img src="" id="image_displayexception_'+exception_no+'_'+postfix+'"  style="display:none" >'
+            +'                </div>'
+            +'            </div>'
+            +'        </div>';
+                 
+    return html;
+}
 
 function getFloorOptions(floors,exception_no){
 
@@ -349,7 +414,16 @@ function addException(exception_no){
         +  getFlatsDropdown(exception_no)
         +  '</div>'
         +  '</div>'
-        +  '<div class="well" id="flats_container'+exception_no+'" style="display:none">' 
+        +  '<div class="well" id="exception-flats-images" style="display:none">' 
+        +  '<div class="row">'
+        +  '<div class="col-md-6">'
+        +getexceptionUploadUi(exception_no,'basic')
+        +  '</div>'
+        +  '<div class="col-md-6">'
+        +getexceptionUploadUi(exception_no,'detailed')
+        +  '</div>'
+        +  '</div>'
+
         +  '</div>'
  
     return html
@@ -365,8 +439,10 @@ function addException(exception_no){
             $("#no_of_flats1").trigger("change");
 
             $('#exception-flats').hide();
+            $('#exception-flats-images').hide();
         }else{
             $('#exception-flats').show();
+            $('#exception-flats-images').show();
         }
         });
 //save building ajax call

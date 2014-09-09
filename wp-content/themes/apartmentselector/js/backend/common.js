@@ -201,10 +201,10 @@ function fileUploadById(field){
     },
     done: function (e, data) {   
         console.log(jQuery('#fileupload'+field).parent().find(".image_id"))
-       jQuery("#position_in_project").val(data.result.attachment_id )
- 
-       jQuery("#image_displayposition_in_project").attr('src',data.result.attachment_url )
-       jQuery('#progress'+field).hide(); 
+        jQuery("#"+field).val(data.result.attachment_id )
+        jQuery("#image_display"+field).show()
+        jQuery("#image_display"+field).attr('src',data.result.attachment_url )
+        jQuery('#progress'+field).hide(); 
         jQuery('#progress'+field+' .progress-bar').css(
             'width',
             '0%'
