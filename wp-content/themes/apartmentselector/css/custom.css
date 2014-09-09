@@ -8647,3 +8647,56 @@ a.im-clear-button {
 .notifyBox .jBox-content .small {
   font-size: 75%;
 }
+/*Browser not supported*/
+#jr_header {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 21px;
+  margin-bottom: 10.5px;
+  font-size: 40px;
+  font-weight: 600;
+  color: #ff6600;
+  text-align: center;
+  margin-top: 0;
+}
+#jr_header small,
+#jr_header .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+#jr_header small,
+#jr_header .small {
+  font-size: 65%;
+}
+#jr_header .skyiLogo {
+  height: 60px;
+  width: 40px;
+  margin: 0 auto 10px;
+  background: url('../images/skyi-logoS-1.png');
+  background-size: 40px 60px;
+}
+#jr_inner {
+  width: 800px !important;
+  max-width: 800px !important;
+  border: none;
+  box-shadow: 0 0 0 1px #dfe1e5, 2px 2px 2px #ffd1b3;
+}
+#jr_inner p {
+  font-weight: 400;
+  text-align: center;
+}
+#jr_inner ul {
+  text-align: center;
+  margin-top: 20px;
+}
+#jr_inner ul li {
+  display: inline-block;
+  float: none;
+}
+#jr_inner ul li a {
+  font-weight: 400;
+  font-size: 87%;
+}
