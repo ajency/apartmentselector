@@ -758,7 +758,7 @@ define(['marionette'], function(Marionette) {
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false,
-        minHeight: 300,
+        minHeight: 500,
         autoSlideInterval: 4000,
         forceAutoSlide: true,
         mobileNavigation: false,

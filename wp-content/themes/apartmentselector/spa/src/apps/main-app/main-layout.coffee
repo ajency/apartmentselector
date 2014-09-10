@@ -60,16 +60,16 @@ You can compare up to 4 apartments!</div>
         </nav>
 
         
-        <div id="screen-one-region" class="section">
+        <div id="screen-one-region" >
 
         </div>
-        <div id="screen-two-region" class="section">
+        <div id="screen-two-region" >
 
         </div>
-        <div id="screen-three-region" class="section">
+        <div id="screen-three-region" >
 
         </div>
-        <div id="screen-four-region" class="section">
+        <div id="screen-four-region" >
 
         </div>'
 
@@ -314,11 +314,11 @@ You can compare up to 4 apartments!</div>
                 # Note: Analytics tracking code must be added separately
                 analytics: false
 
-            $("#main-region").fullpage
-                scrollOverflow: true
-                resize: false
-                verticalCentered: false
-                easing: 'easeInOutQuad'
+            #$("#main-region").fullpage
+                #scrollOverflow: true
+                #resize: false
+                #verticalCentered: false
+                #easing: 'easeInOutQuad'
 
             
             console.log height = $(window).scrollTop()

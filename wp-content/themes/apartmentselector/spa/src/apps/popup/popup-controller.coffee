@@ -86,7 +86,16 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         facingModelArray.push('-----')
 
                     unitModel.set 'facings',facingModelArray.join(',')
+                    roomSizesArray = unitVariantModel.get 'roomsizes'
+                    roomsizearray = []
+                    $.each(roomSizesArray, (index,value1)->
+                        roomsizearray.push({size: value1.room_size, type: value1.room_type})
 
+
+
+
+                    )
+                    
                     unitModelArray.push(unitModel)
                 console.log unitModelArray
                 unitCollection = new Backbone.Collection unitModelArray

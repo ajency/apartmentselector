@@ -29,7 +29,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, roomSizesArray, roomsizearray, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       console.log(modelstring);
       console.log(cookeArray = modelstring);
       unitModelArray = [];
@@ -109,6 +109,14 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             facingModelArray.push('-----');
           }
           unitModel.set('facings', facingModelArray.join(','));
+          roomSizesArray = unitVariantModel.get('roomsizes');
+          roomsizearray = [];
+          $.each(roomSizesArray, function(index, value1) {
+            return roomsizearray.push({
+              size: value1.room_size,
+              type: value1.room_type
+            });
+          });
           unitModelArray.push(unitModel);
         }
         console.log(unitModelArray);
