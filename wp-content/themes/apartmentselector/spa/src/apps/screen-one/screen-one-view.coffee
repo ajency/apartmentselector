@@ -167,6 +167,8 @@ define [ 'marionette' ], ( Marionette )->
                     App.defaults['budget'] = 'All'
 
                 $('#screen-two-region').addClass 'section'
+                $.fn.fullpage.destroy('all')
+                # $('#screen-two-region').removeClass 'hidden'
                 @trigger 'unit:type:clicked'
 
 

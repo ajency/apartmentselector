@@ -224,9 +224,6 @@ define(['marionette'], function(Marionette) {
         autoSlide: true,
         includeTitle: false
       });
-      $('html, body').animate({
-        scrollTop: $('#screen-four-region').offset().top
-      }, 'slow');
       console.log(cookieOldValue = $.cookie("key"));
       console.log(typeof cookieOldValue);
       if (cookieOldValue === void 0 || $.cookie("key") === "") {
@@ -754,7 +751,7 @@ define(['marionette'], function(Marionette) {
 
     UnitMainView.prototype.onShow = function() {
       console.log(this.model.get("unitVariant"));
-      return $('#slider-plans').liquidSlider({
+      $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false,
@@ -765,6 +762,15 @@ define(['marionette'], function(Marionette) {
         hideArrowsWhenMobile: false,
         dynamicTabsAlign: "center"
       });
+      $("#main-region").fullpage({
+        scrollOverflow: true,
+        resize: false,
+        verticalCentered: false,
+        easing: 'easeInOutQuad',
+        navigation: true,
+        slidesNavigation: false
+      });
+      return $.fn.fullpage.moveTo(4);
     };
 
     return UnitMainView;

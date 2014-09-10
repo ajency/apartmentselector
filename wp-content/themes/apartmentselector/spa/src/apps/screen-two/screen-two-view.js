@@ -202,6 +202,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #screen-two-button': function(e) {
+        $('#screen-three-region').addClass('section');
+        $.fn.fullpage.destroy('all');
         return this.trigger('unit:count:selected');
       }
     };
@@ -312,9 +314,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       }
       m = $('#mapplic1').data('mapplic');
       this.showHighlightedTowers();
-      $('html, body').animate({
-        scrollTop: $('#screen-two-region').offset().top
-      }, 'slow');
       tagsArray = [];
       testtext = App.defaults['unitVariant'];
       if (testtext !== 'All') {
@@ -343,7 +342,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       document.body.appendChild(scr);
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js';
-      return document.body.appendChild(scr);
+      document.body.appendChild(scr);
+      $("#main-region").fullpage({
+        scrollOverflow: true,
+        resize: false,
+        verticalCentered: false,
+        easing: 'easeInOutQuad',
+        navigation: true,
+        slidesNavigation: false
+      });
+      return $.fn.fullpage.moveTo(2);
     };
 
     $(document).on("click", ".closeButton", function() {

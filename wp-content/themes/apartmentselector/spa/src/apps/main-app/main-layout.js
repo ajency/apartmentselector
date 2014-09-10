@@ -237,7 +237,9 @@ define(['extm'], function(Extm) {
         scrollOverflow: true,
         resize: false,
         verticalCentered: false,
-        easing: 'easeInOutQuad'
+        easing: 'easeInOutQuad',
+        navigation: true,
+        slidesNavigation: false
       });
       console.log(height = $(window).scrollTop());
       $(window).scroll(function() {

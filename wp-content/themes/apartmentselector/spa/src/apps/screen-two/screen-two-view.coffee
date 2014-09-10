@@ -291,6 +291,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             'click #screen-two-button':(e)->
                 #rangeArray = []
+                $('#screen-three-region').addClass 'section'
+                $.fn.fullpage.destroy('all')
+                # $('#screen-three-region').removeClass 'hidden'
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
@@ -301,31 +304,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
             
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 
         onShow:->
-            # $.fn.fullpage.reBuild()
+
 
             $('#screen-two-button').on('click',  ()->
                 new jBox('Notice', 
@@ -439,9 +424,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @showHighlightedTowers()
 
 
-            $('html, body').animate({
-                scrollTop: $('#screen-two-region').offset().top
-            }, 'slow')
+            # $('html, body').animate({
+            #     scrollTop: $('#screen-two-region').offset().top
+            # }, 'slow')
 
 
             tagsArray = []
@@ -467,6 +452,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
+
+            $("#main-region").fullpage
+                scrollOverflow: true
+                resize: false
+                verticalCentered: false
+                easing: 'easeInOutQuad'
+                navigation: true
+                slidesNavigation: false
+
+            $.fn.fullpage.moveTo(2)
 
            
             

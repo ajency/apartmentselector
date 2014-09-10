@@ -276,6 +276,9 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'click #screen-three-button':(e)->
+                $('#screen-four-region').addClass 'section'
+                $.fn.fullpage.destroy('all')
+                # $('#screen-four-region').removeClass 'hidden'
                 @trigger 'unit:item:selected'
 
             'click a':(e)->
@@ -403,6 +406,8 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+
+
             $('#screen-three-button').on('click',  ()->
                 new jBox('Notice', 
                     content: 'Wait 1 Second',
@@ -544,9 +549,9 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            $('html, body').animate({
-                scrollTop: $('#screen-three-region').offset().top
-            }, 'slow');
+            # $('html, body').animate({
+            #     scrollTop: $('#screen-three-region').offset().top
+            # }, 'slow');
 
             tagsArray = []
             console.log testtext = App.defaults['unitVariant']
@@ -565,6 +570,16 @@ define [ 'marionette' ], ( Marionette )->
 
             @doListing()
             object1 = @
+
+            $("#main-region").fullpage
+                scrollOverflow: true
+                resize: false
+                verticalCentered: false
+                easing: 'easeInOutQuad'
+                navigation: true
+                slidesNavigation: false
+
+            $.fn.fullpage.moveTo(3)
             
             
             

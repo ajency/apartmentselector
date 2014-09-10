@@ -319,6 +319,8 @@ You can compare up to 4 apartments!</div>
                 resize: false
                 verticalCentered: false
                 easing: 'easeInOutQuad'
+                navigation: true
+                slidesNavigation: false
 
             
             console.log height = $(window).scrollTop()

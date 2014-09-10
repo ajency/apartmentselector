@@ -168,6 +168,7 @@ define(['marionette'], function(Marionette) {
           App.defaults['budget'] = 'All';
         }
         $('#screen-two-region').addClass('section');
+        $.fn.fullpage.destroy('all');
         return this.trigger('unit:type:clicked');
       },
       'click .cs-selected': function(e) {

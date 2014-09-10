@@ -399,9 +399,9 @@ define [ 'marionette' ], ( Marionette )->
                 autoSlide: true,
                 includeTitle:false
             )
-            $('html, body').animate({
-                scrollTop: $('#screen-four-region').offset().top
-            }, 'slow')
+            # $('html, body').animate({
+            #     scrollTop: $('#screen-four-region').offset().top
+            # }, 'slow')
             console.log cookieOldValue = $.cookie("key")
             console.log typeof cookieOldValue
             if cookieOldValue == undefined || $.cookie("key") == ""
@@ -1248,6 +1248,8 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow:->
+
+               
             console.log @model.get("unitVariant")
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad",
@@ -1262,6 +1264,16 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
+
+            $("#main-region").fullpage
+                scrollOverflow: true
+                resize: false
+                verticalCentered: false
+                easing: 'easeInOutQuad'
+                navigation: true
+                slidesNavigation: false
+
+            $.fn.fullpage.moveTo(4)
 
 
 
