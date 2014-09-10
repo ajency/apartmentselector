@@ -4,7 +4,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
         initialize :(opt = {})->
 
-            @Collection = @_getUnitsCountCollection()
+            @Collection = @getAjaxData()
 
 
             @view = view = @_getPopupView @Collection
@@ -21,13 +21,14 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
 
-        _getUnitsCountCollection:->
-            console.log localStorage.getItem("cookievalue" )
-            console.log cookeArray = localStorage.getItem("cookievalue" ).split(',')
+        _getUnitsCountCollection:(modelstring)->
+            console.log modelstring
+            console.log cookeArray = modelstring
             unitModelArray = []
+            console.log cookeArray.length
             if cookeArray.length != 0
                 for element in cookeArray
-                    unitModel = App.master.unit.findWhere({id:parseInt(element)})
+                    console.log unitModel = element
                     console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
                     floorriserange = buildingModel.get 'floorriserange'
                     #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
@@ -65,9 +66,9 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set "carpetarea" ,unitVariantModel.get 'carpetarea'
                     unitModel.set "unitTypeName" ,unitTypeModelName[0]
                     unitModel.set "buidlingName" ,buildingModel.get 'name'
-                    console.log unitModel.get('views')
-                    if unitModel.get('views') != ""
-                        viewsArray = unitModel.get('views')
+                    console.log unitModel.get('views_name')
+                    if unitModel.get('views_name') != ""
+                        viewsArray = unitModel.get('views_name')
                         console.log viewsArray.length
                         for element in viewsArray
                             viewModel = App.master.view.findWhere({id:parseInt(element)})
@@ -75,7 +76,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     else
                         viewModelArray.push('-----')
                     unitModel.set 'views',viewModelArray.join(',')
-                    facingssArray = unitModel.get('facing' )
+                    facingssArray = unitModel.get('facing_name' )
                     if facingssArray.length != 0
                         for element in facingssArray
                             facingModel = App.master.facings.findWhere({id:parseInt(element)})
@@ -87,8 +88,47 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set 'facings',facingModelArray.join(',')
 
                     unitModelArray.push(unitModel)
+                console.log unitModelArray
                 unitCollection = new Backbone.Collection unitModelArray
-                unitCollection
+                
+                @view = view = @_getPopupView unitCollection
+                @show view
+
+
+        getAjaxData:->
+            console.log localStorage.getItem("cookievalue" )
+            console.log cookeArray = localStorage.getItem("cookievalue" ).split(',')
+            unitModelArray = []
+            modelArray = []
+            i = 0
+            if cookeArray.length != 0
+                for element in cookeArray
+                    console.log unitModel = App.master.unit.findWhere({id:parseInt(element)})
+                    object = @
+                    $.ajax(
+                        method: "POST" ,
+                        url : AJAXURL+'?action=get_unit_single_details',
+                        data : 'id='+unitModel.get('id'),
+                        success :(result)-> 
+                            i++
+                            console.log unitModel1 = App.master.unit.findWhere({id:parseInt(result.id)})
+                            console.log result
+                            console.log unitModel1
+                            unitModel1.set 'persqftprice' , result.persqftprice
+                            unitModel1.set 'views_name' , result.views
+                            unitModel1.set 'facing_name' , result.facings
+                            console.log unitModel1
+                            modelArray.push unitModel1
+                            if i == cookeArray.length
+                                console.log modelArray
+                                object._getUnitsCountCollection(modelArray)
+                        error:(result)->
+
+                    )
+
+                console.log i
+                console.log cookeArray.length
+                
 
 
 

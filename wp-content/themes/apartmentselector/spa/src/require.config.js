@@ -38,7 +38,7 @@ requirejs.config({
     bjqs: 'src/bower_components/preload/bjqs-1.3.min',
     jquerySecret: 'src/bower_components/preload/jquery.secret-source.min',
     sudoSlider: 'src/bower_components/preload/jquery.sudoSlider.min',
-    jqueryCookie: 'src/bower_components/jquery-cookie/jquery.cookie',
+    jqueryCookie: 'src/bower_components/bower_components/jquery-cookie/jquery.cookie',
     jbox: 'src/bower_components/jbox/Source/jBox.min',
     fancybox: 'src/bower_components/fancybox/source/jquery.fancybox',
     jReject: 'src/bower_components/jReject/js/jquery.reject',

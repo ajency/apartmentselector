@@ -212,16 +212,13 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       building = Marionette.getOption(this, 'buildingColl').toArray();
       console.log(buidlingValue = _.first(building));
       masterbuilding = App.master.building;
-      masterbuilding.each(function(index) {
+      return masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
       });
-      return setTimeout(function() {
-        return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
-      }, 2000);
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var ajaxurl, buidlingValue, building, defer, globalUnitVariants, i, params, scr, selector, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       $('#screen-two-button').on('click', function() {
         return new jBox('Notice', {
           content: 'Wait 1 Second',
@@ -296,16 +293,21 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $(this).toggleClass("selected");
       });
       i = 1;
+      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+      building = Marionette.getOption(this, 'buildingColl').toArray();
+      console.log(buidlingValue = _.first(building));
       console.log($('#mapplic1').text());
       while (window['mapplic' + i] !== void 0) {
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
         ajaxurl = AJAXURL;
-        $(selector).mapplic({
+        defer = $(selector).mapplic({
           'id': 5,
           'width': params.width,
-          'height': params.height
+          'height': params.height,
+          'option': buidlingValue
         });
+        console.log(defer);
         i++;
       }
       m = $('#mapplic1').data('mapplic');

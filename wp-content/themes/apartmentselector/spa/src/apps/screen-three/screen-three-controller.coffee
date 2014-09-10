@@ -330,7 +330,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     model.count
                 )
                 console.log buildingvalue = buildingvalue.id
-            console.log unitsCollection = units.where({building:parseInt(buildingvalue)})
+            units1 = new Backbone.Collection floorUnitsArray
+            console.log unitsCollection = units1.where({building:parseInt(buildingvalue)})
             $.each(unitsCollection, (index,value)->
                     if floorArray.indexOf(value.get 'floor') ==  -1
                         floorArray.push value.get 'floor'
@@ -350,7 +351,13 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             unitArray= []
             unitColl = new Backbone.Collection unitsCollection
             unitAssigned = unitColl.pluck("unitAssigned")
-            console.log uniqunitAssigned = _.uniq(unitAssigned)
+            console.log uniqunitAssignedval = _.uniq(unitAssigned)
+            uniqunitAssigned = _.without(uniqunitAssignedval, 0)
+            uniqunitAssigned.sort( (a,b)->
+                a - b
+
+
+                )
             $.each(uniqunitAssigned, (index,value)->
                 floorColl =  new Backbone.Collection floorUnitsArray
                 console.log unitAssgendModels = floorColl.where({unitAssigned:value})

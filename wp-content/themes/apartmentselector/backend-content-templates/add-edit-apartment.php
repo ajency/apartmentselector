@@ -224,8 +224,8 @@ if(isset($_REQUEST["id"])){
                             <?php
                             foreach($flats["flats"] as $flat){
                                     ?>
-                                        <div class="col-md-12"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>">Flat <?php echo $flat["flat_no"]?></div>
-                                        <div class="col-md-6"><img src="<?php echo $flat["basic_thumbnail_image_url"]?>" class="image_display"></div><div class="col-md-6"><img src="<?php echo $flat["detailed_thumbnail_image_url"]?>" class="image_display"></div>
+                                        <div class="col-md-4 radio radio-default"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>" id="unit_assigned<?php echo $flat["flat_no"]?>"><label for="unit_assigned<?php echo $flat["flat_no"]?>">Flat <?php echo $flat["flat_no"]?></label></div>
+                                         
                                  <?php
                             }
                             ?>

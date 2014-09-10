@@ -92,12 +92,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             }
           });
         } else {
-          positionObject = exceptionObject[0].flats;
-          $.each(positionObject, function(index, value1) {
-            if (value.get('unitAssigned') === value1.flat_no) {
-              return floorLayoutimage = value1.image_url;
-            }
-          });
+          floorLayoutimage = positionObject.thumbnail_url;
         }
         console.log(roomSizesArray = unitVariantModel.get('roomsizes'));
         roomsizearray = [];
@@ -114,7 +109,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           terraceoptionstext = unitVariantModel.get('terraceoptions');
         }
         value.set('floorLayoutimage', floorLayoutimage);
-        value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
+        value.set('BuildingPositionimage', building.get('positioninprojectdetailedimageurl'));
         value.set('roomsizearray', roomsizearray);
         return value.set('terraceoptions', terraceoptionstext);
       });

@@ -34,9 +34,13 @@ $heading = "Edit";
 
     $building_views = $building["buildingviews"];
 
-    $position_in_project = $building["positioninproject"];
+    $position_in_project_basic = $building["positioninprojectbasic"];
     
-    $position_in_project_image_url = $building["positioninprojectimageurl"];
+    $position_in_project_basic_image_url = $building["positioninprojectbasicimageurl"];
+
+    $position_in_project_detailed = $building["positioninprojectdetailed"];
+    
+    $position_in_project_detailed_image_url = $building["positioninprojectdetailedimageurl"];
 
     $no_of_floors = $building["nooffloors"];
 
@@ -47,7 +51,7 @@ $heading = "Edit";
     $floorrise = $building["floorrise"];
 
     $building_exceptions = $building["exceptions"]; 
-
+ 
     $building_floorriserange = $building["floorriserange"]; 
  
     if(is_array($building_floorriserange)){
@@ -133,21 +137,43 @@ $heading = "Edit";
             <label class="form-label">
                 Position in project
             </label>
-
-            <div class="input-with-icon  right">
-                <span class="btn btn-success fileinput-button">
-                     
-                    <span>Select file..</span>
-                    <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo $position_in_project;?>"><input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
-                </span> 
-                <div id="progressposition_in_project" class="progress" >
-                    <div class="progress-bar progress-bar-success"></div>
-                </div>
-                <div id="filesposition_in_project" class="files"></div>
-                <br>
-                <div class="row-fluid">
-                    <div class="col-md-12">
-                        <img src="<?php echo $position_in_project_image_url;?>" id="image_displayposition_in_project">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-with-icon  right">
+                        <span class="btn btn-success fileinput-button">
+                             
+                            <span>Select file..</span>
+                            <input type="hidden" class="position_in_project_basic" id="position_in_project_basic" name="position_in_project_basic" value="<?php echo $position_in_project_basic;?>"><input id="fileuploadposition_in_project_basic" class="fileuploadposition_in_project_basic" type="file" name="files">
+                        </span> 
+                        <div id="progressposition_in_project_basic" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesposition_in_project_basic" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo $position_in_project_basic_image_url;?>" id="image_displayposition_in_project_basic" <?php if(@$position_in_project_basic_image_url==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-6">
+                    <div class="input-with-icon  right">
+                        <span class="btn btn-success fileinput-button">
+                             
+                            <span>Select file..</span>
+                            <input type="hidden" class="position_in_project_detailed" id="position_in_project_detailed" name="position_in_project_detailed" value="<?php echo $position_in_project_detailed;?>"><input id="fileuploadposition_in_project_detailed" class="fileuploadposition_in_project_detailed" type="file" name="files">
+                        </span> 
+                        <div id="progressposition_in_project_detailed" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesposition_in_project_detailed" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo $position_in_project_detailed_image_url;?>" id="image_displayposition_in_project_detailed" <?php if(@$position_in_project_detailed_image_url==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> 
@@ -412,7 +438,7 @@ $heading = "Edit";
 
 
 </div>
-
+ 
 <div id="exceptions" <?php if(count($building_exceptions)==0){?>style="display:none"<?php } ?>>
     <b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
     <input type="hidden" name="exceptions_count" value="<?php echo count($building_exceptions);?>" id="exceptions_count">
@@ -448,7 +474,7 @@ $heading = "Edit";
                     <div class="input-with-icon  right">
                         <i class="">
                         </i>
-                        <select name="no_of_flats<?php echo($exception_count);?>"  class="no_of_flats"  id="no_of_flats<?php echo($exception_count);?>" flats_container_id="flats_container<?php echo($exception_count);?>" exception_no="<?php echo($exception_count);?>">'
+                        <select name="no_of_flats<?php echo($exception_count);?>"    id="no_of_flats<?php echo($exception_count);?>" flats_container_id="flats_container<?php echo($exception_count);?>" exception_no="<?php echo($exception_count);?>">'
                             <option value="">Please Select</option>'
 
                             <?php $max_no_of_flats = get_max_no_of_flats();
@@ -460,97 +486,77 @@ $heading = "Edit";
                         </select>
                     </div>
                 </div>
-                <div class="well" id="flats_container<?php echo($exception_count);?>" <?php if($no_of_flats==0){ ?> style="display:none"<?}?>>
-                <?php 
-                if($no_of_flats!=0){
-                     foreach($building_exception["flats"] as $building_no_of_flat){
-                     ?>
-                     <div flatno ='<?php echo $building_no_of_flat['flat_no'];?>' class='flat_ui belongs_to_no_of_flats<?php echo($exception_count);?>' ><div class="form-group">
-                            <div class="form-group"><div class="row"><div class="col-md-12">
-                            <label class="form-label">
-                                Flat No: <?php echo $building_no_of_flat['flat_no'];?>
-                            </label> 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    Basic: <span class="btn btn-success fileinput-button">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span>Select files...</span> 
-                                        <input type="hidden" id="fileuploadbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_id" name="basic_exception_<?php echo($exception_count);?>_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['basic_image_id'];?>"><input id="fileuploadbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files" >
-                                    </span>
-                                    <br>
-                                    <br>
-                                    <div id="progressbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
-                                        <div class="progress-bar progress-bar-success"></div>
-                                    </div>
-                                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
-                                    <br>
-                                    <div class="row-fluid">
-                                        <div class="col-md-12">
-                                            <img src="<?php echo $building_no_of_flat['basic_thumbnail_image_url'];?>" id="fileuploadbasic_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
-                                        </div>
-                                    </div>
-                                    </div>
-                                <div class="col-md-6">
 
-                                    Detailed: <span class="btn btn-success fileinput-button">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span>Select files...</span> 
-                                        <input type="hidden" id="fileuploaddetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_id" name="detailed_exception_<?php echo($exception_count);?>_image_id<?php echo $building_no_of_flat['flat_no'];?>" value="<?php echo $building_no_of_flat['detailed_image_id'];?>"><input id="fileuploaddetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>" class="fileupload" type="file" name="files" >
-                                    </span>
-                                    <br>
-                                    <br>
-                                    <div id="progressdetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>" class="progress">
-                                        <div class="progress-bar progress-bar-success"></div>
-                                    </div>
-                                    <div id="files<?php echo $building_no_of_flat['flat_no'];?>" class="files"></div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <img src="<?php echo $building_no_of_flat['detailed_thumbnail_image_url'];?>" id="fileuploaddetailed_exception_<?php echo($exception_count);?>_<?php echo $building_no_of_flat['flat_no'];?>_image_display">
-                                        </div>
-                                    </div>
-                                </div>
+                   <div class="form-group" id="exception-flats-images" <?php if($show_flats==false){?>style="display:none"<?php } ?> >
+                     
+                  <div class="row">
+                <div class="col-md-6">
+                    <div class="input-with-icon  right">
+                        <span class="btn btn-success fileinput-button">
+                             
+                            <span>Select file..</span>
+                            <input type="hidden" class="exception_1_basic" id="exception_1_basic" name="exception_1_basic" value="<?php echo $exception_1_basic;?>"><input id="fileuploadexception_1_basic" class="fileuploadexception_1_basic" type="file" name="files">
+                        </span> 
+                        <div id="progressexception_1_basic" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesexception_1_basic" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo $building_exception["basic_image"]["thumbnail_url"];?>" id="image_displayexception_1_basic" <?php if(@$building_exception["basic_image"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
                             </div>
                         </div>
+                    </div>
+                </div> 
+                <div class="col-md-6">
+                    <div class="input-with-icon  right">
+                        <span class="btn btn-success fileinput-button">
+                             
+                            <span>Select file..</span>
+                            <input type="hidden" class="exception_1_detailed" id="exception_1_detailed" name="exception_1_detailed" value="<?php echo $exception_1_detailed;?>"><input id="fileuploadexception_1_detailed" class="fileuploadexception_1_detailed" type="file" name="files">
+                        </span> 
+                        <div id="progressexception_1_detailed" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
                         </div>
+                        <div id="filesexception_1_detailed" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo $building_exception["detailed_image"]["thumbnail_url"];?>" id="image_displayexception_1_detailed" <?php if(@$building_exception["detailed_image"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                            </div>
                         </div>
-                        </div>
-                        </div>
-                      
-                      
-                     <?php   
-                    }
-
-                    ?>
-
-                    <?php
-                }
-
-                ?> 
+                    </div>
                 </div>
+            </div> 
+            </div> 
+                
                 <?}
                 ?> 
             </div>
         </div>
-    </div> 
-    <div style="clear:both"></div>
-    <b>Floor Rise</b>
-    <div class="well" id="flats_container">
-        <div id="floor_rise_container">
-             <?php
-                for($floor=1;$floor<=$no_of_floors;$floor++){
-
-                    $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
-                    ?>
-                <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'><label class="form-label  form-label-inline"> Floor <?php  echo $floor;?> : </label> <label class="form-label form-label-prefix"> Rs.</label><input type='text' placeholder="0" class='form-control  form-control-small' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'> per sq ft</div>
-                    <?php
-                }
-             ?>
-			 
-
-        </div>
     </div>
-</div>  
+</div>   
+    
+    <div id="floorrise-container-main" <? if(@$no_of_floors==""){?>style="display:none"<?php } ?>>
+        <div style="clear:both"></div>
+        <b>Floor Rise</b>
+        <div class="well" id="flats_container">
+            <div id="floor_rise_container">
+                 <?php
+                    for($floor=1;$floor<=$no_of_floors;$floor++){
+
+                        $floor_rise =  $floorrise[$floor] ==""?0:  $floorrise[$floor];
+                        ?>
+                    <div class='floor_rise form-group' id='floor_rise_item<?php echo $floor?>'><label class="form-label  form-label-inline"> Floor <?php  echo $floor;?> : </label> <label class="form-label form-label-prefix"> Rs.</label><input type='text' placeholder="0" class='form-control  form-control-small' value='<?php echo $floor_rise?>' name='floor_rise_<?php echo $floor?>'> per sq ft</div>
+                        <?php
+                    }
+                 ?>
+    			 
+
+            </div>
+        </div>
+        </div>
 
 
 
