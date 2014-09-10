@@ -355,6 +355,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       unitAssigned = unitColl.pluck("unitAssigned");
       console.log(uniqunitAssignedval = _.uniq(unitAssigned));
       uniqunitAssigned = _.without(uniqunitAssignedval, 0);
+      uniqunitAssigned.sort(function(a, b) {
+        return a - b;
+      });
       $.each(uniqunitAssigned, function(index, value) {
         var floorColl, unitAssgendModels, unitAssgendModelsColl;
         floorColl = new Backbone.Collection(floorUnitsArray);

@@ -352,6 +352,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             unitAssigned = unitColl.pluck("unitAssigned")
             console.log uniqunitAssignedval = _.uniq(unitAssigned)
             uniqunitAssigned = _.without(uniqunitAssignedval, 0)
+            uniqunitAssigned.sort( (a,b)->
+                a - b
+
+
+                )
             $.each(uniqunitAssigned, (index,value)->
                 floorColl =  new Backbone.Collection floorUnitsArray
                 console.log unitAssgendModels = floorColl.where({unitAssigned:value})

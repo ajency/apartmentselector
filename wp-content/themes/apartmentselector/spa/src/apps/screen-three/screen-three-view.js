@@ -55,6 +55,7 @@ define(['marionette'], function(Marionette) {
         }
         $('#' + id).attr('class', 'floor-pos position');
         unitAssigedArray.push(id);
+        sudoSlider.goToSlide(e.target.id);
         return this.loadsvg(id);
       },
       'click .unit-hover': function(e) {
@@ -74,7 +75,7 @@ define(['marionette'], function(Marionette) {
               units: {
                 1: {
                   1: 49,
-                  2: 52,
+                  2: 55,
                   3: 61,
                   4: 67,
                   5: 73,
@@ -110,6 +111,18 @@ define(['marionette'], function(Marionette) {
           });
         });
         flatid = $('#' + e.target.id).attr('data-id');
+        $.map(indexvalue, function(index, value) {
+          var floorArr;
+          floorArr = App.defaults['floor'].split(',');
+          return $.each(floorArr, function(ind, val) {
+            console.log(value);
+            console.log(val);
+            if (parseInt(value) === parseInt(val)) {
+              return $('#f' + value).attr('class', 'unit-hover');
+            }
+          });
+        });
+        $("#" + e.target.id).attr('class', 'unit-hover aviable selected-flat');
         console.log(unit = indexvalue[parseInt(flatid)]);
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
@@ -160,7 +173,7 @@ define(['marionette'], function(Marionette) {
               units: {
                 1: {
                   1: 49,
-                  2: 52,
+                  2: 55,
                   3: 61,
                   4: 67,
                   5: 73,
@@ -215,7 +228,7 @@ define(['marionette'], function(Marionette) {
               units: {
                 1: {
                   1: 49,
-                  2: 52,
+                  2: 55,
                   3: 61,
                   4: 67,
                   5: 73,
@@ -571,7 +584,7 @@ define(['marionette'], function(Marionette) {
                 1: [
                   {
                     1: 49,
-                    2: 52,
+                    2: 55,
                     3: 61,
                     4: 67,
                     5: 73,
@@ -619,7 +632,7 @@ define(['marionette'], function(Marionette) {
             units: {
               1: {
                 1: 49,
-                2: 52,
+                2: 55,
                 3: 61,
                 4: 67,
                 5: 73,
@@ -916,12 +929,21 @@ define(['marionette'], function(Marionette) {
             console.log(this.model.get("unitAssigned"));
             object = this;
             $.map(indexvalue, function(index, value) {
-              var positionassigend;
+              var floorArr, positionassigend;
+              floorArr = App.defaults['floor'].split(',');
+              $.each(floorArr, function(ind, val) {
+                console.log(value);
+                console.log(val);
+                if (parseInt(value) === parseInt(val)) {
+                  return $('#f' + value).attr('class', 'unit-hover');
+                }
+              });
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
-                return $("#f" + value).attr('class', 'unit-hover aviable selected');
+                return $("#f" + value).attr('class', 'unit-hover aviable selected-flat');
               }
             });
+            $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
             console.log($('#select' + this.model.get("id")));
             App.unit['name'] = this.model.get("id");
             App.backFilter['screen3'].push('floor');
@@ -945,9 +967,10 @@ define(['marionette'], function(Marionette) {
               var positionassigend;
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
-                return $('#' + positionassigend).attr('class', 'floor-pos ');
+                return $('#f' + positionassigend).attr('class', 'unit-hover aviable');
               }
             });
+            $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos ');
             return false;
           }
         }
