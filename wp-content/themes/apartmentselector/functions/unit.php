@@ -424,12 +424,14 @@ add_action('wp_ajax_nopriv_get_unit_variants_persqftprice','ajax_get_unit_varian
 function get_room_type_for_sizes_name($data){
 
     $updated_data = array();
-
+ 
     if(is_array($data)){
          foreach ($data as $key => $value) {
 
         $room_type_for_sizes = get_room_type_for_sizes($value["room_type"]);
      
+        $value["room_type_id"] =  $value["room_type"];
+
         $value["room_type"] =  $room_type_for_sizes[0]["name"];
 
          $updated_data[] = $value;
@@ -706,7 +708,7 @@ function get_flats_on_floor($building ,$floor,$apartment_id){
     //var to check if floor is found in exception
     $floor_in_exception = 0;
     foreach($building_exceptions as $building_exception){
- 
+
         $building_exception["floors"] =  is_null($building_exception["floors"])?array():$building_exception["floors"];
             if(in_array($floor,$building_exception["floors"])){
 
@@ -714,14 +716,14 @@ function get_flats_on_floor($building ,$floor,$apartment_id){
 
                 $floor_in_exception = 1;
             }
-            
-    }
-
-if($floor_in_exception ==0){
-             
+            if($floor_in_exception ==0){
+                
                 $flats = maybe_unserialize(get_option('building_'.$building.'_no_of_flats'));
     
- }
+            }
+    }
+
+
     $query = "select count(*) from ".$wpdb->prefix."postmeta flat_floor join ".$wpdb->prefix."postmeta flat_building on flat_building.post_id = flat_floor.post_id where  flat_building.meta_key = 'building' and flat_building.meta_value = $building and  flat_floor.meta_key = 'floor' and flat_floor.meta_value = $floor    ";
     $created_flats = $wpdb->get_var($query);
 
@@ -733,7 +735,7 @@ if($floor_in_exception ==0){
         $created_flats--;
     }
 
-    return (array("flats"=>$flats,"created_flats"=>$created_flats));
+    return (array("flats"=>get_flats_details($flats),"created_flats"=>$created_flats));
 }
 function ajax_get_flats_on_floor(){
 

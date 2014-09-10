@@ -146,14 +146,13 @@ function manage_roles()
 		}
 		update_option('custom_roles',$existing_custom_roles);
 	}
- ////
+ 
 }
  
 
  function test_data(){
  
-
-  //formatted_echo(get_buildings());
+ 
  	//create test sales user
  
  	 if ( !username_exists( 'salesone') ){
