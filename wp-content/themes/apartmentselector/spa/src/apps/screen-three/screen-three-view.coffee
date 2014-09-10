@@ -150,18 +150,22 @@ define [ 'marionette' ], ( Marionette )->
                     )
                 flatid = $('#'+e.target.id).attr('data-id')
                 $.map(indexvalue, (index,value)->
-                                    floorArr  = App.defaults['floor'].split(',')
-                                    $.each(floorArr, (ind,val)->
-                                        console.log value
-                                        console.log val
-                                        if parseInt(value) == parseInt(val)
-                                            $('#f'+value).attr('class', 'unit-hover')
+                                    if App.defaults['floor'] != "All"
+                                        floorArr  = App.defaults['floor'].split(',')
+                                        $.each(floorArr, (ind,val)->
+                                            console.log value
+                                            console.log val
+                                            if parseInt(value) == parseInt(val)
+                                                $('#f'+value).attr('class', 'unit-hover')
 
+
+
+                                            )
+                                    else
+                                        $('#f'+value).attr('class', 'unit-hover')
 
 
                                         )
-
-                                    )
                 $("#"+e.target.id).attr('class','selected-flat')
                 console.log unit = indexvalue[parseInt(flatid)]
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
@@ -622,16 +626,19 @@ define [ 'marionette' ], ( Marionette )->
                                     $('#f'+value).attr('class', 'disable')
                                 )
                                 $.map(indexvalue, (index,value)->
-                                    floorArr  = App.defaults['floor'].split(',')
-                                    $.each(floorArr, (ind,val)->
-                                        console.log value
-                                        console.log val
-                                        if parseInt(value) == parseInt(val)
-                                            $('#f'+value).attr('class', 'unit-hover')
+                                    if App.defaults['floor'] != "All"
+                                        floorArr  = App.defaults['floor'].split(',')
+                                        $.each(floorArr, (ind,val)->
+                                            console.log value
+                                            console.log val
+                                            if parseInt(value) == parseInt(val)
+                                                $('#f'+value).attr('class', 'unit-hover')
 
 
 
-                                        )
+                                            )
+                                    else
+                                        $('#f'+value).attr('class', 'unit-hover')
 
                                     )
 
@@ -873,16 +880,22 @@ define [ 'marionette' ], ( Marionette )->
                         console.log @model.get("unitAssigned")
                         object = @
                         $.map(indexvalue,  (index,value)->
-                            floorArr  = App.defaults['floor'].split(',')
-                            $.each(floorArr, (ind,val)->
-                                console.log value
-                                console.log val
-                                if parseInt(value) == parseInt(val)
-                                    $('#f'+value).attr('class', 'unit-hover')
+                            if App.defaults['floor'] != 'All'
+                                floorArr  = App.defaults['floor'].split(',')
+                                $.each(floorArr, (ind,val)->
+                                    console.log value
+                                    console.log val
+                                    if parseInt(value) == parseInt(val)
+                                        $('#f'+value).attr('class', 'unit-hover')
+                                        $('#t'+value).text ""
 
 
 
-                            )
+                                )
+                            else
+                                $('#f'+value).attr('class', 'unit-hover')
+                                $('#t'+value).text ""
+
                         )
                         $.map(indexvalue,  (index,value)->
                             console.log parseInt(index)   
@@ -891,6 +904,7 @@ define [ 'marionette' ], ( Marionette )->
                                 positionassigend = value
                                 console.log 'value'+value
                                 $("#f"+value).attr('class','selected-flat')
+                                $('#t'+value).text object.model.get('name')
 
 
                             )

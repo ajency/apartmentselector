@@ -112,14 +112,18 @@ define(['marionette'], function(Marionette) {
         flatid = $('#' + e.target.id).attr('data-id');
         $.map(indexvalue, function(index, value) {
           var floorArr;
-          floorArr = App.defaults['floor'].split(',');
-          return $.each(floorArr, function(ind, val) {
-            console.log(value);
-            console.log(val);
-            if (parseInt(value) === parseInt(val)) {
-              return $('#f' + value).attr('class', 'unit-hover');
-            }
-          });
+          if (App.defaults['floor'] !== "All") {
+            floorArr = App.defaults['floor'].split(',');
+            return $.each(floorArr, function(ind, val) {
+              console.log(value);
+              console.log(val);
+              if (parseInt(value) === parseInt(val)) {
+                return $('#f' + value).attr('class', 'unit-hover');
+              }
+            });
+          } else {
+            return $('#f' + value).attr('class', 'unit-hover');
+          }
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
         console.log(unit = indexvalue[parseInt(flatid)]);
@@ -673,14 +677,18 @@ define(['marionette'], function(Marionette) {
                 });
                 return $.map(indexvalue, function(index, value) {
                   var floorArr;
-                  floorArr = App.defaults['floor'].split(',');
-                  return $.each(floorArr, function(ind, val) {
-                    console.log(value);
-                    console.log(val);
-                    if (parseInt(value) === parseInt(val)) {
-                      return $('#f' + value).attr('class', 'unit-hover');
-                    }
-                  });
+                  if (App.defaults['floor'] !== "All") {
+                    floorArr = App.defaults['floor'].split(',');
+                    return $.each(floorArr, function(ind, val) {
+                      console.log(value);
+                      console.log(val);
+                      if (parseInt(value) === parseInt(val)) {
+                        return $('#f' + value).attr('class', 'unit-hover');
+                      }
+                    });
+                  } else {
+                    return $('#f' + value).attr('class', 'unit-hover');
+                  }
                 });
               });
             }
@@ -930,14 +938,20 @@ define(['marionette'], function(Marionette) {
             object = this;
             $.map(indexvalue, function(index, value) {
               var floorArr;
-              floorArr = App.defaults['floor'].split(',');
-              return $.each(floorArr, function(ind, val) {
-                console.log(value);
-                console.log(val);
-                if (parseInt(value) === parseInt(val)) {
-                  return $('#f' + value).attr('class', 'unit-hover');
-                }
-              });
+              if (App.defaults['floor'] !== 'All') {
+                floorArr = App.defaults['floor'].split(',');
+                return $.each(floorArr, function(ind, val) {
+                  console.log(value);
+                  console.log(val);
+                  if (parseInt(value) === parseInt(val)) {
+                    $('#f' + value).attr('class', 'unit-hover');
+                    return $('#t' + value).text("");
+                  }
+                });
+              } else {
+                $('#f' + value).attr('class', 'unit-hover');
+                return $('#t' + value).text("");
+              }
             });
             $.map(indexvalue, function(index, value) {
               var positionassigend;
@@ -946,7 +960,8 @@ define(['marionette'], function(Marionette) {
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
                 console.log('value' + value);
-                return $("#f" + value).attr('class', 'selected-flat');
+                $("#f" + value).attr('class', 'selected-flat');
+                return $('#t' + value).text(object.model.get('name'));
               }
             });
             $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
