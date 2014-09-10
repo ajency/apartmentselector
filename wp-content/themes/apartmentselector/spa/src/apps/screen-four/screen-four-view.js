@@ -160,7 +160,6 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.onShow = function() {
       var capability, cookieOldValue, costSheetArray, count, flag, scr, usermodel;
-      this.trigger("get:perSqft:price");
       $(".discountToggle").click(function() {
         $(".discountBox").slideToggle();
       });

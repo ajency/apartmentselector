@@ -313,7 +313,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
         onShow:->
-            @trigger "get:perSqft:price"
+            #@trigger "get:perSqft:price"
             $(".discountToggle").click ->
                 $(".discountBox").slideToggle()
                 return
