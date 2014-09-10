@@ -112,7 +112,6 @@ define [ 'marionette' ], ( Marionette )->
                         $('#'+element).attr('class','floor-pos ')
                 $('#'+id).attr('class','floor-pos position')        
                 unitAssigedArray.push id
-                sudoSlider.goToSlide(e.target.id);
                 @loadsvg(id)
 
             'click .unit-hover':(e)->

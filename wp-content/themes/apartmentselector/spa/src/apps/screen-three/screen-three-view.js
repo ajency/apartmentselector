@@ -55,7 +55,6 @@ define(['marionette'], function(Marionette) {
         }
         $('#' + id).attr('class', 'floor-pos position');
         unitAssigedArray.push(id);
-        sudoSlider.goToSlide(e.target.id);
         return this.loadsvg(id);
       },
       'click .unit-hover': function(e) {
