@@ -162,7 +162,7 @@ define [ 'marionette' ], ( Marionette )->
                                         )
 
                                     )
-                $("#"+e.target.id).attr('class','unit-hover aviable selected-flat')
+                $("#"+e.target.id).attr('class','selected-flat')
                 console.log unit = indexvalue[parseInt(flatid)]
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
                 console.log unitAssigedArray
@@ -890,7 +890,7 @@ define [ 'marionette' ], ( Marionette )->
                             if parseInt(index) == object.model.get("id")
                                 positionassigend = value
                                 console.log 'value'+value
-                                $("#f"+value).attr('class','unit-hover aviable selected-flat')
+                                $("#f"+value).attr('class','selected-flat')
 
 
                             )

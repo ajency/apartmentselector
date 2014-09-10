@@ -105,7 +105,7 @@ $(document).on("change", "#floor", function(e) {
                 flats_html +='<div class="col-md-12"><i>No Flats Available</i></div>';
             }else{
                  $.each(response.flats, function(i, val) {
-               flats_html += '<div class="col-md-6 radio radio-default"><input type="radio" name="unit_assigned" value="'+val.flat_no+'" id="unit_assigned-'+val.flat_no+'"><label for="unit_assigned-'+val.flat_no+'">Flat '+val.flat_no+'</label></div>';
+               flats_html += '<div class="col-md-4"><div class="radio"><input type="radio" name="unit_assigned" value="'+val.flat_no+'" id="unit_assigned-'+val.flat_no+'"><label for="unit_assigned-'+val.flat_no+'">Flat '+val.flat_no+'</label></div></div>';
                //flats_html += '<div class="col-md-6"><img src="'+val.basic_thumbnail_image_url+'" class="image_display"></div><div class="col-md-6"><img src="'+val.detailed_thumbnail_image_url+'" class="image_display"></div>';
             });
             }
