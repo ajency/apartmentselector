@@ -742,7 +742,7 @@ define(['marionette'], function(Marionette) {
       if (myArray.length === 0) {
         track = 1;
       }
-      return console.log(track);
+      return track;
     };
 
     ScreenThreeLayout.prototype.doListing = function() {
@@ -867,7 +867,7 @@ define(['marionette'], function(Marionette) {
                 units: {
                   1: {
                     1: 49,
-                    2: 52,
+                    2: 55,
                     3: 61,
                     4: 67,
                     5: 73,
@@ -930,17 +930,23 @@ define(['marionette'], function(Marionette) {
             console.log(this.model.get("unitAssigned"));
             object = this;
             $.map(indexvalue, function(index, value) {
-              var floorArr, positionassigend;
+              var floorArr;
               floorArr = App.defaults['floor'].split(',');
-              $.each(floorArr, function(ind, val) {
+              return $.each(floorArr, function(ind, val) {
                 console.log(value);
                 console.log(val);
                 if (parseInt(value) === parseInt(val)) {
                   return $('#f' + value).attr('class', 'unit-hover');
                 }
               });
+            });
+            $.map(indexvalue, function(index, value) {
+              var positionassigend;
+              console.log(parseInt(index));
+              console.log(object.model.get("id"));
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
+                console.log('value' + value);
                 return $("#f" + value).attr('class', 'unit-hover aviable selected-flat');
               }
             });

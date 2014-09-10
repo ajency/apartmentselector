@@ -696,7 +696,7 @@ define [ 'marionette' ], ( Marionette )->
             console.log flag
             if myArray.length == 0
                 track = 1
-            console.log track
+            track
             
 
             
@@ -821,7 +821,7 @@ define [ 'marionette' ], ( Marionette )->
                 check = screenThreeLayout.checkSelection(@model)
                 if check == 1 && @model.get('status') == 9
                     buildingModel = App.master.building.findWhere({id:parseInt(@model.get('id'))})
-                    svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                    svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                     svgposition = ""
                     unitvalues = ""
                     indexvalue = ""
@@ -883,10 +883,13 @@ define [ 'marionette' ], ( Marionette )->
 
 
                             )
-
-                                    
+                        )
+                        $.map(indexvalue,  (index,value)->
+                            console.log parseInt(index)   
+                            console.log object.model.get("id")    
                             if parseInt(index) == object.model.get("id")
                                 positionassigend = value
+                                console.log 'value'+value
                                 $("#f"+value).attr('class','unit-hover aviable selected-flat')
 
 
