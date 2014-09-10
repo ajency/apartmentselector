@@ -63,13 +63,13 @@ You can compare up to 4 apartments!</div>
         <div id="screen-one-region" class="section">
 
         </div>
-        <div id="screen-two-region" class="section">
+        <div id="screen-two-region" >
 
         </div>
-        <div id="screen-three-region" class="section">
+        <div id="screen-three-region" >
 
         </div>
-        <div id="screen-four-region" class="section">
+        <div id="screen-four-region" >
 
         </div>'
 

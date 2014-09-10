@@ -325,6 +325,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            # $.fn.fullpage.reBuild()
+
             $('#screen-two-button').on('click',  ()->
                 new jBox('Notice', 
                     content: 'Wait 1 Second',
