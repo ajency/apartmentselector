@@ -17,23 +17,22 @@ define [ 'marionette' ], ( Marionette )->
     sudoSlider = ""
     class ScreenThreeLayout extends Marionette.LayoutView
 
-        template : '<div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4">
-                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+        template : '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
-                    <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
-                    <div class="introTxt text-center">You are seeing 
+                    <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div>
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4">
+                    <div class="text-center light">
+                        You are seeing 
                         <div id="tagslist1" class="taglist">
                           <ul></ul>
-                        </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div>
-
-                    
+                        </div>
+                        <span class="text-primary variantToggle"></span>variants of your apartment selection
+                    </div>
 
                     <div class="variantBox">
-
-
                         <div class="pull-left m-l-15">
                             <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/>
                             <label for="unselectall">Select/Unselect All</label>
@@ -55,10 +54,12 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
-        <div id="floorsvg">
-                                    </div>
+
+                    
+
                     <div id="vs-container" class="vs-container">
                         <header class="vs-header" id="building-region"></header>
+                        <div id="floorsvg" class="floorSvg"></div>
                         <div  id="unit-region"></div>
                     </div>
 
@@ -73,10 +74,10 @@ define [ 'marionette' ], ( Marionette )->
 
                     </div>
                 <div class="col-sm-8">
-                    <span>Flat No : </span><span id="flatno"></span>
+                    
 
 
-                    <div id="positionsvg">
+                    <div id="positionsvg" class="positionSvg">
                     </div>
 
                     
@@ -109,7 +110,7 @@ define [ 'marionette' ], ( Marionette )->
                         $('#'+element).attr('class','floor-pos position')
                     else
                         $('#'+element).attr('class','floor-pos ')
-                        
+                $('#'+id).attr('class','floor-pos position')        
                 unitAssigedArray.push id
                 @loadsvg(id)
 
@@ -119,7 +120,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log buildinArray = buildingCollection.toArray()
                 console.log building  = _.first(buildinArray)
                 buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
-                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
@@ -148,6 +149,24 @@ define [ 'marionette' ], ( Marionette )->
 
                     )
                 flatid = $('#'+e.target.id).attr('data-id')
+                $.map(indexvalue, (index,value)->
+                                    if App.defaults['floor'] != "All"
+                                        floorArr  = App.defaults['floor'].split(',')
+                                        $.each(floorArr, (ind,val)->
+                                            console.log value
+                                            console.log val
+                                            if parseInt(value) == parseInt(val)
+                                                $('#f'+value).attr('class', 'unit-hover')
+
+
+
+                                            )
+                                    else
+                                        $('#f'+value).attr('class', 'unit-hover')
+
+
+                                        )
+                $("#"+e.target.id).attr('class','selected-flat')
                 console.log unit = indexvalue[parseInt(flatid)]
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
                 console.log unitAssigedArray
@@ -168,10 +187,6 @@ define [ 'marionette' ], ( Marionette )->
                     else
                         $("#select"+element).val '0'
                         $('#check'+element).removeClass 'selected'
-                        if unitModel.get('status') == 9
-                            $("#"+element).attr('class','unit-hover aviable ')
-                        else if unitModel.get('status') == 8
-                            $("#"+element).attr('class','unit-hover sold ')
                         rangeunitArray = []
                 rangeunitArray.push parseInt(unit)
                 $('#check'+unit).addClass "selected"
@@ -180,12 +195,12 @@ define [ 'marionette' ], ( Marionette )->
                 $("#screen-three-button").removeClass 'disabled btn-default'
                 $("#screen-three-button").addClass 'btn-primary'
 
-            'mouseover .unit-hover':(e)->
+            'mouseover .disable':(e)->
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
                 buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
-                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
@@ -214,14 +229,53 @@ define [ 'marionette' ], ( Marionette )->
 
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
                 console.log this
-                $('#flatno').text unitModel.get('name')
-                $('.unit-hover').css('content', unitModel.get('name'))
-                if parseInt(unitModel.get('status')) == 9
+                $('#t'+flatid).text unitModel.get('name')
+
+            'mouseover .unit-hover':(e)->
+                buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+                buildinArray = buildingCollection.toArray()
+                building  = _.first(buildinArray)
+                buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgposition = ""
+                unitvalues = ""
+                indexvalue = ""
+                $.each(svgdata, (index,value)->
+                    $.each(value, (ind,val)->
+                        $.map(val.svposition, (index1,val1)->
+                            if position == index1
+                                svgposition = val.svgfile
+                                unitsarray = val.units
+                                indexvalue = unitsarray[position]
+                                
+
+
+                            )
+                        
+
+
+
+                        )
+
+
+
+                    )
+                flatid = $('#'+e.target.id).attr('data-id')
+                unit = indexvalue[parseInt(flatid)]
+
+                unitModel = App.master.unit.findWhere(id:parseInt(unit))
+                console.log this
+                $('#t'+flatid).text unitModel.get('name')
+                checktrack = @checkSelection(unitModel)
+                if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     console.log "qq"
                     $("#"+e.target.id).attr('class','unit-hover aviable')
-                else if parseInt(unitModel.get('status')) == 8
+                else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
                     console.log "ww"
-                    $("#"+e.target.id).attr('class','unit-hover sold')
+                    $("#"+e.target.id).attr('class','sold')
+                else
+                    $("#"+e.target.id).attr('class','other')
+
 
 
             'click #screen-three-button':(e)->
@@ -514,10 +568,7 @@ define [ 'marionette' ], ( Marionette )->
 
             @doListing()
             object1 = @
-            setTimeout( ()->
-                $('#'+1).attr('class','floor-pos position')
-            , 2000)
-            unitAssigedArray.push "1"
+            
             
             
             
@@ -532,10 +583,10 @@ define [ 'marionette' ], ( Marionette )->
             console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgpath = buildingModel.get 'svgfile'
-            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
+            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if buildingModel.get('id') == 11
                 path = "../wp-content/uploads/2014/08/image/floor.svg"
-                $('<div></div>').load(path).appendTo("#floorsvg")
+                $('<div></div>').load(path,  (x)->$('#'+1).attr('class','floor-pos position');unitAssigedArray.push("1")).appendTo("#floorsvg")
             else
                 path = ""
             
@@ -548,7 +599,7 @@ define [ 'marionette' ], ( Marionette )->
             console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgpath = buildingModel.get 'svgfile'
-            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:52,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
             if buildingModel.get('id') == 11
                 if floorid == undefined
                     floorid = 1
@@ -570,7 +621,29 @@ define [ 'marionette' ], ( Marionette )->
                             svgposition = val.svgfile
                             console.log unitsarray = val.units
                             console.log indexvalue = unitsarray[floorid]
-                            $('<div></div>').load(svgposition).appendTo("#positionsvg")
+                            $('#positionsvg').load(svgposition,  (x)->
+                                $.map(indexvalue, (index,value)->
+                                    $('#f'+value).attr('class', 'disable')
+                                )
+                                $.map(indexvalue, (index,value)->
+                                    if App.defaults['floor'] != "All"
+                                        floorArr  = App.defaults['floor'].split(',')
+                                        $.each(floorArr, (ind,val)->
+                                            console.log value
+                                            console.log val
+                                            if parseInt(value) == parseInt(val)
+                                                $('#f'+value).attr('class', 'unit-hover')
+
+
+
+                                            )
+                                    else
+                                        $('#f'+value).attr('class', 'unit-hover')
+
+                                    )
+
+
+                                )
 
 
                         )
@@ -583,7 +656,56 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
+           
             position = floorid
+
+        checkSelection:(model)->
+            myArray = []
+            $.map(App.defaults, (value, index)->
+                if value!='All' && index != 'floor'
+                    myArray.push({key:index,value:value})
+
+            )
+            console.log myArray
+            console.log model
+            flag = 0
+            object = @
+            track = 0
+            $.each(myArray, (index,value)->
+                paramKey = {}
+                if value.key == 'budget'
+                    buildingModel = App.master.building.findWhere({'id':model.get 'building'})
+                    floorRise = buildingModel.get 'floorrise'
+                    floorRiseValue = floorRise[model.get 'floor']
+                    unitVariantmodel = App.master.unit_variant.findWhere({'id':model.get 'unitVariant'})
+                    #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                    unitPrice = model.get 'unitPrice'
+                    budget_arr = value.value.split(' ')
+                    budget_price = budget_arr[0].split('-')
+                    console.log budget_price[0] = budget_price[0]+'00000'
+                    console.log budget_price[1] = budget_price[1]+'00000'
+                    if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                        flag++
+                else if value.key != 'floor'
+
+                    console.log value.key
+                    console.log value.value
+                    if model.get(value.key) == parseInt(value.value)
+                        flag++
+
+
+            )
+            if flag == myArray.length
+                track =1
+
+
+
+            console.log flag
+            if myArray.length == 0
+                track = 1
+            track
+            
+
             
 
 
@@ -702,55 +824,118 @@ define [ 'marionette' ], ( Marionette )->
         events:
 
             'click ':(e)->
+                screenThreeLayout = new ScreenThreeLayout()
+                check = screenThreeLayout.checkSelection(@model)
+                if check == 1 && @model.get('status') == 9
+                    buildingModel = App.master.building.findWhere({id:parseInt(@model.get('id'))})
+                    svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                    svgposition = ""
+                    unitvalues = ""
+                    indexvalue = ""
+                    $.each(svgdata, (index,value)->
+                        $.each(value, (ind,val)->
+                            $.map(val.svposition, (index1,val1)->
+                                if position == index1
+                                    svgposition = val.svgfile
+                                    unitsarray = val.units
+                                    indexvalue = unitsarray[position]
+                                    
 
-                App.layout.screenFourRegion.el.innerHTML = ""
-                App.navigate "screen-three"
-                App.currentStore.unit.reset UNITS
-                App.currentStore.building.reset BUILDINGS
-                App.currentStore.unit_type.reset UNITTYPES
-                App.currentStore.unit_variant.reset UNITVARIANTS
-                unitModel = App.master.unit.findWhere(id:@model.get("id"))
 
-                console.log rangeunitArray
-                for element , index in rangeunitArray
-                    if element == @model.get('id')
-                        $("#select"+@model.get('id')).val '1'
+                                )
+                            
+
+
+
+                            )
+
+
+
+                        )
+                    App.layout.screenFourRegion.el.innerHTML = ""
+                    App.navigate "screen-three"
+                    App.currentStore.unit.reset UNITS
+                    App.currentStore.building.reset BUILDINGS
+                    App.currentStore.unit_type.reset UNITTYPES
+                    App.currentStore.unit_variant.reset UNITVARIANTS
+                    unitModel = App.master.unit.findWhere(id:@model.get("id"))
+
+                    console.log rangeunitArray
+                    for element , index in rangeunitArray
+                        if element == @model.get('id')
+                            $("#select"+@model.get('id')).val '1'
+                        else
+                            $("#select"+element).val '0'
+                            $('#check'+element).removeClass 'selected'
+                            if unitModel.get('status') == 9
+                                $("#"+element).attr('class','unit-hover aviable ')
+                            else if unitModel.get('status') == 8
+                                $("#"+element).attr('class','unit-hover sold ')
+                            rangeunitArray = []
+                    if  parseInt($("#select"+@model.get('id')).val()) == 0
+                        rangeunitArray.push @model.get('id')
+                        $('#check'+@model.get("id")).addClass "selected"
+
+                        $("#select"+@model.get('id')).val "1"
+                        console.log @model.get("unitAssigned")
+                        object = @
+                        $.map(indexvalue,  (index,value)->
+                            if App.defaults['floor'] != 'All'
+                                floorArr  = App.defaults['floor'].split(',')
+                                $.each(floorArr, (ind,val)->
+                                    console.log value
+                                    console.log val
+                                    if parseInt(value) == parseInt(val)
+                                        $('#f'+value).attr('class', 'unit-hover')
+                                        $('#t'+value).text ""
+
+
+
+                                )
+                            else
+                                $('#f'+value).attr('class', 'unit-hover')
+                                $('#t'+value).text ""
+
+                        )
+                        $.map(indexvalue,  (index,value)->
+                            console.log parseInt(index)   
+                            console.log object.model.get("id")    
+                            if parseInt(index) == object.model.get("id")
+                                positionassigend = value
+                                console.log 'value'+value
+                                $("#f"+value).attr('class','selected-flat')
+                                $('#t'+value).text object.model.get('name')
+
+
+                            )
+                        $('#'+@model.get("unitAssigned")).attr('class','floor-pos position')
+                        console.log $('#select'+@model.get("id"))
+                        App.unit['name'] = @model.get("id")
+                        App.backFilter['screen3'].push 'floor'
+                        $("#screen-three-button").removeClass 'disabled btn-default'
+                        $("#screen-three-button").addClass 'btn-primary'
+                        #@trigger 'unit:item:selected'
                     else
-                        $("#select"+element).val '0'
-                        $('#check'+element).removeClass 'selected'
+                        rangeunitArray=[]
+                        $("#select"+@model.get('id')).val "0"
+                        $('#check'+@model.get('id')).removeClass 'selected'
                         if unitModel.get('status') == 9
-                            $("#"+element).attr('class','unit-hover aviable ')
+                            $("#"+@model.get("id")).attr('class','unit-hover aviable ')
                         else if unitModel.get('status') == 8
-                            $("#"+element).attr('class','unit-hover sold ')
-                        rangeunitArray = []
-                if  parseInt($("#select"+@model.get('id')).val()) == 0
-                    rangeunitArray.push @model.get('id')
-                    $('#check'+@model.get("id")).addClass "selected"
+                            $("#"+@model.get("id")).attr('class','unit-hover sold ')
+                    if parseInt($("#select"+@model.get('id')).val()) == 0
+                        $("#screen-three-button").addClass 'disabled btn-default'
+                        $("#screen-three-button").removeClass 'btn-primary'
+                        object = @
+                        $.map(indexvalue,  (index,value)->
+                            if parseInt(index) == object.model.get("id")
+                                positionassigend = value
+                                $('#f'+positionassigend).attr('class','unit-hover aviable')
 
-                    $("#select"+@model.get('id')).val "1"
 
-                    if unitModel.get('status') == 9
-                        $("#"+@model.get("id")).attr('class','unit-hover aviable selected')
-                    else if unitModel.get('status') == 8
-                        $("#"+@model.get("id")).attr('class','unit-hover sold selected')
-                    console.log $('#select'+@model.get("id"))
-                    App.unit['name'] = @model.get("id")
-                    App.backFilter['screen3'].push 'floor'
-                    $("#screen-three-button").removeClass 'disabled btn-default'
-                    $("#screen-three-button").addClass 'btn-primary'
-                    #@trigger 'unit:item:selected'
-                else
-                    rangeunitArray=[]
-                    $("#select"+@model.get('id')).val "0"
-                    $('#check'+@model.get('id')).removeClass 'selected'
-                    if unitModel.get('status') == 9
-                        $("#"+@model.get("id")).attr('class','unit-hover aviable ')
-                    else if unitModel.get('status') == 8
-                        $("#"+@model.get("id")).attr('class','unit-hover sold ')
-                if parseInt($("#select"+@model.get('id')).val()) == 0
-                    $("#screen-three-button").addClass 'disabled btn-default'
-                    $("#screen-three-button").removeClass 'btn-primary'
-                    return false
+                            )
+                        $('#'+@model.get("unitAssigned")).attr('class','floor-pos ')
+                        return false
 
 
         onShow :->

@@ -4,22 +4,9 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
     class ScreenFourController extends Extm.RegionController
 
         initialize :(opt)->
-            @Collection = @_getSelelctedUnit()
+            @getPerSqFtPrice()
 
-            @layout = new ScreenFourView.ScreenFourLayout(
-                templateHelpers:
-                    paymentplans :@Collection[1]
-            )
-
-
-            @listenTo @layout, "show", @showViews
-
-            @listenTo @layout, "get:perSqft:price", @getPerSqFtPrice
-
-
-
-
-            @show @layout
+            
 
         showViews:=>
             @unitCollection = @Collection[0]
@@ -88,14 +75,15 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                     )
                 else
-                    positionObject = exceptionObject[0].flats
-                    $.each(positionObject, (index,value1)->
-                        if value.get('unitAssigned') == value1.flat_no
-                            floorLayoutimage =value1.image_url
+                    #positionObject = exceptionObject[0].detailed_image
+                    #$.each(positionObject, (index,value1)->
+                        #if value.get('unitAssigned') == value1.flat_no
+                            #floorLayoutimage =value1.image_url
 
 
 
-                    )
+                    #)
+                    floorLayoutimage = positionObject.thumbnail_url
 
 
                 console.log roomSizesArray = unitVariantModel.get 'roomsizes'
@@ -107,7 +95,26 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                 )
-                
+                viewModelArray = []
+                facingModelArray = []
+                if value.get('views').length != 0
+                    viewsArray = value.get('views')
+                    console.log viewsArray
+                    for element in viewsArray
+                        viewModel = App.master.view.findWhere({id:parseInt(element)})
+                        viewModelArray.push(viewModel.get('name'))
+                else
+                    viewModelArray.push('-----')
+                value.set 'facings_name' , viewModelArray.join(', ')
+                facingssArray = value.get('facing')
+                if facingssArray.length != 0
+                    for element in facingssArray
+                        facingModel = App.master.facings.findWhere({id:parseInt(element)})
+                        facingModelArray.push(facingModel.get('name'))
+
+                else
+                    facingModelArray.push('-----')
+                value.set 'views_name' , facingModelArray.join(', ')
 
                 terraceoptions = unitVariantModel.get 'terraceoptions'
                 if terraceoptions == null
@@ -117,7 +124,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
-                value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
+                value.set 'BuildingPositionimage' , building.get 'positioninprojectdetailedimageurl'
                 value.set 'roomsizearray' , roomsizearray
                 value.set 'terraceoptions' , terraceoptionstext
 
@@ -163,7 +170,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
             )
 
-            console.log unitCollection = new Backbone.Collection(ModelActualArr)
+            unitCollection = new Backbone.Collection(ModelActualArr)
             [unitCollection , PAYMENTPLANS]
 
 
@@ -176,9 +183,28 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 url : AJAXURL+'?action=get_unit_single_details',
                 data : 'id='+unitModel.get('id'),
                 success :(result)-> 
-                    console.log "vieew"
+                    console.log result
                     unitModel.set 'persqftprice' , result.persqftprice
-                    object.layout.triggerMethod "show:cost:sheet" , result
+                    unitModel.set 'views' , result.views
+                    unitModel.set 'facing' , result.facings
+                    object.Collection = object._getSelelctedUnit()
+                    console.log object.Collection
+                    object.layout = new ScreenFourView.ScreenFourLayout(
+                        templateHelpers:
+                            paymentplans :object.Collection[1]
+                    )
+
+
+                    object.listenTo object.layout, "show", object.showViews
+                    object.show object.layout
+
+            #@listenTo @layout, "get:perSqft:price", @getPerSqFtPrice
+
+
+
+
+            
+                    #object.layout.triggerMethod "show:cost:sheet" , result
                 error:(result)->
 
             )

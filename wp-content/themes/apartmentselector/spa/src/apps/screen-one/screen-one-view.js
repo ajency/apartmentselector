@@ -258,7 +258,7 @@ define(['marionette'], function(Marionette) {
             y: 'top'
           },
           animation: {
-            open: 'flip',
+            open: 'slide:top',
             close: 'slide:top'
           }
         });

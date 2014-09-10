@@ -14,15 +14,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     }
 
     ScreenFourController.prototype.initialize = function(opt) {
-      this.Collection = this._getSelelctedUnit();
-      this.layout = new ScreenFourView.ScreenFourLayout({
-        templateHelpers: {
-          paymentplans: this.Collection[1]
-        }
-      });
-      this.listenTo(this.layout, "show", this.showViews);
-      this.listenTo(this.layout, "get:perSqft:price", this.getPerSqFtPrice);
-      return this.show(this.layout);
+      return this.getPerSqFtPrice();
     };
 
     ScreenFourController.prototype.showViews = function() {
@@ -64,7 +56,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       }));
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
-        var building, exceptionObject, floorLayoutimage, floorvalue, positionObject, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel;
+        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorvalue, positionObject, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
         unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -92,12 +84,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             }
           });
         } else {
-          positionObject = exceptionObject[0].flats;
-          $.each(positionObject, function(index, value1) {
-            if (value.get('unitAssigned') === value1.flat_no) {
-              return floorLayoutimage = value1.image_url;
-            }
-          });
+          floorLayoutimage = positionObject.thumbnail_url;
         }
         console.log(roomSizesArray = unitVariantModel.get('roomsizes'));
         roomsizearray = [];
@@ -107,6 +94,35 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             type: value1.room_type
           });
         });
+        viewModelArray = [];
+        facingModelArray = [];
+        if (value.get('views').length !== 0) {
+          viewsArray = value.get('views');
+          console.log(viewsArray);
+          for (_i = 0, _len = viewsArray.length; _i < _len; _i++) {
+            element = viewsArray[_i];
+            viewModel = App.master.view.findWhere({
+              id: parseInt(element)
+            });
+            viewModelArray.push(viewModel.get('name'));
+          }
+        } else {
+          viewModelArray.push('-----');
+        }
+        value.set('facings_name', viewModelArray.join(', '));
+        facingssArray = value.get('facing');
+        if (facingssArray.length !== 0) {
+          for (_j = 0, _len1 = facingssArray.length; _j < _len1; _j++) {
+            element = facingssArray[_j];
+            facingModel = App.master.facings.findWhere({
+              id: parseInt(element)
+            });
+            facingModelArray.push(facingModel.get('name'));
+          }
+        } else {
+          facingModelArray.push('-----');
+        }
+        value.set('views_name', facingModelArray.join(', '));
         terraceoptions = unitVariantModel.get('terraceoptions');
         if (terraceoptions === null) {
           terraceoptionstext = '---------';
@@ -114,7 +130,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           terraceoptionstext = unitVariantModel.get('terraceoptions');
         }
         value.set('floorLayoutimage', floorLayoutimage);
-        value.set('BuildingPositionimage', building.get('positioninprojectimageurl'));
+        value.set('BuildingPositionimage', building.get('positioninprojectdetailedimageurl'));
         value.set('roomsizearray', roomsizearray);
         return value.set('terraceoptions', terraceoptionstext);
       });
@@ -143,7 +159,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       $.each(modelArr, function(index, value) {
         return ModelActualArr.push(unitCollection.get(value));
       });
-      console.log(unitCollection = new Backbone.Collection(ModelActualArr));
+      unitCollection = new Backbone.Collection(ModelActualArr);
       return [unitCollection, PAYMENTPLANS];
     };
 
@@ -159,9 +175,19 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         url: AJAXURL + '?action=get_unit_single_details',
         data: 'id=' + unitModel.get('id'),
         success: function(result) {
-          console.log("vieew");
+          console.log(result);
           unitModel.set('persqftprice', result.persqftprice);
-          return object.layout.triggerMethod("show:cost:sheet", result);
+          unitModel.set('views', result.views);
+          unitModel.set('facing', result.facings);
+          object.Collection = object._getSelelctedUnit();
+          console.log(object.Collection);
+          object.layout = new ScreenFourView.ScreenFourLayout({
+            templateHelpers: {
+              paymentplans: object.Collection[1]
+            }
+          });
+          object.listenTo(object.layout, "show", object.showViews);
+          return object.show(object.layout);
         },
         error: function(result) {}
       });

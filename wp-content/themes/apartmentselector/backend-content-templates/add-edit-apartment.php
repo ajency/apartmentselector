@@ -215,7 +215,7 @@ if(isset($_REQUEST["id"])){
                             ?> 
                         </div>  </div>  </div>
                     </div>
-                     <div class="well">Select Flat:
+                     <div class="well"><label class="form-label">Select Flat:</label>
                      <div id="flat_container">
                      <?php if(!empty($unit_building) && !empty($floor)){
                             $flats = get_flats_on_floor($unit_building ,$floor,$apartment_id);

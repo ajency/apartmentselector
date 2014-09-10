@@ -10051,7 +10051,7 @@ h5 {
 }
 .box.other,
 .boxLong.other {
-  opacity: 0.2;
+  opacity: 0.3;
   cursor: default;
   line-height: 53px;
 }
@@ -10124,7 +10124,6 @@ h5 {
 /**** Responsive Table Styles ****/
 .unitTable {
   width: 100%;
-  margin: 1em auto;
   padding: 10px;
   font-size: 14px;
   background: #f6f6f7;
@@ -10304,6 +10303,19 @@ h5 {
   text-align: center;
   font-size: 22px;
   padding-right: 14.66667%;
+}
+/**** SVG Sizing ****/
+.floorSvg {
+  background: #f6f6f7;
+  padding-top: 5px;
+}
+.floorSvg > div {
+  width: 45%;
+  margin: auto;
+}
+.positionSvg > div {
+  width: 80%;
+  margin: 65px auto 0;
 }
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
@@ -11258,7 +11270,7 @@ body {
 }
 @media (min-width: 768px) {
   .page-container {
-    padding-top: 90px !important;
+    padding-top: 80px !important;
   }
   .header.navbar h4 {
     text-align: center;
@@ -11588,7 +11600,8 @@ a.im-clear-button {
   font-size: 87%;
 }
 
-.aviable:hover {
+.aviable:hover,
+.selected-flat {
   fill: #99DD1F  !important;
   cursor: pointer;
   opacity: 0.8;
@@ -11609,4 +11622,13 @@ a.im-clear-button {
 }
 .unit-hover {
   content: "";
+}
+.disable {
+  fill: #999;
+  opacity: 0.9;
+}
+.other:hover {
+  fill: #EEEEEE !important;
+  cursor: default;
+  opacity: 0.8;
 }

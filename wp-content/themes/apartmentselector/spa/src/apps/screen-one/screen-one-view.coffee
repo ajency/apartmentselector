@@ -248,7 +248,7 @@ define [ 'marionette' ], ( Marionette )->
                         x: 'center'
                         y: 'top'
                     animation:
-                        open: 'flip'
+                        open: 'slide:top'
                         close: 'slide:top'
                     # fade: 1000
                 )

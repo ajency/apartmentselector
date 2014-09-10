@@ -314,6 +314,12 @@ You can compare up to 4 apartments!</div>
                 # Note: Analytics tracking code must be added separately
                 analytics: false
 
+            #$("#main-region").fullpage
+                #scrollOverflow: true
+                #resize: false
+                #verticalCentered: false
+                #easing: 'easeInOutQuad'
+
             
             console.log height = $(window).scrollTop()
 

@@ -166,7 +166,7 @@ define(['marionette'], function(Marionette) {
       usermodel = new Backbone.Model(USER);
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_cost_sheet', capability) >= 0) {
-        this.trigger("get:perSqft:price");
+        console.log("");
       } else {
         $('.costsheetbutton').hide();
       }
@@ -277,11 +277,15 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShowCostSheet = function(value) {
-      var element, facingModel, facingModelArray, facingssArray, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
+      var element, facingModel, facingModelArray, facingssArray, units, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
+      console.log(units = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      }));
       this.generateCostSheet();
       viewModelArray = [];
       facingModelArray = [];
       console.log(value.views);
+      units.set('views_name', value.views);
       if (value.views.length !== 0) {
         viewsArray = value.views;
         console.log(viewsArray);
@@ -297,6 +301,7 @@ define(['marionette'], function(Marionette) {
       }
       $('.viewclass').text(viewModelArray.join(', '));
       facingssArray = value.facings;
+      units.set('facing_name', value.facings);
       if (facingssArray.length !== 0) {
         for (_j = 0, _len1 = facingssArray.length; _j < _len1; _j++) {
           element = facingssArray[_j];
@@ -308,6 +313,9 @@ define(['marionette'], function(Marionette) {
       } else {
         facingModelArray.push('-----');
       }
+      console.log(units = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      }));
       return $('.facingclass').text(facingModelArray.join(', '));
     };
 
@@ -750,7 +758,7 @@ define(['marionette'], function(Marionette) {
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false,
-        minHeight: 300,
+        minHeight: 500,
         autoSlideInterval: 4000,
         forceAutoSlide: true,
         mobileNavigation: false,

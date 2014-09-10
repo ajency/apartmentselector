@@ -28,7 +28,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div> <div class="introTxt text-center">You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="floorsvg"> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <span>Flat No : </span><span id="flatno"></span> <div id="positionsvg"> </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <div class="text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-sm-8"> <div id="positionsvg" class="positionSvg"> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -53,6 +53,7 @@ define(['marionette'], function(Marionette) {
             $('#' + element).attr('class', 'floor-pos ');
           }
         }
+        $('#' + id).attr('class', 'floor-pos position');
         unitAssigedArray.push(id);
         return this.loadsvg(id);
       },
@@ -73,7 +74,7 @@ define(['marionette'], function(Marionette) {
               units: {
                 1: {
                   1: 49,
-                  2: 52,
+                  2: 55,
                   3: 61,
                   4: 67,
                   5: 73,
@@ -109,6 +110,22 @@ define(['marionette'], function(Marionette) {
           });
         });
         flatid = $('#' + e.target.id).attr('data-id');
+        $.map(indexvalue, function(index, value) {
+          var floorArr;
+          if (App.defaults['floor'] !== "All") {
+            floorArr = App.defaults['floor'].split(',');
+            return $.each(floorArr, function(ind, val) {
+              console.log(value);
+              console.log(val);
+              if (parseInt(value) === parseInt(val)) {
+                return $('#f' + value).attr('class', 'unit-hover');
+              }
+            });
+          } else {
+            return $('#f' + value).attr('class', 'unit-hover');
+          }
+        });
+        $("#" + e.target.id).attr('class', 'selected-flat');
         console.log(unit = indexvalue[parseInt(flatid)]);
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
@@ -134,11 +151,6 @@ define(['marionette'], function(Marionette) {
           } else {
             $("#select" + element).val('0');
             $('#check' + element).removeClass('selected');
-            if (unitModel.get('status') === 9) {
-              $("#" + element).attr('class', 'unit-hover aviable ');
-            } else if (unitModel.get('status') === 8) {
-              $("#" + element).attr('class', 'unit-hover sold ');
-            }
             rangeunitArray = [];
           }
         }
@@ -148,7 +160,7 @@ define(['marionette'], function(Marionette) {
         $("#screen-three-button").removeClass('disabled btn-default');
         return $("#screen-three-button").addClass('btn-primary');
       },
-      'mouseover .unit-hover': function(e) {
+      'mouseover .disable': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
@@ -164,7 +176,7 @@ define(['marionette'], function(Marionette) {
               units: {
                 1: {
                   1: 49,
-                  2: 52,
+                  2: 55,
                   3: 61,
                   4: 67,
                   5: 73,
@@ -201,14 +213,71 @@ define(['marionette'], function(Marionette) {
           id: parseInt(unit)
         });
         console.log(this);
-        $('#flatno').text(unitModel.get('name'));
-        $('.unit-hover').css('content', unitModel.get('name'));
-        if (parseInt(unitModel.get('status')) === 9) {
+        return $('#t' + flatid).text(unitModel.get('name'));
+      },
+      'mouseover .unit-hover': function(e) {
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
+        buildingCollection = Marionette.getOption(this, 'buildingCollection');
+        buildinArray = buildingCollection.toArray();
+        building = _.first(buildinArray);
+        buildingModel = App.master.building.findWhere({
+          id: parseInt(building.get('id'))
+        });
+        svgdata = [
+          [
+            {
+              svposition: [1],
+              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
+              units: {
+                1: {
+                  1: 49,
+                  2: 55,
+                  3: 61,
+                  4: 67,
+                  5: 73,
+                  6: 80,
+                  7: 85,
+                  8: 90,
+                  9: 98,
+                  10: 113,
+                  11: 142,
+                  12: 152
+                }
+              }
+            }
+          ]
+        ];
+        svgposition = "";
+        unitvalues = "";
+        indexvalue = "";
+        $.each(svgdata, function(index, value) {
+          return $.each(value, function(ind, val) {
+            return $.map(val.svposition, function(index1, val1) {
+              var unitsarray;
+              if (position === index1) {
+                svgposition = val.svgfile;
+                unitsarray = val.units;
+                return indexvalue = unitsarray[position];
+              }
+            });
+          });
+        });
+        flatid = $('#' + e.target.id).attr('data-id');
+        unit = indexvalue[parseInt(flatid)];
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(unit)
+        });
+        console.log(this);
+        $('#t' + flatid).text(unitModel.get('name'));
+        checktrack = this.checkSelection(unitModel);
+        if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
           console.log("qq");
           return $("#" + e.target.id).attr('class', 'unit-hover aviable');
-        } else if (parseInt(unitModel.get('status')) === 8) {
+        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
           console.log("ww");
-          return $("#" + e.target.id).attr('class', 'unit-hover sold');
+          return $("#" + e.target.id).attr('class', 'sold');
+        } else {
+          return $("#" + e.target.id).attr('class', 'other');
         }
       },
       'click #screen-three-button': function(e) {
@@ -489,11 +558,7 @@ define(['marionette'], function(Marionette) {
         });
       }
       this.doListing();
-      object1 = this;
-      setTimeout(function() {
-        return $('#' + 1).attr('class', 'floor-pos position');
-      }, 2000);
-      return unitAssigedArray.push("1");
+      return object1 = this;
     };
 
     $(document).on("click", ".closeButton1", function() {
@@ -522,7 +587,7 @@ define(['marionette'], function(Marionette) {
                 1: [
                   {
                     1: 49,
-                    2: 52,
+                    2: 55,
                     3: 61,
                     4: 67,
                     5: 73,
@@ -542,7 +607,10 @@ define(['marionette'], function(Marionette) {
       ];
       if (buildingModel.get('id') === 11) {
         path = "../wp-content/uploads/2014/08/image/floor.svg";
-        $('<div></div>').load(path).appendTo("#floorsvg");
+        $('<div></div>').load(path, function(x) {
+          $('#' + 1).attr('class', 'floor-pos position');
+          return unitAssigedArray.push("1");
+        }).appendTo("#floorsvg");
       } else {
         path = "";
       }
@@ -567,7 +635,7 @@ define(['marionette'], function(Marionette) {
             units: {
               1: {
                 1: 49,
-                2: 52,
+                2: 55,
                 3: 61,
                 4: 67,
                 5: 73,
@@ -603,12 +671,85 @@ define(['marionette'], function(Marionette) {
               svgposition = val.svgfile;
               console.log(unitsarray = val.units);
               console.log(indexvalue = unitsarray[floorid]);
-              return $('<div></div>').load(svgposition).appendTo("#positionsvg");
+              return $('#positionsvg').load(svgposition, function(x) {
+                $.map(indexvalue, function(index, value) {
+                  return $('#f' + value).attr('class', 'disable');
+                });
+                return $.map(indexvalue, function(index, value) {
+                  var floorArr;
+                  if (App.defaults['floor'] !== "All") {
+                    floorArr = App.defaults['floor'].split(',');
+                    return $.each(floorArr, function(ind, val) {
+                      console.log(value);
+                      console.log(val);
+                      if (parseInt(value) === parseInt(val)) {
+                        return $('#f' + value).attr('class', 'unit-hover');
+                      }
+                    });
+                  } else {
+                    return $('#f' + value).attr('class', 'unit-hover');
+                  }
+                });
+              });
             }
           });
         });
       });
       return position = floorid;
+    };
+
+    ScreenThreeLayout.prototype.checkSelection = function(model) {
+      var flag, myArray, track;
+      myArray = [];
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All' && index !== 'floor') {
+          return myArray.push({
+            key: index,
+            value: value
+          });
+        }
+      });
+      console.log(myArray);
+      console.log(model);
+      flag = 0;
+      object = this;
+      track = 0;
+      $.each(myArray, function(index, value) {
+        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        paramKey = {};
+        if (value.key === 'budget') {
+          buildingModel = App.master.building.findWhere({
+            'id': model.get('building')
+          });
+          floorRise = buildingModel.get('floorrise');
+          floorRiseValue = floorRise[model.get('floor')];
+          unitVariantmodel = App.master.unit_variant.findWhere({
+            'id': model.get('unitVariant')
+          });
+          unitPrice = model.get('unitPrice');
+          budget_arr = value.value.split(' ');
+          budget_price = budget_arr[0].split('-');
+          console.log(budget_price[0] = budget_price[0] + '00000');
+          console.log(budget_price[1] = budget_price[1] + '00000');
+          if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+            return flag++;
+          }
+        } else if (value.key !== 'floor') {
+          console.log(value.key);
+          console.log(value.value);
+          if (model.get(value.key) === parseInt(value.value)) {
+            return flag++;
+          }
+        }
+      });
+      if (flag === myArray.length) {
+        track = 1;
+      }
+      console.log(flag);
+      if (myArray.length === 0) {
+        track = 1;
+      }
+      return track;
     };
 
     ScreenThreeLayout.prototype.doListing = function() {
@@ -718,60 +859,141 @@ define(['marionette'], function(Marionette) {
 
     unitChildView.prototype.events = {
       'click ': function(e) {
-        var element, index, unitModel, _i, _len;
-        App.layout.screenFourRegion.el.innerHTML = "";
-        App.navigate("screen-three");
-        App.currentStore.unit.reset(UNITS);
-        App.currentStore.building.reset(BUILDINGS);
-        App.currentStore.unit_type.reset(UNITTYPES);
-        App.currentStore.unit_variant.reset(UNITVARIANTS);
-        unitModel = App.master.unit.findWhere({
-          id: this.model.get("id")
-        });
-        console.log(rangeunitArray);
-        for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
-          element = rangeunitArray[index];
-          if (element === this.model.get('id')) {
-            $("#select" + this.model.get('id')).val('1');
-          } else {
-            $("#select" + element).val('0');
-            $('#check' + element).removeClass('selected');
-            if (unitModel.get('status') === 9) {
-              $("#" + element).attr('class', 'unit-hover aviable ');
-            } else if (unitModel.get('status') === 8) {
-              $("#" + element).attr('class', 'unit-hover sold ');
+        var buildingModel, check, element, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, unitModel, unitvalues, _i, _len;
+        screenThreeLayout = new ScreenThreeLayout();
+        check = screenThreeLayout.checkSelection(this.model);
+        if (check === 1 && this.model.get('status') === 9) {
+          buildingModel = App.master.building.findWhere({
+            id: parseInt(this.model.get('id'))
+          });
+          svgdata = [
+            [
+              {
+                svposition: [1],
+                svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
+                units: {
+                  1: {
+                    1: 49,
+                    2: 55,
+                    3: 61,
+                    4: 67,
+                    5: 73,
+                    6: 80,
+                    7: 85,
+                    8: 90,
+                    9: 98,
+                    10: 113,
+                    11: 142,
+                    12: 152
+                  }
+                }
+              }
+            ]
+          ];
+          svgposition = "";
+          unitvalues = "";
+          indexvalue = "";
+          $.each(svgdata, function(index, value) {
+            return $.each(value, function(ind, val) {
+              return $.map(val.svposition, function(index1, val1) {
+                var unitsarray;
+                if (position === index1) {
+                  svgposition = val.svgfile;
+                  unitsarray = val.units;
+                  return indexvalue = unitsarray[position];
+                }
+              });
+            });
+          });
+          App.layout.screenFourRegion.el.innerHTML = "";
+          App.navigate("screen-three");
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
+          unitModel = App.master.unit.findWhere({
+            id: this.model.get("id")
+          });
+          console.log(rangeunitArray);
+          for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
+            element = rangeunitArray[index];
+            if (element === this.model.get('id')) {
+              $("#select" + this.model.get('id')).val('1');
+            } else {
+              $("#select" + element).val('0');
+              $('#check' + element).removeClass('selected');
+              if (unitModel.get('status') === 9) {
+                $("#" + element).attr('class', 'unit-hover aviable ');
+              } else if (unitModel.get('status') === 8) {
+                $("#" + element).attr('class', 'unit-hover sold ');
+              }
+              rangeunitArray = [];
             }
+          }
+          if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
+            rangeunitArray.push(this.model.get('id'));
+            $('#check' + this.model.get("id")).addClass("selected");
+            $("#select" + this.model.get('id')).val("1");
+            console.log(this.model.get("unitAssigned"));
+            object = this;
+            $.map(indexvalue, function(index, value) {
+              var floorArr;
+              if (App.defaults['floor'] !== 'All') {
+                floorArr = App.defaults['floor'].split(',');
+                return $.each(floorArr, function(ind, val) {
+                  console.log(value);
+                  console.log(val);
+                  if (parseInt(value) === parseInt(val)) {
+                    $('#f' + value).attr('class', 'unit-hover');
+                    return $('#t' + value).text("");
+                  }
+                });
+              } else {
+                $('#f' + value).attr('class', 'unit-hover');
+                return $('#t' + value).text("");
+              }
+            });
+            $.map(indexvalue, function(index, value) {
+              var positionassigend;
+              console.log(parseInt(index));
+              console.log(object.model.get("id"));
+              if (parseInt(index) === object.model.get("id")) {
+                positionassigend = value;
+                console.log('value' + value);
+                $("#f" + value).attr('class', 'selected-flat');
+                return $('#t' + value).text(object.model.get('name'));
+              }
+            });
+            $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
+            console.log($('#select' + this.model.get("id")));
+            App.unit['name'] = this.model.get("id");
+            App.backFilter['screen3'].push('floor');
+            $("#screen-three-button").removeClass('disabled btn-default');
+            $("#screen-three-button").addClass('btn-primary');
+          } else {
             rangeunitArray = [];
+            $("#select" + this.model.get('id')).val("0");
+            $('#check' + this.model.get('id')).removeClass('selected');
+            if (unitModel.get('status') === 9) {
+              $("#" + this.model.get("id")).attr('class', 'unit-hover aviable ');
+            } else if (unitModel.get('status') === 8) {
+              $("#" + this.model.get("id")).attr('class', 'unit-hover sold ');
+            }
           }
-        }
-        if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
-          rangeunitArray.push(this.model.get('id'));
-          $('#check' + this.model.get("id")).addClass("selected");
-          $("#select" + this.model.get('id')).val("1");
-          if (unitModel.get('status') === 9) {
-            $("#" + this.model.get("id")).attr('class', 'unit-hover aviable selected');
-          } else if (unitModel.get('status') === 8) {
-            $("#" + this.model.get("id")).attr('class', 'unit-hover sold selected');
+          if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
+            $("#screen-three-button").addClass('disabled btn-default');
+            $("#screen-three-button").removeClass('btn-primary');
+            object = this;
+            $.map(indexvalue, function(index, value) {
+              var positionassigend;
+              if (parseInt(index) === object.model.get("id")) {
+                positionassigend = value;
+                return $('#f' + positionassigend).attr('class', 'unit-hover aviable');
+              }
+            });
+            $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos ');
+            return false;
           }
-          console.log($('#select' + this.model.get("id")));
-          App.unit['name'] = this.model.get("id");
-          App.backFilter['screen3'].push('floor');
-          $("#screen-three-button").removeClass('disabled btn-default');
-          $("#screen-three-button").addClass('btn-primary');
-        } else {
-          rangeunitArray = [];
-          $("#select" + this.model.get('id')).val("0");
-          $('#check' + this.model.get('id')).removeClass('selected');
-          if (unitModel.get('status') === 9) {
-            $("#" + this.model.get("id")).attr('class', 'unit-hover aviable ');
-          } else if (unitModel.get('status') === 8) {
-            $("#" + this.model.get("id")).attr('class', 'unit-hover sold ');
-          }
-        }
-        if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
-          $("#screen-three-button").addClass('disabled btn-default');
-          $("#screen-three-button").removeClass('btn-primary');
-          return false;
         }
       }
     };
