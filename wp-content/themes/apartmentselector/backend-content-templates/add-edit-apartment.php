@@ -219,6 +219,7 @@ if(isset($_REQUEST["id"])){
                      <div id="flat_container">
                      <?php if(!empty($unit_building) && !empty($floor)){
                             $flats = get_flats_on_floor($unit_building ,$floor,$apartment_id);
+                           
                             ?>
                                 <div class="row-fluid" > <div class="row">
                             <?php

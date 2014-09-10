@@ -9,21 +9,17 @@ jQuery(document).ready(function($) {
         fileUploadByIndex(file_field);
     });
 
-if($("#fileuploadposition_in_project_basic").length>0){
+if($("#fileuploadposition_in_project").length>0){
  
-    fileUploadById("position_in_project_basic")
+    fileUploadById("position_in_project")
+} 
+if($("#floor_layout_basic").length>0){
+ 
+    fileUploadById("floor_layout_basic")
 }
-if($("#fileuploadposition_in_project_detailed").length>0){
+if($("#floor_layout_detailed").length>0){
  
-    fileUploadById("position_in_project_detailed")
-}
-if($("#fileuploadexception_1_basic").length>0){
- 
-    fileUploadById("exception_1_basic")
-}
-if($("#fileuploadexception_1_detailed").length>0){
- 
-    fileUploadById("exception_1_detailed")
+    fileUploadById("floor_layout_detailed")
 }
  
     
@@ -131,36 +127,7 @@ function displaySlider(floors){
             $('#slider').css('background-image', css);
     }
 }
-$(document).on("change", ".no_of_flats", function(e) {
-
-
-        exception_no = $(e.target).attr('exception_no');
-        //check the number of flats before the change of the no of flats
-        prevCountOfFlats = $('.belongs_to_'+$(e.target).attr("id")).length 
  
-       
-        $("#"+$(e.target).attr('flats_container_id')).show() ;
-        //if prev count less then the the new selection add the additional flats UI 
-        if(prevCountOfFlats < $(e.target).val()){
- 
-            startFrom = prevCountOfFlats + 1;
-
-            endTo = $(e.target).val();
- 
-            addFlatsUI(startFrom,$(e.target));
-       
-        }else{ //if the previous coun is greater then the current slection then find the differnce and remove the flats UI
- 
-            removeFlatsUI(prevCountOfFlats,$(e.target));
-        }
-       
-        if($(e.target).val()==""){
-          
-            $("#"+$(e.target).attr('flats_container_id')).hide() ;
-            return;
-        }
-
-    })
 
     $(document).on("change", "#no_of_floors", function(e) {
 
@@ -187,32 +154,7 @@ $(document).on("change", ".no_of_flats", function(e) {
 
 
     });
-
-function addFlatsUI(startFrom,element){
  
-    for(i=startFrom;i<=element.val();i++){
- 
-        exception_no = element.attr('exception_no');
-
-        var prefix = (exception_no!="")? 'exception_'+exception_no+'_':exception_no;
-      
-        $("#"+element.attr('flats_container_id')).append("<div flatno ='"+i+"' class='flat_ui belongs_to_"+element.attr("id")+"' >"+getFlatUi(i,exception_no)+'</div>')
-
-        //bind file upload ui to the fileupload function
-
-        fileUploadByIndex('basic_'+prefix+i)
-
-        fileUploadByIndex('detailed_'+prefix+i)
-        }
-}
-
-function removeFlatsUI(prevCountOfFlats,element){
- 
-     for(i=prevCountOfFlats;i>=element.val();i--){
-      
-         $('.belongs_to_'+element.attr("id")).eq(i).remove();
-     }
-    }
 
 function loadExceptionsOption(floors){
 
