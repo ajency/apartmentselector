@@ -448,7 +448,7 @@ define [ 'marionette' ], ( Marionette )->
             viewModelArray = []
             facingModelArray = []
             console.log value.views
-            units.set 'views' , value.views
+            units.set 'views_name' , value.views
             if value.views.length != 0
                 viewsArray = value.views
                 console.log viewsArray
@@ -459,7 +459,7 @@ define [ 'marionette' ], ( Marionette )->
                 viewModelArray.push('-----')
             $('.viewclass').text viewModelArray.join(', ')
             facingssArray = value.facings
-            units.set 'facing' , value.facings
+            units.set 'facing_name' , value.facings
             if facingssArray.length != 0
                 for element in facingssArray
                     facingModel = App.master.facings.findWhere({id:parseInt(element)})
@@ -467,7 +467,10 @@ define [ 'marionette' ], ( Marionette )->
 
             else
                 facingModelArray.push('-----')
+            console.log units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             $('.facingclass').text facingModelArray.join(', ')
+
+
 
 
         generateCostSheet:->

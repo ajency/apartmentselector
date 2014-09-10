@@ -300,9 +300,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
-            setTimeout( ()->
-                $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
-            , 2000)
+            
         
 
 
@@ -413,18 +411,23 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             i = 1
+            console.log "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+            building = Marionette.getOption( @, 'buildingColl' ).toArray()
+            console.log buidlingValue = _.first(building)
             console.log $('#mapplic1').text()
             while (window['mapplic' + i] != undefined)
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
                 ajaxurl = AJAXURL
-                $(selector).mapplic(
+                defer = $(selector).mapplic(
                     'id': 5,
                     'width': params.width,
-                    'height': params.height
+                    'height': params.height,
+                    'option':buidlingValue
 
 
                 )
+                console.log defer
 
 
 

@@ -286,7 +286,7 @@ define(['marionette'], function(Marionette) {
       viewModelArray = [];
       facingModelArray = [];
       console.log(value.views);
-      units.set('views', value.views);
+      units.set('views_name', value.views);
       if (value.views.length !== 0) {
         viewsArray = value.views;
         console.log(viewsArray);
@@ -302,7 +302,7 @@ define(['marionette'], function(Marionette) {
       }
       $('.viewclass').text(viewModelArray.join(', '));
       facingssArray = value.facings;
-      units.set('facing', value.facings);
+      units.set('facing_name', value.facings);
       if (facingssArray.length !== 0) {
         for (_j = 0, _len1 = facingssArray.length; _j < _len1; _j++) {
           element = facingssArray[_j];
@@ -314,6 +314,9 @@ define(['marionette'], function(Marionette) {
       } else {
         facingModelArray.push('-----');
       }
+      console.log(units = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      }));
       return $('.facingclass').text(facingModelArray.join(', '));
     };
 

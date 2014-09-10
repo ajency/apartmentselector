@@ -16,7 +16,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
       if (opt == null) {
         opt = {};
       }
-      this.Collection = this._getUnitsCountCollection();
+      this.Collection = this.getAjaxData();
       this.view = view = this._getPopupView(this.Collection);
       return this.show(view);
     };
@@ -28,17 +28,16 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
       });
     };
 
-    PopupController.prototype._getUnitsCountCollection = function() {
-      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
-      console.log(localStorage.getItem("cookievalue"));
-      console.log(cookeArray = localStorage.getItem("cookievalue").split(','));
+    PopupController.prototype._getUnitsCountCollection = function(modelstring) {
+      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      console.log(modelstring);
+      console.log(cookeArray = modelstring);
       unitModelArray = [];
+      console.log(cookeArray.length);
       if (cookeArray.length !== 0) {
         for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
           element = cookeArray[_i];
-          console.log(unitModel = App.master.unit.findWhere({
-            id: parseInt(element)
-          }));
+          console.log(unitModel = element);
           console.log(buildingModel = App.master.building.findWhere({
             id: unitModel.get('building')
           }));
@@ -82,9 +81,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set("carpetarea", unitVariantModel.get('carpetarea'));
           unitModel.set("unitTypeName", unitTypeModelName[0]);
           unitModel.set("buidlingName", buildingModel.get('name'));
-          console.log(unitModel.get('views'));
-          if (unitModel.get('views') !== "") {
-            viewsArray = unitModel.get('views');
+          console.log(unitModel.get('views_name'));
+          if (unitModel.get('views_name') !== "") {
+            viewsArray = unitModel.get('views_name');
             console.log(viewsArray.length);
             for (_j = 0, _len1 = viewsArray.length; _j < _len1; _j++) {
               element = viewsArray[_j];
@@ -97,7 +96,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             viewModelArray.push('-----');
           }
           unitModel.set('views', viewModelArray.join(','));
-          facingssArray = unitModel.get('facing');
+          facingssArray = unitModel.get('facing_name');
           if (facingssArray.length !== 0) {
             for (_k = 0, _len2 = facingssArray.length; _k < _len2; _k++) {
               element = facingssArray[_k];
@@ -112,8 +111,54 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set('facings', facingModelArray.join(','));
           unitModelArray.push(unitModel);
         }
+        console.log(unitModelArray);
         unitCollection = new Backbone.Collection(unitModelArray);
-        return unitCollection;
+        this.view = view = this._getPopupView(unitCollection);
+        return this.show(view);
+      }
+    };
+
+    PopupController.prototype.getAjaxData = function() {
+      var cookeArray, element, i, modelArray, object, unitModel, unitModelArray, _i, _len;
+      console.log(localStorage.getItem("cookievalue"));
+      console.log(cookeArray = localStorage.getItem("cookievalue").split(','));
+      unitModelArray = [];
+      modelArray = [];
+      i = 0;
+      if (cookeArray.length !== 0) {
+        for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
+          element = cookeArray[_i];
+          console.log(unitModel = App.master.unit.findWhere({
+            id: parseInt(element)
+          }));
+          object = this;
+          $.ajax({
+            method: "POST",
+            url: AJAXURL + '?action=get_unit_single_details',
+            data: 'id=' + unitModel.get('id'),
+            success: function(result) {
+              var unitModel1;
+              i++;
+              console.log(unitModel1 = App.master.unit.findWhere({
+                id: parseInt(result.id)
+              }));
+              console.log(result);
+              console.log(unitModel1);
+              unitModel1.set('persqftprice', result.persqftprice);
+              unitModel1.set('views_name', result.views);
+              unitModel1.set('facing_name', result.facings);
+              console.log(unitModel1);
+              modelArray.push(unitModel1);
+              if (i === cookeArray.length) {
+                console.log(modelArray);
+                return object._getUnitsCountCollection(modelArray);
+              }
+            },
+            error: function(result) {}
+          });
+        }
+        console.log(i);
+        return console.log(cookeArray.length);
       }
     };
 

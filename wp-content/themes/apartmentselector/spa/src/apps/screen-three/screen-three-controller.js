@@ -101,7 +101,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, uniqunitAssignedval, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
       console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
@@ -353,7 +353,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       unitArray = [];
       unitColl = new Backbone.Collection(unitsCollection);
       unitAssigned = unitColl.pluck("unitAssigned");
-      console.log(uniqunitAssigned = _.uniq(unitAssigned));
+      console.log(uniqunitAssignedval = _.uniq(unitAssigned));
+      uniqunitAssigned = _.without(uniqunitAssignedval, 0);
       $.each(uniqunitAssigned, function(index, value) {
         var floorColl, unitAssgendModels, unitAssgendModelsColl;
         floorColl = new Backbone.Collection(floorUnitsArray);
