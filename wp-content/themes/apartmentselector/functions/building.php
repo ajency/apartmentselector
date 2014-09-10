@@ -276,6 +276,10 @@ function save_extra_building_fields( $term_id ) {
 
      $position_in_project =  $_REQUEST['position_in_project'];
 
+     $position_in_project_basic =  $_REQUEST['position_in_project_basic'];
+
+     $position_in_project_detailed =  $_REQUEST['position_in_project_detailed'];
+
      $building_views =  $_REQUEST['views'];
 
      $lowrisefrom =  $_REQUEST['lowrisefrom'];
@@ -301,18 +305,18 @@ function save_extra_building_fields( $term_id ) {
      for($e = 1;$e<=$exceptions_count;$e++){
         $exception_floors = $_REQUEST['exception_floors'.$e];
         $exception_flats_count = $_REQUEST['no_of_flats'.$e];
+        $exception_basic_image = $_REQUEST['exception_'.$e.'_basic'];
+        $exception_detailed_image = $_REQUEST['exception_'.$e.'_detailed'];
         $no_of_exception_flats = array();
         for($i=1;$i<=$exception_flats_count;$i++){
 
-                $basic_image_id = $_REQUEST['basic_exception_'.$e.'_image_id'.$i];
-                $detailed_image_id = $_REQUEST['detailed_exception_'.$e.'_image_id'.$i];
-                $no_of_exception_flats[] = array("flat_no"=>$i,
-                                        "basic_image_id"=>$basic_image_id,
-                                        "detailed_image_id"=>$detailed_image_id,
+                 $no_of_exception_flats[] = array("flat_no"=>$i, 
                                         );
             }
         $exceptions[] = array(  'floors'=>$exception_floors,
-                                'flats'=>$no_of_exception_flats
+                                'flats'=>$no_of_exception_flats,
+                                'basic_image'=>$exception_basic_image,
+                                'detailed_image'=>$exception_detailed_image,
                             );
 
 
@@ -343,14 +347,16 @@ function save_extra_building_fields( $term_id ) {
 
     update_option( "building_".$term_id."_milestone_completion", $milestone_completion );
 
-    update_option( "building_".$term_id."_position_in_project", $position_in_project );
+    update_option( "building_".$term_id."_position_in_project_basic", $position_in_project_basic );
+
+    update_option( "building_".$term_id."_position_in_project_detailed", $position_in_project_detailed );
 
     update_option( "building_".$term_id."_views", $building_views );
 
     update_option( "building_".$term_id."_no_of_floors", $no_of_floors );
 
     update_option( "building_".$term_id."_no_of_flats", $no_of_flats );
-
+ 
     update_option( "building_".$term_id."_exceptions", $exceptions ); 
 
     update_option( "building_".$term_id."_floor_rise", $floor_rise ); 
@@ -451,10 +457,18 @@ function get_buildings($ids=array())
 
         $building_milestone_completion = get_option('building_'.$category->term_id.'_milestone_completion');
 
-        $position_in_project = get_option( "building_".$category->term_id."_position_in_project",true);
+        $position_in_project_basic = intval(get_option( "building_".$category->term_id."_position_in_project_basic",0));
 
-        $position_in_project_image_url =   wp_get_attachment_thumb_url($position_in_project);
+        $position_in_project_basic_image_url =   wp_get_attachment_thumb_url($position_in_project_basic);
 
+        $position_in_project_basic_image_url = ( $position_in_project_basic_image_url!=false)? $position_in_project_basic_image_url:'' ;
+        
+        $position_in_project_detailed = intval(get_option( "building_".$category->term_id."_position_in_project_detailed",0))  ;
+
+        $position_in_project_detailed_image_url =   wp_get_attachment_thumb_url($position_in_project_detailed);
+        
+        $position_in_project_detailed_image_url = ( $position_in_project_detailed_image_url!=false)? $position_in_project_detailed_image_url:'' ;
+        
         $building_floor_rise =  maybe_unserialize(get_option('building_'.$category->term_id.'_floor_rise')) ;
            
         $building_views = get_option('building_'.$category->term_id.'_views');  
@@ -472,8 +486,31 @@ function get_buildings($ids=array())
        
        foreach($floor_exception_positions as $building_exception){
      
-            $building_exception["flats"] = get_flats_details($building_exception["flats"]);
+            $building_exception["flats"] = $building_exception["flats"];
+            
+            $image['id'] = $building_exception["basic_image"]; 
 
+            $image['thumbnail_url'] =  wp_get_attachment_thumb_url($building_exception["basic_image"]);
+            
+            $image['thumbnail_url']  = $image['thumbnail_url'] ==false?$no_image:$image['thumbnail_url']; 
+            
+            $image['image_url'] =  wp_get_attachment_image_src($building_exception["basic_image"], 'large' );
+            
+            $image['image_url']  = $image['image_url'] ==false?$no_image_big:$image['image_url'][0]; 
+            
+            $building_exception["basic_image"] = $image;
+            
+            $image['id'] = $building_exception["detailed_image"]; 
+            
+            $image['thumbnail_url'] =  wp_get_attachment_thumb_url($building_exception["detailed_image"]);
+            
+            $image['thumbnail_url']  = $image['thumbnail_url'] ==false?$no_image:$image['thumbnail_url']; 
+            
+            $image['image_url'] =  wp_get_attachment_image_src($building_exception["detailed_image"], 'large' );
+            
+            $image['image_url']  = $image['image_url'] ==false?$no_image_big:$image['image_url'][0]; 
+            
+            $building_exception["detailed_image"] = $image;
             $building_exceptions_updated[] = $building_exception;
        }
        
@@ -488,7 +525,7 @@ function get_buildings($ids=array())
 
         $floorrise_range = format_floorrise_range(maybe_unserialize(get_option( "building_".$category->term_id."_floorrise_range")));
     
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"positioninprojectimageurl"=>$position_in_project_image_url,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views,'payment_plan'=>intval($building_payment_plan),'milestone'=>intval($building_milestone),'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion);
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninprojectbasic"=>$position_in_project_basic,"positioninprojectbasicimageurl"=>$position_in_project_basic_image_url,"positioninprojectdetailed"=>$position_in_project_detailed,"positioninprojectdetailedimageurl"=>$position_in_project_detailed_image_url,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views,'payment_plan'=>intval($building_payment_plan),'milestone'=>intval($building_milestone),'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion);
 
     }
 
@@ -614,9 +651,13 @@ function get_building_by_id($building_id){
 
    $building_milestone_completion = get_option('building_'.$building_id.'_milestone_completion');
 
-   $position_in_project = get_option('building_'.$building_id.'_position_in_project');
+   $position_in_project_basic = get_option('building_'.$building_id.'_position_in_project_basic');
 
-   $position_in_project_image_url =  wp_get_attachment_thumb_url($position_in_project);
+   $position_in_project_basic_image_url =  wp_get_attachment_thumb_url($position_in_project_basic);
+        
+   $position_in_project_detailed = get_option('building_'.$building_id.'_position_in_project_detailed');
+
+   $position_in_project_detailed_image_url =  wp_get_attachment_thumb_url($position_in_project_detailed);
         
    $building_views = get_option('building_'.$building_id.'_views');  
 
@@ -638,8 +679,29 @@ function get_building_by_id($building_id){
    
    foreach($building_exceptions as $building_exception){
  
-        $building_exception["flats"] = get_flats_details($building_exception["flats"],array('no_image'=>false));
-
+        $building_exception["flats"] =  $building_exception["flats"];
+        $image['id'] = $building_exception["basic_image"];
+        
+        $image['thumbnail_url'] =  wp_get_attachment_thumb_url($building_exception["basic_image"]);
+            
+        $image['thumbnail_url']  = $image['thumbnail_url'] ==false?$no_image:$image['thumbnail_url']; 
+            
+        $image['image_url'] =  wp_get_attachment_image_src($building_exception["basic_image"], 'large' );
+            
+        $image['image_url']  = $image['image_url'] ==false?$no_image_big:$image['image_url'][0]; 
+            
+        $building_exception["basic_image"] = $image;
+         
+        $image['id'] = $building_exception["detailed_image"];   
+        $image['thumbnail_url'] =  wp_get_attachment_thumb_url($building_exception["detailed_image"]);
+            
+        $image['thumbnail_url']  = $image['thumbnail_url'] ==false?$no_image:$image['thumbnail_url']; 
+            
+        $image['image_url'] =  wp_get_attachment_image_src($building_exception["detailed_image"], 'large' );
+            
+        $image['image_url']  = $image['image_url'] ==false?$no_image_big:$image['image_url'][0]; 
+            
+        $building_exception["detailed_image"] = $image;
         $building_exceptions_updated[] = $building_exception;
    }
    
@@ -647,7 +709,7 @@ function get_building_by_id($building_id){
    
     $floorrise_range =  (maybe_unserialize(get_option( "building_".$building_id."_floorrise_range")));
     
-   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'positioninprojectimageurl'=>$position_in_project_image_url ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone,'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion);
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninprojectbasic'=> $position_in_project_basic,'positioninprojectbasicimageurl'=>$position_in_project_basic_image_url ,'positioninprojectdetailed'=> $position_in_project_detailed,'positioninprojectdetailedimageurl'=>$position_in_project_detailed_image_url ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone,'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion);
  
    return ($result);
 }

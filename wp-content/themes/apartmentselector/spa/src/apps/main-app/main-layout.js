@@ -184,6 +184,55 @@ define(['extm'], function(Extm) {
 
     mainView.prototype.onShow = function() {
       var cookieOldValue, height;
+      $.reject({
+        reject: {
+          msie: 8
+        },
+        display: [],
+        browserShow: true,
+        browserInfo: {
+          chrome: {
+            text: "Google Chrome",
+            url: "http://www.google.com/chrome/"
+          },
+          firefox: {
+            text: "Mozilla Firefox",
+            url: "http://www.mozilla.com/firefox/"
+          },
+          safari: {
+            text: "Safari",
+            url: "http://www.apple.com/safari/download/"
+          },
+          opera: {
+            text: "Opera",
+            url: "http://www.opera.com/download/"
+          },
+          msie: {
+            text: "Internet Explorer",
+            url: "http://www.microsoft.com/windows/Internet-explorer/",
+            allow: false
+          }
+        },
+        header: "<div class='skyiLogo'></div>Oops! Your browser isn't supported!",
+        paragraph1: "Your browser is out of date, and is not compatible with " + "our website.",
+        paragraph2: "A list of the most popular web browsers can be found below. Just click on the icons to go to the download page.",
+        close: false,
+        closeMessage: "By closing this window you acknowledge that your experience " + "on this website may be degraded",
+        closeLink: "Close This Window",
+        closeURL: "#",
+        closeESC: false,
+        closeCookie: false,
+        cookieSettings: {
+          path: "/",
+          expires: 0
+        },
+        imagePath: "../wp-content/themes/apartmentselector/images/",
+        overlayBgColor: "#fff",
+        overlayOpacity: 1,
+        fadeInTime: "1",
+        fadeOutTime: "fast",
+        analytics: false
+      });
       console.log(height = $(window).scrollTop());
       $(window).scroll(function() {
         height = $(window).scrollTop();
