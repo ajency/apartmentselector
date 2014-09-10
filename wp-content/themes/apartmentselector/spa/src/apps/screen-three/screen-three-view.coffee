@@ -17,23 +17,22 @@ define [ 'marionette' ], ( Marionette )->
     sudoSlider = ""
     class ScreenThreeLayout extends Marionette.LayoutView
 
-        template : '<div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4">
-                    <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
+        template : '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div>
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
-                    <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <br><em>(You can scroll between towers to see other options.)</em></div>
-                    <div class="introTxt text-center">You are seeing 
+                    <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div>
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4">
+                    <div class="text-center light">
+                        You are seeing 
                         <div id="tagslist1" class="taglist">
                           <ul></ul>
-                        </div><span class="text-primary variantToggle"></span>variants of your apartment selection</div>
-
-                    
+                        </div>
+                        <span class="text-primary variantToggle"></span>variants of your apartment selection
+                    </div>
 
                     <div class="variantBox">
-
-
                         <div class="pull-left m-l-15">
                             <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/>
                             <label for="unselectall">Select/Unselect All</label>
@@ -55,10 +54,12 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
-        <div id="floorsvg">
-                                    </div>
+
+                    
+
                     <div id="vs-container" class="vs-container">
                         <header class="vs-header" id="building-region"></header>
+                        <div id="floorsvg" class="floorSvg"></div>
                         <div  id="unit-region"></div>
                     </div>
 
@@ -76,7 +77,7 @@ define [ 'marionette' ], ( Marionette )->
                     <span>Flat No : </span><span id="flatno"></span>
 
 
-                    <div id="positionsvg">
+                    <div id="positionsvg" class="positionSvg">
                     </div>
 
                     

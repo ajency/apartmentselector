@@ -42,6 +42,8 @@ requirejs.config
         jbox :'src/bower_components/jbox/Source/jBox.min'
         fancybox :'src/bower_components/fancybox/source/jquery.fancybox'
         jReject :'src/bower_components/jReject/js/jquery.reject'
+        slimscroll :'src/bower_components/slimscroll/jquery.slimscroll.min'
+        fullPage :'src/bower_components/fullpage.js/jquery.fullPage.min'
 
 
 
@@ -87,6 +89,8 @@ requirejs.config
         jbox: ['jquery']
         fancybox: ['jquery']
         jReject: ['jquery']
+        slimscroll: ['jquery']
+        fullPage: ['jquery']
 
 
 
