@@ -11605,7 +11605,7 @@ a.im-clear-button {
   fill: #99DD1F  !important;
   cursor: pointer;
   opacity: 0.8;
-  text{opacity:0.9}
+  
 }
 .sold:hover {
   fill: #DD1F1F   !important;
