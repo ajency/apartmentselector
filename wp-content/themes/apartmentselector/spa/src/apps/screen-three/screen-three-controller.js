@@ -101,7 +101,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, uniqunitAssignedval, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, uniqunitAssignedval, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
       console.log(App.defaults);
       buildingArray = [];
       unitArray = [];
@@ -332,7 +332,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         });
         console.log(buildingvalue = buildingvalue.id);
       }
-      console.log(unitsCollection = units.where({
+      units1 = new Backbone.Collection(floorUnitsArray);
+      console.log(unitsCollection = units1.where({
         building: parseInt(buildingvalue)
       }));
       $.each(unitsCollection, function(index, value) {

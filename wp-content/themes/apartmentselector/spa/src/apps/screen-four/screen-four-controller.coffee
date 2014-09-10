@@ -88,14 +88,15 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                     )
                 else
-                    positionObject = exceptionObject[0].flats
-                    $.each(positionObject, (index,value1)->
-                        if value.get('unitAssigned') == value1.flat_no
-                            floorLayoutimage =value1.image_url
+                    #positionObject = exceptionObject[0].detailed_image
+                    #$.each(positionObject, (index,value1)->
+                        #if value.get('unitAssigned') == value1.flat_no
+                            #floorLayoutimage =value1.image_url
 
 
 
-                    )
+                    #)
+                    floorLayoutimage = positionObject.thumbnail_url
 
 
                 console.log roomSizesArray = unitVariantModel.get 'roomsizes'
@@ -117,7 +118,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
-                value.set 'BuildingPositionimage' , building.get 'positioninprojectimageurl'
+                value.set 'BuildingPositionimage' , building.get 'positioninprojectdetailedimageurl'
                 value.set 'roomsizearray' , roomsizearray
                 value.set 'terraceoptions' , terraceoptionstext
 
