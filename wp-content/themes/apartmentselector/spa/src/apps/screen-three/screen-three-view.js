@@ -703,6 +703,7 @@ define(['marionette'], function(Marionette) {
         }
       });
       console.log(myArray);
+      console.log(model);
       flag = 0;
       object = this;
       track = 0;
@@ -730,7 +731,7 @@ define(['marionette'], function(Marionette) {
           console.log(value.key);
           console.log(value.value);
           if (model.get(value.key) === parseInt(value.value)) {
-            return console.log(flag++);
+            return flag++;
           }
         }
       });
@@ -741,7 +742,7 @@ define(['marionette'], function(Marionette) {
       if (myArray.length === 0) {
         track = 1;
       }
-      return track;
+      return console.log(track);
     };
 
     ScreenThreeLayout.prototype.doListing = function() {

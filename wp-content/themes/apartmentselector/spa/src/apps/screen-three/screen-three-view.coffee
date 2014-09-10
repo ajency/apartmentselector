@@ -660,6 +660,7 @@ define [ 'marionette' ], ( Marionette )->
 
             )
             console.log myArray
+            console.log model
             flag = 0
             object = @
             track = 0
@@ -683,7 +684,7 @@ define [ 'marionette' ], ( Marionette )->
                     console.log value.key
                     console.log value.value
                     if model.get(value.key) == parseInt(value.value)
-                        console.log  flag++
+                        flag++
 
 
             )
@@ -695,7 +696,7 @@ define [ 'marionette' ], ( Marionette )->
             console.log flag
             if myArray.length == 0
                 track = 1
-            track
+            console.log track
             
 
             
