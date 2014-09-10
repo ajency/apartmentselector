@@ -340,3 +340,18 @@ function convert_mysql_to_custom_date_time($date){
 
 	return $date;
 }
+
+function get_image_paths($id){
+
+	 
+   	$image_url =   wp_get_attachment_thumb_url($id);
+
+   	$image_url = ( $image_url!=false)? $image_url:'' ;
+        
+    $thumbnail_url =  wp_get_attachment_thumb_url($id);
+            
+    $thumbnail_url  = ($thumbnail_url ==false)?$no_image:$thumbnail_url; 
+
+    return array('id'=>$id,'image_url'=>	$image_url ,'thumbnail_url'=>$thumbnail_url);
+            
+}

@@ -424,12 +424,14 @@ add_action('wp_ajax_nopriv_get_unit_variants_persqftprice','ajax_get_unit_varian
 function get_room_type_for_sizes_name($data){
 
     $updated_data = array();
-
+ 
     if(is_array($data)){
          foreach ($data as $key => $value) {
 
         $room_type_for_sizes = get_room_type_for_sizes($value["room_type"]);
      
+        $value["room_type_id"] =  $value["room_type"];
+
         $value["room_type"] =  $room_type_for_sizes[0]["name"];
 
          $updated_data[] = $value;
