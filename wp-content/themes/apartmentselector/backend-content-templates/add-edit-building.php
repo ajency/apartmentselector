@@ -353,6 +353,142 @@ $heading = "Edit";
         </div>
     </div>
 </div>
+<div class="form-group"   >
+            <label class="form-label">
+                SVG Positions
+            </label>      
+                <div class="row">
+                <div class="col-md-12">
+                
+                    <div class="input-with-icon  right">
+                       <label class="form-label">
+                                1)
+                            </label>  <span class="btn btn-success fileinput-button">
+                            
+                            <span>Select file..</span>
+                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                        </span> 
+                        <div id="progressfloor_layout_basic" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="well input-with-icon  right" >
+                           <div class="row-fluid" > 
+                                <div class="row flat-positions">
+                                </div>
+                          </div> 
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-md-12">
+                
+                    <div class="input-with-icon  right">
+                       <label class="form-label">
+                                2)
+                            </label>  <span class="btn btn-success fileinput-button">
+                            
+                            <span>Select file..</span>
+                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                        </span> 
+                        <div id="progressfloor_layout_basic" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="well input-with-icon  right" >
+                           <div class="row-fluid" > 
+                                <div class="row flat-positions">
+                                </div>
+                          </div> 
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-md-12">
+                
+                    <div class="input-with-icon  right">
+                       <label class="form-label">
+                                3)
+                            </label>  <span class="btn btn-success fileinput-button">
+                            
+                            <span>Select file..</span>
+                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                        </span> 
+                        <div id="progressfloor_layout_basic" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="well input-with-icon  right" >
+                           <div class="row-fluid" > 
+                                <div class="row flat-positions">
+                                </div>
+                          </div>  
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-md-12">
+                
+                    <div class="input-with-icon  right">
+                       <label class="form-label">
+                                4)
+                            </label>  <span class="btn btn-success fileinput-button">
+                            
+                            <span>Select file..</span>
+                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                        </span> 
+                        <div id="progressfloor_layout_basic" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="well input-with-icon  right" >
+                           <div class="row-fluid" > 
+                                <div class="row flat-positions">
+                                </div>
+                          </div>  
+                    </div>
+                </div>
+            </div> 
+            </div> 
 <div class="form-group" id="floor-layout"   >
             <label class="form-label">
                 Floor Layout

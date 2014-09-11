@@ -13,6 +13,7 @@ Version:        0.1.0
 @import "skyi-master/bootstrap-mods";
 // @import "variables";
 // @import "mixins.less";
+@import "header";
 @import "misc";
 @import "boxes";
 @import "step1";
@@ -32,58 +33,10 @@ body{
 	background-color: @color-white;
 }
 
-.header.navbar{
-	position: fixed;
-	width: 100%;
-	z-index: 9999;
-	h4{
-		text-align: left;
-		// font-size: 14px;
-		margin-left: 65px;
-		
-		&.step1{
-			text-align: center;
-			margin-left: 0;
-		}
-	}
-}
-
-.slctnTxt{
-	display: none;
-}
-@media (min-width:768px){
-	.slctnTxt{
-		display: inline-block;
-	}
-}
-
-
-
-.backBtn, .rightBtns{
-	position: absolute;
-	left: 0;
-	cursor: pointer;
-	a{
-		width: 50px;
-		text-align: center;
-		display: block;
-		padding: 14px 0;
-		background-color: darken(@color-primary, 10%);
-	}	
-}
-
-.rightBtns{
-	right: 0;
-	left: auto;
-	a{
-		float: left;
-		margin-left: 2px;
-	}
-}
 
 .page-container {
 	padding: 0 5px;
-	padding-top: 80px !important;
+	padding-top: 70px !important;
 }
 @media (min-width:768px){
 	.page-container {

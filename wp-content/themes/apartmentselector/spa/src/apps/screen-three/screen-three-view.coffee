@@ -22,8 +22,6 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div>
-                    <div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4">
                     <div class="text-center light">
                         You are seeing 
                         <div id="tagslist1" class="taglist">
@@ -54,6 +52,8 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
+                    <div class="row m-l-0 m-r-0 m-t-20">
+                        <div class="col-sm-4">
 
                     
 

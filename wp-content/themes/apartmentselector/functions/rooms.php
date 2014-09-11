@@ -22,19 +22,9 @@ function add_default_room_type_for_sizes(){
 
 	$default_room_type_for_sizes = array();
 
-	$default_room_type_for_sizes[] = array("master_type"	=>"room-type-for-sizes","value"=>"Bedroom","data"=>"");
+	//$default_room_type_for_sizes[] = array("master_type"	=>"room-type-for-sizes","value"=>"Bedroom","data"=>"");
 	
-	$default_room_type_for_sizes[] = array("master_type"	=>"room-type-for-sizes","value"=>"Kitchen","data"=>"");
-	
-	$default_room_type_for_sizes[] = array("master_type"	=>"room-type-for-sizes","value"=>"Living/Dining","data"=>"");
-
-	$default_room_type_for_sizes[] = array("master_type"	=>"room-type-for-sizes","value"=>"Toilet","data"=>"");
-	
-	$default_room_type_for_sizes[] = array("master_type"	=>"room-type-for-sizes","value"=>"Terrace","data"=>"");
-	 
-	
-	
-	$return = set_defaults_data($default_room_type_for_sizes);
+	 $return = set_defaults_data($default_room_type_for_sizes);
  	
  	return;
 }

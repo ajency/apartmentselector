@@ -257,7 +257,7 @@ function room_type_sizes(data){
     itemNo = parseInt($(e.target).attr("last-sr-no"))+1;
 
     $(e.target).attr("last-sr-no",itemNo);
- 
+    selectBoxContent = $("#room_type_for_size_1").html()
     cloneElement = $("#room-type-for-size-item-1").html()
 
     html = '<div id="room-type-for-size-item-'+itemNo+'">';
@@ -269,7 +269,8 @@ function room_type_sizes(data){
     html +='</div>';
  
    $('#room-type-for-size-container div:last').before( html );
-
+ 
+    $('#room_type_for_size_'+itemNo).html(selectBoxContent)   ;
     $('#room_type_size_'+itemNo).val('');
 
     $('#room_type_for_size_'+itemNo).val('');
