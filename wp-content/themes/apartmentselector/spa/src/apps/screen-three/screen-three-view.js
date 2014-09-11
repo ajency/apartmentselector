@@ -618,7 +618,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, i, indexvalue, lowrange, mediumrange, rangClass, svgdata, svgpath, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -698,6 +698,17 @@ define(['marionette'], function(Marionette) {
             }
           });
         });
+      });
+      rangClass = ['lowrange', 'mediumrange', 'highrange'];
+      i = 0;
+      $.each(floorange, function(index, value) {
+        var end, start;
+        start = parseInt(value.start);
+        end = parseInt(value.end);
+        while (parseInt(start) <= parseInt(end)) {
+          $('#f' + start).attr('data-class', rangClass[i]);
+        }
+        return i++;
       });
       return position = floorid;
     };

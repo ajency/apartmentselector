@@ -660,12 +660,15 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-            for(i= lowrange.start;i<=lowrange.end;i++)
-                $('#f'+i).attr('class','lowrange')
-            for(j= mediumrange.start;j<=mediumrange.end;j++)
-                $('#f'+j).attr('class','mediumrange')
-            for(k= highrange.start;k<=highrange.end;k++)
-                $('#f'+k).attr('class','highrange')
+            rangClass = ['lowrange','mediumrange','highrange']
+            i= 0
+            $.each(floorange, (index,value)->
+                    start = parseInt(value.start)
+                    end = parseInt(value.end)
+                    while parseInt(start) <= parseInt(end)
+                        $('#f'+start).attr('data-class',rangClass[i])
+                    i++
+            )
             position = floorid
 
         checkSelection:(model)->
