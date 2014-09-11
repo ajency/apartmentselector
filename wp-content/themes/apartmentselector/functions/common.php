@@ -355,3 +355,23 @@ function get_image_paths($id){
     return array('id'=>$id,'image_url'=>	$image_url ,'thumbnail_url'=>$thumbnail_url);
             
 }
+
+function arrayToObject($array) {
+ if(!is_array($array)) {
+ return $array;
+ }
+
+$object = new stdClass();
+ if (is_array($array) && count($array) > 0) {
+ foreach ($array as $name=>$value) {
+ $name = strtolower(trim($name));
+ if (!empty($name)) {
+ $object->$name = arrayToObject($value);
+ }
+ }
+ return $object;
+ }
+ else {
+ return FALSE;
+ }
+ }
