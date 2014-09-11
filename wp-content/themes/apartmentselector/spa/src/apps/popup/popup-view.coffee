@@ -53,13 +53,15 @@ define [ 'marionette' ], ( Mariontte )->
                                 <ul>
                                 {{#mainArr}}
                                     <li>
-                                    {{#subarray}}
                                     <ul>
+                                    {{#subarray}}
+                                    
                                     <li>
                                     {{room_size}}
                                     </li>
-                                    {{/subarray}}
+                                     {{/subarray}}
                                     </ul>
+                                   
                                     </li>
                                 {{/mainArr}}    
                                 </ul>
