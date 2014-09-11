@@ -13,7 +13,7 @@ define [ 'marionette' ], ( Mariontte )->
                     </div>
 
                     <div class="text-center">
-                        <h4 class="text-white m-t-15 bold text-uppercase"><span class="slctnTxt">Your selection:</span> <span id="textstring"></span> </h4>
+                        <h3 class="text-white m-t-15 light"><span class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3>
                     </div>
 
                     '
@@ -129,7 +129,7 @@ define [ 'marionette' ], ( Mariontte )->
                     if height == 0 && flag == 0
                         $('.backBtn').addClass 'hidden'
                         $('.slctnTxt').addClass 'hidden'
-                        $('h4').addClass 'step1'
+                        $('h3').addClass 'step1'
 
 
 
@@ -167,12 +167,12 @@ define [ 'marionette' ], ( Mariontte )->
                 $('.rightBtns').addClass 'hidden'
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
-                $('h4').addClass 'step1'
+                $('h3').addClass 'step1'
 
             else
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
-                $('h4').addClass 'step1
+                $('h3').addClass 'step1
 
 
                        '

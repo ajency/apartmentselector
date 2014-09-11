@@ -22,8 +22,6 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div>
-                    <div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4">
                     <div class="text-center light">
                         You are seeing 
                         <div id="tagslist1" class="taglist">
@@ -54,6 +52,8 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
+                    <div class="row m-l-0 m-r-0 m-t-20">
+                        <div class="col-sm-4">
 
                     
 
@@ -167,6 +167,7 @@ define [ 'marionette' ], ( Marionette )->
 
                                         )
                 $("#"+e.target.id).attr('class','selected-flat')
+                $("#t"+flatid).attr('class','selected-flat')
                 console.log unit = indexvalue[parseInt(flatid)]
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
                 console.log unitAssigedArray
@@ -415,7 +416,7 @@ define [ 'marionette' ], ( Marionette )->
                         x: 'center'
                         y: 'top'
                     animation:
-                        open: 'flip'
+                        open: 'slide:top'
                         close: 'slide:top'
                     # fade: 1000
                 )
@@ -547,7 +548,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            $('html, body').animate({
+            $('html, body').delay(800).animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
 
@@ -647,6 +648,18 @@ define [ 'marionette' ], ( Marionette )->
                                         $('#f'+value).attr('class', 'unit-hover')
 
                                     )
+                                rangClass = ['lowrange','mediumrange','highrange']
+                                i= 0
+                                console.log floorange
+                                $.each(floorange, (index,value)->
+                                        console.log start = parseInt(value.start)
+                                        console.log end = parseInt(value.end)
+                                        console.log rangClass[i]
+                                        while parseInt(start) <= parseInt(end)
+                                            $('#f'+start).attr('data-class',rangClass[i])
+                                            start++
+                                        i++
+                                )
 
 
                                 )
@@ -661,16 +674,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                )
-            if flag == 1
-                rangClass = ['lowrange','mediumrange','highrange']
-                i= 0
-                $.each(floorange, (index,value)->
-                        start = parseInt(value.start)
-                        end = parseInt(value.end)
-                        while parseInt(start) <= parseInt(end)
-                            $('#f'+start).attr('data-class',rangClass[i])
-                        i++
                 )
             position = floorid
 
@@ -919,6 +922,7 @@ define [ 'marionette' ], ( Marionette )->
                                 positionassigend = value
                                 console.log 'value'+value
                                 $("#f"+value).attr('class','selected-flat')
+                                $("#t"+value).attr('class','selected-flat')
                                 $('#t'+value).text object.model.get('name')
 
 

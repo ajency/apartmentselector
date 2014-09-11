@@ -130,20 +130,20 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         floorriserange = buildingModel.get('floorriserange');
         first = _.first(trackArray);
         if (parseInt(first) >= parseInt(floorriserange[0].start) && parseInt(first) <= parseInt(floorriserange[0].end)) {
-          range = 'LOWRISE';
+          range = 'Lowrise';
           templateArr.push('<span>' + range + '</span>');
         }
         if (parseInt(first) >= parseInt(floorriserange[1].start) && parseInt(first) <= parseInt(floorriserange[1].end)) {
-          range = 'MIDRISE';
+          range = 'Midrise';
           templateArr.push('<span>' + range + '</span>');
         }
         if (parseInt(first) >= parseInt(floorriserange[2].start) && parseInt(first) <= parseInt(floorriserange[2].end)) {
-          range = 'HIGHRISE';
+          range = 'Highrise';
           templateArr.push('<span>' + range + '</span>');
         }
-        templateString = templateArr.join(' | ');
+        templateString = templateArr;
       } else {
-        templateString = templateArr.join(' | ');
+        templateString = templateArr;
       }
       textClass = "hidden";
       btnClass = "";

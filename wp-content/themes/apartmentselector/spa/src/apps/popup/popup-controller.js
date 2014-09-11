@@ -12,13 +12,10 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     }
 
     PopupController.prototype.initialize = function(opt) {
-      var view;
       if (opt == null) {
         opt = {};
       }
-      this.Collection = this.getAjaxData();
-      this.view = view = this._getPopupView(this.Collection);
-      return this.show(view);
+      return this.getAjaxData();
     };
 
     PopupController.prototype._getPopupView = function(Collection) {
@@ -29,7 +26,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorriserange, i, rangeArrayVal, roomSizesArray, roomsizearray, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       console.log(modelstring);
       console.log(cookeArray = modelstring);
       unitModelArray = [];
@@ -41,6 +38,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           console.log(buildingModel = App.master.building.findWhere({
             id: unitModel.get('building')
           }));
+          floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url;
           floorriserange = buildingModel.get('floorriserange');
           rangeArrayVal = [];
           i = 0;
@@ -81,6 +79,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set("carpetarea", unitVariantModel.get('carpetarea'));
           unitModel.set("unitTypeName", unitTypeModelName[0]);
           unitModel.set("buidlingName", buildingModel.get('name'));
+          unitModel.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
+          unitModel.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
+          unitModel.set('floorLayoutimage', floorLayoutimage);
           console.log(unitModel.get('views_name'));
           if (unitModel.get('views_name') !== "") {
             viewsArray = unitModel.get('views_name');
@@ -109,14 +110,43 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             facingModelArray.push('-----');
           }
           unitModel.set('facings', facingModelArray.join(','));
-          roomSizesArray = unitVariantModel.get('roomsizes');
+          roomSizesObject = unitVariantModel.get('roomsizes');
           roomsizearray = [];
-          $.each(roomSizesArray, function(index, value1) {
-            return roomsizearray.push({
-              size: value1.room_size,
-              type: value1.room_type
+          roomTypeArr = ['68', '71', '72', '70', '66'];
+          roomSizesArray = $.map(roomSizesObject, function(index, value1) {
+            console.log(index);
+            console.log(value1);
+            return [index];
+          });
+          roomsizearr = [];
+          mainArr = [];
+          console.log(roomsizesCollection = new Backbone.Collection(roomSizesArray));
+          $.each(roomTypeArr, function(ind, val) {
+            var roomtype;
+            roomsizearr = [];
+            console.log(val);
+            console.log(roomtype = roomsizesCollection.where({
+              id: val
+            }));
+            $.each(roomtype, function(index1, value1) {
+              return roomsizearr.push({
+                room_size: value1.get('room_size')
+              });
+            });
+            roomsizearr.sort(function(a, b) {
+              return a - b;
+            });
+            if (roomsizearr.length === 0) {
+              roomsizearr.push({
+                room_size: "----------"
+              });
+            }
+            return mainArr.push({
+              subarray: roomsizearr
             });
           });
+          console.log(mainArr);
+          unitModel.set('mainArr', mainArr);
           unitModelArray.push(unitModel);
         }
         console.log(unitModelArray);

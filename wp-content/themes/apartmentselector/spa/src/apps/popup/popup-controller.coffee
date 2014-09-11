@@ -4,14 +4,10 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
         initialize :(opt = {})->
 
-            @Collection = @getAjaxData()
+            @getAjaxData()
 
 
-            @view = view = @_getPopupView @Collection
-
-
-
-            @show view
+            
 
 
         _getPopupView:(Collection)->
@@ -30,6 +26,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 for element in cookeArray
                     console.log unitModel = element
                     console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                    floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url
                     floorriserange = buildingModel.get 'floorriserange'
                     #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
                     rangeArrayVal = []
@@ -66,6 +63,9 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set "carpetarea" ,unitVariantModel.get 'carpetarea'
                     unitModel.set "unitTypeName" ,unitTypeModelName[0]
                     unitModel.set "buidlingName" ,buildingModel.get 'name'
+                    unitModel.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
+                    unitModel.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
+                    unitModel.set 'floorLayoutimage' , floorLayoutimage
                     console.log unitModel.get('views_name')
                     if unitModel.get('views_name') != ""
                         viewsArray = unitModel.get('views_name')
@@ -86,15 +86,43 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         facingModelArray.push('-----')
 
                     unitModel.set 'facings',facingModelArray.join(',')
-                    roomSizesArray = unitVariantModel.get 'roomsizes'
+                    roomSizesObject = unitVariantModel.get 'roomsizes'
                     roomsizearray = []
-                    $.each(roomSizesArray, (index,value1)->
-                        roomsizearray.push({size: value1.room_size, type: value1.room_type})
+                    roomTypeArr = ['68','71','72','70','66']
+                    roomSizesArray = $.map(roomSizesObject, (index,value1)->
+                        console.log index
+                        console.log value1
+                        return [index]
 
 
 
 
                     )
+                    roomsizearr = []
+                    mainArr = []
+                    console.log roomsizesCollection = new Backbone.Collection roomSizesArray
+                    $.each(roomTypeArr, (ind,val)->
+                        roomsizearr = []
+                        console.log val
+                        console.log roomtype = roomsizesCollection.where({id:val})
+                        $.each(roomtype, (index1,value1)->
+                            roomsizearr.push({room_size:value1.get('room_size')})
+
+
+                            )
+                        roomsizearr.sort( (a,b)->
+                            a - b
+
+                            )
+                        if roomsizearr.length == 0
+                            roomsizearr.push({room_size:"----------"})
+                        mainArr.push({subarray:roomsizearr})
+
+
+                        )
+                        
+                    console.log mainArr
+                    unitModel.set 'mainArr',mainArr
                     
                     unitModelArray.push(unitModel)
                 console.log unitModelArray

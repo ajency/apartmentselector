@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns {{btnClass}}"> <!--<a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>--> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h4 class="text-white m-t-15 bold text-uppercase"><span class="slctnTxt">Your selection:</span> <span id="textstring"></span> </h4> </div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns {{btnClass}}"> <!--<a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>--> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h3 class="text-white m-t-15 light"><span class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 
@@ -112,7 +112,7 @@ define(['marionette'], function(Mariontte) {
         if (height === 0 && flag === 0) {
           $('.backBtn').addClass('hidden');
           $('.slctnTxt').addClass('hidden');
-          return $('h4').addClass('step1');
+          return $('h3').addClass('step1');
         }
       });
       disableOther = function(button) {
@@ -136,11 +136,11 @@ define(['marionette'], function(Mariontte) {
         $('.rightBtns').addClass('hidden');
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');
-        return $('h4').addClass('step1');
+        return $('h3').addClass('step1');
       } else {
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');
-        return $('h4').addClass('step1');
+        return $('h3').addClass('step1');
       }
     };
 
