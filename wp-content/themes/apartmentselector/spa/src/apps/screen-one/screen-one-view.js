@@ -250,7 +250,7 @@ define(['marionette'], function(Marionette) {
       var ajaxurl, i, params, selector;
       $('#finalButton').on('click', function() {
         return new jBox('Notice', {
-          content: 'Wait 1 Second',
+          content: 'Wait 1 Second...',
           autoClose: 2000,
           addClass: 'notifyBox',
           position: {

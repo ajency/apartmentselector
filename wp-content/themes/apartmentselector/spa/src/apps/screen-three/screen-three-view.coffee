@@ -415,7 +415,7 @@ define [ 'marionette' ], ( Marionette )->
                         x: 'center'
                         y: 'top'
                     animation:
-                        open: 'flip'
+                        open: 'slide:top'
                         close: 'slide:top'
                     # fade: 1000
                 )
@@ -547,7 +547,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            $('html, body').animate({
+            $('html, body').delay(800).animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
 
@@ -661,16 +661,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-                )
-            if flag == 1
-                rangClass = ['lowrange','mediumrange','highrange']
-                i= 0
-                $.each(floorange, (index,value)->
-                        start = parseInt(value.start)
-                        end = parseInt(value.end)
-                        while parseInt(start) <= parseInt(end)
-                            $('#f'+start).attr('data-class',rangClass[i])
-                        i++
                 )
             position = floorid
 

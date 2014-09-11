@@ -422,7 +422,7 @@ define(['marionette'], function(Marionette) {
             y: 'top'
           },
           animation: {
-            open: 'flip',
+            open: 'slide:top',
             close: 'slide:top'
           }
         });
@@ -532,7 +532,7 @@ define(['marionette'], function(Marionette) {
           return $('#checklink' + value).val('1');
         });
       }
-      $('html, body').animate({
+      $('html, body').delay(800).animate({
         scrollTop: $('#screen-three-region').offset().top
       }, 'slow');
       tagsArray = [];
@@ -618,7 +618,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, i, indexvalue, lowrange, mediumrange, rangClass, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -701,19 +701,6 @@ define(['marionette'], function(Marionette) {
           });
         });
       });
-      if (flag === 1) {
-        rangClass = ['lowrange', 'mediumrange', 'highrange'];
-        i = 0;
-        $.each(floorange, function(index, value) {
-          var end, start;
-          start = parseInt(value.start);
-          end = parseInt(value.end);
-          while (parseInt(start) <= parseInt(end)) {
-            $('#f' + start).attr('data-class', rangClass[i]);
-          }
-          return i++;
-        });
-      }
       return position = floorid;
     };
 

@@ -42,11 +42,6 @@ body{
 	.page-container {
 		padding-top: 80px !important;
 	}
-	.header.navbar h4{
-		text-align: center;
-		// font-size: 24px;
-		margin-left: 0;
-	}
 }
 
 .ease{
@@ -275,10 +270,12 @@ a.im-clear-button{
 }
 .notifyBox{
 	.jBox-content{
-		.h4;
-		.bold;
+		.h3;
+		// .bold;
 		// background-color: darken(@color-primary, 10%);
-		background-color: @gray-light;
+		// background-color: @gray-light;
+		background-image: -moz-linear-gradient(top, darken(@color-primary, 5%), darken(@color-primary, 10%)); /* Firefox 3.6 */
+		background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, darken(@color-primary, 10%)),color-stop(1, darken(@color-primary, 5%))); /* Safari & Chrome */
 		padding: 20px 10px;
 		margin: 0;
 		color: @color-white;

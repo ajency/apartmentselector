@@ -229,7 +229,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             y: 'top'
           },
           animation: {
-            open: 'flip',
+            open: 'slide:top',
             close: 'slide:top'
           }
         });
@@ -312,7 +312,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       }
       m = $('#mapplic1').data('mapplic');
       this.showHighlightedTowers();
-      $('html, body').animate({
+      $('html, body').delay(800).animate({
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
       tagsArray = [];

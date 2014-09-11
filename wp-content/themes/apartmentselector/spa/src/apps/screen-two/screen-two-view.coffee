@@ -334,7 +334,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         x: 'center'
                         y: 'top'
                     animation:
-                        open: 'flip'
+                        open: 'slide:top'
                         close: 'slide:top'
                     # fade: 1000
                 )
@@ -437,7 +437,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @showHighlightedTowers()
 
 
-            $('html, body').animate({
+            $('html, body').delay(800).animate({
                 scrollTop: $('#screen-two-region').offset().top
             }, 'slow')
 

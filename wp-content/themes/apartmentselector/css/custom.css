@@ -6243,12 +6243,15 @@ h5 {
   position: fixed;
   width: 100%;
   z-index: 9999;
+  -webkit-box-shadow: 0px 1px 6px 1px #b3b3b3;
+  box-shadow: 0px 1px 6px 1px #b3b3b3;
 }
-.header.navbar h4 {
+.header.navbar h3 {
   text-align: left;
+  margin: 0;
   margin-left: 65px;
 }
-.header.navbar h4.step1 {
+.header.navbar h3.step1 {
   text-align: center;
   margin-left: 0;
 }
@@ -6258,6 +6261,19 @@ h5 {
 @media (min-width: 768px) {
   .slctnTxt {
     display: inline-block;
+    text-transform: capitalize;
+    padding: 13px 2% 13px 0;
+    position: relative;
+    color: #e2e2e2;
+  }
+  .slctnTxt:after {
+    content: ':';
+    position: absolute;
+    right: 0;
+  }
+  .header.navbar h3 {
+    text-align: center;
+    margin-left: 0;
   }
 }
 .backBtn,
@@ -6268,10 +6284,10 @@ h5 {
 }
 .backBtn a,
 .rightBtns a {
-  width: 50px;
+  width: 60px;
   text-align: center;
   display: block;
-  padding: 14px 0;
+  padding: 23.5px 0;
   background-color: #cc5200;
 }
 .rightBtns {
@@ -6281,6 +6297,22 @@ h5 {
 .rightBtns a {
   float: left;
   margin-left: 2px;
+}
+#textstring span {
+  display: inline-block;
+  padding: 13px 2%;
+  position: relative;
+}
+#textstring span:after {
+  content: '>';
+  position: absolute;
+  right: -8px;
+  color: #cc5200;
+  font-size: 50px;
+  font-weight: 700;
+}
+#textstring span:last-child:after {
+  content: '';
 }
 .no-padding {
   padding: 0px !important;
@@ -8389,10 +8421,6 @@ body {
   .page-container {
     padding-top: 80px !important;
   }
-  .header.navbar h4 {
-    text-align: center;
-    margin-left: 0;
-  }
 }
 .ease {
   -webkit-transition: all 0.3s ease-out;
@@ -8642,11 +8670,13 @@ a.im-clear-button {
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
-  margin-top: 10.5px;
+  margin-top: 21px;
   margin-bottom: 10.5px;
-  font-size: 18px;
-  font-weight: 700;
-  background-color: #999999;
+  font-size: 35px;
+  background-image: -moz-linear-gradient(top, #e65c00, #cc5200);
+  /* Firefox 3.6 */
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cc5200), color-stop(1, #e65c00));
+  /* Safari & Chrome */
   padding: 20px 10px;
   margin: 0;
   color: #ffffff;
@@ -8661,7 +8691,7 @@ a.im-clear-button {
 }
 .notifyBox .jBox-content small,
 .notifyBox .jBox-content .small {
-  font-size: 75%;
+  font-size: 65%;
 }
 /*Browser not supported*/
 #jr_header {

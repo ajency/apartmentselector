@@ -241,7 +241,7 @@ define [ 'marionette' ], ( Marionette )->
             
             $('#finalButton').on('click',  ()->
                 new jBox('Notice', 
-                    content: 'Wait 1 Second',
+                    content: 'Wait 1 Second...',
                     autoClose: 2000
                     addClass: 'notifyBox'
                     position:
