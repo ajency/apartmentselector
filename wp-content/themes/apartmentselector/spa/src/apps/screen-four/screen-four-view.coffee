@@ -399,7 +399,7 @@ define [ 'marionette' ], ( Marionette )->
                 autoSlide: true,
                 includeTitle:false
             )
-            $('html, body').animate({
+            $('html, body').delay(800).animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
             console.log cookieOldValue = $.cookie("key")

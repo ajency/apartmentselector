@@ -423,7 +423,7 @@ define(['marionette'], function(Marionette) {
             y: 'top'
           },
           animation: {
-            open: 'flip',
+            open: 'slide:top',
             close: 'slide:top'
           }
         });
@@ -533,7 +533,7 @@ define(['marionette'], function(Marionette) {
           return $('#checklink' + value).val('1');
         });
       }
-      $('html, body').animate({
+      $('html, body').delay(800).animate({
         scrollTop: $('#screen-three-region').offset().top
       }, 'slow');
       tagsArray = [];

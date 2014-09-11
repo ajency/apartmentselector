@@ -416,7 +416,7 @@ define [ 'marionette' ], ( Marionette )->
                         x: 'center'
                         y: 'top'
                     animation:
-                        open: 'flip'
+                        open: 'slide:top'
                         close: 'slide:top'
                     # fade: 1000
                 )
@@ -548,7 +548,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            $('html, body').animate({
+            $('html, body').delay(800).animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
 
@@ -675,7 +675,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-            
             position = floorid
 
         checkSelection:(model)->
