@@ -614,6 +614,7 @@ define [ 'marionette' ], ( Marionette )->
             svgposition = ""
             unitvalues = ""
             indexvalue = ""
+            flag = 0
             $('#positionsvg').text ""
             $.each(svgdata, (index,value)->
                 console.log value
@@ -622,6 +623,7 @@ define [ 'marionette' ], ( Marionette )->
                     $.map(val.svposition, (index1,val1)->
                         console.log index1
                         if floorid == index1
+                            flag = 1
                             svgposition = val.svgfile
                             console.log unitsarray = val.units
                             console.log indexvalue = unitsarray[floorid]
@@ -660,15 +662,16 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-            rangClass = ['lowrange','mediumrange','highrange']
-            i= 0
-            $.each(floorange, (index,value)->
-                    start = parseInt(value.start)
-                    end = parseInt(value.end)
-                    while parseInt(start) <= parseInt(end)
-                        $('#f'+start).attr('data-class',rangClass[i])
-                    i++
-            )
+            if flag == 1
+                rangClass = ['lowrange','mediumrange','highrange']
+                i= 0
+                $.each(floorange, (index,value)->
+                        start = parseInt(value.start)
+                        end = parseInt(value.end)
+                        while parseInt(start) <= parseInt(end)
+                            $('#f'+start).attr('data-class',rangClass[i])
+                        i++
+                )
             position = floorid
 
         checkSelection:(model)->

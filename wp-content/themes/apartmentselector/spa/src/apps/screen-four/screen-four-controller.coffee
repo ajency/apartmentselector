@@ -61,20 +61,20 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
                 building = App.master.building.findWhere({id:value.get('building')})
-                exceptionObject = building.get 'floorexceptionpositions'
-                console.log exceptionObject[0].floors
-                console.log floorvalue = $.inArray( value.get('floor'),exceptionObject[0].floors)
-                floorLayoutimage = ""
-                if floorvalue == -1
-                    console.log positionObject = building.get 'floorpositions'
-                    $.each(positionObject, (index,value1)->
-                        if value.get('unitAssigned') == value1.flat_no
-                            floorLayoutimage =value1.image_url
+                #exceptionObject = building.get 'floorexceptionpositions'
+                #console.log exceptionObject[0].floors
+                #console.log floorvalue = $.inArray( value.get('floor'),exceptionObject[0].floors)
+                ##floorLayoutimage = ""
+                #if floorvalue == -1
+                    #console.log positionObject = building.get 'floorpositions'
+                    #$.each(positionObject, (index,value1)->
+                        #if value.get('unitAssigned') == value1.flat_no
+                            #floorLayoutimage =value1.image_url
 
 
 
-                    )
-                else
+                    #)
+                #else
                     #positionObject = exceptionObject[0].detailed_image
                     #$.each(positionObject, (index,value1)->
                         #if value.get('unitAssigned') == value1.flat_no
@@ -83,7 +83,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                     #)
-                    floorLayoutimage = positionObject.thumbnail_url
+                floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
 
 
                 console.log roomSizesArray = unitVariantModel.get 'roomsizes'
@@ -124,7 +124,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
-                value.set 'BuildingPositionimage' , building.get 'positioninprojectdetailedimageurl'
+                value.set 'BuildingPositionimage' , building.get('positioninproject').thumbnail_url
                 value.set 'roomsizearray' , roomsizearray
                 value.set 'terraceoptions' , terraceoptionstext
 
