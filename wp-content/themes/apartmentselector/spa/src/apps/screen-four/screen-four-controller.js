@@ -56,7 +56,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       }));
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
-        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorvalue, positionObject, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
+        var building, element, facingModel, facingModelArray, facingssArray, floorLayoutimage, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
         unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -72,20 +72,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         building = App.master.building.findWhere({
           id: value.get('building')
         });
-        exceptionObject = building.get('floorexceptionpositions');
-        console.log(exceptionObject[0].floors);
-        console.log(floorvalue = $.inArray(value.get('floor'), exceptionObject[0].floors));
-        floorLayoutimage = "";
-        if (floorvalue === -1) {
-          console.log(positionObject = building.get('floorpositions'));
-          $.each(positionObject, function(index, value1) {
-            if (value.get('unitAssigned') === value1.flat_no) {
-              return floorLayoutimage = value1.image_url;
-            }
-          });
-        } else {
-          floorLayoutimage = positionObject.thumbnail_url;
-        }
+        floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url;
         console.log(roomSizesArray = unitVariantModel.get('roomsizes'));
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
@@ -130,7 +117,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           terraceoptionstext = unitVariantModel.get('terraceoptions');
         }
         value.set('floorLayoutimage', floorLayoutimage);
-        value.set('BuildingPositionimage', building.get('positioninprojectdetailedimageurl'));
+        value.set('BuildingPositionimage', building.get('positioninproject').thumbnail_url);
         value.set('roomsizearray', roomsizearray);
         return value.set('terraceoptions', terraceoptionstext);
       });

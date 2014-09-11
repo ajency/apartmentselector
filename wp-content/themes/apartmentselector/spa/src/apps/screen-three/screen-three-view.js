@@ -618,7 +618,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, indexvalue, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, i, indexvalue, lowrange, mediumrange, rangClass, svgdata, svgpath, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -626,6 +626,10 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
+      floorange = buildingModel.get('floorriserange');
+      lowrange = floorange[0];
+      mediumrange = floorange[1];
+      highrange = floorange[2];
       svgpath = buildingModel.get('svgfile');
       svgdata = [
         [
@@ -659,6 +663,7 @@ define(['marionette'], function(Marionette) {
       svgposition = "";
       unitvalues = "";
       indexvalue = "";
+      flag = 0;
       $('#positionsvg').text("");
       $.each(svgdata, function(index, value) {
         console.log(value);
@@ -668,6 +673,7 @@ define(['marionette'], function(Marionette) {
             var unitsarray;
             console.log(index1);
             if (floorid === index1) {
+              flag = 1;
               svgposition = val.svgfile;
               console.log(unitsarray = val.units);
               console.log(indexvalue = unitsarray[floorid]);
@@ -695,6 +701,19 @@ define(['marionette'], function(Marionette) {
           });
         });
       });
+      if (flag === 1) {
+        rangClass = ['lowrange', 'mediumrange', 'highrange'];
+        i = 0;
+        $.each(floorange, function(index, value) {
+          var end, start;
+          start = parseInt(value.start);
+          end = parseInt(value.end);
+          while (parseInt(start) <= parseInt(end)) {
+            $('#f' + start).attr('data-class', rangClass[i]);
+          }
+          return i++;
+        });
+      }
       return position = floorid;
     };
 

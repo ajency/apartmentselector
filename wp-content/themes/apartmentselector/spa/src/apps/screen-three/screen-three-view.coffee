@@ -598,6 +598,10 @@ define [ 'marionette' ], ( Marionette )->
             console.log buildinArray = buildingCollection.toArray()
             console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+            floorange = buildingModel.get('floorriserange')
+            lowrange = floorange[0]
+            mediumrange = floorange[1]
+            highrange = floorange[2]
             svgpath = buildingModel.get 'svgfile'
             svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
             if buildingModel.get('id') == 11
@@ -610,6 +614,7 @@ define [ 'marionette' ], ( Marionette )->
             svgposition = ""
             unitvalues = ""
             indexvalue = ""
+            flag = 0
             $('#positionsvg').text ""
             $.each(svgdata, (index,value)->
                 console.log value
@@ -618,6 +623,7 @@ define [ 'marionette' ], ( Marionette )->
                     $.map(val.svposition, (index1,val1)->
                         console.log index1
                         if floorid == index1
+                            flag = 1
                             svgposition = val.svgfile
                             console.log unitsarray = val.units
                             console.log indexvalue = unitsarray[floorid]
@@ -656,7 +662,16 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-           
+            if flag == 1
+                rangClass = ['lowrange','mediumrange','highrange']
+                i= 0
+                $.each(floorange, (index,value)->
+                        start = parseInt(value.start)
+                        end = parseInt(value.end)
+                        while parseInt(start) <= parseInt(end)
+                            $('#f'+start).attr('data-class',rangClass[i])
+                        i++
+                )
             position = floorid
 
         checkSelection:(model)->
