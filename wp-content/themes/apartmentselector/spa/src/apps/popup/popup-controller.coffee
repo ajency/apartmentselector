@@ -88,7 +88,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set 'facings',facingModelArray.join(',')
                     roomSizesObject = unitVariantModel.get 'roomsizes'
                     roomsizearray = []
-                    roomTypeArr = ['68','71','72','70','66']
+                    roomTypeArr = [68,71,72,70,66]
                     roomSizesArray = $.map(roomSizesObject, (index,value1)->
                         console.log index
                         console.log value1
@@ -104,14 +104,14 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     $.each(roomTypeArr, (ind,val)->
                         roomsizearr = []
                         console.log val
-                        console.log roomtype = roomsizesCollection.where({id:val})
+                        console.log roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
                         $.each(roomtype, (index1,value1)->
                             roomsizearr.push({room_size:value1.get('room_size')})
 
 
                             )
                         roomsizearr.sort( (a,b)->
-                            a - b
+                            b - a
 
                             )
                         if roomsizearr.length == 0

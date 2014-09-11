@@ -53,13 +53,15 @@ define [ 'marionette' ], ( Mariontte )->
                                 <ul>
                                 {{#mainArr}}
                                     <li>
-                                    {{#subarray}}
                                     <ul>
+                                    {{#subarray}}
+                                    
                                     <li>
                                     {{room_size}}
                                     </li>
-                                    {{/subarray}}
+                                     {{/subarray}}
                                     </ul>
+                                   
                                     </li>
                                 {{/mainArr}}    
                                 </ul>
@@ -67,13 +69,13 @@ define [ 'marionette' ], ( Mariontte )->
         						<!--Layouts-->
         						<ul class="layouts">
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="{{TwoDimage}}"><img src="{{TwoDimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - {{name}}" href="{{TwoDimage}}"><img src="{{TwoDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="{{ThreeDimage}}"><img src="{{ThreeDimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="3dlayout" title="3D Layout - {{name}}" href="{{ThreeDimage}}"><img src="{{ThreeDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 3001" href="{{floorLayoutimage}}"><img src="{{floorLayoutimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="floorlayout" title="Floor Layout - {{name}}" href="{{floorLayoutimage}}"><img src="{{floorLayoutimage}}" alt=""></a>
                                     </li>
         						</ul>'
 
@@ -174,6 +176,10 @@ define [ 'marionette' ], ( Mariontte )->
         events:
             'click a':(e)->
                 e.preventDefault()
+
+        onShow:->
+            $(".2dlayout").fancybox()
+
 
 
 

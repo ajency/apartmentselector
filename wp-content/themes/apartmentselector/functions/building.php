@@ -745,7 +745,7 @@ function get_svg_data_format($svg_data,$building){
             }
             $svg_item["units"] =  $units;
 
-           $svg_item["svgposition"] = array_map('intval', $svg_item["svgposition"]);
+            $svg_item["svgposition"] = array_map('intval', $svg_item["svgposition"]);
 
             $svg_item["svgfile"] = $svg_item["svgfile"]["image_url"];
 

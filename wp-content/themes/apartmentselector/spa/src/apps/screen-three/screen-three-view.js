@@ -619,7 +619,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -631,7 +631,7 @@ define(['marionette'], function(Marionette) {
       lowrange = floorange[0];
       mediumrange = floorange[1];
       highrange = floorange[2];
-      svgpath = buildingModel.get('svgfile');
+      svgpath = buildingModel.get('svgdata');
       svgdata = [
         [
           {
@@ -664,7 +664,6 @@ define(['marionette'], function(Marionette) {
       svgposition = "";
       unitvalues = "";
       indexvalue = "";
-      flag = 0;
       $('#positionsvg').text("");
       $.each(svgdata, function(index, value) {
         console.log(value);
@@ -674,7 +673,6 @@ define(['marionette'], function(Marionette) {
             var unitsarray;
             console.log(index1);
             if (floorid === index1) {
-              flag = 1;
               svgposition = val.svgfile;
               console.log(unitsarray = val.units);
               console.log(indexvalue = unitsarray[floorid]);
