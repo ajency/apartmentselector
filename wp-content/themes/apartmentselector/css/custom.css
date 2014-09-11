@@ -6239,6 +6239,49 @@ h4 {
 h5 {
   line-height: 17px;
 }
+.header.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+.header.navbar h4 {
+  text-align: left;
+  margin-left: 65px;
+}
+.header.navbar h4.step1 {
+  text-align: center;
+  margin-left: 0;
+}
+.slctnTxt {
+  display: none;
+}
+@media (min-width: 768px) {
+  .slctnTxt {
+    display: inline-block;
+  }
+}
+.backBtn,
+.rightBtns {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+}
+.backBtn a,
+.rightBtns a {
+  width: 50px;
+  text-align: center;
+  display: block;
+  padding: 14px 0;
+  background-color: #cc5200;
+}
+.rightBtns {
+  right: 0;
+  left: auto;
+}
+.rightBtns a {
+  float: left;
+  margin-left: 2px;
+}
 .no-padding {
   padding: 0px !important;
 }
@@ -8337,49 +8380,6 @@ tr.milestoneReached td {
 }
 body {
   background-color: #ffffff;
-}
-.header.navbar {
-  position: fixed;
-  width: 100%;
-  z-index: 9999;
-}
-.header.navbar h4 {
-  text-align: left;
-  margin-left: 65px;
-}
-.header.navbar h4.step1 {
-  text-align: center;
-  margin-left: 0;
-}
-.slctnTxt {
-  display: none;
-}
-@media (min-width: 768px) {
-  .slctnTxt {
-    display: inline-block;
-  }
-}
-.backBtn,
-.rightBtns {
-  position: absolute;
-  left: 0;
-  cursor: pointer;
-}
-.backBtn a,
-.rightBtns a {
-  width: 50px;
-  text-align: center;
-  display: block;
-  padding: 14px 0;
-  background-color: #cc5200;
-}
-.rightBtns {
-  right: 0;
-  left: auto;
-}
-.rightBtns a {
-  float: left;
-  margin-left: 2px;
 }
 .page-container {
   padding: 0 5px;
