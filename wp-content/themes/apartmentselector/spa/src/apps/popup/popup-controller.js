@@ -112,7 +112,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set('facings', facingModelArray.join(','));
           roomSizesObject = unitVariantModel.get('roomsizes');
           roomsizearray = [];
-          roomTypeArr = ['68', '71', '72', '70', '66'];
+          roomTypeArr = [68, 71, 72, 70, 66];
           roomSizesArray = $.map(roomSizesObject, function(index, value1) {
             console.log(index);
             console.log(value1);
@@ -126,7 +126,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             roomsizearr = [];
             console.log(val);
             console.log(roomtype = roomsizesCollection.where({
-              id: val
+              room_type_id: parseInt(val)
             }));
             $.each(roomtype, function(index1, value1) {
               return roomsizearr.push({
