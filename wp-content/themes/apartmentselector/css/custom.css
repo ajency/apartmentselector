@@ -6962,12 +6962,10 @@ h5 {
   }
 }
 .introTxt {
-  max-width: 700px;
   margin: 0 auto;
   font-weight: 400;
 }
 .subTxt {
-  max-width: 700px;
   margin: 20px auto 10px;
   font-family: 'kievit';
   font-weight: 500;
@@ -7508,6 +7506,18 @@ h5 {
 /**** Hide Header with Tower Name ****/
 #screen-three-region .vs-header {
   display: none;
+}
+/**** Labels on Tower SVG ****/
+.positionSvg rect {
+  position: relative;
+  content: 'test';
+}
+.positionSvg rect:after {
+  position: absolute;
+  content: 'high-range';
+  left: -10px;
+  color: #ff6600;
+  font-weight: 700;
 }
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
@@ -8499,6 +8509,11 @@ body {
 }
 .text-primary {
   color: #ff6600;
+}
+.bgClass {
+  background-color: #f6f6f7;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 #screen-two-region,
 #screen-three-region,

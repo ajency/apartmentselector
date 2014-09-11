@@ -383,3 +383,19 @@
 	}
 }
 
+/**** Labels on Tower SVG ****/
+.positionSvg{
+	rect{
+		position: relative;
+		content: 'test';
+		&:after{
+			position: absolute;
+			content: 'high-range';
+			left: -10px;
+			color: @color-primary;
+			.bold;
+		}
+	}
+}
+
+
