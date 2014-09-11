@@ -51,30 +51,17 @@ define [ 'marionette' ], ( Mariontte )->
 
                                 <!--Room Area-->
                                 <ul>
+                                {{#mainArr}}
                                     <li>
-                                        -
-                                    </li>
+                                    {{#subarray}}
+                                    <ul>
                                     <li>
-                                        -
+                                    {{room_size}}
                                     </li>
-                                    <li>
-                                        -
+                                    {{/subarray}}
+                                    </ul>
                                     </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
+                                {{/mainArr}}    
                                 </ul>
 
         						<!--Layouts-->
@@ -141,29 +128,21 @@ define [ 'marionette' ], ( Mariontte )->
                             <div class="compareHeader"><span class="sky-expand"></span> Room Area <small>(Sq. Ft.)</small></div>
                             <ul>
                                 <li>
-                                    Bedroom 1
+                                    Living/Dining 
                                 </li>
                                 <li>
-                                    Bedroom 2
+                                    Bedroom
                                 </li>
                                 <li>
-                                    Bedroom 3
+                                    Bathroom
                                 </li>
                                 <li>
-                                    Bathroom 1
+                                    Terrace
                                 </li>
                                 <li>
-                                    Bathroom 2
+                                    Lobby
                                 </li>
-                                <li>
-                                    Study
-                                </li>
-                                <li>
-                                    Hall
-                                </li>
-                                <li>
-                                    Kitchen
-                                </li>
+                                
                             </ul>
             				<div class="compareHeader"><span class="glyphicon glyphicon-picture"></span> Layouts</div>
             				<ul>
