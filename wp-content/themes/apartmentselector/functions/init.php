@@ -148,10 +148,15 @@ function manage_roles()
 	}
  
 }
+function custom_mtypes( $m ){
+    $m['svg'] = 'image/svg+xml';
+    $m['svgz'] = 'image/svg+xml';
+    return $m;
+}
+add_filter( 'upload_mimes', 'custom_mtypes' );
  
-
  function test_data(){
- 
+  
  
  	//create test sales user
  

@@ -21,6 +21,23 @@ if($("#floor_layout_detailed").length>0){
  
     fileUploadById("floor_layout_detailed")
 }
+
+if($("#svg_position_file_1").length>0){
+ 
+    fileUploadById("svg_position_file_1")
+}
+if($("#svg_position_file_2").length>0){
+ 
+    fileUploadById("svg_position_file_2")
+}
+if($("#svg_position_file_3").length>0){
+ 
+    fileUploadById("svg_position_file_3")
+}
+if($("#svg_position_file_4").length>0){
+ 
+    fileUploadById("svg_position_file_4")
+}
  
     
 if($("#slider").length!=0){
@@ -648,33 +665,42 @@ function addException(exception_no){
         flatCount = $(e.target).val();
 
        
-        $(e.target).attr('prev_flat_count') = $(e.target).val();
+       
 
-        if(parseInt(prevFlatCount) > parseInt(FlatCount) ){
+        if(parseInt(prevFlatCount) > parseInt(flatCount) ){
             
             removeFloorpositions(flatCount,prevFlatCount);
 
 
         }else{
-
+  
             addFloorpositions(flatCount,prevFlatCount);
         }
+
+         $(e.target).attr('prev_flat_count',$(e.target).val())   ;
 })
 
 
 
 
     function addFloorpositions(flat_count,prev_flat_count){
-
-        for(i=prev_flat_count;i<=flat_count;i++){
-            $(".flat-positions").append("<div class='col-md-4 flatposition"+i+"'><div class='checkbox check-default' ><input type='checkbox' name='flatpostion[]' id='flatpostion"+1+"' value='"+1+"'> <label for='flatpostion"+i+"'>"+i+"</label></div></div>")
+ 
+        for(i=1;i<=flat_count;i++){
+        $('.flat-positions').each(function(e, obj) {
+            console.log(obj)
+            console.log(e)
+            console.log("--------------")
+            $(obj).append("<div class='col-md-4 flatposition"+i+"'><div class='checkbox check-default' ><input type='checkbox' name='flatpostion-"+$(obj).attr('item-id')+"[]' id='flatpostion"+i+"-"+e+"' value='"+i+"'> <label for='flatpostion"+i+"-"+e+"'>"+i+"</label></div></div>")
+        });
+            
         }
     }
 
     function removeFloorpositions(flat_count,prev_flat_count){
-
-        for(i=flat_count+1;i<=prev_flat_count;i++){
-            $(".flatposition"+i).remove())
+ 
+        for(i=parseInt(flat_count)+1;i<=prev_flat_count;i++){
+            
+            $(".flatposition"+i).remove()
         }
     }
  

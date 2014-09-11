@@ -430,7 +430,7 @@ function get_room_type_for_sizes_name($data){
 
         $room_type_for_sizes = get_room_type_for_sizes($value["room_type"]);
      
-        $value["room_type_id"] =  $value["room_type"];
+        $value["room_type_id"] =  intval($value["room_type"]);
 
         $value["room_type"] =  $room_type_for_sizes[0]["name"];
 
@@ -894,4 +894,35 @@ function ajax_get_unit_single_details(){
     exit;
 }
 add_action('wp_ajax_get_unit_single_details','ajax_get_unit_single_details'); 
-add_action('wp_ajax_nopriv_get_unit_single_details','ajax_get_unit_single_details'); 
+add_action('wp_ajax_nopriv_get_unit_single_details','ajax_get_unit_single_details');
+
+//function to the flats on each floor in a particular position
+function get_building_unit_assigned_to_position($building,$flatposition){
+
+        $flats_in_position = array();
+        $args = array(
+                        'post_type' => 'unit', 
+                        'meta_query' => array(
+                            'relation' => 'AND',
+
+                            array(
+                                'key'     => 'building',
+                                'value'   => $building,
+                                'compare' => '=',
+                            ), 
+                            array(
+                                'key'     => 'unit_assigned',
+                                'value'   => $flatposition,
+                                'compare' => '=',
+                            ), 
+                        ), 
+                );
+        $query = new WP_Query( $args );
+
+         foreach($query->posts as $unit){
+            $flats_in_position[] = $unit->ID;
+         }
+
+         return arrayToObject($flats_in_position);
+   
+} 
