@@ -58,7 +58,7 @@ define(['marionette'], function(Marionette) {
         return this.loadsvg(id);
       },
       'click .unit-hover': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, element, flatid, index, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues, _i, _j, _len, _len1;
+        var buildinArray, building, buildingCollection, buildingModel, element, flatid, index, indexvalue, svgdata, svgpath, svgposition, unit, unitModel, unitvalues, _i, _j, _len, _len1;
         console.log(e.target.id);
         console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
         console.log(buildinArray = buildingCollection.toArray());
@@ -66,30 +66,10 @@ define(['marionette'], function(Marionette) {
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
-        svgdata = [
-          [
-            {
-              svposition: [1],
-              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-              units: {
-                1: {
-                  1: 49,
-                  2: 55,
-                  3: 61,
-                  4: 67,
-                  5: 73,
-                  6: 80,
-                  7: 85,
-                  8: 90,
-                  9: 98,
-                  10: 113,
-                  11: 142,
-                  12: 152
-                }
-              }
-            }
-          ]
-        ];
+        svgpath = buildingModel.get('svgdata');
+        svgdata = $.map(svgpath, function(index, value1) {
+          return [index];
+        });
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
@@ -162,37 +142,17 @@ define(['marionette'], function(Marionette) {
         return $("#screen-three-button").addClass('btn-primary');
       },
       'mouseover .disable': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, flatid, indexvalue, svgdata, svgpath, svgposition, unit, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
-        svgdata = [
-          [
-            {
-              svposition: [1],
-              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-              units: {
-                1: {
-                  1: 49,
-                  2: 55,
-                  3: 61,
-                  4: 67,
-                  5: 73,
-                  6: 80,
-                  7: 85,
-                  8: 90,
-                  9: 98,
-                  10: 113,
-                  11: 142,
-                  12: 152
-                }
-              }
-            }
-          ]
-        ];
+        svgpath = buildingModel.get('svgdata');
+        svgdata = $.map(svgpath, function(index, value1) {
+          return [index];
+        });
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
@@ -217,37 +177,17 @@ define(['marionette'], function(Marionette) {
         return $('#t' + flatid).text(unitModel.get('name'));
       },
       'mouseover .unit-hover': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, indexvalue, svgdata, svgpath, svgposition, unit, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
-        svgdata = [
-          [
-            {
-              svposition: [1],
-              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-              units: {
-                1: {
-                  1: 49,
-                  2: 55,
-                  3: 61,
-                  4: 67,
-                  5: 73,
-                  6: 80,
-                  7: 85,
-                  8: 90,
-                  9: 98,
-                  10: 113,
-                  11: 142,
-                  12: 152
-                }
-              }
-            }
-          ]
-        ];
+        svgpath = buildingModel.get('svgdata');
+        svgdata = $.map(svgpath, function(index, value1) {
+          return [index];
+        });
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
@@ -577,35 +517,10 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
-      svgpath = buildingModel.get('svgfile');
-      svgdata = [
-        [
-          {
-            svposition: [1],
-            svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-            units: [
-              {
-                1: [
-                  {
-                    1: 49,
-                    2: 55,
-                    3: 61,
-                    4: 67,
-                    5: 73,
-                    6: 80,
-                    7: 85,
-                    8: 90,
-                    9: 98,
-                    10: 113,
-                    11: 142,
-                    12: 152
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      ];
+      svgpath = buildingModel.get('svgdata');
+      svgdata = $.map(svgpath, function(index, value1) {
+        return [index];
+      });
       if (buildingModel.get('id') === 11) {
         path = "../wp-content/uploads/2014/08/image/floor.svg";
         $('<div></div>').load(path, function(x) {
@@ -632,30 +547,9 @@ define(['marionette'], function(Marionette) {
       mediumrange = floorange[1];
       highrange = floorange[2];
       svgpath = buildingModel.get('svgdata');
-      svgdata = [
-        [
-          {
-            svposition: [1],
-            svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-            units: {
-              1: {
-                1: 49,
-                2: 55,
-                3: 61,
-                4: 67,
-                5: 73,
-                6: 80,
-                7: 85,
-                8: 90,
-                9: 98,
-                10: 113,
-                11: 142,
-                12: 152
-              }
-            }
-          }
-        ]
-      ];
+      console.log(svgdata = $.map(svgpath, function(index, value1) {
+        return [index];
+      }));
       if (buildingModel.get('id') === 11) {
         if (floorid === void 0) {
           floorid = 1;

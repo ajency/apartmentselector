@@ -120,7 +120,12 @@ define [ 'marionette' ], ( Marionette )->
                 console.log buildinArray = buildingCollection.toArray()
                 console.log building  = _.first(buildinArray)
                 buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
-                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgpath = buildingModel.get 'svgdata'
+                svgdata = $.map(svgpath, (index,value1)->
+                    return [index]
+
+                    )
+                #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
@@ -201,7 +206,12 @@ define [ 'marionette' ], ( Marionette )->
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
                 buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
-                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgpath = buildingModel.get 'svgdata'
+                svgdata = $.map(svgpath, (index,value1)->
+                    return [index]
+
+                    )
+                #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
@@ -237,7 +247,12 @@ define [ 'marionette' ], ( Marionette )->
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
                 buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
-                svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgpath = buildingModel.get 'svgdata'
+                svgdata = $.map(svgpath, (index,value1)->
+                    return [index]
+
+                    )
+                #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
@@ -583,8 +598,12 @@ define [ 'marionette' ], ( Marionette )->
             console.log buildinArray = buildingCollection.toArray()
             console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
-            svgpath = buildingModel.get 'svgfile'
-            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
+            svgpath = buildingModel.get 'svgdata'
+            svgdata = $.map(svgpath, (index,value1)->
+                return [index]
+
+                )
+            #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if buildingModel.get('id') == 11
                 path = "../wp-content/uploads/2014/08/image/floor.svg"
                 $('<div></div>').load(path,  (x)->$('#'+1).attr('class','floor-pos position');unitAssigedArray.push("1")).appendTo("#floorsvg")
@@ -605,7 +624,11 @@ define [ 'marionette' ], ( Marionette )->
             highrange = floorange[2]
             #svgpath = buildingModel.get 'svgfile'
             svgpath = buildingModel.get 'svgdata'
-            svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+            console.log svgdata = $.map(svgpath, (index,value1)->
+                return [index]
+
+                )
+            #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
             if buildingModel.get('id') == 11
                 if floorid == undefined
                     floorid = 1
