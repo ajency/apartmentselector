@@ -7426,9 +7426,13 @@ h5 {
   width: 45%;
   margin: auto;
 }
-.positionSvg > div {
-  width: 80%;
-  margin: 65px auto 0;
+.positionSvg {
+  width: 70%;
+  margin: 0 auto;
+}
+/**** Hide Header with Tower Name ****/
+#screen-three-region .vs-header {
+  display: none;
 }
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
@@ -8379,7 +8383,7 @@ body {
 }
 .page-container {
   padding: 0 5px;
-  padding-top: 80px !important;
+  padding-top: 70px !important;
 }
 @media (min-width: 768px) {
   .page-container {
