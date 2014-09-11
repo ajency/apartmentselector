@@ -4,14 +4,10 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
         initialize :(opt = {})->
 
-            @Collection = @getAjaxData()
+            @getAjaxData()
 
 
-            @view = view = @_getPopupView @Collection
-
-
-
-            @show view
+            
 
 
         _getPopupView:(Collection)->
@@ -30,6 +26,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 for element in cookeArray
                     console.log unitModel = element
                     console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                    floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url
                     floorriserange = buildingModel.get 'floorriserange'
                     #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
                     rangeArrayVal = []
@@ -66,6 +63,9 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set "carpetarea" ,unitVariantModel.get 'carpetarea'
                     unitModel.set "unitTypeName" ,unitTypeModelName[0]
                     unitModel.set "buidlingName" ,buildingModel.get 'name'
+                    unitModel.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
+                    unitModel.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
+                    unitModel.set 'floorLayoutimage' , floorLayoutimage
                     console.log unitModel.get('views_name')
                     if unitModel.get('views_name') != ""
                         viewsArray = unitModel.get('views_name')
@@ -88,6 +88,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set 'facings',facingModelArray.join(',')
                     roomSizesArray = unitVariantModel.get 'roomsizes'
                     roomsizearray = []
+                    roomTypeArr = [51,52,32,56,35,58,55,57,53,54,59,34,33,38,39,36,60]
                     $.each(roomSizesArray, (index,value1)->
                         roomsizearray.push({size: value1.room_size, type: value1.room_type})
 

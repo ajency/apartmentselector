@@ -647,6 +647,18 @@ define [ 'marionette' ], ( Marionette )->
                                         $('#f'+value).attr('class', 'unit-hover')
 
                                     )
+                                rangClass = ['lowrange','mediumrange','highrange']
+                                i= 0
+                                console.log floorange
+                                $.each(floorange, (index,value)->
+                                        console.log start = parseInt(value.start)
+                                        console.log end = parseInt(value.end)
+                                        console.log rangClass[i]
+                                        while parseInt(start) <= parseInt(end)
+                                            $('#f'+start).attr('data-class',rangClass[i])
+                                            start++
+                                        i++
+                                )
 
 
                                 )
@@ -662,16 +674,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-            if flag == 1
-                rangClass = ['lowrange','mediumrange','highrange']
-                i= 0
-                $.each(floorange, (index,value)->
-                        start = parseInt(value.start)
-                        end = parseInt(value.end)
-                        while parseInt(start) <= parseInt(end)
-                            $('#f'+start).attr('data-class',rangClass[i])
-                        i++
-                )
+            
             position = floorid
 
         checkSelection:(model)->

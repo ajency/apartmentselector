@@ -618,7 +618,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, i, indexvalue, lowrange, mediumrange, rangClass, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -678,10 +678,11 @@ define(['marionette'], function(Marionette) {
               console.log(unitsarray = val.units);
               console.log(indexvalue = unitsarray[floorid]);
               return $('#positionsvg').load(svgposition, function(x) {
+                var i, rangClass;
                 $.map(indexvalue, function(index, value) {
                   return $('#f' + value).attr('class', 'disable');
                 });
-                return $.map(indexvalue, function(index, value) {
+                $.map(indexvalue, function(index, value) {
                   var floorArr;
                   if (App.defaults['floor'] !== "All") {
                     floorArr = App.defaults['floor'].split(',');
@@ -696,24 +697,25 @@ define(['marionette'], function(Marionette) {
                     return $('#f' + value).attr('class', 'unit-hover');
                   }
                 });
+                rangClass = ['lowrange', 'mediumrange', 'highrange'];
+                i = 0;
+                console.log(floorange);
+                return $.each(floorange, function(index, value) {
+                  var end, start;
+                  console.log(start = parseInt(value.start));
+                  console.log(end = parseInt(value.end));
+                  console.log(rangClass[i]);
+                  while (parseInt(start) <= parseInt(end)) {
+                    $('#f' + start).attr('data-class', rangClass[i]);
+                    start++;
+                  }
+                  return i++;
+                });
               });
             }
           });
         });
       });
-      if (flag === 1) {
-        rangClass = ['lowrange', 'mediumrange', 'highrange'];
-        i = 0;
-        $.each(floorange, function(index, value) {
-          var end, start;
-          start = parseInt(value.start);
-          end = parseInt(value.end);
-          while (parseInt(start) <= parseInt(end)) {
-            $('#f' + start).attr('data-class', rangClass[i]);
-          }
-          return i++;
-        });
-      }
       return position = floorid;
     };
 
