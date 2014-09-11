@@ -647,6 +647,18 @@ define [ 'marionette' ], ( Marionette )->
                                         $('#f'+value).attr('class', 'unit-hover')
 
                                     )
+                                rangClass = ['lowrange','mediumrange','highrange']
+                                i= 0
+                                console.log floorange
+                                $.each(floorange, (index,value)->
+                                        console.log start = parseInt(value.start)
+                                        console.log end = parseInt(value.end)
+                                        console.log rangClass[i]
+                                        while parseInt(start) <= parseInt(end)
+                                            $('#f'+start).attr('data-class',rangClass[i])
+                                            start++
+                                        i++
+                                )
 
 
                                 )

@@ -678,10 +678,11 @@ define(['marionette'], function(Marionette) {
               console.log(unitsarray = val.units);
               console.log(indexvalue = unitsarray[floorid]);
               return $('#positionsvg').load(svgposition, function(x) {
+                var i, rangClass;
                 $.map(indexvalue, function(index, value) {
                   return $('#f' + value).attr('class', 'disable');
                 });
-                return $.map(indexvalue, function(index, value) {
+                $.map(indexvalue, function(index, value) {
                   var floorArr;
                   if (App.defaults['floor'] !== "All") {
                     floorArr = App.defaults['floor'].split(',');
@@ -695,6 +696,20 @@ define(['marionette'], function(Marionette) {
                   } else {
                     return $('#f' + value).attr('class', 'unit-hover');
                   }
+                });
+                rangClass = ['lowrange', 'mediumrange', 'highrange'];
+                i = 0;
+                console.log(floorange);
+                return $.each(floorange, function(index, value) {
+                  var end, start;
+                  console.log(start = parseInt(value.start));
+                  console.log(end = parseInt(value.end));
+                  console.log(rangClass[i]);
+                  while (parseInt(start) <= parseInt(end)) {
+                    $('#f' + start).attr('data-class', rangClass[i]);
+                    start++;
+                  }
+                  return i++;
                 });
               });
             }

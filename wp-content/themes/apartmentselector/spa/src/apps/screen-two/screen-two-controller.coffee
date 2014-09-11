@@ -54,6 +54,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 collection : @Collection[1]
 
             console.log @layout
+            
             @layout.buildingRegion.$el.empty();
             itemview1.delegateEvents();
             @layout.unitRegion.$el.empty();

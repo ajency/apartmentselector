@@ -80,13 +80,13 @@ define [ 'marionette' ], ( Mariontte )->
         						<!--Layouts-->
         						<ul class="layouts">
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="../wp-content/themes/apartmentselector/spa/src/bower_components/fancybox/demo/1_b.jpg"><img src="../wp-content/themes/apartmentselector/spa/src/bower_components/fancybox/demo/1_s.jpg" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="{{TwoDimage}}"><img src="{{TwoDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="../wp-content/themes/apartmentselector/spa/src/bower_components/fancybox/demo/2_b.jpg"><img src="../wp-content/themes/apartmentselector/spa/src/bower_components/fancybox/demo/2_s.jpg" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="{{ThreeDimage}}"><img src="{{ThreeDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 3001" href="../wp-content/themes/apartmentselector/spa/src/bower_components/fancybox/demo/3_b.jpg"><img src="../wp-content/themes/apartmentselector/spa/src/bower_components/fancybox/demo/3_s.jpg" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 3001" href="{{floorLayoutimage}}"><img src="{{floorLayoutimage}}" alt=""></a>
                                     </li>
         						</ul>'
 
