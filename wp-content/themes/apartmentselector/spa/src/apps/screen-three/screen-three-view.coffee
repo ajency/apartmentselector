@@ -598,6 +598,10 @@ define [ 'marionette' ], ( Marionette )->
             console.log buildinArray = buildingCollection.toArray()
             console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+            floorange = buildingModel.get('floorriserange')
+            lowrange = floorange[0]
+            mediumrange = floorange[1]
+            highrange = floorange[2]
             svgpath = buildingModel.get 'svgfile'
             svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
             if buildingModel.get('id') == 11
@@ -656,7 +660,12 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-           
+            for(i= lowrange.start;i<=lowrange.end;i++)
+                $('#f'+i).attr('class','lowrange')
+            for(j= mediumrange.start;j<=mediumrange.end;j++)
+                $('#f'+j).attr('class','mediumrange')
+            for(k= highrange.start;k<=highrange.end;k++)
+                $('#f'+k).attr('class','highrange')
             position = floorid
 
         checkSelection:(model)->

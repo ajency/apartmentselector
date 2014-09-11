@@ -13,7 +13,7 @@ define [ 'marionette' ], ( Mariontte )->
                     </div>
 
                     <div class="text-center">
-                        <h4 class="text-white m-t-15 bold text-uppercase"><span class="slctnTxt">Your selection:</span> {{textString}} </h4>
+                        <h4 class="text-white m-t-15 bold text-uppercase"><span class="slctnTxt">Your selection:</span> <span id="textstring"></span> </h4>
                     </div>
 
                     '
@@ -115,6 +115,8 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
+            textString  = Marionette.getOption( @, 'textString' )
+            $('#textstring').html textString
             console.log "wwwwwwwwwww"
             flag = 0
             console.log window.location.href.indexOf('wishList')

@@ -618,7 +618,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, indexvalue, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -626,6 +626,10 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
+      floorange = buildingModel.get('floorriserange');
+      lowrange = floorange[0];
+      mediumrange = floorange[1];
+      highrange = floorange[2];
       svgpath = buildingModel.get('svgfile');
       svgdata = [
         [
