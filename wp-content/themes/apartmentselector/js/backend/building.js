@@ -640,6 +640,43 @@ function addException(exception_no){
     $('.milestone-completion-date').datepicker({ dateFormat: 'dd/mm/yy' });
 
    }
+
+    $(document).on("change", "#no_of_flats", function(e) {
+
+        prevFlatCount = $(e.target).attr('prev_flat_count');
+
+        flatCount = $(e.target).val();
+
+       
+        $(e.target).attr('prev_flat_count') = $(e.target).val();
+
+        if(parseInt(prevFlatCount) > parseInt(FlatCount) ){
+            
+            removeFloorpositions(flatCount,prevFlatCount);
+
+
+        }else{
+
+            addFloorpositions(flatCount,prevFlatCount);
+        }
+})
+
+
+
+
+    function addFloorpositions(flat_count,prev_flat_count){
+
+        for(i=prev_flat_count;i<=flat_count;i++){
+            $(".flat-positions").append("<div class='col-md-4 flatposition"+i+"'><div class='checkbox check-default' ><input type='checkbox' name='flatpostion[]' id='flatpostion"+1+"' value='"+1+"'> <label for='flatpostion"+i+"'>"+i+"</label></div></div>")
+        }
+    }
+
+    function removeFloorpositions(flat_count,prev_flat_count){
+
+        for(i=flat_count+1;i<=prev_flat_count;i++){
+            $(".flatposition"+i).remove())
+        }
+    }
  
 })
 
