@@ -134,7 +134,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
               });
             });
             roomsizearr.sort(function(a, b) {
-              return a - b;
+              return b - a;
             });
             if (roomsizearr.length === 0) {
               roomsizearr.push({

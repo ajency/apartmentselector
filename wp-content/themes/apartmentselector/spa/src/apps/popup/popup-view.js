@@ -39,6 +39,10 @@ define(['marionette'], function(Mariontte) {
       }
     };
 
+    PopupView.prototype.onShow = function() {
+      return $(".2dlayout").fancybox();
+    };
+
     return PopupView;
 
   })(Marionette.CompositeView);

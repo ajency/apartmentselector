@@ -177,6 +177,10 @@ define [ 'marionette' ], ( Mariontte )->
             'click a':(e)->
                 e.preventDefault()
 
+        onShow:->
+            $(".2dlayout").fancybox()
+
+
 
 
 

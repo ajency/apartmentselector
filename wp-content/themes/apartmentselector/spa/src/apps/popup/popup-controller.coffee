@@ -111,7 +111,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
                             )
                         roomsizearr.sort( (a,b)->
-                            a - b
+                            b - a
 
                             )
                         if roomsizearr.length == 0
