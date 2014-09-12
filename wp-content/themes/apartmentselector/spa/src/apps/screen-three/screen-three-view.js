@@ -518,24 +518,24 @@ define(['marionette'], function(Marionette) {
             if (floorid === parseInt(val1)) {
               svgposition = value.svgfile;
               unitsarray = value.units;
-              indexvalue = unitsarray[floorid];
+              console.log(indexvalue = unitsarray[floorid]);
               if (value.svgfile !== "") {
                 return $('#positionsvg').load(svgposition, function(x) {
                   var i, rangClass;
                   $.map(indexvalue, function(index, value) {
                     return $('#f' + value).attr('class', 'disable');
                   });
-                  $.map(indexvalue, function(index, value) {
+                  $.map(indexvalue, function(index1, value1) {
                     var floorArr;
                     if (App.defaults['floor'] !== "All") {
                       floorArr = App.defaults['floor'].split(',');
                       return $.each(floorArr, function(ind, val) {
-                        if (parseInt(value) === parseInt(val)) {
-                          return $('#f' + value).attr('class', 'unit-hover');
+                        if (parseInt(value1) === parseInt(val)) {
+                          return $('#f' + value1).attr('class', 'unit-hover');
                         }
                       });
                     } else {
-                      return $('#f' + value).attr('class', 'unit-hover');
+                      return $('#f' + value1).attr('class', 'unit-hover');
                     }
                   });
                   rangClass = ['lowrange', 'mediumrange', 'highrange'];
@@ -545,7 +545,7 @@ define(['marionette'], function(Marionette) {
                     start = parseInt(value.start);
                     end = parseInt(value.end);
                     while (parseInt(start) <= parseInt(end)) {
-                      $('#f' + start).attr('data-class', rangClass[i]);
+                      $('#c' + start).text(rangClass[i]);
                       start++;
                     }
                     return i++;

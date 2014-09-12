@@ -581,24 +581,24 @@ define [ 'marionette' ], ( Marionette )->
                             if floorid == parseInt(val1)
                                 svgposition = value.svgfile
                                 unitsarray = value.units
-                                indexvalue = unitsarray[floorid]
+                                console.log indexvalue = unitsarray[floorid]
                                 if value.svgfile != ""
                                     $('#positionsvg').load(svgposition,  (x)->
                                         $.map(indexvalue, (index,value)->
                                             $('#f'+value).attr('class', 'disable')
                                         )
-                                        $.map(indexvalue, (index,value)->
+                                        $.map(indexvalue, (index1,value1)->
                                             if App.defaults['floor'] != "All"
                                                 floorArr  = App.defaults['floor'].split(',')
                                                 $.each(floorArr, (ind,val)->
-                                                    if parseInt(value) == parseInt(val)
-                                                        $('#f'+value).attr('class', 'unit-hover')
+                                                    if parseInt(value1) == parseInt(val)
+                                                        $('#f'+value1).attr('class', 'unit-hover')
 
 
 
                                                     )
                                             else
-                                                $('#f'+value).attr('class', 'unit-hover')
+                                                $('#f'+value1).attr('class', 'unit-hover')
 
                                             )
                                         rangClass = ['lowrange','mediumrange','highrange']
@@ -607,7 +607,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 start = parseInt(value.start)
                                                 end = parseInt(value.end)
                                                 while parseInt(start) <= parseInt(end)
-                                                    $('#f'+start).attr('data-class',rangClass[i])
+                                                    $('#c'+start).text rangClass[i]
                                                     start++
                                                 i++
                                         )
