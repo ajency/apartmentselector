@@ -217,16 +217,14 @@ define(['marionette'], function(Marionette) {
       'mouseover a': function(e) {
         var id, locationData;
         id = e.target.id;
-        locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return locationData = m.getLocationData(id);
       },
       'click .tower-over': function(e) {
         var id, locationData;
         e.preventDefault();
         id = e.target.id;
         m.showLocation(id, 800);
-        locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return locationData = m.getLocationData(id);
       }
     };
 

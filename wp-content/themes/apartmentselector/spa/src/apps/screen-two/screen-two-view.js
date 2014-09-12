@@ -49,7 +49,13 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();
       },
-      'mouseover a': function(e) {
+      'mouseover a.tower-link': function(e) {
+        var id, locationData;
+        id = e.target.id;
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
+      },
+      'mouseover a.im-pin': function(e) {
         var id, locationData;
         id = e.target.id;
         locationData = m.getLocationData(id);

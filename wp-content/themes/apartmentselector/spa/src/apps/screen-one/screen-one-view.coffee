@@ -215,7 +215,7 @@ define [ 'marionette' ], ( Marionette )->
             'mouseover a':(e)->
                 id  = e.target.id
                 locationData = m.getLocationData(id)
-                m.showTooltip(locationData)
+                #m.showTooltip(locationData)
 
 
             'click .tower-over':(e)->
@@ -223,7 +223,7 @@ define [ 'marionette' ], ( Marionette )->
                 id  = e.target.id
                 m.showLocation(id, 800)
                 locationData = m.getLocationData(id)
-                m.showTooltip(locationData)
+                #m.showTooltip(locationData)
 
         showHighlightedTowers:(uniqBuildings)->
             masterbuilding = App.master.building

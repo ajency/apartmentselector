@@ -120,7 +120,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         events:
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
-            'mouseover a':(e)->
+            'mouseover a.tower-link':(e)->
+                id  = e.target.id
+                locationData = m.getLocationData(id)
+                m.showTooltip(locationData)
+
+            'mouseover a.im-pin':(e)->
                 id  = e.target.id
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData)
