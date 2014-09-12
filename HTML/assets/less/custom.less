@@ -274,8 +274,12 @@ a.im-clear-button{
 		// .bold;
 		// background-color: darken(@color-primary, 10%);
 		// background-color: @gray-light;
-		background-image: -moz-linear-gradient(top, darken(@color-primary, 5%), darken(@color-primary, 10%)); /* Firefox 3.6 */
-		background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, darken(@color-primary, 10%)),color-stop(1, darken(@color-primary, 5%))); /* Safari & Chrome */
+		
+		background: -webkit-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* Chrome 10+, Saf5.1+ */
+		background:    -moz-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* FF3.6+ */
+		background:     -ms-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* IE10 */
+		background:      -o-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* Opera 11.10+ */
+		background:         linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* W3C */
 		padding: 20px 10px;
 		margin: 0;
 		color: @color-white;
