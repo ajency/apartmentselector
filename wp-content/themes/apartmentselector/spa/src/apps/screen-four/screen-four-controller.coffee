@@ -60,7 +60,20 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
                 building = App.master.building.findWhere({id:value.get('building')})
-                #exceptionObject = building.get 'floorexceptionpositions'
+                exceptionObject = building.get 'floorexceptionpositions'
+                $.each(exceptionObject, (index,value1)->
+                    floorvalue = $.inArray( value.get('floor'),value1.floors)
+                    if floorvalue == -1
+                        floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
+                    else
+                        floorLayoutimage = value1.floor_layout_detailed.thumbnail_url
+
+
+
+                        )
+
+
+                    )
                 #console.log exceptionObject[0].floors
                 #console.log floorvalue = $.inArray( value.get('floor'),exceptionObject[0].floors)
                 ##floorLayoutimage = ""
