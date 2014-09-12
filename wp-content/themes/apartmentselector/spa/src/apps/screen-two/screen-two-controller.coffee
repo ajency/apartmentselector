@@ -192,19 +192,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 first = _.first(templateArr)
                 buildingModel = App.master.building.findWhere({id:App.building['name']})
                 floorriserange = buildingModel.get('floorriserange')
-                lowUnits = App.master.range.findWhere({name:'low'})
-                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                if parseInt(first) >= floorriserange[0].start &&  parseInt(first) <= floorriserange[0].end
                     range = 'LOWRISE'+',' +buildingModel.get('name')
 
 
 
-                mediumUnits = App.master.range.findWhere({name:'medium'})
-                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                if parseInt(first) >= floorriserange[1].start &&  parseInt(first) <= floorriserange[1].end
                     range = 'MIDRISE'+',' +buildingModel.get('name')
 
 
-                highUnits = App.master.range.findWhere({name:'high'})
-                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                if parseInt(first) >= floorriserange[2].start &&  parseInt(first) <= floorriserange[2].end
                     range = 'HIGHRISE'+',' +buildingModel.get('name')
                 templateString = range
             else
@@ -301,20 +298,21 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
             $.each(units, (index,value)->
                 maxcoll = Array()
-
+                buildingModel = ""
                 if buildingArray.indexOf(value.get 'building') ==  -1
                     buildingArray.push value.get 'building'
+                    console.log buildingModel = App.master.building.findWhere({id:value.get('building')})
+
+                
+                    floorriserange = buildingModel.get('floorriserange')
+                    if value.get('floor') >= floorriserange[0].start &&  value.get('floor') <= floorriserange[0].end
+                        unittypemodel = App.master.unit_type.findWhere({id :  value.get( 'unitType' ) })
+
+                        mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
 
 
-                lowUnits = App.master.range.findWhere({name:'low'})
-                if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
-                    unittypemodel = App.master.unit_type.findWhere({id :  value.get( 'unitType' ) })
-
-                    mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
-
-
-                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
-                mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
+                    unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                    mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
 
 
