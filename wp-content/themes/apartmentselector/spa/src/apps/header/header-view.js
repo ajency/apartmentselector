@@ -99,6 +99,7 @@ define(['marionette'], function(Mariontte) {
 
     HeaderView.prototype.onShow = function() {
       var body, disableOther, flag, menuRight, menuTop, showRightPush, textString;
+      $('#textstring').html("");
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
       flag = 0;

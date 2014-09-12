@@ -43,9 +43,6 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params);
-      setTimeout(function(x) {
-        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      }, 1000);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -54,9 +51,13 @@ define(['marionette'], function(Marionette) {
       });
       if (flag === 0) {
         msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
-        msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
+        return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
+      } else {
+        setTimeout(function(x) {
+          return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+        }, 1000);
+        return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
       }
-      return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
     },
     showUnits: function(params) {
       var flag;
@@ -64,9 +65,6 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params = {});
-      setTimeout(function(x) {
-        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      }, 1000);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -76,9 +74,13 @@ define(['marionette'], function(Marionette) {
       if (flag === 0) {
         msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
         msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
-        msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
+        return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
+      } else {
+        setTimeout(function(x) {
+          return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+        }, 1000);
+        return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
       }
-      return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
     },
     showSelectedUnit: function(params) {
       var flag;
@@ -86,9 +88,6 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params = {});
-      setTimeout(function(x) {
-        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      }, 1000);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -99,9 +98,13 @@ define(['marionette'], function(Marionette) {
         msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
         msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
         msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
-        msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
+        return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
+      } else {
+        setTimeout(function(x) {
+          return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+        }, 1000);
+        return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
       }
-      return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
     },
     showpopup: function() {
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();

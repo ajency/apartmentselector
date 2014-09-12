@@ -41,13 +41,6 @@ define [ 'marionette'], ( Marionette )->
 
         show :(params={})->
             App.filter(params)
-            setTimeout( (x)->
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
-
-            ,1000) 
-            
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -61,20 +54,21 @@ define [ 'marionette'], ( Marionette )->
                 msgbus.showApp 'screen:one'
                     .insideRegion  App.layout.screenOneRegion
                     .withOptions()
+            else
+                setTimeout( (x)->
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                        .withOptions()
 
-            msgbus.showApp 'screen:two'
-                .insideRegion  App.layout.screenTwoRegion
-                .withOptions()
+                ,1000) 
+            
+            
+                msgbus.showApp 'screen:two'
+                    .insideRegion  App.layout.screenTwoRegion
+                    .withOptions()
 
         showUnits:(params={})->
             App.filter(params={})
-            setTimeout( (x)->
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
-
-            ,1000) 
-            
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -91,21 +85,23 @@ define [ 'marionette'], ( Marionette )->
                 msgbus.showApp 'screen:two'
                 .insideRegion  App.layout.screenTwoRegion
                     .withOptions()
+            else
+                setTimeout( (x)->
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                        .withOptions()
 
-            msgbus.showApp 'screen:three'
-            .insideRegion  App.layout.screenThreeRegion
-                .withOptions()
+                ,1000) 
+            
+            
+
+                msgbus.showApp 'screen:three'
+                .insideRegion  App.layout.screenThreeRegion
+                    .withOptions()
 
         showSelectedUnit:(params={})->
 
             App.filter(params={})
-            setTimeout( (x)->
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
-
-            ,1000) 
-            
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -125,9 +121,18 @@ define [ 'marionette'], ( Marionette )->
                 msgbus.showApp 'screen:three'
                 .insideRegion  App.layout.screenThreeRegion
                     .withOptions()
-            msgbus.showApp 'screen:four'
-            .insideRegion  App.layout.screenFourRegion
-                .withOptions()
+            else
+                setTimeout( (x)->
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                        .withOptions()
+
+                ,1000) 
+            
+            
+                msgbus.showApp 'screen:four'
+                .insideRegion  App.layout.screenFourRegion
+                    .withOptions()
 
 
         showpopup:->

@@ -212,7 +212,6 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
   };
   if (window.location.hash === '') {
     App.filter();
-    staticApps.push(['header', App.headerRegion]);
     staticApps.push(['main:app', App.mainRegion]);
   }
   App.addStaticApps(staticApps);

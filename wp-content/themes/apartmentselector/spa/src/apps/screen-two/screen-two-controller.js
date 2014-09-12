@@ -37,13 +37,40 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
-      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuildings);
+      this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
+      return this.show(this.layout);
+    };
+
+    ScreenTwoController.prototype.showUpdateBuildings = function() {
+      this.Collection = this._getUnitsCountCollection();
+      this.layout = new ScreenTwoView.ScreenTwoLayout({
+        collection: this.Collection[1],
+        buildingColl: this.Collection[0],
+        uintVariantId: this.Collection[9],
+        uintVariantIdArray: this.Collection[10],
+        unitVariants: this.Collection[8],
+        templateHelpers: {
+          selection: this.Collection[2],
+          unitsCount: this.Collection[3],
+          unittypes: this.Collection[4],
+          high: this.Collection[5],
+          medium: this.Collection[6],
+          low: this.Collection[7],
+          unitVariants: this.Collection[8],
+          AJAXURL: AJAXURL
+        }
+      });
+      this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuildings);
       this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
       return this.show(this.layout);
     };
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
-      var buidlingValue, building, itemview1, itemview2, masterbuilding, scr, testtext, unitVariantArrayText;
+      var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
+      console.log("eeeeeee");
       this.Collection = this._getUnitsCountCollection(id);
       itemview1 = new ScreenTwoView.UnitTypeChildView({
         collection: this.Collection[0]
@@ -65,91 +92,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
       });
-      $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
-      tagsArray = [];
-      testtext = App.defaults['unitVariant'];
-      if (testtext !== 'All') {
-        unitVariantArrayText = testtext.split(',');
-        $.each(unitVariantArrayText, function(index, value) {
-          var unitVariantModel;
-          unitVariantModel = App.master.unit_variant.findWhere({
-            id: parseInt(value)
-          });
-          return tagsArray.push({
-            id: value,
-            area: unitVariantModel.get('sellablearea') + 'Sq.ft.'
-          });
-        });
-      } else {
-        unitVariantArrayText = testtext.split(',');
-        tagsArray.push({
-          id: 'All',
-          area: 'All'
-        });
-      }
-      $('#tagslist ul li').remove();
-      $.each(tagsArray, function(index, value) {
-        return $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton2"></div></li>');
-      });
-      if (tagsArray.length === 1) {
-        $('.closeButton2').addClass('hidden');
-      }
-      return $(document).on("click", ".closeButton2", function() {
-        var theidtodel;
-        theidtodel = $(this).parent('li').attr('id');
-        return object.delItems($('#' + theidtodel).attr('data-itemNum'));
-      });
-    };
-
-    ScreenTwoController.prototype.delItems = function(delnum) {
-      var i, index, key, params, q, removeItem, unitvariantarrayValues;
-      removeItem = delnum;
-      i = 0;
-      key = "";
-      $.each(tagsArray, function(index, val) {
-        if (val.id === delnum) {
-          key = i;
-        }
-        return i++;
-      });
-      index = key;
-      if (index >= 0) {
-        tagsArray.splice(index, 1);
-        $('#li-item-' + delnum).remove();
-        unitvariantarrayValues = [];
-        $.each(tagsArray, function(index, value) {
-          return unitvariantarrayValues.push(value.id);
-        });
-        q = 1;
-        $.map(App.backFilter, function(value, index) {
-          var element, screenArray, _i, _len;
-          if (q !== 1) {
-            screenArray = App.backFilter[index];
-            for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
-              element = screenArray[_i];
-              if (element === 'unitVariant') {
-                App.defaults[element] = unitVariantString;
-              } else {
-                key = App.defaults.hasOwnProperty(element);
-                if (key === true) {
-                  App.defaults[element] = 'All';
-                }
-              }
-            }
-          }
-          return q++;
-        });
-        App.layout.screenThreeRegion.el.innerHTML = "";
-        App.layout.screenFourRegion.el.innerHTML = "";
-        App.navigate("screen-two");
-        App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
-        App.currentStore.unit.reset(UNITS);
-        App.currentStore.building.reset(BUILDINGS);
-        App.currentStore.unit_type.reset(UNITTYPES);
-        App.currentStore.unit_variant.reset(UNITVARIANTS);
-        App.filter(params = {});
-        return this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
-      }
+      return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
     };
 
     ScreenTwoController.prototype.showViews = function() {

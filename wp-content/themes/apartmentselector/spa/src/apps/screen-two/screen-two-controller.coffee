@@ -30,7 +30,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, "show:updated:building", @showUpdateBuilding
 
-            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuildings
 
             @listenTo @layout, 'unit:count:selected', @_unitCountSelected
 
@@ -41,7 +41,46 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @show @layout
 
+
+        showUpdateBuildings:->
+            @Collection = @_getUnitsCountCollection()
+
+
+            @layout = new ScreenTwoView.ScreenTwoLayout(
+                collection:@Collection[1]
+                buildingColl : @Collection[0]
+                uintVariantId : @Collection[9]
+                uintVariantIdArray : @Collection[10]
+                unitVariants:@Collection[8]
+                templateHelpers:
+                    selection :@Collection[2]
+                    unitsCount:@Collection[3]
+                    unittypes:  @Collection[4]
+                    high : @Collection[5]
+                    medium : @Collection[6]
+                    low : @Collection[7]
+                    unitVariants:@Collection[8]
+                    AJAXURL : AJAXURL)
+
+
+            @listenTo @layout, "show", @showViews
+
+            @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuildings
+
+            @listenTo @layout, 'unit:count:selected', @_unitCountSelected
+
+
+
+
+
+
+            @show @layout
+
+
         showUpdateBuilding:(id)=>
+            console.log "eeeeeee"
             @Collection = @_getUnitsCountCollection(id)
 
             itemview1 = new ScreenTwoView.UnitTypeChildView
@@ -68,80 +107,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
             $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
-            tagsArray = []
-            testtext = App.defaults['unitVariant']
-            if testtext != 'All'
-                unitVariantArrayText = testtext.split(',')
-                $.each(unitVariantArrayText, (index,value)->
-                    unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
-                    tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
-
-
-                )
-            else
-                unitVariantArrayText = testtext.split(',')
-                tagsArray.push({id:'All' , area : 'All'})
-
-            $('#tagslist ul li').remove()
-            $.each(tagsArray,  (index, value) ->
-                $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton2"></div></li>')
-            )
-            if tagsArray.length == 1
-                $('.closeButton2').addClass 'hidden'
-
-            $(document).on("click", ".closeButton2",  ()->
-                theidtodel = $(this).parent('li').attr('id')
-               
-
-                object.delItems($('#' + theidtodel).attr('data-itemNum'))
-            )
-
-
-        delItems:(delnum)->
-            removeItem = delnum
-            i =0
-            key = ""
-
-            $.each(tagsArray, (index,val)->
-                if val.id == delnum
-                    key = i
-                i++
-
-            )
-            index = key
-            if (index >= 0)
-                tagsArray.splice(index, 1)
-                $('#li-item-' + delnum).remove()
-                unitvariantarrayValues = []
-                $.each(tagsArray , (index,value)->
-                    unitvariantarrayValues.push(value.id)
-
-                )
-                q = 1
-                $.map(App.backFilter, (value, index)->
-
-                    if q!=1
-                        screenArray  = App.backFilter[index]
-                        for element in screenArray
-                            if element == 'unitVariant'
-                                App.defaults[element] = unitVariantString
-                            else
-                                key = App.defaults.hasOwnProperty(element)
-                                if key == true
-                                    App.defaults[element] = 'All'
-                    q++
-
-                )
-                App.layout.screenThreeRegion.el.innerHTML = ""
-                App.layout.screenFourRegion.el.innerHTML = ""
-                App.navigate "screen-two"
-                App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
-                App.currentStore.unit.reset UNITS
-                App.currentStore.building.reset BUILDINGS
-                App.currentStore.unit_type.reset UNITTYPES
-                App.currentStore.unit_variant.reset UNITVARIANTS
-                App.filter(params={})
-                @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
+            
 
 
 
