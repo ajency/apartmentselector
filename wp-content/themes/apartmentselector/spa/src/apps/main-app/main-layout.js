@@ -63,7 +63,7 @@ define(['extm'], function(Extm) {
           view.push($('#' + e.target.id).val());
           viewnames.push($('#' + e.target.id).attr('data-name'));
         } else {
-          console.log(index = view.indexOf($('#' + e.target.id).val()));
+          index = view.indexOf($('#' + e.target.id).val());
           if (index !== -1) {
             view.splice(index, 1);
             viewnames.splice(index, 1);
@@ -73,18 +73,16 @@ define(['extm'], function(Extm) {
           viewString = view.join(',');
         }
         App.defaults['view'] = viewString;
-        $('#viewName').text(viewnames.join(','));
-        return console.log(App.defaults);
+        return $('#viewName').text(viewnames.join(','));
       },
       'click .facing': function(e) {
         var facingString, index;
         facingString = 'All';
-        console.log($('#' + e.target.id));
         if ($('#' + e.target.id).prop('checked') === true) {
           facing.push($('#' + e.target.id).val());
           facingnames.push($('#' + e.target.id).attr('data-name'));
         } else {
-          console.log(index = facing.indexOf($('#' + e.target.id).val()));
+          index = facing.indexOf($('#' + e.target.id).val());
           if (index !== -1) {
             facing.splice(index, 1);
             facingnames.splice(index, 1);
@@ -94,12 +92,10 @@ define(['extm'], function(Extm) {
           facingString = facing.join(',');
         }
         App.defaults['facing'] = facingString;
-        $('#facingName').text(facingnames.join(','));
-        return console.log(App.defaults);
+        return $('#facingName').text(facingnames.join(','));
       },
       'click #compare': function(e) {
         var body, menuRight, menuTop, showRightPush, showTop, win;
-        console.log($.cookie("key"));
         win = window.open(SITEURL + "/wishlist/#wishList", '_blank');
         win.focus();
         menuRight = document.getElementById("cbp-spmenu-s2");
@@ -233,7 +229,7 @@ define(['extm'], function(Extm) {
         fadeOutTime: "fast",
         analytics: false
       });
-      console.log(height = $(window).scrollTop());
+      height = $(window).scrollTop();
       $(window).scroll(function() {
         height = $(window).scrollTop();
         if (height < 300) {
@@ -264,7 +260,7 @@ define(['extm'], function(Extm) {
       var building, element, model, selectedUnitsArray, table, unitType, unitVariant, _i, _len;
       table = "";
       if ($.cookie("key") !== void 0 && $.cookie("key") !== "") {
-        console.log(selectedUnitsArray = $.cookie("key").split(","));
+        selectedUnitsArray = $.cookie("key").split(",");
         table = "";
         for (_i = 0, _len = selectedUnitsArray.length; _i < _len; _i++) {
           element = selectedUnitsArray[_i];
@@ -283,7 +279,6 @@ define(['extm'], function(Extm) {
           table += '<li> <a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a> <div class="clearfix"></div> </li>';
         }
       }
-      console.log(table);
       return $('#showWishlist').html(table);
     };
 

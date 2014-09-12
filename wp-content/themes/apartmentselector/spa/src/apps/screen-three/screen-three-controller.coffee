@@ -114,7 +114,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 collection : unitCollection
 
         _unitItemSelected:(childview,childview1,childview2)=>
-            console.log "hi"
             App.navigate "screen-four" , trigger:true
 
 
@@ -123,8 +122,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
         _getUnits:->
-            console.log App.defaults
-
             buildingArray = []
             unitArray = []
             unitsArray = []
@@ -148,7 +145,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             )
             $.each(myArray, (index,value)->
                 if(value.value !='All')
-                    console.log value.key
                     param[value.key] = value.value
                     string_val = _.isString(value.value)
                     valuearr = ""
@@ -190,7 +186,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             )
-            console.log templateArr
             if templateArr.length == 0
                 templateArr.push 'All'
             if(flag==1)
@@ -220,14 +215,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             flag  = 0
-            console.log templateArr
-
-            console.log templateString
-
-            console.log myArray
             status = App.master.status.findWhere({'name':'Available'})
-            console.log unitslen = App.master.unit.where({'status':status.get('id')})
-            console.log unitslen1 = App.master.unit.where({'status':status.get('id'),'building':parseInt(App.defaults['building'])})
+            unitslen = App.master.unit.where({'status':status.get('id')})
+            unitslen1 = App.master.unit.where({'status':status.get('id'),'building':parseInt(App.defaults['building'])})
 
 
             $.each(unitslen1, (index,value1)->
@@ -249,7 +239,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             if App.defaults['floor'] == "All"
                 floorUnitsArray = unitslen
 
-            console.log floorUnitsArray.length
             floorCollunits = []
             $.each(floorUnitsArray, (index,value1)->
                 flag = 0
@@ -265,20 +254,18 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         unitPrice = value1.get 'unitPrice'
                         budget_arr = value.value.split(' ')
                         budget_price = budget_arr[0].split('-')
-                        console.log budget_price[0] = budget_price[0]+'00000'
-                        console.log budget_price[1] = budget_price[1]+'00000'
+                        budget_price[0] = budget_price[0]+'00000'
+                        budget_price[1] = budget_price[1]+'00000'
                         if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                             flag++
                     else if value.key != 'floor'
-                        console.log value.key
-                        console.log value1.get(value.key) + '== ' + parseInt(value.value)
+                        value1.get(value.key) + '== ' + parseInt(value.value)
                         if value1.get(value.key) == parseInt(value.value)
 
                             flag++
 
 
                 )
-                console.log flag
                 if flag == myArray.length - 1
                     floorCollunits.push(value1)
 
@@ -287,16 +274,14 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             )
-            console.log floorCollunits
             if App.defaults['floor'] == "All"
                 floorCollunits = unitslen
-            console.log floorCollunits.length
             units = new Backbone.Collection floorCollunits
             buildings = units.pluck("building")
-            console.log uniqBuildings = _.uniq(buildings)
+            uniqBuildings = _.uniq(buildings)
 
             unitvariant = units.pluck("unitVariant")
-            console.log uniqUnitvariant = _.uniq(unitvariant)
+            uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
             unitVariantID = []
 
@@ -314,8 +299,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 a - b
 
             )
-            console.log unitVariantModels
-
+            
 
             floorArray = []
             floorCountArray = []
@@ -329,9 +313,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 buildingvalue = _.max(unitsArray,  (model)->
                     model.count
                 )
-                console.log buildingvalue = buildingvalue.id
+                buildingvalue = buildingvalue.id
             units1 = new Backbone.Collection floorUnitsArray
-            console.log unitsCollection = units1.where({building:parseInt(buildingvalue)})
+            unitsCollection = units1.where({building:parseInt(buildingvalue)})
             $.each(unitsCollection, (index,value)->
                     if floorArray.indexOf(value.get 'floor') ==  -1
                         floorArray.push value.get 'floor'
@@ -351,7 +335,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             unitArray= []
             unitColl = new Backbone.Collection unitsCollection
             unitAssigned = unitColl.pluck("unitAssigned")
-            console.log uniqunitAssignedval = _.uniq(unitAssigned)
+            uniqunitAssignedval = _.uniq(unitAssigned)
             uniqunitAssigned = _.without(uniqunitAssignedval, 0)
             uniqunitAssigned.sort( (a,b)->
                 a - b
@@ -360,7 +344,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 )
             $.each(uniqunitAssigned, (index,value)->
                 floorColl =  new Backbone.Collection floorUnitsArray
-                console.log unitAssgendModels = floorColl.where({unitAssigned:value})
+                unitAssgendModels = floorColl.where({unitAssigned:value})
                 $.each(unitAssgendModels, (index,value)->
                     unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
                     value.set "unittypename" , unitType.get "name"
@@ -368,7 +352,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     value.set "sellablearea" , unitVariant.get "sellablearea"
 
                 )
-                console.log unitAssgendModels = _.uniq(unitAssgendModels)
+                unitAssgendModels = _.uniq(unitAssgendModels)
                 unitAssgendModels.sort( (a,b)->
                     b.get('floor') - a.get('floor')
 
@@ -383,10 +367,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 a.id - b.id
 
             )
-            console.log unitArray
-            console.log newunitCollection = new Backbone.Collection unitArray
+            newunitCollection = new Backbone.Collection unitArray
             buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
-            console.log buildingCollection = new Backbone.Collection buildingModel
+            buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
             [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
 

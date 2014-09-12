@@ -31,7 +31,6 @@ define [ 'marionette' ], ( Mariontte )->
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
                             App.defaults[element] = 'All'
-                    console.log UNITS
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
@@ -52,18 +51,16 @@ define [ 'marionette' ], ( Mariontte )->
 
                     ,1000) 
             
-                    console.log App.layout.screenThreeRegion.el.innerHTML = ""
+                    App.layout.screenThreeRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:two'
                     .insideRegion  App.layout.screenTwoRegion
                         .withOptions()
                 else if window.location.href.indexOf('screen-four') > -1
-                    console.log App.backFilter['screen3']
                     screenthreeArray  = App.backFilter['screen3']
                     for element in screenthreeArray
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
                             App.defaults[element] = App.defaults['floor']
-                    console.log App.defaults
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
@@ -71,7 +68,7 @@ define [ 'marionette' ], ( Mariontte )->
                     App.navigate "screen-three"
                     e.preventDefault()
                     App.filter(params={})
-                    console.log App.layout.screenFourRegion.el.innerHTML = ""
+                    App.layout.screenFourRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:three'
                     .insideRegion  App.layout.screenThreeRegion
                         .withOptions()
@@ -101,8 +98,7 @@ define [ 'marionette' ], ( Mariontte )->
                     App.navigate ""
 
 
-                    console.log App.defaults
-
+                    
                     e.preventDefault()
                     App.filter(params={})
                     setTimeout( (x)->
@@ -112,7 +108,7 @@ define [ 'marionette' ], ( Mariontte )->
 
                     ,1000) 
             
-                    console.log App.layout.screenTwoRegion.el.innerHTML = ""
+                    App.layout.screenTwoRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:one'
                     .insideRegion  App.layout.screenOneRegion
                         .withOptions()
@@ -125,15 +121,12 @@ define [ 'marionette' ], ( Mariontte )->
         onShow:->
             textString  = Marionette.getOption( @, 'textString' )
             $('#textstring').html textString
-            console.log "wwwwwwwwwww"
             flag = 0
-            console.log window.location.href.indexOf('wishList')
             if window.location.href.indexOf('wishList') > -1
                 flag = 1
             $(window).scroll( ()->
                     flag = 0
                     height = $(window).scrollTop()
-                    console.log flag
                     if height == 0 && flag == 0
                         $('.backBtn').addClass 'hidden'
                         $('.slctnTxt').addClass 'hidden'
@@ -169,7 +162,7 @@ define [ 'marionette' ], ( Mariontte )->
 
 
             if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
-                console.log "aaaaaaaaaaa"
+                console.log ""
 
             else if  window.location.href.indexOf('wishList') > -1
                 $('.rightBtns').addClass 'hidden'

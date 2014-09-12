@@ -53,16 +53,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             itemview2 = new ScreenTwoView.UnitTypeView
                 collection : @Collection[1]
 
-            console.log @layout
+            
             
             @layout.buildingRegion.$el.empty();
             itemview1.delegateEvents();
             @layout.unitRegion.$el.empty();
             @layout.buildingRegion.$el.append(itemview1.render().el ); 
             @layout.unitRegion.$el.append(itemview2.render().el ); 
-            console.log id
             building = @Collection[0].toArray()
-            console.log buidlingValue = _.first(building)
+            buidlingValue = _.first(building)
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
@@ -125,7 +124,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         _getUnitsCountCollection:(paramid={})->
-            console.log paramid
             buildingArray = Array()
             buildingArrayModel = Array()
             unitColl = Array()
@@ -281,7 +279,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             
-            console.log floorCollunits.length
             floorCollection = new Backbone.Collection(floorCollunits)
             unitvariant = floorCollection.pluck("unitVariant")
             uniqUnitvariant = _.uniq(unitvariant)
@@ -496,7 +493,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 floors = totalfloorcollection.pluck("floor")
                 uniqFloors = _.uniq(floors)
                 newunits = floorCollection.where({'building':value,'status':status.get('id')})
-                console.log newunits.length
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
                 mediumArray = Array()
@@ -681,8 +677,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitsactual.push(units.get(value))
             )
             
-            console.log buildingCollection = new Backbone.Collection(buildingsactual)
-            console.log units = new Backbone.Collection(unitsactual)
+            buildingCollection = new Backbone.Collection(buildingsactual)
+            units = new Backbone.Collection(unitsactual)
 
 
             [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID]

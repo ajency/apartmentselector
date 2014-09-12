@@ -53,15 +53,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       itemview2 = new ScreenTwoView.UnitTypeView({
         collection: this.Collection[1]
       });
-      console.log(this.layout);
       this.layout.buildingRegion.$el.empty();
       itemview1.delegateEvents();
       this.layout.unitRegion.$el.empty();
       this.layout.buildingRegion.$el.append(itemview1.render().el);
       this.layout.unitRegion.$el.append(itemview2.render().el);
-      console.log(id);
       building = this.Collection[0].toArray();
-      console.log(buidlingValue = _.first(building));
+      buidlingValue = _.first(building);
       masterbuilding = App.master.building;
       masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
@@ -111,7 +109,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       if (paramid == null) {
         paramid = {};
       }
-      console.log(paramid);
       buildingArray = Array();
       buildingArrayModel = Array();
       unitColl = Array();
@@ -305,7 +302,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return floorCollunits.push(value1);
         }
       });
-      console.log(floorCollunits.length);
       floorCollection = new Backbone.Collection(floorCollunits);
       unitvariant = floorCollection.pluck("unitVariant");
       uniqUnitvariant = _.uniq(unitvariant);
@@ -563,7 +559,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           'building': value,
           'status': status.get('id')
         });
-        console.log(newunits.length);
         buildingUnits.push({
           id: buildingid,
           count: newunits.length,
@@ -868,8 +863,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         buildingsactual.push(buildingCollection.get(value));
         return unitsactual.push(units.get(value));
       });
-      console.log(buildingCollection = new Backbone.Collection(buildingsactual));
-      console.log(units = new Backbone.Collection(unitsactual));
+      buildingCollection = new Backbone.Collection(buildingsactual);
+      units = new Backbone.Collection(unitsactual);
       return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID, unitVariantID];
     };
 
