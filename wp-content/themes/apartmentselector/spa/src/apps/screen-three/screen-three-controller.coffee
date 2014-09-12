@@ -216,8 +216,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             flag  = 0
             status = App.master.status.findWhere({'name':'Available'})
-            unitslen = App.master.unit.where({'status':status.get('id')})
-            unitslen1 = App.master.unit.where({'status':status.get('id'),'building':parseInt(App.defaults['building'])})
+            unitslen = App.master.unit.toArray()
+            unitslen1 = App.master.unit.where({'building':parseInt(App.defaults['building'])})
 
 
             $.each(unitslen1, (index,value1)->

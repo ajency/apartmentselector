@@ -303,6 +303,10 @@ function save_extra_building_fields( $term_id ) {
      for($e = 1;$e<=$exceptions_count;$e++){
         $exception_floors = $_REQUEST['exception_floors'.$e];
         $exception_flats_count = $_REQUEST['no_of_flats'.$e]; 
+        if($exception_flats_count==""){
+
+            $exception_flats_count = $no_of_flats_count;
+        }
         $exceptionfloor_layout_detailed = $_REQUEST['exceptionfloor_layout_detailed'.$e];
         $no_of_exception_flats = array();
         for($i=1;$i<=$exception_flats_count;$i++){
@@ -514,6 +518,11 @@ function get_buildings($ids=array())
        foreach($floor_exception_positions as $building_exception){
      
             $building_exception["flats"] = $building_exception["flats"];
+            if(count($building_exception["flats"])==0){
+
+                $building_exception["flats"] = $floor_positions;
+            }
+
              
             $building_exception["floor_layout_detailed"] =   get_image_paths($building_exception["floor_layout_detailed"]);
           

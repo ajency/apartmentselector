@@ -1,6 +1,7 @@
 define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView )->
 
     # Screen two controller
+    tagsArray = ""
     class ScreenTwoController extends Extm.RegionController
 
         initialize : ()->
@@ -41,10 +42,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @show @layout
 
         showUpdateBuilding:(id)=>
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
-
-            document.body.appendChild(scr)
             @Collection = @_getUnitsCountCollection(id)
 
             itemview1 = new ScreenTwoView.UnitTypeChildView
@@ -58,18 +55,102 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @layout.buildingRegion.$el.empty();
             itemview1.delegateEvents();
             @layout.unitRegion.$el.empty();
+            scr = document.createElement('script')
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
+
+            document.body.appendChild(scr)
             @layout.buildingRegion.$el.append(itemview1.render().el ); 
             @layout.unitRegion.$el.append(itemview2.render().el ); 
+
             building = @Collection[0].toArray()
             buidlingValue = _.first(building)
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
             $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
-            
-            
+            tagsArray = []
+            testtext = App.defaults['unitVariant']
+            if testtext != 'All'
+                unitVariantArrayText = testtext.split(',')
+                $.each(unitVariantArrayText, (index,value)->
+                    unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
+                    tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
+
+
+                )
+            else
+                unitVariantArrayText = testtext.split(',')
+                tagsArray.push({id:'All' , area : 'All'})
+
+            $('#tagslist ul li').remove()
+            $.each(tagsArray,  (index, value) ->
+                $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton2"></div></li>')
+            )
+            if tagsArray.length == 1
+                $('.closeButton2').addClass 'hidden'
+
+            $(document).on("click", ".closeButton2",  ()->
+                theidtodel = $(this).parent('li').attr('id')
+               
+
+                object.delItems($('#' + theidtodel).attr('data-itemNum'))
+            )
+
+
+        delItems:(delnum)->
+            removeItem = delnum
+            i =0
+            key = ""
+
+            $.each(tagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
+
+            )
+            index = key
+            if (index >= 0)
+                tagsArray.splice(index, 1)
+                $('#li-item-' + delnum).remove()
+                unitvariantarrayValues = []
+                $.each(tagsArray , (index,value)->
+                    unitvariantarrayValues.push(value.id)
+
+                )
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
+                App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
+
+
+
             
 
+
+            
+
+       
             
 
             
@@ -657,7 +738,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 arrayvalue = _.last(modelArr)
                 modelArr.push(arrayvalue)
             
-
             buildingsactual = []
             unitsactual = []
             buildingCollection = new Backbone.Collection(buildingArrayModel)

@@ -312,6 +312,8 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                if unitVariantString == ""
+                    unitVariantString = "All"
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
@@ -607,6 +609,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 start = parseInt(value.start)
                                                 end = parseInt(value.end)
                                                 while parseInt(start) <= parseInt(end)
+                                                    $('#c'+start).attr('class',rangClass[i])
                                                     $('#c'+start).text rangClass[i]
                                                     start++
                                                 i++
