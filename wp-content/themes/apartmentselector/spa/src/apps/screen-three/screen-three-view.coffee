@@ -609,6 +609,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 start = parseInt(value.start)
                                                 end = parseInt(value.end)
                                                 while parseInt(start) <= parseInt(end)
+                                                    $('#c'+start).attr('class',rangClass[i])
                                                     $('#c'+start).text rangClass[i]
                                                     start++
                                                 i++
