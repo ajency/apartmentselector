@@ -119,9 +119,13 @@ define [ 'marionette' ], ( Marionette )->
 
     class ScreenOneView extends Marionette.CompositeView
 
-        template : '<div class="row m-l-0 m-r-0">
+                            
+        template : '<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div>
+                    <!--<div class="introTxt text-center">To get started, either:</div>-->
+
+                    <div class="row m-l-0 m-r-0 bgClass">
                         <div class="col-sm-4">
-                            <div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div><div class="introTxt text-center">To get started, either:</div><div class="text-center subTxt">Choose a flat type</div>
+                            <div class="text-center subTxt">Choose a flat type</div>
                             <div class="grid-container"></div>
                             <h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
         	                <div class="text-center subTxt">Choose a budget</div>
