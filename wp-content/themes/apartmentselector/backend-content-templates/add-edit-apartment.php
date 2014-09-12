@@ -219,18 +219,23 @@ if(isset($_REQUEST["id"])){
                      <div id="flat_container">
                      <?php if(!empty($unit_building) && !empty($floor)){
                             $flats = get_flats_on_floor($unit_building ,$floor,$apartment_id);
-                           
+                     
                             ?>
                                 <div class="row-fluid" > <div class="row">
                             <?php
                             foreach($flats["flats"] as $flat){
+                                $unit_assigned_highlight = "";
+
+                                 if(isset($flats["created_flats"][$flat["flat_no"]])){
+                                    $unit_assigned_highlight = '<i class="fa fa-check"></i>';
+                                }
                                     ?>
-                                        <div class="col-md-4 radio radio-default"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>" id="unit_assigned<?php echo $flat["flat_no"]?>"><label for="unit_assigned<?php echo $flat["flat_no"]?>">Flat <?php echo $flat["flat_no"]?></label></div>
+                                        <div class="col-md-4 radio radio-default"><input type="radio" name="unit_assigned"  <?php if($unit_assigned==$flat["flat_no"]){ echo "checked";}?> value="<?php echo $flat["flat_no"]?>" id="unit_assigned<?php echo $flat["flat_no"]?>"><label for="unit_assigned<?php echo $flat["flat_no"]?>">Flat <?php echo $flat["flat_no"]." ".$unit_assigned_highlight;?> </label></div>
                                          
                                  <?php
                             }
                             ?>
-                                </div></div>
+                               </div></div><div align="right"><i class="fa fa-check"></i>Already Assigned </div>
                             <?php
                         }
                         else{

@@ -572,12 +572,12 @@ $heading = "Edit";
                 </div>
             </div> 
             </div> 
-<div class="form-group" id="floor-layout"   >
-            <label class="form-label">
-                Floor Layout
-            </label>      
-                  <div class="row">
+        <div class="form-group" id="floor-layout"   >
+            <div class="row">
                 <div class="col-md-6">
+                    <label class="form-label">
+                        Floor Layout Basic
+                    </label>    
                     <div class="input-with-icon  right">
                         <span class="btn btn-success fileinput-button">
                              
@@ -597,6 +597,9 @@ $heading = "Edit";
                     </div>
                 </div> 
                 <div class="col-md-6">
+                    <label class="form-label">
+                        Floor Layout Detailed
+                    </label>  
                     <div class="input-with-icon  right">
                         <span class="btn btn-success fileinput-button">
                              
@@ -616,28 +619,39 @@ $heading = "Edit";
                     </div>
                 </div>
             </div> 
-            </div> 
+        </div> 
  
-<?php /*<div id="exceptions" <?php if(count($building_exceptions)==0){?>style="display:none"<?php } ?>>
+<?php
+  //if exception data was not added set it to one
+                if(count($building_exceptions)==0){
+                    $building_exceptions[] = array("floors"=>0);
+                } 
+?> 
+<div id="exceptions" <?php if(count($no_of_floors)==0){?>style="display:none"<?php } ?>>
     <b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
     <input type="hidden" name="exceptions_count" value="<?php echo count($building_exceptions);?>" id="exceptions_count">
     <i class="icon-ok"></i>
         +
     </button>
-    <div class="exception_container">
+    <div class="exception_container well">
         <div class="form-group"> 
-            <div class="input-with-icon  right exception_floors"><br><br>
+            <div class="input-with-icon  right exception_floors"> 
+                <label class="form-label">
+                    Select Exception Floors
+                </label>
                 <?php
                 $exception_count = 1;
+              
                 foreach($building_exceptions as $building_exception){
                   $building_exception["floors"] =  is_array($building_exception["floors"])?$building_exception["floors"]:array();
                 ?>
                  <div id="exception_floors_container<?php echo($exception_count);?>">
                    <?php 
-                   $show_flats=false;
+
+                   $show_exception_options=false;
                     for($i=1;$i<=$no_of_floors;$i++){
                        ?><div class="col-md-4">
-                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked"; $show_flats=true;}?> class="exception_floors"> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
+                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked"; $show_exception_options=true;}?> class="exception_floors"> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
                     <?php    
                     }
                      
@@ -646,7 +660,7 @@ $heading = "Edit";
                     ?>
                 </div>
                 <div style="clear:both"></div>
-                <div class="form-group" id="exception-flats" <?php if($show_flats==false){?>style="display:none"<?php } ?> >
+                <div class="form-group" id="exception-flats1" <?php if($show_exception_options==false){?>style="display:none"<?php } ?> >
                     <label class="form-label">
                         No Of Flats
                     </label>
@@ -666,49 +680,34 @@ $heading = "Edit";
                     </div>
                 </div>
 
-                   <div class="form-group" id="exception-flats-images" <?php if($show_flats==false){?>style="display:none"<?php } ?> >
+                <div class="form-group" id="exception-flats-images1"  <?php if($show_exception_options==false){?>style="display:none"<?php } ?> >
                      
-                  <div class="row">
-                <div class="col-md-6">
-                    <div class="input-with-icon  right">
-                        <span class="btn btn-success fileinput-button">
-                             
-                            <span>Select file..</span>
-                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo $floor_layout_basic;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
-                        </span> 
-                        <div id="progressfloor_layout_basic" class="progress" >
-                            <div class="progress-bar progress-bar-success"></div>
-                        </div>
-                        <div id="filesfloor_layout_basic" class="files"></div>
-                        <br>
-                        <div class="row-fluid">
-                            <div class="col-md-12">
-                                <img src="<?php echo $building_exception["basic_image"]["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$building_exception["basic_image"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                    <div class="row">
+                
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                Exception Floor Layout Detailed
+                            </label> 
+                            <div class="input-with-icon  right">
+                                <span class="btn btn-success fileinput-button">
+                                     
+                                    <span>Select file..</span>
+                                    <input id="fileuploadexceptionfloor_layout_detailed1" class="fileuploadexceptionfloor_layout_detailed1" type="file" name="files">
+                                </span> 
+                                <input type="hidden" class="exceptionfloor_layout_detailed1" id="exceptionfloor_layout_detailed1" name="exceptionfloor_layout_detailed1" value="<?php echo @$building_exception["floor_layout_detailed"]["id"];?>">
+                                <div id="progressexceptionfloor_layout_detailed1" class="progress" >
+                                    <div class="progress-bar progress-bar-success"></div>
+                                </div>
+                                 
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <img src="<?php echo $building_exception["floor_layout_detailed"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_detailed1" <?php if(@$building_exception["floor_layout_detailed"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div> 
-                <div class="col-md-6">
-                    <div class="input-with-icon  right">
-                        <span class="btn btn-success fileinput-button">
-                             
-                            <span>Select file..</span>
-                            <input type="hidden" class="floor_layout_detailed" id="floor_layout_detailed" name="floor_layout_detailed" value="<?php echo $floor_layout_detailed;?>"><input id="fileuploadfloor_layout_detailed" class="fileuploadfloor_layout_detailed" type="file" name="files">
-                        </span> 
-                        <div id="progressfloor_layout_detailed" class="progress" >
-                            <div class="progress-bar progress-bar-success"></div>
-                        </div>
-                        <div id="filesfloor_layout_detailed" class="files"></div>
-                        <br>
-                        <div class="row-fluid">
-                            <div class="col-md-12">
-                                <img src="<?php echo $building_exception["detailed_image"]["thumbnail_url"];?>" id="image_displayfloor_layout_detailed" <?php if(@$building_exception["detailed_image"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            </div> 
                 
                 <?}
                 ?> 
@@ -716,7 +715,7 @@ $heading = "Edit";
         </div>
     </div>
 </div>   
- */ ?>  
+ 
     <div id="floorrise-container-main" <? if(@$no_of_floors==""){?>style="display:none"<?php } ?>>
         <div style="clear:both"></div>
         <b>Floor Rise</b>

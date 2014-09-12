@@ -50,7 +50,6 @@ add_action('init','do_init_routines');
 
 //change wp-login logo and text
 
-
 function my_login_logo() { ?>
     <style type="text/css">
         body.login div#login h1 a {
@@ -156,10 +155,8 @@ function custom_mtypes( $m ){
 add_filter( 'upload_mimes', 'custom_mtypes' );
  
  function test_data(){
-  
- 
- 	//create test sales user
- 
+    
+ 	//create test sales user 
  	 if ( !username_exists( 'salesone') ){
 
 	 		$userdata = array(

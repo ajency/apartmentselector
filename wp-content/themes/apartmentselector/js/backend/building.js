@@ -186,9 +186,8 @@ function loadExceptionsOption(floors){
 
             $("#exceptions_count").val(1)
 
-            fileUploadById("exception_1_basic")
-         
-            fileUploadById("exception_1_detailed")
+            fileUploadById("exceptionfloor_layout_detailed")
+          
           
        }
       
@@ -302,16 +301,16 @@ function getexceptionUploadUi( exception_no,postfix ){
        html =  '<div class="input-with-icon  right">'
             +'           <span class="btn btn-success fileinput-button">'
             +'               <span>Select file..</span>'
-            +'                <input type="hidden" class="exception_'+exception_no+'_'+postfix+'" id="exception_'+exception_no+'_'+postfix+'" name="exception_'+exception_no+'_'+postfix+'" value=""><input id="fileuploadexception_'+exception_no+'_'+postfix+'" class="fileuploadexception_'+exception_no+'_'+postfix+'" type="file" name="files">'
+            +'                <input type="hidden" class="exceptionfloor_layout_'+exception_no+'_'+postfix+'" id="exceptionfloor_layout_'+exception_no+'_'+postfix+'" name="exceptionfloor_layout_'+exception_no+'_'+postfix+'" value=""><input id="fileuploadexceptionfloor_layout_'+exception_no+'_'+postfix+'" class="fileuploadexceptionfloor_layout_'+exception_no+'_'+postfix+'" type="file" name="files">'
             +'            </span> '
-            +'            <div id="progressexception_'+exception_no+'_'+postfix+'" class="progress" >'
+            +'            <div id="progressexceptionfloor_layout_'+exception_no+'_'+postfix+'" class="progress" >'
             +'                <div class="progress-bar progress-bar-success"></div>'
             +'            </div>'
-            +'            <div id="filesexception_'+exception_no+'_'+postfix+'" class="files"></div>'
+            +'            <div id="filesexceptionfloor_layout_'+exception_no+'_'+postfix+'" class="files"></div>'
             +'           <br>'
             +'            <div class="row-fluid">'
             +'                <div class="col-md-12">'
-            +'                    <img src="" id="image_displayexception_'+exception_no+'_'+postfix+'"  style="display:none" >'
+            +'                    <img src="" id="image_displayexceptionfloor_layout_'+exception_no+'_'+postfix+'"  style="display:none" >'
             +'                </div>'
             +'            </div>'
             +'        </div>';
@@ -374,11 +373,11 @@ function addException(exception_no){
         +  '</div>'
         +  '</div>'
         +  '<div class="well" id="exception-flats-images" style="display:none">' 
-        +  '<div class="row">'
-        +  '<div class="col-md-6">'
-        +getexceptionUploadUi(exception_no,'basic')
-        +  '</div>'
-        +  '<div class="col-md-6">'
+        +  '<div class="row">' 
+        +  '<label class="form-label">' 
+        +  'Exception Floor Layout Detailed '
+        +  '</label> '
+        +  '<div class="col-md-12">'
         +getexceptionUploadUi(exception_no,'detailed')
         +  '</div>'
         +  '</div>'
@@ -397,11 +396,12 @@ function addException(exception_no){
             $("#no_of_flats1").val("");
             $("#no_of_flats1").trigger("change");
 
-            $('#exception-flats').hide();
-            $('#exception-flats-images').hide();
+            $('#exception-flats1').hide();
+            $('#exception-flats-images1').hide();
         }else{
-            $('#exception-flats').show();
-            $('#exception-flats-images').show();
+            $('#exception-flats1').show();
+            $('#exception-flats-images1').show();
+            fileUploadById("exceptionfloor_layout_detailed1")
         }
         });
 //save building ajax call
