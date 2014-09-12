@@ -509,7 +509,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            $('html, body').delay(800).animate({
+            $('html, body').delay(600).animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
 
@@ -601,7 +601,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 $('#f'+value1).attr('class', 'unit-hover')
 
                                             )
-                                        rangClass = ['lowrange','mediumrange','highrange']
+                                        rangClass = ['LOWRISE','MIDRISE','HIGHRISE']
                                         i= 0
                                         $.each(floorange, (index,value)->
                                                 start = parseInt(value.start)

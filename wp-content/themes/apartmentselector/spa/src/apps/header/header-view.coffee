@@ -165,7 +165,7 @@ define [ 'marionette' ], ( Mariontte )->
 
 
             if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
-                console.log ""
+                true
 
             else if  window.location.href.indexOf('wishList') > -1
                 $('.rightBtns').addClass 'hidden'

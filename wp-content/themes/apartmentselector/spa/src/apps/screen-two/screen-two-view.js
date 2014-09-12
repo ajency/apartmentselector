@@ -314,7 +314,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       }
       m = $('#mapplic1').data('mapplic');
       this.showHighlightedTowers();
-      $('html, body').delay(800).animate({
+      $('html, body').delay(600).animate({
         scrollTop: $('#screen-two-region').offset().top
       }, 'slow');
       tagsArray = [];

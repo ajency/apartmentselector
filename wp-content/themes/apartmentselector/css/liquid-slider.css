@@ -29,7 +29,7 @@
 }
 .liquid-slider {
   /*background: #f2f2f2;*/
-  width: 600px;
+  width: 100%;
   margin: 0 auto;
   float: left;
   overflow: hidden;
@@ -60,9 +60,12 @@
 
 /*** Panels ***/
 .liquid-slider .ls-panel {  
-  width: 600px;
+  width: 100%;
   display: block;
   float: left;
+}
+.liquid-slider .ls-panel.clone{
+  visibility: hidden;
 }
 .panel-wrapper {  
   padding: 15px 40px;
@@ -107,6 +110,7 @@
 }
 .ls-nav ul li a {
   display: inline-block;
+  width: 20%;
   /*float: left;*/
   text-decoration: none;
 }

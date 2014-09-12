@@ -435,7 +435,7 @@ define(['marionette'], function(Marionette) {
           return $('#checklink' + value).val('1');
         });
       }
-      $('html, body').delay(800).animate({
+      $('html, body').delay(600).animate({
         scrollTop: $('#screen-three-region').offset().top
       }, 'slow');
       tagsArray = [];
@@ -538,7 +538,7 @@ define(['marionette'], function(Marionette) {
                       return $('#f' + value1).attr('class', 'unit-hover');
                     }
                   });
-                  rangClass = ['lowrange', 'mediumrange', 'highrange'];
+                  rangClass = ['LOWRISE', 'MIDRISE', 'HIGHRISE'];
                   i = 0;
                   return $.each(floorange, function(index, value) {
                     var end, start;

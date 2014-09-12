@@ -18,7 +18,7 @@ define [ 'marionette' ], ( Marionette )->
 
                             <div class="h-align-middle">
                                 <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>-->
-                                <div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>
+                                <!--<div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>-->
                             </div>
 
                             <div class="step4Actions">
@@ -180,7 +180,18 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
             'click #list':(e)->
-
+                myModal = new jBox('Notice', 
+                    content: '',
+                    autoClose: 2000
+                    addClass: 'notifyBox'
+                    position:
+                        x: 'center'
+                        y: 'top'
+                    animation:
+                        open: 'slide:top'
+                        close: 'slide:top'
+                    # fade: 1000
+                )
                 cookieOldValue = $.cookie("key")
                 if cookieOldValue == undefined || $.cookie("key") == ""
                     cookieOldValue = ""
@@ -189,28 +200,25 @@ define [ 'marionette' ], ( Marionette )->
                         parseInt(item)
                     )
                 if cookieOldValue.length >= 4
-                    $('#errormsg' ).text "Cannot add more than 4 units"
+                    myModal.setContent("Cannot add more than 4 units")
                     return false
                 else
 
                     key = $.inArray(parseInt(App.unit['name']) , cookieOldValue)
 
                     if parseInt(key) == -1
-                        $('#errormsg' ).text ""
                         App.cookieArray.push(parseInt(App.unit['name']))
                         $('#list').addClass "remove"
                     else
-                        $('#errormsg' ).text "Already entered"
-                        $('#errormsg' ).addClass "inline"
+                        myModal.setContent("Already entered")
                         $('#list').removeClass "remove"
                         return false
                     App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
                     App.cookieArray = _.uniq(App.cookieArray)
                     $.cookie('key',App.cookieArray)
                     localStorage.setItem("cookievalue", App.cookieArray)
-                    $('#errormsg' ).text "The selected flat has been added to your WishList"
-                    $('#errormsg' ).addClass "inline"
-
+                    myModal.setContent("The selected flat has been added to your WishList")
+                    
                 cart = $("#showRightPush")
                 imgtodrag = $('.remove').find(".skyicon")
                 if imgtodrag
@@ -247,8 +255,7 @@ define [ 'marionette' ], ( Marionette )->
                     $('#compare').hide()
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
-                $('#errormsg' ).text ""
-
+                
 
                 
 
@@ -312,7 +319,7 @@ define [ 'marionette' ], ( Marionette )->
             usermodel = new Backbone.Model USER
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_cost_sheet',capability) >= 0
-                console.log ""
+                true
             else
                 $('.costsheetbutton').hide()
                 #@trigger "get:perSqft:price"
@@ -382,12 +389,8 @@ define [ 'marionette' ], ( Marionette )->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
-            $('#slider-plans').liquidSlider(
-                slideEaseFunction: "easeInOutQuad",
-                autoSlide: true,
-                includeTitle:false
-            )
-            $('html, body').delay(800).animate({
+            
+            $('html, body').delay(600).animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
             cookieOldValue = $.cookie("key")
@@ -1049,7 +1052,7 @@ define [ 'marionette' ], ( Marionette )->
 
     class UnitMainView extends Marionette.CompositeView
 
-        template : '<div class="row m-l-0 m-r-0">
+        template : '<div class="row m-l-0 m-r-0 bgClass">
 						<div class="col-sm-4 p-b-10">
                             <div class="unitDetails">
                                 <div class="row">
@@ -1204,17 +1207,17 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             $('#slider-plans').liquidSlider(
-                slideEaseFunction: "easeInOutQuad",
-                autoSlide: true,
-                includeTitle:false,
-                minHeight: 500,
-                autoSlideInterval: 4000,
-                forceAutoSlide: true,
-                mobileNavigation: false,
-                hideArrowsWhenMobile: false,
+                slideEaseFunction: "easeInOutQuad"
+                # autoSlide: true
+                includeTitle:false
+                # minHeight: 500
+                autoSlideInterval: 4000
+                # forceAutoSlide: true
+                mobileNavigation: false
+                hideArrowsWhenMobile: false
                 dynamicTabsAlign: "center"
-
-
+                continuous: false
+                autoHeight: false
             )
 
 
