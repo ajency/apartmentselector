@@ -113,7 +113,10 @@ body{
 }
 
 #screen-two-region, #screen-three-region, #screen-four-region{
-	border-top: 1px solid @gray-lighter;
+	&.section{
+		border-top: 1px solid @gray-lighter;
+		min-height: 100vh;
+	}
 }
 
 .taglist{
