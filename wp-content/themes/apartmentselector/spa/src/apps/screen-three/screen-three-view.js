@@ -71,14 +71,16 @@ define(['marionette'], function(Marionette) {
         unitvalues = "";
         indexvalue = "";
         $.each(svgdata, function(index, value) {
-          return $.each(value.svgposition, function(index1, val1) {
-            var unitsarray;
-            if (position === parseInt(val1)) {
-              svgposition = value.svgfile;
-              console.log(unitsarray = value.units);
-              return console.log(indexvalue = unitsarray[position]);
-            }
-          });
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
+              var unitsarray;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                console.log(unitsarray = value.units);
+                return console.log(indexvalue = unitsarray[position]);
+              }
+            });
+          }
         });
         flatid = $('#' + e.target.id).attr('data-id');
         $.map(indexvalue, function(index, value) {
@@ -145,14 +147,16 @@ define(['marionette'], function(Marionette) {
         unitvalues = "";
         indexvalue = "";
         $.each(svgdata, function(index, value) {
-          return $.each(value.svgposition, function(index1, val1) {
-            var unitsarray;
-            if (position === parseInt(val1)) {
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              return indexvalue = unitsarray[position];
-            }
-          });
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
+              var unitsarray;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                return indexvalue = unitsarray[position];
+              }
+            });
+          }
         });
         flatid = $('#' + e.target.id).attr('data-id');
         unit = indexvalue[parseInt(flatid)];
@@ -175,14 +179,16 @@ define(['marionette'], function(Marionette) {
         unitvalues = "";
         indexvalue = "";
         $.each(svgdata, function(index, value) {
-          return $.each(value.svgposition, function(index1, val1) {
-            var unitsarray;
-            if (position === parseInt(val1)) {
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              return indexvalue = unitsarray[position];
-            }
-          });
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
+              var unitsarray;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                return indexvalue = unitsarray[position];
+              }
+            });
+          }
         });
         flatid = $('#' + e.target.id).attr('data-id');
         unit = indexvalue[parseInt(flatid)];
@@ -537,53 +543,55 @@ define(['marionette'], function(Marionette) {
       $.each(svgdata, function(index, value) {
         console.log(value);
         console.log(value.svgposition);
-        return $.each(value.svgposition, function(index1, val1) {
-          var unitsarray;
-          console.log(index1);
-          console.log(floorid);
-          if (floorid === parseInt(val1)) {
-            svgposition = value.svgfile;
-            console.log(unitsarray = value.units);
-            console.log(indexvalue = unitsarray[floorid]);
-            if (value.svgfile !== "") {
-              return $('#positionsvg').load(svgposition, function(x) {
-                var i, rangClass;
-                $.map(indexvalue, function(index, value) {
-                  return $('#f' + value).attr('class', 'disable');
+        if (value.svgposition !== null) {
+          return $.each(value.svgposition, function(index1, val1) {
+            var unitsarray;
+            console.log(index1);
+            console.log(floorid);
+            if (floorid === parseInt(val1)) {
+              svgposition = value.svgfile;
+              console.log(unitsarray = value.units);
+              console.log(indexvalue = unitsarray[floorid]);
+              if (value.svgfile !== "") {
+                return $('#positionsvg').load(svgposition, function(x) {
+                  var i, rangClass;
+                  $.map(indexvalue, function(index, value) {
+                    return $('#f' + value).attr('class', 'disable');
+                  });
+                  $.map(indexvalue, function(index, value) {
+                    var floorArr;
+                    if (App.defaults['floor'] !== "All") {
+                      floorArr = App.defaults['floor'].split(',');
+                      return $.each(floorArr, function(ind, val) {
+                        console.log(value);
+                        console.log(val);
+                        if (parseInt(value) === parseInt(val)) {
+                          return $('#f' + value).attr('class', 'unit-hover');
+                        }
+                      });
+                    } else {
+                      return $('#f' + value).attr('class', 'unit-hover');
+                    }
+                  });
+                  rangClass = ['lowrange', 'mediumrange', 'highrange'];
+                  i = 0;
+                  console.log(floorange);
+                  return $.each(floorange, function(index, value) {
+                    var end, start;
+                    console.log(start = parseInt(value.start));
+                    console.log(end = parseInt(value.end));
+                    console.log(rangClass[i]);
+                    while (parseInt(start) <= parseInt(end)) {
+                      $('#f' + start).attr('data-class', rangClass[i]);
+                      start++;
+                    }
+                    return i++;
+                  });
                 });
-                $.map(indexvalue, function(index, value) {
-                  var floorArr;
-                  if (App.defaults['floor'] !== "All") {
-                    floorArr = App.defaults['floor'].split(',');
-                    return $.each(floorArr, function(ind, val) {
-                      console.log(value);
-                      console.log(val);
-                      if (parseInt(value) === parseInt(val)) {
-                        return $('#f' + value).attr('class', 'unit-hover');
-                      }
-                    });
-                  } else {
-                    return $('#f' + value).attr('class', 'unit-hover');
-                  }
-                });
-                rangClass = ['lowrange', 'mediumrange', 'highrange'];
-                i = 0;
-                console.log(floorange);
-                return $.each(floorange, function(index, value) {
-                  var end, start;
-                  console.log(start = parseInt(value.start));
-                  console.log(end = parseInt(value.end));
-                  console.log(rangClass[i]);
-                  while (parseInt(start) <= parseInt(end)) {
-                    $('#f' + start).attr('data-class', rangClass[i]);
-                    start++;
-                  }
-                  return i++;
-                });
-              });
+              }
             }
-          }
-        });
+          });
+        }
       });
       return position = floorid;
     };

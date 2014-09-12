@@ -126,15 +126,16 @@ define [ 'marionette' ], ( Marionette )->
                 unitvalues = ""
                 indexvalue = ""
                 $.each(svgdata, (index,value)->
-                    $.each(value.svgposition, (index1,val1)->
-                            if position == parseInt(val1)
-                                svgposition = value.svgfile
-                                console.log unitsarray = value.units
-                                console.log indexvalue = unitsarray[position]
-                                
+                    if value.svgposition != null
+                        $.each(value.svgposition, (index1,val1)->
+                                if position == parseInt(val1)
+                                    svgposition = value.svgfile
+                                    console.log unitsarray = value.units
+                                    console.log indexvalue = unitsarray[position]
+                                    
 
 
-                            )
+                                )
                         
 
 
@@ -203,15 +204,16 @@ define [ 'marionette' ], ( Marionette )->
                 unitvalues = ""
                 indexvalue = ""
                 $.each(svgdata, (index,value)->
-                    $.each(value.svgposition, (index1,val1)->
-                            if position == parseInt(val1)
-                                svgposition = value.svgfile
-                                unitsarray = value.units
-                                indexvalue = unitsarray[position]
-                                
+                    if value.svgposition != null
+                        $.each(value.svgposition, (index1,val1)->
+                                if position == parseInt(val1)
+                                    svgposition = value.svgfile
+                                    unitsarray = value.units
+                                    indexvalue = unitsarray[position]
+                                    
 
 
-                            )
+                                )
                         
 
 
@@ -239,15 +241,16 @@ define [ 'marionette' ], ( Marionette )->
                 unitvalues = ""
                 indexvalue = ""
                 $.each(svgdata, (index,value)->
-                    $.each(value.svgposition, (index1,val1)->
-                            if position == parseInt(val1)
-                                svgposition = value.svgfile
-                                unitsarray = value.units
-                                indexvalue = unitsarray[position]
-                                
+                    if value.svgposition != null
+                        $.each(value.svgposition, (index1,val1)->
+                                if position == parseInt(val1)
+                                    svgposition = value.svgfile
+                                    unitsarray = value.units
+                                    indexvalue = unitsarray[position]
+                                    
 
 
-                            )
+                                )
                         
 
 
@@ -617,52 +620,53 @@ define [ 'marionette' ], ( Marionette )->
             $.each(svgdata, (index,value)->
                 console.log value
                 console.log value.svgposition
-                $.each(value.svgposition, (index1,val1)->
-                        console.log index1
-                        console.log floorid
-                        if floorid == parseInt(val1)
-                            svgposition = value.svgfile
-                            console.log unitsarray = value.units
-                            console.log indexvalue = unitsarray[floorid]
-                            if value.svgfile != ""
-                                $('#positionsvg').load(svgposition,  (x)->
-                                    $.map(indexvalue, (index,value)->
-                                        $('#f'+value).attr('class', 'disable')
-                                    )
-                                    $.map(indexvalue, (index,value)->
-                                        if App.defaults['floor'] != "All"
-                                            floorArr  = App.defaults['floor'].split(',')
-                                            $.each(floorArr, (ind,val)->
-                                                console.log value
-                                                console.log val
-                                                if parseInt(value) == parseInt(val)
-                                                    $('#f'+value).attr('class', 'unit-hover')
+                if value.svgposition != null
+                    $.each(value.svgposition, (index1,val1)->
+                            console.log index1
+                            console.log floorid
+                            if floorid == parseInt(val1)
+                                svgposition = value.svgfile
+                                console.log unitsarray = value.units
+                                console.log indexvalue = unitsarray[floorid]
+                                if value.svgfile != ""
+                                    $('#positionsvg').load(svgposition,  (x)->
+                                        $.map(indexvalue, (index,value)->
+                                            $('#f'+value).attr('class', 'disable')
+                                        )
+                                        $.map(indexvalue, (index,value)->
+                                            if App.defaults['floor'] != "All"
+                                                floorArr  = App.defaults['floor'].split(',')
+                                                $.each(floorArr, (ind,val)->
+                                                    console.log value
+                                                    console.log val
+                                                    if parseInt(value) == parseInt(val)
+                                                        $('#f'+value).attr('class', 'unit-hover')
 
 
 
-                                                )
-                                        else
-                                            $('#f'+value).attr('class', 'unit-hover')
+                                                    )
+                                            else
+                                                $('#f'+value).attr('class', 'unit-hover')
+
+                                            )
+                                        rangClass = ['lowrange','mediumrange','highrange']
+                                        i= 0
+                                        console.log floorange
+                                        $.each(floorange, (index,value)->
+                                                console.log start = parseInt(value.start)
+                                                console.log end = parseInt(value.end)
+                                                console.log rangClass[i]
+                                                while parseInt(start) <= parseInt(end)
+                                                    $('#f'+start).attr('data-class',rangClass[i])
+                                                    start++
+                                                i++
+                                        )
+
 
                                         )
-                                    rangClass = ['lowrange','mediumrange','highrange']
-                                    i= 0
-                                    console.log floorange
-                                    $.each(floorange, (index,value)->
-                                            console.log start = parseInt(value.start)
-                                            console.log end = parseInt(value.end)
-                                            console.log rangClass[i]
-                                            while parseInt(start) <= parseInt(end)
-                                                $('#f'+start).attr('data-class',rangClass[i])
-                                                start++
-                                            i++
-                                    )
 
 
-                                    )
-
-
-                        )
+                            )
                     
 
 
