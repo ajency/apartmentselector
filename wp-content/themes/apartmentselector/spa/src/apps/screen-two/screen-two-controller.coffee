@@ -53,16 +53,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             itemview2 = new ScreenTwoView.UnitTypeView
                 collection : @Collection[1]
 
-            console.log @layout
+            
             
             @layout.buildingRegion.$el.empty();
             itemview1.delegateEvents();
             @layout.unitRegion.$el.empty();
             @layout.buildingRegion.$el.append(itemview1.render().el ); 
             @layout.unitRegion.$el.append(itemview2.render().el ); 
-            console.log id
             building = @Collection[0].toArray()
-            console.log buidlingValue = _.first(building)
+            buidlingValue = _.first(building)
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
@@ -125,7 +124,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         _getUnitsCountCollection:(paramid={})->
-            console.log paramid
             buildingArray = Array()
             buildingArrayModel = Array()
             unitColl = Array()
@@ -194,19 +192,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 first = _.first(templateArr)
                 buildingModel = App.master.building.findWhere({id:App.building['name']})
                 floorriserange = buildingModel.get('floorriserange')
-                lowUnits = App.master.range.findWhere({name:'low'})
-                if parseInt(first) >= lowUnits.get('start') &&  parseInt(first) <= lowUnits.get 'end'
+                if parseInt(first) >= floorriserange[0].start &&  parseInt(first) <= floorriserange[0].end
                     range = 'LOWRISE'+',' +buildingModel.get('name')
 
 
 
-                mediumUnits = App.master.range.findWhere({name:'medium'})
-                if parseInt(first) >= mediumUnits.get('start') &&  parseInt(first) <= mediumUnits.get 'end'
+                if parseInt(first) >= floorriserange[1].start &&  parseInt(first) <= floorriserange[1].end
                     range = 'MIDRISE'+',' +buildingModel.get('name')
 
 
-                highUnits = App.master.range.findWhere({name:'high'})
-                if parseInt(first) >= highUnits.get('start') &&  parseInt(first) <= highUnits.get 'end'
+                if parseInt(first) >= floorriserange[2].start &&  parseInt(first) <= floorriserange[2].end
                     range = 'HIGHRISE'+',' +buildingModel.get('name')
                 templateString = range
             else
@@ -281,7 +276,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             
-            console.log floorCollunits.length
             floorCollection = new Backbone.Collection(floorCollunits)
             unitvariant = floorCollection.pluck("unitVariant")
             uniqUnitvariant = _.uniq(unitvariant)
@@ -304,16 +298,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
             $.each(units, (index,value)->
                 maxcoll = Array()
-
+                
                 if buildingArray.indexOf(value.get 'building') ==  -1
                     buildingArray.push value.get 'building'
-
-
-                lowUnits = App.master.range.findWhere({name:'low'})
-                if value.get('floor') >= lowUnits.get('start') &&  value.get('floor') <= lowUnits.get 'end'
-                    unittypemodel = App.master.unit_type.findWhere({id :  value.get( 'unitType' ) })
-
-                    mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
+                    
 
 
                 unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
@@ -389,7 +377,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 #)
                 flag = 0
                 flag1 = 0
-                $.each(mainunitsTypeArray, (key,item)->
+                $.each(mainunitTypeArray, (key,item)->
                     if (!lunique[item.id])
                         lunitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
@@ -424,7 +412,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 flag2 = 0
                 flag3 = 0
 
-                $.each(mainunitsTypeArray, (key,item)->
+                $.each(mainunitTypeArray, (key,item)->
                     if (!munique[item.id])
                         munitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
@@ -455,7 +443,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 )
                 flag4 = 0
                 flag5 = 0
-                $.each(mainunitsTypeArray, (key,item)->
+                $.each(mainunitTypeArray, (key,item)->
 
                     if (!hunique[item.id])
                         hunitTypeArray = []
@@ -496,7 +484,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 floors = totalfloorcollection.pluck("floor")
                 uniqFloors = _.uniq(floors)
                 newunits = floorCollection.where({'building':value,'status':status.get('id')})
-                console.log newunits.length
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
                 mediumArray = Array()
@@ -681,8 +668,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitsactual.push(units.get(value))
             )
             
-            console.log buildingCollection = new Backbone.Collection(buildingsactual)
-            console.log units = new Backbone.Collection(unitsactual)
+            buildingCollection = new Backbone.Collection(buildingsactual)
+            units = new Backbone.Collection(unitsactual)
 
 
             [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID]

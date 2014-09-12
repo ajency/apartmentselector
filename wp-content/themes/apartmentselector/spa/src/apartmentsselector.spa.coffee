@@ -2,7 +2,7 @@
 # eg: define 'plugins-loader', ['src/bower_component/pluginname'], ->
 
 # add your required plugins here.
-define 'plugin-loader', ['slick','selectFx','jquerymousewheel','jqueryeasing','mapplic','mapplic_new','jqueryEasingmin'
+define 'plugin-loader', ['selectFx','jquerymousewheel','mapplic','mapplic_new','jqueryEasingmin'
 ,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring', 'jbox', 'jReject'], ->
 
     # add your marionette apps here
@@ -20,11 +20,10 @@ define 'apps-loader', [
 
     # set all plugins for this page here
 require [ 'plugin-loader'
-          'spec/javascripts/fixtures/json/range'
           'extm'
           'src/classes/ap-store'
           'src/apps/router'
-          'apps-loader'], ( plugins,range,  Extm )->
+          'apps-loader'], ( plugins,Extm )->
 
     # global application object
     window.App = new Extm.Application
@@ -47,7 +46,6 @@ require [ 'plugin-loader'
         'building' : new Backbone.Collection  BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
         'unit_type' : new Backbone.Collection  UNITTYPES
-        'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
 
@@ -59,7 +57,6 @@ require [ 'plugin-loader'
         'building' : new Backbone.Collection  BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
         'unit_type' : new Backbone.Collection  UNITTYPES
-        'range': new Backbone.Collection  range
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
 
@@ -112,7 +109,6 @@ require [ 'plugin-loader'
 
 
 
-        console.log params
         param_arr = params.split('&')
         budgetUnitArray = []
         $.each(param_arr, (index,value)->
@@ -132,12 +128,10 @@ require [ 'plugin-loader'
                     collectionNew = []
 
                     paramkey[param_key] = parseInt(value)
-                    console.log collectionNew = App.currentStore.unit.where(paramkey)
+                    collectionNew = App.currentStore.unit.where(paramkey)
                     if collectionNew.length == 0
-                        console.log units = App.currentStore.unit
+                        units = App.currentStore.unit
                         units.each( (item)->
-                            console.log item.get('facing')
-                            console.log value
                             if $.inArray(value,item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
                                 unitSplitArray.push item
 
@@ -168,11 +162,9 @@ require [ 'plugin-loader'
                 else
                     unitSplitArray = []
                     collection =  App.currentStore.unit.where(paramkey)
-                    console.log units = App.currentStore.unit
+                    units = App.currentStore.unit
                     if collection.length == 0
                         units.each( (item)->
-                            console.log item.get('views')
-                            console.log value_arr[1]
                             if $.inArray(value_arr[1],item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
                                 unitSplitArray.push item
                         )
@@ -220,7 +212,6 @@ require [ 'plugin-loader'
         App.currentStore.unit
 
     App.getBudget = (budget)->
-        console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         budgetUnitArray = []
         budget_arr = budget.split('-')
         budget_arr[0] = budget_arr[0] + ('00000')
@@ -235,7 +226,7 @@ require [ 'plugin-loader'
             floorRiseValue = floorRise[item.get 'floor']
             unitVariantmodel = App.currentStore.unit_variant.findWhere({'id':item.get 'unitVariant'})
             #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
-            console.log unitPrice = item.get 'unitPrice'
+            unitPrice = item.get 'unitPrice'
             item.set({'unitPrice' , unitPrice})
             if item.get('unitPrice') > parseInt(budget_arr[0]) && item.get('unitPrice') < parseInt(budget_arr[1])
                 budgetUnitArray.push item

@@ -27,44 +27,38 @@ define(['marionette'], function(Marionette) {
       return {
         'click #list': function(e) {
           var cart, cookieOldValue, imgclone, imgtodrag, key;
-          console.log(App.unit['name']);
-          console.log(cookieOldValue = $.cookie("key"));
-          console.log(typeof cookieOldValue);
+          cookieOldValue = $.cookie("key");
           if (cookieOldValue === void 0 || $.cookie("key") === "") {
             cookieOldValue = "";
           } else {
-            console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+            cookieOldValue = $.cookie("key").split(',').map(function(item) {
               return parseInt(item);
-            }));
+            });
           }
-          console.log(cookieOldValue.length);
           if (cookieOldValue.length >= 4) {
             $('#errormsg').text("Cannot add more than 4 units");
             return false;
           } else {
-            console.log(key = $.inArray(parseInt(App.unit['name']), cookieOldValue));
+            key = $.inArray(parseInt(App.unit['name']), cookieOldValue);
             if (parseInt(key) === -1) {
               $('#errormsg').text("");
               App.cookieArray.push(parseInt(App.unit['name']));
               $('#list').addClass("remove");
             } else {
-              console.log("Already entered");
               $('#errormsg').text("Already entered");
               $('#errormsg').addClass("inline");
               $('#list').removeClass("remove");
               return false;
             }
-            console.log(App.cookieArray);
-            console.log(App.cookieArray = $.merge(App.cookieArray, cookieOldValue));
-            console.log(App.cookieArray = _.uniq(App.cookieArray));
+            App.cookieArray = $.merge(App.cookieArray, cookieOldValue);
+            App.cookieArray = _.uniq(App.cookieArray);
             $.cookie('key', App.cookieArray);
             localStorage.setItem("cookievalue", App.cookieArray);
-            console.log($.cookie("key"));
             $('#errormsg').text("The selected flat has been added to your WishList");
             $('#errormsg').addClass("inline");
           }
           cart = $("#showRightPush");
-          console.log(imgtodrag = $('.remove').find(".skyicon"));
+          imgtodrag = $('.remove').find(".skyicon");
           if (imgtodrag) {
             imgclone = imgtodrag.clone().offset({
               top: imgtodrag.offset().top,
@@ -93,9 +87,8 @@ define(['marionette'], function(Marionette) {
         },
         'click .del': function(e) {
           var index, val;
-          console.log(App.cookieArray);
-          console.log(val = $('#' + e.target.id).attr('data-id'));
-          console.log(index = App.cookieArray.indexOf(parseInt(val)));
+          val = $('#' + e.target.id).attr('data-id');
+          index = App.cookieArray.indexOf(parseInt(val));
           App.cookieArray.splice(index, 1);
           if (App.cookieArray.length <= 1) {
             $('#compare').hide();
@@ -103,7 +96,6 @@ define(['marionette'], function(Marionette) {
           $.cookie('key', App.cookieArray);
           localStorage.setItem("cookievalue", App.cookieArray);
           $('#errormsg').text("");
-          console.log($.cookie('key'));
           return this.showWishList();
         },
         'click a': function(e) {
@@ -126,7 +118,7 @@ define(['marionette'], function(Marionette) {
           });
           App.defaults['unitType'] = unitModel.get('unitType');
           App.defaults['building'] = unitModel.get('building');
-          console.log(rangeModel = App.master.range);
+          rangeModel = App.master.range;
           App.backFilter['screen3'].push("floor");
           App.backFilter['screen2'].push("floor", "unitVariant");
           buildingModel = App.master.building.findWhere({
@@ -147,11 +139,9 @@ define(['marionette'], function(Marionette) {
             }
             rangeArrayVal;
             if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
-              console.log("aaaaaaaaaaa");
               return App.defaults['floor'] = rangeArrayVal.join(',');
             }
           });
-          console.log(App.defaults);
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           return msgbus.showApp('screen:four').insideRegion(App.layout.screenFourRegion).withOptions();
         }
@@ -172,7 +162,6 @@ define(['marionette'], function(Marionette) {
       }
       $(document).on('open', '.remodal', function() {
         $('.radioClass').on('click', function() {
-          console.log($('input[name=discountradio]:checked').val());
           if (parseInt($('input[name=discountradio]:checked').val()) === 1) {
             $('#discountvalue').removeClass("hidden");
             $('#discountper').addClass("hidden");
@@ -200,13 +189,11 @@ define(['marionette'], function(Marionette) {
           return object.generatePaymentSchedule(id);
         });
         $('#infra').on('change', function() {
-          console.log("qqqqqqqqqqqqq");
-          console.log(infraid = $('#infra').val());
+          infraid = $('#infra').val();
           return object.updated();
         });
         $('#infra1').on('change', function() {
-          console.log("qqqqqqqqqqqqq");
-          console.log(infraid = $('#infra').val());
+          infraid = $('#infra').val();
           return object.updated();
         });
         return $('.numeric').on('keypress', function(e) {
@@ -227,18 +214,18 @@ define(['marionette'], function(Marionette) {
       $('html, body').delay(800).animate({
         scrollTop: $('#screen-four-region').offset().top
       }, 'slow');
-      console.log(cookieOldValue = $.cookie("key"));
-      console.log(typeof cookieOldValue);
+      cookieOldValue = $.cookie("key");
       if (cookieOldValue === void 0 || $.cookie("key") === "") {
         cookieOldValue = [];
       } else {
-        console.log(cookieOldValue = $.cookie("key").split(',').map(function(item) {
+        cookieOldValue = $.cookie("key").split(',').map(function(item) {
           return parseInt(item);
-        }));
+        });
       }
       App.cookieArray = cookieOldValue;
       this.showWishList();
       object = this;
+      this.generateCostSheet();
       perFlag = "";
       costSheetArray = [];
       flag = 0;
@@ -248,9 +235,8 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.showWishList = function() {
       var building, element, model, selectedUnitsArray, table, unitType, unitVariant, _i, _len;
       table = "";
-      console.log(typeof $.cookie("key"));
       if ($.cookie("key") !== void 0 && $.cookie("key") !== "") {
-        console.log(selectedUnitsArray = $.cookie("key").split(","));
+        selectedUnitsArray = $.cookie("key").split(",");
         if (selectedUnitsArray.length > 1) {
           $('#compare').show();
         }
@@ -272,23 +258,20 @@ define(['marionette'], function(Marionette) {
           table += '<li> <a href="#" id="unit' + element + '" data-id="' + element + '"  class="selectedunit">' + model.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a> <div class="clearfix"></div> </li>';
         }
       }
-      console.log(table);
       return $('#showWishlist').html(table);
     };
 
     ScreenFourLayout.prototype.onShowCostSheet = function(value) {
       var element, facingModel, facingModelArray, facingssArray, units, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
-      console.log(units = App.master.unit.findWhere({
+      units = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
-      }));
+      });
       this.generateCostSheet();
       viewModelArray = [];
       facingModelArray = [];
-      console.log(value.views);
       units.set('views_name', value.views);
       if (value.views.length !== 0) {
         viewsArray = value.views;
-        console.log(viewsArray);
         for (_i = 0, _len = viewsArray.length; _i < _len; _i++) {
           element = viewsArray[_i];
           viewModel = App.master.view.findWhere({
@@ -313,9 +296,9 @@ define(['marionette'], function(Marionette) {
       } else {
         facingModelArray.push('-----');
       }
-      console.log(units = App.master.unit.findWhere({
+      units = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
-      }));
+      });
       return $('.facingclass').text(facingModelArray.join(', '));
     };
 
@@ -323,14 +306,13 @@ define(['marionette'], function(Marionette) {
       var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
       $('#costSheetTable').text("");
       costSheetArray = [];
-      console.log(App.unit['name']);
       usermodel = new Backbone.Model(USER);
       $('.preparedby').text(usermodel.get('display_name'));
       date = new Date();
       $('.preparedon').text(date.getDate() + '/' + (parseInt(date.getMonth()) + 1) + '/' + date.getFullYear());
-      console.log(unitModel = App.master.unit.findWhere({
+      unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
-      }));
+      });
       $('.flatno').text(unitModel.get('name'));
       uniVariantModel = App.master.unit_variant.findWhere({
         id: unitModel.get('unitVariant')
@@ -338,10 +320,7 @@ define(['marionette'], function(Marionette) {
       costSheetArray.push(uniVariantModel.get('sellablearea'));
       costSheetArray.push(unitModel.get('persqftprice'));
       discount = 0;
-      console.log(perFlag);
       if (perFlag === 1) {
-        console.log(parseFloat(uniVariantModel.get('sellablearea')));
-        console.log(parseFloat(unitModel.get('persqftprice')));
         discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
       } else if (perFlag === 2) {
         pervalue = parseFloat($('#discountper').val()) / 100;
@@ -361,8 +340,8 @@ define(['marionette'], function(Marionette) {
       costSheetArray.push(discount);
       table = "";
       $('.building').text(buildingModel.get('name'));
-      console.log(planselectedValue = buildingModel.get('payment_plan'));
-      console.log(milestoneselectedValue = buildingModel.get('milestone'));
+      planselectedValue = buildingModel.get('payment_plan');
+      milestoneselectedValue = buildingModel.get('milestone');
       $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       id1 = $('#paymentplans').val();
       maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100;
@@ -373,14 +352,12 @@ define(['marionette'], function(Marionette) {
       sales_tax = basicCost * (parseFloat(SettingModel.get('sales_tax')) / 100);
       infraArray = SettingModel.get('infrastructure_charges');
       membership_fees = SettingModel.get('membership_fees');
-      console.log(membership_feesColl = new Backbone.Collection(membership_fees));
-      console.log(parseInt(unitModel.get('unitType')));
-      console.log(parseInt(unitModel.get('unitVariant')));
-      console.log(unitTypeMemeber = membership_feesColl.findWhere({
+      membership_feesColl = new Backbone.Collection(membership_fees);
+      unitTypeMemeber = membership_feesColl.findWhere({
         unit_type: parseInt(unitModel.get('unitType'))
-      }));
+      });
       if (unitTypeMemeber.get('membership_fees') === 0) {
-        console.log(unitVariantMemeber = unitTypeMemeber.get('unit_variant'));
+        unitVariantMemeber = unitTypeMemeber.get('unit_variant');
         unitVariantMemeberColl = new Backbone.Collection(unitVariantMemeber);
         univariantmem = unitVariantMemeberColl.findWhere({
           unit_variant: parseInt(unitModel.get('unitVariant'))
@@ -400,15 +377,12 @@ define(['marionette'], function(Marionette) {
         }
         infratxt += '<option value="' + element + '" ' + selected + '>' + element + '</option>';
       }
-      console.log(infratxt);
       basicCost1 = parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]);
       table += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc">' + costSheetArray[1] + '</div> <div class="costCell">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc">--</div> <div class="costCell">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc">' + basicCost1 + '</div> <div class="costCell">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc"><select id="infra1"></select></div> <div class="costCell"><select id="infra"></select></div> </div> <!--<tr> <td>Chargeable Area</td> <td>' + costSheetArray[0] + '</td> <td>' + costSheetArray[0] + '</td> </tr> <tr> <td>Rate Per Sq. Ft. Rs.</td> <td>' + costSheetArray[1] + '</td> <td>' + costSheetArray[1] + '</td> </tr> <tr> <td>Revised Rate</td> <td>--</td> <td>' + costSheetArray[2] + '</td> </tr> <tr> <td>Basic Cost Rs.</td> <td>' + (costSheetArray[0] * costSheetArray[1]) + '</td> <td>' + costSheetArray[3] + '</td> </tr> <tr> <td>Infrastructure and Developement Charges.</td> <td><select id="infra1"></select></td> <td><select id="infra"></select></td> </tr>-->';
       $('#costSheetTable').append(table);
       $('#infra').append(infratxt);
       $('#infra1').append(infratxt);
-      console.log(infraid);
       table = "";
-      console.log($('#infra').val());
       agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
       agreementValue1 = agreement1;
       agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
@@ -422,27 +396,25 @@ define(['marionette'], function(Marionette) {
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt($('#paymentplans').val()));
       milestonesArray = milestones.get('milestones');
-      console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
-      console.log(milestoneselectedValue);
-      console.log(milestonemodel = milestonesArrayColl.findWhere({
+      milestonesArrayColl = new Backbone.Collection(milestonesArray);
+      milestonemodel = milestonesArrayColl.findWhere({
         'milestone': parseInt(buildingModel.get('milestone'))
-      }));
+      });
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
-      console.log(milestoneCollection = new Backbone.Collection(MILESTONES));
+      milestoneCollection = new Backbone.Collection(MILESTONES);
       if (milestonemodel === void 0) {
-        console.log(milesotneVal = _.first(milestonesArray));
-        console.log(milestonemodel = milestonesArrayColl.findWhere({
+        milesotneVal = _.first(milestonesArray);
+        milestonemodel = milestonesArrayColl.findWhere({
           'milestone': parseInt(milesotneVal.milestone)
-        }));
-        console.log(milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone'))));
+        });
+        milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')));
         $('.currentmile').text(milestonename.get('name'));
       } else {
-        console.log(milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone')));
+        milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'));
         $('.currentmile').text(milstoneModelName.get('name'));
       }
-      console.log(milestonesArray);
       milestoneColl = new Backbone.Collection(MILESTONES);
       count = 0;
       for (_j = 0, _len1 = milestonesArray.length; _j < _len1; _j++) {
@@ -459,7 +431,6 @@ define(['marionette'], function(Marionette) {
       }
       totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat(reg_amt) + parseFloat(vat) + parseFloat(sales_tax);
       finalcost = parseFloat(totalcost) + parseFloat(maintenance);
-      console.log(table);
       $('.totalcost').text(totalcost);
       $('.rec').text(count);
       table += '  <div class="costsRow totals"> <div class="costCell costName">Agreement Amount</div> <div class="costCell discCol showDisc"><span id="agreement1">' + agreement1 + '</span></div> <div class="costCell"><span id="agreement">' + agreement + '</span></div> </div> <h5 class="headers"><span class="cost-library"></span> Government Charges</h5> <div class="costsRow"> <div class="costCell costName">Stamp Duty</div> <div class="costCell discCol showDisc">' + stamp_duty1 + '</div> <div class="costCell">' + stamp_duty + '</div> </div> <div class="costsRow"> <div class="costCell costName">Registration Amount</div> <div class="costCell discCol showDisc">' + reg_amt1 + '</div> <div class="costCell">' + reg_amt + '</div> </div> <div class="costsRow"> <div class="costCell costName">VAT</div> <div class="costCell discCol showDisc">' + vat1 + '</div> <div class="costCell">' + vat + '</div> </div> <div class="costsRow"> <div class="costCell costName">Service Tax</div> <div class="costCell discCol showDisc">' + sales_tax1 + '</div> <div class="costCell">' + sales_tax + '</div> </div> <div class="costsRow totals"> <div class="costCell costName">Total Cost</div> <div class="costCell discCol showDisc">' + totalcost1 + '</div> <div class="costCell">' + totalcost + '</div> </div> <h5 class="headers"><span class="cost-paint-format"></span> Other Costs</h5> <div class="costsRow"> <div class="costCell costName">Maintenance Deposit</div> <div class="costCell discCol showDisc">' + maintenance + '</div> <div class="costCell">' + maintenance + '</div> </div> <div class="costsRow"> <div class="costCell costName">Club membership + Service Tax</div> <div class="costCell discCol showDisc">' + membershipfees + '</div> <div class="costCell">' + membershipfees + '</div> </div> <div class="costsRow totals"> <div class="costCell costName">Final Cost</div> <div class="costCell discCol showDisc"><span id="finalcost1">' + finalcost1 + '</span></div> <div class="costCell"><span id="finalcost">' + finalcost + '</span></div> </div> <!--<tr> <td>Agreement Amount Rs.</td> <td><span id="agreement1">' + $('#infra').val() + (costSheetArray[0] * costSheetArray[1]) + '</span></td> <td><span id="agreement">' + agreement + '</span></td> </tr> <tr> <td>Stamp Duty Rs.</td> <td>' + stamp_duty1 + '</td> <td>' + stamp_duty + '</td> </tr> <tr> <td>Registration Amount Rs.</td> <td>' + reg_amt1 + '</td> <td>' + reg_amt + '</td> </tr> <tr> <td>VAT  Rs.</td> <td>' + vat1 + '</td> <td>' + vat + '</td> </tr> <tr> <td>Service Tax Rs.</td> <td>' + sales_tax1 + '</td> <td>' + sales_tax + '</td> </tr> <tr> <td>Total Cost Rs.</td> <td><span id="totalcost1">' + totalcost1 + '</span></td> <td><span id="totalcost">' + totalcost + '</span></td> </tr> <tr> <td>Maintenance Deposit.</td> <td>' + maintenance + '</td> <td>' + maintenance + '</td> </tr> <tr> <td>Club membership + Service Tax.</td> <td>' + membershipfees + '</td> <td>' + membershipfees + '</td> </tr> <tr> <td>Discount</td> <td></td> <td>' + costSheetArray[4] + '</td> </tr> <tr> <td>Actual Payment</td> <td></td> <td>' + $('#payment').val() + '</td> </tr> <tr> <td>Milestone Completed Till Date</td> <td></td> <td><select id="milestones"></select></td> </tr> <tr> <td>Actual Receivable As On Date</td> <td></td> <td><span id="rec">' + count + '</span></td> </tr> <tr> <td>Add On Payment</td> <td></td> <td><span id="addonpay">' + addon + '</span></td> </tr> <tr> <td>Final Cost</td> <td><span id="finalcost1">' + finalcost1 + '</span></td> <td><span id="finalcost">' + finalcost + '</span></td> </tr>-->';
@@ -467,13 +438,11 @@ define(['marionette'], function(Marionette) {
       id = $('#paymentplans').val();
       object.generatePaymentSchedule(id);
       $('#infra').on('change', function() {
-        console.log("qqqqqqqqqqqqq");
-        console.log(infraid = $('#infra').val());
+        infraid = $('#infra').val();
         return object.updated();
       });
       $('#infra1').on('change', function() {
-        console.log("qqqqqqqqqqqqq");
-        console.log(infraid = $('#infra').val());
+        infraid = $('#infra').val();
         return object.updated();
       });
       $('#discountvalue').on('change', function() {
@@ -496,7 +465,6 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
       var addon, buildingModel, count, element, flag, milesotneVal, milestoneColl, milestoneCollection, milestoneModel, milestonecompletion, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milstoneModelName, paymentColl, percentageValue, percentageValue1, proposed_date, table, trClass, unitModel, _i, _len;
       flag = 0;
-      console.log(id);
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
       });
@@ -508,28 +476,26 @@ define(['marionette'], function(Marionette) {
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt(id));
       milestonesArray = milestones.get('milestones');
-      console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
-      console.log(milestonemodel = milestonesArrayColl.findWhere({
+      milestonesArrayColl = new Backbone.Collection(milestonesArray);
+      milestonemodel = milestonesArrayColl.findWhere({
         'milestone': parseInt(buildingModel.get('milestone'))
-      }));
+      });
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
       milestoneCollection = new Backbone.Collection(MILESTONES);
       if (milestonemodel === void 0) {
         flag = 1;
-        console.log("unnnn");
-        console.log(milesotneVal = _.first(milestonesArray));
-        console.log(milestonemodel = milestonesArrayColl.findWhere({
+        milesotneVal = _.first(milestonesArray);
+        milestonemodel = milestonesArrayColl.findWhere({
           'milestone': parseInt(milesotneVal.milestone)
-        }));
-        console.log(milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone'))));
+        });
+        milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')));
         $('.currentmile').text(milestonename.get('name'));
       } else {
         milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'));
         $('.currentmile').text(milstoneModelName.get('name'));
       }
-      console.log(milestonesArray);
       table = "";
       count = 0;
       milestoneColl = new Backbone.Collection(MILESTONES);
@@ -537,13 +503,11 @@ define(['marionette'], function(Marionette) {
         element = milestonesArray[_i];
         percentageValue = agreementValue * ((parseFloat(element.payment_percentage)) / 100);
         percentageValue1 = agreementValue1 * ((parseFloat(element.payment_percentage)) / 100);
-        console.log(proposed_date = $.map(milestonecompletion, function(index, value) {
-          console.log(element.milestone);
-          console.log(value);
+        proposed_date = $.map(milestonecompletion, function(index, value) {
           if (parseInt(element.milestone) === parseInt(value)) {
             return index;
           }
-        }));
+        });
         if (proposed_date.length === 0) {
           proposed_date = '';
         }
@@ -557,12 +521,11 @@ define(['marionette'], function(Marionette) {
         if (flag === 1) {
           trClass = "";
         }
-        console.log(milestoneModel = milestoneColl.get(element.milestone));
+        milestoneModel = milestoneColl.get(element.milestone);
         table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal">' + percentageValue1 + '</div> <div class="msVal">' + percentageValue + '</div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div> <!--<tr class="' + trClass + '"><td>' + milestoneModel.get('name') + '</td><td>' + element.payment_percentage + '</td> <td>' + percentageValue1 + '</td><td>' + percentageValue + '</td></tr>--> ';
       }
       $('#rec').text(count);
       $('.rec').text(count);
-      console.log($('#payment').val());
       if (parseInt($('#payment').val()) === 0) {
         addon = 0;
       } else {
@@ -582,11 +545,10 @@ define(['marionette'], function(Marionette) {
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
-      console.log(milestonesArray);
       milestoneColl = new Backbone.Collection(MILESTONES);
       for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
         element = milestonesArray[_i];
-        console.log(milestoneModel = milestoneColl.get(element.milestone));
+        milestoneModel = milestoneColl.get(element.milestone);
         milesstones += '<option value="' + element.milestone + '">' + milestoneModel.get('name') + '</option>';
       }
       return $('#milestones').append(milesstones);
@@ -595,20 +557,16 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.updated = function() {
       var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
       costSheetArray = [];
-      console.log(App.unit['name']);
-      console.log(unitModel = App.master.unit.findWhere({
+      unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
-      }));
+      });
       uniVariantModel = App.master.unit_variant.findWhere({
         id: unitModel.get('unitVariant')
       });
       costSheetArray.push(uniVariantModel.get('sellablearea'));
       costSheetArray.push(unitModel.get('persqftprice'));
       discount = 0;
-      console.log(perFlag);
       if (perFlag === 1) {
-        console.log(parseFloat(uniVariantModel.get('sellablearea')));
-        console.log(parseFloat(unitModel.get('persqftprice')));
         discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
       } else if (perFlag === 2) {
         pervalue = parseFloat($('#discountper').val()) / 100;
@@ -624,8 +582,8 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: unitModel.get('building')
       });
-      console.log(planselectedValue = buildingModel.get('payment_plan'));
-      console.log(milestoneselectedValue = buildingModel.get('milestone'));
+      planselectedValue = buildingModel.get('payment_plan');
+      milestoneselectedValue = buildingModel.get('milestone');
       $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       $("#milestones option[value=" + milestoneselectedValue + "]").prop('selected', true);
       id1 = $('#paymentplans').val();
@@ -637,14 +595,12 @@ define(['marionette'], function(Marionette) {
       sales_tax = basicCost * (parseFloat(SettingModel.get('sales_tax')) / 100);
       infraArray = SettingModel.get('infrastructure_charges');
       membership_fees = SettingModel.get('membership_fees');
-      console.log(membership_feesColl = new Backbone.Collection(membership_fees));
-      console.log(parseInt(unitModel.get('unitType')));
-      console.log(parseInt(unitModel.get('unitVariant')));
-      console.log(unitTypeMemeber = membership_feesColl.findWhere({
+      membership_feesColl = new Backbone.Collection(membership_fees);
+      unitTypeMemeber = membership_feesColl.findWhere({
         unit_type: parseInt(unitModel.get('unitType'))
-      }));
+      });
       if (unitTypeMemeber.get('membership_fees') === 0) {
-        console.log(unitVariantMemeber = unitTypeMemeber.get('unit_variant'));
+        unitVariantMemeber = unitTypeMemeber.get('unit_variant');
         unitVariantMemeberColl = new Backbone.Collection(unitVariantMemeber);
         univariantmem = unitVariantMemeberColl.findWhere({
           unit_variant: parseInt(unitModel.get('unitVariant'))
@@ -654,7 +610,6 @@ define(['marionette'], function(Marionette) {
         membershipfees = unitTypeMemeber.get('membership_fees');
       }
       table = "";
-      console.log($('#infra').val());
       basicCost1 = costSheetArray[0] * costSheetArray[1];
       agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
       agreementValue1 = agreement1;
@@ -673,21 +628,19 @@ define(['marionette'], function(Marionette) {
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt($('#paymentplans').val()));
       milestonesArray = milestones.get('milestones');
-      console.log(milestonesArrayColl = new Backbone.Collection(milestonesArray));
-      console.log(milestoneselectedValue);
-      console.log(milestonemodel = milestonesArrayColl.findWhere({
+      milestonesArrayColl = new Backbone.Collection(milestonesArray);
+      milestonemodel = milestonesArrayColl.findWhere({
         'milestone': parseInt(buildingModel.get('milestone'))
-      }));
+      });
       milestonesArray = milestonesArray.sort(function(a, b) {
         return parseInt(a.sort_index) - parseInt(b.sort_index);
       });
       if (milestonemodel === void 0) {
-        console.log(milesotneVal = _.first(milestonesArray));
+        milesotneVal = _.first(milestonesArray);
         milestonemodel = milestonesArrayColl.findWhere({
           'milestone': parseInt(milesotneVal.milestone)
         });
       }
-      console.log(milestonesArray);
       milestoneColl = new Backbone.Collection(MILESTONES);
       count = 0;
       for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
@@ -753,7 +706,6 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitMainView.prototype.onShow = function() {
-      console.log(this.model.get("unitVariant"));
       return $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,

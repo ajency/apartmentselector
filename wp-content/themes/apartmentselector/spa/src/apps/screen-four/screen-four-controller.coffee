@@ -46,8 +46,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 collection : mainCollection
 
         _getSelelctedUnit:->
-            console.log App.unit
-            console.log units = App.master.unit.where({id:parseInt(App.unit['name'])})
+            units = App.master.unit.where({id:parseInt(App.unit['name'])})
             unitsArray = App.master.unit.toArray()
             $.each(units, (index,value)->
 
@@ -86,7 +85,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
 
 
-                console.log roomSizesArray = unitVariantModel.get 'roomsizes'
+                roomSizesArray = unitVariantModel.get 'roomsizes'
                 roomsizearray = []
                 $.each(roomSizesArray, (index,value1)->
                     roomsizearray.push({size: value1.room_size, type: value1.room_type})
@@ -99,7 +98,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 facingModelArray = []
                 if value.get('views').length != 0
                     viewsArray = value.get('views')
-                    console.log viewsArray
                     for element in viewsArray
                         viewModel = App.master.view.findWhere({id:parseInt(element)})
                         viewModelArray.push(viewModel.get('name'))
@@ -175,7 +173,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
         getPerSqFtPrice:->
-            console.log 'unitttttttttttttttttttttttttttttttttt'+App.unit['name']
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             object = @
             $.ajax(
@@ -183,12 +180,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 url : AJAXURL+'?action=get_unit_single_details',
                 data : 'id='+unitModel.get('id'),
                 success :(result)-> 
-                    console.log result
                     unitModel.set 'persqftprice' , result.persqftprice
                     unitModel.set 'views' , result.views
                     unitModel.set 'facing' , result.facings
                     object.Collection = object._getSelelctedUnit()
-                    console.log object.Collection
                     object.layout = new ScreenFourView.ScreenFourLayout(
                         templateHelpers:
                             paymentplans :object.Collection[1]

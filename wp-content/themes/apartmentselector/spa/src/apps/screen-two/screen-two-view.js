@@ -33,10 +33,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.onAfterRender = function(Collection) {
-      console.log("building");
-      console.log(this.itemview1 = new UnitTypeChildView({
+      this.itemview1 = new UnitTypeChildView({
         collection: Collection[0]
-      }));
+      });
       this.itemview2 = new UnitTypeView({
         collection: Collection[1]
       });
@@ -50,7 +49,13 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();
       },
-      'mouseover a': function(e) {
+      'mouseover a.tower-link': function(e) {
+        var id, locationData;
+        id = e.target.id;
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
+      },
+      'mouseover a.im-pin': function(e) {
         var id, locationData;
         id = e.target.id;
         locationData = m.getLocationData(id);
@@ -202,15 +207,15 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #screen-two-button': function(e) {
+        $('#screen-three-region').addClass('section');
         return this.trigger('unit:count:selected');
       }
     };
 
     ScreenTwoLayout.prototype.showHighlightedTowers = function() {
       var buidlingValue, building, masterbuilding;
-      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
       building = Marionette.getOption(this, 'buildingColl').toArray();
-      console.log(buidlingValue = _.first(building));
+      buidlingValue = _.first(building);
       masterbuilding = App.master.building;
       return masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
@@ -293,10 +298,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $(this).toggleClass("selected");
       });
       i = 1;
-      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
       building = Marionette.getOption(this, 'buildingColl').toArray();
-      console.log(buidlingValue = _.first(building));
-      console.log($('#mapplic1').text());
+      buidlingValue = _.first(building);
       while (window['mapplic' + i] !== void 0) {
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
@@ -307,7 +310,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           'height': params.height,
           'option': buidlingValue
         });
-        console.log(defer);
         i++;
       }
       m = $('#mapplic1').data('mapplic');
@@ -348,9 +350,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     $(document).on("click", ".closeButton", function() {
       var theidtodel;
-      console.log(object);
       theidtodel = $(this).parent('li').attr('id');
-      console.log("aaaaaaaaaaaaaaaaaaaa");
       return object.delItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
@@ -375,7 +375,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
         return i++;
       });
-      console.log(index = key);
+      index = key;
       if (index >= 0) {
         tagsArray.splice(index, 1);
         $('#li-item-' + delnum).remove();
@@ -387,7 +387,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $.map(App.backFilter, function(value, index) {
           var element, screenArray, _i, _len;
           if (q !== 1) {
-            console.log(index);
             screenArray = App.backFilter[index];
             for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
               element = screenArray[_i];
@@ -407,7 +406,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.layout.screenFourRegion.el.innerHTML = "";
         App.navigate("screen-two");
         App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
-        console.log(App.defaults['unitVariant']);
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
@@ -453,7 +451,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
       });
-      console.log(building = id);
+      building = id;
       return $("#highlighttower" + building).attr('class', 'overlay highlight');
     };
 
@@ -500,7 +498,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $.map(App.backFilter, function(value, index) {
           var element, key, screenArray, _i, _len;
           if (q !== 1) {
-            console.log(index);
             screenArray = App.backFilter[index];
             for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
               element = screenArray[_i];
@@ -523,7 +520,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
-        console.log(rangeArray);
         if (this.model.get('count') !== 0) {
           for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
             element = rangeArray[index];
@@ -535,7 +531,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               rangeArray = [];
             }
           }
-          console.log($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val());
           if (parseInt($("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val()) === 0) {
             rangeArray.push(this.model.get('range') + this.model.get('buildingid'));
             $('#range' + this.model.get('range') + this.model.get('buildingid')).addClass('selected');
@@ -560,13 +555,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
                 return rangeArrayVal;
               }
             });
-            console.log(rangeArrayVal);
             rangeString = rangeArrayVal.join(',');
             App.defaults['floor'] = rangeString;
             App.backFilter['screen2'].push('floor');
             App.defaults['building'] = parseInt(this.model.get('buildingid'));
             App.backFilter['screen2'].push('building');
-            console.log($('#screen-two-button'));
             $('#screen-two-button').removeClass('disabled btn-default');
             $("#screen-two-button").addClass('btn-primary');
           } else {

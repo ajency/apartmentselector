@@ -167,6 +167,7 @@ define(['marionette'], function(Marionette) {
         } else {
           App.defaults['budget'] = 'All';
         }
+        $('#screen-two-region').addClass('section');
         return this.trigger('unit:type:clicked');
       },
       'click .cs-selected': function(e) {
@@ -217,16 +218,14 @@ define(['marionette'], function(Marionette) {
       'mouseover a': function(e) {
         var id, locationData;
         id = e.target.id;
-        locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return locationData = m.getLocationData(id);
       },
       'click .tower-over': function(e) {
         var id, locationData;
         e.preventDefault();
         id = e.target.id;
         m.showLocation(id, 800);
-        locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return locationData = m.getLocationData(id);
       }
     };
 

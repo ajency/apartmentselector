@@ -33,8 +33,8 @@
 			},
 			transEndEventName = transEndEventNames[Modernizr.prefixed( 'transition' )],
 			eventtype = mobilecheck() ? 'touchstart' : 'click';
-			console.log(sections);
-			console.log(links);
+			
+			
 
 		// add navigation elements
 		if( sectionsCount >= 3 && Modernizr.csstransforms3d ) {

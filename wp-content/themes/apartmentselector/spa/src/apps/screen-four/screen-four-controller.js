@@ -50,10 +50,9 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
       var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
-      console.log(App.unit);
-      console.log(units = App.master.unit.where({
+      units = App.master.unit.where({
         id: parseInt(App.unit['name'])
-      }));
+      });
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
         var building, element, facingModel, facingModelArray, facingssArray, floorLayoutimage, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
@@ -73,7 +72,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           id: value.get('building')
         });
         floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url;
-        console.log(roomSizesArray = unitVariantModel.get('roomsizes'));
+        roomSizesArray = unitVariantModel.get('roomsizes');
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
           return roomsizearray.push({
@@ -85,7 +84,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         facingModelArray = [];
         if (value.get('views').length !== 0) {
           viewsArray = value.get('views');
-          console.log(viewsArray);
           for (_i = 0, _len = viewsArray.length; _i < _len; _i++) {
             element = viewsArray[_i];
             viewModel = App.master.view.findWhere({
@@ -152,7 +150,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
 
     ScreenFourController.prototype.getPerSqFtPrice = function() {
       var object, unitModel;
-      console.log('unitttttttttttttttttttttttttttttttttt' + App.unit['name']);
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
       });
@@ -162,12 +159,10 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         url: AJAXURL + '?action=get_unit_single_details',
         data: 'id=' + unitModel.get('id'),
         success: function(result) {
-          console.log(result);
           unitModel.set('persqftprice', result.persqftprice);
           unitModel.set('views', result.views);
           unitModel.set('facing', result.facings);
           object.Collection = object._getSelelctedUnit();
-          console.log(object.Collection);
           object.layout = new ScreenFourView.ScreenFourLayout({
             templateHelpers: {
               paymentplans: object.Collection[1]
