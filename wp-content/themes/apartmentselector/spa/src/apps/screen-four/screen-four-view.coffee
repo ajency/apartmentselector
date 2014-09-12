@@ -389,12 +389,8 @@ define [ 'marionette' ], ( Marionette )->
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
             document.body.appendChild(scr)
-            $('#slider-plans').liquidSlider(
-                slideEaseFunction: "easeInOutQuad",
-                autoSlide: true,
-                includeTitle:false
-            )
-            $('html, body').delay(800).animate({
+            
+            $('html, body').delay(600).animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
             cookieOldValue = $.cookie("key")
@@ -1056,7 +1052,7 @@ define [ 'marionette' ], ( Marionette )->
 
     class UnitMainView extends Marionette.CompositeView
 
-        template : '<div class="row m-l-0 m-r-0">
+        template : '<div class="row m-l-0 m-r-0 bgClass">
 						<div class="col-sm-4 p-b-10">
                             <div class="unitDetails">
                                 <div class="row">
@@ -1211,17 +1207,17 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             $('#slider-plans').liquidSlider(
-                slideEaseFunction: "easeInOutQuad",
-                autoSlide: true,
-                includeTitle:false,
-                minHeight: 500,
-                autoSlideInterval: 4000,
-                forceAutoSlide: true,
-                mobileNavigation: false,
-                hideArrowsWhenMobile: false,
+                slideEaseFunction: "easeInOutQuad"
+                # autoSlide: true
+                includeTitle:false
+                # minHeight: 500
+                autoSlideInterval: 4000
+                # forceAutoSlide: true
+                mobileNavigation: false
+                hideArrowsWhenMobile: false
                 dynamicTabsAlign: "center"
-
-
+                continuous: false
+                autoHeight: false
             )
 
 

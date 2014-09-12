@@ -509,7 +509,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
 
-            $('html, body').delay(800).animate({
+            $('html, body').delay(600).animate({
                 scrollTop: $('#screen-three-region').offset().top
             }, 'slow');
 

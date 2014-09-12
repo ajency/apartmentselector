@@ -440,7 +440,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @showHighlightedTowers()
 
 
-            $('html, body').delay(800).animate({
+            $('html, body').delay(600).animate({
                 scrollTop: $('#screen-two-region').offset().top
             }, 'slow')
 

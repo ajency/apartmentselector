@@ -7538,12 +7538,14 @@ h5 {
 .ls-nav ul li a {
   margin: 0 2%;
   color: #999999;
+  font-weight: 700;
 }
 .unitDetails {
   text-align: center;
 }
 .unitDetails .unitBox {
   border: 2px solid #eeeeee;
+  background-color: #ffffff;
   padding: 10px 0 0;
   margin: 0 0 15px;
 }
@@ -7559,7 +7561,7 @@ h5 {
   margin-top: 0px;
   padding: 10px 10px;
   margin-bottom: 0;
-  background: #f6f6f7;
+  background: #edeef0;
   color: ;
 }
 .unitDetails .unitBox h4.titles span {
@@ -7569,15 +7571,15 @@ h5 {
   width: 33%;
   display: inline-block;
   padding: 10px 0;
-  font-weight: 400;
+  color: #999999;
+  font-weight: 700;
 }
 .unitDetails .unitBox .rooms h4.size {
   margin: 0;
   padding: 0;
   background: none;
   border: none;
-  font-weight: 700;
-  color: #999999;
+  font-weight: 400;
   font-style: italic;
 }
 .unitDetails .unitNmbr h3 {
