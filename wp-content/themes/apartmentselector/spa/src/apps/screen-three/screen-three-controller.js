@@ -213,11 +213,8 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       status = App.master.status.findWhere({
         'name': 'Available'
       });
-      unitslen = App.master.unit.where({
-        'status': status.get('id')
-      });
+      unitslen = App.master.unit.toArray();
       unitslen1 = App.master.unit.where({
-        'status': status.get('id'),
         'building': parseInt(App.defaults['building'])
       });
       $.each(unitslen1, function(index, value1) {
