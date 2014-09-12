@@ -298,21 +298,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
             $.each(units, (index,value)->
                 maxcoll = Array()
-                buildingModel = ""
+                
                 if buildingArray.indexOf(value.get 'building') ==  -1
                     buildingArray.push value.get 'building'
-                    console.log buildingModel = App.master.building.findWhere({id:value.get('building')})
-
-                
-                    floorriserange = buildingModel.get('floorriserange')
-                    if value.get('floor') >= floorriserange[0].start &&  value.get('floor') <= floorriserange[0].end
-                        unittypemodel = App.master.unit_type.findWhere({id :  value.get( 'unitType' ) })
-
-                        mainunitsTypeArray.push({id:unittypemodel.get('id'),name: unittypemodel.get('name')})
+                    
 
 
-                    unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
-                    mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
+                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                mainunitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})
             )
 
 
@@ -384,7 +377,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 #)
                 flag = 0
                 flag1 = 0
-                $.each(mainunitsTypeArray, (key,item)->
+                $.each(mainunitTypeArray, (key,item)->
                     if (!lunique[item.id])
                         lunitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
@@ -419,7 +412,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 flag2 = 0
                 flag3 = 0
 
-                $.each(mainunitsTypeArray, (key,item)->
+                $.each(mainunitTypeArray, (key,item)->
                     if (!munique[item.id])
                         munitTypeArray = []
                         status = App.currentStore.status.findWhere({'name':'Available'})
@@ -450,7 +443,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 )
                 flag4 = 0
                 flag5 = 0
-                $.each(mainunitsTypeArray, (key,item)->
+                $.each(mainunitTypeArray, (key,item)->
 
                     if (!hunique[item.id])
                         hunitTypeArray = []

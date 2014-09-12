@@ -317,32 +317,18 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         return a - b;
       });
       $.each(units, function(index, value) {
-        var maxcoll, unitType, unittypemodel;
+        var maxcoll, unitType;
         maxcoll = Array();
-        buildingModel = "";
         if (buildingArray.indexOf(value.get('building')) === -1) {
           buildingArray.push(value.get('building'));
-          console.log(buildingModel = App.master.building.findWhere({
-            id: value.get('building')
-          }));
-          floorriserange = buildingModel.get('floorriserange');
-          if (value.get('floor') >= floorriserange[0].start && value.get('floor') <= floorriserange[0].end) {
-            unittypemodel = App.master.unit_type.findWhere({
-              id: value.get('unitType')
-            });
-            mainunitsTypeArray.push({
-              id: unittypemodel.get('id'),
-              name: unittypemodel.get('name')
-            });
-          }
-          unitType = App.master.unit_type.findWhere({
-            id: value.get('unitType')
-          });
-          return mainunitTypeArray.push({
-            id: unitType.get('id'),
-            name: unitType.get('name')
-          });
         }
+        unitType = App.master.unit_type.findWhere({
+          id: value.get('unitType')
+        });
+        return mainunitTypeArray.push({
+          id: unitType.get('id'),
+          name: unitType.get('name')
+        });
       });
       $.each(mainunitTypeArray, function(key, item) {
         var classname, count;
@@ -408,7 +394,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         data = [];
         flag = 0;
         flag1 = 0;
-        $.each(mainunitsTypeArray, function(key, item) {
+        $.each(mainunitTypeArray, function(key, item) {
           var count;
           if (!lunique[item.id]) {
             lunitTypeArray = [];
@@ -453,7 +439,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         flag2 = 0;
         flag3 = 0;
-        $.each(mainunitsTypeArray, function(key, item) {
+        $.each(mainunitTypeArray, function(key, item) {
           var count;
           if (!munique[item.id]) {
             munitTypeArray = [];
@@ -498,7 +484,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         flag4 = 0;
         flag5 = 0;
-        $.each(mainunitsTypeArray, function(key, item) {
+        $.each(mainunitTypeArray, function(key, item) {
           var count;
           if (!hunique[item.id]) {
             hunitTypeArray = [];
