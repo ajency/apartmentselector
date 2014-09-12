@@ -73,8 +73,13 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         });
         exceptionObject = building.get('floorexceptionpositions');
         $.each(exceptionObject, function(index, value1) {
-          var floorvalue;
-          return floorvalue = $.inArray(value.get('floor'), value1.floors);
+          var floorLayoutimage, floorvalue;
+          floorvalue = $.inArray(value.get('floor'), value1.floors);
+          if (floorvalue === -1) {
+            return floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url;
+          } else {
+            return floorLayoutimage = value1.floor_layout_detailed.thumbnail_url;
+          }
         });
         floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url;
         roomSizesArray = unitVariantModel.get('roomsizes');

@@ -26,7 +26,20 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 for element in cookeArray
                     console.log unitModel = element
                     console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
-                    floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url
+                    exceptionObject = building.get 'floorexceptionpositions'
+                    $.each(exceptionObject, (index,value1)->
+                        floorvalue = $.inArray( value.get('floor'),value1.floors)
+                        if floorvalue == -1
+                            floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
+                        else
+                            floorLayoutimage = value1.floor_layout_detailed.thumbnail_url
+
+
+
+                            )
+
+
+                        
                     floorriserange = buildingModel.get 'floorriserange'
                     #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
                     rangeArrayVal = []

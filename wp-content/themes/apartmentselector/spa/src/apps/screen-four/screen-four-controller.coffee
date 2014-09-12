@@ -70,10 +70,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
 
-                        )
+                )
 
 
-                    )
+                    
                 #console.log exceptionObject[0].floors
                 #console.log floorvalue = $.inArray( value.get('floor'),exceptionObject[0].floors)
                 ##floorLayoutimage = ""
