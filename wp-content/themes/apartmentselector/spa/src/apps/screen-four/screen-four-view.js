@@ -165,7 +165,7 @@ define(['marionette'], function(Marionette) {
       usermodel = new Backbone.Model(USER);
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_cost_sheet', capability) >= 0) {
-        console.log("");
+        true;
       } else {
         $('.costsheetbutton').hide();
       }
