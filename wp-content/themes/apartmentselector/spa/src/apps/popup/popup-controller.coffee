@@ -86,16 +86,44 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         facingModelArray.push('-----')
 
                     unitModel.set 'facings',facingModelArray.join(',')
-                    roomSizesArray = unitVariantModel.get 'roomsizes'
+                    roomSizesObject = unitVariantModel.get 'roomsizes'
                     roomsizearray = []
-                    roomTypeArr = [51,52,32,56,35,58,55,57,53,54,59,34,33,38,39,36,60]
-                    $.each(roomSizesArray, (index,value1)->
-                        roomsizearray.push({size: value1.room_size, type: value1.room_type})
+                    roomTypeArr = [68,71,72,70,66]
+                    roomSizesArray = $.map(roomSizesObject, (index,value1)->
+                        console.log index
+                        console.log value1
+                        [index]
 
 
 
 
                     )
+                    console.log roomSizesArray
+                    roomsizearr = []
+                    mainArr = []
+                    console.log roomsizesCollection = new Backbone.Collection roomSizesArray
+                    $.each(roomTypeArr, (ind,val)->
+                        roomsizearr = []
+                        console.log val
+                        console.log roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
+                        $.each(roomtype, (index1,value1)->
+                            roomsizearr.push({room_size:value1.get('room_size')})
+
+
+                            )
+                        roomsizearr.sort( (a,b)->
+                            b - a
+
+                            )
+                        if roomsizearr.length == 0
+                            roomsizearr.push({room_size:"----------"})
+                        mainArr.push({subarray:roomsizearr})
+
+
+                        )
+                        
+                    console.log mainArr
+                    unitModel.set 'mainArr',mainArr
                     
                     unitModelArray.push(unitModel)
                 console.log unitModelArray

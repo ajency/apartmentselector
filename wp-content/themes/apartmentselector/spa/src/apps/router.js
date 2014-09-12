@@ -32,7 +32,9 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params);
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      setTimeout(function(x) {
+        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      }, 1000);
       return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
     },
     show: function(params) {
@@ -42,7 +44,9 @@ define(['marionette'], function(Marionette) {
       }
       console.log("router");
       App.filter(params);
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      setTimeout(function(x) {
+        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      }, 1000);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -61,7 +65,9 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params = {});
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      setTimeout(function(x) {
+        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      }, 1000);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -81,7 +87,9 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params = {});
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      setTimeout(function(x) {
+        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      }, 1000);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {

@@ -66,48 +66,21 @@ define(['marionette'], function(Marionette) {
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
-        svgdata = [
-          [
-            {
-              svposition: [1],
-              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-              units: {
-                1: {
-                  1: 49,
-                  2: 55,
-                  3: 61,
-                  4: 67,
-                  5: 73,
-                  6: 80,
-                  7: 85,
-                  8: 90,
-                  9: 98,
-                  10: 113,
-                  11: 142,
-                  12: 152
-                }
-              }
-            }
-          ]
-        ];
+        svgdata = buildingModel.get('svgdata');
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
         $.each(svgdata, function(index, value) {
-          console.log(value);
-          return $.each(value, function(ind, val) {
-            console.log(val);
-            return $.map(val.svposition, function(index1, val1) {
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
               var unitsarray;
-              console.log(index1);
-              console.log(position);
-              if (position === index1) {
-                svgposition = val.svgfile;
-                console.log(unitsarray = val.units);
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                console.log(unitsarray = value.units);
                 return console.log(indexvalue = unitsarray[position]);
               }
             });
-          });
+          }
         });
         flatid = $('#' + e.target.id).attr('data-id');
         $.map(indexvalue, function(index, value) {
@@ -126,6 +99,7 @@ define(['marionette'], function(Marionette) {
           }
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
+        $("#t" + flatid).attr('class', 'selected-flat');
         console.log(unit = indexvalue[parseInt(flatid)]);
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
@@ -168,44 +142,21 @@ define(['marionette'], function(Marionette) {
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
-        svgdata = [
-          [
-            {
-              svposition: [1],
-              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-              units: {
-                1: {
-                  1: 49,
-                  2: 55,
-                  3: 61,
-                  4: 67,
-                  5: 73,
-                  6: 80,
-                  7: 85,
-                  8: 90,
-                  9: 98,
-                  10: 113,
-                  11: 142,
-                  12: 152
-                }
-              }
-            }
-          ]
-        ];
+        svgdata = buildingModel.get('svgdata');
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
         $.each(svgdata, function(index, value) {
-          return $.each(value, function(ind, val) {
-            return $.map(val.svposition, function(index1, val1) {
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
               var unitsarray;
-              if (position === index1) {
-                svgposition = val.svgfile;
-                unitsarray = val.units;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
                 return indexvalue = unitsarray[position];
               }
             });
-          });
+          }
         });
         flatid = $('#' + e.target.id).attr('data-id');
         unit = indexvalue[parseInt(flatid)];
@@ -223,44 +174,21 @@ define(['marionette'], function(Marionette) {
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
-        svgdata = [
-          [
-            {
-              svposition: [1],
-              svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-              units: {
-                1: {
-                  1: 49,
-                  2: 55,
-                  3: 61,
-                  4: 67,
-                  5: 73,
-                  6: 80,
-                  7: 85,
-                  8: 90,
-                  9: 98,
-                  10: 113,
-                  11: 142,
-                  12: 152
-                }
-              }
-            }
-          ]
-        ];
+        svgdata = buildingModel.get('svgdata');
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
         $.each(svgdata, function(index, value) {
-          return $.each(value, function(ind, val) {
-            return $.map(val.svposition, function(index1, val1) {
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
               var unitsarray;
-              if (position === index1) {
-                svgposition = val.svgfile;
-                unitsarray = val.units;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
                 return indexvalue = unitsarray[position];
               }
             });
-          });
+          }
         });
         flatid = $('#' + e.target.id).attr('data-id');
         unit = indexvalue[parseInt(flatid)];
@@ -569,44 +497,17 @@ define(['marionette'], function(Marionette) {
     });
 
     ScreenThreeLayout.prototype.loadbuildingsvg = function() {
-      var buildinArray, building, buildingCollection, buildingModel, path, svgdata, svgpath;
+      var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, path, svgdata;
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
       console.log(building = _.first(buildinArray));
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
-      svgpath = buildingModel.get('svgfile');
-      svgdata = [
-        [
-          {
-            svposition: [1],
-            svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-            units: [
-              {
-                1: [
-                  {
-                    1: 49,
-                    2: 55,
-                    3: 61,
-                    4: 67,
-                    5: 73,
-                    6: 80,
-                    7: 85,
-                    8: 90,
-                    9: 98,
-                    10: 113,
-                    11: 142,
-                    12: 152
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      ];
-      if (buildingModel.get('id') === 11) {
-        path = "../wp-content/uploads/2014/08/image/floor.svg";
+      svgdata = buildingModel.get('svgdata');
+      floor_layout_Basic = buildingModel.get('floor_layout_basic').thumbnail_url;
+      if (floor_layout_Basic !== "") {
+        path = floor_layout_Basic;
         $('<div></div>').load(path, function(x) {
           $('#' + 1).attr('class', 'floor-pos position');
           return unitAssigedArray.push("1");
@@ -618,7 +519,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, flag, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgpath, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgposition, unitvalues;
       console.log(floorid);
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       console.log(buildinArray = buildingCollection.toArray());
@@ -630,91 +531,67 @@ define(['marionette'], function(Marionette) {
       lowrange = floorange[0];
       mediumrange = floorange[1];
       highrange = floorange[2];
-      svgpath = buildingModel.get('svgfile');
-      svgdata = [
-        [
-          {
-            svposition: [1],
-            svgfile: "../wp-content/uploads/2014/08/image/floor-pos-1.svg",
-            units: {
-              1: {
-                1: 49,
-                2: 55,
-                3: 61,
-                4: 67,
-                5: 73,
-                6: 80,
-                7: 85,
-                8: 90,
-                9: 98,
-                10: 113,
-                11: 142,
-                12: 152
-              }
-            }
-          }
-        ]
-      ];
-      if (buildingModel.get('id') === 11) {
-        if (floorid === void 0) {
-          floorid = 1;
-        }
+      svgdata = buildingModel.get('svgdata');
+      console.log(svgdata);
+      if (floorid === void 0) {
+        floorid = 1;
       }
       svgposition = "";
       unitvalues = "";
       indexvalue = "";
-      flag = 0;
       $('#positionsvg').text("");
       $.each(svgdata, function(index, value) {
         console.log(value);
-        return $.each(value, function(ind, val) {
-          console.log(val);
-          return $.map(val.svposition, function(index1, val1) {
+        console.log(value.svgposition);
+        if (value.svgposition !== null) {
+          return $.each(value.svgposition, function(index1, val1) {
             var unitsarray;
             console.log(index1);
-            if (floorid === index1) {
-              flag = 1;
-              svgposition = val.svgfile;
-              console.log(unitsarray = val.units);
+            console.log(floorid);
+            if (floorid === parseInt(val1)) {
+              svgposition = value.svgfile;
+              console.log(unitsarray = value.units);
               console.log(indexvalue = unitsarray[floorid]);
-              return $('#positionsvg').load(svgposition, function(x) {
-                var i, rangClass;
-                $.map(indexvalue, function(index, value) {
-                  return $('#f' + value).attr('class', 'disable');
+              if (value.svgfile !== "") {
+                return $('#positionsvg').load(svgposition, function(x) {
+                  var i, rangClass;
+                  $.map(indexvalue, function(index, value) {
+                    return $('#f' + value).attr('class', 'disable');
+                  });
+                  $.map(indexvalue, function(index, value) {
+                    var floorArr;
+                    if (App.defaults['floor'] !== "All") {
+                      floorArr = App.defaults['floor'].split(',');
+                      return $.each(floorArr, function(ind, val) {
+                        console.log(value);
+                        console.log(val);
+                        if (parseInt(value) === parseInt(val)) {
+                          return $('#f' + value).attr('class', 'unit-hover');
+                        }
+                      });
+                    } else {
+                      return $('#f' + value).attr('class', 'unit-hover');
+                    }
+                  });
+                  rangClass = ['lowrange', 'mediumrange', 'highrange'];
+                  i = 0;
+                  console.log(floorange);
+                  return $.each(floorange, function(index, value) {
+                    var end, start;
+                    console.log(start = parseInt(value.start));
+                    console.log(end = parseInt(value.end));
+                    console.log(rangClass[i]);
+                    while (parseInt(start) <= parseInt(end)) {
+                      $('#f' + start).attr('data-class', rangClass[i]);
+                      start++;
+                    }
+                    return i++;
+                  });
                 });
-                $.map(indexvalue, function(index, value) {
-                  var floorArr;
-                  if (App.defaults['floor'] !== "All") {
-                    floorArr = App.defaults['floor'].split(',');
-                    return $.each(floorArr, function(ind, val) {
-                      console.log(value);
-                      console.log(val);
-                      if (parseInt(value) === parseInt(val)) {
-                        return $('#f' + value).attr('class', 'unit-hover');
-                      }
-                    });
-                  } else {
-                    return $('#f' + value).attr('class', 'unit-hover');
-                  }
-                });
-                rangClass = ['lowrange', 'mediumrange', 'highrange'];
-                i = 0;
-                console.log(floorange);
-                return $.each(floorange, function(index, value) {
-                  var end, start;
-                  console.log(start = parseInt(value.start));
-                  console.log(end = parseInt(value.end));
-                  console.log(rangClass[i]);
-                  while (parseInt(start) <= parseInt(end)) {
-                    $('#f' + start).attr('data-class', rangClass[i]);
-                    start++;
-                  }
-                  return i++;
-                });
-              });
+              }
             }
           });
-        });
+        }
       });
       return position = floorid;
     };
@@ -982,6 +859,7 @@ define(['marionette'], function(Marionette) {
                 positionassigend = value;
                 console.log('value' + value);
                 $("#f" + value).attr('class', 'selected-flat');
+                $("#t" + value).attr('class', 'selected-flat');
                 return $('#t' + value).text(object.model.get('name'));
               }
             });

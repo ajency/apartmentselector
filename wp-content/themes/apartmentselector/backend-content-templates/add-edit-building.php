@@ -53,6 +53,8 @@ $heading = "Edit";
  
     $building_floorriserange = $building["floorriserange"]; 
  
+    $building_svgdata = $building["svgdata"]; 
+ 
     if(is_array($building_floorriserange)){
  
        $building_lowrisefrom = $building_floorriserange["low"]["start"];
@@ -366,16 +368,16 @@ $heading = "Edit";
                             </label>  <span class="btn btn-success fileinput-button">
                             
                             <span>Select file..</span>
-                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                            <input type="hidden" class="svg_position_file_1" id="svg_position_file_1" name="svg_position_file_1" value="<?php echo @$building_svgdata[0]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_1" class="fileuploadsvg_position_file_1" type="file" name="files">
                         </span> 
-                        <div id="progressfloor_layout_basic" class="progress" >
+                        <div id="progresssvg_position_file_1" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
-                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <div id="filessvg_position_file_1" class="files"></div>
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[0]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_1" <?php if(@$building_svgdata[0]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
                             </div>
                         </div>
                     </div>
@@ -383,7 +385,28 @@ $heading = "Edit";
                 <div class="col-md-12">
                     <div class="well input-with-icon  right" >
                            <div class="row-fluid" > 
-                                <div class="row flat-positions">
+                                <div class="row flat-positions" item-id="1">
+                                <?php
+
+                                    for ($flat=1;$flat<=$no_of_flats;$flat++){
+                                        $checked="";
+
+                                        if(isset($building_svgdata[0]['svgposition'])){
+
+                                            if(in_array($flat,$building_svgdata[0]['svgposition'])){
+                                                $checked="checked";
+                                            }
+                                        }
+                                        ?>
+                                        <div class='col-md-4 flatposition<?php echo $flat;?>'>
+                                                <div class='checkbox check-default' >
+                                                        <input type='checkbox' name='flatpostion-1[]' id='flatpostion<?php echo $flat;?>-1' value='<?php echo $flat;?>' <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-1'><?php echo $flat;?></label>
+                                                </div>
+                                        </div>
+                                        <?php
+
+                                    }
+                                ?>
                                 </div>
                           </div> 
                     </div>
@@ -399,16 +422,16 @@ $heading = "Edit";
                             </label>  <span class="btn btn-success fileinput-button">
                             
                             <span>Select file..</span>
-                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                            <input type="hidden" class="svg_position_file_2" id="svg_position_file_2" name="svg_position_file_2" value="<?php echo @$building_svgdata[1]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_2" class="fileuploadsvg_position_file_2" type="file" name="files">
                         </span> 
-                        <div id="progressfloor_layout_basic" class="progress" >
+                        <div id="progresssvg_position_file_2" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
-                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <div id="filessvg_position_file_2" class="files"></div>
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[1]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_2" <?php if(@$building_svgdata[1]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
                             </div>
                         </div>
                     </div>
@@ -416,7 +439,27 @@ $heading = "Edit";
                 <div class="col-md-12">
                     <div class="well input-with-icon  right" >
                            <div class="row-fluid" > 
-                                <div class="row flat-positions">
+                                <div class="row flat-positions" item-id="2">
+                                <?php
+                                    for ($flat=1;$flat<=$no_of_flats;$flat++){
+                                         $checked="";
+
+                                        if(isset($building_svgdata[1]['svgposition'])){
+
+                                            if(in_array($flat,$building_svgdata[1]['svgposition'])){
+                                                $checked="checked";
+                                            }
+                                        }
+                                        ?>
+                                        <div class='col-md-4 flatposition<?php echo $flat;?>'>
+                                                <div class='checkbox check-default' >
+                                                        <input type='checkbox' name='flatpostion-2[]' id='flatpostion<?php echo $flat;?>-2' value='<?php echo $flat;?>'  <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-2'><?php echo $flat;?></label>
+                                                </div>
+                                        </div>
+                                        <?php
+
+                                    }
+                                ?>
                                 </div>
                           </div> 
                     </div>
@@ -432,16 +475,16 @@ $heading = "Edit";
                             </label>  <span class="btn btn-success fileinput-button">
                             
                             <span>Select file..</span>
-                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                            <input type="hidden" class="svg_position_file_3" id="svg_position_file_3" name="svg_position_file_3" value="<?php echo @$building_svgdata[2]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_3" class="fileuploadsvg_position_file_3" type="file" name="files">
                         </span> 
-                        <div id="progressfloor_layout_basic" class="progress" >
+                        <div id="progresssvg_position_file_3" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
-                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <div id="filessvg_position_file_3" class="files"></div>
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[2]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_3" <?php if(@$building_svgdata[2]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
                             </div>
                         </div>
                     </div>
@@ -449,7 +492,27 @@ $heading = "Edit";
                 <div class="col-md-12">
                     <div class="well input-with-icon  right" >
                            <div class="row-fluid" > 
-                                <div class="row flat-positions">
+                                <div class="row flat-positions" item-id="3">
+                                <?php
+                                    for ($flat=1;$flat<=$no_of_flats;$flat++){
+                                         $checked="";
+
+                                        if(isset($building_svgdata[2]['svgposition'])){
+
+                                            if(in_array($flat,$building_svgdata[2]['svgposition'])){
+                                                $checked="checked";
+                                            }
+                                        }
+                                        ?>
+                                        <div class='col-md-4 flatposition<?php echo $flat;?>'>
+                                                <div class='checkbox check-default' >
+                                                        <input type='checkbox' name='flatpostion-3[]' id='flatpostion<?php echo $flat;?>-3' value='<?php echo $flat;?>'  <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-3'><?php echo $flat;?></label>
+                                                </div>
+                                        </div>
+                                        <?php
+
+                                    }
+                                ?>
                                 </div>
                           </div>  
                     </div>
@@ -465,16 +528,16 @@ $heading = "Edit";
                             </label>  <span class="btn btn-success fileinput-button">
                             
                             <span>Select file..</span>
-                            <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
+                            <input type="hidden" class="svg_position_file_4" id="svg_position_file_4" name="svg_position_file_4" value="<?php echo @$building_svgdata[3]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_4" class="fileuploadsvg_position_file_4" type="file" name="files">
                         </span> 
-                        <div id="progressfloor_layout_basic" class="progress" >
+                        <div id="progresssvg_position_file_4" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
-                        <div id="filesfloor_layout_basic" class="files"></div>
+                        <div id="filessvg_position_file_4" class="files"></div>
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[3]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_4" <?php if(@$building_svgdata[3]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
                             </div>
                         </div>
                     </div>
@@ -482,7 +545,27 @@ $heading = "Edit";
                 <div class="col-md-12">
                     <div class="well input-with-icon  right" >
                            <div class="row-fluid" > 
-                                <div class="row flat-positions">
+                                <div class="row flat-positions" item-id="4">
+                                <?php
+                                    for ($flat=1;$flat<=$no_of_flats;$flat++){
+                                                           $checked="";
+
+                                        if(isset($building_svgdata[3]['svgposition'])){
+
+                                            if(in_array($flat,$building_svgdata[3]['svgposition'])){
+                                                $checked="checked";
+                                            }
+                                        }
+                                        ?>
+                                        <div class='col-md-4 flatposition<?php echo $flat;?>'>
+                                                <div class='checkbox check-default' >
+                                                        <input type='checkbox' name='flatpostion-4[]' id='flatpostion<?php echo $flat;?>-4' value='<?php echo $flat;?>'  <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-4'><?php echo $flat;?></label>
+                                                </div>
+                                        </div>
+                                        <?php
+
+                                    }
+                                ?>
                                 </div>
                           </div>  
                     </div>

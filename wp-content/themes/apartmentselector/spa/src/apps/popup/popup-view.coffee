@@ -51,42 +51,31 @@ define [ 'marionette' ], ( Mariontte )->
 
                                 <!--Room Area-->
                                 <ul>
+                                {{#mainArr}}
                                     <li>
-                                        -
-                                    </li>
+                                    <ul>
+                                    {{#subarray}}
+                                    
                                     <li>
-                                        -
+                                    {{room_size}}
                                     </li>
-                                    <li>
-                                        -
+                                     {{/subarray}}
+                                    </ul>
+                                   
                                     </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
-                                    <li>
-                                        -
-                                    </li>
+                                {{/mainArr}}    
                                 </ul>
 
         						<!--Layouts-->
         						<ul class="layouts">
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="{{TwoDimage}}"><img src="{{TwoDimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - {{name}}" href="{{TwoDimage}}"><img src="{{TwoDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 1001" href="{{ThreeDimage}}"><img src="{{ThreeDimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="3dlayout" title="3D Layout - {{name}}" href="{{ThreeDimage}}"><img src="{{ThreeDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="2dlayout" title="2D Layout - 3001" href="{{floorLayoutimage}}"><img src="{{floorLayoutimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="floorlayout" title="Floor Layout - {{name}}" href="{{floorLayoutimage}}"><img src="{{floorLayoutimage}}" alt=""></a>
                                     </li>
         						</ul>'
 
@@ -141,29 +130,21 @@ define [ 'marionette' ], ( Mariontte )->
                             <div class="compareHeader"><span class="sky-expand"></span> Room Area <small>(Sq. Ft.)</small></div>
                             <ul>
                                 <li>
-                                    Bedroom 1
+                                    Living/Dining 
                                 </li>
                                 <li>
-                                    Bedroom 2
+                                    Bedroom
                                 </li>
                                 <li>
-                                    Bedroom 3
+                                    Bathroom
                                 </li>
                                 <li>
-                                    Bathroom 1
+                                    Terrace
                                 </li>
                                 <li>
-                                    Bathroom 2
+                                    Lobby
                                 </li>
-                                <li>
-                                    Study
-                                </li>
-                                <li>
-                                    Hall
-                                </li>
-                                <li>
-                                    Kitchen
-                                </li>
+                                
                             </ul>
             				<div class="compareHeader"><span class="glyphicon glyphicon-picture"></span> Layouts</div>
             				<ul>
@@ -195,6 +176,10 @@ define [ 'marionette' ], ( Mariontte )->
         events:
             'click a':(e)->
                 e.preventDefault()
+
+        onShow:->
+            $(".2dlayout").fancybox()
+
 
 
 

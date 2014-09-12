@@ -334,6 +334,34 @@ function save_extra_building_fields( $term_id ) {
         $milestone_completion[$payment_plan_milestone["milestone"]] =  $_REQUEST["milestone_completion_".$payment_plan_milestone["milestone"]] ;
 
     }
+
+    //SVG Positions
+
+    $svg_position_file_1 = $_REQUEST["svg_position_file_1"];
+
+    $flat_position_1 = $_REQUEST["flatpostion-1"];
+
+    $svg_position_file_2 = $_REQUEST["svg_position_file_2"];
+
+    $flat_position_2 = $_REQUEST["flatpostion-2"];
+    
+    $svg_position_file_3 = $_REQUEST["svg_position_file_3"];
+
+    $flat_position_3 = $_REQUEST["flatpostion-3"];
+    
+    $svg_position_file_4 = $_REQUEST["svg_position_file_4"];
+
+    $flat_position_4 = $_REQUEST["flatpostion-4"];
+
+    $svg_data = array(
+                        array('svgposition'=>$flat_position_1,"svgfile"=>$svg_position_file_1 ),
+                        array('svgposition'=>$flat_position_2,"svgfile"=>$svg_position_file_2 ),
+                        array('svgposition'=>$flat_position_3,"svgfile"=>$svg_position_file_3 ),
+                        array('svgposition'=>$flat_position_4,"svgfile"=>$svg_position_file_4 ),
+
+                );
+
+
         //save the option array
 
 
@@ -363,6 +391,7 @@ function save_extra_building_fields( $term_id ) {
 
     update_option( "building_".$term_id."_floorrise_range", $floorrise_range ); 
 
+    update_option( "building_".$term_id."_svg_data", $svg_data );
 
     return;
 }
@@ -474,6 +503,13 @@ function get_buildings($ids=array())
 
         $floor_exception_positions = get_option( "building_".$category->term_id."_exceptions");
  
+        $svg_data = get_option( "building_".$category->term_id."_svg_data");
+
+        $svg_data = get_svg_data_images($svg_data);
+
+        $svg_data = get_svg_data_format($svg_data,$category->term_id);
+
+ 
 
        $building_exceptions_updated = array();
        
@@ -499,7 +535,7 @@ function get_buildings($ids=array())
 
         $floorrise_range = format_floorrise_range(maybe_unserialize(get_option( "building_".$category->term_id."_floorrise_range")));
     
-        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"floor_layout_basic"=>$floor_layout_basic,"floor_layout_detailed"=>$floor_layout_detailed,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views,'payment_plan'=>intval($building_payment_plan),'milestone'=>intval($building_milestone),'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion);
+        $buildings[] = array('id'=>intval($category->term_id),"name"=>$category->name,"phase"=>intval($building_phase),"nooffloors"=>$building_no_of_floors,"floorrise"=> array_map('floatval', $building_floor_rise),"positioninproject"=>$position_in_project,"floor_layout_basic"=>$floor_layout_basic,"floor_layout_detailed"=>$floor_layout_detailed,'floorpositions'=>$floor_positions,'floorexceptionpositions'=>$floor_exception_positions,'views'=>$building_views,'payment_plan'=>intval($building_payment_plan),'milestone'=>intval($building_milestone),'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion,'svgdata'=>$svg_data);
 
     }
 
@@ -631,6 +667,10 @@ function get_building_by_id($building_id){
 
     $floor_layout_detailed = get_image_paths(get_option( "building_".$building_id."_floor_layout_detailed",0));
         
+    $svg_data = maybe_unserialize(get_option( "building_".$building_id."_svg_data",0));
+    
+    $svg_data = get_svg_data_images($svg_data);
+
     $building_views = get_option('building_'.$building_id.'_views');  
 
     $building_views = is_array($building_views)?$building_views:array();
@@ -662,9 +702,59 @@ function get_building_by_id($building_id){
    
     $floorrise_range =  (maybe_unserialize(get_option( "building_".$building_id."_floorrise_range")));
     
-   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'floor_layout_basic'=>$floor_layout_basic ,'floor_layout_detailed'=>$floor_layout_detailed ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone,'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion);
+   $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'floor_layout_basic'=>$floor_layout_basic ,'floor_layout_detailed'=>$floor_layout_detailed ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone,'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion,'svgdata'=>$svg_data);
  
    return ($result);
+}
+
+
+
+function get_svg_data_images($svg_data){
+
+    $svg_data_return = array();
+    if (is_array($svg_data)){
+
+        foreach($svg_data as $svg_item){
+
+        $svg_item["svgfile"] =  get_image_paths($svg_item["svgfile"]);
+
+        $svg_data_return[] = $svg_item;
+
+        }
+    }
+    
+
+    return $svg_data_return;
+}
+
+
+function get_svg_data_format($svg_data,$building){
+
+    $svg_data_return = array();
+
+    if (is_array($svg_data)){
+
+        foreach($svg_data as $svg_item){
+
+            $units = array();
+            foreach($svg_item["svgposition"] as $svgposition){
+
+                    
+                    $units[$svgposition] = get_building_unit_assigned_to_position($building,$svgposition);
+                    
+            }
+            $svg_item["units"] =  $units;
+
+            $svg_item["svgposition"] = array_map('intval', $svg_item["svgposition"]);
+
+            $svg_item["svgfile"] = $svg_item["svgfile"]["image_url"];
+
+            $svg_data_return[] = $svg_item;
+
+        }
+    }
+
+    return $svg_data_return;
 }
 
 
