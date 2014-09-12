@@ -118,6 +118,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             console.log(value1);
             return [index];
           });
+          console.log(roomSizesArray);
           roomsizearr = [];
           mainArr = [];
           console.log(roomsizesCollection = new Backbone.Collection(roomSizesArray));

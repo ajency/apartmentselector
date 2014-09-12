@@ -92,12 +92,13 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     roomSizesArray = $.map(roomSizesObject, (index,value1)->
                         console.log index
                         console.log value1
-                        return [index]
+                        [index]
 
 
 
 
                     )
+                    console.log roomSizesArray
                     roomsizearr = []
                     mainArr = []
                     console.log roomsizesCollection = new Backbone.Collection roomSizesArray
