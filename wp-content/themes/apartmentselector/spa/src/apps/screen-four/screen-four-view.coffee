@@ -181,45 +181,38 @@ define [ 'marionette' ], ( Marionette )->
         events:->
             'click #list':(e)->
 
-                console.log App.unit['name']
-
-                console.log cookieOldValue = $.cookie("key")
-                console.log typeof cookieOldValue
+                cookieOldValue = $.cookie("key")
                 if cookieOldValue == undefined || $.cookie("key") == ""
                     cookieOldValue = ""
                 else
-                    console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                         parseInt(item)
                     )
-                console.log cookieOldValue.length
                 if cookieOldValue.length >= 4
                     $('#errormsg' ).text "Cannot add more than 4 units"
                     return false
                 else
 
-                    console.log key = $.inArray(parseInt(App.unit['name']) , cookieOldValue)
+                    key = $.inArray(parseInt(App.unit['name']) , cookieOldValue)
 
                     if parseInt(key) == -1
                         $('#errormsg' ).text ""
                         App.cookieArray.push(parseInt(App.unit['name']))
                         $('#list').addClass "remove"
                     else
-                        console.log "Already entered"
                         $('#errormsg' ).text "Already entered"
                         $('#errormsg' ).addClass "inline"
                         $('#list').removeClass "remove"
                         return false
-                    console.log App.cookieArray
-                    console.log App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
-                    console.log App.cookieArray = _.uniq(App.cookieArray)
+                    App.cookieArray = $.merge(App.cookieArray,cookieOldValue)
+                    App.cookieArray = _.uniq(App.cookieArray)
                     $.cookie('key',App.cookieArray)
                     localStorage.setItem("cookievalue", App.cookieArray)
-                    console.log $.cookie("key")
                     $('#errormsg' ).text "The selected flat has been added to your WishList"
                     $('#errormsg' ).addClass "inline"
 
                 cart = $("#showRightPush")
-                console.log imgtodrag = $('.remove').find(".skyicon")
+                imgtodrag = $('.remove').find(".skyicon")
                 if imgtodrag
                     imgclone = imgtodrag.clone().offset(
                         top: imgtodrag.offset().top
@@ -247,9 +240,8 @@ define [ 'marionette' ], ( Marionette )->
 
                 @showWishList()
             'click .del':(e)->
-                console.log App.cookieArray
-                console.log val = $('#'+e.target.id).attr('data-id')
-                console.log index = App.cookieArray.indexOf( parseInt(val) )
+                val = $('#'+e.target.id).attr('data-id')
+                index = App.cookieArray.indexOf( parseInt(val) )
                 App.cookieArray.splice( index, 1 )
                 if App.cookieArray.length <= 1
                     $('#compare').hide()
@@ -258,7 +250,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#errormsg' ).text ""
 
 
-                console.log $.cookie('key')
+                
 
                 @showWishList()
             'click a':(e)->
@@ -278,7 +270,7 @@ define [ 'marionette' ], ( Marionette )->
                 unitModel = App.master.unit.findWhere({id:parseInt($('#'+e.target.id ).attr('data-id'))})
                 App.defaults['unitType'] = unitModel.get 'unitType'
                 App.defaults['building'] =  unitModel.get 'building'
-                console.log rangeModel = App.master.range
+                rangeModel = App.master.range
                 App.backFilter['screen3'].push("floor")
                 App.backFilter['screen2'].push("floor","unitVariant")
                 buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
@@ -296,13 +288,12 @@ define [ 'marionette' ], ( Marionette )->
                         i++
                     rangeArrayVal
                     if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
-                        console.log "aaaaaaaaaaa"
                         App.defaults['floor'] = rangeArrayVal.join(',')
 
 
 
                 )
-                console.log App.defaults
+                
 
                 msgbus.showApp 'header'
                 .insideRegion  App.headerRegion
@@ -329,7 +320,6 @@ define [ 'marionette' ], ( Marionette )->
 
             $(document).on('open', '.remodal',  () ->
                 $('.radioClass').on('click' , ()->
-                    console.log $('input[name=discountradio]:checked').val()
                     if parseInt($('input[name=discountradio]:checked').val()) == 1
                         $('#discountvalue').removeClass "hidden"
                         $('#discountper').addClass "hidden"
@@ -366,16 +356,14 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 $('#infra').on('change' , ()->
-                    console.log "qqqqqqqqqqqqq"
-                    console.log infraid = $('#infra' ).val()
+                    infraid = $('#infra' ).val()
                     object.updated()
 
 
 
                 )
                 $('#infra1').on('change' , ()->
-                    console.log "qqqqqqqqqqqqq"
-                    console.log infraid = $('#infra' ).val()
+                    infraid = $('#infra' ).val()
                     object.updated()
 
 
@@ -402,18 +390,17 @@ define [ 'marionette' ], ( Marionette )->
             $('html, body').delay(800).animate({
                 scrollTop: $('#screen-four-region').offset().top
             }, 'slow')
-            console.log cookieOldValue = $.cookie("key")
-            console.log typeof cookieOldValue
+            cookieOldValue = $.cookie("key")
             if cookieOldValue == undefined || $.cookie("key") == ""
                 cookieOldValue = []
             else
-                console.log cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
                     parseInt(item)
                 )
             App.cookieArray = cookieOldValue
             @showWishList()
             object = @
-            #@generateCostSheet()
+            @generateCostSheet()
             perFlag = ""
             costSheetArray = []
             flag = 0
@@ -421,9 +408,8 @@ define [ 'marionette' ], ( Marionette )->
 
         showWishList:->
             table = ""
-            console.log typeof $.cookie("key")
             if $.cookie("key")!= undefined && $.cookie("key") != ""
-                console.log selectedUnitsArray = $.cookie("key").split(",")
+                selectedUnitsArray = $.cookie("key").split(",")
                 if selectedUnitsArray.length > 1
                     $('#compare').show()
                 table = ""
@@ -439,19 +425,16 @@ define [ 'marionette' ], ( Marionette )->
                             </li>'
 
                 # table += '</table>'
-            console.log table
             $('#showWishlist').html table
 
         onShowCostSheet:(value)->
-            console.log units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             @generateCostSheet()
             viewModelArray = []
             facingModelArray = []
-            console.log value.views
             units.set 'views_name' , value.views
             if value.views.length != 0
                 viewsArray = value.views
-                console.log viewsArray
                 for element in viewsArray
                     viewModel = App.master.view.findWhere({id:parseInt(element)})
                     viewModelArray.push(viewModel.get('name'))
@@ -467,7 +450,7 @@ define [ 'marionette' ], ( Marionette )->
 
             else
                 facingModelArray.push('-----')
-            console.log units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             $('.facingclass').text facingModelArray.join(', ')
 
 
@@ -476,22 +459,18 @@ define [ 'marionette' ], ( Marionette )->
         generateCostSheet:->
             $('#costSheetTable' ).text ""
             costSheetArray = []
-            console.log App.unit['name']
             usermodel = new Backbone.Model USER
             $('.preparedby').text usermodel.get 'display_name'
             date = new Date()
             $('.preparedon').text date.getDate()+'/'+(parseInt(date.getMonth()) + 1)+'/'+date.getFullYear()
-            console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             $('.flatno').text unitModel.get 'name'
             
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
             costSheetArray.push(unitModel.get('persqftprice'))
             discount = 0
-            console.log perFlag
             if perFlag== 1
-                console.log parseFloat(uniVariantModel.get('sellablearea'))
-                console.log parseFloat(unitModel.get('persqftprice'))
                 discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
                 pervalue = parseFloat($('#discountper').val())/100
@@ -510,8 +489,8 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(discount)
             table = ""
             $('.building').text buildingModel.get 'name'
-            console.log planselectedValue = buildingModel.get('payment_plan')
-            console.log milestoneselectedValue = buildingModel.get('milestone')
+            planselectedValue = buildingModel.get('payment_plan')
+            milestoneselectedValue = buildingModel.get('milestone')
             $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             #$("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1=$('#paymentplans').val()
@@ -524,12 +503,10 @@ define [ 'marionette' ], ( Marionette )->
             sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
-            console.log membership_feesColl = new Backbone.Collection membership_fees
-            console.log parseInt(unitModel.get('unitType'))
-            console.log parseInt(unitModel.get('unitVariant'))
-            console.log unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
+            membership_feesColl = new Backbone.Collection membership_fees
+            unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
             if unitTypeMemeber.get('membership_fees') == 0
-                console.log unitVariantMemeber = unitTypeMemeber.get('unit_variant')
+                unitVariantMemeber = unitTypeMemeber.get('unit_variant')
                 unitVariantMemeberColl = new Backbone.Collection unitVariantMemeber
                 univariantmem = unitVariantMemeberColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
                 membershipfees = univariantmem.get('membership_fees')
@@ -544,7 +521,7 @@ define [ 'marionette' ], ( Marionette )->
                 else
                     selected = ""
                 infratxt += '<option value="'+element+'" '+selected+'>'+element+'</option>'
-            console.log infratxt
+            
 
             basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]))
             
@@ -618,11 +595,10 @@ define [ 'marionette' ], ( Marionette )->
             $('#costSheetTable' ).append table
             $('#infra' ).append infratxt
             $('#infra1' ).append infratxt
-            console.log infraid
+            
 
 
             table = ""
-            console.log $('#infra').val()
             agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
@@ -638,25 +614,23 @@ define [ 'marionette' ], ( Marionette )->
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt($('#paymentplans').val()))
             milestonesArray = milestones.get('milestones')
-            console.log milestonesArrayColl = new Backbone.Collection milestonesArray
-            console.log milestoneselectedValue
-            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+            milestonesArrayColl = new Backbone.Collection milestonesArray
+            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
-            console.log milestoneCollection = new Backbone.Collection MILESTONES
+            milestoneCollection = new Backbone.Collection MILESTONES
             if milestonemodel == undefined
-                console.log milesotneVal = _.first(milestonesArray)
-                console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
-                console.log milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
+                milesotneVal = _.first(milestonesArray)
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
                 $('.currentmile').text milestonename.get 'name'
                 
             else
-                console.log milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
+                milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
                 $('.currentmile').text milstoneModelName.get 'name'
             
 
-            console.log milestonesArray
             milestoneColl = new Backbone.Collection MILESTONES
             count = 0
             for element in milestonesArray
@@ -671,7 +645,6 @@ define [ 'marionette' ], ( Marionette )->
 
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
             finalcost = parseFloat(totalcost) + parseFloat(maintenance)
-            console.log table
             $('.totalcost').text totalcost
             $('.rec').text count
             table += '  <div class="costsRow totals">
@@ -805,15 +778,13 @@ define [ 'marionette' ], ( Marionette )->
             object.generatePaymentSchedule(id)
             #object.getMilestones(id1)
             $('#infra').on('change' , ()->
-                console.log "qqqqqqqqqqqqq"
-                console.log infraid = $('#infra' ).val()
+                infraid = $('#infra' ).val()
                 object.updated()
 
 
             )
             $('#infra1').on('change' , ()->
-                console.log "qqqqqqqqqqqqq"
-                console.log infraid = $('#infra' ).val()
+                infraid = $('#infra' ).val()
                 object.updated()
 
 
@@ -846,7 +817,6 @@ define [ 'marionette' ], ( Marionette )->
         generatePaymentSchedule:(id)->
             flag = 0
             #get_apratment_selector_settings()
-            console.log id
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             milestonecompletion = buildingModel.get 'milestonecompletion'
@@ -854,8 +824,8 @@ define [ 'marionette' ], ( Marionette )->
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
-            console.log milestonesArrayColl = new Backbone.Collection milestonesArray
-            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+            milestonesArrayColl = new Backbone.Collection milestonesArray
+            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
@@ -864,17 +834,15 @@ define [ 'marionette' ], ( Marionette )->
 
             if milestonemodel == undefined
                 flag = 1
-                console.log "unnnn"
-                console.log milesotneVal = _.first(milestonesArray)
-                console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
-                console.log milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
+                milesotneVal = _.first(milestonesArray)
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
                 $('.currentmile').text milestonename.get 'name'
             else
                 milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
                 $('.currentmile').text milstoneModelName.get 'name'
 
 
-            console.log milestonesArray
             table = ""
             count = 0
             milestoneColl = new Backbone.Collection MILESTONES
@@ -882,9 +850,7 @@ define [ 'marionette' ], ( Marionette )->
             for element in milestonesArray
                 percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
                 percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
-                console.log proposed_date = $.map(milestonecompletion, (index,value)->
-                    console.log element.milestone
-                    console.log value
+                proposed_date = $.map(milestonecompletion, (index,value)->
                     if parseInt(element.milestone) == parseInt(value)
                         return index
 
@@ -900,7 +866,7 @@ define [ 'marionette' ], ( Marionette )->
                 if flag == 1
                     trClass = ""
 
-                console.log milestoneModel = milestoneColl.get(element.milestone)
+                milestoneModel = milestoneColl.get(element.milestone)
                 table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
                             <li class="milestoneList '+trClass+'">
                                 <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
@@ -913,7 +879,6 @@ define [ 'marionette' ], ( Marionette )->
                                             <td>'+percentageValue1+'</td><td>'+percentageValue+'</td></tr>--> '
             $('#rec' ).text count
             $('.rec' ).text count
-            console.log $('#payment' ).val()
             if parseInt($('#payment' ).val()) == 0
                 addon = 0
 
@@ -933,26 +898,21 @@ define [ 'marionette' ], ( Marionette )->
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
-            console.log milestonesArray
             milestoneColl = new Backbone.Collection MILESTONES
             for element in milestonesArray
-                console.log milestoneModel = milestoneColl.get(element.milestone)
+                milestoneModel = milestoneColl.get(element.milestone)
                 milesstones += '<option value="'+element.milestone+'">'+milestoneModel.get('name')+'</option>'
             $('#milestones' ).append milesstones
 
         updated:->
 
             costSheetArray = []
-            console.log App.unit['name']
-            console.log unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
             costSheetArray.push(unitModel.get('persqftprice'))
             discount = 0
-            console.log perFlag
             if perFlag== 1
-                console.log parseFloat(uniVariantModel.get('sellablearea'))
-                console.log parseFloat(unitModel.get('persqftprice'))
                 discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
                 pervalue = parseFloat($('#discountper').val())/100
@@ -966,8 +926,8 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(discount)
             table = ""
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
-            console.log planselectedValue = buildingModel.get('payment_plan')
-            console.log milestoneselectedValue = buildingModel.get('milestone')
+            planselectedValue = buildingModel.get('payment_plan')
+            milestoneselectedValue = buildingModel.get('milestone')
             $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1=$('#paymentplans').val()
@@ -980,12 +940,10 @@ define [ 'marionette' ], ( Marionette )->
             sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
-            console.log membership_feesColl = new Backbone.Collection membership_fees
-            console.log parseInt(unitModel.get('unitType'))
-            console.log parseInt(unitModel.get('unitVariant'))
-            console.log unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
+            membership_feesColl = new Backbone.Collection membership_fees
+            unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
             if unitTypeMemeber.get('membership_fees') == 0
-                console.log unitVariantMemeber = unitTypeMemeber.get('unit_variant')
+                unitVariantMemeber = unitTypeMemeber.get('unit_variant')
                 unitVariantMemeberColl = new Backbone.Collection unitVariantMemeber
                 univariantmem = unitVariantMemeberColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})
                 membershipfees = univariantmem.get('membership_fees')
@@ -1000,7 +958,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
             table = ""
-            console.log $('#infra').val()
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
             agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
             agreementValue1 = agreement1
@@ -1021,17 +978,15 @@ define [ 'marionette' ], ( Marionette )->
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt($('#paymentplans').val()))
             milestonesArray = milestones.get('milestones')
-            console.log milestonesArrayColl = new Backbone.Collection milestonesArray
-            console.log milestoneselectedValue
-            console.log milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+            milestonesArrayColl = new Backbone.Collection milestonesArray
+            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
             )
             if milestonemodel == undefined
-                console.log milesotneVal = _.first(milestonesArray)
+                milesotneVal = _.first(milestonesArray)
                 milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
 
-            console.log milestonesArray
             milestoneColl = new Backbone.Collection MILESTONES
             count = 0
             for element in milestonesArray
@@ -1248,7 +1203,6 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow:->
-            console.log @model.get("unitVariant")
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad",
                 autoSlide: true,

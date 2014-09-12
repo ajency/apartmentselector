@@ -97,8 +97,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             unitRegion : '#unit-region'
 
         onAfterRender:(Collection)->
-            console.log "building"
-            console.log @itemview1 = new UnitTypeChildView
+            @itemview1 = new UnitTypeChildView
                 collection : Collection[0]
 
             @itemview2 = new UnitTypeView
@@ -296,9 +295,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->
-            console.log "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
             building = Marionette.getOption( @, 'buildingColl' ).toArray()
-            console.log buidlingValue = _.first(building)
+            buidlingValue = _.first(building)
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
@@ -413,10 +411,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             i = 1
-            console.log "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
             building = Marionette.getOption( @, 'buildingColl' ).toArray()
-            console.log buidlingValue = _.first(building)
-            console.log $('#mapplic1').text()
+            buidlingValue = _.first(building)
             while (window['mapplic' + i] != undefined)
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
@@ -429,7 +425,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                 )
-                console.log defer
+                
 
 
 
@@ -473,9 +469,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             
         $(document).on("click", ".closeButton",  ()->
-                console.log object
                 theidtodel = $(this).parent('li').attr('id')
-                console.log "aaaaaaaaaaaaaaaaaaaa"
+               
 
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
@@ -498,7 +493,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 i++
 
             )
-            console.log index = key
+            index = key
             if (index >= 0)
                 tagsArray.splice(index, 1)
                 $('#li-item-' + delnum).remove()
@@ -511,7 +506,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $.map(App.backFilter, (value, index)->
 
                     if q!=1
-                        console.log index
                         screenArray  = App.backFilter[index]
                         for element in screenArray
                             if element == 'unitVariant'
@@ -527,7 +521,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate "screen-two"
                 App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
-                console.log App.defaults['unitVariant']
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
@@ -585,7 +578,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
-            console.log building = id
+            building = id
             $("#highlighttower"+building).attr('class','overlay highlight')
 
 
@@ -650,7 +643,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $.map(App.backFilter, (value, index)->
 
                     if q!=1
-                        console.log index
                         screenArray  = App.backFilter[index]
                         for element in screenArray
                             if element == 'unitVariant'
@@ -669,7 +661,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                console.log rangeArray
                 if @model.get('count') !=0
                     for element , index in rangeArray
                         if element == @model.get('range')+@model.get('buildingid')
@@ -678,8 +669,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             $("#checkrange"+element).val '0'
                             $('#range'+element).removeClass 'selected'
                             rangeArray = []
-                    console.log $("#checkrange"+@model.get('range')+@model.get('buildingid')).val()
-
+                    
                     if  parseInt($("#checkrange"+@model.get('range')+@model.get('buildingid')).val()) == 0
                         rangeArray.push @model.get('range')+@model.get('buildingid')
                         $('#range'+@model.get('range')+@model.get('buildingid')).addClass 'selected'
@@ -706,7 +696,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         )
 
 
-                        console.log rangeArrayVal
                         rangeString = rangeArrayVal.join(',')
 
 
@@ -714,7 +703,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.backFilter['screen2'].push 'floor'
                         App.defaults['building'] = parseInt(@model.get 'buildingid')
                         App.backFilter['screen2'].push 'building'
-                        console.log $('#screen-two-button')
                         $('#screen-two-button').removeClass 'disabled btn-default'
                         $("#screen-two-button").addClass 'btn-primary'
                         #@trigger 'unit:count:selected'

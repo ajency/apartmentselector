@@ -16,7 +16,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       if (opt == null) {
         opt = {};
       }
-      console.log(this.model = this._getHeader());
+      this.model = this._getHeader();
       this.view = view = this._getHeaderView(this.model);
       return this.show(view);
     };
@@ -54,7 +54,6 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       $.each(myArray, function(index, value) {
         var budget_Val, element, key, string_val, valuearr, _i, _len, _results;
         if (value.value !== 'All') {
-          console.log(value.key);
           param[value.key] = value.value;
           string_val = _.isString(value.value);
           valuearr = "";
@@ -119,14 +118,13 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
           }
         }
       });
-      console.log(templateArr);
       if (templateArr.length === 0) {
         templateArr.push('<span>All<span>');
       }
       if (flag === 1) {
-        console.log(buildingModel = App.currentStore.building.findWhere({
+        buildingModel = App.currentStore.building.findWhere({
           id: App.defaults['building']
-        }));
+        });
         floorriserange = buildingModel.get('floorriserange');
         first = _.first(trackArray);
         if (parseInt(first) >= parseInt(floorriserange[0].start) && parseInt(first) <= parseInt(floorriserange[0].end)) {

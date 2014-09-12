@@ -28,7 +28,6 @@ define(['marionette'], function(Mariontte) {
               App.defaults[element] = 'All';
             }
           }
-          console.log(UNITS);
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
@@ -43,10 +42,9 @@ define(['marionette'], function(Mariontte) {
           setTimeout(function(x) {
             return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           }, 1000);
-          console.log(App.layout.screenThreeRegion.el.innerHTML = "");
+          App.layout.screenThreeRegion.el.innerHTML = "";
           return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
         } else if (window.location.href.indexOf('screen-four') > -1) {
-          console.log(App.backFilter['screen3']);
           screenthreeArray = App.backFilter['screen3'];
           for (_j = 0, _len1 = screenthreeArray.length; _j < _len1; _j++) {
             element = screenthreeArray[_j];
@@ -55,7 +53,6 @@ define(['marionette'], function(Mariontte) {
               App.defaults[element] = App.defaults['floor'];
             }
           }
-          console.log(App.defaults);
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
@@ -63,7 +60,7 @@ define(['marionette'], function(Mariontte) {
           App.navigate("screen-three");
           e.preventDefault();
           App.filter(params = {});
-          console.log(App.layout.screenFourRegion.el.innerHTML = "");
+          App.layout.screenFourRegion.el.innerHTML = "";
           return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
         } else {
           App.backFilter['screen2'] = [];
@@ -86,13 +83,12 @@ define(['marionette'], function(Mariontte) {
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
           App.navigate("");
-          console.log(App.defaults);
           e.preventDefault();
           App.filter(params = {});
           setTimeout(function(x) {
             return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           }, 1000);
-          console.log(App.layout.screenTwoRegion.el.innerHTML = "");
+          App.layout.screenTwoRegion.el.innerHTML = "";
           return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
         }
       }
@@ -102,9 +98,7 @@ define(['marionette'], function(Mariontte) {
       var body, disableOther, flag, menuRight, menuTop, showRightPush, textString;
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
-      console.log("wwwwwwwwwww");
       flag = 0;
-      console.log(window.location.href.indexOf('wishList'));
       if (window.location.href.indexOf('wishList') > -1) {
         flag = 1;
       }
@@ -112,7 +106,6 @@ define(['marionette'], function(Mariontte) {
         var height;
         flag = 0;
         height = $(window).scrollTop();
-        console.log(flag);
         if (height === 0 && flag === 0) {
           $('.backBtn').addClass('hidden');
           $('.slctnTxt').addClass('hidden');
@@ -135,7 +128,7 @@ define(['marionette'], function(Mariontte) {
         disableOther("showRightPush");
       };
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
-        return console.log("aaaaaaaaaaa");
+        return console.log("");
       } else if (window.location.href.indexOf('wishList') > -1) {
         $('.rightBtns').addClass('hidden');
         $('.backBtn').addClass('hidden');

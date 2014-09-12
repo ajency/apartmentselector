@@ -80,7 +80,7 @@ You can compare up to 4 apartments!</div>
                     view.push $('#'+e.target.id).val()
                     viewnames.push $('#'+e.target.id).attr('data-name')
                 else
-                    console.log index = view.indexOf(($('#'+e.target.id).val()))
+                    index = view.indexOf(($('#'+e.target.id).val()))
                     if index != -1
                         view.splice( index, 1 )
                         viewnames.splice( index, 1 )
@@ -88,17 +88,15 @@ You can compare up to 4 apartments!</div>
                     viewString = view.join(',')
                 App.defaults['view'] = viewString
                 $('#viewName' ).text  viewnames.join(',')
-                console.log App.defaults
                 #App.filter(params={})
 
             'click .facing':(e)->
                 facingString = 'All'
-                console.log $('#'+e.target.id)
                 if $('#'+e.target.id).prop('checked') == true
                     facing.push $('#'+e.target.id).val()
                     facingnames.push $('#'+e.target.id).attr('data-name')
                 else
-                    console.log index = facing.indexOf(($('#'+e.target.id).val()))
+                    index = facing.indexOf(($('#'+e.target.id).val()))
                     if index != -1
                         facing.splice( index, 1 )
                         facingnames.splice( index, 1 )
@@ -106,13 +104,11 @@ You can compare up to 4 apartments!</div>
                     facingString = facing.join(',')
                 App.defaults['facing'] = facingString
                 $('#facingName' ).text facingnames.join(',')
-                console.log App.defaults
                 #App.filter(params={})
 
 
 
             'click #compare':(e)->
-                console.log $.cookie("key")
                 win = window.open(SITEURL+"/wishlist/#wishList", '_blank')
                 win.focus()
                 menuRight = document.getElementById("cbp-spmenu-s2")
@@ -321,7 +317,7 @@ You can compare up to 4 apartments!</div>
                 #easing: 'easeInOutQuad'
 
             
-            console.log height = $(window).scrollTop()
+            height = $(window).scrollTop()
 
             $(window).scroll( ()->
                 height = $(window).scrollTop()
@@ -356,7 +352,7 @@ You can compare up to 4 apartments!</div>
         showWishList:->
             table = ""
             if $.cookie("key")!= undefined && $.cookie("key") != ""
-                console.log selectedUnitsArray = $.cookie("key").split(",")
+                selectedUnitsArray = $.cookie("key").split(",")
                 table = ""
                 for element in selectedUnitsArray
                     model = App.master.unit.findWhere(id:parseInt(element))
@@ -372,7 +368,6 @@ You can compare up to 4 apartments!</div>
                             '
 
                 # table += '</table>'
-            console.log table
             $('#showWishlist').html table
 
 

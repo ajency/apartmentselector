@@ -4,7 +4,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
         initialize :(opt = {})->
 
-            console.log @model = @_getHeader()
+            @model = @_getHeader()
 
             @view = view = @_getHeaderView @model
 
@@ -37,7 +37,6 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
             )
             $.each(myArray, (index,value)->
                 if(value.value !='All')
-                    console.log value.key
                     param[value.key] = value.value
                     string_val = _.isString(value.value)
                     valuearr = ""
@@ -81,12 +80,11 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
 
             )
-            console.log templateArr
             if templateArr.length == 0
                 templateArr.push '<span>All<span>'
 
             if(flag==1)
-                console.log buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
+                buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
 

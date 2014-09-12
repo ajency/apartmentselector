@@ -42,11 +42,9 @@ define(['marionette'], function(Marionette) {
     ScreenThreeLayout.prototype.events = {
       'click .customLink': function(e) {
         var element, id, index, _i, _len;
-        console.log(id = parseInt(e.target.id));
-        console.log(unitAssigedArray);
+        id = parseInt(e.target.id);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
           element = unitAssigedArray[index];
-          console.log(element);
           if (element === parseInt(id)) {
             $('#' + element).attr('class', 'floor-pos position');
           } else {
@@ -59,10 +57,9 @@ define(['marionette'], function(Marionette) {
       },
       'click .unit-hover': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, element, flatid, index, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues, _i, _j, _len, _len1;
-        console.log(e.target.id);
-        console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
-        console.log(buildinArray = buildingCollection.toArray());
-        console.log(building = _.first(buildinArray));
+        buildingCollection = Marionette.getOption(this, 'buildingCollection');
+        buildinArray = buildingCollection.toArray();
+        building = _.first(buildinArray);
         buildingModel = App.master.building.findWhere({
           id: parseInt(building.get('id'))
         });
@@ -76,8 +73,8 @@ define(['marionette'], function(Marionette) {
               var unitsarray;
               if (position === parseInt(val1)) {
                 svgposition = value.svgfile;
-                console.log(unitsarray = value.units);
-                return console.log(indexvalue = unitsarray[position]);
+                unitsarray = value.units;
+                return indexvalue = unitsarray[position];
               }
             });
           }
@@ -88,8 +85,6 @@ define(['marionette'], function(Marionette) {
           if (App.defaults['floor'] !== "All") {
             floorArr = App.defaults['floor'].split(',');
             return $.each(floorArr, function(ind, val) {
-              console.log(value);
-              console.log(val);
               if (parseInt(value) === parseInt(val)) {
                 return $('#f' + value).attr('class', 'unit-hover');
               }
@@ -100,14 +95,12 @@ define(['marionette'], function(Marionette) {
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
         $("#t" + flatid).attr('class', 'selected-flat');
-        console.log(unit = indexvalue[parseInt(flatid)]);
+        unit = indexvalue[parseInt(flatid)];
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
         });
-        console.log(unitAssigedArray);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
           element = unitAssigedArray[index];
-          console.log(element);
           if (element === parseInt(unitModel.get('unitAssigned'))) {
             $('#' + element).attr('class', 'floor-pos position');
           } else {
@@ -117,7 +110,6 @@ define(['marionette'], function(Marionette) {
         unitAssigedArray.push(unitModel.get('unitAssigned'));
         $('#' + unitModel.get('unitAssigned')).attr('class', 'position');
         sudoSlider.goToSlide(unitModel.get('unitAssigned'));
-        console.log(rangeunitArray);
         for (index = _j = 0, _len1 = rangeunitArray.length; _j < _len1; index = ++_j) {
           element = rangeunitArray[index];
           if (element === parseInt(unit)) {
@@ -163,7 +155,6 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
         });
-        console.log(this);
         return $('#t' + flatid).text(unitModel.get('name'));
       },
       'mouseover .unit-hover': function(e) {
@@ -195,14 +186,11 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
         });
-        console.log(this);
         $('#t' + flatid).text(unitModel.get('name'));
         checktrack = this.checkSelection(unitModel);
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
-          console.log("qq");
           return $("#" + e.target.id).attr('class', 'unit-hover aviable');
         } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
-          console.log("ww");
           return $("#" + e.target.id).attr('class', 'sold');
         } else {
           return $("#" + e.target.id).attr('class', 'other');
@@ -217,13 +205,11 @@ define(['marionette'], function(Marionette) {
       },
       'click .grid-link': function(e) {
         var id, index, track;
-        console.log(unitVariantArray);
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
         track = 0;
         if ($('#checklink' + id).val() === '1') {
-          console.log(id);
-          console.log(index = unitVariantArray.indexOf(parseInt(id)));
+          index = unitVariantArray.indexOf(parseInt(id));
           if (index !== -1) {
             unitVariantArray.splice(index, 1);
             $('#checklink' + id).val('0');
@@ -231,16 +217,12 @@ define(['marionette'], function(Marionette) {
             unitVariantIdArray.push(parseInt(id));
           }
         } else {
-          console.log("aaaaaaaaaa");
           track = 1;
           unitVariantArray.push(parseInt(id));
           $('#checklink' + id).val('1');
         }
-        console.log(unitVariantArray);
-        console.log(globalUnitArrayInt);
         if (globalUnitArrayInt.length !== 0) {
           if (track === 0) {
-            console.log(track);
             unitVariantArray = _.intersection(unitVariantArray, globalUnitArrayInt);
           } else {
             globalUnitArrayInt.push(parseInt(id));
@@ -248,7 +230,6 @@ define(['marionette'], function(Marionette) {
           }
         }
         unitVariantArray = _.uniq(unitVariantArray);
-        console.log(firstElement);
         if (unitVariantArray.length === 0) {
           unitVariantString = firstElement.toString();
         } else {
@@ -258,7 +239,6 @@ define(['marionette'], function(Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
-        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#unselectall').prop('checked', true);
         } else {
@@ -280,10 +260,9 @@ define(['marionette'], function(Marionette) {
       },
       'click .cancel': function(e) {
         var globalUnitVariants;
-        console.log(unitVariantIdArray);
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox").slideToggle();
-        console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+        globalUnitVariants = App.defaults['unitVariant'].split(',');
         globalUnitArrayInt = [];
         $.each(globalUnitVariants, function(index, value) {
           return globalUnitArrayInt.push(parseInt(value));
@@ -291,9 +270,7 @@ define(['marionette'], function(Marionette) {
         if (App.defaults['unitVariant'] !== 'All') {
           return $.each(unitVariantArray, function(index, value) {
             var key;
-            console.log(value);
             key = _.contains(globalUnitArrayInt, parseInt(value));
-            console.log(key);
             if (key === true) {
               $('#gridlink' + value).addClass('selected');
               return $('#checklink' + value).val('1');
@@ -323,7 +300,7 @@ define(['marionette'], function(Marionette) {
           cloneunitVariantArrayColl.each(function(value) {
             return tempArray.push(parseInt(value.get('id')));
           });
-          console.log(value = _.first(tempArray));
+          value = _.first(tempArray);
           remainainArray = _.rest(tempArray);
           $.each(remainainArray, function(index, value) {
             $('#gridlink' + value).removeClass('selected');
@@ -333,7 +310,6 @@ define(['marionette'], function(Marionette) {
               return unitVariantArray.splice(index, 1);
             }
           });
-          console.log(unitVariantArray);
           return unitVariantString = value.toString();
         }
       }
@@ -425,13 +401,13 @@ define(['marionette'], function(Marionette) {
       $(".grid-link").click(function(e) {
         $(this).toggleClass("selected");
       });
-      console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      unitVariantArray = Marionette.getOption(this, 'uintVariantId');
       unitVariantsArray = Marionette.getOption(this, 'unitVariants');
       unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
       cloneunitVariantArrayColl = unitVariantArrayColl.clone();
-      console.log(unitVariants = unitVariantArray);
-      console.log(firstElement = _.first(unitVariantArray));
-      console.log(globalUnitVariants = App.defaults['unitVariant'].split(','));
+      unitVariants = unitVariantArray;
+      firstElement = _.first(unitVariantArray);
+      globalUnitVariants = App.defaults['unitVariant'].split(',');
       if (App.defaults['unitVariant'] !== 'All') {
         globalUnitVariants = App.defaults['unitVariant'].split(',');
         $.each(globalUnitVariants, function(index, value) {
@@ -439,17 +415,15 @@ define(['marionette'], function(Marionette) {
         });
       }
       if (App.defaults['unitVariant'] !== 'All') {
-        console.log(unitVariantArray = _.union(unitVariantArray, unitVariantIdArray));
+        unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $.each(unitVariantArray, function(index, value) {
           var key;
-          console.log(value);
           key = _.contains(globalUnitArrayInt, parseInt(value));
-          console.log(key);
           if (key === true) {
             $('#gridlink' + value).addClass('selected');
             return $('#checklink' + value).val('1');
           } else {
-            console.log(index = unitVariantArray.indexOf(parseInt(value)));
+            index = unitVariantArray.indexOf(parseInt(value));
             $('#gridlink' + value).removeClass('selected');
             return $('#checklink' + value).val('0');
           }
@@ -465,15 +439,14 @@ define(['marionette'], function(Marionette) {
         scrollTop: $('#screen-three-region').offset().top
       }, 'slow');
       tagsArray = [];
-      console.log(testtext = App.defaults['unitVariant']);
+      testtext = App.defaults['unitVariant'];
       if (testtext !== 'All') {
         unitVariantArrayText = testtext.split(',');
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
-          console.log(value);
-          console.log(unitVariantModel = App.master.unit_variant.findWhere({
+          unitVariantModel = App.master.unit_variant.findWhere({
             id: parseInt(value)
-          }));
+          });
           return tagsArray.push({
             id: value,
             area: unitVariantModel.get('sellablearea') + 'Sq.ft.'
@@ -492,16 +465,15 @@ define(['marionette'], function(Marionette) {
 
     $(document).on("click", ".closeButton1", function() {
       var theidtodel;
-      console.log(theidtodel = $(this).parent('li').attr('id'));
-      console.log(object1);
+      theidtodel = $(this).parent('li').attr('id');
       return object1.delItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
     ScreenThreeLayout.prototype.loadbuildingsvg = function() {
       var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, path, svgdata;
-      console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
-      console.log(buildinArray = buildingCollection.toArray());
-      console.log(building = _.first(buildinArray));
+      buildingCollection = Marionette.getOption(this, 'buildingCollection');
+      buildinArray = buildingCollection.toArray();
+      building = _.first(buildinArray);
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
@@ -521,10 +493,9 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
       var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgposition, unitvalues;
-      console.log(floorid);
-      console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
-      console.log(buildinArray = buildingCollection.toArray());
-      console.log(building = _.first(buildinArray));
+      buildingCollection = Marionette.getOption(this, 'buildingCollection');
+      buildinArray = buildingCollection.toArray();
+      building = _.first(buildinArray);
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
@@ -533,7 +504,6 @@ define(['marionette'], function(Marionette) {
       mediumrange = floorange[1];
       highrange = floorange[2];
       svgdata = buildingModel.get('svgdata');
-      console.log(svgdata);
       if (floorid === void 0) {
         floorid = 1;
       }
@@ -542,17 +512,13 @@ define(['marionette'], function(Marionette) {
       indexvalue = "";
       $('#positionsvg').text("");
       $.each(svgdata, function(index, value) {
-        console.log(value);
-        console.log(value.svgposition);
         if (value.svgposition !== null) {
           return $.each(value.svgposition, function(index1, val1) {
             var unitsarray;
-            console.log(index1);
-            console.log(floorid);
             if (floorid === parseInt(val1)) {
               svgposition = value.svgfile;
-              console.log(unitsarray = value.units);
-              console.log(indexvalue = unitsarray[floorid]);
+              unitsarray = value.units;
+              indexvalue = unitsarray[floorid];
               if (value.svgfile !== "") {
                 return $('#positionsvg').load(svgposition, function(x) {
                   var i, rangClass;
@@ -564,8 +530,6 @@ define(['marionette'], function(Marionette) {
                     if (App.defaults['floor'] !== "All") {
                       floorArr = App.defaults['floor'].split(',');
                       return $.each(floorArr, function(ind, val) {
-                        console.log(value);
-                        console.log(val);
                         if (parseInt(value) === parseInt(val)) {
                           return $('#f' + value).attr('class', 'unit-hover');
                         }
@@ -576,12 +540,10 @@ define(['marionette'], function(Marionette) {
                   });
                   rangClass = ['lowrange', 'mediumrange', 'highrange'];
                   i = 0;
-                  console.log(floorange);
                   return $.each(floorange, function(index, value) {
                     var end, start;
-                    console.log(start = parseInt(value.start));
-                    console.log(end = parseInt(value.end));
-                    console.log(rangClass[i]);
+                    start = parseInt(value.start);
+                    end = parseInt(value.end);
                     while (parseInt(start) <= parseInt(end)) {
                       $('#f' + start).attr('data-class', rangClass[i]);
                       start++;
@@ -608,8 +570,6 @@ define(['marionette'], function(Marionette) {
           });
         }
       });
-      console.log(myArray);
-      console.log(model);
       flag = 0;
       object = this;
       track = 0;
@@ -628,14 +588,12 @@ define(['marionette'], function(Marionette) {
           unitPrice = model.get('unitPrice');
           budget_arr = value.value.split(' ');
           budget_price = budget_arr[0].split('-');
-          console.log(budget_price[0] = budget_price[0] + '00000');
-          console.log(budget_price[1] = budget_price[1] + '00000');
+          budget_price[0] = budget_price[0] + '00000';
+          budget_price[1] = budget_price[1] + '00000';
           if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
             return flag++;
           }
         } else if (value.key !== 'floor') {
-          console.log(value.key);
-          console.log(value.value);
           if (model.get(value.key) === parseInt(value.value)) {
             return flag++;
           }
@@ -644,7 +602,6 @@ define(['marionette'], function(Marionette) {
       if (flag === myArray.length) {
         track = 1;
       }
-      console.log(flag);
       if (myArray.length === 0) {
         track = 1;
       }
@@ -663,7 +620,6 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.delItem = function(delnum) {
       var i, index, key, params, removeItem, unitvariantarrayValues;
-      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
       removeItem = delnum;
       i = 0;
       key = "";
@@ -673,7 +629,7 @@ define(['marionette'], function(Marionette) {
         }
         return i++;
       });
-      console.log(index = key);
+      index = key;
       if (index >= 0) {
         tagsArray.splice(index, 1);
         $('#uli-item-' + delnum).remove();
@@ -684,7 +640,6 @@ define(['marionette'], function(Marionette) {
         App.layout.screenFourRegion.el.innerHTML = "";
         App.navigate("screen-three");
         App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
-        console.log(App.defaults['unitVariant']);
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
@@ -813,7 +768,6 @@ define(['marionette'], function(Marionette) {
           unitModel = App.master.unit.findWhere({
             id: this.model.get("id")
           });
-          console.log(rangeunitArray);
           for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
             element = rangeunitArray[index];
             if (element === this.model.get('id')) {
@@ -833,15 +787,12 @@ define(['marionette'], function(Marionette) {
             rangeunitArray.push(this.model.get('id'));
             $('#check' + this.model.get("id")).addClass("selected");
             $("#select" + this.model.get('id')).val("1");
-            console.log(this.model.get("unitAssigned"));
             object = this;
             $.map(indexvalue, function(index, value) {
               var floorArr;
               if (App.defaults['floor'] !== 'All') {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
-                  console.log(value);
-                  console.log(val);
                   if (parseInt(value) === parseInt(val)) {
                     $('#f' + value).attr('class', 'unit-hover');
                     return $('#t' + value).text("");
@@ -854,18 +805,14 @@ define(['marionette'], function(Marionette) {
             });
             $.map(indexvalue, function(index, value) {
               var positionassigend;
-              console.log(parseInt(index));
-              console.log(object.model.get("id"));
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
-                console.log('value' + value);
                 $("#f" + value).attr('class', 'selected-flat');
                 $("#t" + value).attr('class', 'selected-flat');
                 return $('#t' + value).text(object.model.get('name'));
               }
             });
             $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
-            console.log($('#select' + this.model.get("id")));
             App.unit['name'] = this.model.get("id");
             App.backFilter['screen3'].push('floor');
             $("#screen-three-button").removeClass('disabled btn-default');
@@ -909,7 +856,6 @@ define(['marionette'], function(Marionette) {
           });
         }
       });
-      console.log(myArray);
       flag = 0;
       object = this;
       track = 0;
@@ -928,28 +874,23 @@ define(['marionette'], function(Marionette) {
           unitPrice = object.model.get('unitPrice');
           budget_arr = value.value.split(' ');
           budget_price = budget_arr[0].split('-');
-          console.log(budget_price[0] = budget_price[0] + '00000');
-          console.log(budget_price[1] = budget_price[1] + '00000');
+          budget_price[0] = budget_price[0] + '00000';
+          budget_price[1] = budget_price[1] + '00000';
           if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
             return flag++;
           }
         } else if (value.key !== 'floor') {
-          console.log(value.key);
-          console.log(value.value);
           if (object.model.get(value.key) === parseInt(value.value)) {
-            return console.log(flag++);
+            return flag++;
           }
         }
       });
       if (flag === myArray.length) {
         track = 1;
       }
-      console.log(flag);
       if (myArray.length === 0) {
         track = 1;
       }
-      console.log(this.model.get('unitType'));
-      console.log(this.model.get('name'));
       if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
         $('#check' + this.model.get("id")).addClass('boxLong filtered');
         return $('#flag' + this.model.get("id")).val('1');
