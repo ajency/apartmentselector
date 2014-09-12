@@ -207,6 +207,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
       },
       'click #screen-two-button': function(e) {
+        $('#screen-three-region').addClass('section');
         return this.trigger('unit:count:selected');
       }
     };

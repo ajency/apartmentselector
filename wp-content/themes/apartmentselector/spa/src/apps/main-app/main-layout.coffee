@@ -60,7 +60,7 @@ You can compare up to 4 apartments!</div>
         </nav>
 
         
-        <div id="screen-one-region" >
+        <div id="screen-one-region" class="section">
 
         </div>
         <div id="screen-two-region" >

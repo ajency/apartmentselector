@@ -296,6 +296,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             'click #screen-two-button':(e)->
                 #rangeArray = []
+                $('#screen-three-region').addClass 'section'
                 @trigger 'unit:count:selected'
 
         showHighlightedTowers:()->

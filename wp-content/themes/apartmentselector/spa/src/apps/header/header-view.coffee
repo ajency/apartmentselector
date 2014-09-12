@@ -52,6 +52,7 @@ define [ 'marionette' ], ( Mariontte )->
                     ,1000) 
             
                     App.layout.screenThreeRegion.el.innerHTML = ""
+                    $('#screen-three-region').removeClass 'section'
                     msgbus.showApp 'screen:two'
                     .insideRegion  App.layout.screenTwoRegion
                         .withOptions()
@@ -69,6 +70,7 @@ define [ 'marionette' ], ( Mariontte )->
                     e.preventDefault()
                     App.filter(params={})
                     App.layout.screenFourRegion.el.innerHTML = ""
+                    $('#screen-four-region').removeClass 'section'
                     msgbus.showApp 'screen:three'
                     .insideRegion  App.layout.screenThreeRegion
                         .withOptions()
@@ -109,6 +111,7 @@ define [ 'marionette' ], ( Mariontte )->
                     ,1000) 
             
                     App.layout.screenTwoRegion.el.innerHTML = ""
+                    $('#screen-two-region').removeClass 'section'
                     msgbus.showApp 'screen:one'
                     .insideRegion  App.layout.screenOneRegion
                         .withOptions()

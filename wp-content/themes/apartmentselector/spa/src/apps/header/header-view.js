@@ -43,6 +43,7 @@ define(['marionette'], function(Mariontte) {
             return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           }, 1000);
           App.layout.screenThreeRegion.el.innerHTML = "";
+          $('#screen-three-region').removeClass('section');
           return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
         } else if (window.location.href.indexOf('screen-four') > -1) {
           screenthreeArray = App.backFilter['screen3'];
@@ -61,6 +62,7 @@ define(['marionette'], function(Mariontte) {
           e.preventDefault();
           App.filter(params = {});
           App.layout.screenFourRegion.el.innerHTML = "";
+          $('#screen-four-region').removeClass('section');
           return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
         } else {
           App.backFilter['screen2'] = [];
@@ -89,6 +91,7 @@ define(['marionette'], function(Mariontte) {
             return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           }, 1000);
           App.layout.screenTwoRegion.el.innerHTML = "";
+          $('#screen-two-region').removeClass('section');
           return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
         }
       }
