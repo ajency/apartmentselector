@@ -902,6 +902,7 @@ function get_building_unit_assigned_to_position($building,$flatposition){
         $flats_in_position = array();
         $args = array(
                         'post_type' => 'unit', 
+                        'posts_per_page'=>-1 ,
                         'meta_query' => array(
                             'relation' => 'AND',
 
@@ -921,12 +922,12 @@ function get_building_unit_assigned_to_position($building,$flatposition){
                         'meta_key' => 'floor'
                 );
         $query = new WP_Query( $args );
-
+        $i = 1;
          foreach($query->posts as $unit){ 
             
-            $flats_in_position[] = $unit->ID;
-         }
-
+            $flats_in_position[ $i ] = $unit->ID;
+            $i++;
+         } 
          return arrayToObject($flats_in_position);
    
 } 
