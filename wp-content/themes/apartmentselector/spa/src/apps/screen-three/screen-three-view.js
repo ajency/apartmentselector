@@ -253,6 +253,9 @@ define(['marionette'], function(Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        if (unitVariantString === "") {
+          unitVariantString = "All";
+        }
         App.defaults['unitVariant'] = unitVariantString;
         App.backFilter['screen2'].push("unitVariant");
         App.filter(params = {});

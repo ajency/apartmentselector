@@ -4,7 +4,8 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwoView) {
-  var ScreenTwoController;
+  var ScreenTwoController, tagsArray;
+  tagsArray = "";
   ScreenTwoController = (function(_super) {
     __extends(ScreenTwoController, _super);
 
@@ -42,10 +43,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
-      var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
-      scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
-      document.body.appendChild(scr);
+      var buidlingValue, building, itemview1, itemview2, masterbuilding, scr, testtext, unitVariantArrayText;
       this.Collection = this._getUnitsCountCollection(id);
       itemview1 = new ScreenTwoView.UnitTypeChildView({
         collection: this.Collection[0]
@@ -56,6 +54,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.layout.buildingRegion.$el.empty();
       itemview1.delegateEvents();
       this.layout.unitRegion.$el.empty();
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
+      document.body.appendChild(scr);
       this.layout.buildingRegion.$el.append(itemview1.render().el);
       this.layout.unitRegion.$el.append(itemview2.render().el);
       building = this.Collection[0].toArray();
@@ -64,7 +65,91 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
       });
-      return $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
+      $("#highlighttower" + buidlingValue.get('id')).attr('class', 'overlay highlight');
+      tagsArray = [];
+      testtext = App.defaults['unitVariant'];
+      if (testtext !== 'All') {
+        unitVariantArrayText = testtext.split(',');
+        $.each(unitVariantArrayText, function(index, value) {
+          var unitVariantModel;
+          unitVariantModel = App.master.unit_variant.findWhere({
+            id: parseInt(value)
+          });
+          return tagsArray.push({
+            id: value,
+            area: unitVariantModel.get('sellablearea') + 'Sq.ft.'
+          });
+        });
+      } else {
+        unitVariantArrayText = testtext.split(',');
+        tagsArray.push({
+          id: 'All',
+          area: 'All'
+        });
+      }
+      $('#tagslist ul li').remove();
+      $.each(tagsArray, function(index, value) {
+        return $('#tagslist ul').append('<li id="li-item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.area + '</span><div class="closeButton2"></div></li>');
+      });
+      if (tagsArray.length === 1) {
+        $('.closeButton2').addClass('hidden');
+      }
+      return $(document).on("click", ".closeButton2", function() {
+        var theidtodel;
+        theidtodel = $(this).parent('li').attr('id');
+        return object.delItems($('#' + theidtodel).attr('data-itemNum'));
+      });
+    };
+
+    ScreenTwoController.prototype.delItems = function(delnum) {
+      var i, index, key, params, q, removeItem, unitvariantarrayValues;
+      removeItem = delnum;
+      i = 0;
+      key = "";
+      $.each(tagsArray, function(index, val) {
+        if (val.id === delnum) {
+          key = i;
+        }
+        return i++;
+      });
+      index = key;
+      if (index >= 0) {
+        tagsArray.splice(index, 1);
+        $('#li-item-' + delnum).remove();
+        unitvariantarrayValues = [];
+        $.each(tagsArray, function(index, value) {
+          return unitvariantarrayValues.push(value.id);
+        });
+        q = 1;
+        $.map(App.backFilter, function(value, index) {
+          var element, screenArray, _i, _len;
+          if (q !== 1) {
+            screenArray = App.backFilter[index];
+            for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
+              element = screenArray[_i];
+              if (element === 'unitVariant') {
+                App.defaults[element] = unitVariantString;
+              } else {
+                key = App.defaults.hasOwnProperty(element);
+                if (key === true) {
+                  App.defaults[element] = 'All';
+                }
+              }
+            }
+          }
+          return q++;
+        });
+        App.layout.screenThreeRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-two");
+        App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.filter(params = {});
+        return this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
+      }
     };
 
     ScreenTwoController.prototype.showViews = function() {
