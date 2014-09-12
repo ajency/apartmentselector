@@ -518,7 +518,7 @@ define(['marionette'], function(Marionette) {
             if (floorid === parseInt(val1)) {
               svgposition = value.svgfile;
               unitsarray = value.units;
-              console.log(indexvalue = unitsarray[floorid]);
+              indexvalue = unitsarray[floorid];
               if (value.svgfile !== "") {
                 return $('#positionsvg').load(svgposition, function(x) {
                   var i, rangClass;
