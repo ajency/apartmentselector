@@ -40,7 +40,9 @@ define(['marionette'], function(Mariontte) {
           App.navigate("screen-two");
           e.preventDefault();
           App.filter(params = {});
-          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          setTimeout(function(x) {
+            return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          }, 1000);
           console.log(App.layout.screenThreeRegion.el.innerHTML = "");
           return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
         } else if (window.location.href.indexOf('screen-four') > -1) {
@@ -87,7 +89,9 @@ define(['marionette'], function(Mariontte) {
           console.log(App.defaults);
           e.preventDefault();
           App.filter(params = {});
-          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          setTimeout(function(x) {
+            return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          }, 1000);
           console.log(App.layout.screenTwoRegion.el.innerHTML = "");
           return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
         }

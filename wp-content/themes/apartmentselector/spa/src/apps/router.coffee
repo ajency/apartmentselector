@@ -25,9 +25,13 @@ define [ 'marionette'], ( Marionette )->
     #Start Sub App
         showValues:(params={})->
             App.filter(params)
-            msgbus.showApp 'header'
-            .insideRegion  App.headerRegion
-                .withOptions()
+            setTimeout( (x)->
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+
+            ,1000) 
+            
             msgbus.showApp 'screen:one'
             .insideRegion  App.layout.screenOneRegion
                 .withOptions()
@@ -38,9 +42,13 @@ define [ 'marionette'], ( Marionette )->
         show :(params={})->
             console.log "router"
             App.filter(params)
-            msgbus.showApp 'header'
-            .insideRegion  App.headerRegion
-                .withOptions()
+            setTimeout( (x)->
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+
+            ,1000) 
+            
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -61,9 +69,13 @@ define [ 'marionette'], ( Marionette )->
 
         showUnits:(params={})->
             App.filter(params={})
-            msgbus.showApp 'header'
-            .insideRegion  App.headerRegion
-                .withOptions()
+            setTimeout( (x)->
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+
+            ,1000) 
+            
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -88,9 +100,13 @@ define [ 'marionette'], ( Marionette )->
         showSelectedUnit:(params={})->
 
             App.filter(params={})
-            msgbus.showApp 'header'
-            .insideRegion  App.headerRegion
-                .withOptions()
+            setTimeout( (x)->
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+
+            ,1000) 
+            
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'

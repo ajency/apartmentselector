@@ -45,9 +45,13 @@ define [ 'marionette' ], ( Mariontte )->
                     App.navigate "screen-two"
                     e.preventDefault()
                     App.filter(params={})
-                    msgbus.showApp 'header'
-                    .insideRegion  App.headerRegion
-                        .withOptions()
+                    setTimeout( (x)->
+                        msgbus.showApp 'header'
+                        .insideRegion  App.headerRegion
+                            .withOptions()
+
+                    ,1000) 
+            
                     console.log App.layout.screenThreeRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:two'
                     .insideRegion  App.layout.screenTwoRegion
@@ -101,9 +105,13 @@ define [ 'marionette' ], ( Mariontte )->
 
                     e.preventDefault()
                     App.filter(params={})
-                    msgbus.showApp 'header'
-                    .insideRegion  App.headerRegion
-                        .withOptions()
+                    setTimeout( (x)->
+                        msgbus.showApp 'header'
+                        .insideRegion  App.headerRegion
+                            .withOptions()
+
+                    ,1000) 
+            
                     console.log App.layout.screenTwoRegion.el.innerHTML = ""
                     msgbus.showApp 'screen:one'
                     .insideRegion  App.layout.screenOneRegion
