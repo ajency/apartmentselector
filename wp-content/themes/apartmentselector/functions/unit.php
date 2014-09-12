@@ -716,26 +716,32 @@ function get_flats_on_floor($building ,$floor,$apartment_id){
 
                 $floor_in_exception = 1;
             }
-            if($floor_in_exception ==0){
-                
-                $flats = maybe_unserialize(get_option('building_'.$building.'_no_of_flats'));
-    
-            }
+      
     }
 
-
-    $query = "select count(*) from ".$wpdb->prefix."postmeta flat_floor join ".$wpdb->prefix."postmeta flat_building on flat_building.post_id = flat_floor.post_id where  flat_building.meta_key = 'building' and flat_building.meta_value = $building and  flat_floor.meta_key = 'floor' and flat_floor.meta_value = $floor    ";
-    $created_flats = $wpdb->get_var($query);
+    if($floor_in_exception ==0){
+                
+                $flats =  (get_option('building_'.$building.'_no_of_flats'));
+ 
+     }
+    $query = "select fd.meta_value as apartment_assigned, fd.post_id as apartment_id  from ".$wpdb->prefix."postmeta flat_floor join ".$wpdb->prefix."postmeta flat_building on flat_building.post_id = flat_floor.post_id   join ".$wpdb->prefix."postmeta fd on    fd.post_id = flat_floor.post_id where   fd.meta_key = 'unit_assigned' and   flat_building.meta_key = 'building' and flat_building.meta_value = $building and  flat_floor.meta_key = 'floor' and flat_floor.meta_value = $floor    ";
+ 
+    $created_flats_results = $wpdb->get_results($query,ARRAY_A);
+ 
+    $created_flats = array();
+    foreach($created_flats_results as $created_flat){
+        if($apartment_id != $created_flat['apartment_id']){
+             $created_flats[$created_flat['apartment_assigned']] = $created_flat['apartment_id'];
+        }
+       
+    }
 
     $apartment_building = get_post_meta($apartment_id,"building",true);
 
     $apartment_floor = get_post_meta($apartment_id,"floor",true);
+ 
 
-    if( $apartment_floor==$floor && $apartment_building==$building){
-        $created_flats--;
-    }
-
-    return (array("flats"=>get_flats_details($flats),"created_flats"=>$created_flats));
+    return (array("flats"=>($flats),"created_flats"=>$created_flats));
 }
 function ajax_get_flats_on_floor(){
 
