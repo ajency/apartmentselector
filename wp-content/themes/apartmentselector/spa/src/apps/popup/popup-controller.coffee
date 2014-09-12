@@ -22,6 +22,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
             console.log cookeArray = modelstring
             unitModelArray = []
             console.log cookeArray.length
+            floorLayoutimage = ""
             if cookeArray.length != 0
                 for element in cookeArray
                     console.log unitModel = element
