@@ -52,37 +52,25 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
-                    <div class="row m-l-0 m-r-0 m-t-20">
+                    <div class="row m-l-0 m-r-0 m-t-20 bgClass">
+
                         <div class="col-sm-4">
+                            <div id="vs-container" class="vs-container">
+                                <header class="vs-header" id="building-region"></header>
+                                <div id="floorsvg" class="floorSvg"></div>
+                                <div  id="unit-region"></div>
+                            </div>
 
-                    
+                            <div class="h-align-middle m-t-20 m-b-20">
+                                <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a>
+                            </div>
+                        </div>
 
-                    <div id="vs-container" class="vs-container">
-                        <header class="vs-header" id="building-region"></header>
-                        <div id="floorsvg" class="floorSvg"></div>
-                        <div  id="unit-region"></div>
-                    </div>
+                        <div class="col-sm-8 b-grey b-l">
+                            <div id="positionsvg" class="positionSvg">
+                            </div>
+                        </div>
 
-
-
-
-                    <div class="h-align-middle m-t-20 m-b-20">
-                        <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a>
-                    </div>
-
-                    
-
-                    </div>
-                <div class="col-sm-8">
-                    
-
-
-                    <div id="positionsvg" class="positionSvg">
-                    </div>
-
-                    
-                  
-                    </div>
                     </div>'
 
 
@@ -267,6 +255,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'click #screen-three-button':(e)->
+                $('#screen-four-region').addClass 'section'
                 @trigger 'unit:item:selected'
 
             'click a':(e)->

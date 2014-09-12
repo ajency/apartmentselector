@@ -11402,10 +11402,11 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#screen-two-region,
-#screen-three-region,
-#screen-four-region {
+#screen-two-region.section,
+#screen-three-region.section,
+#screen-four-region.section {
   border-top: 1px solid #eeeeee;
+  min-height: 100vh;
 }
 .taglist {
   display: inline;
@@ -11575,10 +11576,16 @@ a.im-clear-button {
   margin-top: 21px;
   margin-bottom: 10.5px;
   font-size: 35px;
-  background-image: -moz-linear-gradient(top, #e65c00, #cc5200);
-  /* Firefox 3.6 */
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cc5200), color-stop(1, #e65c00));
-  /* Safari & Chrome */
+  background: -webkit-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* IE10 */
+  background: -o-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* Opera 11.10+ */
+  background: linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* W3C */
   padding: 20px 10px;
   margin: 0;
   color: #ffffff;
@@ -11687,4 +11694,5 @@ a.im-clear-button {
 }
 text.selected-flat {
   fill: #000 !important;
+  font-size: 18px;
 }

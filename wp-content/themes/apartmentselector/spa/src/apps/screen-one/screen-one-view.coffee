@@ -171,7 +171,7 @@ define [ 'marionette' ], ( Marionette )->
                 else
                     App.defaults['budget'] = 'All'
 
-
+                $('#screen-two-region').addClass 'section'
                 @trigger 'unit:type:clicked'
 
 
