@@ -26,11 +26,11 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 for element in cookeArray
                     console.log unitModel = element
                     console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
-                    exceptionObject = building.get 'floorexceptionpositions'
+                    exceptionObject = buildingModel.get 'floorexceptionpositions'
                     $.each(exceptionObject, (index,value1)->
                         floorvalue = $.inArray( value.get('floor'),value1.floors)
                         if floorvalue == -1
-                            floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
+                            floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url
                         else
                             floorLayoutimage = value1.floor_layout_detailed.thumbnail_url
 
