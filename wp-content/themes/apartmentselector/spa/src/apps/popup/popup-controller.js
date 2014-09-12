@@ -41,7 +41,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           exceptionObject = buildingModel.get('floorexceptionpositions');
           $.each(exceptionObject, function(index, value1) {
             var floorLayoutimage, floorvalue;
-            floorvalue = $.inArray(value.get('floor'), value1.floors);
+            floorvalue = $.inArray(unitModel.get('floor'), value1.floors);
             if (floorvalue === -1) {
               return floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url;
             } else {
