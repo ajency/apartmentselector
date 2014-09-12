@@ -386,15 +386,15 @@
 
 /**** Labels on Tower SVG ****/
 .positionSvg{
-	rect{
+	.HIGHRISE, .LOWRISE, .MIDRISE{
 		position: relative;
-		content: 'test';
+		visibility: hidden;
 		&:after{
-			position: absolute;
-			content: 'high-range';
-			left: -10px;
-			color: @color-primary;
-			.bold;
+			// position: absolute;
+			// content: 'high-range';
+			// left: -10px;
+			// color: @color-primary;
+			// .bold;
 		}
 	}
 }

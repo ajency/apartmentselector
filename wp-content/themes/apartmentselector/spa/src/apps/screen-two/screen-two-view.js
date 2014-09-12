@@ -487,7 +487,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
+    UnitViewChildView.prototype.template = '<div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
 
     UnitViewChildView.prototype.className = 'towerSelect';
 
