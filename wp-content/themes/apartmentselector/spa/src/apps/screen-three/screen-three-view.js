@@ -538,7 +538,7 @@ define(['marionette'], function(Marionette) {
                       return $('#f' + value1).attr('class', 'unit-hover');
                     }
                   });
-                  rangClass = ['lowrange', 'mediumrange', 'highrange'];
+                  rangClass = ['LOWRISE', 'MIDRISE', 'HIGHRISE'];
                   i = 0;
                   return $.each(floorange, function(index, value) {
                     var end, start;

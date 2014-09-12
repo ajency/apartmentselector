@@ -601,7 +601,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 $('#f'+value1).attr('class', 'unit-hover')
 
                                             )
-                                        rangClass = ['lowrange','mediumrange','highrange']
+                                        rangClass = ['LOWRISE','MIDRISE','HIGHRISE']
                                         i= 0
                                         $.each(floorange, (index,value)->
                                                 start = parseInt(value.start)
