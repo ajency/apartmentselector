@@ -916,10 +916,14 @@ function get_building_unit_assigned_to_position($building,$flatposition){
                                 'compare' => '=',
                             ), 
                         ), 
+                        'orderby' => 'meta_value_num', 
+                        'order'     => 'ASC',
+                        'meta_key' => 'floor'
                 );
         $query = new WP_Query( $args );
 
-         foreach($query->posts as $unit){
+         foreach($query->posts as $unit){ 
+            
             $flats_in_position[] = $unit->ID;
          }
 
