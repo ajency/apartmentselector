@@ -80,8 +80,9 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
 
             )
+            console.log templateArr
             if templateArr.length == 0 
-                templateArr.push '<span>All<span>'
+                templateArr.push '<span>All</span>'
             if(flag==1)
                 buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
                 floorriserange = buildingModel.get 'floorriserange'
@@ -112,13 +113,15 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
             if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
                 textClass = ""
             else if window.location.href.indexOf('wishList') > -1
-                templateString = "<span>WishList Comparison<span>"
+                templateString = "<span>WishList Comparison</span>"
                 textClass = ""
                 btnClass = "hidden"
             else
                 templateString = "<span>Apartment Selector</span>"
 
-
+            $('#textstring').text ""
+            console.log $('#textstring').html()
+            console.log templateString
             [templateString,textClass]
 
 

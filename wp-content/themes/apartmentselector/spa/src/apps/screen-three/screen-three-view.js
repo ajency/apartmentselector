@@ -86,11 +86,13 @@ define(['marionette'], function(Marionette) {
             floorArr = App.defaults['floor'].split(',');
             return $.each(floorArr, function(ind, val) {
               if (parseInt(value) === parseInt(val)) {
-                return $('#f' + value).attr('class', 'unit-hover');
+                $('#f' + value).attr('class', 'unit-hover');
+                return $('#t' + value).attr('class', 'unit-hover');
               }
             });
           } else {
-            return $('#f' + value).attr('class', 'unit-hover');
+            $('#f' + value).attr('class', 'unit-hover');
+            return $('#t' + value).attr('class', 'unit-hover');
           }
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
@@ -534,11 +536,13 @@ define(['marionette'], function(Marionette) {
                       floorArr = App.defaults['floor'].split(',');
                       return $.each(floorArr, function(ind, val) {
                         if (parseInt(value1) === parseInt(val)) {
-                          return $('#f' + value1).attr('class', 'unit-hover');
+                          $('#f' + value1).attr('class', 'unit-hover');
+                          return $('#t' + value1).attr('class', 'unit-hover');
                         }
                       });
                     } else {
-                      return $('#f' + value1).attr('class', 'unit-hover');
+                      $('#f' + value1).attr('class', 'unit-hover');
+                      return $('#t' + value1).attr('class', 'unit-hover');
                     }
                   });
                   rangClass = ['LOWRISE', 'MIDRISE', 'HIGHRISE'];

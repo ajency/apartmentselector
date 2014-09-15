@@ -104,7 +104,7 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
-            $('#textstring').html ""
+            
             textString  = Marionette.getOption( @, 'textString' )
             $('#textstring').html textString
             flag = 0

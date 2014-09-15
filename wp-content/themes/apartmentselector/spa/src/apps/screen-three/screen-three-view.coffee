@@ -137,12 +137,14 @@ define [ 'marionette' ], ( Marionette )->
                                         $.each(floorArr, (ind,val)->
                                             if parseInt(value) == parseInt(val)
                                                 $('#f'+value).attr('class', 'unit-hover')
+                                                $('#t'+value).attr('class', 'unit-hover')
 
 
 
                                             )
                                     else
                                         $('#f'+value).attr('class', 'unit-hover')
+                                        $('#t'+value).attr('class', 'unit-hover')
 
 
                                         )
@@ -595,12 +597,14 @@ define [ 'marionette' ], ( Marionette )->
                                                 $.each(floorArr, (ind,val)->
                                                     if parseInt(value1) == parseInt(val)
                                                         $('#f'+value1).attr('class', 'unit-hover')
+                                                        $('#t'+value1).attr('class', 'unit-hover')
 
 
 
                                                     )
                                             else
                                                 $('#f'+value1).attr('class', 'unit-hover')
+                                                $('#t'+value1).attr('class', 'unit-hover')
 
                                             )
                                         rangClass = ['LOWRISE','MIDRISE','HIGHRISE']
