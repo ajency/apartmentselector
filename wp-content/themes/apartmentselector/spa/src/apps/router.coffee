@@ -25,12 +25,11 @@ define [ 'marionette'], ( Marionette )->
     #Start Sub App
         showValues:(params={})->
             App.filter(params)
-            setTimeout( (x)->
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
+            msgbus.showApp 'header'
+            .insideRegion  App.headerRegion
+                .withOptions()
 
-            ,1000) 
+             
             
             msgbus.showApp 'screen:one'
             .insideRegion  App.layout.screenOneRegion

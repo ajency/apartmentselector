@@ -41,14 +41,13 @@ define [ 'marionette' ], ( Mariontte )->
 
 
 
-                    App.navigate "screen-two"
                     e.preventDefault()
                     App.filter(params={})
                     App.layout.screenThreeRegion.el.innerHTML = ""
                     $('#screen-three-region').removeClass 'section'
-                    msgbus.showApp 'screen:two'
-                    .insideRegion  App.layout.screenTwoRegion
-                        .withOptions()
+
+                    App.navigate "screen-two" , trigger:true
+                    
                 else if window.location.href.indexOf('screen-four') > -1
                     screenthreeArray  = App.backFilter['screen3']
                     for element in screenthreeArray
@@ -59,14 +58,12 @@ define [ 'marionette' ], ( Mariontte )->
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
                     App.currentStore.unit_variant.reset UNITVARIANTS
-                    App.navigate "screen-three"
                     e.preventDefault()
                     App.filter(params={})
                     App.layout.screenFourRegion.el.innerHTML = ""
                     $('#screen-four-region').removeClass 'section'
-                    msgbus.showApp 'screen:three'
-                    .insideRegion  App.layout.screenThreeRegion
-                        .withOptions()
+                    App.navigate "screen-three" , trigger:true
+                    
 
 
 
@@ -90,17 +87,16 @@ define [ 'marionette' ], ( Mariontte )->
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
                     App.currentStore.unit_variant.reset UNITVARIANTS
-                    App.navigate ""
-
+                    
 
                     
                     e.preventDefault()
                     App.filter(params={})
                     App.layout.screenTwoRegion.el.innerHTML = ""
                     $('#screen-two-region').removeClass 'section'
-                    msgbus.showApp 'screen:one'
-                    .insideRegion  App.layout.screenOneRegion
-                        .withOptions()
+                    App.navigate "screen-one" , trigger:true
+                    App.navigate "" 
+                    
 
             
 

@@ -36,12 +36,13 @@ define(['marionette'], function(Mariontte) {
           if (key === true) {
             App.defaults[App.screenOneFilter['key']] = App.screenOneFilter['value'];
           }
-          App.navigate("screen-two");
           e.preventDefault();
           App.filter(params = {});
           App.layout.screenThreeRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
-          return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
+          return App.navigate("screen-two", {
+            trigger: true
+          });
         } else if (window.location.href.indexOf('screen-four') > -1) {
           screenthreeArray = App.backFilter['screen3'];
           for (_j = 0, _len1 = screenthreeArray.length; _j < _len1; _j++) {
@@ -55,12 +56,13 @@ define(['marionette'], function(Mariontte) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
-          App.navigate("screen-three");
           e.preventDefault();
           App.filter(params = {});
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-four-region').removeClass('section');
-          return msgbus.showApp('screen:three').insideRegion(App.layout.screenThreeRegion).withOptions();
+          return App.navigate("screen-three", {
+            trigger: true
+          });
         } else {
           App.backFilter['screen2'] = [];
           screenoneArray = App.backFilter['screen1'];
@@ -81,12 +83,14 @@ define(['marionette'], function(Mariontte) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
-          App.navigate("");
           e.preventDefault();
           App.filter(params = {});
           App.layout.screenTwoRegion.el.innerHTML = "";
           $('#screen-two-region').removeClass('section');
-          return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
+          App.navigate("screen-one", {
+            trigger: true
+          });
+          return App.navigate("");
         }
       }
     };

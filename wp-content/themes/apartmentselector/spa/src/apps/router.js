@@ -32,9 +32,7 @@ define(['marionette'], function(Marionette) {
         params = {};
       }
       App.filter(params);
-      setTimeout(function(x) {
-        return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      }, 1000);
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
     },
     show: function(params) {
