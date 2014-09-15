@@ -24,13 +24,30 @@ define [ 'marionette'], ( Marionette )->
     RouterAPI =
     #Start Sub App
         showValues:(params={})->
-            App.filter(params)
+            
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
 
              
-            
+            App.backFilter['screen2'] = []
+            App.backFilter['screen3'] = []
+            App.layout.screenThreeRegion.el.innerHTML = ""
+            App.layout.screenTwoRegion.el.innerHTML = ""
+            App.layout.screenFourRegion.el.innerHTML = "" 
+            $('#screen-two-region').removeClass 'section'
+            $('#screen-three-region').removeClass 'section'
+            $('#screen-four-region').removeClass 'section'  
+            screentwoArray  = App.backFilter['screen1']
+            for element in screentwoArray
+                key = App.defaults.hasOwnProperty(element)
+                if key == true
+                    App.defaults[element] = 'All'
+            App.currentStore.unit.reset UNITS
+            App.currentStore.building.reset BUILDINGS
+            App.currentStore.unit_type.reset UNITTYPES
+            App.currentStore.unit_variant.reset UNITVARIANTS
+            App.filter(params)
             msgbus.showApp 'screen:one'
             .insideRegion  App.layout.screenOneRegion
                 .withOptions()
@@ -39,7 +56,6 @@ define [ 'marionette'], ( Marionette )->
 
 
         show :(params={})->
-            App.filter(params)
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -54,6 +70,22 @@ define [ 'marionette'], ( Marionette )->
                     .insideRegion  App.layout.screenOneRegion
                     .withOptions()
             else
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenTwoRegion.el.innerHTML = ""
+                $('#screen-three-region').removeClass 'section'
+                $('#screen-four-region').removeClass 'section'  
+                App.backFilter['screen3'] = []    
+                screentwoArray  = App.backFilter['screen2']
+                for element in screentwoArray
+                    key = App.defaults.hasOwnProperty(element)
+                    if key == true
+                        App.defaults[element] = 'All'
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params)
+            
                 setTimeout( (x)->
                     msgbus.showApp 'header'
                     .insideRegion  App.headerRegion
@@ -67,7 +99,6 @@ define [ 'marionette'], ( Marionette )->
                 .withOptions()
 
         showUnits:(params={})->
-            App.filter(params={})
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -85,6 +116,15 @@ define [ 'marionette'], ( Marionette )->
                 .insideRegion  App.layout.screenTwoRegion
                     .withOptions()
             else
+                App.layout.screenFourRegion.el.innerHTML = ""
+                $('#screen-four-region').removeClass 'section'
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+            
                 setTimeout( (x)->
                     msgbus.showApp 'header'
                     .insideRegion  App.headerRegion
