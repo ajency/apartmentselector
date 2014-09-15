@@ -80,13 +80,46 @@
 	}
 }
 
+/* Tags for Variant Filters*/
+.taglist{
+	display: inline;
+	ul{
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		display: inline;
+		li{
+			display: inline-block;
+			background-color: @gray-lighter;
+			color: @color-primary;
+			margin: 0 2px 3px;
+			padding: 3px 8px 2px;
+			border-radius: 30px;
+			text-transform: capitalize;
+			.bold;
+			.closeButton, .closeButton1, .closeButton2{
+				display: inline;
+				cursor: pointer;
+				color: @gray-light;
+				padding: 1px 2px 1px 6px;
+				&:after{
+					font-family: 'Glyphicons Halflings';
+					content: "\e014";
+					display: inline-block;
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+
 /*Arrows for Tower Selection*/
 .vs-nav-right a{
 	&:after{
 		content: "\e080";
 		font-family: 'Glyphicons Halflings';
 		position: absolute;
-		right: -30px;
+		right: -25px;
 		color: darken(@gray-lighter, 10%);
 	}
 }
@@ -95,7 +128,7 @@
 		content: "\e079";
 		font-family: 'Glyphicons Halflings';
 		position: absolute;
-		left: -30px;
+		left: -25px;
 		color: darken(@gray-lighter, 10%);
 	}
 }

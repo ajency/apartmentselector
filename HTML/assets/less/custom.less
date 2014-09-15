@@ -119,38 +119,6 @@ body{
 	}
 }
 
-.taglist{
-	display: inline;
-	ul{
-		list-style-type: none;
-		padding: 0;
-		margin: 0;
-		display: inline;
-		li{
-			display: inline-block;
-			background-color: @gray-lighter;
-			color: @color-primary;
-			margin: 0 2px 3px;
-			padding: 3px 8px 2px;
-			border-radius: 30px;
-			text-transform: capitalize;
-			.bold;
-			.closeButton, .closeButton1{
-				display: inline;
-				cursor: pointer;
-				color: @gray-light;
-				padding: 1px 2px 1px 6px;
-				&:after{
-					font-family: 'Glyphicons Halflings';
-					content: "\e014";
-					display: inline-block;
-					font-size: 12px;
-				}
-			}
-		}
-	}
-}
-
 .cbp-spmenu-vertical{
 	background-color: darken(@color-primary, 25%);
 	border-left: 1px solid darken(@color-primary, 15%);
@@ -264,37 +232,6 @@ body{
 /*Map Zoom Icon hidden*/
 a.im-clear-button{
 	display: none;
-}
-
-/*Notification Popup*/
-
-.jBox-Notice .jBox-content{
-	border-radius: 0;
-	padding: 0;
-}
-
-.jBox-wrapper{
-	width: 100%;
-}
-.notifyBox{
-	.jBox-content{
-		.h3;
-		// .bold;
-		// background-color: darken(@color-primary, 10%);
-		// background-color: @gray-light;
-		
-		background: -webkit-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* Chrome 10+, Saf5.1+ */
-		background:    -moz-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* FF3.6+ */
-		background:     -ms-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* IE10 */
-		background:      -o-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* Opera 11.10+ */
-		background:         linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* W3C */
-		padding: 20px 10px;
-		margin: 0;
-		color: @color-white;
-		// color: @color-primary;
-		width: 100%;
-		text-align: center;
-	}
 }
 
 /*Browser not supported*/

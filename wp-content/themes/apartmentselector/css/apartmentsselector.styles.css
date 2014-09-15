@@ -9134,13 +9134,26 @@ h5 {
   position: fixed;
   width: 100%;
   z-index: 9999;
-  -webkit-box-shadow: 0px 1px 6px 1px #b3b3b3;
-  box-shadow: 0px 1px 6px 1px #b3b3b3;
+  background: -moz-linear-gradient(top, #ff6600 0%, #d65600 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff6600), color-stop(100%, #d65600));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ff6600 0%, #d65600 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ff6600 0%, #d65600 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ff6600 0%, #d65600 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ff6600 0%, #d65600 100%);
+  /* W3C */
+  -webkit-box-shadow: -4px 1px 6px 1px #b3b3b3;
+  box-shadow: -4px 1px 6px 1px #b3b3b3;
 }
 .header.navbar h3 {
   text-align: left;
   margin: 0;
   margin-left: 65px;
+  text-shadow: 2px 1px 6px #803300;
 }
 .header.navbar h3.step1 {
   text-align: center;
@@ -9156,11 +9169,13 @@ h5 {
     padding: 13px 2% 13px 0;
     position: relative;
     color: #e2e2e2;
+    text-shadow: none;
   }
   .slctnTxt:after {
     content: ':';
     position: absolute;
     right: 0;
+    text-shadow: none;
   }
   .header.navbar h3 {
     text-align: center;
@@ -9201,9 +9216,52 @@ h5 {
   color: #cc5200;
   font-size: 50px;
   font-weight: 700;
+  text-shadow: none;
 }
 #textstring span:last-child:after {
   content: '';
+}
+/*Notification Popup*/
+.jBox-Notice .jBox-content {
+  border-radius: 0;
+  padding: 0;
+}
+.jBox-wrapper {
+  width: 100%;
+}
+.notifyBox .jBox-content {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 21px;
+  margin-bottom: 10.5px;
+  font-size: 35px;
+  background: -webkit-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* IE10 */
+  background: -o-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* Opera 11.10+ */
+  background: linear-gradient(90deg, #ff512f 10%, #f09819 90%);
+  /* W3C */
+  padding: 20px 10px;
+  margin: 0;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+}
+.notifyBox .jBox-content small,
+.notifyBox .jBox-content .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.notifyBox .jBox-content small,
+.notifyBox .jBox-content .small {
+  font-size: 65%;
 }
 .no-padding {
   padding: 0px !important;
@@ -10020,19 +10078,55 @@ h5 {
   color: #ff6600;
   border-color: #ff6600;
 }
+/* Tags for Variant Filters*/
+.taglist {
+  display: inline;
+}
+.taglist ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+.taglist ul li {
+  display: inline-block;
+  background-color: #eeeeee;
+  color: #ff6600;
+  margin: 0 2px 3px;
+  padding: 3px 8px 2px;
+  border-radius: 30px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+.taglist ul li .closeButton,
+.taglist ul li .closeButton1,
+.taglist ul li .closeButton2 {
+  display: inline;
+  cursor: pointer;
+  color: #999999;
+  padding: 1px 2px 1px 6px;
+}
+.taglist ul li .closeButton:after,
+.taglist ul li .closeButton1:after,
+.taglist ul li .closeButton2:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e014";
+  display: inline-block;
+  font-size: 12px;
+}
 /*Arrows for Tower Selection*/
 .vs-nav-right a:after {
   content: "\e080";
   font-family: 'Glyphicons Halflings';
   position: absolute;
-  right: -30px;
+  right: -25px;
   color: #d5d5d5;
 }
 .vs-nav-left a:before {
   content: "\e079";
   font-family: 'Glyphicons Halflings';
   position: absolute;
-  left: -30px;
+  left: -25px;
   color: #d5d5d5;
 }
 .box,
@@ -10401,16 +10495,11 @@ h5 {
   display: none;
 }
 /**** Labels on Tower SVG ****/
-.positionSvg rect {
+.positionSvg .HIGHRISE,
+.positionSvg .LOWRISE,
+.positionSvg .MIDRISE {
   position: relative;
-  content: 'test';
-}
-.positionSvg rect:after {
-  position: absolute;
-  content: 'high-range';
-  left: -10px;
-  color: #ff6600;
-  font-weight: 700;
+  visibility: hidden;
 }
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
@@ -10560,19 +10649,17 @@ h5 {
 }
 .vs-header .vs-nav li.vs-nav-right a {
   padding: 10px 0 5px;
-  border-top: 2px solid #ffffff;
+  border-top: 2px solid #f6f6f7;
   border-bottom: 0;
   font-size: 87%;
-  font-weight: 400;
-  color: #333333;
+  color: #d5d5d5;
 }
 .vs-header .vs-nav li.vs-nav-left a {
   padding: 10px 0 5px;
-  border-top: 2px solid #ffffff;
+  border-top: 2px solid #f6f6f7;
   border-bottom: 0;
   font-size: 87%;
-  font-weight: 400;
-  color: #333333;
+  color: #d5d5d5;
 }
 .vs-container {
   position: static;
@@ -11416,39 +11503,6 @@ body {
   border-top: 1px solid #eeeeee;
   min-height: 100vh;
 }
-.taglist {
-  display: inline;
-}
-.taglist ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: inline;
-}
-.taglist ul li {
-  display: inline-block;
-  background-color: #eeeeee;
-  color: #ff6600;
-  margin: 0 2px 3px;
-  padding: 3px 8px 2px;
-  border-radius: 30px;
-  text-transform: capitalize;
-  font-weight: 700;
-}
-.taglist ul li .closeButton,
-.taglist ul li .closeButton1 {
-  display: inline;
-  cursor: pointer;
-  color: #999999;
-  padding: 1px 2px 1px 6px;
-}
-.taglist ul li .closeButton:after,
-.taglist ul li .closeButton1:after {
-  font-family: 'Glyphicons Halflings';
-  content: "\e014";
-  display: inline-block;
-  font-size: 12px;
-}
 .cbp-spmenu-vertical {
   background-color: #803300;
   border-left: 1px solid #b34700;
@@ -11568,48 +11622,6 @@ body {
 a.im-clear-button {
   display: none;
 }
-/*Notification Popup*/
-.jBox-Notice .jBox-content {
-  border-radius: 0;
-  padding: 0;
-}
-.jBox-wrapper {
-  width: 100%;
-}
-.notifyBox .jBox-content {
-  font-family: 'kievit';
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-  margin-top: 21px;
-  margin-bottom: 10.5px;
-  font-size: 35px;
-  background: -webkit-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
-  /* Chrome 10+, Saf5.1+ */
-  background: -moz-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
-  /* FF3.6+ */
-  background: -ms-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
-  /* IE10 */
-  background: -o-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
-  /* Opera 11.10+ */
-  background: linear-gradient(90deg, #ff512f 10%, #f09819 90%);
-  /* W3C */
-  padding: 20px 10px;
-  margin: 0;
-  color: #ffffff;
-  width: 100%;
-  text-align: center;
-}
-.notifyBox .jBox-content small,
-.notifyBox .jBox-content .small {
-  font-weight: normal;
-  line-height: 1;
-  color: #999999;
-}
-.notifyBox .jBox-content small,
-.notifyBox .jBox-content .small {
-  font-size: 65%;
-}
 /*Browser not supported*/
 #jr_header {
   font-family: 'kievit';
@@ -11669,10 +11681,7 @@ a.im-clear-button {
   fill: #99DD1F  !important;
   cursor: pointer;
   opacity: 0.8;
-}
-.aviable:hover text,
-.selected-flat text {
-  opacity: 0.9 !important;
+  text{opacity: 1 !important;};
 }
 .sold:hover {
   fill: #DD1F1F   !important;

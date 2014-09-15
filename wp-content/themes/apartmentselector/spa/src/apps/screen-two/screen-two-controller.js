@@ -4,7 +4,8 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwoView) {
-  var ScreenTwoController;
+  var ScreenTwoController, tagsArray;
+  tagsArray = "";
   ScreenTwoController = (function(_super) {
     __extends(ScreenTwoController, _super);
 
@@ -36,16 +37,40 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
-      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuildings);
+      this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
+      return this.show(this.layout);
+    };
+
+    ScreenTwoController.prototype.showUpdateBuildings = function() {
+      this.Collection = this._getUnitsCountCollection();
+      this.layout = new ScreenTwoView.ScreenTwoLayout({
+        collection: this.Collection[1],
+        buildingColl: this.Collection[0],
+        uintVariantId: this.Collection[9],
+        uintVariantIdArray: this.Collection[10],
+        unitVariants: this.Collection[8],
+        templateHelpers: {
+          selection: this.Collection[2],
+          unitsCount: this.Collection[3],
+          unittypes: this.Collection[4],
+          high: this.Collection[5],
+          medium: this.Collection[6],
+          low: this.Collection[7],
+          unitVariants: this.Collection[8],
+          AJAXURL: AJAXURL
+        }
+      });
+      this.listenTo(this.layout, "show", this.showViews);
+      this.listenTo(this.layout, "show:updated:building", this.showUpdateBuilding);
+      this.listenTo(this.layout, 'unit:variants:selected', this.showUpdateBuildings);
       this.listenTo(this.layout, 'unit:count:selected', this._unitCountSelected);
       return this.show(this.layout);
     };
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
       var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
-      scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
-      document.body.appendChild(scr);
+      console.log("eeeeeee");
       this.Collection = this._getUnitsCountCollection(id);
       itemview1 = new ScreenTwoView.UnitTypeChildView({
         collection: this.Collection[0]
@@ -56,6 +81,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       this.layout.buildingRegion.$el.empty();
       itemview1.delegateEvents();
       this.layout.unitRegion.$el.empty();
+      scr = document.createElement('script');
+      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
+      document.body.appendChild(scr);
       this.layout.buildingRegion.$el.append(itemview1.render().el);
       this.layout.unitRegion.$el.append(itemview2.render().el);
       building = this.Collection[0].toArray();

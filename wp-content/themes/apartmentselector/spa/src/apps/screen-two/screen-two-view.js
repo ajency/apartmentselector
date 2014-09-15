@@ -113,6 +113,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
+        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#selectall').prop('checked', true);
         } else {
@@ -122,6 +123,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'click .done': function(e) {
         var params, q;
         q = 1;
+        if (unitVariantString === "") {
+          unitVariantString = "All";
+        }
+        $(".variantBox1").slideToggle();
         $.map(App.backFilter, function(value, index) {
           var element, key, screenArray, _i, _len;
           if (q !== 1) {
@@ -366,6 +371,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.delItem = function(delnum) {
       var i, index, key, params, q, removeItem, unitvariantarrayValues;
+      console.log(delnum);
       removeItem = delnum;
       i = 0;
       key = "";
@@ -487,7 +493,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return UnitViewChildView.__super__.constructor.apply(this, arguments);
     }
 
-    UnitViewChildView.prototype.template = '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>--> <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
+    UnitViewChildView.prototype.template = '<div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}"> <div class="pull-left light"> <h5 class="rangeName bold m-t-5">{{rangetext}}</h5> <div class="small">{{rangeNo}}</div> </div> <div class="unitCount">{{count}}</div> <div class="clearfix"></div> </div> <input type="hidden" name="checkrange{{range}}{{buildingid}}"   id="checkrange{{range}}{{buildingid}}"       value="0" />                             </div>';
 
     UnitViewChildView.prototype.className = 'towerSelect';
 

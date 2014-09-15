@@ -55,6 +55,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="row m-l-0 m-r-0 bgClass">
 
                         <div class="col-sm-4">
+                            
                     		<div class="legend text-center m-b-20">
                                 {{#unittypes}}
                                 <span class={{classname}}>.</span>{{name}}
@@ -198,6 +199,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     else
                         unitVariantString = unitVariantArray.join(',')
+                console.log unitVariantString
                 if unitVariantString == "All"
                     $('#selectall' ).prop 'checked', true
                 else
@@ -208,6 +210,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
             'click .done':(e)->
                 q = 1
+                if unitVariantString == ""
+                    unitVariantString = "All"
+                $(".variantBox1").slideToggle()
                 $.map(App.backFilter, (value, index)->
 
                     if q!=1
@@ -489,9 +494,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('.closeButton').addClass 'hidden'
 
         delItem:(delnum)->
+            console.log delnum
             removeItem = delnum
             i =0
             key = ""
+
             $.each(tagsArray, (index,val)->
                 if val.id == delnum
                     key = i
@@ -621,8 +628,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
     class UnitViewChildView extends Marionette.ItemView
 
-        template : '<!--<div class="box psuedoBox {{classname}} pull-left">{{count}}</div>-->
-                    <div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}">
+        template : '<div id="range{{range}}{{buildingid}}" class="boxLong {{classname}} {{disable}}">
                         <div class="pull-left light">
                             <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
                             <div class="small">{{rangeNo}}</div>
@@ -728,6 +734,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
 
+
+
     class UnitView extends Marionette.CompositeView
 
         template : '<div class="vs-content">
@@ -798,7 +806,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             @$el.prop("id", 'tower'+@model.get("buildingid"))
 
         onShow :->
-
             $("#unit-region section").addClass "vs-current" if $("#unit-region section").length < 2
             return
 
@@ -815,6 +822,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         childView : UnitView
 
         className : "vs-wrapper"
+
+        
+
+            
 
 
 

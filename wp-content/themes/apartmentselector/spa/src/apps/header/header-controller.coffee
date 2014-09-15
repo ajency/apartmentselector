@@ -23,11 +23,11 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
             templateArr = []
             flag = 0
             myArray = []
-            templateArr = []
             param = {}
             paramkey = {}
             flag = 0
             track = 0
+            f = 1
             trackArray = []
             units = App.master.unit
             $.map(App.defaults, (value, index)->
@@ -80,9 +80,8 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
 
             )
-            if templateArr.length == 0
+            if templateArr.length == 0 
                 templateArr.push '<span>All<span>'
-
             if(flag==1)
                 buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
                 floorriserange = buildingModel.get 'floorriserange'
@@ -118,7 +117,6 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 btnClass = "hidden"
             else
                 templateString = "<span>Apartment Selector</span>"
-
 
 
             [templateString,textClass]

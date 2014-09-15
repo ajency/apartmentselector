@@ -32,15 +32,15 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var btnClass, buildingModel, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
+      var btnClass, buildingModel, f, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
       templateArr = [];
       flag = 0;
       myArray = [];
-      templateArr = [];
       param = {};
       paramkey = {};
       flag = 0;
       track = 0;
+      f = 1;
       trackArray = [];
       units = App.master.unit;
       $.map(App.defaults, function(value, index) {

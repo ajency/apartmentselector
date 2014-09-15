@@ -26,11 +26,12 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var buildingModel, cookeArray, element, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      var buildingModel, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       console.log(modelstring);
       console.log(cookeArray = modelstring);
       unitModelArray = [];
       console.log(cookeArray.length);
+      floorLayoutimage = "";
       if (cookeArray.length !== 0) {
         for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
           element = cookeArray[_i];
@@ -38,7 +39,16 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           console.log(buildingModel = App.master.building.findWhere({
             id: unitModel.get('building')
           }));
-          floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url;
+          exceptionObject = buildingModel.get('floorexceptionpositions');
+          $.each(exceptionObject, function(index, value1) {
+            var floorvalue;
+            floorvalue = $.inArray(unitModel.get('floor'), value1.floors);
+            if (floorvalue === -1) {
+              return floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url;
+            } else {
+              return floorLayoutimage = value1.floor_layout_detailed.thumbnail_url;
+            }
+          });
           floorriserange = buildingModel.get('floorriserange');
           rangeArrayVal = [];
           i = 0;

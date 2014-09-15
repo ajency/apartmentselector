@@ -1,6 +1,7 @@
 define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView )->
 
     # Screen two controller
+    tagsArray = ""
     class ScreenTwoController extends Extm.RegionController
 
         initialize : ()->
@@ -29,7 +30,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @listenTo @layout, "show:updated:building", @showUpdateBuilding
 
-            @listenTo @layout, 'unit:variants:selected', @showUpdateBuilding
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuildings
 
             @listenTo @layout, 'unit:count:selected', @_unitCountSelected
 
@@ -40,11 +41,46 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             @show @layout
 
-        showUpdateBuilding:(id)=>
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
 
-            document.body.appendChild(scr)
+        showUpdateBuildings:->
+            @Collection = @_getUnitsCountCollection()
+
+
+            @layout = new ScreenTwoView.ScreenTwoLayout(
+                collection:@Collection[1]
+                buildingColl : @Collection[0]
+                uintVariantId : @Collection[9]
+                uintVariantIdArray : @Collection[10]
+                unitVariants:@Collection[8]
+                templateHelpers:
+                    selection :@Collection[2]
+                    unitsCount:@Collection[3]
+                    unittypes:  @Collection[4]
+                    high : @Collection[5]
+                    medium : @Collection[6]
+                    low : @Collection[7]
+                    unitVariants:@Collection[8]
+                    AJAXURL : AJAXURL)
+
+
+            @listenTo @layout, "show", @showViews
+
+            @listenTo @layout, "show:updated:building", @showUpdateBuilding
+
+            @listenTo @layout, 'unit:variants:selected', @showUpdateBuildings
+
+            @listenTo @layout, 'unit:count:selected', @_unitCountSelected
+
+
+
+
+
+
+            @show @layout
+
+
+        showUpdateBuilding:(id)=>
+            console.log "eeeeeee"
             @Collection = @_getUnitsCountCollection(id)
 
             itemview1 = new ScreenTwoView.UnitTypeChildView
@@ -58,8 +94,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             @layout.buildingRegion.$el.empty();
             itemview1.delegateEvents();
             @layout.unitRegion.$el.empty();
+            scr = document.createElement('script')
+            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
+
+            document.body.appendChild(scr)
             @layout.buildingRegion.$el.append(itemview1.render().el ); 
             @layout.unitRegion.$el.append(itemview2.render().el ); 
+
             building = @Collection[0].toArray()
             buidlingValue = _.first(building)
             masterbuilding = App.master.building
@@ -67,9 +108,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
             $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
             
-            
+
+
+
             
 
+
+            
+
+       
             
 
             
@@ -657,7 +704,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 arrayvalue = _.last(modelArr)
                 modelArr.push(arrayvalue)
             
-
             buildingsactual = []
             unitsactual = []
             buildingCollection = new Backbone.Collection(buildingArrayModel)
