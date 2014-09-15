@@ -44,13 +44,6 @@ define [ 'marionette' ], ( Mariontte )->
                     App.navigate "screen-two"
                     e.preventDefault()
                     App.filter(params={})
-                    setTimeout( (x)->
-                        msgbus.showApp 'header'
-                        .insideRegion  App.headerRegion
-                            .withOptions()
-
-                    ,1000) 
-            
                     App.layout.screenThreeRegion.el.innerHTML = ""
                     $('#screen-three-region').removeClass 'section'
                     msgbus.showApp 'screen:two'
@@ -103,13 +96,6 @@ define [ 'marionette' ], ( Mariontte )->
                     
                     e.preventDefault()
                     App.filter(params={})
-                    setTimeout( (x)->
-                        msgbus.showApp 'header'
-                        .insideRegion  App.headerRegion
-                            .withOptions()
-
-                    ,1000) 
-            
                     App.layout.screenTwoRegion.el.innerHTML = ""
                     $('#screen-two-region').removeClass 'section'
                     msgbus.showApp 'screen:one'

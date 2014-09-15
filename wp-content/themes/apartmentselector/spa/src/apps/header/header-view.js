@@ -39,9 +39,6 @@ define(['marionette'], function(Mariontte) {
           App.navigate("screen-two");
           e.preventDefault();
           App.filter(params = {});
-          setTimeout(function(x) {
-            return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-          }, 1000);
           App.layout.screenThreeRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
           return msgbus.showApp('screen:two').insideRegion(App.layout.screenTwoRegion).withOptions();
@@ -87,9 +84,6 @@ define(['marionette'], function(Mariontte) {
           App.navigate("");
           e.preventDefault();
           App.filter(params = {});
-          setTimeout(function(x) {
-            return msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-          }, 1000);
           App.layout.screenTwoRegion.el.innerHTML = "";
           $('#screen-two-region').removeClass('section');
           return msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
