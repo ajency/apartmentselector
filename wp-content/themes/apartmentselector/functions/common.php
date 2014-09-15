@@ -344,7 +344,7 @@ function convert_mysql_to_custom_date_time($date){
 function get_image_paths($id){
 
 	 
-   	$image_url =   wp_get_attachment_thumb_url($id);
+   	$image_url =   wp_get_attachment_image_src($id, 'large' );
 
    	$image_url = ( $image_url!=false)? $image_url:'' ;
         
