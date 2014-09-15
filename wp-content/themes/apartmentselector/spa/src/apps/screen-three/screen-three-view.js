@@ -481,7 +481,7 @@ define(['marionette'], function(Marionette) {
         id: parseInt(building.get('id'))
       });
       svgdata = buildingModel.get('svgdata');
-      floor_layout_Basic = buildingModel.get('floor_layout_basic').thumbnail_url;
+      floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
       if (floor_layout_Basic !== "") {
         path = floor_layout_Basic;
         $('<div></div>').load(path, function(x) {

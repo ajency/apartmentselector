@@ -61,12 +61,13 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                 building = App.master.building.findWhere({id:value.get('building')})
                 exceptionObject = building.get 'floorexceptionpositions'
+                floorLayoutimage = ""
                 $.each(exceptionObject, (index,value1)->
                     floorvalue = $.inArray( value.get('floor'),value1.floors)
                     if floorvalue == -1
-                        floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
+                        floorLayoutimage = building.get('floor_layout_detailed').image_url
                     else
-                        floorLayoutimage = value1.floor_layout_detailed.thumbnail_url
+                        floorLayoutimage = value1.floor_layout_detailed.image_url
 
 
 
@@ -95,7 +96,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                     #)
-                floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
+                #floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url
 
 
                 roomSizesArray = unitVariantModel.get 'roomsizes'
@@ -135,7 +136,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
-                value.set 'BuildingPositionimage' , building.get('positioninproject').thumbnail_url
+                value.set 'BuildingPositionimage' , building.get('positioninproject').image_url
                 value.set 'roomsizearray' , roomsizearray
                 value.set 'terraceoptions' , terraceoptionstext
 

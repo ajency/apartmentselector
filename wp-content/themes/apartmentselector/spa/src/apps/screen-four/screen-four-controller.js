@@ -72,16 +72,16 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           id: value.get('building')
         });
         exceptionObject = building.get('floorexceptionpositions');
+        floorLayoutimage = "";
         $.each(exceptionObject, function(index, value1) {
-          var floorLayoutimage, floorvalue;
+          var floorvalue;
           floorvalue = $.inArray(value.get('floor'), value1.floors);
           if (floorvalue === -1) {
-            return floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url;
+            return floorLayoutimage = building.get('floor_layout_detailed').image_url;
           } else {
-            return floorLayoutimage = value1.floor_layout_detailed.thumbnail_url;
+            return floorLayoutimage = value1.floor_layout_detailed.image_url;
           }
         });
-        floorLayoutimage = building.get('floor_layout_detailed').thumbnail_url;
         roomSizesArray = unitVariantModel.get('roomsizes');
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
@@ -125,7 +125,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           terraceoptionstext = unitVariantModel.get('terraceoptions');
         }
         value.set('floorLayoutimage', floorLayoutimage);
-        value.set('BuildingPositionimage', building.get('positioninproject').thumbnail_url);
+        value.set('BuildingPositionimage', building.get('positioninproject').image_url);
         value.set('roomsizearray', roomsizearray);
         return value.set('terraceoptions', terraceoptionstext);
       });
