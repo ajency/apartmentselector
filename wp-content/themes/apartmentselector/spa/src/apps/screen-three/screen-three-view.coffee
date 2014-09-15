@@ -817,6 +817,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                         )
+                    $('#screen-four-region').removeClass 'section'
                     App.layout.screenFourRegion.el.innerHTML = ""
                     App.navigate "screen-three"
                     App.currentStore.unit.reset UNITS

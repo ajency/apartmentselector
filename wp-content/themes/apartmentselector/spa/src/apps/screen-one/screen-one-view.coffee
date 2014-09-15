@@ -80,7 +80,9 @@ define [ 'marionette' ], ( Marionette )->
             unitTypeString = unitType.join(',')
             App.defaults['unitType'] = unitTypeString
             
-
+            $('#screen-two-region').removeClass 'section'
+            $('#screen-three-region').removeClass 'section'
+            $('#screen-four-region').removeClass 'section'
             App.screenOneFilter['value'] = unitTypeString
             App.screenOneFilter['key'] = 'unitType'
             $("#finalButton").removeClass 'disabled btn-default'
@@ -184,7 +186,10 @@ define [ 'marionette' ], ( Marionette )->
                             App.defaults[element] = 'All'
 
                 )
-
+                $('#screen-two-region').removeClass 'section'
+                $('#screen-three-region').removeClass 'section'
+                $('#screen-four-region').removeClass 'section'
+            
                 App.layout.screenTwoRegion.el.innerHTML = ""
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
