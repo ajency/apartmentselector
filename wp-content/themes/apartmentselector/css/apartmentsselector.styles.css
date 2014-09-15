@@ -11676,7 +11676,7 @@ a.im-clear-button {
   font-size: 87%;
 }
 
-.aviable:hover,.selected-flat {
+.aviable:hover, .selected-flat {
   fill: #99DD1F  !important;
   cursor: pointer;
   opacity: 0.8;
