@@ -199,7 +199,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     else
                         unitVariantString = unitVariantArray.join(',')
-                console.log unitVariantString
                 if unitVariantString == "All"
                     $('#selectall' ).prop 'checked', true
                 else
@@ -494,7 +493,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('.closeButton').addClass 'hidden'
 
         delItem:(delnum)->
-            console.log delnum
             removeItem = delnum
             i =0
             key = ""
@@ -572,26 +570,40 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         className : 'vs-nav-current'
 
         events:
-            'click .link':->
+            'click .link':(e)->
                 #m = mapplic()
                 #m  = $('#mapplic1').data('mapplic')
-                id = 'tower'+@model.get('id')
-                i =1
+                id = @model.get('id')
+
+                i = 1
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
-                @showHighlightedBuildings(@model.get('id'))
+                if @model.get('id') == undefined
+                    id = ""
+                @showHighlightedBuildings(id)
                 #m.initial($(selector),params)
                 #m.showLocation(id, 800)
                 #locationData = m.getLocationData(id);
                 #m.showTooltip(locationData);
                 #App.navigate "tower"+@model.get('id') , trigger:true
 
-        showHighlightedBuildings:(id={})->
+        showHighlightedBuildings:(id)->
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
-            building = id
-            $("#highlighttower"+building).attr('class','overlay highlight')
+            if id != ""
+                building = id
+                $("#highlighttower"+building).attr('class','overlay highlight')
+
+
+        initialize :->
+            @$el.prop("id", 'towerlink'+@model.get("id"))
+
+
+
+
+
+
 
 
 
@@ -823,7 +835,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         className : "vs-wrapper"
 
-        
+
+
+
+
 
             
 

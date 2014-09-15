@@ -113,7 +113,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
-        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#selectall').prop('checked', true);
         } else {
@@ -371,7 +370,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.delItem = function(delnum) {
       var i, index, key, params, q, removeItem, unitvariantarrayValues;
-      console.log(delnum);
       removeItem = delnum;
       i = 0;
       key = "";
@@ -438,27 +436,33 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     BuildingView.prototype.className = 'vs-nav-current';
 
     BuildingView.prototype.events = {
-      'click .link': function() {
+      'click .link': function(e) {
         var i, id, params, selector;
-        id = 'tower' + this.model.get('id');
+        id = this.model.get('id');
         i = 1;
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
-        return this.showHighlightedBuildings(this.model.get('id'));
+        if (this.model.get('id') === void 0) {
+          id = "";
+        }
+        return this.showHighlightedBuildings(id);
       }
     };
 
     BuildingView.prototype.showHighlightedBuildings = function(id) {
       var building, masterbuilding;
-      if (id == null) {
-        id = {};
-      }
       masterbuilding = App.master.building;
       masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
       });
-      building = id;
-      return $("#highlighttower" + building).attr('class', 'overlay highlight');
+      if (id !== "") {
+        building = id;
+        return $("#highlighttower" + building).attr('class', 'overlay highlight');
+      }
+    };
+
+    BuildingView.prototype.initialize = function() {
+      return this.$el.prop("id", 'towerlink' + this.model.get("id"));
     };
 
     return BuildingView;

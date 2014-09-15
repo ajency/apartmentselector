@@ -70,7 +70,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
 
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
       var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
-      console.log("eeeeeee");
       this.Collection = this._getUnitsCountCollection(id);
       itemview1 = new ScreenTwoView.UnitTypeChildView({
         collection: this.Collection[0]
@@ -79,7 +78,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         collection: this.Collection[1]
       });
       this.layout.buildingRegion.$el.empty();
-      itemview1.delegateEvents();
       this.layout.unitRegion.$el.empty();
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
@@ -771,6 +769,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         return buildingArrayModel.push(buildingModel);
       });
+      mainArray = [];
       if (buildingUnits.length === 2) {
         buildingUnits.push({
           id: 100,
@@ -778,7 +777,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           name: 'tower' + 100
         });
         mainArray.push({
-          count: 0,
+          count: '---',
           low_max_val: 0,
           low_min_val: 0,
           range: 'high',
@@ -786,10 +785,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: 0,
           classname: "",
           rangetext: 'HIGHRISE',
-          rangeNo: 'Floors 11-15'
+          rangeNo: 'Floors --'
         });
         mainArray.push({
-          count: 0,
+          count: '---',
           low_max_val: 0,
           low_min_val: 0,
           range: 'medium',
@@ -797,10 +796,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: 0,
           classname: "",
           rangetext: 'MIDRISE',
-          rangeNo: 'Floors 6-10'
+          rangeNo: 'Floors --'
         });
         mainArray.push({
-          count: 0,
+          count: '---',
           low_max_val: 0,
           low_min_val: 0,
           range: 'low',
@@ -808,7 +807,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unittypes: 0,
           classname: "",
           rangetext: 'LOWRISE',
-          rangeNo: 'Floors 1-5'
+          rangeNo: 'Floors --'
         });
         itemCollection = new Backbone.Collection(mainArray);
         unitColl.push({

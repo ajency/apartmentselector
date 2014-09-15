@@ -80,7 +80,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         showUpdateBuilding:(id)=>
-            console.log "eeeeeee"
             @Collection = @_getUnitsCountCollection(id)
 
             itemview1 = new ScreenTwoView.UnitTypeChildView
@@ -92,7 +91,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             
             
             @layout.buildingRegion.$el.empty();
-            itemview1.delegateEvents();
             @layout.unitRegion.$el.empty();
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
@@ -107,7 +105,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             masterbuilding.each ( index)->
                 $("#highlighttower"+index.get('id')).attr('class','overlay')
             $("#highlighttower"+buidlingValue.get('id')).attr('class','overlay highlight')
-            
+
+
 
 
 
@@ -656,11 +655,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingArrayModel.push(buildingModel)
 
             )
+            mainArray = []
             if buildingUnits.length == 2
                 buildingUnits.push({id:100,count:0,name:'tower'+100})
-                mainArray.push({count:0,low_max_val: 0,low_min_val:0,range:'high',buildingid:100,unittypes:0,classname:"",rangetext:'HIGHRISE',rangeNo:'Floors 11-15'})
-                mainArray.push({count: 0,low_max_val: 0,low_min_val:0,range:'medium',buildingid:100,unittypes:0,classname:"",rangetext:'MIDRISE',rangeNo:'Floors 6-10'})
-                mainArray.push({count: 0,low_max_val: 0,low_min_val:0,range:'low',buildingid:100,unittypes:0,classname:"",rangetext:'LOWRISE',rangeNo:'Floors 1-5'})
+                mainArray.push({count:'---',low_max_val: 0,low_min_val:0,range:'high',buildingid:100,unittypes:0,classname:"",rangetext:'HIGHRISE',rangeNo:'Floors --'})
+                mainArray.push({count: '---',low_max_val: 0,low_min_val:0,range:'medium',buildingid:100,unittypes:0,classname:"",rangetext:'MIDRISE',rangeNo:'Floors --'})
+                mainArray.push({count: '---',low_max_val: 0,low_min_val:0,range:'low',buildingid:100,unittypes:0,classname:"",rangetext:'LOWRISE',rangeNo:'Floors --'})
                 itemCollection = new Backbone.Collection(mainArray)
                 unitColl.push {id:100,buildingname: 'Random' , units: itemCollection ,buildingid:100,
                 unittypes:0,availableunits:0,totalunits:0,totalfloors:0,views:0}
