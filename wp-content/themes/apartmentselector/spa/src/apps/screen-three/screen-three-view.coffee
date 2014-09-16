@@ -314,7 +314,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                if unitVariantString == ""
+                console.log cloneunitVariantArrayColl.length
+                console.log unitVariantArray.length
+                if unitVariantString == "" || parseInt(cloneunitVariantArrayColl.length) == parseInt(unitVariantArray.length)
                     unitVariantString = "All"
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
@@ -401,11 +403,7 @@ define [ 'marionette' ], ( Marionette )->
             )
                 
             $('#mainsvg' ).text ""
-            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
-                $('#unselectall' ).prop 'checked', true
-            else
-                $('#unselectall' ).prop 'checked', false
-
+            
             rangeunitArray= []
             globalUnitArrayInt = []
 
@@ -482,7 +480,7 @@ define [ 'marionette' ], ( Marionette )->
                     globalUnitArrayInt.push(parseInt(value))
 
                 )
-
+            selectedArray = []
             if App.defaults['unitVariant'] != 'All'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $.each(unitVariantArray, (index,value)->
@@ -490,6 +488,7 @@ define [ 'marionette' ], ( Marionette )->
                     if key == true
                         $('#gridlink'+value).addClass 'selected'
                         $('#checklink'+value).val '1'
+                        selectedArray.push value
                     else
                         index = unitVariantArray.indexOf(parseInt(value))
                         $('#gridlink'+value).removeClass 'selected'
@@ -501,8 +500,18 @@ define [ 'marionette' ], ( Marionette )->
                 $.each(unitVariantArray, (index,value)->
                     $('#gridlink'+value).addClass 'selected'
                     $('#checklink'+value).val '1'
+                    selectedArray.push value
 
                 )
+            App.defaults['unitVariant'] = selectedArray.join(',')
+            
+            console.log selectedArray
+            console.log unitVariantArray
+            if unitVariantString == "All" || App.defaults['unitVariant'] == "All" || selectedArray.length == unitVariantArray.length
+                $('#unselectall' ).prop 'checked', true
+            else
+                $('#unselectall' ).prop 'checked', false
+
 
 
 
@@ -519,8 +528,9 @@ define [ 'marionette' ], ( Marionette )->
 
             tagsArray = []
             testtext = App.defaults['unitVariant']
-            if testtext != 'All'
-                unitVariantArrayText = testtext.split(',')
+            if parseInt(selectedArray.length) != parseInt(unitVariantArray.length)
+                console.log selectedArray
+                unitVariantArrayText = selectedArray
                 $.each(unitVariantArrayText, (index,value)->
                     unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
                     tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
@@ -661,9 +671,19 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                         flag++
                 else if value.key != 'floor'
+                    temp = []
+                    temp.push value.value
+                    tempstring = temp.join(',')
+                    initvariant = tempstring.split(',')
+                    if initvariant.length > 1
+                        for element in initvariant
+                           if object.model.get(value.key) == parseInt(element)
+                                flag++ 
+                    else
+                        if object.model.get(value.key) == parseInt(value.value)
+                            flag++
 
-                   if model.get(value.key) == parseInt(value.value)
-                        flag++
+                   
 
 
             )
@@ -927,9 +947,18 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                         flag++
                 else if value.key != 'floor'
+                    temp = []
+                    temp.push value.value
+                    tempstring = temp.join(',')
+                    initvariant = tempstring.split(',')
+                    if initvariant.length > 1
+                        for element in initvariant
+                           if object.model.get(value.key) == parseInt(element)
+                                flag++ 
+                    else
+                        if object.model.get(value.key) == parseInt(value.value)
+                            flag++
 
-                    if object.model.get(value.key) == parseInt(value.value)
-                        flag++
 
 
             )

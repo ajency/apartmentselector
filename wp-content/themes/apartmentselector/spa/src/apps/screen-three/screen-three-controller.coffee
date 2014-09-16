@@ -300,7 +300,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             )
             
-
             floorArray = []
             floorCountArray = []
             unitsArray = []

@@ -152,6 +152,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
         App.defaults['unitVariant'] = unitVariantString;
+        App.backFilter['screen2'].push('unitVariant');
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },

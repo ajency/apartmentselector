@@ -255,7 +255,9 @@ define(['marionette'], function(Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
-        if (unitVariantString === "") {
+        console.log(cloneunitVariantArrayColl.length);
+        console.log(unitVariantArray.length);
+        if (unitVariantString === "" || parseInt(cloneunitVariantArrayColl.length) === parseInt(unitVariantArray.length)) {
           unitVariantString = "All";
         }
         App.defaults['unitVariant'] = unitVariantString;
@@ -321,7 +323,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, globalUnitVariants, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      var $columns_number, globalUnitVariants, selectedArray, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
       $('#screen-three-button').on('click', function() {
         return new jBox('Notice', {
           content: 'Wait 1 Second',
@@ -344,11 +346,6 @@ define(['marionette'], function(Marionette) {
         speed: 800
       });
       $('#mainsvg').text("");
-      if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
-        $('#unselectall').prop('checked', true);
-      } else {
-        $('#unselectall').prop('checked', false);
-      }
       rangeunitArray = [];
       globalUnitArrayInt = [];
       this.loadbuildingsvg();
@@ -419,6 +416,7 @@ define(['marionette'], function(Marionette) {
           return globalUnitArrayInt.push(parseInt(value));
         });
       }
+      selectedArray = [];
       if (App.defaults['unitVariant'] !== 'All') {
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $.each(unitVariantArray, function(index, value) {
@@ -426,7 +424,8 @@ define(['marionette'], function(Marionette) {
           key = _.contains(globalUnitArrayInt, parseInt(value));
           if (key === true) {
             $('#gridlink' + value).addClass('selected');
-            return $('#checklink' + value).val('1');
+            $('#checklink' + value).val('1');
+            return selectedArray.push(value);
           } else {
             index = unitVariantArray.indexOf(parseInt(value));
             $('#gridlink' + value).removeClass('selected');
@@ -437,16 +436,26 @@ define(['marionette'], function(Marionette) {
         unitVariantArray = unitVariantArray;
         $.each(unitVariantArray, function(index, value) {
           $('#gridlink' + value).addClass('selected');
-          return $('#checklink' + value).val('1');
+          $('#checklink' + value).val('1');
+          return selectedArray.push(value);
         });
+      }
+      App.defaults['unitVariant'] = selectedArray.join(',');
+      console.log(selectedArray);
+      console.log(unitVariantArray);
+      if (unitVariantString === "All" || App.defaults['unitVariant'] === "All" || selectedArray.length === unitVariantArray.length) {
+        $('#unselectall').prop('checked', true);
+      } else {
+        $('#unselectall').prop('checked', false);
       }
       $('html, body').delay(600).animate({
         scrollTop: $('#screen-three-region').offset().top
       }, 'slow');
       tagsArray = [];
       testtext = App.defaults['unitVariant'];
-      if (testtext !== 'All') {
-        unitVariantArrayText = testtext.split(',');
+      if (parseInt(selectedArray.length) !== parseInt(unitVariantArray.length)) {
+        console.log(selectedArray);
+        unitVariantArrayText = selectedArray;
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
           unitVariantModel = App.master.unit_variant.findWhere({
@@ -582,7 +591,7 @@ define(['marionette'], function(Marionette) {
       object = this;
       track = 0;
       $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
         paramKey = {};
         if (value.key === 'budget') {
           buildingModel = App.master.building.findWhere({
@@ -602,8 +611,25 @@ define(['marionette'], function(Marionette) {
             return flag++;
           }
         } else if (value.key !== 'floor') {
-          if (model.get(value.key) === parseInt(value.value)) {
-            return flag++;
+          temp = [];
+          temp.push(value.value);
+          tempstring = temp.join(',');
+          initvariant = tempstring.split(',');
+          if (initvariant.length > 1) {
+            _results = [];
+            for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+              element = initvariant[_i];
+              if (object.model.get(value.key) === parseInt(element)) {
+                _results.push(flag++);
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          } else {
+            if (object.model.get(value.key) === parseInt(value.value)) {
+              return flag++;
+            }
           }
         }
       });
@@ -869,7 +895,7 @@ define(['marionette'], function(Marionette) {
       object = this;
       track = 0;
       $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
         paramKey = {};
         if (value.key === 'budget') {
           buildingModel = App.master.building.findWhere({
@@ -889,8 +915,25 @@ define(['marionette'], function(Marionette) {
             return flag++;
           }
         } else if (value.key !== 'floor') {
-          if (object.model.get(value.key) === parseInt(value.value)) {
-            return flag++;
+          temp = [];
+          temp.push(value.value);
+          tempstring = temp.join(',');
+          initvariant = tempstring.split(',');
+          if (initvariant.length > 1) {
+            _results = [];
+            for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+              element = initvariant[_i];
+              if (object.model.get(value.key) === parseInt(element)) {
+                _results.push(flag++);
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          } else {
+            if (object.model.get(value.key) === parseInt(value.value)) {
+              return flag++;
+            }
           }
         }
       });
