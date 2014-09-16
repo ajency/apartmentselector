@@ -30,6 +30,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             @listenTo @layout, 'unit:item:selected', @_unitItemSelected
 
+            @listenTo @layout, 'load:range:data', @_loadRangeData
+
 
 
             @show @layout
@@ -71,6 +73,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 @listenTo @layout, 'unit:item:selected', @_unitItemSelected
 
+                @listenTo @layout, 'load:range:data', @_loadRangeData
+
 
 
                 @show @layout
@@ -79,6 +83,34 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 #@layout.unitRegion.show(new ScreenThreeView.UnitTypeView
                                     #collection : @Collection[1])
 
+        _loadRangeData:(unitModel)=>
+            @Collection = @_getUnits()
+
+            itemview1 = new ScreenThreeView.UnitTypeChildView
+                collection : @Collection[0]
+
+            itemview2 = new ScreenThreeView.UnitTypeView
+                collection : @Collection[1]
+
+            
+            
+            @layout.buildingRegion.$el.empty();
+            @layout.unitRegion.$el.empty();
+            @layout.buildingRegion.$el.append(itemview1.render().el ); 
+            @layout.unitRegion.$el.append(itemview2.render().el ); 
+            sudoSlider = $("#unitsSlider").sudoSlider(
+                customLink: "a"
+                prevNext: false
+                responsive: true
+                speed: 800
+                # continuous:true
+            )
+            msgbus.showApp 'header'
+            .insideRegion  App.headerRegion
+                .withOptions()
+            @layout.triggerMethod "show:range:data" , unitModel
+
+            
 
 
 

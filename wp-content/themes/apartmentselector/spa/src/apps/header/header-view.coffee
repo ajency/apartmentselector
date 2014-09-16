@@ -45,7 +45,7 @@ define [ 'marionette' ], ( Mariontte )->
                     App.filter(params={})
                     App.layout.screenThreeRegion.el.innerHTML = ""
                     $('#screen-three-region').removeClass 'section'
-
+                    console.log App.currentStore.building
                     App.navigate "screen-two" , trigger:true
                     
                 else if window.location.href.indexOf('screen-four') > -1

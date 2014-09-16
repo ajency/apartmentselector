@@ -56,6 +56,7 @@ define [ 'marionette'], ( Marionette )->
 
 
         show :(params={})->
+            console.log App.defaults
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'
@@ -75,6 +76,7 @@ define [ 'marionette'], ( Marionette )->
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'  
                 App.backFilter['screen3'] = []    
+                console.log App.backFilter['screen2']
                 screentwoArray  = App.backFilter['screen2']
                 for element in screentwoArray
                     key = App.defaults.hasOwnProperty(element)

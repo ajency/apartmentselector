@@ -231,7 +231,8 @@ define(['marionette'], function(Marionette) {
         e.preventDefault();
         id = e.target.id;
         m.showLocation(id, 800);
-        return locationData = m.getLocationData(id);
+        locationData = m.getLocationData(id);
+        return m.showTooltip(locationData);
       }
     };
 

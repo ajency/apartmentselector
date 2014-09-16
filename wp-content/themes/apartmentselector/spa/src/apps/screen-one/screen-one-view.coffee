@@ -228,7 +228,7 @@ define [ 'marionette' ], ( Marionette )->
                 id  = e.target.id
                 m.showLocation(id, 800)
                 locationData = m.getLocationData(id)
-                #m.showTooltip(locationData)
+                m.showTooltip(locationData)
 
         showHighlightedTowers:(uniqBuildings)->
             masterbuilding = App.master.building

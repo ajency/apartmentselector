@@ -86,13 +86,13 @@ define(['marionette'], function(Marionette) {
             floorArr = App.defaults['floor'].split(',');
             return $.each(floorArr, function(ind, val) {
               if (parseInt(value) === parseInt(val)) {
-                $('#f' + value).attr('class', 'unit-hover');
-                return $('#t' + value).attr('class', 'unit-hover');
+                $('#f' + value).attr('class', 'unit-hover range');
+                return $('#t' + value).attr('class', 'unit-hover range');
               }
             });
           } else {
-            $('#f' + value).attr('class', 'unit-hover');
-            return $('#t' + value).attr('class', 'unit-hover');
+            $('#f' + value).attr('class', 'unit-hover range');
+            return $('#t' + value).attr('class', 'unit-hover range');
           }
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
@@ -127,6 +127,74 @@ define(['marionette'], function(Marionette) {
         $("#select" + unit).val("1");
         $("#screen-three-button").removeClass('disabled btn-default');
         return $("#screen-three-button").addClass('btn-primary');
+      },
+      'click .unselected-floor': function(e) {
+        var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, indexvalue, rangeArrayVal, svgdata, svgposition, unit, unitModel, unitvalues;
+        buildingCollection = Marionette.getOption(this, 'buildingCollection');
+        buildinArray = buildingCollection.toArray();
+        building = _.first(buildinArray);
+        buildingModel = App.master.building.findWhere({
+          id: parseInt(building.get('id'))
+        });
+        svgdata = buildingModel.get('svgdata');
+        floorriserange = buildingModel.get('floorriserange');
+        svgposition = "";
+        unitvalues = "";
+        indexvalue = "";
+        $.each(svgdata, function(index, value) {
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
+              var unitsarray;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                return indexvalue = unitsarray[position];
+              }
+            });
+          }
+        });
+        flatid = $('#' + e.target.id).attr('data-id');
+        unit = indexvalue[parseInt(flatid)];
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(unit)
+        });
+        rangeArrayVal = [];
+        $.each(floorriserange, function(index, value) {
+          var end, i, start;
+          rangeArrayVal = [];
+          i = 0;
+          start = parseInt(value.start);
+          end = parseInt(value.end);
+          while (parseInt(start) <= parseInt(end)) {
+            rangeArrayVal[i] = start;
+            start = parseInt(start) + 1;
+            i++;
+          }
+          if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
+            return App.defaults['floor'] = rangeArrayVal.join(',');
+          }
+        });
+        $.map(indexvalue, function(index, value) {
+          return $('#f' + value).attr('class', 'unselected-floor range');
+        });
+        $.map(indexvalue, function(index, value) {
+          var floorArr;
+          if (App.defaults['floor'] !== "All") {
+            floorArr = App.defaults['floor'].split(',');
+            return $.each(floorArr, function(ind, val) {
+              if (parseInt(value) === parseInt(val)) {
+                $('#f' + value).attr('class', 'unit-hover range');
+                return $('#t' + value).attr('class', 'unit-hover range');
+              }
+            });
+          } else {
+            $('#f' + value).attr('class', 'unselected-floor range');
+            return $('#t' + value).attr('class', 'unselected-floor range');
+          }
+        });
+        $("#" + e.target.id).attr('class', 'selected-flat');
+        $("#t" + flatid).attr('class', 'selected-flat');
+        return this.trigger("load:range:data", unitModel);
       },
       'mouseover .disable': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
@@ -191,7 +259,46 @@ define(['marionette'], function(Marionette) {
         $('#t' + flatid).text(unitModel.get('name'));
         checktrack = this.checkSelection(unitModel);
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
-          return $("#" + e.target.id).attr('class', 'unit-hover aviable');
+          return $("#" + e.target.id).attr('class', 'unit-hover range aviable');
+        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
+          return $("#" + e.target.id).attr('class', 'sold');
+        } else {
+          return $("#" + e.target.id).attr('class', 'other');
+        }
+      },
+      'mouseover .unselected-floor': function(e) {
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
+        buildingCollection = Marionette.getOption(this, 'buildingCollection');
+        buildinArray = buildingCollection.toArray();
+        building = _.first(buildinArray);
+        buildingModel = App.master.building.findWhere({
+          id: parseInt(building.get('id'))
+        });
+        svgdata = buildingModel.get('svgdata');
+        svgposition = "";
+        unitvalues = "";
+        indexvalue = "";
+        $.each(svgdata, function(index, value) {
+          if (value.svgposition !== null) {
+            return $.each(value.svgposition, function(index1, val1) {
+              var unitsarray;
+              if (position === parseInt(val1)) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                return indexvalue = unitsarray[position];
+              }
+            });
+          }
+        });
+        flatid = $('#' + e.target.id).attr('data-id');
+        unit = indexvalue[parseInt(flatid)];
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(unit)
+        });
+        $('#t' + flatid).text(unitModel.get('name'));
+        checktrack = this.checkSelection(unitModel);
+        if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
+          return $("#" + e.target.id).attr('class', 'unselected-floor aviable');
         } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
           return $("#" + e.target.id).attr('class', 'sold');
         } else {
@@ -442,6 +549,7 @@ define(['marionette'], function(Marionette) {
         });
       }
       App.defaults['unitVariant'] = selectedArray.join(',');
+      App.backFilter['screen2'].push("unitVariant");
       console.log(selectedArray);
       console.log(unitVariantArray);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All" || selectedArray.length === unitVariantArray.length) {
@@ -486,9 +594,9 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.loadbuildingsvg = function() {
       var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, path, svgdata;
-      buildingCollection = Marionette.getOption(this, 'buildingCollection');
+      console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       buildinArray = buildingCollection.toArray();
-      building = _.first(buildinArray);
+      console.log(building = _.first(buildinArray));
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
@@ -510,7 +618,7 @@ define(['marionette'], function(Marionette) {
       var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgposition, unitvalues;
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();
-      building = _.first(buildinArray);
+      console.log(building = _.first(buildinArray));
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
@@ -538,7 +646,7 @@ define(['marionette'], function(Marionette) {
                 return $('#positionsvg').load(svgposition, function(x) {
                   var i, rangClass;
                   $.map(indexvalue, function(index, value) {
-                    return $('#f' + value).attr('class', 'disable');
+                    return $('#f' + value).attr('class', 'unselected-floor');
                   });
                   $.map(indexvalue, function(index1, value1) {
                     var floorArr;
@@ -546,13 +654,13 @@ define(['marionette'], function(Marionette) {
                       floorArr = App.defaults['floor'].split(',');
                       return $.each(floorArr, function(ind, val) {
                         if (parseInt(value1) === parseInt(val)) {
-                          $('#f' + value1).attr('class', 'unit-hover');
-                          return $('#t' + value1).attr('class', 'unit-hover');
+                          $('#f' + value1).attr('class', 'unit-hover range');
+                          return $('#t' + value1).attr('class', 'unit-hover range');
                         }
                       });
                     } else {
-                      $('#f' + value1).attr('class', 'unit-hover');
-                      return $('#t' + value1).attr('class', 'unit-hover');
+                      $('#f' + value1).attr('class', 'unit-hover range');
+                      return $('#t' + value1).attr('class', 'unit-hover range');
                     }
                   });
                   rangClass = ['LOWRISE', 'MIDRISE', 'HIGHRISE'];
@@ -641,6 +749,143 @@ define(['marionette'], function(Marionette) {
         track = 1;
       }
       return track;
+    };
+
+    ScreenThreeLayout.prototype.onShowRangeData = function(unitModel) {
+      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, unitcoll, _i, _j, _len, _len1;
+      object = this;
+      unitcoll = App.master.unit.where({
+        unitAssigned: unitModel.get('unitAssigned')
+      });
+      $.each(unitcoll, function(index, value) {
+        console.log(value);
+        return object.checkClassSelection(value);
+      });
+      buildingCollection = Marionette.getOption(this, 'buildingCollection');
+      buildinArray = buildingCollection.toArray();
+      building = _.first(buildinArray);
+      buildingModel = App.master.building.findWhere({
+        id: parseInt(building.get('id'))
+      });
+      exceptionObject = buildingModel.get('floorexceptionpositions');
+      floorLayoutimage = "";
+      floorLayoutimage = "";
+      $.each(exceptionObject, function(index, value1) {
+        var floorvalue;
+        floorvalue = $.inArray(value.get('floor'), value1.floors);
+        if (floorvalue === -1) {
+          return floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url;
+        } else {
+          return floorLayoutimage = value1.floor_layout_detailed.image_url;
+        }
+      });
+      if (floorLayoutimage !== "") {
+        pos = unitModel.get('unitAssigned');
+        $('<div></div>').load(floorLayoutimage, function(x) {
+          $('#' + pos).attr('class', 'floor-pos position');
+          return unitAssigedArray.push(pos);
+        }).appendTo("#floorsvg");
+      }
+      for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
+        element = unitAssigedArray[index];
+        if (element === parseInt(unitModel.get('unitAssigned'))) {
+          $('#' + element).attr('class', 'floor-pos position');
+        } else {
+          $('#' + element).attr('class', 'floor-pos ');
+        }
+      }
+      unitAssigedArray.push(unitModel.get('unitAssigned'));
+      $('#' + unitModel.get('unitAssigned')).attr('class', 'position');
+      sudoSlider.goToSlide(unitModel.get('unitAssigned'));
+      for (index = _j = 0, _len1 = rangeunitArray.length; _j < _len1; index = ++_j) {
+        element = rangeunitArray[index];
+        if (element === parseInt(unitModel.get('id'))) {
+          $("#select" + unitModel.get('id')).val('1');
+        } else {
+          $("#select" + element).val('0');
+          $('#check' + element).removeClass('selected');
+          rangeunitArray = [];
+        }
+      }
+      rangeunitArray.push(parseInt(unitModel.get('id')));
+      $('#check' + unitModel.get('id')).addClass("selected");
+      $("#select" + unitModel.get('id')).val("1");
+      $("#screen-three-button").removeClass('disabled btn-default');
+      return $("#screen-three-button").addClass('btn-primary');
+    };
+
+    ScreenThreeLayout.prototype.checkClassSelection = function(model) {
+      var flag, myArray, track;
+      myArray = [];
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All' && index !== 'floor') {
+          return myArray.push({
+            key: index,
+            value: value
+          });
+        }
+      });
+      flag = 0;
+      object = this;
+      track = 0;
+      $.each(myArray, function(index, value) {
+        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
+        paramKey = {};
+        if (value.key === 'budget') {
+          buildingModel = App.master.building.findWhere({
+            'id': model.get('building')
+          });
+          floorRise = buildingModel.get('floorrise');
+          floorRiseValue = floorRise[model.get('floor')];
+          unitVariantmodel = App.master.unit_variant.findWhere({
+            'id': model.get('unitVariant')
+          });
+          unitPrice = model.get('unitPrice');
+          budget_arr = value.value.split(' ');
+          budget_price = budget_arr[0].split('-');
+          budget_price[0] = budget_price[0] + '00000';
+          budget_price[1] = budget_price[1] + '00000';
+          if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+            return flag++;
+          }
+        } else if (value.key !== 'floor') {
+          temp = [];
+          temp.push(value.value);
+          tempstring = temp.join(',');
+          initvariant = tempstring.split(',');
+          if (initvariant.length > 1) {
+            _results = [];
+            for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+              element = initvariant[_i];
+              if (model.get(value.key) === parseInt(element)) {
+                _results.push(flag++);
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          } else {
+            if (model.get(value.key) === parseInt(value.value)) {
+              return flag++;
+            }
+          }
+        }
+      });
+      if (flag === myArray.length) {
+        track = 1;
+      }
+      if (myArray.length === 0) {
+        track = 1;
+      }
+      if (track === 1 && model.get('status') === 9 && model.get('unitType') !== 14) {
+        $('#check' + model.get("id")).addClass('boxLong filtered');
+        return $('#flag' + model.get("id")).val('1');
+      } else if (track === 1 && model.get('status') === 8 && model.get('unitType') !== 14) {
+        return $('#check' + model.get("id")).addClass('boxLong sold');
+      } else {
+        $('#check' + model.get("id")).addClass('boxLong other');
+        return $('#check' + model.get("id")).text(model.get('unitTypeName'));
+      }
     };
 
     ScreenThreeLayout.prototype.doListing = function() {
@@ -850,7 +1095,6 @@ define(['marionette'], function(Marionette) {
             });
             $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
             App.unit['name'] = this.model.get("id");
-            App.backFilter['screen3'].push('floor');
             $("#screen-three-button").removeClass('disabled btn-default');
             $("#screen-three-button").addClass('btn-primary');
           } else {

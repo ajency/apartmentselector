@@ -40,6 +40,7 @@ define(['marionette'], function(Mariontte) {
           App.filter(params = {});
           App.layout.screenThreeRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
+          console.log(App.currentStore.building);
           return App.navigate("screen-two", {
             trigger: true
           });

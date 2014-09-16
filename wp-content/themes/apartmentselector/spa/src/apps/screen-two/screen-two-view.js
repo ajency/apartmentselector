@@ -49,11 +49,23 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();
       },
+      'mouseout .tower-link': function(e) {
+        return $('.im-tooltip').hide();
+      },
       'mouseover a.tower-link': function(e) {
-        var id, locationData;
+        var countunits, id, locationData, minmodel, str1;
         id = e.target.id;
+        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        countunits = App.currentStore.unit.where({
+          building: parseInt(str1)
+        });
+        console.log(minmodel = _.min(countunits, function(model) {
+          if (model.get('unitType') !== 14) {
+            return model.get('unitPrice');
+          }
+        }));
         locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return m.showTooltip(locationData, countunits.length, minmodel.get('unitPrice'));
       },
       'mouseover a.im-pin': function(e) {
         var id, locationData;
@@ -151,6 +163,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        if (unitVariantString === "") {
+          unitVariantString = 'All';
+        }
         App.defaults['unitVariant'] = unitVariantString;
         App.backFilter['screen2'].push('unitVariant');
         App.filter(params = {});
@@ -513,6 +528,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
               element = screenArray[_i];
               if (element === 'unitVariant') {
+                if (unitVariantString === "") {
+                  unitVariantString = "All";
+                }
                 App.defaults[element] = unitVariantString;
               } else {
                 key = App.defaults.hasOwnProperty(element);
@@ -528,7 +546,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         $('#screen-four-region').removeClass('section');
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
-        App.navigate("screen-two");
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
@@ -575,6 +592,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             App.backFilter['screen2'].push('building');
             $('#screen-two-button').removeClass('disabled btn-default');
             $("#screen-two-button").addClass('btn-primary');
+            console.log(App.defaults);
           } else {
             rangeArray = [];
             $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("0");

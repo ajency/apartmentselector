@@ -61,6 +61,7 @@ define(['marionette'], function(Marionette) {
       if (params == null) {
         params = {};
       }
+      console.log(App.defaults);
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
@@ -76,6 +77,7 @@ define(['marionette'], function(Marionette) {
         $('#screen-three-region').removeClass('section');
         $('#screen-four-region').removeClass('section');
         App.backFilter['screen3'] = [];
+        console.log(App.backFilter['screen2']);
         screentwoArray = App.backFilter['screen2'];
         for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
           element = screentwoArray[_i];

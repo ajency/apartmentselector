@@ -121,10 +121,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         events:
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
+            'mouseout .tower-link':(e)->
+                $('.im-tooltip').hide()
             'mouseover a.tower-link':(e)->
                 id  = e.target.id
+                console.log str1 = id.replace( /[^\d.]/g, '' )
+                countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                console.log minmodel = _.min(countunits, (model)->
+                    if model.get('unitType') != 14
+                        return model.get('unitPrice')
+                )
                 locationData = m.getLocationData(id)
-                m.showTooltip(locationData)
+                m.showTooltip(locationData,countunits.length,minmodel.get('unitPrice'))
 
             'mouseover a.im-pin':(e)->
                 id  = e.target.id
@@ -233,6 +241,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                if unitVariantString == ""
+                    unitVariantString = 'All'
                 App.defaults['unitVariant'] =unitVariantString
                 App.backFilter['screen2'].push 'unitVariant'
                 App.filter(params={})
@@ -670,6 +680,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         screenArray  = App.backFilter[index]
                         for element in screenArray
                             if element == 'unitVariant'
+                                if unitVariantString == ""
+                                    unitVariantString = "All"
                                 App.defaults[element] = unitVariantString
                             else
                                 key = App.defaults.hasOwnProperty(element)
@@ -682,7 +694,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('#screen-four-region').removeClass 'section'
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
-                App.navigate "screen-two"
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
@@ -731,6 +742,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.backFilter['screen2'].push 'building'
                         $('#screen-two-button').removeClass 'disabled btn-default'
                         $("#screen-two-button").addClass 'btn-primary'
+                        console.log App.defaults
                         #@trigger 'unit:count:selected'
                     else
                         rangeArray=[]
