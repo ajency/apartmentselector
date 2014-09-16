@@ -324,6 +324,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.onShow = function() {
       var $columns_number, globalUnitVariants, selectedArray, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray;
+      unitVariantString = "";
       $('#screen-three-button').on('click', function() {
         return new jBox('Notice', {
           content: 'Wait 1 Second',
@@ -619,7 +620,7 @@ define(['marionette'], function(Marionette) {
             _results = [];
             for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
               element = initvariant[_i];
-              if (object.model.get(value.key) === parseInt(element)) {
+              if (model.get(value.key) === parseInt(element)) {
                 _results.push(flag++);
               } else {
                 _results.push(void 0);
@@ -627,7 +628,7 @@ define(['marionette'], function(Marionette) {
             }
             return _results;
           } else {
-            if (object.model.get(value.key) === parseInt(value.value)) {
+            if (model.get(value.key) === parseInt(value.value)) {
               return flag++;
             }
           }

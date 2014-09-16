@@ -376,6 +376,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            unitVariantString = ""
             $('#screen-three-button').on('click',  ()->
                 new jBox('Notice', 
                     content: 'Wait 1 Second',
@@ -677,10 +678,10 @@ define [ 'marionette' ], ( Marionette )->
                     initvariant = tempstring.split(',')
                     if initvariant.length > 1
                         for element in initvariant
-                           if object.model.get(value.key) == parseInt(element)
+                           if model.get(value.key) == parseInt(element)
                                 flag++ 
                     else
-                        if object.model.get(value.key) == parseInt(value.value)
+                        if model.get(value.key) == parseInt(value.value)
                             flag++
 
                    
