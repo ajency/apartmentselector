@@ -1,4 +1,4 @@
-.box, .boxLong{
+.box, .boxLong, .boxBlank{
 	padding: 8px 15px;
 	height: 55px;
 	width: 120px;
@@ -103,6 +103,23 @@
 	padding: 3vh 15px;
 	&.other{
 		line-height: inherit;
+	}
+}
+
+.boxBlank{
+	width: 100%;
+	min-height: 65px;
+	height: 12vh;
+	padding: 4vh 4vw 0;
+	margin-bottom: 0;
+	background: none;
+	border: none;
+	&.other{
+		line-height: inherit;
+	}
+	&.selected{
+		background: @color-primary;
+		color: @color-white;
 	}
 }
 
