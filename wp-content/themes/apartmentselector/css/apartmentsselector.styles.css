@@ -10288,7 +10288,7 @@ h5 {
 .box.multiBHK > div:last-child:after,
 .boxLong.multiBHK > div:last-child:after,
 .boxBlank.multiBHK > div:last-child:after {
-  right: 1.5vw;
+  right: 1.2vw;
 }
 .box.blank,
 .boxLong.blank,
@@ -10327,9 +10327,11 @@ h5 {
   margin-bottom: 0;
   background: none;
   border: 1px solid transparent;
+  border-bottom: 1px solid #eeeeee;
 }
 .boxBlank:hover {
   border: 1px solid transparent;
+  border-bottom: 1px solid #eeeeee;
 }
 .boxBlank.other {
   line-height: inherit;
@@ -11729,12 +11731,15 @@ a.im-clear-button {
   font-size: 87%;
 }
 
-.aviable:hover, .selected-flat {
+.aviable:hover,
+.selected-flat {
   fill: #99DD1F  !important;
   cursor: pointer;
   opacity: 0.8;
-  text{opacity:1 !important;};
-  
+}
+.aviable:hover text,
+.selected-flat text {
+  opacity: 1 !important;
 }
 .sold:hover {
   fill: #DD1F1F   !important;
