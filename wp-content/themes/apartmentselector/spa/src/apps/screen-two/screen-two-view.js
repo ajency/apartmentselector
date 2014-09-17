@@ -68,7 +68,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           }));
           min = minmodel.get('unitPrice');
-          text = '<span>Count - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + min;
+          text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs.</span>' + min;
         }
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData, text);

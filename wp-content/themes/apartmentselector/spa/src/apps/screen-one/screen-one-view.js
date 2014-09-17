@@ -236,7 +236,7 @@ define(['marionette'], function(Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover .tower-over': function(e) {
-        var countcoll, countunits, element, id, index, locationData, minmodel, str1, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
+        var countcoll, countunits, element, id, index, locationData, minmodel, str1, text, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
         e.preventDefault();
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
@@ -259,9 +259,10 @@ define(['marionette'], function(Marionette) {
             unittypeArray.push(unittypeModel.get('name'));
           }
         }
-        unitTypes = unittypeArray.join(',');
+        unitTypes = unittypeArray.join(', ');
+        text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs.</span>' + minmodel.get('unitPrice') + '<br/><span>Unit Type - </span>' + unitTypes;
         locationData = m.getLocationData(id);
-        return m.showTooltip(locationData, countunits.length, minmodel.get('unitPrice'), unitTypes);
+        return m.showTooltip(locationData, text);
       }
     };
 
