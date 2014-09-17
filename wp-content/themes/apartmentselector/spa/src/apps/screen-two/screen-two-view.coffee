@@ -127,12 +127,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 id  = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
                 countunits = App.currentStore.unit.where({building:parseInt(str1)})
-                console.log minmodel = _.min(countunits, (model)->
-                    if model.get('unitType') != 14
-                        return model.get('unitPrice')
-                )
+                min = ""
+                text = "<span></span>"
+                if countunits.length > 0
+                    console.log minmodel = _.min(countunits, (model)->
+                        if model.get('unitType') != 14
+                            return model.get('unitPrice')
+                    )
+                    min = minmodel.get('unitPrice')
+                    text = '<span>Count - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+min
+                
                 locationData = m.getLocationData(id)
-                m.showTooltip(locationData,countunits.length,minmodel.get('unitPrice'))
+                m.showTooltip(locationData,text)
 
             'mouseover a.im-pin':(e)->
                 id  = e.target.id

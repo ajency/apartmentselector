@@ -227,8 +227,32 @@ define [ 'marionette' ], ( Marionette )->
                 e.preventDefault()
                 id  = e.target.id
                 m.showLocation(id, 800)
+                #locationData = m.getLocationData(id)
+                #m.showTooltip(locationData)
+
+            'mouseout .tower-over':(e)->
+                $('.im-tooltip').hide()
+
+            'mouseover .tower-over':(e)->
+                e.preventDefault()
+                id  = e.target.id
+                console.log str1 = id.replace( /[^\d.]/g, '' )
+                countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                console.log minmodel = _.min(countunits, (model)->
+                    if model.get('unitType') != 14
+                        return model.get('unitPrice')
+                )
+                countcoll = new Backbone.Collection countunits
+                unittype = countcoll.pluck("unitType")
+                uniqUnittype = _.uniq(unittype)
+                unittypeArray = Array()
+                for element , index in uniqUnittype
+                    unittypeModel = App.currentStore.unit_type.get element
+                    if unittypeModel.get('id') != 14
+                        unittypeArray.push unittypeModel.get('name')
+                unitTypes = unittypeArray.join(',')
                 locationData = m.getLocationData(id)
-                m.showTooltip(locationData)
+                m.showTooltip(locationData,countunits.length,minmodel.get('unitPrice'),unitTypes)
 
         showHighlightedTowers:(uniqBuildings)->
             masterbuilding = App.master.building

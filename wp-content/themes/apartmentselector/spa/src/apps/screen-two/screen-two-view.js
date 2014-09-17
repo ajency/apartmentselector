@@ -53,19 +53,25 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover a.tower-link': function(e) {
-        var countunits, id, locationData, minmodel, str1;
+        var countunits, id, locationData, min, minmodel, str1, text;
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         countunits = App.currentStore.unit.where({
           building: parseInt(str1)
         });
-        console.log(minmodel = _.min(countunits, function(model) {
-          if (model.get('unitType') !== 14) {
-            return model.get('unitPrice');
-          }
-        }));
+        min = "";
+        text = "<span></span>";
+        if (countunits.length > 0) {
+          console.log(minmodel = _.min(countunits, function(model) {
+            if (model.get('unitType') !== 14) {
+              return model.get('unitPrice');
+            }
+          }));
+          min = minmodel.get('unitPrice');
+          text = '<span>Count - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + min;
+        }
         locationData = m.getLocationData(id);
-        return m.showTooltip(locationData, countunits.length, minmodel.get('unitPrice'));
+        return m.showTooltip(locationData, text);
       },
       'mouseover a.im-pin': function(e) {
         var id, locationData;

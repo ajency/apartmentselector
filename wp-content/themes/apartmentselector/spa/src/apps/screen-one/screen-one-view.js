@@ -227,12 +227,41 @@ define(['marionette'], function(Marionette) {
         return locationData = m.getLocationData(id);
       },
       'click .tower-over': function(e) {
-        var id, locationData;
+        var id;
         e.preventDefault();
         id = e.target.id;
-        m.showLocation(id, 800);
+        return m.showLocation(id, 800);
+      },
+      'mouseout .tower-over': function(e) {
+        return $('.im-tooltip').hide();
+      },
+      'mouseover .tower-over': function(e) {
+        var countcoll, countunits, element, id, index, locationData, minmodel, str1, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
+        e.preventDefault();
+        id = e.target.id;
+        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        countunits = App.currentStore.unit.where({
+          building: parseInt(str1)
+        });
+        console.log(minmodel = _.min(countunits, function(model) {
+          if (model.get('unitType') !== 14) {
+            return model.get('unitPrice');
+          }
+        }));
+        countcoll = new Backbone.Collection(countunits);
+        unittype = countcoll.pluck("unitType");
+        uniqUnittype = _.uniq(unittype);
+        unittypeArray = Array();
+        for (index = _i = 0, _len = uniqUnittype.length; _i < _len; index = ++_i) {
+          element = uniqUnittype[index];
+          unittypeModel = App.currentStore.unit_type.get(element);
+          if (unittypeModel.get('id') !== 14) {
+            unittypeArray.push(unittypeModel.get('name'));
+          }
+        }
+        unitTypes = unittypeArray.join(',');
         locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return m.showTooltip(locationData, countunits.length, minmodel.get('unitPrice'), unitTypes);
       }
     };
 
