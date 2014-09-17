@@ -819,7 +819,6 @@ define [ 'marionette' ], ( Marionette )->
             track
         
         onShowRangeData:(unitModel)->
-            $('#floorsvg').text ""
             object = @
             unitcoll = App.master.unit.where({unitAssigned:unitModel.get('unitAssigned')})
             $.each(unitcoll, (index,value)->
@@ -834,19 +833,11 @@ define [ 'marionette' ], ( Marionette )->
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             exceptionObject = buildingModel.get 'floorexceptionpositions'
             floorLayoutimage = ""
-            $.each(exceptionObject, (index,value1)->
-                floorvalue = $.inArray( unitModel.get('floor'),value1.floors)
-                if floorvalue == -1
-                    floorLayoutimage = buildingModel.get('floor_layout_basic').image_url
-                else
-                    floorLayoutimage = value1.floor_layout_basic.image_url
+            #floorLayoutimage = buildingModel.get('floor_layout_basic').image_url
 
-
-
-            )
-            if floorLayoutimage != ""
-                pos = unitModel.get('unitAssigned')
-                $('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos)).appendTo("#floorsvg")
+            #if floorLayoutimage != ""
+                #pos = unitModel.get('unitAssigned')
+                #$('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos)).appendTo("#floorsvg")
            
 
             for element , index in unitAssigedArray

@@ -752,8 +752,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShowRangeData = function(unitModel) {
-      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, unitcoll, _i, _j, _len, _len1;
-      $('#floorsvg').text("");
+      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, unitcoll, _i, _j, _len, _len1;
       object = this;
       unitcoll = App.master.unit.where({
         unitAssigned: unitModel.get('unitAssigned')
@@ -770,22 +769,6 @@ define(['marionette'], function(Marionette) {
       });
       exceptionObject = buildingModel.get('floorexceptionpositions');
       floorLayoutimage = "";
-      $.each(exceptionObject, function(index, value1) {
-        var floorvalue;
-        floorvalue = $.inArray(unitModel.get('floor'), value1.floors);
-        if (floorvalue === -1) {
-          return floorLayoutimage = buildingModel.get('floor_layout_basic').image_url;
-        } else {
-          return floorLayoutimage = value1.floor_layout_basic.image_url;
-        }
-      });
-      if (floorLayoutimage !== "") {
-        pos = unitModel.get('unitAssigned');
-        $('<div></div>').load(floorLayoutimage, function(x) {
-          $('#' + pos).attr('class', 'floor-pos position');
-          return unitAssigedArray.push(pos);
-        }).appendTo("#floorsvg");
-      }
       for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
         element = unitAssigedArray[index];
         if (element === parseInt(unitModel.get('unitAssigned'))) {
