@@ -113,7 +113,7 @@ function get_data(){
 
                 # code...
             }
-    return [$buildingarray,$unitarray];
+    return array($buildingarray,$unitarray);
 }
 
 if ( is_development_environment() ) {
