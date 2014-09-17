@@ -753,6 +753,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.onShowRangeData = function(unitModel) {
       var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, unitcoll, _i, _j, _len, _len1;
+      $('#floorsvg').text("");
       object = this;
       unitcoll = App.master.unit.where({
         unitAssigned: unitModel.get('unitAssigned')
@@ -768,7 +769,6 @@ define(['marionette'], function(Marionette) {
         id: parseInt(building.get('id'))
       });
       exceptionObject = buildingModel.get('floorexceptionpositions');
-      floorLayoutimage = "";
       floorLayoutimage = "";
       $.each(exceptionObject, function(index, value1) {
         var floorvalue;

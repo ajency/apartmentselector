@@ -819,6 +819,7 @@ define [ 'marionette' ], ( Marionette )->
             track
         
         onShowRangeData:(unitModel)->
+            $('#floorsvg').text ""
             object = @
             unitcoll = App.master.unit.where({unitAssigned:unitModel.get('unitAssigned')})
             $.each(unitcoll, (index,value)->
@@ -832,7 +833,6 @@ define [ 'marionette' ], ( Marionette )->
             building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             exceptionObject = buildingModel.get 'floorexceptionpositions'
-            floorLayoutimage = ""
             floorLayoutimage = ""
             $.each(exceptionObject, (index,value1)->
                 floorvalue = $.inArray( unitModel.get('floor'),value1.floors)
