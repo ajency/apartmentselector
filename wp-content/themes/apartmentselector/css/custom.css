@@ -6322,6 +6322,7 @@ h5 {
   content: '>';
   position: absolute;
   right: -8px;
+  top: 15px;
   color: #cc5200;
   font-size: 50px;
   font-weight: 700;
@@ -7140,13 +7141,11 @@ h5 {
   margin-bottom: 0px;
 }
 .unitCount {
-  position: absolute;
   right: 46px;
 }
 .towerSelect {
   padding: 0 10px;
   cursor: pointer;
-  padding-top: 10px;
   -webkit-transition: all 0.3s ease-out;
   /* Chrome 1-25, Safari 3.2+ */
   -moz-transition: all 0.3s ease-out;
@@ -7239,7 +7238,8 @@ h5 {
   color: #d5d5d5;
 }
 .box,
-.boxLong {
+.boxLong,
+.boxBlank {
   padding: 8px 15px;
   height: 55px;
   width: 120px;
@@ -7268,20 +7268,25 @@ h5 {
 }
 .box small,
 .boxLong small,
+.boxBlank small,
 .box .small,
-.boxLong .small {
+.boxLong .small,
+.boxBlank .small {
   font-weight: normal;
   line-height: 1;
   color: #999999;
 }
 .box small,
 .boxLong small,
+.boxBlank small,
 .box .small,
-.boxLong .small {
+.boxLong .small,
+.boxBlank .small {
   font-size: 75%;
 }
 .box .small,
-.boxLong .small {
+.boxLong .small,
+.boxBlank .small {
   font-family: 'kievit';
   font-weight: 500;
   line-height: 1.1;
@@ -7295,29 +7300,36 @@ h5 {
 }
 .box .small small,
 .boxLong .small small,
+.boxBlank .small small,
 .box .small .small,
-.boxLong .small .small {
+.boxLong .small .small,
+.boxBlank .small .small {
   font-weight: normal;
   line-height: 1;
   color: #999999;
 }
 .box .small small,
 .boxLong .small small,
+.boxBlank .small small,
 .box .small .small,
-.boxLong .small .small {
+.boxLong .small .small,
+.boxBlank .small .small {
   font-size: 75%;
 }
 .box.selected,
-.boxLong.selected {
+.boxLong.selected,
+.boxBlank.selected {
   border: 1px solid #ff6600;
   color: #ff6600;
 }
 .box.selected .small,
-.boxLong.selected .small {
+.boxLong.selected .small,
+.boxBlank.selected .small {
   color: #ff6600;
 }
 .box.selected:before,
-.boxLong.selected:before {
+.boxLong.selected:before,
+.boxBlank.selected:before {
   position: absolute;
   top: 1px;
   right: 4px;
@@ -7327,62 +7339,75 @@ h5 {
   content: '\e089';
 }
 .box.filtered .unitNo,
-.boxLong.filtered .unitNo {
+.boxLong.filtered .unitNo,
+.boxBlank.filtered .unitNo {
   color: #ff6600;
 }
 .box.other,
-.boxLong.other {
+.boxLong.other,
+.boxBlank.other {
   opacity: 0.3;
   cursor: default;
   line-height: 53px;
 }
 .box.sold,
-.boxLong.sold {
+.boxLong.sold,
+.boxBlank.sold {
   color: #c3c6ce;
 }
 .box.threeBHK > div:last-child:after,
 .boxLong.threeBHK > div:last-child:after,
+.boxBlank.threeBHK > div:last-child:after,
 .box.twoBHK > div:last-child:after,
 .boxLong.twoBHK > div:last-child:after,
+.boxBlank.twoBHK > div:last-child:after,
 .box.oneBHK > div:last-child:after,
 .boxLong.oneBHK > div:last-child:after,
+.boxBlank.oneBHK > div:last-child:after,
 .box.multiBHK > div:last-child:after,
-.boxLong.multiBHK > div:last-child:after {
+.boxLong.multiBHK > div:last-child:after,
+.boxBlank.multiBHK > div:last-child:after {
   position: absolute;
-  bottom: 0;
-  right: 50px;
+  top: 3vw;
+  right: 2vw;
   font-size: 40px;
   content: '.';
   color: #ff6600;
 }
 .box.twoBHK > div:last-child:after,
-.boxLong.twoBHK > div:last-child:after {
+.boxLong.twoBHK > div:last-child:after,
+.boxBlank.twoBHK > div:last-child:after {
   color: #f0ad4e;
 }
 .box.oneBHK > div:last-child:after,
-.boxLong.oneBHK > div:last-child:after {
+.boxLong.oneBHK > div:last-child:after,
+.boxBlank.oneBHK > div:last-child:after {
   color: #5bc0de;
 }
 .box.multiBHK > div:last-child:before,
-.boxLong.multiBHK > div:last-child:before {
+.boxLong.multiBHK > div:last-child:before,
+.boxBlank.multiBHK > div:last-child:before {
   position: absolute;
-  bottom: 0;
-  right: 55px;
+  top: 3vw;
+  right: 2vw;
   font-size: 40px;
   content: '.';
   color: #f0ad4e;
 }
 .box.multiBHK > div:last-child:after,
-.boxLong.multiBHK > div:last-child:after {
-  right: 45px;
+.boxLong.multiBHK > div:last-child:after,
+.boxBlank.multiBHK > div:last-child:after {
+  right: 1.2vw;
 }
 .box.blank,
-.boxLong.blank {
+.boxLong.blank,
+.boxBlank.blank {
   font-size: 40px;
   line-height: 16px;
 }
 .box:hover,
-.boxLong:hover {
+.boxLong:hover,
+.boxBlank:hover {
   border-color: #ff6600;
   color: #ff6600;
   -webkit-transition: all 0.3s ease-out;
@@ -7402,6 +7427,28 @@ h5 {
 }
 .boxLong.other {
   line-height: inherit;
+}
+.boxBlank {
+  width: 100%;
+  min-height: 65px;
+  height: 12vh;
+  padding: 3.5vh 1vw 0;
+  margin-bottom: 0;
+  background: none;
+  border: 1px solid transparent;
+}
+.boxBlank:hover {
+  border: 1px solid transparent;
+}
+.boxBlank.other {
+  line-height: inherit;
+}
+.boxBlank.selected {
+  border: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+  background: rgba(153, 153, 153, 0.35);
+  color: #ff6600;
 }
 /**** Responsive Table Styles ****/
 .unitTable {
@@ -7782,10 +7829,16 @@ h5 {
   width: 90%;
   padding: 0;
 }
+.vs-triplelayout .vs-wrapper .towerUnits {
+  background: url('../images/tower.png') no-repeat center;
+  background-position-y: -5px;
+  background-size: contain;
+}
 .vs-triplelayout .vs-wrapper .towerUnits .subHeader {
   font-size: 16px;
   padding-top: 5px;
   border-bottom: none;
+  display: none;
 }
 .vs-triplelayout .vs-wrapper .towerUnits .subHeader .row {
   margin: auto;
