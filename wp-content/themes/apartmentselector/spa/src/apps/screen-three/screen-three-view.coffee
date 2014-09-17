@@ -835,11 +835,11 @@ define [ 'marionette' ], ( Marionette )->
             floorLayoutimage = ""
             floorLayoutimage = ""
             $.each(exceptionObject, (index,value1)->
-                floorvalue = $.inArray( value.get('floor'),value1.floors)
+                floorvalue = $.inArray( unitModel.get('floor'),value1.floors)
                 if floorvalue == -1
-                    floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url
+                    floorLayoutimage = buildingModel.get('floor_layout_basic').image_url
                 else
-                    floorLayoutimage = value1.floor_layout_detailed.image_url
+                    floorLayoutimage = value1.floor_layout_basic.image_url
 
 
 
