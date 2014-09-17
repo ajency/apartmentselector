@@ -80,7 +80,9 @@ define [ 'marionette' ], ( Marionette )->
             unitTypeString = unitType.join(',')
             App.defaults['unitType'] = unitTypeString
             
-
+            $('#screen-two-region').removeClass 'section'
+            $('#screen-three-region').removeClass 'section'
+            $('#screen-four-region').removeClass 'section'
             App.screenOneFilter['value'] = unitTypeString
             App.screenOneFilter['key'] = 'unitType'
             $("#finalButton").removeClass 'disabled btn-default'
@@ -184,7 +186,10 @@ define [ 'marionette' ], ( Marionette )->
                             App.defaults[element] = 'All'
 
                 )
-
+                $('#screen-two-region').removeClass 'section'
+                $('#screen-three-region').removeClass 'section'
+                $('#screen-four-region').removeClass 'section'
+            
                 App.layout.screenTwoRegion.el.innerHTML = ""
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
@@ -222,8 +227,33 @@ define [ 'marionette' ], ( Marionette )->
                 e.preventDefault()
                 id  = e.target.id
                 m.showLocation(id, 800)
-                locationData = m.getLocationData(id)
+                #locationData = m.getLocationData(id)
                 #m.showTooltip(locationData)
+
+            'mouseout .tower-over':(e)->
+                $('.im-tooltip').hide()
+
+            'mouseover .tower-over':(e)->
+                e.preventDefault()
+                id  = e.target.id
+                console.log str1 = id.replace( /[^\d.]/g, '' )
+                countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                console.log minmodel = _.min(countunits, (model)->
+                    if model.get('unitType') != 14
+                        return model.get('unitPrice')
+                )
+                countcoll = new Backbone.Collection countunits
+                unittype = countcoll.pluck("unitType")
+                uniqUnittype = _.uniq(unittype)
+                unittypeArray = Array()
+                for element , index in uniqUnittype
+                    unittypeModel = App.currentStore.unit_type.get element
+                    if unittypeModel.get('id') != 14
+                        unittypeArray.push unittypeModel.get('name')
+                unitTypes = unittypeArray.join(', ')
+                text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+minmodel.get('unitPrice')+'<br/><span>Unit Type - </span>'+unitTypes
+                locationData = m.getLocationData(id)
+                m.showTooltip(locationData,text)
 
         showHighlightedTowers:(uniqBuildings)->
             masterbuilding = App.master.building

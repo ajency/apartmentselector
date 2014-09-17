@@ -1217,7 +1217,7 @@ define [ 'marionette' ], ( Marionette )->
                 hideArrowsWhenMobile: false
                 dynamicTabsAlign: "center"
                 continuous: false
-                autoHeight: false
+                #autoHeight: false
             )
 
 

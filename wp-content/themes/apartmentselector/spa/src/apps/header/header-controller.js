@@ -32,15 +32,15 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
     };
 
     HeaderController.prototype._getHeader = function() {
-      var btnClass, buildingModel, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
+      var btnClass, buildingModel, f, first, flag, floorriserange, myArray, param, paramkey, range, templateArr, templateString, textClass, track, trackArray, units;
       templateArr = [];
       flag = 0;
       myArray = [];
-      templateArr = [];
       param = {};
       paramkey = {};
       flag = 0;
       track = 0;
+      f = 1;
       trackArray = [];
       units = App.master.unit;
       $.map(App.defaults, function(value, index) {
@@ -118,8 +118,9 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
           }
         }
       });
+      console.log(templateArr);
       if (templateArr.length === 0) {
-        templateArr.push('<span>All<span>');
+        templateArr.push('<span>All</span>');
       }
       if (flag === 1) {
         buildingModel = App.currentStore.building.findWhere({
@@ -148,12 +149,15 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
         textClass = "";
       } else if (window.location.href.indexOf('wishList') > -1) {
-        templateString = "<span>WishList Comparison<span>";
+        templateString = "<span>WishList Comparison</span>";
         textClass = "";
         btnClass = "hidden";
       } else {
         templateString = "<span>Apartment Selector</span>";
       }
+      $('#textstring').text("");
+      console.log($('#textstring').html());
+      console.log(templateString);
       return [templateString, textClass];
     };
 

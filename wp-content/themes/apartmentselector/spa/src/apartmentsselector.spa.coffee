@@ -39,11 +39,26 @@ require [ 'plugin-loader'
         wishListRegion : '#wishlist-region'
 
 
+    NEW_BUILDINGS = _.where(BUILDINGS, {phase:26})
+
+    NEW_UNITS = []
+    $.each(BUILDINGS,(index,value)->
+        temp = _.where(UNITS, {building:value.id})
+        $.merge(NEW_UNITS, temp)
+        
+
+    )
+        
+
+
+        
+
+    
     # current store
     App.currentStore =
-        'unit' : new Backbone.Collection UNITS
+        'unit' : new Backbone.Collection NEW_UNITS
         'view' : new Backbone.Collection  VIEWS
-        'building' : new Backbone.Collection  BUILDINGS
+        'building' : new Backbone.Collection  NEW_BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
         'unit_type' : new Backbone.Collection  UNITTYPES
         'status': new Backbone.Collection  STATUS
@@ -52,9 +67,9 @@ require [ 'plugin-loader'
 
     # master store
     App.master =
-        'unit' : new Backbone.Collection UNITS
+        'unit' : new Backbone.Collection NEW_UNITS
         'view' : new Backbone.Collection  VIEWS
-        'building' : new Backbone.Collection  BUILDINGS
+        'building' : new Backbone.Collection  NEW_BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
         'unit_type' : new Backbone.Collection  UNITTYPES
         'status': new Backbone.Collection  STATUS
@@ -251,7 +266,6 @@ require [ 'plugin-loader'
 
     if window.location.hash is ''
         App.filter()
-        staticApps.push [ 'header', App.headerRegion ]
         staticApps.push [ 'main:app', App.mainRegion ]
 
 

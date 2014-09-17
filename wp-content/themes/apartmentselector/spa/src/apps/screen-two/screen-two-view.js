@@ -49,11 +49,29 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();
       },
+      'mouseout .tower-link': function(e) {
+        return $('.im-tooltip').hide();
+      },
       'mouseover a.tower-link': function(e) {
-        var id, locationData;
+        var countunits, id, locationData, min, minmodel, str1, text;
         id = e.target.id;
+        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        countunits = App.currentStore.unit.where({
+          building: parseInt(str1)
+        });
+        min = "";
+        text = "<span></span>";
+        if (countunits.length > 0) {
+          console.log(minmodel = _.min(countunits, function(model) {
+            if (model.get('unitType') !== 14) {
+              return model.get('unitPrice');
+            }
+          }));
+          min = minmodel.get('unitPrice');
+          text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs. </span>' + min;
+        }
         locationData = m.getLocationData(id);
-        return m.showTooltip(locationData);
+        return m.showTooltip(locationData, text);
       },
       'mouseover a.im-pin': function(e) {
         var id, locationData;
@@ -113,7 +131,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
-        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#selectall').prop('checked', true);
         } else {
@@ -152,7 +169,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        if (unitVariantString === "") {
+          unitVariantString = 'All';
+        }
         App.defaults['unitVariant'] = unitVariantString;
+        App.backFilter['screen2'].push('unitVariant');
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },
@@ -371,7 +392,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     ScreenTwoLayout.prototype.delItem = function(delnum) {
       var i, index, key, params, q, removeItem, unitvariantarrayValues;
-      console.log(delnum);
       removeItem = delnum;
       i = 0;
       key = "";
@@ -438,27 +458,33 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     BuildingView.prototype.className = 'vs-nav-current';
 
     BuildingView.prototype.events = {
-      'click .link': function() {
+      'click .link': function(e) {
         var i, id, params, selector;
-        id = 'tower' + this.model.get('id');
+        id = this.model.get('id');
         i = 1;
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
-        return this.showHighlightedBuildings(this.model.get('id'));
+        if (this.model.get('id') === void 0) {
+          id = "";
+        }
+        return this.showHighlightedBuildings(id);
       }
     };
 
     BuildingView.prototype.showHighlightedBuildings = function(id) {
       var building, masterbuilding;
-      if (id == null) {
-        id = {};
-      }
       masterbuilding = App.master.building;
       masterbuilding.each(function(index) {
         return $("#highlighttower" + index.get('id')).attr('class', 'overlay');
       });
-      building = id;
-      return $("#highlighttower" + building).attr('class', 'overlay highlight');
+      if (id !== "") {
+        building = id;
+        return $("#highlighttower" + building).attr('class', 'overlay highlight');
+      }
+    };
+
+    BuildingView.prototype.initialize = function() {
+      return this.$el.prop("id", 'towerlink' + this.model.get("id"));
     };
 
     return BuildingView;
@@ -508,6 +534,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
               element = screenArray[_i];
               if (element === 'unitVariant') {
+                if (unitVariantString === "") {
+                  unitVariantString = "All";
+                }
                 App.defaults[element] = unitVariantString;
               } else {
                 key = App.defaults.hasOwnProperty(element);
@@ -519,9 +548,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           }
           return q++;
         });
+        $('#screen-three-region').removeClass('section');
+        $('#screen-four-region').removeClass('section');
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
-        App.navigate("screen-two");
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
@@ -568,6 +598,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             App.backFilter['screen2'].push('building');
             $('#screen-two-button').removeClass('disabled btn-default');
             $("#screen-two-button").addClass('btn-primary');
+            console.log(App.defaults);
           } else {
             rangeArray = [];
             $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("0");

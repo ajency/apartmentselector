@@ -44,9 +44,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             var floorvalue;
             floorvalue = $.inArray(unitModel.get('floor'), value1.floors);
             if (floorvalue === -1) {
-              return floorLayoutimage = buildingModel.get('floor_layout_detailed').thumbnail_url;
+              return floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url;
             } else {
-              return floorLayoutimage = value1.floor_layout_detailed.thumbnail_url;
+              return floorLayoutimage = value1.floor_layout_detailed.image_url;
             }
           });
           floorriserange = buildingModel.get('floorriserange');

@@ -11,6 +11,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     function ScreenThreeController() {
       this.mainUnitSelected = __bind(this.mainUnitSelected, this);
       this._unitItemSelected = __bind(this._unitItemSelected, this);
+      this._loadRangeData = __bind(this._loadRangeData, this);
       this.showViews = __bind(this.showViews, this);
       return ScreenThreeController.__super__.constructor.apply(this, arguments);
     }
@@ -35,6 +36,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);
       this.listenTo(this.layout, 'unit:item:selected', this._unitItemSelected);
+      this.listenTo(this.layout, 'load:range:data', this._loadRangeData);
       return this.show(this.layout);
     };
 
@@ -65,7 +67,31 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       this.listenTo(this.layout, "show", this.showViews);
       this.listenTo(this.layout, 'unit:variants:selected', this._showBuildings);
       this.listenTo(this.layout, 'unit:item:selected', this._unitItemSelected);
+      this.listenTo(this.layout, 'load:range:data', this._loadRangeData);
       return this.show(this.layout);
+    };
+
+    ScreenThreeController.prototype._loadRangeData = function(unitModel) {
+      var itemview1, itemview2, sudoSlider;
+      this.Collection = this._getUnits();
+      itemview1 = new ScreenThreeView.UnitTypeChildView({
+        collection: this.Collection[0]
+      });
+      itemview2 = new ScreenThreeView.UnitTypeView({
+        collection: this.Collection[1]
+      });
+      this.layout.buildingRegion.$el.empty();
+      this.layout.unitRegion.$el.empty();
+      this.layout.buildingRegion.$el.append(itemview1.render().el);
+      this.layout.unitRegion.$el.append(itemview2.render().el);
+      sudoSlider = $("#unitsSlider").sudoSlider({
+        customLink: "a",
+        prevNext: false,
+        responsive: true,
+        speed: 800
+      });
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      return this.layout.triggerMethod("show:range:data", unitModel, this.Collection[1]);
     };
 
     ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {

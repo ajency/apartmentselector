@@ -11729,15 +11729,12 @@ a.im-clear-button {
   font-size: 87%;
 }
 
-.aviable:hover,
-.selected-flat {
+.aviable:hover, .selected-flat {
   fill: #99DD1F  !important;
   cursor: pointer;
   opacity: 0.8;
-}
-.aviable:hover text,
-.selected-flat text {
-  opacity: 0.9 !important;
+  text{opacity:1 !important;};
+  
 }
 .sold:hover {
   fill: #DD1F1F   !important;

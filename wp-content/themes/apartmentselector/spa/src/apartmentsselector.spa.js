@@ -4,7 +4,7 @@ define('plugin-loader', ['selectFx', 'jquerymousewheel', 'mapplic', 'mapplic_new
 define('apps-loader', ['src/apps/footer/footer-controller', 'src/apps/header/header-controller', 'src/apps/screen-one/screen-one-controller', 'src/apps/screen-two/screen-two-controller', 'src/apps/screen-three/screen-three-controller', 'src/apps/screen-four/screen-four-controller', 'src/apps/popup/popup-controller', 'src/apps/main-app/main-layout'], function() {});
 
 require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'apps-loader'], function(plugins, Extm) {
-  var staticApps;
+  var NEW_BUILDINGS, NEW_UNITS, staticApps;
   window.App = new Extm.Application;
   App.layout = "";
   App.addRegions({
@@ -14,19 +14,30 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     mainRegion: '#main-region',
     wishListRegion: '#wishlist-region'
   });
+  NEW_BUILDINGS = _.where(BUILDINGS, {
+    phase: 26
+  });
+  NEW_UNITS = [];
+  $.each(BUILDINGS, function(index, value) {
+    var temp;
+    temp = _.where(UNITS, {
+      building: value.id
+    });
+    return $.merge(NEW_UNITS, temp);
+  });
   App.currentStore = {
-    'unit': new Backbone.Collection(UNITS),
+    'unit': new Backbone.Collection(NEW_UNITS),
     'view': new Backbone.Collection(VIEWS),
-    'building': new Backbone.Collection(BUILDINGS),
+    'building': new Backbone.Collection(NEW_BUILDINGS),
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
     'facings': new Backbone.Collection(FACINGS)
   };
   App.master = {
-    'unit': new Backbone.Collection(UNITS),
+    'unit': new Backbone.Collection(NEW_UNITS),
     'view': new Backbone.Collection(VIEWS),
-    'building': new Backbone.Collection(BUILDINGS),
+    'building': new Backbone.Collection(NEW_BUILDINGS),
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
@@ -212,7 +223,6 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
   };
   if (window.location.hash === '') {
     App.filter();
-    staticApps.push(['header', App.headerRegion]);
     staticApps.push(['main:app', App.mainRegion]);
   }
   App.addStaticApps(staticApps);

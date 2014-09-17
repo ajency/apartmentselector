@@ -136,13 +136,15 @@ define [ 'marionette' ], ( Marionette )->
                                         floorArr  = App.defaults['floor'].split(',')
                                         $.each(floorArr, (ind,val)->
                                             if parseInt(value) == parseInt(val)
-                                                $('#f'+value).attr('class', 'unit-hover')
+                                                $('#f'+value).attr('class', 'unit-hover range')
+                                                $('#t'+value).attr('class', 'unit-hover range')
 
 
 
                                             )
                                     else
-                                        $('#f'+value).attr('class', 'unit-hover')
+                                        $('#f'+value).attr('class', 'unit-hover range')
+                                        $('#t'+value).attr('class', 'unit-hover range')
 
 
                                         )
@@ -172,6 +174,84 @@ define [ 'marionette' ], ( Marionette )->
                 $("#select"+unit).val "1"
                 $("#screen-three-button").removeClass 'disabled btn-default'
                 $("#screen-three-button").addClass 'btn-primary'
+
+            'click .unselected-floor':(e)->
+                buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+                buildinArray = buildingCollection.toArray()
+                building  = _.first(buildinArray)
+                buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+                svgdata = buildingModel.get 'svgdata'
+                floorriserange = buildingModel.get 'floorriserange'
+                #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgposition = ""
+                unitvalues = ""
+                indexvalue = ""
+                $.each(svgdata, (index,value)->
+                    if value.svgposition != null
+                        $.each(value.svgposition, (index1,val1)->
+                                if position == parseInt(val1)
+                                    svgposition = value.svgfile
+                                    unitsarray = value.units
+                                    indexvalue = unitsarray[position]
+                                    
+
+
+                                )
+                        
+
+
+
+                       
+
+
+
+                    )
+                flatid = $('#'+e.target.id).attr('data-id')
+                unit = indexvalue[parseInt(flatid)]
+                unitModel = App.master.unit.findWhere(id:parseInt(unit))
+                rangeArrayVal = []
+                $.each(floorriserange, (index,value)->
+                    rangeArrayVal = []
+                    i = 0
+
+                    start = parseInt(value.start)
+                    end = parseInt(value.end)
+                    while parseInt(start) <= parseInt(end)
+                        rangeArrayVal[i] = start
+                        start = parseInt(start) + 1
+                        i++
+                    if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
+                        App.defaults['floor'] = rangeArrayVal.join(',')
+
+
+
+                )
+                $.map(indexvalue, (index,value)->
+                    $('#f'+value).attr('class', 'unselected-floor range')
+                )
+                $.map(indexvalue, (index,value)->
+                                    if App.defaults['floor'] != "All"
+                                        floorArr  = App.defaults['floor'].split(',')
+                                        $.each(floorArr, (ind,val)->
+                                            if parseInt(value) == parseInt(val)
+                                                $('#f'+value).attr('class', 'unit-hover range')
+                                                $('#t'+value).attr('class', 'unit-hover range')
+
+
+
+                                            )
+                                    else
+                                        $('#f'+value).attr('class', 'unselected-floor range')
+                                        $('#t'+value).attr('class', 'unselected-floor range')
+
+
+                                        )
+                $("#"+e.target.id).attr('class','selected-flat')
+                $("#t"+flatid).attr('class','selected-flat')
+                
+                
+                @trigger "load:range:data", unitModel
+                
 
             'mouseover .disable':(e)->
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
@@ -246,7 +326,50 @@ define [ 'marionette' ], ( Marionette )->
                 $('#t'+flatid).text unitModel.get('name')
                 checktrack = @checkSelection(unitModel)
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
-                    $("#"+e.target.id).attr('class','unit-hover aviable')
+                    $("#"+e.target.id).attr('class','unit-hover range aviable')
+                else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
+                    $("#"+e.target.id).attr('class','sold')
+                else
+                    $("#"+e.target.id).attr('class','other')
+
+            'mouseover .unselected-floor':(e)->
+                buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+                buildinArray = buildingCollection.toArray()
+                building  = _.first(buildinArray)
+                buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+                svgdata = buildingModel.get 'svgdata'
+                #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
+                svgposition = ""
+                unitvalues = ""
+                indexvalue = ""
+                $.each(svgdata, (index,value)->
+                    if value.svgposition != null
+                        $.each(value.svgposition, (index1,val1)->
+                                if position == parseInt(val1)
+                                    svgposition = value.svgfile
+                                    unitsarray = value.units
+                                    indexvalue = unitsarray[position]
+                                    
+
+
+                                )
+                        
+
+
+
+                       
+
+
+
+                    )
+                flatid = $('#'+e.target.id).attr('data-id')
+                unit = indexvalue[parseInt(flatid)]
+
+                unitModel = App.master.unit.findWhere(id:parseInt(unit))
+                $('#t'+flatid).text unitModel.get('name')
+                checktrack = @checkSelection(unitModel)
+                if checktrack == 1 && parseInt(unitModel.get('status')) == 9
+                    $("#"+e.target.id).attr('class','unselected-floor aviable')
                 else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
                     $("#"+e.target.id).attr('class','sold')
                 else
@@ -312,7 +435,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                if unitVariantString == ""
+                console.log cloneunitVariantArrayColl.length
+                console.log unitVariantArray.length
+                if unitVariantString == "" || parseInt(cloneunitVariantArrayColl.length) == parseInt(unitVariantArray.length)
                     unitVariantString = "All"
                 App.defaults['unitVariant'] = unitVariantString
                 App.backFilter['screen2'].push "unitVariant"
@@ -372,6 +497,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            unitVariantString = ""
             $('#screen-three-button').on('click',  ()->
                 new jBox('Notice', 
                     content: 'Wait 1 Second',
@@ -399,11 +525,7 @@ define [ 'marionette' ], ( Marionette )->
             )
                 
             $('#mainsvg' ).text ""
-            if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
-                $('#unselectall' ).prop 'checked', true
-            else
-                $('#unselectall' ).prop 'checked', false
-
+            
             rangeunitArray= []
             globalUnitArrayInt = []
 
@@ -480,7 +602,7 @@ define [ 'marionette' ], ( Marionette )->
                     globalUnitArrayInt.push(parseInt(value))
 
                 )
-
+            selectedArray = []
             if App.defaults['unitVariant'] != 'All'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $.each(unitVariantArray, (index,value)->
@@ -488,6 +610,7 @@ define [ 'marionette' ], ( Marionette )->
                     if key == true
                         $('#gridlink'+value).addClass 'selected'
                         $('#checklink'+value).val '1'
+                        selectedArray.push value
                     else
                         index = unitVariantArray.indexOf(parseInt(value))
                         $('#gridlink'+value).removeClass 'selected'
@@ -499,8 +622,18 @@ define [ 'marionette' ], ( Marionette )->
                 $.each(unitVariantArray, (index,value)->
                     $('#gridlink'+value).addClass 'selected'
                     $('#checklink'+value).val '1'
+                    selectedArray.push value
 
                 )
+            App.defaults['unitVariant'] = selectedArray.join(',')
+            App.backFilter['screen2'].push "unitVariant"
+            console.log selectedArray
+            console.log unitVariantArray
+            if unitVariantString == "All" || App.defaults['unitVariant'] == "All" || selectedArray.length == unitVariantArray.length
+                $('#unselectall' ).prop 'checked', true
+            else
+                $('#unselectall' ).prop 'checked', false
+
 
 
 
@@ -517,8 +650,9 @@ define [ 'marionette' ], ( Marionette )->
 
             tagsArray = []
             testtext = App.defaults['unitVariant']
-            if testtext != 'All'
-                unitVariantArrayText = testtext.split(',')
+            if parseInt(selectedArray.length) != parseInt(unitVariantArray.length)
+                console.log selectedArray
+                unitVariantArrayText = selectedArray
                 $.each(unitVariantArrayText, (index,value)->
                     unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
                     tagsArray.push({id:value , area : unitVariantModel.get('sellablearea')+'Sq.ft.'})
@@ -540,12 +674,12 @@ define [ 'marionette' ], ( Marionette )->
                 object1.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
         loadbuildingsvg:->
-            buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            console.log buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
             buildinArray = buildingCollection.toArray()
-            building  = _.first(buildinArray)
+            console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgdata = buildingModel.get 'svgdata'
-            floor_layout_Basic = buildingModel.get('floor_layout_basic').thumbnail_url
+            floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if floor_layout_Basic != ""
                 path = floor_layout_Basic
@@ -558,7 +692,7 @@ define [ 'marionette' ], ( Marionette )->
         loadsvg:(floorid)->
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
             buildinArray = buildingCollection.toArray()
-            building  = _.first(buildinArray)
+            console.log building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             floorange = buildingModel.get('floorriserange')
             lowrange = floorange[0]
@@ -587,20 +721,22 @@ define [ 'marionette' ], ( Marionette )->
                                 if value.svgfile != ""
                                     $('#positionsvg').load(svgposition,  (x)->
                                         $.map(indexvalue, (index,value)->
-                                            $('#f'+value).attr('class', 'disable')
+                                            $('#f'+value).attr('class', 'unselected-floor')
                                         )
                                         $.map(indexvalue, (index1,value1)->
                                             if App.defaults['floor'] != "All"
                                                 floorArr  = App.defaults['floor'].split(',')
                                                 $.each(floorArr, (ind,val)->
                                                     if parseInt(value1) == parseInt(val)
-                                                        $('#f'+value1).attr('class', 'unit-hover')
+                                                        $('#f'+value1).attr('class', 'unit-hover range')
+                                                        $('#t'+value1).attr('class', 'unit-hover range')
 
 
 
                                                     )
-                                            else
-                                                $('#f'+value1).attr('class', 'unit-hover')
+                                            else 
+                                                $('#f'+value1).attr('class', 'unit-hover range')
+                                                $('#t'+value1).attr('class', 'unit-hover range')
 
                                             )
                                         rangClass = ['LOWRISE','MIDRISE','HIGHRISE']
@@ -657,9 +793,19 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                         flag++
                 else if value.key != 'floor'
+                    temp = []
+                    temp.push value.value
+                    tempstring = temp.join(',')
+                    initvariant = tempstring.split(',')
+                    if initvariant.length > 1
+                        for element in initvariant
+                           if model.get(value.key) == parseInt(element)
+                                flag++ 
+                    else
+                        if model.get(value.key) == parseInt(value.value)
+                            flag++
 
-                   if model.get(value.key) == parseInt(value.value)
-                        flag++
+                   
 
 
             )
@@ -671,7 +817,116 @@ define [ 'marionette' ], ( Marionette )->
             if myArray.length == 0
                 track = 1
             track
+        
+        onShowRangeData:(unitModel,collection)->
+            object = @
+            unitcoll = collection.toArray()
+            $.each(unitcoll, (index,value)->
+                units = value.get('units')
+                units.each( (item)->
+                    object.checkClassSelection(item)
+
+
+                    )
+                
+
+                )
             
+            buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            buildinArray = buildingCollection.toArray()
+            building  = _.first(buildinArray)
+            buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+            exceptionObject = buildingModel.get 'floorexceptionpositions'
+            floorLayoutimage = ""
+            #floorLayoutimage = buildingModel.get('floor_layout_basic').image_url
+
+            #if floorLayoutimage != ""
+                #pos = unitModel.get('unitAssigned')
+                #$('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos)).appendTo("#floorsvg")
+           
+
+            for element , index in unitAssigedArray
+                    if element == parseInt(unitModel.get('unitAssigned'))
+                        $('#'+element).attr('class','floor-pos position')
+                    else
+                        $('#'+element).attr('class','floor-pos ')
+                        
+            unitAssigedArray.push unitModel.get('unitAssigned')
+            $('#'+unitModel.get('unitAssigned')).attr('class','position')
+            sudoSlider.goToSlide(unitModel.get('unitAssigned'));
+            for element , index in rangeunitArray
+                if element == parseInt(unitModel.get('id'))
+                    $("#select"+unitModel.get('id')).val '1'
+                else
+                    $("#select"+element).val '0'
+                    $('#check'+element).removeClass 'selected'
+                    rangeunitArray = []
+            rangeunitArray.push parseInt(unitModel.get('id'))
+            $('#check'+unitModel.get('id')).addClass "selected"
+
+            $("#select"+unitModel.get('id')).val "1"
+            $("#screen-three-button").removeClass 'disabled btn-default'
+            $("#screen-three-button").addClass 'btn-primary'
+
+        checkClassSelection:(model)->
+            myArray = []
+            $.map(App.defaults, (value, index)->
+                if value!='All' && index != 'floor'
+                    myArray.push({key:index,value:value})
+
+            )
+            flag = 0
+            object = @
+            track = 0
+            $.each(myArray, (index,value)->
+                paramKey = {}
+                if value.key == 'budget'
+                    buildingModel = App.master.building.findWhere({'id':model.get 'building'})
+                    floorRise = buildingModel.get 'floorrise'
+                    floorRiseValue = floorRise[model.get 'floor']
+                    unitVariantmodel = App.master.unit_variant.findWhere({'id':model.get 'unitVariant'})
+                    #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                    unitPrice = model.get 'unitPrice'
+                    budget_arr = value.value.split(' ')
+                    budget_price = budget_arr[0].split('-')
+                    budget_price[0] = budget_price[0]+'00000'
+                    budget_price[1] = budget_price[1]+'00000'
+                    if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                        flag++
+                else if value.key != 'floor'
+                    temp = []
+                    temp.push value.value
+                    tempstring = temp.join(',')
+                    initvariant = tempstring.split(',')
+                    if initvariant.length > 1
+                        for element in initvariant
+                           if model.get(value.key) == parseInt(element)
+                                flag++ 
+                    else
+                        if model.get(value.key) == parseInt(value.value)
+                            flag++
+
+
+
+            )
+            if flag == myArray.length
+                track =1
+
+
+
+            if myArray.length == 0
+                track = 1
+            
+            if track==1 && model.get('status') == 9 && model.get('unitType') != 14
+                $('#check'+model.get("id")).addClass 'boxLong filtered'
+                $('#flag'+model.get("id")).val '1'
+            else if track==1 &&  model.get('status') == 8 && model.get('unitType') != 14
+                $('#check'+model.get("id")).addClass 'boxLong sold'
+            else
+                $('#check'+model.get("id")).addClass 'boxLong other'
+                $('#check'+model.get("id")).text model.get 'unitTypeName'
+
+
 
             
 
@@ -817,6 +1072,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                         )
+                    $('#screen-four-region').removeClass 'section'
                     App.layout.screenFourRegion.el.innerHTML = ""
                     App.navigate "screen-three"
                     App.currentStore.unit.reset UNITS
@@ -869,7 +1125,6 @@ define [ 'marionette' ], ( Marionette )->
                             )
                         $('#'+@model.get("unitAssigned")).attr('class','floor-pos position')
                         App.unit['name'] = @model.get("id")
-                        App.backFilter['screen3'].push 'floor'
                         $("#screen-three-button").removeClass 'disabled btn-default'
                         $("#screen-three-button").addClass 'btn-primary'
                         #@trigger 'unit:item:selected'
@@ -922,9 +1177,18 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                         flag++
                 else if value.key != 'floor'
+                    temp = []
+                    temp.push value.value
+                    tempstring = temp.join(',')
+                    initvariant = tempstring.split(',')
+                    if initvariant.length > 1
+                        for element in initvariant
+                           if object.model.get(value.key) == parseInt(element)
+                                flag++ 
+                    else
+                        if object.model.get(value.key) == parseInt(value.value)
+                            flag++
 
-                    if object.model.get(value.key) == parseInt(value.value)
-                        flag++
 
 
             )

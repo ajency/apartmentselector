@@ -717,8 +717,7 @@ define(['marionette'], function(Marionette) {
         mobileNavigation: false,
         hideArrowsWhenMobile: false,
         dynamicTabsAlign: "center",
-        continuous: false,
-        autoHeight: false
+        continuous: false
       });
     };
 
