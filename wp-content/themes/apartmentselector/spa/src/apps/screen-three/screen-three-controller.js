@@ -91,7 +91,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         speed: 800
       });
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      return this.layout.triggerMethod("show:range:data", unitModel);
+      return this.layout.triggerMethod("show:range:data", unitModel, this.Collection[1]);
     };
 
     ScreenThreeController.prototype.showBuildingRegion = function(buildingCollection) {

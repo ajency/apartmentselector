@@ -751,15 +751,16 @@ define(['marionette'], function(Marionette) {
       return track;
     };
 
-    ScreenThreeLayout.prototype.onShowRangeData = function(unitModel) {
+    ScreenThreeLayout.prototype.onShowRangeData = function(unitModel, collection) {
       var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, unitcoll, _i, _j, _len, _len1;
       object = this;
-      unitcoll = App.master.unit.where({
-        unitAssigned: unitModel.get('unitAssigned')
-      });
+      unitcoll = collection.toArray();
       $.each(unitcoll, function(index, value) {
-        console.log(value);
-        return object.checkClassSelection(value);
+        var units;
+        units = value.get('units');
+        return units.each(function(item) {
+          return object.checkClassSelection(item);
+        });
       });
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();

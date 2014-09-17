@@ -818,12 +818,17 @@ define [ 'marionette' ], ( Marionette )->
                 track = 1
             track
         
-        onShowRangeData:(unitModel)->
+        onShowRangeData:(unitModel,collection)->
             object = @
-            unitcoll = App.master.unit.where({unitAssigned:unitModel.get('unitAssigned')})
+            unitcoll = collection.toArray()
             $.each(unitcoll, (index,value)->
-                console.log value
-                object.checkClassSelection(value)
+                units = value.get('units')
+                units.each( (item)->
+                    object.checkClassSelection(item)
+
+
+                    )
+                
 
                 )
             

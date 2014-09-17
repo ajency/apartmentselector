@@ -108,7 +108,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
-            @layout.triggerMethod "show:range:data" , unitModel
+            @layout.triggerMethod "show:range:data" , unitModel, @Collection[1]
 
             
 
