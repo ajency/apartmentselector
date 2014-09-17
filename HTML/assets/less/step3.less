@@ -55,8 +55,8 @@
 	&.threeBHK > div:last-child, &.twoBHK > div:last-child, &.oneBHK > div:last-child, &.multiBHK > div:last-child{
 		&:after{
 			position: absolute;
-    		bottom: 0;
-    		right: 50px;
+    		top: 3vw;
+    		right: 2vw;
     		font-size: 40px;
     		content: '.';
     		color: @color-primary;
@@ -75,14 +75,14 @@
 	&.multiBHK > div:last-child{
 		&:before{
 			position: absolute;
-    		bottom: 0;
-    		right: 55px;
+    		top: 3vw;
+    		right: 2vw;
     		font-size: 40px;
     		content: '.';
     		color: @color-warning;
 		}
 		&:after{
-			right: 45px;
+			right: 1.2vw;
 		}
 	}
 	&.blank{
@@ -110,16 +110,25 @@
 	width: 100%;
 	min-height: 65px;
 	height: 12vh;
-	padding: 4vh 4vw 0;
+	padding: 3.5vh 1vw 0;
 	margin-bottom: 0;
 	background: none;
-	border: none;
+	border: 1px solid transparent;
+	// border-bottom: 1px solid @gray-light;
+	&:hover{
+		border: 1px solid transparent;
+	}
 	&.other{
 		line-height: inherit;
 	}
 	&.selected{
-		background: @color-primary;
-		color: @color-white;
+		border: 1px solid transparent;
+		border-right: 1px solid transparent;
+		border-left: 1px solid transparent;
+		// border-top: 1px solid transparent;
+		background: rgba(153, 153, 153, 0.35);
+		// opacity: 0.2;
+		color: @color-primary;
 	}
 }
 

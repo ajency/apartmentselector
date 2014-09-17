@@ -6322,6 +6322,7 @@ h5 {
   content: '>';
   position: absolute;
   right: -8px;
+  top: 15px;
   color: #cc5200;
   font-size: 50px;
   font-weight: 700;
@@ -7367,8 +7368,8 @@ h5 {
 .boxLong.multiBHK > div:last-child:after,
 .boxBlank.multiBHK > div:last-child:after {
   position: absolute;
-  bottom: 0;
-  right: 50px;
+  top: 3vw;
+  right: 2vw;
   font-size: 40px;
   content: '.';
   color: #ff6600;
@@ -7387,8 +7388,8 @@ h5 {
 .boxLong.multiBHK > div:last-child:before,
 .boxBlank.multiBHK > div:last-child:before {
   position: absolute;
-  bottom: 0;
-  right: 55px;
+  top: 3vw;
+  right: 2vw;
   font-size: 40px;
   content: '.';
   color: #f0ad4e;
@@ -7396,7 +7397,7 @@ h5 {
 .box.multiBHK > div:last-child:after,
 .boxLong.multiBHK > div:last-child:after,
 .boxBlank.multiBHK > div:last-child:after {
-  right: 45px;
+  right: 1.2vw;
 }
 .box.blank,
 .boxLong.blank,
@@ -7431,17 +7432,23 @@ h5 {
   width: 100%;
   min-height: 65px;
   height: 12vh;
-  padding: 4vh 4vw 0;
+  padding: 3.5vh 1vw 0;
   margin-bottom: 0;
   background: none;
-  border: none;
+  border: 1px solid transparent;
+}
+.boxBlank:hover {
+  border: 1px solid transparent;
 }
 .boxBlank.other {
   line-height: inherit;
 }
 .boxBlank.selected {
-  background: #ff6600;
-  color: #ffffff;
+  border: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+  background: rgba(153, 153, 153, 0.35);
+  color: #ff6600;
 }
 /**** Responsive Table Styles ****/
 .unitTable {
@@ -7823,8 +7830,8 @@ h5 {
   padding: 0;
 }
 .vs-triplelayout .vs-wrapper .towerUnits {
-  background: url('../images/tower.jpg') no-repeat center;
-  background-position-y: top;
+  background: url('../images/tower.png') no-repeat center;
+  background-position-y: -5px;
   background-size: contain;
 }
 .vs-triplelayout .vs-wrapper .towerUnits .subHeader {

@@ -629,13 +629,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class UnitViewChildView extends Marionette.ItemView
 
         template : '<div id="range{{range}}{{buildingid}}" class="boxBlank {{classname}} {{disable}}">
-                        <div class="pull-left light">
-                            <h5 class="rangeName bold m-t-5">{{rangetext}}</h5>
+                        <div class="pull-left light text-center">
+                            <h4 class="rangeName bold m-t-5">{{rangetext}}</h4>
                             <div class="small">{{rangeNo}}</div>
                         </div>
-                        <div class="unitCount pull-right">
-                            {{count}}
-                            <div class="small">Flats</div>
+                        <div class="unitCount pull-right text-center">
+                            <h4 class="bold m-b-5 m-t-0">{{count}}</h4>
+                            <div class="small">FLATS</div>
                         </div>
                         <div class="clearfix"></div>
                     </div>                    
