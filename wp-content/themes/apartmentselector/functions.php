@@ -122,8 +122,26 @@ if ( is_development_environment() ) {
 
             wp_enqueue_script( "$module-script",
                 get_template_directory_uri() . "/{$folder_path}/{$module}.{$pattern}.js",
-                array( "require-config" ) );
+                array( "require-config" ) );?>
+            <SCRIPT TYPE="text/javascript">
+            UNITS = []
 
+            </SCRIPT>
+
+            <?php 
+            $unitsarray = get_buildings();
+            foreach ($unitsarray as $value) { ?>
+            <SCRIPT TYPE="text/javascript">
+            UNITS.push(<?php $value;?>)
+            </SCRIPT>  
+            <?php } ?>
+
+            <SCRIPT TYPE="text/javascript">
+            console.log(UNITS)
+
+            </SCRIPT>
+
+            <?php
             // localized variables
             wp_localize_script( "requirejs", "SITEURL", site_url() );
             wp_localize_script( "requirejs", "AJAXURL", admin_url( "admin-ajax.php" ) );

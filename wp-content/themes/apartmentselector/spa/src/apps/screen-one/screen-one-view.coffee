@@ -251,7 +251,7 @@ define [ 'marionette' ], ( Marionette )->
                     if unittypeModel.get('id') != 14
                         unittypeArray.push unittypeModel.get('name')
                 unitTypes = unittypeArray.join(', ')
-                text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs.</span>'+minmodel.get('unitPrice')+'<br/><span>Unit Type - </span>'+unitTypes
+                text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+minmodel.get('unitPrice')+'<br/><span>Unit Type - </span>'+unitTypes
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 

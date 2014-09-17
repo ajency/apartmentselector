@@ -260,7 +260,7 @@ define(['marionette'], function(Marionette) {
           }
         }
         unitTypes = unittypeArray.join(', ');
-        text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs.</span>' + minmodel.get('unitPrice') + '<br/><span>Unit Type - </span>' + unitTypes;
+        text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs. </span>' + minmodel.get('unitPrice') + '<br/><span>Unit Type - </span>' + unitTypes;
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData, text);
       }
