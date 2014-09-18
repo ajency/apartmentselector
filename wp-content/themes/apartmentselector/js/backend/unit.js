@@ -10,15 +10,31 @@ jQuery(document).ready(function($) {
     //load unit variants on selection of unit type
     $(document).on("change", "#unit_type", function(e) {
 
+        loadUnitVariants()
+
+    });
+ 
+
+ function loadUnitVariants(){
+
+        $("#unit_variant").empty();
+        $("#unit_variant").hide();
+
+        $("#unit_variant").append(new Option("Select", ""));
+        $("#unit_variant").parent().append("<div class='loading-animator'></div>");
+       
+        $.post(AJAXURL, {
+            action: "get_unit_variants",
+            unit_type: $("option:selected", $("#unit_type")).val(),
+            floor: $("option:selected", $("#floor")).val()
+        }, function(response) {
+
         $("#unit_variant").empty();
 
         $("#unit_variant").append(new Option("Select", ""));
 
-        $.post(AJAXURL, {
-            action: "get_unit_variants",
-            unit_type: $("option:selected", $(e.target)).val()
-        }, function(response) {
-
+         $("#unit_variant").show();
+         $("#unit_variant").parent().find('.loading-animator').remove();
         sortedresponse = _.sortBy(response, function (obj) { 
             
          return parseInt(obj.variant_name);
@@ -28,8 +44,7 @@ jQuery(document).ready(function($) {
             });
 
         });
-    });
- 
+ }
 //on chnage of building load the no of floors in the building
      $(document).on("change", "#building", function(e) {
 
@@ -85,6 +100,8 @@ function load_views(){
 
 //on selection of floor get the flats on the floor making an ajax call
 $(document).on("change", "#floor", function(e) {
+
+    loadUnitVariants();
 
       if($("option:selected", $(e.target)).val()==""){
          $("#flat_container").html("<i>select building and floor</i>")

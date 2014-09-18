@@ -283,7 +283,9 @@ function ajax_get_unit_variants(){
 
     $unit_type = $_REQUEST["unit_type"];
 
-    $unit_variants = get_unit_variants_by_unit_type($unit_type);
+    $floor = $_REQUEST["floor"];
+
+    $unit_variants = get_unit_variants_by_unit_type($unit_type,$floor);
 
     $response = json_encode( $unit_variants );
 
@@ -298,14 +300,29 @@ add_action('wp_ajax_get_unit_variants','ajax_get_unit_variants');
 add_action('wp_ajax_nopriv_get_unit_variants','ajax_get_unit_variants');
 
 /*get unit variants by unit type*/
-function get_unit_variants_by_unit_type($unit_type=0){
+function get_unit_variants_by_unit_type($unit_type=0,$floor=''){
 
     global $wpdb;
 
-    $query = "  SELECT  ITEMMASTERNAME.meta_value as variant_name, ITEMMASTERNAME.item_id variant_id FROM ".$wpdb->prefix."frm_items ITEMS JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERUNITTYPE ON ITEMS.id = ITEMMASTERUNITTYPE.item_id AND ITEMMASTERUNITTYPE.meta_value = '".$unit_type."' AND ITEMMASTERUNITTYPE.field_id = (select id from ".$wpdb->prefix."frm_fields where `type` = 'unittype' and form_id = 24) AND ITEMS.form_id = 24 JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERNAME ON ITEMMASTERUNITTYPE.item_id = ITEMMASTERNAME.item_id AND ITEMMASTERNAME.field_id = (select id from ".$wpdb->prefix."frm_fields where `field_key` = 'name' and form_id = 24) ";
+    $variant_type_where_clause = '';
+
+    if($floor!=''){
+
+        if ($floor % 2 == 0) {
+
+            $variant_type_where_clause = " and ITEMMASTERVTYPE.meta_value = 'even'";
+
+        }else{
+
+            $variant_type_where_clause = " and ITEMMASTERVTYPE.meta_value = 'odd'";
+
+        }
+ 
+    }
+    $query = "  SELECT ITEMMASTERVTYPE.meta_value as variant_type, ITEMMASTERNAME.meta_value as variant_name, ITEMMASTERNAME.item_id variant_id FROM ".$wpdb->prefix."frm_items ITEMS JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERUNITTYPE ON ITEMS.id = ITEMMASTERUNITTYPE.item_id AND ITEMMASTERUNITTYPE.meta_value = '".$unit_type."' AND ITEMMASTERUNITTYPE.field_id = (select id from ".$wpdb->prefix."frm_fields where `type` = 'unittype' and form_id = 24) AND ITEMS.form_id = 24 JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERNAME ON ITEMMASTERUNITTYPE.item_id = ITEMMASTERNAME.item_id AND ITEMMASTERNAME.field_id = (select id from ".$wpdb->prefix."frm_fields where `field_key` = 'name' and form_id = 24) JOIN ".$wpdb->prefix."frm_item_metas ITEMMASTERVTYPE ON ITEMMASTERUNITTYPE.item_id = ITEMMASTERVTYPE.item_id AND ITEMMASTERVTYPE.field_id = (select id from ".$wpdb->prefix."frm_fields where `field_key` = 'variant_type' and form_id = 24) ".$variant_type_where_clause;
  
     $unit_variants = $wpdb->get_results( $query,ARRAY_A);
-
+ 
     return $unit_variants;
 }
 
