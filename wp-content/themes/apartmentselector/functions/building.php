@@ -307,7 +307,8 @@ function save_extra_building_fields( $term_id ) {
 
             $exception_flats_count = $no_of_flats_count;
         }
-        $exceptionfloor_layout_detailed = $_REQUEST['exceptionfloor_layout_detailed'.$e];
+       $exceptionfloor_layout_basic = $_REQUEST['exceptionfloor_layout_basic'.$e];
+       $exceptionfloor_layout_detailed = $_REQUEST['exceptionfloor_layout_detailed'.$e];
         $no_of_exception_flats = array();
         for($i=1;$i<=$exception_flats_count;$i++){
 
@@ -316,6 +317,7 @@ function save_extra_building_fields( $term_id ) {
             }
         $exceptions[] = array(  'floors'=>$exception_floors,
                                 'flats'=>$no_of_exception_flats, 
+                                'floor_layout_basic'=>$exceptionfloor_layout_basic,
                                 'floor_layout_detailed'=>$exceptionfloor_layout_detailed,
                             );
 
@@ -523,7 +525,8 @@ function get_buildings($ids=array())
                 $building_exception["flats"] = $floor_positions;
             }
 
-             
+            $building_exception["floor_layout_basic"] =   get_image_paths($building_exception["floor_layout_basic"]);
+           
             $building_exception["floor_layout_detailed"] =   get_image_paths($building_exception["floor_layout_detailed"]);
           
             $building_exceptions_updated[] = $building_exception;
@@ -696,6 +699,8 @@ function get_building_by_id($building_id){
  
         $building_exception["flats"] =  $building_exception["flats"];
             
+        $building_exception["floor_layout_basic"] =   get_image_paths($building_exception["floor_layout_basic"]);
+        
         $building_exception["floor_layout_detailed"] =   get_image_paths($building_exception["floor_layout_detailed"]);
 
         $building_exceptions_updated[] = $building_exception;
