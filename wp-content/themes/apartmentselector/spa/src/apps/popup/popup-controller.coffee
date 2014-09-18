@@ -39,6 +39,9 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
                             )
 
+                    if exceptionObject.legth == 0
+                        floorLayoutimage = building.get('floor_layout_detailed').image_url
+
 
                         
                     floorriserange = buildingModel.get 'floorriserange'

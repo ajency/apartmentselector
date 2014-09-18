@@ -44,6 +44,7 @@ requirejs.config
         jReject :'src/bower_components/jReject/js/jquery.reject'
         slimscroll :'src/bower_components/slimscroll/jquery.slimscroll.min'
         fullPage :'src/bower_components/fullpage.js/jquery.fullPage.min'
+        JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min'
 
 
 
@@ -91,6 +92,7 @@ requirejs.config
         jReject: ['jquery']
         slimscroll: ['jquery']
         fullPage: ['jquery']
+        JqueryPriceFormat :['jquery']
 
 
 

@@ -43,7 +43,8 @@ requirejs.config({
     fancybox: 'src/bower_components/fancybox/source/jquery.fancybox',
     jReject: 'src/bower_components/jReject/js/jquery.reject',
     slimscroll: 'src/bower_components/slimscroll/jquery.slimscroll.min',
-    fullPage: 'src/bower_components/fullpage.js/jquery.fullPage.min'
+    fullPage: 'src/bower_components/fullpage.js/jquery.fullPage.min',
+    JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min'
   },
   shim: {
     jquery: ['underscore'],
@@ -86,6 +87,7 @@ requirejs.config({
     fancybox: ['jquery'],
     jReject: ['jquery'],
     slimscroll: ['jquery'],
-    fullPage: ['jquery']
+    fullPage: ['jquery'],
+    JqueryPriceFormat: ['jquery']
   }
 });

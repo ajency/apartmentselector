@@ -72,7 +72,7 @@ define [ 'marionette'], ( Marionette )->
                     .withOptions()
             else
                 App.layout.screenThreeRegion.el.innerHTML = ""
-                App.layout.screenTwoRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'  
                 App.backFilter['screen3'] = []    

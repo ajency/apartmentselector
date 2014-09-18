@@ -78,8 +78,8 @@ require [ 'plugin-loader'
 
 
 
-
-
+    
+    
     
     #filter function which takes the parameters into account anf filters the current store.
     App.filter = (params={})->

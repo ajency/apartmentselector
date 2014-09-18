@@ -49,6 +49,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
               return floorLayoutimage = value1.floor_layout_detailed.image_url;
             }
           });
+          if (exceptionObject.legth === 0) {
+            floorLayoutimage = building.get('floor_layout_detailed').image_url;
+          }
           floorriserange = buildingModel.get('floorriserange');
           rangeArrayVal = [];
           i = 0;

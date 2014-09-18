@@ -447,12 +447,6 @@ define(['marionette'], function(Marionette) {
           }
         });
       });
-      sudoSlider = $("#unitsSlider").sudoSlider({
-        customLink: "a",
-        prevNext: false,
-        responsive: true,
-        speed: 800
-      });
       $('#mainsvg').text("");
       rangeunitArray = [];
       globalUnitArrayInt = [];

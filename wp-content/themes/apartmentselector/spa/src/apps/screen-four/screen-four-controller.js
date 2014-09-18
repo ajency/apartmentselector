@@ -76,12 +76,16 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         $.each(exceptionObject, function(index, value1) {
           var floorvalue;
           floorvalue = $.inArray(value.get('floor'), value1.floors);
+          console.log(floorvalue);
           if (floorvalue === -1) {
             return floorLayoutimage = building.get('floor_layout_detailed').image_url;
           } else {
             return floorLayoutimage = value1.floor_layout_detailed.image_url;
           }
         });
+        if (exceptionObject.legth === 0) {
+          floorLayoutimage = building.get('floor_layout_detailed').image_url;
+        }
         roomSizesArray = unitVariantModel.get('roomsizes');
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {

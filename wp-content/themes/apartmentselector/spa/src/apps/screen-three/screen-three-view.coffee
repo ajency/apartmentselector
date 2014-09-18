@@ -516,13 +516,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
-            sudoSlider = $("#unitsSlider").sudoSlider(
-                    customLink: "a"
-                    prevNext: false
-                    responsive: true
-                    speed: 800
-                    # continuous:true
-            )
+            
                 
             $('#mainsvg' ).text ""
             

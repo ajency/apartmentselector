@@ -93,6 +93,21 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return e.preventDefault();
       },
       'click .tower-link': function(e) {
+        var element, key, screentwoArray, _i, _len;
+        App.layout.screenThreeRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
+        $('#screen-three-region').removeClass('section');
+        $('#screen-four-region').removeClass('section');
+        App.backFilter['screen3'] = [];
+        console.log(App.backFilter['screen2']);
+        screentwoArray = App.backFilter['screen2'];
+        for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
+          element = screentwoArray[_i];
+          key = App.defaults.hasOwnProperty(element);
+          if (key === true) {
+            App.defaults[element] = 'All';
+          }
+        }
         return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
       },
       'click .grid-link': function(e) {

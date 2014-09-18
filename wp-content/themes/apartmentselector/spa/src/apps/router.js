@@ -73,7 +73,7 @@ define(['marionette'], function(Marionette) {
         msgbus.showApp('screen:one').insideRegion(App.layout.screenOneRegion).withOptions();
       } else {
         App.layout.screenThreeRegion.el.innerHTML = "";
-        App.layout.screenTwoRegion.el.innerHTML = "";
+        App.layout.screenFourRegion.el.innerHTML = "";
         $('#screen-three-region').removeClass('section');
         $('#screen-four-region').removeClass('section');
         App.backFilter['screen3'] = [];

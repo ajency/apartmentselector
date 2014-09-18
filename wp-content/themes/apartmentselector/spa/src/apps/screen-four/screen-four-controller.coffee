@@ -64,6 +64,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 floorLayoutimage = ""
                 $.each(exceptionObject, (index,value1)->
                     floorvalue = $.inArray( value.get('floor'),value1.floors)
+                    console.log floorvalue
                     if floorvalue == -1
                         floorLayoutimage = building.get('floor_layout_detailed').image_url
                     else
@@ -72,7 +73,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                 )
-
+                if exceptionObject.legth == 0
+                    floorLayoutimage = building.get('floor_layout_detailed').image_url
 
                     
                 #console.log exceptionObject[0].floors
