@@ -236,10 +236,16 @@ define(['marionette'], function(Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover .tower-over': function(e) {
-        var countcoll, countunits, element, id, index, locationData, minmodel, str1, text, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
+        var buildigmodel, countcoll, countunits, element, id, index, locationData, minmodel, str1, text, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
         e.preventDefault();
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
+        buildigmodel = App.currentStore.building.findWhere({
+          id: parseInt(str1)
+        });
+        if (buildigmodel === void 0) {
+          return false;
+        }
         countunits = App.currentStore.unit.where({
           building: parseInt(str1)
         });

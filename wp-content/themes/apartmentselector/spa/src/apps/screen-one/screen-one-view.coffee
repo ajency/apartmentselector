@@ -237,6 +237,9 @@ define [ 'marionette' ], ( Marionette )->
                 e.preventDefault()
                 id  = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
+                buildigmodel = App.currentStore.building.findWhere({id:parseInt(str1)})
+                if buildigmodel == undefined
+                    return false
                 countunits = App.currentStore.unit.where({building:parseInt(str1)})
                 console.log minmodel = _.min(countunits, (model)->
                     if model.get('unitType') != 14
