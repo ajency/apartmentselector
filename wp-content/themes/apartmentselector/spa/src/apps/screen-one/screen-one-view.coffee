@@ -143,7 +143,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a>
                             </div>
                         </div>
-                        <div class="col-sm-8 b-grey b-l">
+                        <div class="col-sm-8 b-grey b-l hidden-xs">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
                         </div>
                     </div>'

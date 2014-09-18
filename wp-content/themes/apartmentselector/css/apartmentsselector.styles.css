@@ -9150,10 +9150,28 @@ h5 {
   box-shadow: -4px 1px 6px 1px #b3b3b3;
 }
 .header.navbar h3 {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 18px;
+  color: #ffffff;
   text-align: left;
   margin: 0;
-  margin-left: 65px;
+  margin-left: 50px;
   text-shadow: 2px 1px 6px #803300;
+}
+.header.navbar h3 small,
+.header.navbar h3 .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.header.navbar h3 small,
+.header.navbar h3 .small {
+  font-size: 75%;
 }
 .header.navbar h3.step1 {
   text-align: center;
@@ -9178,8 +9196,27 @@ h5 {
     text-shadow: none;
   }
   .header.navbar h3 {
+    font-family: 'kievit';
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    margin-top: 21px;
+    margin-bottom: 10.5px;
+    font-size: 35px;
+    color: #ffffff;
+    margin: 0;
     text-align: center;
     margin-left: 0;
+  }
+  .header.navbar h3 small,
+  .header.navbar h3 .small {
+    font-weight: normal;
+    line-height: 1;
+    color: #999999;
+  }
+  .header.navbar h3 small,
+  .header.navbar h3 .small {
+    font-size: 65%;
   }
 }
 .backBtn,
@@ -9190,10 +9227,10 @@ h5 {
 }
 .backBtn a,
 .rightBtns a {
-  width: 60px;
+  width: 50px;
   text-align: center;
   display: block;
-  padding: 23.5px 0;
+  padding: 13.5px 0;
   background-color: #cc5200;
 }
 .rightBtns {
@@ -9204,6 +9241,13 @@ h5 {
   float: left;
   margin-left: 2px;
 }
+@media (min-width: 768px) {
+  .backBtn a,
+  .rightBtns a {
+    padding: 20.5px 0;
+    width: 60px;
+  }
+}
 #textstring span {
   display: inline-block;
   padding: 13px 2%;
@@ -9213,14 +9257,19 @@ h5 {
   content: '>';
   position: absolute;
   right: -8px;
-  top: 15px;
+  top: 2px;
   color: #cc5200;
-  font-size: 50px;
+  font-size: 35px;
   font-weight: 700;
   text-shadow: none;
 }
 #textstring span:last-child:after {
   content: '';
+}
+@media (min-width: 768px) {
+  #textstring span:after {
+    font-size: 50px;
+  }
 }
 /*Notification Popup*/
 .jBox-Notice .jBox-content {
@@ -9235,9 +9284,9 @@ h5 {
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
-  margin-top: 21px;
+  margin-top: 10.5px;
   margin-bottom: 10.5px;
-  font-size: 35px;
+  font-size: 18px;
   background: -webkit-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
   /* Chrome 10+, Saf5.1+ */
   background: -moz-linear-gradient(90deg, #ff512f 10%, #f09819 90%);
@@ -9248,7 +9297,7 @@ h5 {
   /* Opera 11.10+ */
   background: linear-gradient(90deg, #ff512f 10%, #f09819 90%);
   /* W3C */
-  padding: 20px 10px;
+  padding: 18px 10px;
   margin: 0;
   color: #ffffff;
   width: 100%;
@@ -9262,7 +9311,30 @@ h5 {
 }
 .notifyBox .jBox-content small,
 .notifyBox .jBox-content .small {
-  font-size: 65%;
+  font-size: 75%;
+}
+@media (min-width: 768px) {
+  .notifyBox .jBox-content {
+    font-family: 'kievit';
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    margin-top: 21px;
+    margin-bottom: 10.5px;
+    font-size: 35px;
+    margin: 0;
+    padding: 18px 10px;
+  }
+  .notifyBox .jBox-content small,
+  .notifyBox .jBox-content .small {
+    font-weight: normal;
+    line-height: 1;
+    color: #999999;
+  }
+  .notifyBox .jBox-content small,
+  .notifyBox .jBox-content .small {
+    font-size: 65%;
+  }
 }
 .no-padding {
   padding: 0px !important;
