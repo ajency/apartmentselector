@@ -40,6 +40,7 @@ define(['marionette'], function(Marionette) {
               close: 'slide:top'
             }
           });
+          $(".rightBtns").removeClass("hidden");
           cookieOldValue = $.cookie("key");
           if (cookieOldValue === void 0 || $.cookie("key") === "") {
             cookieOldValue = "";

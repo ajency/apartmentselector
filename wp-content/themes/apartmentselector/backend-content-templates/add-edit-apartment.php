@@ -77,6 +77,49 @@ if(isset($_REQUEST["id"])){
                             <input type="text" name="flat_no" id="flat_no" class="form-control" value="<?php echo @$flat_no;?>">
                         </div>
                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Building</label>
+
+                                <div class="input-with-icon  right">
+                                    <i class=""></i>
+                                    <select  name="building" id="building" class="form-control">
+                                        <option value="">Select</option>
+                                        <?php
+                                        $floors_option = 0;
+                                        $buildings = get_buildings();
+                                        foreach($buildings as $building){
+                                            ?>m-control
+                                            <option  floors = "<?php echo $building['nooffloors']; ?>" value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected";$floors_option=$building['nooffloors']; }?>><?php echo  $building['name']?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Floor</label>
+
+                                    <div class="input-with-icon  right">
+                                        <i class=""></i>
+                                        <select  name="floor" id="floor"  >
+                                            <option value="">Select</option>
+                                            <?php
+                                            for($i=1;$i<=$floors_option;$i++){
+                                                ?>
+                                                <option value="<?php echo $i;?>" <?php if($floor==$i){ echo "selected"; }?>><?php echo $i;?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div> 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -123,25 +166,7 @@ if(isset($_REQUEST["id"])){
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Building</label>
-
-                        <div class="input-with-icon  right">
-                            <i class=""></i>
-                            <select  name="building" id="building" class="form-control">
-                                <option value="">Select</option>
-                                <?php
-                                $floors_option = 0;
-                                $buildings = get_buildings();
-                                foreach($buildings as $building){
-                                    ?>m-control
-                                    <option  floors = "<?php echo $building['nooffloors']; ?>" value="<?php echo $building['id']; ?>" <?php if($unit_building==$building['id']){ echo "selected";$floors_option=$building['nooffloors']; }?>><?php echo  $building['name']?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="form-label">Facings</label>
 
@@ -162,24 +187,7 @@ if(isset($_REQUEST["id"])){
                              
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Floor</label>
-
-                        <div class="input-with-icon  right">
-                            <i class=""></i>
-                            <select  name="floor" id="floor"  >
-                                <option value="">Select</option>
-                                <?php
-                                for($i=1;$i<=$floors_option;$i++){
-                                    ?>
-                                    <option value="<?php echo $i;?>" <?php if($floor==$i){ echo "selected"; }?>><?php echo $i;?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-
-                        </div>
-                    </div>
+                    
 
                      <div class="form-group">
                         <label class="form-label">Views</label>
