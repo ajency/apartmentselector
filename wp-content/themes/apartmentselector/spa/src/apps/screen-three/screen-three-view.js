@@ -86,8 +86,13 @@ define(['marionette'], function(Marionette) {
             floorArr = App.defaults['floor'].split(',');
             return $.each(floorArr, function(ind, val) {
               if (parseInt(value) === parseInt(val)) {
-                $('#f' + value).attr('class', 'unit-hover range');
-                return $('#t' + value).attr('class', 'unit-hover range');
+                if (position !== 3) {
+                  $('#f' + value).attr('class', 'unit-hover range');
+                  return $('#t' + value).attr('class', 'unit-hover range');
+                } else {
+                  $('#ff' + value).attr('class', 'unit-hover range');
+                  return $('#tt' + value).attr('class', 'unit-hover range');
+                }
               }
             });
           } else {
@@ -96,7 +101,11 @@ define(['marionette'], function(Marionette) {
           }
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
-        $("#t" + flatid).attr('class', 'selected-flat');
+        if (position !== 3) {
+          $("#t" + flatid).attr('class', 'selected-flat');
+        } else {
+          $("#tt" + flatid).attr('class', 'selected-flat');
+        }
         unit = indexvalue[parseInt(flatid)];
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
@@ -175,7 +184,11 @@ define(['marionette'], function(Marionette) {
           }
         });
         $.map(indexvalue, function(index, value) {
-          return $('#f' + value).attr('class', 'unselected-floor range');
+          if (position !== 3) {
+            return $('#f' + value).attr('class', 'unselected-floor range');
+          } else {
+            return $('#ff' + value).attr('class', 'unselected-floor range');
+          }
         });
         $.map(indexvalue, function(index, value) {
           var floorArr;
@@ -183,8 +196,13 @@ define(['marionette'], function(Marionette) {
             floorArr = App.defaults['floor'].split(',');
             return $.each(floorArr, function(ind, val) {
               if (parseInt(value) === parseInt(val)) {
-                $('#f' + value).attr('class', 'unit-hover range');
-                return $('#t' + value).attr('class', 'unit-hover range');
+                if (position !== 3) {
+                  $('#f' + value).attr('class', 'unit-hover range');
+                  return $('#t' + value).attr('class', 'unit-hover range');
+                } else {
+                  $('#ff' + value).attr('class', 'unit-hover range');
+                  return $('#tt' + value).attr('class', 'unit-hover range');
+                }
               }
             });
           } else {
@@ -193,7 +211,11 @@ define(['marionette'], function(Marionette) {
           }
         });
         $("#" + e.target.id).attr('class', 'selected-flat');
-        $("#t" + flatid).attr('class', 'selected-flat');
+        if (position !== 3) {
+          $("#t" + flatid).attr('class', 'selected-flat');
+        } else {
+          $("#tt" + flatid).attr('class', 'selected-flat');
+        }
         return this.trigger("load:range:data", unitModel);
       },
       'mouseover .disable': function(e) {
@@ -225,7 +247,11 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
         });
-        return $('#t' + flatid).text(unitModel.get('name'));
+        if (position !== 3) {
+          return $('#t' + flatid).text(unitModel.get('name'));
+        } else {
+          return $('#tt' + flatid).text(unitModel.get('name'));
+        }
       },
       'mouseover .unit-hover': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, indexvalue, svgdata, svgposition, unit, unitModel, unitvalues;
@@ -256,7 +282,11 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
         });
-        $('#t' + flatid).text(unitModel.get('name'));
+        if (position !== 3) {
+          $('#t' + flatid).text(unitModel.get('name'));
+        } else {
+          $('#tt' + flatid).text(unitModel.get('name'));
+        }
         checktrack = this.checkSelection(unitModel);
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
           return $("#" + e.target.id).attr('class', 'unit-hover range aviable');
@@ -295,7 +325,11 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(unit)
         });
-        $('#t' + flatid).text(unitModel.get('name'));
+        if (position !== 3) {
+          $('#t' + flatid).text(unitModel.get('name'));
+        } else {
+          $('#tt' + flatid).text(unitModel.get('name'));
+        }
         checktrack = this.checkSelection(unitModel);
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
           return $("#" + e.target.id).attr('class', 'unselected-floor aviable');
@@ -609,7 +643,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
-      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgposition, unitvalues;
+      var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgposition, temp, temp1, unitvalues;
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();
       console.log(building = _.first(buildinArray));
@@ -628,6 +662,9 @@ define(['marionette'], function(Marionette) {
       unitvalues = "";
       indexvalue = "";
       $('#positionsvg').text("");
+      temp = ['f', 'ff'];
+      temp1 = ['t', 'tt'];
+      temp1 = ['c', 'cc'];
       $.each(svgdata, function(index, value) {
         if (value.svgposition !== null) {
           return $.each(value.svgposition, function(index1, val1) {
@@ -640,7 +677,8 @@ define(['marionette'], function(Marionette) {
                 return $('#positionsvg').load(svgposition, function(x) {
                   var i, rangClass;
                   $.map(indexvalue, function(index, value) {
-                    return $('#f' + value).attr('class', 'unselected-floor');
+                    $('#f' + value).attr('class', 'unselected-floor');
+                    return $('#ff' + value).attr('class', 'unselected-floor');
                   });
                   $.map(indexvalue, function(index1, value1) {
                     var floorArr;
@@ -648,8 +686,13 @@ define(['marionette'], function(Marionette) {
                       floorArr = App.defaults['floor'].split(',');
                       return $.each(floorArr, function(ind, val) {
                         if (parseInt(value1) === parseInt(val)) {
-                          $('#f' + value1).attr('class', 'unit-hover range');
-                          return $('#t' + value1).attr('class', 'unit-hover range');
+                          if (floorid !== 3) {
+                            $('#f' + value1).attr('class', 'unit-hover range');
+                            return $('#t' + value1).attr('class', 'unit-hover range');
+                          } else {
+                            $('#ff' + value1).attr('class', 'unit-hover range');
+                            return $('#tt' + value1).attr('class', 'unit-hover range');
+                          }
                         }
                       });
                     } else {
@@ -664,9 +707,15 @@ define(['marionette'], function(Marionette) {
                     start = parseInt(value.start);
                     end = parseInt(value.end);
                     while (parseInt(start) <= parseInt(end)) {
-                      $('#c' + start).attr('class', rangClass[i]);
-                      $('#c' + start).text(rangClass[i]);
-                      start++;
+                      if (floorid !== 3) {
+                        $('#c' + start).attr('class', rangClass[i]);
+                        $('#c' + start).text(rangClass[i]);
+                        start++;
+                      } else {
+                        $('#cc' + start).attr('class', rangClass[i]);
+                        $('#cc' + start).text(rangClass[i]);
+                        start++;
+                      }
                     }
                     return i++;
                   });

@@ -138,8 +138,13 @@ define [ 'marionette' ], ( Marionette )->
                                         floorArr  = App.defaults['floor'].split(',')
                                         $.each(floorArr, (ind,val)->
                                             if parseInt(value) == parseInt(val)
-                                                $('#f'+value).attr('class', 'unit-hover range')
-                                                $('#t'+value).attr('class', 'unit-hover range')
+                                                if position != 3   
+                                                    $('#f'+value).attr('class', 'unit-hover range')
+                                                    $('#t'+value).attr('class', 'unit-hover range')
+                                                else
+                                                    $('#ff'+value).attr('class', 'unit-hover range')
+                                                    $('#tt'+value).attr('class', 'unit-hover range')
+
 
 
 
@@ -151,7 +156,10 @@ define [ 'marionette' ], ( Marionette )->
 
                                         )
                 $("#"+e.target.id).attr('class','selected-flat')
-                $("#t"+flatid).attr('class','selected-flat')
+                if position != 3   
+                    $("#t"+flatid).attr('class','selected-flat')
+                else
+                    $("#tt"+flatid).attr('class','selected-flat')   
                 unit = indexvalue[parseInt(flatid)]
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
                 for element , index in unitAssigedArray
@@ -229,15 +237,24 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 $.map(indexvalue, (index,value)->
-                    $('#f'+value).attr('class', 'unselected-floor range')
+                    if position != 3
+                        $('#f'+value).attr('class', 'unselected-floor range')
+                    else
+                        $('#ff'+value).attr('class', 'unselected-floor range')
+
                 )
                 $.map(indexvalue, (index,value)->
                                     if App.defaults['floor'] != "All"
                                         floorArr  = App.defaults['floor'].split(',')
                                         $.each(floorArr, (ind,val)->
                                             if parseInt(value) == parseInt(val)
-                                                $('#f'+value).attr('class', 'unit-hover range')
-                                                $('#t'+value).attr('class', 'unit-hover range')
+                                                if position != 3
+                                                    $('#f'+value).attr('class', 'unit-hover range')
+                                                    $('#t'+value).attr('class', 'unit-hover range')
+                                                else
+                                                    $('#ff'+value).attr('class', 'unit-hover range')
+                                                    $('#tt'+value).attr('class', 'unit-hover range')
+
 
 
 
@@ -249,7 +266,10 @@ define [ 'marionette' ], ( Marionette )->
 
                                         )
                 $("#"+e.target.id).attr('class','selected-flat')
-                $("#t"+flatid).attr('class','selected-flat')
+                if position != 3
+                    $("#t"+flatid).attr('class','selected-flat')
+                else
+                   $("#tt"+flatid).attr('class','selected-flat') 
                 
                 
                 @trigger "load:range:data", unitModel
@@ -289,7 +309,12 @@ define [ 'marionette' ], ( Marionette )->
                 unit = indexvalue[parseInt(flatid)]
 
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
-                $('#t'+flatid).text unitModel.get('name')
+
+                if position != 3
+                    $('#t'+flatid).text unitModel.get('name')
+                else
+                    $('#tt'+flatid).text unitModel.get('name')
+                
 
             'mouseover .unit-hover':(e)->
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
@@ -325,7 +350,10 @@ define [ 'marionette' ], ( Marionette )->
                 unit = indexvalue[parseInt(flatid)]
 
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
-                $('#t'+flatid).text unitModel.get('name')
+                if position != 3
+                    $('#t'+flatid).text unitModel.get('name')
+                else
+                    $('#tt'+flatid).text unitModel.get('name')
                 checktrack = @checkSelection(unitModel)
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unit-hover range aviable')
@@ -368,7 +396,10 @@ define [ 'marionette' ], ( Marionette )->
                 unit = indexvalue[parseInt(flatid)]
 
                 unitModel = App.master.unit.findWhere(id:parseInt(unit))
-                $('#t'+flatid).text unitModel.get('name')
+                if position != 3
+                    $('#t'+flatid).text unitModel.get('name')
+                else
+                    $('#tt'+flatid).text unitModel.get('name')
                 checktrack = @checkSelection(unitModel)
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unselected-floor aviable')
@@ -707,6 +738,9 @@ define [ 'marionette' ], ( Marionette )->
             unitvalues = ""
             indexvalue = ""
             $('#positionsvg').text ""
+            temp = ['f','ff']
+            temp1 = ['t','tt']
+            temp1 = ['c','cc']
             $.each(svgdata, (index,value)->
                 if value.svgposition != null
                     $.each(value.svgposition, (index1,val1)->
@@ -718,14 +752,21 @@ define [ 'marionette' ], ( Marionette )->
                                     $('#positionsvg').load(svgposition,  (x)->
                                         $.map(indexvalue, (index,value)->
                                             $('#f'+value).attr('class', 'unselected-floor')
+                                            $('#ff'+value).attr('class', 'unselected-floor')
                                         )
                                         $.map(indexvalue, (index1,value1)->
                                             if App.defaults['floor'] != "All"
                                                 floorArr  = App.defaults['floor'].split(',')
                                                 $.each(floorArr, (ind,val)->
                                                     if parseInt(value1) == parseInt(val)
-                                                        $('#f'+value1).attr('class', 'unit-hover range')
-                                                        $('#t'+value1).attr('class', 'unit-hover range')
+                                                        if floorid != 3
+                                                            $('#f'+value1).attr('class', 'unit-hover range')
+                                                            $('#t'+value1).attr('class', 'unit-hover range')
+                                                        else
+                                                            $('#ff'+value1).attr('class', 'unit-hover range')
+                                                            $('#tt'+value1).attr('class', 'unit-hover range')
+
+
 
 
 
@@ -741,9 +782,15 @@ define [ 'marionette' ], ( Marionette )->
                                                 start = parseInt(value.start)
                                                 end = parseInt(value.end)
                                                 while parseInt(start) <= parseInt(end)
-                                                    $('#c'+start).attr('class',rangClass[i])
-                                                    $('#c'+start).text rangClass[i]
-                                                    start++
+                                                    if floorid != 3
+                                                        $('#c'+start).attr('class',rangClass[i])
+                                                        $('#c'+start).text rangClass[i]
+                                                        start++
+                                                    else
+                                                        $('#cc'+start).attr('class',rangClass[i])
+                                                        $('#cc'+start).text rangClass[i]
+                                                        start++
+
                                                 i++
                                         )
 

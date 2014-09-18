@@ -683,10 +683,31 @@ $heading = "Edit";
                 <div class="form-group" id="exception-flats-images1"  <?php if($show_exception_options==false){?>style="display:none"<?php } ?> >
                      
                     <div class="row">
-                
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="form-label">
-                                Exception Floor Layout Detailed
+                                Floor Layout Basic
+                            </label> 
+                            <div class="input-with-icon  right">
+                                <span class="btn btn-success fileinput-button">
+                                     
+                                    <span>Select file..</span>
+                                    <input id="fileuploadexceptionfloor_layout_basic1" class="fileuploadexceptionfloor_layout_basic1" type="file" name="files">
+                                </span> 
+                                <input type="hidden" class="exceptionfloor_layout_basic1" id="exceptionfloor_layout_basic1" name="exceptionfloor_layout_basic1" value="<?php echo @$building_exception["floor_layout_basic"]["id"];?>">
+                                <div id="progressexceptionfloor_layout_basic1" class="progress" >
+                                    <div class="progress-bar progress-bar-success"></div>
+                                </div>
+                                 
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <img src="<?php echo $building_exception["floor_layout_basic"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_basic1" <?php if(@$building_exception["floor_layout_basic"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Floor Layout Detailed
                             </label> 
                             <div class="input-with-icon  right">
                                 <span class="btn btn-success fileinput-button">

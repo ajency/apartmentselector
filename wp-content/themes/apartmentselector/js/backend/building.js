@@ -21,7 +21,14 @@ if($("#floor_layout_detailed").length>0){
  
     fileUploadById("floor_layout_detailed")
 }
-
+if($("#exceptionfloor_layout_basic1").length>0){
+ 
+    fileUploadById("exceptionfloor_layout_basic1")
+} 
+if($("#exceptionfloor_layout_detailed1").length>0){
+ 
+    fileUploadById("exceptionfloor_layout_detailed1")
+} 
 if($("#svg_position_file_1").length>0){
  
     fileUploadById("svg_position_file_1")
@@ -362,7 +369,7 @@ function addException(exception_no){
         +  '<div class="row-fluid" id="exception_floors_container'+exception_no+'"></div>'//
         +  '</div>'
         +  '</div><div style="clear:both"></div>'
-        +' <div class="form-group" id="exception-flats" style="display:none">'
+        +' <div class="form-group" id="exception-flats-'+exception_no+'" style="display:none">'
         +'<label class="form-label">'
         +  'No Of Flats'
         + '</label>' 
@@ -372,12 +379,18 @@ function addException(exception_no){
         +  getFlatsDropdown(exception_no)
         +  '</div>'
         +  '</div>'
-        +  '<div class="well" id="exception-flats-images" style="display:none">' 
-        +  '<div class="row">' 
+        +  '<div class="well" id="exception-flats-images-'+exception_no+'" style="display:none">' 
+        +  '<div class="row">'  
+        +  '<div class="col-md-6">'
         +  '<label class="form-label">' 
-        +  'Exception Floor Layout Detailed '
+        +  'Floor Layout Basic '
         +  '</label> '
-        +  '<div class="col-md-12">'
+        +getexceptionUploadUi(exception_no,'basic')
+        +  '</div>'
+        +  '<div class="col-md-6">'
+        +  '<label class="form-label">' 
+        +  'Floor Layout Detailed '
+        +  '</label> '
         +getexceptionUploadUi(exception_no,'detailed')
         +  '</div>'
         +  '</div>'
@@ -396,12 +409,14 @@ function addException(exception_no){
             $("#no_of_flats1").val("");
             $("#no_of_flats1").trigger("change");
 
-            $('#exception-flats1').hide();
-            $('#exception-flats-images1').hide();
+            $('#exception-flats-1').hide();
+            $('#exception-flats-images-1').hide();
         }else{
-            $('#exception-flats1').show();
-            $('#exception-flats-images1').show();
+
+            $('#exception-flats-1').show();
+            $('#exception-flats-images-1').show();
             fileUploadById("exceptionfloor_layout_detailed1")
+            fileUploadById("exceptionfloor_layout_basic1")
         }
         });
 //save building ajax call
