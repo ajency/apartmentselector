@@ -11316,18 +11316,31 @@ tr.milestoneReached td {
   display: inline-block;
   margin-left: -1px;
 }
-.compareWishlist ul > li {
+.compareWishlist .cd-table-column > ul > li {
   text-align: center;
-  padding: 20px;
+  padding: 25px 20px 10px;
   line-height: 1.1;
-  height: 68px;
-  background-color: #f6f6f7;
+  min-height: 68px;
   border-bottom: 1px solid #edeef0;
   white-space: normal;
   font-weight: 400;
 }
-.compareWishlist ul > li:nth-child(even) {
+.compareWishlist .cd-table-column > ul > li:nth-child(even) {
   background-color: #fbfbfc;
+}
+.compareWishlist .cd-table-column .layouts > li,
+.compareWishlist .cd-table-column .areas > li {
+  padding-top: 13px;
+  padding-bottom: 0;
+}
+.compareWishlist .cd-table-column .layouts > li img,
+.compareWishlist .cd-table-column .areas > li img {
+  width: 75px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #999999;
+}
+.compareWishlist .cd-table-column .layouts > li {
+  padding-top: 10px;
 }
 .compareWishlist ul {
   list-style: none;
@@ -11466,10 +11479,48 @@ tr.milestoneReached td {
   color: #999999;
   font-size: 16px;
 }
-.layouts li img {
-  width: 35px;
-  border-radius: 25px;
-  box-shadow: 1px 1px 5px #999999;
+.aviable:hover,
+rect.selected-flat {
+  fill: #99DD1F !important;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.aviable:hover + text,
+rect.selected-flat + text {
+  opacity: 1 !important;
+  fill: #000 !important;
+  font-size: 18px;
+}
+rect.range {
+  fill: #FF6600 !important;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.sold:hover {
+  fill: #DD1F1F   !important;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.position {
+  fill: #F60   !important;
+  cursor: pointer;
+  content: "";
+}
+.sliderPlans .selected {
+  fill: #99DD1F   !important;
+  opacity: 0.8;
+}
+.unit-hover {
+  content: "";
+}
+.disable {
+  fill: #999;
+  opacity: 0.9;
+}
+.other:hover {
+  fill: #EEEEEE !important;
+  cursor: default;
+  opacity: 0.8;
 }
 body {
   background-color: #ffffff;
@@ -11745,45 +11796,3 @@ a.im-clear-button {
   font-size: 87%;
 }
 
-.aviable:hover,
-.selected-flat {
-  fill: #99DD1F  !important;
-  cursor: pointer;
-  opacity: 0.8;
-}
-.aviable:hover + text,
-.selected-flat + text {
-  opacity: 1 !important;
-  fill: #000 !important;
-  font-size: 18px;
-}
-.sold:hover {
-  fill: #DD1F1F   !important;
-  cursor: pointer;
-  opacity: 0.8;
-}
-.position {
-  fill: #F60   !important;
-  cursor: pointer;
-  content: "";
-}
-.sliderPlans .selected {
-  fill: #99DD1F   !important;
-  opacity: 0.8;
-}
-.unit-hover {
-  content: "";
-}
-.disable {
-  fill: #999;
-  opacity: 0.9;
-}
-.other:hover {
-  fill: #EEEEEE !important;
-  cursor: default;
-  opacity: 0.8;
-}
-text.selected-flat {
-  fill: #000 !important;
-  font-size: 18px;
-}

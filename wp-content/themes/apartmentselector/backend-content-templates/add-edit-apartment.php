@@ -152,7 +152,7 @@ if(isset($_REQUEST["id"])){
                                     <select  name="unit_variant" id="unit_variant"  >
                                         <option value="">Select</option>
                                         <?php
-                                        $unit_variants = get_unit_variants_by_unit_type($unit_type);
+                                        $unit_variants = get_unit_variants_by_unit_type($unit_type,$floor);
                                         foreach ($unit_variants as $unit_variant_item){
 
                                             ?>
