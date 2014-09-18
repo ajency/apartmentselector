@@ -90,6 +90,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         responsive: true,
         speed: 800
       });
+      sudoSlider.goToSlide(unitModel.get('unitAssigned'));
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       return this.layout.triggerMethod("show:range:data", unitModel, this.Collection[1]);
     };

@@ -767,7 +767,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         $('#screen-two-button').removeClass 'disabled btn-default'
                         $("#screen-two-button").addClass 'btn-primary'
                         console.log App.defaults
-                        #@trigger 'unit:count:selected'
+                        @trigger 'unit:count:selected'
                     else
                         rangeArray=[]
                         $("#checkrange"+@model.get('range')+@model.get('buildingid')).val "0"

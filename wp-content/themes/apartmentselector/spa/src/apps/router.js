@@ -102,6 +102,7 @@ define(['marionette'], function(Marionette) {
       if (params == null) {
         params = {};
       }
+      console.log("wwwwwwwwwwww");
       flag = 0;
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {

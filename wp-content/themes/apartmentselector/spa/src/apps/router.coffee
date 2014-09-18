@@ -101,6 +101,7 @@ define [ 'marionette'], ( Marionette )->
                 .withOptions()
 
         showUnits:(params={})->
+            console.log "wwwwwwwwwwww"
             flag = 0
             $.map(App.defaults, (value, index)->
                 if value!='All'

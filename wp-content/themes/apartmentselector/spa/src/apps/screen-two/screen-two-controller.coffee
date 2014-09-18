@@ -159,7 +159,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         _unitCountSelected:(childview,childview1)=>
-            App.navigate "screen-three" , trigger:true
+            App.navigate "screen-three" ,trigger:true
 
 
 

@@ -620,6 +620,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             $('#screen-two-button').removeClass('disabled btn-default');
             $("#screen-two-button").addClass('btn-primary');
             console.log(App.defaults);
+            this.trigger('unit:count:selected');
           } else {
             rangeArray = [];
             $("#checkrange" + this.model.get('range') + this.model.get('buildingid')).val("0");

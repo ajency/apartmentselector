@@ -105,6 +105,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 speed: 800
                 # continuous:true
             )
+            sudoSlider.goToSlide(unitModel.get('unitAssigned'));
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
