@@ -50,15 +50,17 @@ define [ 'marionette' ], ( Mariontte )->
                                 </ul>
 
                                 <!--Room Area-->
-                                <ul>
+                                <ul class="areas">
                                 {{#mainArr}}
                                     <li>
+
                                     <ul>
                                     {{#subarray}}
-                                    
-                                    <li>
-                                    {{room_size}}
-                                    </li>
+
+                                        <li>
+                                        {{room_size}}
+                                        </li>
+
                                      {{/subarray}}
                                     </ul>
                                    
