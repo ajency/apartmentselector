@@ -66,9 +66,11 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
 
-                        <div class="col-sm-8 b-grey b-l">
+                        <div class="col-sm-8 b-grey b-l rightTowerSvg">
                             <div id="positionsvg" class="positionSvg">
+                                
                             </div>
+                            <div class="radarBox"></div>
                         </div>
 
                     </div>'
