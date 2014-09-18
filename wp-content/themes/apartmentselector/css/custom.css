@@ -8425,18 +8425,31 @@ tr.milestoneReached td {
   display: inline-block;
   margin-left: -1px;
 }
-.compareWishlist ul > li {
+.compareWishlist .cd-table-column > ul > li {
   text-align: center;
-  padding: 20px;
+  padding: 25px 20px 10px;
   line-height: 1.1;
-  height: 68px;
-  background-color: #f6f6f7;
+  min-height: 68px;
   border-bottom: 1px solid #edeef0;
   white-space: normal;
   font-weight: 400;
 }
-.compareWishlist ul > li:nth-child(even) {
+.compareWishlist .cd-table-column > ul > li:nth-child(even) {
   background-color: #fbfbfc;
+}
+.compareWishlist .cd-table-column .layouts > li,
+.compareWishlist .cd-table-column .areas > li {
+  padding-top: 13px;
+  padding-bottom: 0;
+}
+.compareWishlist .cd-table-column .layouts > li img,
+.compareWishlist .cd-table-column .areas > li img {
+  width: 75px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #999999;
+}
+.compareWishlist .cd-table-column .layouts > li {
+  padding-top: 10px;
 }
 .compareWishlist ul {
   list-style: none;
@@ -8574,11 +8587,6 @@ tr.milestoneReached td {
 .compareHeader span {
   color: #999999;
   font-size: 16px;
-}
-.layouts li img {
-  width: 35px;
-  border-radius: 25px;
-  box-shadow: 1px 1px 5px #999999;
 }
 body {
   background-color: #ffffff;

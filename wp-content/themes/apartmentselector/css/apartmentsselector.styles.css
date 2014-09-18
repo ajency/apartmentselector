@@ -11320,7 +11320,7 @@ tr.milestoneReached td {
   text-align: center;
   padding: 20px;
   line-height: 1.1;
-  height: 68px;
+  min-height: 68px;
   background-color: #f6f6f7;
   border-bottom: 1px solid #edeef0;
   white-space: normal;
