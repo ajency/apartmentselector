@@ -40,7 +40,9 @@ define(['marionette'], function(Mariontte) {
     };
 
     PopupView.prototype.onShow = function() {
-      return $(".2dlayout").fancybox();
+      return $(".2dlayout").fancybox({
+        margin: 90
+      });
     };
 
     return PopupView;

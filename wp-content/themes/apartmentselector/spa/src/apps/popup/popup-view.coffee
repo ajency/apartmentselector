@@ -180,7 +180,8 @@ define [ 'marionette' ], ( Mariontte )->
                 e.preventDefault()
 
         onShow:->
-            $(".2dlayout").fancybox()
+            $(".2dlayout").fancybox
+                margin: 90
 
 
 
