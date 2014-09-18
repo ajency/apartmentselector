@@ -192,6 +192,9 @@ define [ 'marionette' ], ( Marionette )->
                         close: 'slide:top'
                     # fade: 1000
                 )
+
+                $(".rightBtns").removeClass "hidden"
+
                 cookieOldValue = $.cookie("key")
                 if cookieOldValue == undefined || $.cookie("key") == ""
                     cookieOldValue = ""
