@@ -115,7 +115,6 @@ define [ 'marionette' ], ( Mariontte )->
                     height = $(window).scrollTop()
                     if height == 0 && flag == 0
                         $('.backBtn').addClass 'hidden'
-                        $('.slctnTxt').addClass 'hidden'
                         $('h3').addClass 'step1'
 
 

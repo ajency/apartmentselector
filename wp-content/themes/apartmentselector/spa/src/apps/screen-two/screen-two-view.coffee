@@ -720,9 +720,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     q++
 
                 )
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
                 App.navigate "screen-two"
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'
@@ -732,6 +729,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                
                 if @model.get('count') !=0
                     for element , index in rangeArray
                         if element == @model.get('range')+@model.get('buildingid')

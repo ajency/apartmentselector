@@ -110,7 +110,6 @@ define(['marionette'], function(Mariontte) {
         height = $(window).scrollTop();
         if (height === 0 && flag === 0) {
           $('.backBtn').addClass('hidden');
-          $('.slctnTxt').addClass('hidden');
           return $('h3').addClass('step1');
         }
       });

@@ -246,11 +246,9 @@ define(['extm'], function(Extm) {
       $(window).scroll(function() {
         height = $(window).scrollTop();
         if (height < 300) {
-          $('.backBtn').addClass('hidden');
-          return $('.slctnTxt').addClass('hidden');
+          return $('.backBtn').addClass('hidden');
         } else {
-          $('.backBtn').removeClass('hidden');
-          return $('.slctnTxt').removeClass('hidden');
+          return $('.backBtn').removeClass('hidden');
         }
       });
       cookieOldValue = $.cookie("key");

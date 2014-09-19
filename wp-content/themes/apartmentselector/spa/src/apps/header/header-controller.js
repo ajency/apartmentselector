@@ -153,6 +153,7 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         textClass = "";
         btnClass = "hidden";
       } else {
+        console.log("rrr");
         templateString = "<span>Apartment Selector</span>";
       }
       $('#textstring').text("");

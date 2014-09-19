@@ -575,7 +575,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           }
           return q++;
         });
-        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         App.navigate("screen-two");
         $('#screen-three-region').removeClass('section');
         $('#screen-four-region').removeClass('section');
@@ -585,6 +584,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         if (this.model.get('count') !== 0) {
           for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
             element = rangeArray[index];
