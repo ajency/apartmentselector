@@ -97,7 +97,7 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, disableOther, flag, headerFlag, menuRight, menuTop, showRightPush, textString;
+      var body, disableOther, flag, menuRight, menuTop, showRightPush, textString;
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
       flag = 0;
@@ -121,23 +121,12 @@ define(['marionette'], function(Mariontte) {
       menuTop = document.getElementById("cbp-spmenu-s3");
       showRightPush = document.getElementById("showRightPush");
       body = document.body;
-      showRightPush.onclick = function() {
+      return showRightPush.onclick = function() {
         classie.toggle(this, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");
         classie.toggle(menuRight, "cbp-spmenu-open");
         disableOther("showRightPush");
       };
-      headerFlag = 0;
-      $.map(App.defaults, function(value, index) {
-        if (value !== 'All') {
-          return headerFlag = 1;
-        }
-      });
-      if (headerFlag === 1) {
-        return $('.slctnTxt').removeClass('hidden');
-      } else {
-        return $('.slctnTxt').addClass('hidden');
-      }
     };
 
     if (window.location.href.indexOf('wishList') > -1) {

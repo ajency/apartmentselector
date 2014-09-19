@@ -35,6 +35,9 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults[element] = 'All'
 
             )
+            msgbus.showApp 'header'
+            .insideRegion  App.headerRegion
+                .withOptions()
             App.layout.screenTwoRegion.el.innerHTML = ""
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""
@@ -186,6 +189,9 @@ define [ 'marionette' ], ( Marionette )->
                             App.defaults[element] = 'All'
 
                 )
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
                 $('#screen-two-region').removeClass 'section'
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'

@@ -145,16 +145,7 @@ define [ 'marionette' ], ( Mariontte )->
               disableOther "showRightPush"
               return
 
-            headerFlag = 0
-            $.map(App.defaults, (value, index)->
-                if value!='All'
-                    headerFlag = 1
-
-            )
-            if headerFlag == 1
-                $('.slctnTxt').removeClass 'hidden'
-            else
-                $('.slctnTxt').addClass 'hidden'
+            
 
 
 

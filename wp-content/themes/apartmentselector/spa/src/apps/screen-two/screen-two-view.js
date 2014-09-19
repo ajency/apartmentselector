@@ -575,6 +575,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           }
           return q++;
         });
+        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         App.navigate("screen-two");
         $('#screen-three-region').removeClass('section');
         $('#screen-four-region').removeClass('section');
