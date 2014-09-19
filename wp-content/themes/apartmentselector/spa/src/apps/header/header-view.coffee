@@ -145,19 +145,28 @@ define [ 'marionette' ], ( Mariontte )->
               disableOther "showRightPush"
               return
 
+            headerFlag = 0
+            $.map(App.defaults, (value, index)->
+                if value!='All'
+                    headerFlag = 1
 
-            if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+            )
+            if headerFlag == 1
                 $('.slctnTxt').removeClass 'hidden'
+            else
+                $('.slctnTxt').addClass 'hidden'
 
-            else if  window.location.href.indexOf('wishList') > -1
+
+
+
+           if  window.location.href.indexOf('wishList') > -1
                 $('.rightBtns').addClass 'hidden'
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
 
-            else
+            else if window.location.href.indexOf('screen-one')
                 $('.backBtn').addClass 'hidden'
-                $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1
 
 

@@ -97,7 +97,7 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, disableOther, flag, menuRight, menuTop, showRightPush, textString;
+      var body, disableOther, flag, headerFlag, menuRight, menuTop, showRightPush, textString;
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
       flag = 0;
@@ -127,19 +127,28 @@ define(['marionette'], function(Mariontte) {
         classie.toggle(menuRight, "cbp-spmenu-open");
         disableOther("showRightPush");
       };
-      if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
+      headerFlag = 0;
+      $.map(App.defaults, function(value, index) {
+        if (value !== 'All') {
+          return headerFlag = 1;
+        }
+      });
+      if (headerFlag === 1) {
         return $('.slctnTxt').removeClass('hidden');
-      } else if (window.location.href.indexOf('wishList') > -1) {
-        $('.rightBtns').addClass('hidden');
-        $('.backBtn').addClass('hidden');
-        $('.slctnTxt').addClass('hidden');
-        return $('h3').addClass('step1');
       } else {
-        $('.backBtn').addClass('hidden');
-        $('.slctnTxt').addClass('hidden');
-        return $('h3').addClass('step1');
+        return $('.slctnTxt').addClass('hidden');
       }
     };
+
+    if (window.location.href.indexOf('wishList') > -1) {
+      $('.rightBtns').addClass('hidden');
+      $('.backBtn').addClass('hidden');
+      $('.slctnTxt').addClass('hidden');
+      $('h3').addClass('step1');
+    } else if (window.location.href.indexOf('screen-one')) {
+      $('.backBtn').addClass('hidden');
+      $('h3').addClass('step1');
+    }
 
     return HeaderView;
 
