@@ -80,7 +80,11 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           if (floorvalue === -1) {
             return floorLayoutimage = building.get('floor_layout_detailed').image_url;
           } else {
-            return floorLayoutimage = value1.floor_layout_detailed.image_url;
+            if (value1.floor_layout_detailed.image_url === "") {
+              return floorLayoutimage = building.get('floor_layout_detailed').image_url;
+            } else {
+              return floorLayoutimage = value1.floor_layout_detailed.image_url;
+            }
           }
         });
         if (exceptionObject.legth === 0) {

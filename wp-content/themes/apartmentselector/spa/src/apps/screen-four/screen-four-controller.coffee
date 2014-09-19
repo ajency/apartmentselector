@@ -68,7 +68,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                     if floorvalue == -1
                         floorLayoutimage = building.get('floor_layout_detailed').image_url
                     else
-                        floorLayoutimage = value1.floor_layout_detailed.image_url
+                        if value1.floor_layout_detailed.image_url == ""
+                            floorLayoutimage = building.get('floor_layout_detailed').image_url
+                        else
+                            floorLayoutimage = value1.floor_layout_detailed.image_url
 
 
 

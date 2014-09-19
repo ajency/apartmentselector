@@ -913,7 +913,10 @@ define [ 'marionette' ], ( Marionette )->
                     if floorvalue == -1
                         floorLayoutimage = building.get('floor_layout_basic').image_url
                     else
-                        floorLayoutimage = value1.floor_layout_basic.image_url
+                        if value1.floor_layout_basic.image_url == ""
+                            floorLayoutimage = building.get('floor_layout_basic').image_url
+                        else
+                            floorLayoutimage = value1.floor_layout_basic.image_url
 
 
 
