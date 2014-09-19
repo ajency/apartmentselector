@@ -240,7 +240,7 @@ define(['marionette'], function(Marionette) {
         e.preventDefault();
         console.log(id = e.target.id);
         console.log(str1 = id.replace(/[^\d.]/g, ''));
-        buildigmodel = App.currentStore.building.findWhere({
+        buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
         if (buildigmodel === void 0 || buildigmodel === "") {

@@ -127,7 +127,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 id  = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
                 countunits = App.currentStore.unit.where({building:parseInt(str1)})
-                buildigmodel = App.currentStore.building.findWhere({id:parseInt(str1)})
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
                 if buildigmodel == undefined || buildigmodel == ""
                     text = "Not Launched"
                 else

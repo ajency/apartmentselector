@@ -59,7 +59,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         countunits = App.currentStore.unit.where({
           building: parseInt(str1)
         });
-        buildigmodel = App.currentStore.building.findWhere({
+        buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
         if (buildigmodel === void 0 || buildigmodel === "") {
