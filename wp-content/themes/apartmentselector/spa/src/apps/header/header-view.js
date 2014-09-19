@@ -97,7 +97,7 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, disableOther, flag, menuRight, menuTop, showRightPush, textString;
+      var body, cookieOldValue, disableOther, flag, menuRight, menuTop, showRightPush, textString;
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
       flag = 0;
@@ -130,16 +130,28 @@ define(['marionette'], function(Mariontte) {
         disableOther("showRightPush");
       };
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
-        return true;
+        true;
       } else if (window.location.href.indexOf('wishList') > -1) {
         $('.rightBtns').addClass('hidden');
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');
-        return $('h3').addClass('step1');
+        $('h3').addClass('step1');
       } else {
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');
-        return $('h3').addClass('step1');
+        $('h3').addClass('step1');
+      }
+      cookieOldValue = $.cookie("key");
+      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+        cookieOldValue = [];
+      } else {
+        cookieOldValue = $.cookie("key").split(',').map(function(item) {
+          return parseInt(item);
+        });
+      }
+      if (cookieOldValue.length >= 1) {
+        console.log("eeeeeeeeeeeee");
+        return $(".rightBtns").removeClass("hidden");
       }
     };
 

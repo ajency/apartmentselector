@@ -131,6 +131,19 @@ You can compare up to 4 apartments!</div>
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
                 $('#errormsg' ).text ""
+                if App.cookieArray.length < 1
+                    console.log "eeeeeeeeeeeee222"
+                    $(".rightBtns").addClass "hidden"
+                    $(".rightBtns").addClass "hidden"
+                    menuRight = document.getElementById("cbp-spmenu-s2")
+                    menuTop = document.getElementById("cbp-spmenu-s3")
+                    showTop = document.getElementById("showTop")
+                    showRightPush = document.getElementById("showRightPush")
+                    body = document.body
+                    classie.toggle showRightPush, "active"
+                    classie.toggle body, "cbp-spmenu-push-toleft"
+                    classie.toggle menuRight, "cbp-spmenu-open"
+                      
                 @showWishList()
 
             'click a':(e)->
@@ -347,12 +360,10 @@ You can compare up to 4 apartments!</div>
                 )
             if cookieOldValue.length <= 1
                 $('#compare').hide()
-                $(".rightBtns").addClass "hidden"
-            else
-                $(".rightBtns").removeClass "hidden"
-
+                
             App.cookieArray = cookieOldValue
             localStorage.setItem("cookievalue" , App.cookieArray)
+            console.log cookieOldValue.length
             @showWishList()
         showWishList:->
             table = ""

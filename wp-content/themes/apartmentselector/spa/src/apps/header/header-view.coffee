@@ -161,6 +161,20 @@ define [ 'marionette' ], ( Mariontte )->
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
 
+            cookieOldValue = $.cookie("key")
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+
+
+            if cookieOldValue.length >= 1
+                console.log "eeeeeeeeeeeee"
+                $(".rightBtns").removeClass "hidden"
+            
+
                 
 
 

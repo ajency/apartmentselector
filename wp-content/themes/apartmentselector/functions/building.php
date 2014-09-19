@@ -740,27 +740,36 @@ function get_svg_data_format($svg_data,$building){
 
     $svg_data_return = array();
 
-    if (is_array($svg_data)){
+   if (is_array($svg_data)){
 
-        foreach($svg_data as $svg_item){
+foreach($svg_data as $svg_item){
 
-            $units = array();
-            foreach($svg_item["svgposition"] as $svgposition){
+$units = array();
+if($svg_item["svgposition"] !=NULL){
+foreach($svg_item["svgposition"] as $svgposition){
 
-                    
-                    $units[$svgposition] = get_building_unit_assigned_to_position($building,$svgposition);
-                    
-            }
-            $svg_item["units"] =  $units;
 
-            $svg_item["svgposition"] = array_map('intval', $svg_item["svgposition"]);
+$units[$svgposition] = get_building_unit_assigned_to_position($building,$svgposition);
 
-            $svg_item["svgfile"] = $svg_item["svgfile"]["image_url"];
+}
+}
 
-            $svg_data_return[] = $svg_item;
+$svg_item["units"] = $units;
 
-        }
-    }
+if(is_array($svg_item["svgposition"])){
+$svg_item["svgposition"] = array_map('intval', $svg_item["svgposition"]);
+}else{
+$svg_item["svgposition"] = $svg_item["svgposition"];
+}
+
+
+$svg_item["svgfile"] = $svg_item["svgfile"]["image_url"];
+
+$svg_data_return[] = $svg_item;
+
+}
+}
+
 
     return $svg_data_return;
 }

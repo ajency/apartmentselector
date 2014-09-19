@@ -664,6 +664,9 @@ define(['marionette'], function(Marionette) {
             svgposition = value.svgfile;
             unitsarray = value.units;
             return $('#positionsvg').load(svgposition, function(x) {
+              value.svgposition.sort(function(a, b) {
+                return b - a;
+              });
               return $.each(value.svgposition, function(index1, val1) {
                 var i, rangClass;
                 indexvalue = unitsarray[val1];
