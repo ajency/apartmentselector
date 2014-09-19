@@ -13,7 +13,7 @@ define [ 'marionette' ], ( Mariontte )->
                     </div>
 
                     <div class="text-center">
-                        <h3 class="m-t-15 light"><span  class="slctnTxt hidden">Your selection</span> <span id="textstring"></span> </h3>
+                        <h3 class="m-t-15 light"><span class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3>
                     </div>
 
                     '
@@ -115,7 +115,8 @@ define [ 'marionette' ], ( Mariontte )->
                     height = $(window).scrollTop()
                     if height == 0 && flag == 0
                         $('.backBtn').addClass 'hidden'
-                        
+                        $('.slctnTxt').addClass 'hidden'
+                        $('h3').addClass 'step1'
 
 
 
@@ -145,29 +146,21 @@ define [ 'marionette' ], ( Mariontte )->
               disableOther "showRightPush"
               return
 
-            headerFlag = 0
-            $.map(App.defaults, (value, index)->
-                if value!='All'
-                    headerFlag = 1
-                    
 
-            )
-            if headerFlag == 0
-                $('.slctnTxt').removeClass 'hidden'
+            if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1
+                true
 
-
-
-
-           if  window.location.href.indexOf('wishList') > -1
+            else if  window.location.href.indexOf('wishList') > -1
                 $('.rightBtns').addClass 'hidden'
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
-            else if  window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-four') > -1 ||  window.location.href.indexOf('screen-three') > -1
-                $('.slctnTxt').removeClass 'hidden'
+
             else
+                $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
-            
+                $('h3').addClass 'step1'
+
                 
 
 

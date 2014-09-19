@@ -325,9 +325,18 @@ You can compare up to 4 apartments!</div>
                 height = $(window).scrollTop()
                 if height < 300
                     $('.backBtn').addClass 'hidden'
+                    $('.slctnTxt').addClass 'hidden'
+
                 else
                     $('.backBtn').removeClass 'hidden'
-                    
+                    $('.slctnTxt').removeClass 'hidden'
+
+
+
+
+
+
+
             )
             cookieOldValue = $.cookie("key")
             if cookieOldValue == undefined || $.cookie("key") == ""

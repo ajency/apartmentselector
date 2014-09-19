@@ -38,7 +38,6 @@ define [ 'marionette' ], ( Marionette )->
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
                 .withOptions()
-            
             App.layout.screenTwoRegion.el.innerHTML = ""
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""

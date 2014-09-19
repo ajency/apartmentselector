@@ -233,9 +233,11 @@ define(['extm'], function(Extm) {
       $(window).scroll(function() {
         height = $(window).scrollTop();
         if (height < 300) {
-          return $('.backBtn').addClass('hidden');
+          $('.backBtn').addClass('hidden');
+          return $('.slctnTxt').addClass('hidden');
         } else {
-          return $('.backBtn').removeClass('hidden');
+          $('.backBtn').removeClass('hidden');
+          return $('.slctnTxt').removeClass('hidden');
         }
       });
       cookieOldValue = $.cookie("key");
