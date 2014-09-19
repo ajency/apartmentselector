@@ -145,6 +145,8 @@ define(['marionette'], function(Mariontte) {
       $('h3').addClass('step1');
     } else if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-four') > -1 || window.location.href.indexOf('screen-three') > -1) {
       $('.slctnTxt').removeClass('hidden');
+    } else {
+      $('.slctnTxt').addClass('hidden');
     }
 
     return HeaderView;
