@@ -238,23 +238,24 @@ define [ 'marionette' ], ( Marionette )->
                 id  = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
                 buildigmodel = App.currentStore.building.findWhere({id:parseInt(str1)})
-                if buildigmodel == undefined
-                    return false
-                countunits = App.currentStore.unit.where({building:parseInt(str1)})
-                console.log minmodel = _.min(countunits, (model)->
-                    if model.get('unitType') != 14
-                        return model.get('unitPrice')
-                )
-                countcoll = new Backbone.Collection countunits
-                unittype = countcoll.pluck("unitType")
-                uniqUnittype = _.uniq(unittype)
-                unittypeArray = Array()
-                for element , index in uniqUnittype
-                    unittypeModel = App.currentStore.unit_type.get element
-                    if unittypeModel.get('id') != 14
-                        unittypeArray.push unittypeModel.get('name')
-                unitTypes = unittypeArray.join(', ')
-                text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+minmodel.get('unitPrice')+'<br/><span>Unit Type - </span>'+unitTypes
+                if buildigmodel == undefined ||  buildigmodel == ""
+                    text = "Not Launched"
+                else  
+                    countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                    console.log minmodel = _.min(countunits, (model)->
+                        if model.get('unitType') != 14
+                            return model.get('unitPrice')
+                    )
+                    countcoll = new Backbone.Collection countunits
+                    unittype = countcoll.pluck("unitType")
+                    uniqUnittype = _.uniq(unittype)
+                    unittypeArray = Array()
+                    for element , index in uniqUnittype
+                        unittypeModel = App.currentStore.unit_type.get element
+                        if unittypeModel.get('id') != 14
+                            unittypeArray.push unittypeModel.get('name')
+                    unitTypes = unittypeArray.join(', ')
+                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+minmodel.get('unitPrice')+'<br/><span>Unit Type - </span>'+unitTypes
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 

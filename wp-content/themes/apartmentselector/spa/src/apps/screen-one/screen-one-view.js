@@ -243,30 +243,31 @@ define(['marionette'], function(Marionette) {
         buildigmodel = App.currentStore.building.findWhere({
           id: parseInt(str1)
         });
-        if (buildigmodel === void 0) {
-          return false;
-        }
-        countunits = App.currentStore.unit.where({
-          building: parseInt(str1)
-        });
-        console.log(minmodel = _.min(countunits, function(model) {
-          if (model.get('unitType') !== 14) {
-            return model.get('unitPrice');
+        if (buildigmodel === void 0 || buildigmodel === "") {
+          text = "Not Launched";
+        } else {
+          countunits = App.currentStore.unit.where({
+            building: parseInt(str1)
+          });
+          console.log(minmodel = _.min(countunits, function(model) {
+            if (model.get('unitType') !== 14) {
+              return model.get('unitPrice');
+            }
+          }));
+          countcoll = new Backbone.Collection(countunits);
+          unittype = countcoll.pluck("unitType");
+          uniqUnittype = _.uniq(unittype);
+          unittypeArray = Array();
+          for (index = _i = 0, _len = uniqUnittype.length; _i < _len; index = ++_i) {
+            element = uniqUnittype[index];
+            unittypeModel = App.currentStore.unit_type.get(element);
+            if (unittypeModel.get('id') !== 14) {
+              unittypeArray.push(unittypeModel.get('name'));
+            }
           }
-        }));
-        countcoll = new Backbone.Collection(countunits);
-        unittype = countcoll.pluck("unitType");
-        uniqUnittype = _.uniq(unittype);
-        unittypeArray = Array();
-        for (index = _i = 0, _len = uniqUnittype.length; _i < _len; index = ++_i) {
-          element = uniqUnittype[index];
-          unittypeModel = App.currentStore.unit_type.get(element);
-          if (unittypeModel.get('id') !== 14) {
-            unittypeArray.push(unittypeModel.get('name'));
-          }
+          unitTypes = unittypeArray.join(', ');
+          text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs. </span>' + minmodel.get('unitPrice') + '<br/><span>Unit Type - </span>' + unitTypes;
         }
-        unitTypes = unittypeArray.join(', ');
-        text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs. </span>' + minmodel.get('unitPrice') + '<br/><span>Unit Type - </span>' + unitTypes;
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData, text);
       }
