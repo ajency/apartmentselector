@@ -124,7 +124,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
     };
 
-    ScreenTwoController.prototype._unitCountSelected = function(childview, childview1) {
+    ScreenTwoController.prototype._unitCountSelected = function() {
       return App.navigate("screen-three", {
         trigger: true
       });

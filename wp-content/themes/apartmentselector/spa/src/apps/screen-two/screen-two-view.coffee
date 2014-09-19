@@ -720,6 +720,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     q++
 
                 )
+                App.navigate "screen-two"
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'
                 App.layout.screenThreeRegion.el.innerHTML = ""
