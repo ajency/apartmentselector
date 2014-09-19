@@ -10381,6 +10381,10 @@ h5 {
 .boxLong.other {
   line-height: inherit;
 }
+.safari .boxLong {
+  height: 65px;
+  padding: 15px;
+}
 .boxBlank {
   width: 100%;
   min-height: 65px;
@@ -11689,6 +11693,11 @@ body {
 #screen-four-region.section {
   border-top: 1px solid #eeeeee;
   min-height: 100vh;
+}
+.safari #screen-two-region.section,
+.safari #screen-three-region.section,
+.safari #screen-four-region.section {
+  min-height: 100%;
 }
 .cbp-spmenu-vertical {
   background-color: #803300;
