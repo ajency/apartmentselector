@@ -10381,6 +10381,10 @@ h5 {
 .boxLong.other {
   line-height: inherit;
 }
+.safari .boxLong {
+  height: 65px;
+  padding: 15px;
+}
 .boxBlank {
   width: 100%;
   min-height: 65px;
