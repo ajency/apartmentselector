@@ -52,7 +52,7 @@ define(['marionette'], function(Marionette) {
         return this.loadsvg(id);
       },
       'click .unit-hover': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, floorriserange, id, indexvalue, str1, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, id, indexvalue, rangeArrayVal, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -67,110 +67,101 @@ define(['marionette'], function(Marionette) {
         temp = ['f', 'ff'];
         temp1 = ['t', 'tt'];
         temp2 = ['c', 'cc'];
-        console.log(id = e.target.id);
-        unitModel = "";
-        str1 = id.indexOf('ff');
-        if (id.indexOf('ff') >= 0) {
-          position = 3;
-        } else if (id.indexOf('f') >= 0) {
-          console.log("eeeeeeeeeeee");
-          position = 2;
-        } else {
-          position = 1;
-        }
-        console.log(position);
+        id = $('#' + e.target.id).attr('data-value');
+        flatid = $('#' + e.target.id).attr('data-id');
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(id)
+        });
+        position = unitModel.get('unitAssigned');
+        rangeArrayVal = [];
+        $.each(floorriserange, function(index, value) {
+          var end, i, start;
+          rangeArrayVal = [];
+          i = 0;
+          start = parseInt(value.start);
+          end = parseInt(value.end);
+          while (parseInt(start) <= parseInt(end)) {
+            rangeArrayVal[i] = start;
+            start = parseInt(start) + 1;
+            i++;
+          }
+          if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
+            return App.defaults['floor'] = rangeArrayVal.join(',');
+          }
+        });
         $.each(svgdata, function(index, value) {
           var ii;
-          console.log(position);
           if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              var element, flatid, rangeArrayVal, unit, unitsarray, _i, _j, _len, _len1;
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              indexvalue = unitsarray[position];
-              flatid = $('#' + e.target.id).attr('data-id');
-              unit = indexvalue[parseInt(flatid)];
-              unitModel = App.master.unit.findWhere({
-                id: parseInt(unit)
-              });
-              rangeArrayVal = [];
-              $.each(floorriserange, function(index, value) {
-                var end, i, start;
-                rangeArrayVal = [];
-                i = 0;
-                start = parseInt(value.start);
-                end = parseInt(value.end);
-                while (parseInt(start) <= parseInt(end)) {
-                  rangeArrayVal[i] = start;
-                  start = parseInt(start) + 1;
-                  i++;
+              var element, indexvalue1, unit, unitsarray, _i, _j, _len, _len1;
+              if (position === val1) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                indexvalue = unitsarray[position];
+                indexvalue1 = unitsarray[val1];
+                $.map(indexvalue1, function(index, value) {
+                  $('#f' + value).attr('class', 'unselected-floor ');
+                  return $('#ff' + value).attr('class', 'unselected-floor ');
+                });
+                $.map(indexvalue, function(index, value) {
+                  var floorArr;
+                  if (App.defaults['floor'] !== "All") {
+                    floorArr = App.defaults['floor'].split(',');
+                    return $.each(floorArr, function(ind, val) {
+                      if (parseInt(value) === parseInt(val)) {
+                        $('#' + temp[ii] + value).attr('class', 'unit-hover range');
+                        return $('#' + temp1[ii] + value).attr('class', 'unit-hover range');
+                      }
+                    });
+                  } else {
+                    $('#' + temp[ii] + value).attr('class', 'unit-hover range');
+                    return $('#' + temp1[ii] + value).attr('class', 'unit-hover range');
+                  }
+                });
+                $("#" + e.target.id).attr('class', 'selected-flat');
+                $("#" + temp1[ii] + flatid).attr('class', 'selected-flat');
+                unit = indexvalue[parseInt(flatid)];
+                console.log(unitModel = App.master.unit.findWhere({
+                  id: parseInt(unit)
+                }));
+                position = unitModel.get('unitAssigned');
+                for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
+                  element = unitAssigedArray[index];
+                  if (element === parseInt(unitModel.get('unitAssigned'))) {
+                    $('#' + element).attr('class', 'floor-pos position');
+                  } else {
+                    $('#' + element).attr('class', 'floor-pos ');
+                  }
                 }
-                if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
-                  return App.defaults['floor'] = rangeArrayVal.join(',');
+                unitAssigedArray.push(unitModel.get('unitAssigned'));
+                $('#' + unitModel.get('unitAssigned')).attr('class', 'position');
+                sudoSlider.goToSlide(unitModel.get('unitAssigned'));
+                for (index = _j = 0, _len1 = rangeunitArray.length; _j < _len1; index = ++_j) {
+                  element = rangeunitArray[index];
+                  if (element === parseInt(unit)) {
+                    $("#select" + unit).val('1');
+                  } else {
+                    $("#select" + element).val('0');
+                    $('#check' + element).removeClass('selected');
+                    rangeunitArray = [];
+                  }
                 }
-              });
-              $.map(indexvalue, function(index, value) {
-                $('#f' + value).attr('class', 'unselected-floor range');
-                return $('#ff' + value).attr('class', 'unselected-floor range');
-              });
-              $.map(indexvalue, function(index, value) {
-                var floorArr;
-                if (App.defaults['floor'] !== "All") {
-                  floorArr = App.defaults['floor'].split(',');
-                  return $.each(floorArr, function(ind, val) {
-                    if (parseInt(value) === parseInt(val)) {
-                      $('#' + temp[ii] + value).attr('class', 'unit-hover range');
-                      return $('#' + temp1[ii] + value).attr('class', 'unit-hover range');
-                    }
-                  });
-                } else {
-                  $('#' + temp[ii] + value).attr('class', 'unit-hover range');
-                  return $('#' + temp1[ii] + value).attr('class', 'unit-hover range');
-                }
-              });
-              $("#" + e.target.id).attr('class', 'selected-flat');
-              $("#" + temp1[ii] + flatid).attr('class', 'selected-flat');
-              unit = indexvalue[parseInt(flatid)];
-              console.log(unitModel = App.master.unit.findWhere({
-                id: parseInt(unit)
-              }));
-              position = unitModel.get('unitAssigned');
-              for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
-                element = unitAssigedArray[index];
-                if (element === parseInt(unitModel.get('unitAssigned'))) {
-                  $('#' + element).attr('class', 'floor-pos position');
-                } else {
-                  $('#' + element).attr('class', 'floor-pos ');
-                }
+                rangeunitArray.push(parseInt(unit));
+                $('#check' + unit).addClass("selected");
+                $("#select" + unit).val("1");
+                $("#screen-three-button").removeClass('disabled btn-default');
+                $("#screen-three-button").addClass('btn-primary');
               }
-              unitAssigedArray.push(unitModel.get('unitAssigned'));
-              $('#' + unitModel.get('unitAssigned')).attr('class', 'position');
-              sudoSlider.goToSlide(unitModel.get('unitAssigned'));
-              for (index = _j = 0, _len1 = rangeunitArray.length; _j < _len1; index = ++_j) {
-                element = rangeunitArray[index];
-                if (element === parseInt(unit)) {
-                  $("#select" + unit).val('1');
-                } else {
-                  $("#select" + element).val('0');
-                  $('#check' + element).removeClass('selected');
-                  rangeunitArray = [];
-                }
-              }
-              rangeunitArray.push(parseInt(unit));
-              $('#check' + unit).addClass("selected");
-              $("#select" + unit).val("1");
-              $("#screen-three-button").removeClass('disabled btn-default');
-              $("#screen-three-button").addClass('btn-primary');
               return ii++;
             });
           }
         });
-        console.log(unitModel);
+        unitModel;
         return this.trigger("load:range:data", unitModel);
       },
       'click .unselected-floor': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, id, indexvalue, rangeArrayVal, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -185,70 +176,64 @@ define(['marionette'], function(Marionette) {
         temp = ['f', 'ff'];
         temp1 = ['t', 'tt'];
         temp2 = ['c', 'cc'];
-        unitModel = "";
-        console.log(id = e.target.id);
-        console.log(id.indexOf('ff'));
-        console.log(id.indexOf('f'));
-        if (id.indexOf('ff') >= 0) {
-          position = 3;
-        } else if (id.indexOf('f') >= 0) {
-          console.log("eeeeeeeeeeee");
-          position = 2;
-        } else {
-          position = 1;
-        }
+        id = $('#' + e.target.id).attr('data-value');
+        flatid = $('#' + e.target.id).attr('data-id');
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(id)
+        });
+        position = unitModel.get('unitAssigned');
+        rangeArrayVal = [];
+        $.each(floorriserange, function(index, value) {
+          var end, i, start;
+          rangeArrayVal = [];
+          i = 0;
+          start = parseInt(value.start);
+          end = parseInt(value.end);
+          while (parseInt(start) <= parseInt(end)) {
+            rangeArrayVal[i] = start;
+            start = parseInt(start) + 1;
+            i++;
+          }
+          if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
+            return App.defaults['floor'] = rangeArrayVal.join(',');
+          }
+        });
         $.each(svgdata, function(index, value) {
           var ii;
           if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              var flatid, rangeArrayVal, unit, unitsarray;
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              indexvalue = unitsarray[val1];
-              flatid = $('#' + e.target.id).attr('data-id');
-              unit = indexvalue[parseInt(flatid)];
-              unitModel = App.master.unit.findWhere({
-                id: parseInt(unit)
-              });
-              position = unitModel.get('unitAssigned');
-              rangeArrayVal = [];
-              $.each(floorriserange, function(index, value) {
-                var end, i, start;
-                rangeArrayVal = [];
-                i = 0;
-                start = parseInt(value.start);
-                end = parseInt(value.end);
-                while (parseInt(start) <= parseInt(end)) {
-                  rangeArrayVal[i] = start;
-                  start = parseInt(start) + 1;
-                  i++;
-                }
-                if (jQuery.inArray(parseInt(unitModel.get('floor')), rangeArrayVal) >= 0) {
-                  return App.defaults['floor'] = rangeArrayVal.join(',');
-                }
-              });
-              $.map(indexvalue, function(index, value) {
-                $('#f' + value).attr('class', 'unselected-floor range');
-                return $('#ff' + value).attr('class', 'unselected-floor range');
-              });
-              $.map(indexvalue, function(index, value) {
-                var floorArr;
-                if (App.defaults['floor'] !== "All") {
-                  floorArr = App.defaults['floor'].split(',');
-                  return $.each(floorArr, function(ind, val) {
-                    if (parseInt(value) === parseInt(val)) {
-                      $('#' + temp[ii] + value).attr('class', 'unit-hover range');
-                      return $('#' + temp1[ii] + value).attr('class', 'unit-hover range');
-                    }
-                  });
-                } else {
-                  $('#' + temp[ii] + value).attr('class', 'unselected-floor range');
-                  return $('#' + temp1[ii] + value).attr('class', 'unselected-floor range');
-                }
-              });
-              $("#" + e.target.id).attr('class', 'selected-flat');
-              $("#" + temp1[ii] + flatid).attr('class', 'selected-flat');
+              var indexvalue1, unit, unitsarray;
+              if (position === val1) {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                indexvalue = unitsarray[position];
+                indexvalue1 = unitsarray[val1];
+                flatid = $('#' + e.target.id).attr('data-id');
+                unit = indexvalue[parseInt(flatid)];
+                $.map(indexvalue1, function(index, value) {
+                  $('#f' + value).attr('class', 'unselected-floor ');
+                  return $('#ff' + value).attr('class', 'unselected-floor ');
+                });
+                $.map(indexvalue, function(index, value) {
+                  var floorArr;
+                  if (App.defaults['floor'] !== "All") {
+                    floorArr = App.defaults['floor'].split(',');
+                    return $.each(floorArr, function(ind, val) {
+                      if (parseInt(value) === parseInt(val)) {
+                        $('#' + temp[ii] + value).attr('class', 'unit-hover range');
+                        return $('#' + temp1[ii] + value).attr('class', 'unit-hover range');
+                      }
+                    });
+                  } else {
+                    $('#' + temp[ii] + value).attr('class', 'unselected-floor ');
+                    return $('#' + temp1[ii] + value).attr('class', 'unselected-floor ');
+                  }
+                });
+                console.log(e.target.id);
+                $("#" + e.target.id).attr('class', 'selected-flat');
+                $("#" + temp1[ii] + flatid).attr('class', 'selected-flat');
+              }
               return ii++;
             });
           }
@@ -256,39 +241,8 @@ define(['marionette'], function(Marionette) {
         console.log(unitModel);
         return this.trigger("load:range:data", unitModel);
       },
-      'mouseover .disable': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, indexvalue, svgdata, svgposition, unitvalues;
-        buildingCollection = Marionette.getOption(this, 'buildingCollection');
-        buildinArray = buildingCollection.toArray();
-        building = _.first(buildinArray);
-        buildingModel = App.master.building.findWhere({
-          id: parseInt(building.get('id'))
-        });
-        svgdata = buildingModel.get('svgdata');
-        svgposition = "";
-        unitvalues = "";
-        indexvalue = "";
-        return $.each(svgdata, function(index, value) {
-          if (value.svgposition !== null) {
-            return $.each(value.svgposition, function(index1, val1) {
-              var flatid, unit, unitModel, unitsarray;
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              indexvalue = unitsarray[val1];
-              flatid = $('#' + e.target.id).attr('data-id');
-              unit = indexvalue[parseInt(flatid)];
-              unitModel = App.master.unit.findWhere({
-                id: parseInt(unit)
-              });
-              $('#t' + flatid).text(unitModel.get('name'));
-              return $('#tt' + flatid).text(unitModel.get('name'));
-            });
-          }
-        });
-      },
       'mouseover .unit-hover': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, indexvalue, object, svgdata, svgposition, temp, temp1, temp2, unitvalues;
-        object = this;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -296,43 +250,42 @@ define(['marionette'], function(Marionette) {
           id: parseInt(building.get('id'))
         });
         svgdata = buildingModel.get('svgdata');
+        floorriserange = buildingModel.get('floorriserange');
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
         temp = ['f', 'ff'];
         temp1 = ['t', 'tt'];
         temp2 = ['c', 'cc'];
-        return $.each(svgdata, function(index, value) {
+        id = $('#' + e.target.id).attr('data-value');
+        flatid = $('#' + e.target.id).attr('data-id');
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(id)
+        });
+        position = unitModel.get('unitAssigned');
+        checktrack = this.checkSelection(unitModel);
+        $.each(svgdata, function(index, value) {
           var ii;
           if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              var checktrack, flatid, unit, unitModel, unitsarray;
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              indexvalue = unitsarray[val1];
-              flatid = $('#' + e.target.id).attr('data-id');
-              unit = indexvalue[parseInt(flatid)];
-              unitModel = App.master.unit.findWhere({
-                id: parseInt(unit)
-              });
-              $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
-              checktrack = object.checkSelection(unitModel);
-              if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
-                $("#" + e.target.id).attr('class', 'unit-hover range aviable');
-              } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
-                $("#" + e.target.id).attr('class', 'sold');
-              } else {
-                $("#" + e.target.id).attr('class', 'other');
+              if (position === val1) {
+                $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
             });
           }
         });
+        if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
+          return $("#" + e.target.id).attr('class', 'unit-hover range aviable');
+        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
+          return $("#" + e.target.id).attr('class', 'sold range');
+        } else {
+          return $("#" + e.target.id).attr('class', 'other range');
+        }
       },
       'mouseover .unselected-floor': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, indexvalue, object, svgdata, svgposition, temp, temp1, temp2, unitvalues;
-        object = this;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -340,40 +293,42 @@ define(['marionette'], function(Marionette) {
           id: parseInt(building.get('id'))
         });
         svgdata = buildingModel.get('svgdata');
+        floorriserange = buildingModel.get('floorriserange');
         svgposition = "";
         unitvalues = "";
         indexvalue = "";
         temp = ['f', 'ff'];
         temp1 = ['t', 'tt'];
         temp2 = ['c', 'cc'];
-        return $.each(svgdata, function(index, value) {
+        id = $('#' + e.target.id).attr('data-value');
+        flatid = $('#' + e.target.id).attr('data-id');
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(id)
+        });
+        position = unitModel.get('unitAssigned');
+        checktrack = this.checkSelection(unitModel);
+        $.each(svgdata, function(index, value) {
           var ii;
           if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              var checktrack, flatid, unit, unitModel, unitsarray;
-              svgposition = value.svgfile;
-              unitsarray = value.units;
-              indexvalue = unitsarray[val1];
-              flatid = $('#' + e.target.id).attr('data-id');
-              unit = indexvalue[parseInt(flatid)];
-              console.log(unitModel = App.master.unit.findWhere({
-                id: parseInt(unit)
-              }));
               console.log(position);
-              $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
-              checktrack = object.checkSelection(unitModel);
-              if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
-                $("#" + e.target.id).attr('class', 'unselected-floor aviable');
-              } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
-                $("#" + e.target.id).attr('class', 'sold');
-              } else {
-                $("#" + e.target.id).attr('class', 'other');
+              console.log(temp1[ii]);
+              if (parseInt(position) === parseInt(val1)) {
+                $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
             });
           }
         });
+        checktrack = this.checkSelection(unitModel);
+        if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
+          return $("#" + e.target.id).attr('class', 'unselected-floor aviable');
+        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
+          return $("#" + e.target.id).attr('class', 'sold ');
+        } else {
+          return $("#" + e.target.id).attr('class', 'other ');
+        }
       },
       'click #screen-three-button': function(e) {
         $('#screen-four-region').addClass('section');
@@ -702,31 +657,35 @@ define(['marionette'], function(Marionette) {
       temp1 = ['t', 'tt'];
       temp2 = ['c', 'cc'];
       $.each(svgdata, function(index, value) {
-        var ii;
+        var ii, unitsarray;
         if ($.inArray(floorid, value.svgposition) >= 0 && value.svgposition !== null) {
           ii = 0;
-          return $.each(value.svgposition, function(index1, val1) {
-            var unitsarray;
+          if (value.svgfile !== "") {
             svgposition = value.svgfile;
             unitsarray = value.units;
-            console.log(indexvalue = unitsarray[val1]);
-            if (value.svgfile !== "") {
-              return $('#positionsvg').load(svgposition, function(x) {
+            return $('#positionsvg').load(svgposition, function(x) {
+              return $.each(value.svgposition, function(index1, val1) {
                 var i, rangClass;
+                indexvalue = unitsarray[val1];
                 $.map(indexvalue, function(index, value) {
                   console.log(temp[ii]);
-                  return $('#' + temp[ii] + value).attr('class', 'unselected-floor');
+                  $('#' + temp[ii] + value).attr('class', 'unselected-floor');
+                  return $('#' + temp[ii] + value).attr('data-value', index);
                 });
                 $.map(indexvalue, function(index1, value1) {
                   var floorArr;
+                  console.log(floorid);
+                  console.log(val1);
                   if (App.defaults['floor'] !== "All") {
                     floorArr = App.defaults['floor'].split(',');
-                    return $.each(floorArr, function(ind, val) {
-                      if (parseInt(value1) === parseInt(val)) {
-                        $('#' + temp[ii] + value1).attr('class', 'unit-hover range');
-                        return $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
-                      }
-                    });
+                    if (floorid === val1) {
+                      return $.each(floorArr, function(ind, val) {
+                        if (parseInt(value1) === parseInt(val)) {
+                          $('#' + temp[ii] + value1).attr('class', 'unit-hover range');
+                          return $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
+                        }
+                      });
+                    }
                   } else {
                     $('#' + temp[ii] + value1).attr('class', 'unit-hover range');
                     return $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
@@ -747,8 +706,8 @@ define(['marionette'], function(Marionette) {
                 });
                 return ii++;
               });
-            }
-          });
+            });
+          }
         }
       });
       return position = floorid;
@@ -821,7 +780,8 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShowRangeData = function(unitModel, collection) {
-      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, object, unitcoll, _i, _j, _len, _len1;
+      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, object, pos, unitcoll, _i, _j, _len, _len1;
+      $('#floorsvg').text("");
       console.log(unitModel);
       object = this;
       unitcoll = collection.toArray();
@@ -840,6 +800,28 @@ define(['marionette'], function(Marionette) {
       });
       exceptionObject = buildingModel.get('floorexceptionpositions');
       floorLayoutimage = "";
+      $.each(exceptionObject, function(index, value1) {
+        var floorvalue;
+        floorvalue = $.inArray(unitModel.get('floor'), value1.floors);
+        console.log(floorvalue);
+        if (floorvalue === -1) {
+          return floorLayoutimage = building.get('floor_layout_basic').image_url;
+        } else {
+          if (value1.floor_layout_basic.image_url === "") {
+            return floorLayoutimage = building.get('floor_layout_basic').image_url;
+          } else {
+            return floorLayoutimage = value1.floor_layout_basic.image_url;
+          }
+        }
+      });
+      if (exceptionObject.legth === 0) {
+        floorLayoutimage = building.get('floor_layout_basic').image_url;
+      }
+      pos = unitModel.get('unitAssigned');
+      $('<div></div>').load(floorLayoutimage, function(x) {
+        $('#' + pos).attr('class', 'floor-pos position');
+        return unitAssigedArray.push(pos);
+      }).appendTo("#floorsvg");
       for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
         element = unitAssigedArray[index];
         if (element === parseInt(unitModel.get('unitAssigned'))) {
@@ -1049,7 +1031,7 @@ define(['marionette'], function(Marionette) {
 
     unitChildView.prototype.events = {
       'click ': function(e) {
-        var buildingModel, check, element, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, unitModel, unitvalues, _i, _len;
+        var buildingModel, check, element, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues, _i, _len;
         screenThreeLayout = new ScreenThreeLayout();
         check = screenThreeLayout.checkSelection(this.model);
         if (check === 1 && this.model.get('status') === 9) {
@@ -1060,6 +1042,9 @@ define(['marionette'], function(Marionette) {
           svgposition = "";
           unitvalues = "";
           indexvalue = "";
+          temp = ['f', 'ff'];
+          temp1 = ['t', 'tt'];
+          temp2 = ['c', 'cc'];
           $.each(svgdata, function(index, value) {
             if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
               return $.each(value.svgposition, function(index1, val1) {
@@ -1110,11 +1095,11 @@ define(['marionette'], function(Marionette) {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
                   if (parseInt(value) === parseInt(val)) {
-                    if (position !== 3) {
-                      $('#f' + value).attr('class', 'unit-hover');
+                    if (position === 2 || position === 1) {
+                      $('#f' + value).attr('class', 'unit-hover range');
                       return $('#t' + value).text("");
                     } else {
-                      $('#ff' + value).attr('class', 'unit-hover');
+                      $('#ff' + value).attr('class', 'unit-hover range');
                       return $('#tt' + value).text("");
                     }
                   }
@@ -1164,9 +1149,9 @@ define(['marionette'], function(Marionette) {
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
                 if (position !== 3) {
-                  return $('#f' + positionassigend).attr('class', 'unit-hover aviable');
+                  return $('#f' + positionassigend).attr('class', 'unit-hover range');
                 } else {
-                  return $('#ff' + positionassigend).attr('class', 'unit-hover aviable');
+                  return $('#ff' + positionassigend).attr('class', 'unit-hover range');
                 }
               }
             });

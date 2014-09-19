@@ -46,7 +46,11 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             if (floorvalue === -1) {
               return floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url;
             } else {
-              return floorLayoutimage = value1.floor_layout_detailed.image_url;
+              if (value1.floor_layout_detailed.image_url === "") {
+                return floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url;
+              } else {
+                return floorLayoutimage = value1.floor_layout_detailed.image_url;
+              }
             }
           });
           if (exceptionObject.legth === 0) {

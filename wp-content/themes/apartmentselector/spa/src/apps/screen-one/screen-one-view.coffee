@@ -145,7 +145,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="col-lg-8 col-sm-7 b-grey b-l hidden-xs">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
-                        </div>
+                        </div><span hidden id="currency"></span>
                     </div>'
 
         className : 'page-container row-fluid'
@@ -235,26 +235,33 @@ define [ 'marionette' ], ( Marionette )->
 
             'mouseover .tower-over':(e)->
                 e.preventDefault()
-                id  = e.target.id
+                console.log id  = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
-                buildigmodel = App.currentStore.building.findWhere({id:parseInt(str1)})
-                if buildigmodel == undefined
-                    return false
-                countunits = App.currentStore.unit.where({building:parseInt(str1)})
-                console.log minmodel = _.min(countunits, (model)->
-                    if model.get('unitType') != 14
-                        return model.get('unitPrice')
-                )
-                countcoll = new Backbone.Collection countunits
-                unittype = countcoll.pluck("unitType")
-                uniqUnittype = _.uniq(unittype)
-                unittypeArray = Array()
-                for element , index in uniqUnittype
-                    unittypeModel = App.currentStore.unit_type.get element
-                    if unittypeModel.get('id') != 14
-                        unittypeArray.push unittypeModel.get('name')
-                unitTypes = unittypeArray.join(', ')
-                text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+minmodel.get('unitPrice')+'<br/><span>Unit Type - </span>'+unitTypes
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if buildigmodel == undefined ||  buildigmodel == ""
+                    text = "Not Launched"
+                else  
+                    countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                    minmodel = _.min(countunits, (model)->
+                        if model.get('unitType') != 14
+                            return model.get('unitPrice')
+                    )
+                    $('#currency').text minmodel.get('unitPrice')
+                    $('#currency').priceFormat({
+                        prefix: '',
+                        centsSeparator: ',',
+                        thousandsSeparator: ','
+                    });
+                    countcoll = new Backbone.Collection countunits
+                    unittype = countcoll.pluck("unitType")
+                    uniqUnittype = _.uniq(unittype)
+                    unittypeArray = Array()
+                    for element , index in uniqUnittype
+                        unittypeModel = App.currentStore.unit_type.get element
+                        if unittypeModel.get('id') != 14
+                            unittypeArray.push unittypeModel.get('name')
+                    unitTypes = unittypeArray.join(', ')
+                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+$('#currency').text()+'<br/><span>Unit Type - </span>'+unitTypes
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 

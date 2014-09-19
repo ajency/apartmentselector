@@ -8666,7 +8666,8 @@ polygon.selected-flat + text {
   fill: #000 !important;
   font-size: 18px;
 }
-rect.range {
+rect.range,
+polygon.range {
   fill: #FF6600 !important;
   cursor: pointer;
   opacity: 0.5;

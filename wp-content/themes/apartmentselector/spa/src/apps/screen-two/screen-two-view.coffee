@@ -82,7 +82,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
                                 <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                             </div>
-                        </div>
+                        </div><span hidden id="currency"></span>
                     </div>'
 
 
@@ -127,20 +127,26 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 id  = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
                 countunits = App.currentStore.unit.where({building:parseInt(str1)})
-                buildigmodel = App.currentStore.building.findWhere({id:parseInt(str1)})
-                if buildigmodel == undefined
-                    return false
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if buildigmodel == undefined || buildigmodel == ""
+                    text = "Not Launched"
+                else
                 
-                min = ""
-                text = "<span></span>"
-                if countunits.length > 0
-                    console.log minmodel = _.min(countunits, (model)->
-                        if model.get('unitType') != 14
-                            return model.get('unitPrice')
-                    )
-                    min = minmodel.get('unitPrice')
-                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+min
-                
+                    min = ""
+                    text = "<span></span>"
+                    if countunits.length > 0
+                        console.log minmodel = _.min(countunits, (model)->
+                            if model.get('unitType') != 14
+                                return model.get('unitPrice')
+                        )
+                        $('#currency').text minmodel.get('unitPrice')
+                        $('#currency').priceFormat({
+                            prefix: '',
+                            centsSeparator: ',',
+                            thousandsSeparator: ','
+                        });
+                        text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+$('#currency').text()
+                    
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 

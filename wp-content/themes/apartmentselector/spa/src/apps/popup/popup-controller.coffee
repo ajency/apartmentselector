@@ -33,7 +33,10 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         if floorvalue == -1
                             floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url
                         else
-                            floorLayoutimage = value1.floor_layout_detailed.image_url
+                            if value1.floor_layout_detailed.image_url == ""
+                                floorLayoutimage = buildingModel.get('floor_layout_detailed').image_url
+                            else
+                                floorLayoutimage = value1.floor_layout_detailed.image_url
 
 
 
