@@ -415,9 +415,9 @@ define [ 'marionette' ], ( Marionette )->
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unselected-floor aviable')
                 else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
-                    $("#"+e.target.id).attr('class','sold range')
+                    $("#"+e.target.id).attr('class','sold ')
                 else
-                    $("#"+e.target.id).attr('class','other range')
+                    $("#"+e.target.id).attr('class','other ')
                                     
 
                                

@@ -325,9 +325,9 @@ define(['marionette'], function(Marionette) {
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
           return $("#" + e.target.id).attr('class', 'unselected-floor aviable');
         } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
-          return $("#" + e.target.id).attr('class', 'sold range');
+          return $("#" + e.target.id).attr('class', 'sold ');
         } else {
-          return $("#" + e.target.id).attr('class', 'other range');
+          return $("#" + e.target.id).attr('class', 'other ');
         }
       },
       'click #screen-three-button': function(e) {
