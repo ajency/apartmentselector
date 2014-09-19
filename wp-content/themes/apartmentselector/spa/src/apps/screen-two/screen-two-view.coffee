@@ -76,7 +76,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
                         </div>
 
-                        <div class="col-sm-8 b-grey b-l">
+                        <div class="col-sm-8 b-grey b-l hidden-xs">
                             <div class="m-t-10 text-center">
                                <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
                                 <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
