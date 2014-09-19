@@ -13,7 +13,7 @@ define [ 'marionette' ], ( Mariontte )->
                     </div>
 
                     <div class="text-center">
-                        <h3 class="m-t-15 light"><span class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3>
+                        <h3 class="m-t-15 light"><span hidden class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3>
                     </div>
 
                     '
@@ -156,11 +156,7 @@ define [ 'marionette' ], ( Mariontte )->
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
 
-            else if window.location.href.indexOf('screen-one')
-                $('.backBtn').addClass 'hidden'
-                $('h3').addClass 'step1'
-                $('.slctnTxt').addClass 'hidden'
-
+            
                 
 
 
