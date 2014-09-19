@@ -13,7 +13,7 @@ define [ 'marionette' ], ( Mariontte )->
                     </div>
 
                     <div class="text-center">
-                        <h3 class="m-t-15 light"><span hidden class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3>
+                        <h3 class="m-t-15 light"><span  class="slctnTxt hidden">Your selection</span> <span id="textstring"></span> </h3>
                     </div>
 
                     '
