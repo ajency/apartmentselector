@@ -347,7 +347,9 @@ You can compare up to 4 apartments!</div>
                 )
             if cookieOldValue.length <= 1
                 $('#compare').hide()
-                
+            if cookieOldValue.length >= 2
+                $(".rightBtns").removeClass "hidden"
+
             App.cookieArray = cookieOldValue
             localStorage.setItem("cookievalue" , App.cookieArray)
             @showWishList()
