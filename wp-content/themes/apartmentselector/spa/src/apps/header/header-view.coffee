@@ -159,6 +159,7 @@ define [ 'marionette' ], ( Mariontte )->
             else if window.location.href.indexOf('screen-one')
                 $('.backBtn').addClass 'hidden'
                 $('h3').addClass 'step1'
+                $('.slctnTxt').addClass 'hidden'
 
                 
 
