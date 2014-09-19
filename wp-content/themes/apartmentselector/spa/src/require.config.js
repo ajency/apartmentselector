@@ -44,7 +44,8 @@ requirejs.config({
     jReject: 'src/bower_components/jReject/js/jquery.reject',
     slimscroll: 'src/bower_components/slimscroll/jquery.slimscroll.min',
     fullPage: 'src/bower_components/fullpage.js/jquery.fullPage.min',
-    JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min'
+    JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min',
+    buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
   },
   shim: {
     jquery: ['underscore'],

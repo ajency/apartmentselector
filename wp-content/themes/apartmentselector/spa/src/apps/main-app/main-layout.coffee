@@ -201,6 +201,8 @@ You can compare up to 4 apartments!</div>
 
         onShow:->
 
+            # window.viewportUnitsBuggyfill
+
             $.reject
                 # Specifies which browsers/versions will be blocked
                 reject:

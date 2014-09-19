@@ -54,7 +54,7 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
                     <div class="row m-l-0 m-r-0 m-t-20 bgClass">
 
-                        <div class="col-sm-4">
+                        <div class="col-lg-4 col-sm-5">
                             <div id="vs-container" class="vs-container">
                                 <header class="vs-header" id="building-region"></header>
                                 <div id="floorsvg" class="floorSvg"></div>
@@ -66,7 +66,7 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
 
-                        <div class="col-sm-8 b-grey b-l hidden-xs rightTowerSvg">
+                        <div class="col-lg-8 col-sm-7 b-grey b-l hidden-xs rightTowerSvg">
                             <div id="positionsvg" class="positionSvg">
                                 
                             </div>

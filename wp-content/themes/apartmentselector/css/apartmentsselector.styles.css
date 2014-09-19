@@ -9807,6 +9807,7 @@ h5 {
   margin-right: 3.52113%;
   margin-bottom: 10px;
   min-height: 80px;
+  height: 82px;
   height: 6vw;
   background: #ffffff;
 }
@@ -9843,17 +9844,6 @@ h5 {
 }
 .grid-container .grid-block-1:nth-child(even) {
   margin-right: 0;
-}
-@media (min-width: 768px) and (max-width: 979px) {
-  .grid-container .grid-block-1 {
-    width: 32.4917%;
-    margin-right: 2.76243%;
-    margin-bottom: 20px;
-    height: 88px;
-  }
-  .grid-container .grid-block-1:nth-child(even) {
-    margin-right: 0;
-  }
 }
 @media (min-width: 980px) {
   .grid-container .grid-block-1 .grid-link .grid-text-wrap {
@@ -10394,8 +10384,10 @@ h5 {
 .boxBlank {
   width: 100%;
   min-height: 65px;
-  height: 12vh;
-  padding: 3.5vh 1vw 0;
+  height: 65px;
+  height: 5vw;
+  padding: 20px 10px 0;
+  padding: 1.5vw 1vw 0;
   margin-bottom: 0;
   background: none;
   border: 1px solid transparent;
@@ -11552,13 +11544,15 @@ tr.milestoneReached td {
   font-size: 16px;
 }
 .aviable:hover,
-rect.selected-flat {
+rect.selected-flat,
+polygon.selected-flat {
   fill: #99DD1F !important;
   cursor: pointer;
   opacity: 0.8;
 }
 .aviable:hover + text,
-rect.selected-flat + text {
+rect.selected-flat + text,
+polygon.selected-flat + text {
   opacity: 1 !important;
   fill: #000 !important;
   font-size: 18px;
