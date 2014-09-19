@@ -341,12 +341,12 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         buildingvalue = _.max(unitsArray, function(model) {
           return model.count;
         });
-        buildingvalue = buildingvalue.id;
+        console.log(buildingvalue = buildingvalue.id);
       }
-      units1 = new Backbone.Collection(floorUnitsArray);
-      unitsCollection = units1.where({
+      console.log(units1 = new Backbone.Collection(floorUnitsArray));
+      console.log(unitsCollection = units1.where({
         building: parseInt(buildingvalue)
-      });
+      }));
       $.each(unitsCollection, function(index, value) {
         if (floorArray.indexOf(value.get('floor')) === -1) {
           floorArray.push(value.get('floor'));
@@ -373,9 +373,16 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       $.each(uniqunitAssigned, function(index, value) {
         var floorColl, unitAssgendModels, unitAssgendModelsColl;
         floorColl = new Backbone.Collection(floorUnitsArray);
-        unitAssgendModels = floorColl.where({
-          unitAssigned: value
-        });
+        if (App.defaults['building'] === "All") {
+          unitAssgendModels = floorColl.where({
+            unitAssigned: value,
+            building: buildingvalue
+          });
+        } else {
+          unitAssgendModels = floorColl.where({
+            unitAssigned: value
+          });
+        }
         $.each(unitAssgendModels, function(index, value) {
           var unitType, unitVariant;
           unitType = App.master.unit_type.findWhere({
@@ -404,7 +411,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       buildingModel = App.currentStore.building.where({
         id: parseInt(buildingvalue)
       });
-      buildingCollection = new Backbone.Collection(buildingModel);
+      console.log(buildingCollection = new Backbone.Collection(buildingModel));
       mainnewarr = "";
       return [buildingCollection, newunitCollection, templateString, Countunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID];
     };

@@ -250,8 +250,8 @@ define(['extm'], function(Extm) {
       }
       if (cookieOldValue.length <= 1) {
         $('#compare').hide();
-      }
-      if (cookieOldValue.length >= 2) {
+        $(".rightBtns").addClass("hidden");
+      } else {
         $(".rightBtns").removeClass("hidden");
       }
       App.cookieArray = cookieOldValue;

@@ -345,9 +345,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 buildingvalue = _.max(unitsArray,  (model)->
                     model.count
                 )
-                buildingvalue = buildingvalue.id
-            units1 = new Backbone.Collection floorUnitsArray
-            unitsCollection = units1.where({building:parseInt(buildingvalue)})
+                console.log buildingvalue = buildingvalue.id
+            console.log units1 = new Backbone.Collection floorUnitsArray
+            console.log unitsCollection = units1.where({building:parseInt(buildingvalue)})
             $.each(unitsCollection, (index,value)->
                     if floorArray.indexOf(value.get 'floor') ==  -1
                         floorArray.push value.get 'floor'
@@ -376,7 +376,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 )
             $.each(uniqunitAssigned, (index,value)->
                 floorColl =  new Backbone.Collection floorUnitsArray
-                unitAssgendModels = floorColl.where({unitAssigned:value})
+                if App.defaults['building'] == "All"
+                    unitAssgendModels = floorColl.where({unitAssigned:value,building:buildingvalue})
+                else
+                    unitAssgendModels = floorColl.where({unitAssigned:value})
                 $.each(unitAssgendModels, (index,value)->
                     unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
                     value.set "unittypename" , unitType.get "name"
@@ -401,7 +404,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             )
             newunitCollection = new Backbone.Collection unitArray
             buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
-            buildingCollection = new Backbone.Collection buildingModel
+            console.log buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
             [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
 
