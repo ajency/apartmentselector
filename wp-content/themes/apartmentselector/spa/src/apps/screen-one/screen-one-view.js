@@ -248,7 +248,7 @@ define(['marionette'], function(Marionette) {
         if (buildigmodel === void 0 || buildigmodel === "") {
           text = "Not Launched";
         } else {
-          countunits = App.currentStore.unit.where({
+          countunits = App.master.unit.where({
             building: parseInt(str1)
           });
           minmodel = _.min(countunits, function(model) {
@@ -265,7 +265,7 @@ define(['marionette'], function(Marionette) {
           unittypeArray = Array();
           for (index = _i = 0, _len = uniqUnittype.length; _i < _len; index = ++_i) {
             element = uniqUnittype[index];
-            unittypeModel = App.currentStore.unit_type.get(element);
+            unittypeModel = App.master.unit_type.get(element);
             if (unittypeModel.get('id') !== 14) {
               unittypeArray.push(unittypeModel.get('name'));
             }

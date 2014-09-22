@@ -71,6 +71,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
       var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
       this.Collection = this._getUnitsCountCollection(id);
+      console.log(this.Collection);
       itemview1 = new ScreenTwoView.UnitTypeChildView({
         collection: this.Collection[0]
       });

@@ -53,7 +53,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover a.tower-link': function(e) {
-        var buildigmodel, countunits, currency, id, locationData, min, minmodel, str1, text;
+        var buildigmodel, countunits, currency, id, locationData, min, minmodel, selectorname, str1, text, unittypemodel;
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         countunits = App.currentStore.unit.where({
@@ -62,6 +62,17 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
+        if (App.defaults['unitType'] !== 'All') {
+          selectorname = App.defaults['unitType'];
+          unittypemodel = App.master.unit_type.findWhere({
+            id: parseInt(App.defaults['unitType'])
+          });
+          selectorname = unittypemodel.get('name');
+        } else if (App.defaults['budget'] !== "All") {
+          selectorname = App.defaults['unitType'];
+        } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
+          selectorname = "";
+        }
         if (buildigmodel === void 0 || buildigmodel === "") {
           text = "Not Launched";
         } else {
@@ -76,8 +87,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             $('#currency1').autoNumeric('init');
             $('#currency1').autoNumeric('set', minmodel.get('unitPrice'));
             currency = $('#currency1').val();
-            text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
+          } else {
+            currency = 'Rs. 0';
           }
+          text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
         }
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData, text);
