@@ -133,7 +133,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
                     selectorname = unittypemodel.get 'name'
                 else if App.defaults['budget'] != "All"
-                    selectorname = App.defaults['unitType']
+                    selectorname = App.defaults['budget']
                 else if App.defaults['unitType'] == 'All' && App.defaults['budget'] == "All"
                     selectorname = ""
                 if buildigmodel == undefined || buildigmodel == ""
