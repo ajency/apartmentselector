@@ -249,7 +249,7 @@ define [ 'marionette' ], ( Marionette )->
                 if buildigmodel == undefined ||  buildigmodel == ""
                     text = "Not Launched"
                 else  
-                    countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                    countunits = App.master.unit.where({building:parseInt(str1)})
                     minmodel = _.min(countunits, (model)->
                         if model.get('unitType') != 14
                             return model.get('unitPrice')
@@ -262,7 +262,7 @@ define [ 'marionette' ], ( Marionette )->
                     uniqUnittype = _.uniq(unittype)
                     unittypeArray = Array()
                     for element , index in uniqUnittype
-                        unittypeModel = App.currentStore.unit_type.get element
+                        unittypeModel = App.master.unit_type.get element
                         if unittypeModel.get('id') != 14
                             unittypeArray.push unittypeModel.get('name')
                     unitTypes = unittypeArray.join(', ')
