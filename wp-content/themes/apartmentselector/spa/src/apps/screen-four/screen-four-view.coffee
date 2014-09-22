@@ -1056,7 +1056,7 @@ define [ 'marionette' ], ( Marionette )->
     class UnitMainView extends Marionette.CompositeView
 
         template : '<div class="row m-l-0 m-r-0 bgClass">
-						<div class="col-lg-4 col-sm-5 p-b-10">
+						<div class="col-md-5 col-lg-4 p-b-10">
                             <div class="unitDetails">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -1130,7 +1130,7 @@ define [ 'marionette' ], ( Marionette )->
 							</div>
 						</div>-->
 
-                        <div class="col-lg-8 col-sm-7 b-grey b-l">
+                        <div class="col-md-7 col-lg-8 b-grey b-l">
                             <div class="liquid-slider center-block" id="slider-plans">
                                 <div>
                                     <h2 class="title">2D Layout</h2>
