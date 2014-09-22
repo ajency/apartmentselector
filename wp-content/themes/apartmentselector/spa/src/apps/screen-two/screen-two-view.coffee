@@ -188,18 +188,64 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .tower-link':(e)->
-                App.layout.screenThreeRegion.el.innerHTML = ""
-                App.layout.screenFourRegion.el.innerHTML = ""
-                $('#screen-three-region').removeClass 'section'
-                $('#screen-four-region').removeClass 'section'  
-                App.backFilter['screen3'] = []    
+                id = e.target.id
+                console.log str1 = id.replace( /[^\d.]/g, '' )
+
+                temparray = []
+                temparray1 = []
                 console.log App.backFilter['screen2']
                 screentwoArray  = App.backFilter['screen2']
                 for element in screentwoArray
-                    key = App.defaults.hasOwnProperty(element)
-                    if key == true
-                        App.defaults[element] = 'All'
-                @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
+                    if element != 'unitVariant'
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            temparray = App.defaults[element]
+                            App.defaults[element] = 'All'
+                screenthreeArray  = App.backFilter['screen3']
+                for element in screenthreeArray
+                    if element != 'unitVariant'
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            temparray1 = App.defaults[element]
+                            App.defaults[element] = 'All'
+                App.navigate "screen-two"
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                console.log App.defaults
+                App.filter(params={})
+                
+                units = App.currentStore.unit.where({building:parseInt(str1)})
+                console.log units.length
+                if units.length != 0
+                    App.layout.screenThreeRegion.el.innerHTML = ""
+                    App.layout.screenFourRegion.el.innerHTML = ""
+                    $('#screen-three-region').removeClass 'section'
+                    $('#screen-four-region').removeClass 'section' 
+                    
+                    msgbus.showApp 'header'
+                    .insideRegion  App.headerRegion
+                        .withOptions()
+                    #App.filter(params={})
+                    @trigger 'show:updated:building' , $('#'+e.target.id ).attr('data-id')
+                else
+                    for element,index in screentwoArray
+                    if element != 'unitVariant'
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            App.defaults[element] = temparray[index]
+                    screenthreeArray  = App.backFilter['screen3']
+                    for element in screenthreeArray
+                        if element != 'unitVariant'
+                            key = App.defaults.hasOwnProperty(element)
+                            if key == true
+                                App.defaults[element] = temparray1[index]
+                    App.filter(params={})
+                    text = "This Tower does not contain any apartments as per your current selection"
+                    locationData = m.getLocationData(id)
+                    m.showTooltip(locationData,text)
+
 
 
 

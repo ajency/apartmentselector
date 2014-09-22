@@ -37,7 +37,7 @@
 			
 
 		// add navigation elements
-		if( sectionsCount >= 3 && Modernizr.csstransforms3d ) {
+		if( sectionsCount >= 1 && Modernizr.csstransforms3d ) {
 			var current = 0,
 				isAnimating = false;
 

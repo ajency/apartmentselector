@@ -115,22 +115,57 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return e.preventDefault();
       },
       'click .tower-link': function(e) {
-        var element, key, screentwoArray, _i, _len;
-        App.layout.screenThreeRegion.el.innerHTML = "";
-        App.layout.screenFourRegion.el.innerHTML = "";
-        $('#screen-three-region').removeClass('section');
-        $('#screen-four-region').removeClass('section');
-        App.backFilter['screen3'] = [];
+        var element, id, key, locationData, params, screenthreeArray, screentwoArray, str1, temparray, temparray1, text, units, _i, _j, _len, _len1;
+        id = e.target.id;
+        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        temparray = [];
+        temparray1 = [];
         console.log(App.backFilter['screen2']);
         screentwoArray = App.backFilter['screen2'];
         for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
           element = screentwoArray[_i];
-          key = App.defaults.hasOwnProperty(element);
-          if (key === true) {
-            App.defaults[element] = 'All';
+          if (element !== 'unitVariant') {
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              temparray = App.defaults[element];
+              App.defaults[element] = 'All';
+            }
           }
         }
-        return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
+        screenthreeArray = App.backFilter['screen3'];
+        for (_j = 0, _len1 = screenthreeArray.length; _j < _len1; _j++) {
+          element = screenthreeArray[_j];
+          if (element !== 'unitVariant') {
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              temparray1 = App.defaults[element];
+              App.defaults[element] = 'All';
+            }
+          }
+        }
+        App.navigate("screen-two");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
+        console.log(App.defaults);
+        App.filter(params = {});
+        units = App.currentStore.unit.where({
+          building: parseInt(str1)
+        });
+        console.log(units.length);
+        if (units.length !== 0) {
+          App.layout.screenThreeRegion.el.innerHTML = "";
+          App.layout.screenFourRegion.el.innerHTML = "";
+          $('#screen-three-region').removeClass('section');
+          $('#screen-four-region').removeClass('section');
+          msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+          return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
+        } else {
+          text = "This Tower does not contain any apartments as per your current selection";
+          locationData = m.getLocationData(id);
+          return m.showTooltip(locationData, text);
+        }
       },
       'click .grid-link': function(e) {
         var id, index, track;

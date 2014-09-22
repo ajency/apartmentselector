@@ -71,7 +71,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     ScreenTwoController.prototype.showUpdateBuilding = function(id) {
       var buidlingValue, building, itemview1, itemview2, masterbuilding, scr;
       this.Collection = this._getUnitsCountCollection(id);
-      console.log(this.Collection);
       itemview1 = new ScreenTwoView.UnitTypeChildView({
         collection: this.Collection[0]
       });
@@ -80,11 +79,11 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       this.layout.buildingRegion.$el.empty();
       this.layout.unitRegion.$el.empty();
+      this.layout.buildingRegion.$el.append(itemview1.render().el);
+      this.layout.unitRegion.$el.append(itemview2.render().el);
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
       document.body.appendChild(scr);
-      this.layout.buildingRegion.$el.append(itemview1.render().el);
-      this.layout.unitRegion.$el.append(itemview2.render().el);
       building = this.Collection[0].toArray();
       buidlingValue = _.first(building);
       masterbuilding = App.master.building;
@@ -156,7 +155,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           'status': status.get('id')
         });
       } else {
-        units = App.master.unit.where({
+        units = App.currentStore.unit.where({
           'status': status.get('id')
         });
       }
@@ -267,7 +266,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       status = App.master.status.findWhere({
         'name': 'Available'
       });
-      unitslen = App.master.unit.where({
+      unitslen = App.currentStore.unit.where({
         'status': status.get('id')
       });
       $.each(unitslen, function(index, value1) {
@@ -327,7 +326,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       unitVariantID = [];
       $.each(uniqUnitvariant, function(index, value) {
         var unitVarinatModel;
-        unitVarinatModel = App.master.unit_variant.findWhere({
+        unitVarinatModel = App.currentStore.unit_variant.findWhere({
           id: value
         });
         unitVariantModels.push({
@@ -364,7 +363,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.master.status.findWhere({
               'name': 'Available'
             });
-            count = App.master.unit.where({
+            count = App.currentStore.unit.where({
               unitType: item.id,
               'status': status.get('id')
             });
@@ -428,7 +427,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.master.unit.where({
+            count = App.currentStore.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
@@ -473,7 +472,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.master.unit.where({
+            count = App.currentStore.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
@@ -518,7 +517,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.master.unit.where({
+            count = App.currentStore.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               building: buildingid
@@ -600,7 +599,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             status = App.currentStore.status.findWhere({
               'name': 'Available'
             });
-            count = App.master.unit.where({
+            count = App.currentStore.unit.where({
               unitType: item.id,
               'status': status.get('id'),
               'building': buildingid
@@ -637,19 +636,19 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         $.each(lowArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
           disablelow = "";
-          unitmodel = App.master.unit.findWhere({
+          unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
-          unittypemodel = App.master.unit_type.findWhere({
+          unittypemodel = App.currentStore.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
-          unitCollection = App.master.unit.where({
+          unitCollection = App.currentStore.unit.where({
             unitType: unittypemodel.get('id')
           });
           max_coll = Array();
           $.each(unitCollection, function(index, value) {
             var variantmodel;
-            variantmodel = App.master.unit_variant.findWhere({
+            variantmodel = App.currentStore.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return max_coll.push(variantmodel.get('sellablearea'));
@@ -660,23 +659,23 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         $.each(mediumArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
           disablemedium = "";
-          unitmodel = App.master.unit.findWhere({
+          unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
-          unittypemodel = App.master.unit_type.findWhere({
+          unittypemodel = App.currentStore.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
           munitTypeArray.push({
             id: unittypemodel.get('id'),
             name: unittypemodel.get('name')
           });
-          unitCollection = App.master.unit.where({
+          unitCollection = App.currentStore.unit.where({
             unitType: unittypemodel.get('id')
           });
           max_coll = Array();
           $.each(unitCollection, function(index, value) {
             var variantmodel;
-            variantmodel = App.master.unit_variant.findWhere({
+            variantmodel = App.currentStore.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return max_coll.push(variantmodel.get('sellablearea'));
@@ -687,23 +686,23 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         $.each(highArray, function(index, value) {
           var max_coll, unitCollection, unitmodel, unittypemodel;
           disablehigh = "";
-          unitmodel = App.master.unit.findWhere({
+          unitmodel = App.currentStore.unit.findWhere({
             id: value
           });
-          unittypemodel = App.master.unit_type.findWhere({
+          unittypemodel = App.currentStore.unit_type.findWhere({
             id: unitmodel.get('unitType')
           });
           hunitTypeArray.push({
             id: unittypemodel.get('id'),
             name: unittypemodel.get('name')
           });
-          unitCollection = App.master.unit.where({
+          unitCollection = App.currentStore.unit.where({
             unitType: unittypemodel.get('id')
           });
           max_coll = Array();
           $.each(unitCollection, function(index, value) {
             var variantmodel;
-            variantmodel = App.master.unit_variant.findWhere({
+            variantmodel = App.currentStore.unit_variant.findWhere({
               id: value.get('unitVariant')
             });
             return max_coll.push(variantmodel.get('sellablearea'));
