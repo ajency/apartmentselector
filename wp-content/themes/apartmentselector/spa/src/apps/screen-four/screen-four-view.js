@@ -795,12 +795,13 @@ define(['marionette'], function(Marionette) {
     UnitMainView.prototype.onShow = function() {
       return $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
+        autoSlide: true,
         includeTitle: false,
+        minHeight: 500,
         autoSlideInterval: 4000,
         mobileNavigation: false,
         hideArrowsWhenMobile: false,
-        dynamicTabsAlign: "center",
-        continuous: false
+        dynamicTabsAlign: "center"
       });
     };
 

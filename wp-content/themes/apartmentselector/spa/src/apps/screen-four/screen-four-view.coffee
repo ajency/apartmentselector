@@ -1196,16 +1196,16 @@ define [ 'marionette' ], ( Marionette )->
         onShow:->
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad"
-                # autoSlide: true
+                autoSlide: true
                 includeTitle:false
-                # minHeight: 500
+                minHeight: 500
                 autoSlideInterval: 4000
                 # forceAutoSlide: true
                 mobileNavigation: false
                 hideArrowsWhenMobile: false
                 dynamicTabsAlign: "center"
-                continuous: false
-                #autoHeight: false
+                # continuous: false
+                # autoHeight: false
             )
 
 
