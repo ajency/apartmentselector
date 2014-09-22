@@ -130,7 +130,7 @@ define [ 'marionette' ], ( Marionette )->
                     <!--<div class="introTxt text-center">To get started, either:</div>-->
 
                     <div class="row m-l-0 m-r-0 bgClass">
-                        <div class="col-lg-4 col-sm-5">
+                        <div class="col-md-5 col-lg-4">
                             <div class="text-center subTxt">Choose a flat type</div>
                             <div class="grid-container"></div>
                             <h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
@@ -147,7 +147,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-sm-7 b-grey b-l hidden-xs">
+                        <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
                         </div><input type="text" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
