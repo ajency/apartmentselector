@@ -45,7 +45,8 @@ requirejs.config({
     slimscroll: 'src/bower_components/slimscroll/jquery.slimscroll.min',
     fullPage: 'src/bower_components/fullpage.js/jquery.fullPage.min',
     JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min',
-    buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
+    buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill',
+    autoNumeric: 'src/bower_components/autoNumeric/autoNumeric'
   },
   shim: {
     jquery: ['underscore'],
@@ -89,6 +90,7 @@ requirejs.config({
     jReject: ['jquery'],
     slimscroll: ['jquery'],
     fullPage: ['jquery'],
-    JqueryPriceFormat: ['jquery']
+    JqueryPriceFormat: ['jquery'],
+    autoNumeric: ['jquery']
   }
 });
