@@ -257,7 +257,7 @@ define [ 'marionette' ], ( Marionette )->
                     $('#currency').text minmodel.get('unitPrice')
                     $('#currency').priceFormat({
                         prefix: '',
-                        centsSeparator: ',',
+                        centsSeparator: '',
                         thousandsSeparator: ','
                     });
                     countcoll = new Backbone.Collection countunits
