@@ -54,7 +54,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="row m-l-0 m-r-0 bgClass">
 
-                        <div class="col-lg-4 col-sm-5">
+                        <div class="col-md-5 col-lg-4">
                             
                     		<div class="legend text-center m-b-20">
                                 {{#unittypes}}
@@ -76,13 +76,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
                         </div>
 
-                        <div class="col-lg-8 col-sm-7 b-grey b-l hidden-xs">
+                        <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
                             <div class="m-t-10 text-center">
                                <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
                                 <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
                                 <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                             </div>
-                        </div><span hidden id="currency"></span>
+                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
 
@@ -128,6 +128,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log str1 = id.replace( /[^\d.]/g, '' )
                 countunits = App.currentStore.unit.where({building:parseInt(str1)})
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if App.defaults['unitType'] != 'All'
+                    selectorname = App.defaults['unitType']
+                    unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
+                    selectorname = unittypemodel.get 'name'
+                else if App.defaults['budget'] != "All"
+                    selectorname = App.defaults['budget']
+                else if App.defaults['unitType'] == 'All' && App.defaults['budget'] == "All"
+                    selectorname = ""
                 if buildigmodel == undefined || buildigmodel == ""
                     text = "Not Launched"
                 else
@@ -139,13 +147,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             if model.get('unitType') != 14
                                 return model.get('unitPrice')
                         )
-                        $('#currency').text minmodel.get('unitPrice')
-                        $('#currency').priceFormat({
-                            prefix: '',
-                            centsSeparator: ',',
-                            thousandsSeparator: ','
-                        });
-                        text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+$('#currency').text()
+                        $('#currency1').autoNumeric('init')
+                        $('#currency1').autoNumeric('set', minmodel.get('unitPrice'));
+                        currency = $('#currency1').val()
+                    else
+                        currency = 'Rs. 0'
+                    
+                    text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency
                     
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)

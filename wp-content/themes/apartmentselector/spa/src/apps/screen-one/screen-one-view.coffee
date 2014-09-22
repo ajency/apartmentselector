@@ -130,7 +130,7 @@ define [ 'marionette' ], ( Marionette )->
                     <!--<div class="introTxt text-center">To get started, either:</div>-->
 
                     <div class="row m-l-0 m-r-0 bgClass">
-                        <div class="col-lg-4 col-sm-5">
+                        <div class="col-md-5 col-lg-4">
                             <div class="text-center subTxt">Choose a flat type</div>
                             <div class="grid-container"></div>
                             <h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
@@ -147,9 +147,9 @@ define [ 'marionette' ], ( Marionette )->
                                 <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-sm-7 b-grey b-l hidden-xs">
+                        <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
-                        </div><span hidden id="currency"></span>
+                        </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
         className : 'page-container row-fluid'
@@ -249,27 +249,24 @@ define [ 'marionette' ], ( Marionette )->
                 if buildigmodel == undefined ||  buildigmodel == ""
                     text = "Not Launched"
                 else  
-                    countunits = App.currentStore.unit.where({building:parseInt(str1)})
+                    countunits = App.master.unit.where({building:parseInt(str1)})
                     minmodel = _.min(countunits, (model)->
                         if model.get('unitType') != 14
                             return model.get('unitPrice')
                     )
-                    $('#currency').text minmodel.get('unitPrice')
-                    $('#currency').priceFormat({
-                        prefix: '',
-                        centsSeparator: ',',
-                        thousandsSeparator: ','
-                    });
+                    $('#currency').autoNumeric('init')
+                    $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
+                    currency = $('#currency').val()
                     countcoll = new Backbone.Collection countunits
                     unittype = countcoll.pluck("unitType")
                     uniqUnittype = _.uniq(unittype)
                     unittypeArray = Array()
                     for element , index in uniqUnittype
-                        unittypeModel = App.currentStore.unit_type.get element
+                        unittypeModel = App.master.unit_type.get element
                         if unittypeModel.get('id') != 14
                             unittypeArray.push unittypeModel.get('name')
                     unitTypes = unittypeArray.join(', ')
-                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+$('#currency').text()+'<br/><span>Unit Type - </span>'+unitTypes
+                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency+'<br/><span>Unit Type - </span>'+unitTypes
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 

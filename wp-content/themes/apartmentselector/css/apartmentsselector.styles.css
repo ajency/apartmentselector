@@ -10094,7 +10094,7 @@ h5 {
   margin-bottom: 0px;
 }
 .unitCount {
-  right: 46px;
+  position: relative;
 }
 .towerSelect {
   padding: 0 10px;
@@ -10190,6 +10190,7 @@ h5 {
   left: -25px;
   color: #d5d5d5;
 }
+/*Box Styles*/
 .box,
 .boxLong,
 .boxBlank {
@@ -10308,49 +10309,50 @@ h5 {
 .boxBlank.sold {
   color: #c3c6ce;
 }
-.box.threeBHK > div:last-child:after,
-.boxLong.threeBHK > div:last-child:after,
-.boxBlank.threeBHK > div:last-child:after,
-.box.twoBHK > div:last-child:after,
-.boxLong.twoBHK > div:last-child:after,
-.boxBlank.twoBHK > div:last-child:after,
-.box.oneBHK > div:last-child:after,
-.boxLong.oneBHK > div:last-child:after,
-.boxBlank.oneBHK > div:last-child:after,
-.box.multiBHK > div:last-child:after,
-.boxLong.multiBHK > div:last-child:after,
-.boxBlank.multiBHK > div:last-child:after {
+.box.threeBHK .unitCount:after,
+.boxLong.threeBHK .unitCount:after,
+.boxBlank.threeBHK .unitCount:after,
+.box.twoBHK .unitCount:after,
+.boxLong.twoBHK .unitCount:after,
+.boxBlank.twoBHK .unitCount:after,
+.box.oneBHK .unitCount:after,
+.boxLong.oneBHK .unitCount:after,
+.boxBlank.oneBHK .unitCount:after,
+.box.multiBHK .unitCount:after,
+.boxLong.multiBHK .unitCount:after,
+.boxBlank.multiBHK .unitCount:after {
   position: absolute;
-  top: 3vw;
-  right: 2vw;
+  right: 35%;
+  line-height: 0;
   font-size: 40px;
   content: '.';
   color: #ff6600;
 }
-.box.twoBHK > div:last-child:after,
-.boxLong.twoBHK > div:last-child:after,
-.boxBlank.twoBHK > div:last-child:after {
+.box.twoBHK .unitCount:after,
+.boxLong.twoBHK .unitCount:after,
+.boxBlank.twoBHK .unitCount:after {
   color: #f0ad4e;
 }
-.box.oneBHK > div:last-child:after,
-.boxLong.oneBHK > div:last-child:after,
-.boxBlank.oneBHK > div:last-child:after {
+.box.oneBHK .unitCount:after,
+.boxLong.oneBHK .unitCount:after,
+.boxBlank.oneBHK .unitCount:after {
   color: #5bc0de;
 }
-.box.multiBHK > div:last-child:before,
-.boxLong.multiBHK > div:last-child:before,
-.boxBlank.multiBHK > div:last-child:before {
+.box.multiBHK .unitCount:before,
+.boxLong.multiBHK .unitCount:before,
+.boxBlank.multiBHK .unitCount:before {
   position: absolute;
-  top: 3vw;
-  right: 2vw;
+  bottom: 0;
+  right: 20%;
+  line-height: 0;
   font-size: 40px;
   content: '.';
   color: #f0ad4e;
 }
-.box.multiBHK > div:last-child:after,
-.boxLong.multiBHK > div:last-child:after,
-.boxBlank.multiBHK > div:last-child:after {
-  right: 1.2vw;
+.box.multiBHK .unitCount:after,
+.boxLong.multiBHK .unitCount:after,
+.boxBlank.multiBHK .unitCount:after {
+  right: 50%;
 }
 .box.blank,
 .boxLong.blank,
@@ -10389,7 +10391,7 @@ h5 {
   width: 100%;
   min-height: 65px;
   height: 65px;
-  height: 5vw;
+  height: 7vw;
   padding: 20px 10px 0;
   padding: 1.5vw 1vw 0;
   margin-bottom: 0;
@@ -10604,7 +10606,7 @@ h5 {
   margin: auto;
 }
 .positionSvg {
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 /**** Hide Header with Tower Name ****/
@@ -11593,6 +11595,9 @@ polygon.range {
   cursor: default;
   opacity: 0.8;
 }
+text {
+  pointer-events: none;
+}
 body {
   background-color: #ffffff;
 }
@@ -11814,9 +11819,18 @@ body {
   text-transform: uppercase;
   font-weight: 400;
 }
-/*Map Zoom Icon hidden*/
+/*Map Styles*/
 a.im-clear-button {
   display: none;
+}
+@media (max-width: 1024px) {
+  .im-container {
+    height: 100% !important;
+  }
+  #mapplic1,
+  #mapplic_new1 {
+    height: 420px !important;
+  }
 }
 /*Browser not supported*/
 #jr_header {

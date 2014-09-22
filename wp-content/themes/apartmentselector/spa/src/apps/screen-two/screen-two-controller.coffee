@@ -82,6 +82,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
         showUpdateBuilding:(id)=>
             @Collection = @_getUnitsCountCollection(id)
 
+            console.log @Collection
+
             itemview1 = new ScreenTwoView.UnitTypeChildView
                 collection : @Collection[0]
 

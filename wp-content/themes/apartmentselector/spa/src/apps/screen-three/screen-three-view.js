@@ -26,7 +26,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="row m-l-0 m-r-0 m-t-20 bgClass"> <div class="col-lg-4 col-sm-5"> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-lg-8 col-sm-7 b-grey b-l hidden-xs rightTowerSvg"> <div id="positionsvg" class="positionSvg"> </div> <div class="radarBox"></div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span> <strong>{{selection}}</strong> apartments in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{countUnits }} </span>  apartments in the budget of <strong>{{selection}}</strong> in this floor range of the selected tower.</div> <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="row m-l-0 m-r-0 m-t-20 bgClass"> <div class="col-md-5 col-lg-4"> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg"> <div id="positionsvg" class="positionSvg"> </div> <div class="radarBox"></div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -176,7 +176,7 @@ define(['marionette'], function(Marionette) {
         temp = ['f', 'ff'];
         temp1 = ['t', 'tt'];
         temp2 = ['c', 'cc'];
-        id = $('#' + e.target.id).attr('data-value');
+        console.log(id = $('#' + e.target.id).attr('data-value'));
         flatid = $('#' + e.target.id).attr('data-id');
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
@@ -242,7 +242,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger("load:range:data", unitModel);
       },
       'mouseover .unit-hover': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -262,14 +262,57 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
-        position = unitModel.get('unitAssigned');
+        pos = unitModel.get('unitAssigned');
         checktrack = this.checkSelection(unitModel);
         $.each(svgdata, function(index, value) {
           var ii;
-          if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
+          if ($.inArray(pos, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              if (position === val1) {
+              if (pos === val1) {
+                $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
+              }
+              return ii++;
+            });
+          }
+        });
+        if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
+          return $("#" + e.target.id).attr('class', 'unit-hover aviable');
+        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
+          return $("#" + e.target.id).attr('class', 'sold');
+        } else {
+          return $("#" + e.target.id).attr('class', 'other');
+        }
+      },
+      'mouseover .range': function(e) {
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        buildingCollection = Marionette.getOption(this, 'buildingCollection');
+        buildinArray = buildingCollection.toArray();
+        building = _.first(buildinArray);
+        buildingModel = App.master.building.findWhere({
+          id: parseInt(building.get('id'))
+        });
+        svgdata = buildingModel.get('svgdata');
+        floorriserange = buildingModel.get('floorriserange');
+        svgposition = "";
+        unitvalues = "";
+        indexvalue = "";
+        temp = ['f', 'ff'];
+        temp1 = ['t', 'tt'];
+        temp2 = ['c', 'cc'];
+        id = $('#' + e.target.id).attr('data-value');
+        flatid = $('#' + e.target.id).attr('data-id');
+        unitModel = App.master.unit.findWhere({
+          id: parseInt(id)
+        });
+        pos = unitModel.get('unitAssigned');
+        checktrack = this.checkSelection(unitModel);
+        $.each(svgdata, function(index, value) {
+          var ii;
+          if ($.inArray(pos, value.svgposition) >= 0 && value.svgposition !== null) {
+            ii = 0;
+            return $.each(value.svgposition, function(index1, val1) {
+              if (pos === val1) {
                 $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
@@ -285,7 +328,7 @@ define(['marionette'], function(Marionette) {
         }
       },
       'mouseover .unselected-floor': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -305,16 +348,16 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
-        position = unitModel.get('unitAssigned');
+        pos = unitModel.get('unitAssigned');
         checktrack = this.checkSelection(unitModel);
         $.each(svgdata, function(index, value) {
           var ii;
-          if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
+          if ($.inArray(pos, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
               console.log(position);
               console.log(temp1[ii]);
-              if (parseInt(position) === parseInt(val1)) {
+              if (parseInt(pos) === parseInt(val1)) {
                 $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
@@ -786,6 +829,7 @@ define(['marionette'], function(Marionette) {
       var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, object, pos, unitcoll, _i, _j, _len, _len1;
       $('#floorsvg').text("");
       console.log(unitModel);
+      position = unitModel.get('unitAssigned');
       object = this;
       unitcoll = collection.toArray();
       $.each(unitcoll, function(index, value) {
@@ -1051,13 +1095,19 @@ define(['marionette'], function(Marionette) {
           $.each(svgdata, function(index, value) {
             if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
               return $.each(value.svgposition, function(index1, val1) {
-                var unitsarray;
+                var indexvalue1, unitsarray, unitsarray1;
+                unitsarray1 = value.units;
+                indexvalue1 = unitsarray1[val1];
                 if (parseInt(position) === parseInt(val1)) {
                   console.log(position);
                   svgposition = value.svgfile;
                   unitsarray = value.units;
-                  return indexvalue = unitsarray[position];
+                  indexvalue = unitsarray[position];
                 }
+                return $.map(indexvalue1, function(index, value) {
+                  $('#f' + value).attr('class', 'unit-hover');
+                  return $('#ff' + value).attr('class', 'unit-hover');
+                });
               });
             }
           });
@@ -1097,8 +1147,9 @@ define(['marionette'], function(Marionette) {
               if (App.defaults['floor'] !== 'All') {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
+                  console.log(position);
                   if (parseInt(value) === parseInt(val)) {
-                    if (position === 2 || position === 1) {
+                    if (position === 3 || position === 1) {
                       $('#f' + value).attr('class', 'unit-hover range');
                       return $('#t' + value).text("");
                     } else {
@@ -1118,7 +1169,7 @@ define(['marionette'], function(Marionette) {
               var positionassigend;
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
-                if (position !== 3) {
+                if (position === 3 || position === 1) {
                   $("#f" + value).attr('class', 'selected-flat');
                   $("#t" + value).attr('class', 'selected-flat');
                   return $('#t' + value).text(object.model.get('name'));
@@ -1148,14 +1199,18 @@ define(['marionette'], function(Marionette) {
             $("#screen-three-button").removeClass('btn-primary');
             object = this;
             $.map(indexvalue, function(index, value) {
-              var positionassigend;
-              if (parseInt(index) === object.model.get("id")) {
-                positionassigend = value;
-                if (position !== 3) {
-                  return $('#f' + positionassigend).attr('class', 'unit-hover range');
-                } else {
-                  return $('#ff' + positionassigend).attr('class', 'unit-hover range');
-                }
+              var floorArr;
+              if (App.defaults['floor'] !== 'All') {
+                floorArr = App.defaults['floor'].split(',');
+                return $.each(floorArr, function(ind, val) {
+                  if (parseInt(value) === parseInt(val)) {
+                    if (position === 3 || position === 1) {
+                      return $('#f' + val).attr('class', 'unit-hover range');
+                    } else {
+                      return $('#ff' + val).attr('class', 'unit-hover range');
+                    }
+                  }
+                });
               }
             });
             $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos ');
