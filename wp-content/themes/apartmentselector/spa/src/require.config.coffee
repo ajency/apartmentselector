@@ -46,6 +46,7 @@ requirejs.config
         fullPage :'src/bower_components/fullpage.js/jquery.fullPage.min'
         JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min'
         buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
+        autoNumeric: 'src/bower_components/autoNumeric/autoNumeric'
 
 
 
@@ -94,6 +95,7 @@ requirejs.config
         slimscroll: ['jquery']
         fullPage: ['jquery']
         JqueryPriceFormat :['jquery']
+        autoNumeric : ['jquery']
 
 
 

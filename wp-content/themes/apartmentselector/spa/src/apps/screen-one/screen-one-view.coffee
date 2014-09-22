@@ -35,9 +35,6 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults[element] = 'All'
 
             )
-            msgbus.showApp 'header'
-            .insideRegion  App.headerRegion
-                .withOptions()
             App.layout.screenTwoRegion.el.innerHTML = ""
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""
@@ -47,6 +44,10 @@ define [ 'marionette' ], ( Marionette )->
             App.currentStore.unit_type.reset UNITTYPES
             App.currentStore.unit_variant.reset UNITVARIANTS
             evt.preventDefault()
+            msgbus.showApp 'header'
+            .insideRegion  App.headerRegion
+                .withOptions()
+            
             $("li").removeClass 'cs-selected'
             $(".cs-placeholder").text('Undecided')
 
@@ -148,7 +149,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
-                        </div><span hidden id="currency"></span>
+                        </div><input type="text" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
         className : 'page-container row-fluid'
@@ -189,9 +190,6 @@ define [ 'marionette' ], ( Marionette )->
                             App.defaults[element] = 'All'
 
                 )
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
                 $('#screen-two-region').removeClass 'section'
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'
@@ -204,6 +202,10 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                
                 for element in unitType
                     $('a' ).removeClass 'selected'
                     $("#check"+element).val "0"
@@ -252,12 +254,9 @@ define [ 'marionette' ], ( Marionette )->
                         if model.get('unitType') != 14
                             return model.get('unitPrice')
                     )
-                    $('#currency').text minmodel.get('unitPrice')
-                    $('#currency').priceFormat({
-                        prefix: '',
-                        centsSeparator: ',',
-                        thousandsSeparator: ','
-                    });
+                    $('#currency').autoNumeric('init')
+                    $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
+                    currency = $('#currency').val()
                     countcoll = new Backbone.Collection countunits
                     unittype = countcoll.pluck("unitType")
                     uniqUnittype = _.uniq(unittype)
@@ -267,7 +266,7 @@ define [ 'marionette' ], ( Marionette )->
                         if unittypeModel.get('id') != 14
                             unittypeArray.push unittypeModel.get('name')
                     unitTypes = unittypeArray.join(', ')
-                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+$('#currency').text()+'<br/><span>Unit Type - </span>'+unitTypes
+                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency+'<br/><span>Unit Type - </span>'+unitTypes
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 

@@ -258,6 +258,18 @@ define [ 'marionette' ], ( Marionette )->
                     $('#compare').hide()
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
+                if App.cookieArray.length < 1
+                    console.log "eeeeeeeeeeeee"
+                    menuRight = document.getElementById("cbp-spmenu-s2")
+                    menuTop = document.getElementById("cbp-spmenu-s3")
+                    showTop = document.getElementById("showTop")
+                    showRightPush = document.getElementById("showRightPush")
+                    body = document.body
+                    classie.toggle showRightPush, "active"
+                    classie.toggle body, "cbp-spmenu-push-toleft"
+                    classie.toggle menuRight, "cbp-spmenu-open"
+                    
+                     
                 
 
                 

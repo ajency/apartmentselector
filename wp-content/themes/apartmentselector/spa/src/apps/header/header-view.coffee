@@ -115,7 +115,6 @@ define [ 'marionette' ], ( Mariontte )->
                     height = $(window).scrollTop()
                     if height == 0 && flag == 0
                         $('.backBtn').addClass 'hidden'
-                        $('.slctnTxt').addClass 'hidden'
                         $('h3').addClass 'step1'
 
 
@@ -160,6 +159,20 @@ define [ 'marionette' ], ( Mariontte )->
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
+
+            cookieOldValue = $.cookie("key")
+            if cookieOldValue == undefined || $.cookie("key") == ""
+                cookieOldValue = []
+            else
+                cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                    parseInt(item)
+                )
+
+
+            if cookieOldValue.length >= 1
+                console.log "eeeeeeeeeeeee"
+                $(".rightBtns").removeClass "hidden"
+            
 
                 
 

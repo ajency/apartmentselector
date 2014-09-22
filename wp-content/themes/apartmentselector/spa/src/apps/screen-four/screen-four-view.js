@@ -97,7 +97,7 @@ define(['marionette'], function(Marionette) {
           return this.showWishList();
         },
         'click .del': function(e) {
-          var index, val;
+          var body, index, menuRight, menuTop, showRightPush, showTop, val;
           val = $('#' + e.target.id).attr('data-id');
           index = App.cookieArray.indexOf(parseInt(val));
           App.cookieArray.splice(index, 1);
@@ -106,6 +106,17 @@ define(['marionette'], function(Marionette) {
           }
           $.cookie('key', App.cookieArray);
           localStorage.setItem("cookievalue", App.cookieArray);
+          if (App.cookieArray.length < 1) {
+            console.log("eeeeeeeeeeeee");
+            menuRight = document.getElementById("cbp-spmenu-s2");
+            menuTop = document.getElementById("cbp-spmenu-s3");
+            showTop = document.getElementById("showTop");
+            showRightPush = document.getElementById("showRightPush");
+            body = document.body;
+            classie.toggle(showRightPush, "active");
+            classie.toggle(body, "cbp-spmenu-push-toleft");
+            classie.toggle(menuRight, "cbp-spmenu-open");
+          }
           return this.showWishList();
         },
         'click a': function(e) {

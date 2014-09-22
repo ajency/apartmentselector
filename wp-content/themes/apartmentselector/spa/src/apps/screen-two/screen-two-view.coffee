@@ -82,7 +82,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
                                 <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                             </div>
-                        </div><span hidden id="currency"></span>
+                        </div><input type="text" name="currency1" id="currency1" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
 
@@ -139,13 +139,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             if model.get('unitType') != 14
                                 return model.get('unitPrice')
                         )
-                        $('#currency').text minmodel.get('unitPrice')
-                        $('#currency').priceFormat({
-                            prefix: '',
-                            centsSeparator: ',',
-                            thousandsSeparator: ','
-                        });
-                        text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+$('#currency').text()
+                        $('#currency1').autoNumeric('init')
+                        $('#currency1').autoNumeric('set', minmodel.get('unitPrice'));
+                        currency = $('#currency1').val()
+                    
+                        text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - Rs. </span>'+currency
                     
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
@@ -720,9 +718,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     q++
 
                 )
-                msgbus.showApp 'header'
-                .insideRegion  App.headerRegion
-                    .withOptions()
                 App.navigate "screen-two"
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'
@@ -732,6 +727,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                
                 if @model.get('count') !=0
                     for element , index in rangeArray
                         if element == @model.get('range')+@model.get('buildingid')

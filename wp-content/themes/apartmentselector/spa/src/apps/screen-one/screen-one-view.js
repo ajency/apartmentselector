@@ -43,7 +43,6 @@ define(['marionette'], function(Marionette) {
         }
         return _results;
       });
-      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       App.layout.screenTwoRegion.el.innerHTML = "";
       App.layout.screenThreeRegion.el.innerHTML = "";
       App.layout.screenFourRegion.el.innerHTML = "";
@@ -53,6 +52,7 @@ define(['marionette'], function(Marionette) {
       App.currentStore.unit_type.reset(UNITTYPES);
       App.currentStore.unit_variant.reset(UNITVARIANTS);
       evt.preventDefault();
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
       $('a').removeClass('selected');
@@ -145,7 +145,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <!--<div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a flat type</div> <div class="grid-container"></div> <h5 class="text-center m-t-20 m-b-20 bold">OR</h5> <div class="text-center subTxt">Choose a budget</div> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><span hidden id="currency"></span> </div>';
+    ScreenOneView.prototype.template = '<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <!--<div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a flat type</div> <div class="grid-container"></div> <h5 class="text-center m-t-20 m-b-20 bold">OR</h5> <div class="text-center subTxt">Choose a budget</div> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="text" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2"> </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -191,7 +191,6 @@ define(['marionette'], function(Marionette) {
           }
           return _results;
         });
-        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         $('#screen-two-region').removeClass('section');
         $('#screen-three-region').removeClass('section');
         $('#screen-four-region').removeClass('section');
@@ -203,6 +202,7 @@ define(['marionette'], function(Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         for (_i = 0, _len = unitType.length; _i < _len; _i++) {
           element = unitType[_i];
           $('a').removeClass('selected');
@@ -238,7 +238,7 @@ define(['marionette'], function(Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover .tower-over': function(e) {
-        var buildigmodel, countcoll, countunits, element, id, index, locationData, minmodel, str1, text, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
+        var buildigmodel, countcoll, countunits, currency, element, id, index, locationData, minmodel, str1, text, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
         e.preventDefault();
         console.log(id = e.target.id);
         console.log(str1 = id.replace(/[^\d.]/g, ''));
@@ -256,12 +256,9 @@ define(['marionette'], function(Marionette) {
               return model.get('unitPrice');
             }
           });
-          $('#currency').text(minmodel.get('unitPrice'));
-          $('#currency').priceFormat({
-            prefix: '',
-            centsSeparator: ',',
-            thousandsSeparator: ','
-          });
+          $('#currency').autoNumeric('init');
+          $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
+          currency = $('#currency').val();
           countcoll = new Backbone.Collection(countunits);
           unittype = countcoll.pluck("unitType");
           uniqUnittype = _.uniq(unittype);
@@ -274,7 +271,7 @@ define(['marionette'], function(Marionette) {
             }
           }
           unitTypes = unittypeArray.join(', ');
-          text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - Rs. </span>' + $('#currency').text() + '<br/><span>Unit Type - </span>' + unitTypes;
+          text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency + '<br/><span>Unit Type - </span>' + unitTypes;
         }
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData, text);
