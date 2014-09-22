@@ -59,22 +59,16 @@ function add_default_views(){
 
     $default_views = array();
 
-    $default_views[] = array("master_type"	=>"views","value"=>"Standard View","data"=>"");
+    $default_views[] = array("master_type"	=>"views","value"=>"Sports Facility","data"=>"");
 
-    $default_views[] = array("master_type"	=>"views","value"=>"Ocean View","data"=>"");
+    $default_views[] = array("master_type"	=>"views","value"=>"Manas Lake","data"=>"");
 
-    $default_views[] = array("master_type"	=>"views","value"=>"Partial Ocean View","data"=>"");
+    $default_views[] = array("master_type"	=>"views","value"=>"4 Lane Road","data"=>"");
 
-    $default_views[] = array("master_type"	=>"views","value"=>"Poolside Gardens View","data"=>"");
+    $default_views[] = array("master_type"	=>"views","value"=>"Courtyard","data"=>"");
 
-    $default_views[] = array("master_type"	=>"views","value"=>"Island Gardens View","data"=>"");
-
-    $default_views[] = array("master_type"	=>"views","value"=>"Garden View","data"=>"");
-
-    $default_views[] = array("master_type"	=>"views","value"=>"Beach View","data"=>"");
-
-    $default_views[] = array("master_type"	=>"views","value"=>"City View","data"=>"");
-
+    $default_views[] = array("master_type"	=>"views","value"=>"Central Park","data"=>"");
+ 
     $return = set_defaults_data($default_views);
 
     return;
