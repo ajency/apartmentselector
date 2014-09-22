@@ -123,7 +123,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 <input type="text" id="discountvalue" value="" class="numeric form-control" />
                                                 <input type="text" id="discountper" value="" class="numeric hidden form-control" />
                                                 <br>
-                                                <h5>Add On Payment: </h5><h4><span class="addonpay" data-a-sign="Rs. " data-d-group="2"></span></h4>
+                                                <h5>Add On Payment: </h5><h4><span class="addonpay" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4>
                                             </div>
                                         </div>
                                     </div>
