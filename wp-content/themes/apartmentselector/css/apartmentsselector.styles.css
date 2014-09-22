@@ -11595,6 +11595,9 @@ polygon.range {
   cursor: default;
   opacity: 0.8;
 }
+text {
+  pointer-events: none;
+}
 body {
   background-color: #ffffff;
 }
