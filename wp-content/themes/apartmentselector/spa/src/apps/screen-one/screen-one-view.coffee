@@ -149,7 +149,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
-                        </div><input type="text" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2">
+                        </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
         className : 'page-container row-fluid'
