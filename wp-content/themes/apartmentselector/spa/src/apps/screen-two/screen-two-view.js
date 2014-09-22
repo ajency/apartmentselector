@@ -69,7 +69,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
           selectorname = unittypemodel.get('name');
         } else if (App.defaults['budget'] !== "All") {
-          selectorname = App.defaults['unitType'];
+          selectorname = App.defaults['budget'];
         } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
           selectorname = "";
         }
