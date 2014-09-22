@@ -176,7 +176,7 @@ define(['marionette'], function(Marionette) {
         temp = ['f', 'ff'];
         temp1 = ['t', 'tt'];
         temp2 = ['c', 'cc'];
-        id = $('#' + e.target.id).attr('data-value');
+        console.log(id = $('#' + e.target.id).attr('data-value'));
         flatid = $('#' + e.target.id).attr('data-id');
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
@@ -242,7 +242,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger("load:range:data", unitModel);
       },
       'mouseover .unit-hover': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -262,14 +262,14 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
-        position = unitModel.get('unitAssigned');
+        pos = unitModel.get('unitAssigned');
         checktrack = this.checkSelection(unitModel);
         $.each(svgdata, function(index, value) {
           var ii;
-          if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
+          if ($.inArray(pos, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              if (position === val1) {
+              if (pos === val1) {
                 $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
@@ -285,7 +285,7 @@ define(['marionette'], function(Marionette) {
         }
       },
       'mouseover .range': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -305,14 +305,14 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
-        position = unitModel.get('unitAssigned');
+        pos = unitModel.get('unitAssigned');
         checktrack = this.checkSelection(unitModel);
         $.each(svgdata, function(index, value) {
           var ii;
-          if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
+          if ($.inArray(pos, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
-              if (position === val1) {
+              if (pos === val1) {
                 $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
@@ -328,7 +328,7 @@ define(['marionette'], function(Marionette) {
         }
       },
       'mouseover .unselected-floor': function(e) {
-        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -348,16 +348,16 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
-        position = unitModel.get('unitAssigned');
+        pos = unitModel.get('unitAssigned');
         checktrack = this.checkSelection(unitModel);
         $.each(svgdata, function(index, value) {
           var ii;
-          if ($.inArray(position, value.svgposition) >= 0 && value.svgposition !== null) {
+          if ($.inArray(pos, value.svgposition) >= 0 && value.svgposition !== null) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
               console.log(position);
               console.log(temp1[ii]);
-              if (parseInt(position) === parseInt(val1)) {
+              if (parseInt(pos) === parseInt(val1)) {
                 $('#' + temp1[ii] + flatid).text(unitModel.get('name'));
               }
               return ii++;
@@ -829,6 +829,7 @@ define(['marionette'], function(Marionette) {
       var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, object, pos, unitcoll, _i, _j, _len, _len1;
       $('#floorsvg').text("");
       console.log(unitModel);
+      position = unitModel.get('unitAssigned');
       object = this;
       unitcoll = collection.toArray();
       $.each(unitcoll, function(index, value) {
@@ -1146,6 +1147,7 @@ define(['marionette'], function(Marionette) {
               if (App.defaults['floor'] !== 'All') {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
+                  console.log(position);
                   if (parseInt(value) === parseInt(val)) {
                     if (position === 3 || position === 1) {
                       $('#f' + value).attr('class', 'unit-hover range');
