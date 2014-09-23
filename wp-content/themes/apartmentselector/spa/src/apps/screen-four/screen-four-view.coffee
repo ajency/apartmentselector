@@ -1198,12 +1198,13 @@ define [ 'marionette' ], ( Marionette )->
                 slideEaseFunction: "easeInOutQuad"
                 autoSlide: true
                 includeTitle:false
-                minHeight: 500
+                minHeight: 630
                 autoSlideInterval: 4000
                 # forceAutoSlide: true
                 mobileNavigation: false
                 hideArrowsWhenMobile: false
                 dynamicTabsAlign: "center"
+                dynamicArrows: false
                 # continuous: false
                 # autoHeight: false
             )
