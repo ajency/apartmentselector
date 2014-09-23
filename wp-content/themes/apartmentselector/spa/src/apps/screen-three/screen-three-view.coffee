@@ -883,7 +883,7 @@ define [ 'marionette' ], ( Marionette )->
         checkSelection:(model)->
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor'
+                if value!='All' && index != 'floor' && index != 'unittypeback'
                     myArray.push({key:index,value:value})
 
             )
@@ -1005,7 +1005,7 @@ define [ 'marionette' ], ( Marionette )->
         checkClassSelection:(model)->
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor'
+                if value!='All' && index != 'floor' && index != 'unittypeback'
                     myArray.push({key:index,value:value})
 
             )
@@ -1327,7 +1327,7 @@ define [ 'marionette' ], ( Marionette )->
         onShow :->
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor'
+                if value!='All' && index != 'floor' && index != 'unittypeback'
                     myArray.push({key:index,value:value})
 
             )

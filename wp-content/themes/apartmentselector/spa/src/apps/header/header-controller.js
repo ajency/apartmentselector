@@ -118,7 +118,6 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
           }
         }
       });
-      console.log(templateArr);
       if (templateArr.length === 0) {
         templateArr.push('<span>All</span>');
       }
@@ -153,12 +152,9 @@ define(['extm', 'src/apps/header/header-view'], function(Extm, HeaderView) {
         textClass = "";
         btnClass = "hidden";
       } else {
-        console.log("rrr");
         templateString = "<span>Apartment Selector</span>";
       }
       $('#textstring').text("");
-      console.log($('#textstring').html());
-      console.log(templateString);
       return [templateString, textClass];
     };
 

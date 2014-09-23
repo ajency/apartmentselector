@@ -120,7 +120,6 @@ define(['extm'], function(Extm) {
         localStorage.setItem("cookievalue", App.cookieArray);
         $('#errormsg').text("");
         if (App.cookieArray.length < 1) {
-          console.log("eeeeeeeeeeeee222");
           $(".rightBtns").addClass("hidden");
           $(".rightBtns").addClass("hidden");
           menuRight = document.getElementById("cbp-spmenu-s2");
@@ -264,7 +263,6 @@ define(['extm'], function(Extm) {
       }
       App.cookieArray = cookieOldValue;
       localStorage.setItem("cookievalue", App.cookieArray);
-      console.log(cookieOldValue.length);
       return this.showWishList();
     };
 

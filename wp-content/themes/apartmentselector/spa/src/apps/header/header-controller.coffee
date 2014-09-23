@@ -80,7 +80,6 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
 
 
             )
-            console.log templateArr
             if templateArr.length == 0 
                 templateArr.push '<span>All</span>'
             if(flag==1)
@@ -117,12 +116,9 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
                 textClass = ""
                 btnClass = "hidden"
             else
-                console.log "rrr"
                 templateString = "<span>Apartment Selector</span>"
 
             $('#textstring').text ""
-            console.log $('#textstring').html()
-            console.log templateString
             [templateString,textClass]
 
 

@@ -45,7 +45,6 @@ define [ 'marionette' ], ( Mariontte )->
                     App.filter(params={})
                     App.layout.screenThreeRegion.el.innerHTML = ""
                     $('#screen-three-region').removeClass 'section'
-                    console.log App.currentStore.building
                     App.navigate "screen-two" , trigger:true
                     
                 else if window.location.href.indexOf('screen-four') > -1
@@ -160,17 +159,16 @@ define [ 'marionette' ], ( Mariontte )->
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
 
-            cookieOldValue = $.cookie("key")
-            if cookieOldValue == undefined || $.cookie("key") == ""
+            cookieOldValue = localStorage.getItem("cookievalue" )
+            if cookieOldValue == undefined || cookieOldValue == ""
                 cookieOldValue = []
             else
-                cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                cookieOldValue = cookieOldValue.split(',' ).map( (item)->
                     parseInt(item)
                 )
 
 
             if cookieOldValue.length >= 1
-                console.log "eeeeeeeeeeeee"
                 $(".rightBtns").removeClass "hidden"
             
 

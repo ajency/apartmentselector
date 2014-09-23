@@ -79,6 +79,9 @@ define [ 'marionette' ], ( Marionette )->
                 $("#finalButton").addClass 'disabled btn-default'
                 $("#finalButton").removeClass 'btn-primary'
                 $("#finalButton").text "Show Apartments"
+                $('#screen-two-region').removeClass 'section'
+                $('#screen-three-region').removeClass 'section'
+                $('#screen-four-region').removeClass 'section'
                 return false
 
             unitTypeString = unitType.join(',')
@@ -131,7 +134,7 @@ define [ 'marionette' ], ( Marionette )->
 
                     <div class="row m-l-0 m-r-0 bgClass">
                         <div class="col-md-5 col-lg-4">
-                            <div class="text-center subTxt">Choose a flat type</div>
+                            <div class="text-center subTxt">Choose a unit type</div>
                             <div class="grid-container"></div>
                             <h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
         	                <div class="text-center subTxt">Choose a budget</div>
@@ -190,6 +193,19 @@ define [ 'marionette' ], ( Marionette )->
                             App.defaults[element] = 'All'
 
                 )
+                if $(".cs-placeholder").text() != 'Undecided'
+                    budget_val = $(".cs-selected").text().split(' ')
+                    if(budget_val[1]=='lakhs')
+                        budget_price = budget_val[0].split('-')
+                        budget_price[0] = budget_price[0] + ('00000')
+                        budget_price[1] = budget_price[1]+ ('00000')
+                        budget_price = budget_price.join('-')
+                    App.defaults['budget'] = $(".cs-selected").text()
+                    App.backFilter['screen1'].push 'budget'
+                    App.screenOneFilter['value'] = $(".cs-selected").text()
+                    App.screenOneFilter['key'] = 'budget'
+                else
+                    App.defaults['budget'] = 'All'
                 $('#screen-two-region').removeClass 'section'
                 $('#screen-three-region').removeClass 'section'
                 $('#screen-four-region').removeClass 'section'
@@ -243,30 +259,99 @@ define [ 'marionette' ], ( Marionette )->
 
             'mouseover .tower-over':(e)->
                 e.preventDefault()
-                console.log id  = e.target.id
-                console.log str1 = id.replace( /[^\d.]/g, '' )
-                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
-                if buildigmodel == undefined ||  buildigmodel == ""
-                    text = "Not Launched"
-                else  
-                    countunits = App.master.unit.where({building:parseInt(str1)})
-                    minmodel = _.min(countunits, (model)->
-                        if model.get('unitType') != 14
-                            return model.get('unitPrice')
+                id  = e.target.id
+                str1 = id.replace( /[^\d.]/g, '' )
+                floorUnitsArray = []
+                myArray = []
+                screenonearray = App.backFilter['screen1']
+                for element in screenonearray
+                    if App.defaults[element] != 'All'
+                        key = App.defaults.hasOwnProperty(element)
+                        if key == true
+                            console.log App.defaults[element]
+                            myArray.push({key:element,value:App.defaults[element]})
+                
+                status = App.master.status.findWhere({'name':'Available'})
+                unitslen = App.master.unit.where({'status':status.get('id')})
+                console.log myArray
+                floorCollunits = []
+                $.each(unitslen, (index,value1)->
+                    flag = 0
+                    $.each(myArray, (index,value)->
+                        paramKey = {}
+                        paramKey[value.key] = value.value
+                        if value.key == 'budget'
+                            buildingModel = App.master.building.findWhere({'id':value1.get 'building'})
+                            floorRise = buildingModel.get 'floorrise'
+                            floorRiseValue = floorRise[value1.get 'floor']
+                            unitVariantmodel = App.master.unit_variant.findWhere({'id':value1.get 'unitVariant'})
+                            #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                            unitPrice = value1.get 'unitPrice'
+                            budget_arr = value.value.split(' ')
+                            budget_price = budget_arr[0].split('-')
+                            budget_price[0] = budget_price[0]+'00000'
+                            budget_price[1] = budget_price[1]+'00000'
+                            if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                                flag++
+                        else if value.key != 'floor'
+                            if value.key == 'unittypeback'
+                                value.key = 'unitVariant'
+                            temp = []
+                            temp.push value.value
+                            tempstring = temp.join(',')
+                            initvariant = tempstring.split(',')
+                            if initvariant.length > 1
+                                for element in initvariant
+                                   if value1.get(value.key) == parseInt(element)
+                                        flag++ 
+                            else
+                                if value1.get(value.key) == parseInt(value.value)
+                                    flag++
+                            
+
+
                     )
-                    $('#currency').autoNumeric('init')
-                    $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
-                    currency = $('#currency').val()
-                    countcoll = new Backbone.Collection countunits
-                    unittype = countcoll.pluck("unitType")
-                    uniqUnittype = _.uniq(unittype)
-                    unittypeArray = Array()
-                    for element , index in uniqUnittype
-                        unittypeModel = App.master.unit_type.get element
-                        if unittypeModel.get('id') != 14
-                            unittypeArray.push unittypeModel.get('name')
-                    unitTypes = unittypeArray.join(', ')
-                    text = '<span>No. of apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency+'<br/><span>Unit Type - </span>'+unitTypes
+                    if flag == myArray.length
+                        floorCollunits.push(value1)
+
+
+
+
+
+                )
+                if myArray.length == 0 
+                    floorCollunits = unitslen
+                units  = new Backbone.Collection floorCollunits
+                countunits = units.where({building:parseInt(str1)})
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if App.defaults['unitType'] != 'All'
+                    selectorname = App.defaults['unitType']
+                    unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
+                    selectorname = unittypemodel.get 'name'
+                else if App.defaults['budget'] != "All"
+                    selectorname = App.defaults['budget']
+                else if App.defaults['unitType'] == 'All' && App.defaults['budget'] == "All"
+                    selectorname = ""
+                if buildigmodel == undefined || buildigmodel == ""
+                    text = "Not Launched"
+                else
+                
+                    min = ""
+                    text = "<span></span>"
+                    if countunits.length > 0
+                        console.log minmodel = _.min(countunits, (model)->
+                            if model.get('unitType') != 14
+                                return model.get('unitPrice')
+                        )
+                        $('#currency').autoNumeric('init')
+                        $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
+                        currency = $('#currency').val()
+                        text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency
+                    else
+                        currency = 'Rs. 0'
+                    
+                        text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length
+                    
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
 
