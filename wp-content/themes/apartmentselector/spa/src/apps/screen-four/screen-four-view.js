@@ -797,11 +797,12 @@ define(['marionette'], function(Marionette) {
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false,
-        minHeight: 500,
+        minHeight: 630,
         autoSlideInterval: 4000,
         mobileNavigation: false,
         hideArrowsWhenMobile: false,
-        dynamicTabsAlign: "center"
+        dynamicTabsAlign: "center",
+        dynamicArrows: false
       });
     };
 
