@@ -11832,6 +11832,15 @@ a.im-clear-button {
     height: 420px !important;
   }
 }
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .im-container {
+    height: 100% !important;
+  }
+  #mapplic1,
+  #mapplic_new1 {
+    height: 500px !important;
+  }
+}
 /*Browser not supported*/
 #jr_header {
   font-family: 'kievit';
