@@ -81,6 +81,9 @@ define(['marionette'], function(Marionette) {
         $("#finalButton").addClass('disabled btn-default');
         $("#finalButton").removeClass('btn-primary');
         $("#finalButton").text("Show Apartments");
+        $('#screen-two-region').removeClass('section');
+        $('#screen-three-region').removeClass('section');
+        $('#screen-four-region').removeClass('section');
         return false;
       }
       unitTypeString = unitType.join(',');
