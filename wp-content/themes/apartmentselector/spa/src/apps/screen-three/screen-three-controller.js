@@ -149,7 +149,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant') {
+          if (index !== 'unitVariant' && index !== 'unittypeback') {
             return myArray.push({
               key: index,
               value: value

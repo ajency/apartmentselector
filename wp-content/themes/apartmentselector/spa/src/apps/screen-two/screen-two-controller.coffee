@@ -260,7 +260,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             myArray = []
             $.map(App.defaults, (value, index)->
                 if value!='All'
-                    if  index != 'unitVariant'
+                    if  index != 'unitVariant' && index != 'unittypeback'
                         myArray.push({key:index,value:value})
 
             )

@@ -71,7 +71,7 @@ require [ 'plugin-loader'
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[],'back':""}
 
     # global variable to keep track of the filtr the user has selected
-    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All'}
+    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All','unittypeback':'All'}
 
 
    

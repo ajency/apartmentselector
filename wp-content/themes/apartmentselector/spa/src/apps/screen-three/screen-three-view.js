@@ -763,7 +763,7 @@ define(['marionette'], function(Marionette) {
       var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor') {
+        if (value !== 'All' && index !== 'floor' && index !== 'unittypeback') {
           return myArray.push({
             key: index,
             value: value
@@ -903,7 +903,7 @@ define(['marionette'], function(Marionette) {
       var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor') {
+        if (value !== 'All' && index !== 'floor' && index !== 'unittypeback') {
           return myArray.push({
             key: index,
             value: value
@@ -1224,7 +1224,7 @@ define(['marionette'], function(Marionette) {
       var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor') {
+        if (value !== 'All' && index !== 'floor' && index !== 'unittypeback') {
           return myArray.push({
             key: index,
             value: value

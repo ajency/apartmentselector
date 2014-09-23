@@ -172,7 +172,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
                 if value!='All'
-                    if  index != 'unitVariant'
+                    if  index != 'unitVariant' && index != 'unittypeback'
                         myArray.push({key:index,value:value})
 
             )
