@@ -349,6 +349,7 @@ You can compare up to 4 apartments!</div>
 
 
             )
+            console.log $.cookie("key")
             cookieOldValue = $.cookie("key")
             if cookieOldValue == undefined || $.cookie("key") == ""
                 cookieOldValue = []

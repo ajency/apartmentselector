@@ -140,11 +140,12 @@ define(['marionette'], function(Mariontte) {
         $('.slctnTxt').addClass('hidden');
         $('h3').addClass('step1');
       }
-      cookieOldValue = $.cookie("key");
-      if (cookieOldValue === void 0 || $.cookie("key") === "") {
+      console.log(localStorage.getItem("cookievalue"));
+      cookieOldValue = localStorage.getItem("cookievalue");
+      if (cookieOldValue === void 0 || cookieOldValue === "") {
         cookieOldValue = [];
       } else {
-        cookieOldValue = $.cookie("key").split(',').map(function(item) {
+        cookieOldValue = cookieOldValue.split(',').map(function(item) {
           return parseInt(item);
         });
       }

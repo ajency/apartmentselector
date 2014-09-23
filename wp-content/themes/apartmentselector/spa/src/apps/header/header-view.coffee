@@ -160,11 +160,12 @@ define [ 'marionette' ], ( Mariontte )->
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
 
-            cookieOldValue = $.cookie("key")
-            if cookieOldValue == undefined || $.cookie("key") == ""
+            console.log localStorage.getItem("cookievalue" )
+            cookieOldValue = localStorage.getItem("cookievalue" )
+            if cookieOldValue == undefined || cookieOldValue == ""
                 cookieOldValue = []
             else
-                cookieOldValue = $.cookie("key" ).split(',' ).map( (item)->
+                cookieOldValue = cookieOldValue.split(',' ).map( (item)->
                     parseInt(item)
                 )
 

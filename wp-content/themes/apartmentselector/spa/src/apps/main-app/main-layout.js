@@ -251,6 +251,7 @@ define(['extm'], function(Extm) {
           return $('.backBtn').removeClass('hidden');
         }
       });
+      console.log($.cookie("key"));
       cookieOldValue = $.cookie("key");
       if (cookieOldValue === void 0 || $.cookie("key") === "") {
         cookieOldValue = [];
