@@ -216,10 +216,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         $('#currency1').autoNumeric('init')
                         $('#currency1').autoNumeric('set', minmodel.get('unitPrice'));
                         currency = $('#currency1').val()
+                        text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency
                     else
                         currency = 'Rs. 0'
                     
-                    text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency
+                        text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length
                     
                 locationData = m.getLocationData(id)
                 m.showTooltip(locationData,text)
