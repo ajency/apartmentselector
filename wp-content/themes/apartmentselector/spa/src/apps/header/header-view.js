@@ -40,7 +40,6 @@ define(['marionette'], function(Mariontte) {
           App.filter(params = {});
           App.layout.screenThreeRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
-          console.log(App.currentStore.building);
           return App.navigate("screen-two", {
             trigger: true
           });
@@ -140,7 +139,6 @@ define(['marionette'], function(Mariontte) {
         $('.slctnTxt').addClass('hidden');
         $('h3').addClass('step1');
       }
-      console.log(localStorage.getItem("cookievalue"));
       cookieOldValue = localStorage.getItem("cookievalue");
       if (cookieOldValue === void 0 || cookieOldValue === "") {
         cookieOldValue = [];
@@ -150,7 +148,6 @@ define(['marionette'], function(Mariontte) {
         });
       }
       if (cookieOldValue.length >= 1) {
-        console.log("eeeeeeeeeeeee");
         return $(".rightBtns").removeClass("hidden");
       }
     };

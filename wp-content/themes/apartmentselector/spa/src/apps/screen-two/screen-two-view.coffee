@@ -191,6 +191,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                 )
+                if myArray.length == 0 
+                    floorCollunits = unitslen
                 units  = new Backbone.Collection floorCollunits
                 countunits = units.where({building:parseInt(str1)})
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})

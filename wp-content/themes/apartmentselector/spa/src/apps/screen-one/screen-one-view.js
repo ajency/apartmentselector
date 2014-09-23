@@ -178,7 +178,7 @@ define(['marionette'], function(Marionette) {
         return this.trigger('unit:type:clicked');
       },
       'click .cs-selected': function(e) {
-        var budget_val, buildings, element, newColl, newUnits, uniqBuildings, _i, _len;
+        var budget_price, budget_val, buildings, element, newColl, newUnits, uniqBuildings, _i, _len;
         $.map(App.backFilter, function(value, index) {
           var element, key, screenArray, _i, _len, _results;
           screenArray = App.backFilter[index];
@@ -194,6 +194,21 @@ define(['marionette'], function(Marionette) {
           }
           return _results;
         });
+        if ($(".cs-placeholder").text() !== 'Undecided') {
+          budget_val = $(".cs-selected").text().split(' ');
+          if (budget_val[1] === 'lakhs') {
+            budget_price = budget_val[0].split('-');
+            budget_price[0] = budget_price[0] + '00000';
+            budget_price[1] = budget_price[1] + '00000';
+            budget_price = budget_price.join('-');
+          }
+          App.defaults['budget'] = $(".cs-selected").text();
+          App.backFilter['screen1'].push('budget');
+          App.screenOneFilter['value'] = $(".cs-selected").text();
+          App.screenOneFilter['key'] = 'budget';
+        } else {
+          App.defaults['budget'] = 'All';
+        }
         $('#screen-two-region').removeClass('section');
         $('#screen-three-region').removeClass('section');
         $('#screen-four-region').removeClass('section');
@@ -241,40 +256,128 @@ define(['marionette'], function(Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover .tower-over': function(e) {
-        var buildigmodel, countcoll, countunits, currency, element, id, index, locationData, minmodel, str1, text, uniqUnittype, unitTypes, unittype, unittypeArray, unittypeModel, _i, _len;
+        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, id, key, locationData, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, unitslen, unittypemodel, _i, _len;
         e.preventDefault();
-        console.log(id = e.target.id);
-        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        id = e.target.id;
+        str1 = id.replace(/[^\d.]/g, '');
+        floorUnitsArray = [];
+        myArray = [];
+        screenonearray = App.backFilter['screen1'];
+        for (_i = 0, _len = screenonearray.length; _i < _len; _i++) {
+          element = screenonearray[_i];
+          if (App.defaults[element] !== 'All') {
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              console.log(App.defaults[element]);
+              myArray.push({
+                key: element,
+                value: App.defaults[element]
+              });
+            }
+          }
+        }
+        status = App.master.status.findWhere({
+          'name': 'Available'
+        });
+        unitslen = App.master.unit.where({
+          'status': status.get('id')
+        });
+        console.log(myArray);
+        floorCollunits = [];
+        $.each(unitslen, function(index, value1) {
+          var flag;
+          flag = 0;
+          $.each(myArray, function(index, value) {
+            var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _j, _len1, _results;
+            paramKey = {};
+            paramKey[value.key] = value.value;
+            if (value.key === 'budget') {
+              buildingModel = App.master.building.findWhere({
+                'id': value1.get('building')
+              });
+              floorRise = buildingModel.get('floorrise');
+              floorRiseValue = floorRise[value1.get('floor')];
+              unitVariantmodel = App.master.unit_variant.findWhere({
+                'id': value1.get('unitVariant')
+              });
+              unitPrice = value1.get('unitPrice');
+              budget_arr = value.value.split(' ');
+              budget_price = budget_arr[0].split('-');
+              budget_price[0] = budget_price[0] + '00000';
+              budget_price[1] = budget_price[1] + '00000';
+              if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+                return flag++;
+              }
+            } else if (value.key !== 'floor') {
+              if (value.key === 'unittypeback') {
+                value.key = 'unitVariant';
+              }
+              temp = [];
+              temp.push(value.value);
+              tempstring = temp.join(',');
+              initvariant = tempstring.split(',');
+              if (initvariant.length > 1) {
+                _results = [];
+                for (_j = 0, _len1 = initvariant.length; _j < _len1; _j++) {
+                  element = initvariant[_j];
+                  if (value1.get(value.key) === parseInt(element)) {
+                    _results.push(flag++);
+                  } else {
+                    _results.push(void 0);
+                  }
+                }
+                return _results;
+              } else {
+                if (value1.get(value.key) === parseInt(value.value)) {
+                  return flag++;
+                }
+              }
+            }
+          });
+          if (flag === myArray.length) {
+            return floorCollunits.push(value1);
+          }
+        });
+        if (myArray.length === 0) {
+          floorCollunits = unitslen;
+        }
+        units = new Backbone.Collection(floorCollunits);
+        countunits = units.where({
+          building: parseInt(str1)
+        });
         buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
+        if (App.defaults['unitType'] !== 'All') {
+          selectorname = App.defaults['unitType'];
+          unittypemodel = App.master.unit_type.findWhere({
+            id: parseInt(App.defaults['unitType'])
+          });
+          selectorname = unittypemodel.get('name');
+        } else if (App.defaults['budget'] !== "All") {
+          selectorname = App.defaults['budget'];
+        } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
+          selectorname = "";
+        }
         if (buildigmodel === void 0 || buildigmodel === "") {
           text = "Not Launched";
         } else {
-          countunits = App.master.unit.where({
-            building: parseInt(str1)
-          });
-          minmodel = _.min(countunits, function(model) {
-            if (model.get('unitType') !== 14) {
-              return model.get('unitPrice');
-            }
-          });
-          $('#currency').autoNumeric('init');
-          $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
-          currency = $('#currency').val();
-          countcoll = new Backbone.Collection(countunits);
-          unittype = countcoll.pluck("unitType");
-          uniqUnittype = _.uniq(unittype);
-          unittypeArray = Array();
-          for (index = _i = 0, _len = uniqUnittype.length; _i < _len; index = ++_i) {
-            element = uniqUnittype[index];
-            unittypeModel = App.master.unit_type.get(element);
-            if (unittypeModel.get('id') !== 14) {
-              unittypeArray.push(unittypeModel.get('name'));
-            }
+          min = "";
+          text = "<span></span>";
+          if (countunits.length > 0) {
+            console.log(minmodel = _.min(countunits, function(model) {
+              if (model.get('unitType') !== 14) {
+                return model.get('unitPrice');
+              }
+            }));
+            $('#currency').autoNumeric('init');
+            $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
+            currency = $('#currency').val();
+            text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
+          } else {
+            currency = 'Rs. 0';
+            text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length;
           }
-          unitTypes = unittypeArray.join(', ');
-          text = '<span>No. of apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency + '<br/><span>Unit Type - </span>' + unitTypes;
         }
         locationData = m.getLocationData(id);
         return m.showTooltip(locationData, text);

@@ -144,6 +144,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             return floorCollunits.push(value1);
           }
         });
+        if (myArray.length === 0) {
+          floorCollunits = unitslen;
+        }
         units = new Backbone.Collection(floorCollunits);
         countunits = units.where({
           building: parseInt(str1)
