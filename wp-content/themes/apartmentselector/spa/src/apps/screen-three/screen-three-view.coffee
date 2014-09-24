@@ -1066,10 +1066,10 @@ define [ 'marionette' ], ( Marionette )->
             if myArray.length == 0
                 track = 1
             
-            if track==1 && model.get('status') == 9 && model.get('unitType') != 14
+            if track==1 && model.get('status') == 9 && model.get('unitType') != 14 && model.get('unitType') != 16
                 $('#check'+model.get("id")).addClass 'boxLong filtered'
                 $('#flag'+model.get("id")).val '1'
-            else if track==1 &&  model.get('status') == 8 && model.get('unitType') != 14
+            else if track==1 &&  model.get('status') == 8 && model.get('unitType') != 14 && model.get('unitType') != 16
                 $('#check'+model.get("id")).addClass 'boxLong sold'
             else
                 $('#check'+model.get("id")).addClass 'boxLong other'
@@ -1387,10 +1387,10 @@ define [ 'marionette' ], ( Marionette )->
             if myArray.length == 0
                 track = 1
             
-            if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14
+            if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14 && @model.get('unitType') != 16
                 $('#check'+@model.get("id")).addClass 'boxLong filtered'
                 $('#flag'+@model.get("id")).val '1'
-            else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14
+            else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14 && @model.get('unitType') != 16
                 $('#check'+@model.get("id")).addClass 'boxLong sold'
             else
                 $('#check'+@model.get("id")).addClass 'boxLong other'

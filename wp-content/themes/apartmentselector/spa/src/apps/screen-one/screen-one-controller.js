@@ -78,7 +78,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
         unitTypemodel = App.currentStore.unit_type.findWhere({
           'id': value.get('unitType')
         });
-        if (unitTypemodel.get('id') !== 14 || unitTypemodel.get('id') !== 16) {
+        if (unitTypemodel.get('id') !== 14 && unitTypemodel.get('id') !== 16) {
           NewUnitCollection = App.currentStore.unit.where({
             unitType: unitTypemodel.get('id')
           });

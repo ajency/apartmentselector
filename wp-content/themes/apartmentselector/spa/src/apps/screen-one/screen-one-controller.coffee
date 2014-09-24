@@ -61,7 +61,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             units = App.currentStore.unit.where({'status':status.get('id')})
             $.each(units , (index,value)->
                 unitTypemodel = App.currentStore.unit_type.findWhere({'id':value.get 'unitType'})
-                if unitTypemodel.get('id') != 14 || unitTypemodel.get('id') != 16
+                if unitTypemodel.get('id') != 14 && unitTypemodel.get('id') != 16
                     NewUnitCollection = App.currentStore.unit.where({ unitType : unitTypemodel.get( 'id' ) } )
                     max_coll = Array()
                     for element in priceRange

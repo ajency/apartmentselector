@@ -987,10 +987,10 @@ define(['marionette'], function(Marionette) {
       if (myArray.length === 0) {
         track = 1;
       }
-      if (track === 1 && model.get('status') === 9 && model.get('unitType') !== 14) {
+      if (track === 1 && model.get('status') === 9 && model.get('unitType') !== 14 && model.get('unitType') !== 16) {
         $('#check' + model.get("id")).addClass('boxLong filtered');
         return $('#flag' + model.get("id")).val('1');
-      } else if (track === 1 && model.get('status') === 8 && model.get('unitType') !== 14) {
+      } else if (track === 1 && model.get('status') === 8 && model.get('unitType') !== 14 && model.get('unitType') !== 16) {
         return $('#check' + model.get("id")).addClass('boxLong sold');
       } else {
         $('#check' + model.get("id")).addClass('boxLong other');
@@ -1308,10 +1308,10 @@ define(['marionette'], function(Marionette) {
       if (myArray.length === 0) {
         track = 1;
       }
-      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
+      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14 && this.model.get('unitType') !== 16) {
         $('#check' + this.model.get("id")).addClass('boxLong filtered');
         return $('#flag' + this.model.get("id")).val('1');
-      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14) {
+      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14 && this.model.get('unitType') !== 16) {
         return $('#check' + this.model.get("id")).addClass('boxLong sold');
       } else {
         $('#check' + this.model.get("id")).addClass('boxLong other');

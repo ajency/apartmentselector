@@ -366,7 +366,7 @@ define(['marionette'], function(Marionette) {
           text = "<span></span>";
           if (countunits.length > 0) {
             console.log(minmodel = _.min(countunits, function(model) {
-              if (model.get('unitType') !== 14 || model.get('unitType') !== 16) {
+              if (model.get('unitType') !== 14 && model.get('unitType') !== 16) {
                 return model.get('unitPrice');
               }
             }));
