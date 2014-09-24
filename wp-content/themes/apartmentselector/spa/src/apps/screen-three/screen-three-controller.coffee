@@ -389,6 +389,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             $.each(uniqunitAssigned, (index,value)->
                 floorColl =  new Backbone.Collection floorUnitsArray
                 if App.defaults['building'] == "All"
+                    floorColl = _.reject(floorColl, (model)->
+                        return model.get('unitType') != 14 && model.get('unitType') != 16
+                    ) 
                     unitAssgendModels = floorColl.where({unitAssigned:value,building:buildingvalue})
                 else
                     unitAssgendModels = floorColl.where({unitAssigned:value})

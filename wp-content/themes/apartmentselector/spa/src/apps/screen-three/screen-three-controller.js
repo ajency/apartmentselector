@@ -394,6 +394,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         var floorColl, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
         floorColl = new Backbone.Collection(floorUnitsArray);
         if (App.defaults['building'] === "All") {
+          floorColl = _.reject(floorColl, function(model) {
+            return model.get('unitType') !== 14 && model.get('unitType') !== 16;
+          });
           unitAssgendModels = floorColl.where({
             unitAssigned: value,
             building: buildingvalue
