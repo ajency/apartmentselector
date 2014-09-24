@@ -354,17 +354,6 @@ define(['marionette'], function(Marionette) {
         buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
-        if (App.defaults['unitType'] !== 'All') {
-          selectorname = App.defaults['unitType'];
-          unittypemodel = App.master.unit_type.findWhere({
-            id: parseInt(App.defaults['unitType'])
-          });
-          selectorname = unittypemodel.get('name');
-        } else if (App.defaults['budget'] !== "All") {
-          selectorname = App.defaults['budget'];
-        } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
-          selectorname = "";
-        }
         if (buildigmodel === void 0 || buildigmodel === "") {
           text = "Not Launched";
         } else {
@@ -379,6 +368,18 @@ define(['marionette'], function(Marionette) {
             $('#currency').autoNumeric('init');
             $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
             currency = $('#currency').val();
+            if (App.defaults['unitType'] !== 'All') {
+              selectorname = App.defaults['unitType'];
+              unittypemodel = App.master.unit_type.findWhere({
+                id: parseInt(App.defaults['unitType'])
+              });
+              selectorname = unittypemodel.get('name');
+              text = selectorname + ' apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
+            } else if (App.defaults['budget'] !== "All") {
+              selectorname = App.defaults['budget'];
+            } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
+              selectorname = "";
+            }
             text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
           } else {
             currency = 'Rs. 0';

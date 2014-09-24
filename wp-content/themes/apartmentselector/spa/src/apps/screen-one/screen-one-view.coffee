@@ -327,14 +327,6 @@ define [ 'marionette' ], ( Marionette )->
                 units  = new Backbone.Collection floorCollunits
                 countunits = units.where({building:parseInt(str1)})
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
-                if App.defaults['unitType'] != 'All'
-                    selectorname = App.defaults['unitType']
-                    unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
-                    selectorname = unittypemodel.get 'name'
-                else if App.defaults['budget'] != "All"
-                    selectorname = App.defaults['budget']
-                else if App.defaults['unitType'] == 'All' && App.defaults['budget'] == "All"
-                    selectorname = ""
                 if buildigmodel == undefined || buildigmodel == ""
                     text = "Not Launched"
                 else
@@ -349,6 +341,16 @@ define [ 'marionette' ], ( Marionette )->
                         $('#currency').autoNumeric('init')
                         $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
                         currency = $('#currency').val()
+                        if App.defaults['unitType'] != 'All'
+                            selectorname = App.defaults['unitType']
+                            unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
+                            selectorname = unittypemodel.get 'name'
+                            text = selectorname+' apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency
+                        else if App.defaults['budget'] != "All"
+                            selectorname = App.defaults['budget']
+                        else if App.defaults['unitType'] == 'All' && App.defaults['budget'] == "All"
+                            selectorname = ""
+                
                         text = '<span>No. of '+selectorname+' apartments - </span>'+countunits.length+'<br/><span>Starting Price - </span>'+currency
                     else
                         currency = 'Rs. 0'

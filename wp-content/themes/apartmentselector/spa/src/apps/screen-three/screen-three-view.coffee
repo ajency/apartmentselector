@@ -349,7 +349,7 @@ define [ 'marionette' ], ( Marionette )->
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
-                                $('#'+temp1[ii]+flatid).text text
+                                $('#'+temp1[ii]+flatid).html text
                             ii++
                 
                                 
@@ -406,7 +406,7 @@ define [ 'marionette' ], ( Marionette )->
                 )       
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unit-hover range aviable')
-                else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
+                else if checktrack == 1 &&  ( parseInt(unitModel.get('status')) == 8 || parseInt(unitModel.get('status')) == 47 )
                     $("#"+e.target.id).attr('class','sold range')
                 else
                     $("#"+e.target.id).attr('class','other range')
@@ -457,7 +457,7 @@ define [ 'marionette' ], ( Marionette )->
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
                                 
-                                $('#'+temp1[ii]+flatid).text text
+                                $('#'+temp1[ii]+flatid).html text
                             ii++
                 
                                 
@@ -470,7 +470,7 @@ define [ 'marionette' ], ( Marionette )->
                 checktrack = @checkSelection(unitModel)
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unselected-floor aviable')
-                else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
+                else if checktrack == 1 &&  ( parseInt(unitModel.get('status')) == 8 || parseInt(unitModel.get('status')) == 47 )
                     $("#"+e.target.id).attr('class','sold ')
                 else
                     $("#"+e.target.id).attr('class','other ')
