@@ -97,6 +97,7 @@ function get_data(){
             $unitarray = array();
             $unittype = array();
             $temparray = array();
+            $unit_typetemparray = array();
             $temparray1 = array();
             foreach ($building as $value) {
                 if($value['phase'] == 26){
@@ -108,8 +109,9 @@ function get_data(){
                 # code...
             }
             foreach ($unit_type as $value) {
-                if($value['id'] != 16){
+                if($value['id'] != 16 && $value['id'] != 14){
                     array_push($unittype, $value);
+                    array_push($unit_typetemparray, $value['id']);
                     
 
                 }
@@ -125,7 +127,7 @@ function get_data(){
 
                 # code...
             }foreach ($temparray1 as $value) {
-                if(in_array($value['building'], $temparray)){
+                if(in_array($value['unitType'], $unit_typetemparray)){
                     array_push($unitarray, $value);
                     
 
