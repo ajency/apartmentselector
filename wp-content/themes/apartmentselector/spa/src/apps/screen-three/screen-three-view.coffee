@@ -71,7 +71,7 @@ define [ 'marionette' ], ( Marionette )->
                                 
                             </div>
                         </div>
-
+                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
 
@@ -344,7 +344,12 @@ define [ 'marionette' ], ( Marionette )->
                             
                         
                             if pos == val1  
-                                $('#'+temp1[ii]+flatid).text unitModel.get('name')
+                                $('#currency2').autoNumeric('init')
+                                $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                currency = $('#currency2').val()
+                                unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
+                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 
@@ -354,7 +359,7 @@ define [ 'marionette' ], ( Marionette )->
                 )       
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unit-hover aviable')
-                else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
+                else if checktrack == 1 && ( parseInt(unitModel.get('status')) == 8 || parseInt(unitModel.get('status')) == 47 )
                     $("#"+e.target.id).attr('class','sold')
                 else
                     $("#"+e.target.id).attr('class','other')
@@ -386,7 +391,12 @@ define [ 'marionette' ], ( Marionette )->
                             
                         
                             if pos == val1  
-                                $('#'+temp1[ii]+flatid).text unitModel.get('name')
+                                $('#currency2').autoNumeric('init')
+                                $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                currency = $('#currency2').val()
+                                unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
+                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                $('#'+temp1[ii]+flatid).html text
                             ii++
                 
                                 
@@ -442,7 +452,13 @@ define [ 'marionette' ], ( Marionette )->
                             console.log position
                             console.log temp1[ii]
                             if parseInt(pos) == parseInt(val1)  
-                                $('#'+temp1[ii]+flatid).text unitModel.get('name')
+                                $('#currency2').autoNumeric('init')
+                                $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
+                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = 'Flat no:'+unitModel.get('name')+'unittype:'+unitModel.get('unitType')+'Unit Price:'+ currency
+                                
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 

@@ -59,11 +59,11 @@ require [ 'plugin-loader'
 
     # master store
     App.master =
-        'unit' : new Backbone.Collection UNITS
+        'unit' : new Backbone.Collection MUNITS
         'view' : new Backbone.Collection  VIEWS
         'building' : new Backbone.Collection  BUILDINGS
         'unit_variant' : new Backbone.Collection  UNITVARIANTS
-        'unit_type' : new Backbone.Collection  UNITTYPES
+        'unit_type' : new Backbone.Collection  MUNITTYPES
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
 
