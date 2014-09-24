@@ -120,14 +120,6 @@ function get_data(){
             }
             foreach ($unit as $value) {
                 if(in_array($value['building'], $temparray)){
-                    array_push($temparray1, $value);
-                    
-
-                }
-
-                # code...
-            }foreach ($temparray1 as $value) {
-                if(in_array($value['unitType'], $unit_typetemparray)){
                     array_push($unitarray, $value);
                     
 
