@@ -342,6 +342,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 a - b
 
             )
+            mainunitTypeArray1 = []
+            units1 = App.master.unit.where({'status':status.get('id')})
+            $.each(units1, (index,value)->
+                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
+            )
             $.each(units, (index,value)->
                 maxcoll = Array()
                 
@@ -355,7 +361,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             )
 
 
-            $.each(mainunitTypeArray, (key,item)->
+            $.each(mainunitTypeArray1, (key,item)->
                 if (!mainunique[item.id])
                     if item.id != 14
                         status = App.master.status.findWhere({'name':'Available'})
