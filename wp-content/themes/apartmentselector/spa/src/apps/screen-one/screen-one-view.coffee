@@ -340,7 +340,7 @@ define [ 'marionette' ], ( Marionette )->
                     text = "<span></span>"
                     if countunits.length > 0
                         console.log minmodel = _.min(countunits, (model)->
-                            if model.get('unitType') != 14
+                            if model.get('unitType') != 14 || model.get('unitType') != 16
                                 return model.get('unitPrice')
                         )
                         $('#currency').autoNumeric('init')
