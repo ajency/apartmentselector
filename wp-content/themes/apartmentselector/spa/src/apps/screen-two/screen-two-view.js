@@ -53,7 +53,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover a.tower-link': function(e) {
-        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, id, key, locationData, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, unitslen, unittypemodel, _i, _len;
+        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, id, key, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext, _i, _len;
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         floorUnitsArray = [];
@@ -150,27 +150,61 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             return floorCollunits.push(value1);
           }
         });
+        mainnewarr = [];
+        mainunique = {};
         if (myArray.length === 0) {
           floorCollunits = unitslen;
         }
         units = new Backbone.Collection(floorCollunits);
+        mainunitTypeArray1 = [];
+        units1 = App.master.unit.where({
+          'status': status.get('id')
+        });
+        $.each(units1, function(index, value) {
+          var unitTypemodel;
+          unitTypemodel = App.master.unit_type.findWhere({
+            id: value.get('unitType')
+          });
+          return mainunitTypeArray1.push({
+            id: unitTypemodel.get('id'),
+            name: unitTypemodel.get('name')
+          });
+        });
+        console.log(mainunitTypeArray1);
+        $.each(mainunitTypeArray1, function(key, item) {
+          var classname;
+          if (!mainunique[item.id]) {
+            if (item.id !== 14 && item.id !== 16) {
+              status = App.master.status.findWhere({
+                'name': 'Available'
+              });
+              count = units.where({
+                unitType: item.id,
+                'status': status.get('id'),
+                'building': parseInt(str1)
+              });
+              if (parseInt(item.id) === 9) {
+                classname = 'twoBHK';
+              } else {
+                classname = 'threeBHK';
+              }
+              mainnewarr.push({
+                id: item.id,
+                name: item.name,
+                classname: classname,
+                count: count
+              });
+              return mainunique[item.id] = item;
+            }
+          }
+        });
         countunits = units.where({
           building: parseInt(str1)
         });
         buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
-        if (App.defaults['unitType'] !== 'All') {
-          selectorname = App.defaults['unitType'];
-          unittypemodel = App.master.unit_type.findWhere({
-            id: parseInt(App.defaults['unitType'])
-          });
-          selectorname = unittypemodel.get('name');
-        } else if (App.defaults['budget'] !== "All") {
-          selectorname = App.defaults['budget'];
-        } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
-          selectorname = "";
-        }
+        unittypetext = "";
         if (buildigmodel === void 0 || buildigmodel === "") {
           text = "Not Launched";
         } else {
@@ -185,10 +219,38 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             $('#currency1').autoNumeric('init');
             $('#currency1').autoNumeric('set', minmodel.get('unitPrice'));
             currency = $('#currency1').val();
-            text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
+            if (App.defaults['unitType'] !== 'All') {
+              selectorname = App.defaults['unitType'];
+              unittypemodel = App.master.unit_type.findWhere({
+                id: parseInt(App.defaults['unitType'])
+              });
+              selectorname = unittypemodel.get('name');
+              text = selectorname + ' apartments - </span>' + countunits.length + '<br/><span>Starting Price - </span>' + currency;
+            } else if (App.defaults['budget'] !== "All") {
+              selectorname = App.defaults['budget'];
+              $.each(mainnewarr, function(index, value) {
+                return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+              });
+              text = '<span>Apartments within ' + selectorname + ' - </span>' + countunits.length + '<br/>' + unittypetext + '<br/><span>Starting Price - </span>' + currency;
+            } else if (App.defaults['unitType'] === 'All' && App.defaults['budget'] === "All") {
+              selectorname = "";
+              $.each(mainnewarr, function(index, value) {
+                return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+              });
+              text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length + '<br/>' + unittypetext + '<br/><span>Starting Price - </span>' + currency;
+            }
           } else {
-            currency = 'Rs. 0';
-            text = '<span>No. of ' + selectorname + ' apartments - </span>' + countunits.length;
+            if (App.defaults['unitType'] !== 'All') {
+              selectorname = App.defaults['unitType'];
+              unittypemodel = App.master.unit_type.findWhere({
+                id: parseInt(App.defaults['unitType'])
+              });
+              selectorname = unittypemodel.get('name');
+              text = selectorname + ' apartments - </span>' + countunits.length + '<br/><span>';
+            } else if (App.defaults['budget'] !== "All") {
+              selectorname = App.defaults['budget'];
+              text = '<span>Apartments within ' + selectorname + ' - </span>' + countunits.length;
+            }
           }
         }
         locationData = m.getLocationData(id);
