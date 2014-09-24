@@ -259,7 +259,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             'click .tower-link':(e)->
                 console.log id = e.target.id
                 console.log str1 = id.replace( /[^\d.]/g, '' )
-
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if buildigmodel == undefined || buildigmodel == ""
+                    return false
                 floorUnitsArray = []
                 myArray = []
                 screenonearray = App.backFilter['screen1']
