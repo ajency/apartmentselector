@@ -71,7 +71,7 @@ define [ 'marionette' ], ( Marionette )->
                                 
                             </div>
                         </div>
-
+                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. " data-d-group="2">
                     </div>'
 
 
@@ -344,7 +344,12 @@ define [ 'marionette' ], ( Marionette )->
                             
                         
                             if pos == val1  
-                                $('#'+temp1[ii]+flatid).text unitModel.get('name')
+                                $('#currency2').autoNumeric('init')
+                                $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                currency = $('#currency2').val()
+                                unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
+                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 
@@ -354,7 +359,7 @@ define [ 'marionette' ], ( Marionette )->
                 )       
                 if checktrack == 1 && parseInt(unitModel.get('status')) == 9
                     $("#"+e.target.id).attr('class','unit-hover aviable')
-                else if checktrack == 1 &&  parseInt(unitModel.get('status')) == 8
+                else if checktrack == 1 && ( parseInt(unitModel.get('status')) == 8 || parseInt(unitModel.get('status')) == 47 )
                     $("#"+e.target.id).attr('class','sold')
                 else
                     $("#"+e.target.id).attr('class','other')
@@ -386,7 +391,12 @@ define [ 'marionette' ], ( Marionette )->
                             
                         
                             if pos == val1  
-                                $('#'+temp1[ii]+flatid).text unitModel.get('name')
+                                $('#currency2').autoNumeric('init')
+                                $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                currency = $('#currency2').val()
+                                unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
+                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                $('#'+temp1[ii]+flatid).html text
                             ii++
                 
                                 
@@ -442,7 +452,12 @@ define [ 'marionette' ], ( Marionette )->
                             console.log position
                             console.log temp1[ii]
                             if parseInt(pos) == parseInt(val1)  
-                                $('#'+temp1[ii]+flatid).text unitModel.get('name')
+                                $('#currency2').autoNumeric('init')
+                                $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
+                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 
@@ -773,14 +788,15 @@ define [ 'marionette' ], ( Marionette )->
             svgdata = buildingModel.get 'svgdata'
 
             floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url
+            console.log maxvalue  = Marionette.getOption( @, 'maxvalue' )
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if floor_layout_Basic != ""
                 path = floor_layout_Basic
-                $('<div></div>').load(path,  (x)->$('#'+1).attr('class','floor-pos position');unitAssigedArray.push("1")).appendTo("#floorsvg")
+                $('<div></div>').load(path,  (x)->$('#'+maxvalue.id).attr('class','floor-pos position');unitAssigedArray.push(maxvalue.id)).appendTo("#floorsvg")
             else
                 path = ""
-            
-            @loadsvg()
+            floorid = maxvalue.id
+            @loadsvg(floorid)
 
         loadsvg:(floorid)->
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
@@ -1440,13 +1456,21 @@ define [ 'marionette' ], ( Marionette )->
         childViewContainer : '.unitSlider'
 
         onShow:->
-            sudoSlider = $("#unitsSlider").sudoSlider(
-                customLink: "a"
-                prevNext: false
-                responsive: true
-                speed: 800
-                # continuous:true
-            )
+                console.log container = $("#unitsSlider");
+                height = container.height("auto").height();
+                container.height("auto");
+                sudoSlider = $("#unitsSlider").sudoSlider(
+                    customLink: "a"
+                    prevNext: false
+                    responsive: true
+                    speed: 800
+                    # continuous:true
+                )
+                console.log maxcoll = @collection.toArray()
+                console.log maxvalue = _.max(maxcoll,  (model)->
+                    model.get('count')
+                )
+                sudoSlider.goToSlide(maxvalue.get('id'))
 
 
 

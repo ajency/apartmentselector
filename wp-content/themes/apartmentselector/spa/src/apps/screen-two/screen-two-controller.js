@@ -131,7 +131,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
-      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, hnewarr, i, index, itemCollection, j, key, keycheck, lnewarr, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitsTypeArray, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, unitsactual, unitslen, unitvariant;
+      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, hnewarr, i, index, itemCollection, j, key, keycheck, lnewarr, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitTypeArray1, mainunitsTypeArray, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, uniqUnitvariant, unitColl, unitVariantID, unitVariantModels, units, units1, unitsactual, unitslen, unitvariant;
       if (paramid == null) {
         paramid = {};
       }
@@ -342,6 +342,20 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       unitVariantID.sort(function(a, b) {
         return a - b;
       });
+      mainunitTypeArray1 = [];
+      units1 = App.master.unit.where({
+        'status': status.get('id')
+      });
+      $.each(units1, function(index, value) {
+        var unitType;
+        unitType = App.master.unit_type.findWhere({
+          id: value.get('unitType')
+        });
+        return mainunitTypeArray1.push({
+          id: unitType.get('id'),
+          name: unitType.get('name')
+        });
+      });
       $.each(units, function(index, value) {
         var maxcoll, unitType;
         maxcoll = Array();
@@ -356,7 +370,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           name: unitType.get('name')
         });
       });
-      $.each(mainunitTypeArray, function(key, item) {
+      $.each(mainunitTypeArray1, function(key, item) {
         var classname, count;
         if (!mainunique[item.id]) {
           if (item.id !== 14) {
