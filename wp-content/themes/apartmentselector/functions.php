@@ -252,10 +252,10 @@ if (! is_development_environment() ) {
             wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
             wp_localize_script( "$module-script", "BUILDINGS", $buildings );
             wp_localize_script( "$module-script", "UNITS", $units );
-            wp_localize_script( "requirejs", "MUNITS", get_units() );
+            wp_localize_script( "$module-script", "MUNITS", get_units() );
             wp_localize_script( "$module-script", "STATUS", get_unit_status() );
             wp_localize_script( "$module-script", "UNITTYPES", $unittypess );
-            wp_localize_script( "requirejs", "MUNITTYPES", get_unit_types() );
+            wp_localize_script( "$module-script", "MUNITTYPES", get_unit_types() );
             wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "$module-script", "VIEWS", get_views() );
             wp_localize_script( "$module-script", "FACINGS", get_facings() );
