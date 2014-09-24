@@ -135,7 +135,7 @@ function get_data(){
 
                 # code...
             }
-    return array($buildingarray,$unitarray,$unittype);
+    return array($buildingarray,$unitarray,$unittype,$unit,$unit_type);
 }
 
 if ( is_development_environment() ) {
@@ -190,10 +190,10 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "_WPNONCE", wp_create_nonce( 'media-form' ) );
             wp_localize_script( "requirejs", "BUILDINGS", $buildings );
             wp_localize_script( "requirejs", "UNITS", $units );
-            wp_localize_script( "requirejs", "MUNITS", get_units() );
+            wp_localize_script( "requirejs", "MUNITS", $data[2] );
             wp_localize_script( "requirejs", "STATUS", get_unit_status() );
             wp_localize_script( "requirejs", "UNITTYPES", $unittypess );
-            wp_localize_script( "requirejs", "MUNITTYPES", get_unit_types() );
+            wp_localize_script( "requirejs", "MUNITTYPES", $data[3] );
             wp_localize_script( "requirejs", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "requirejs", "VIEWS", get_views() );
             wp_localize_script( "requirejs", "FACINGS", get_facings() );
@@ -252,10 +252,10 @@ if (! is_development_environment() ) {
             wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
             wp_localize_script( "$module-script", "BUILDINGS", $buildings );
             wp_localize_script( "$module-script", "UNITS", $units );
-            wp_localize_script( "$module-script", "MUNITS", get_units() );
+            wp_localize_script( "$module-script", "MUNITS", $data[2] );
             wp_localize_script( "$module-script", "STATUS", get_unit_status() );
             wp_localize_script( "$module-script", "UNITTYPES", $unittypess );
-            wp_localize_script( "$module-script", "MUNITTYPES", get_unit_types() );
+            wp_localize_script( "$module-script", "MUNITTYPES", $data[3] );
             wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "$module-script", "VIEWS", get_views() );
             wp_localize_script( "$module-script", "FACINGS", get_facings() );
