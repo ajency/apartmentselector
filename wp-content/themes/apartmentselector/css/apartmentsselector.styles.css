@@ -10443,6 +10443,7 @@ h5 {
 .unitTable .unitSlider {
   margin: auto;
   width: 100%;
+  height: auto !important;
 }
 .unitTable .unitSlider .unitContainer {
   width: 90%;
@@ -11830,6 +11831,15 @@ a.im-clear-button {
   #mapplic1,
   #mapplic_new1 {
     height: 420px !important;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .im-container {
+    height: 100% !important;
+  }
+  #mapplic1,
+  #mapplic_new1 {
+    height: 500px !important;
   }
 }
 /*Browser not supported*/
