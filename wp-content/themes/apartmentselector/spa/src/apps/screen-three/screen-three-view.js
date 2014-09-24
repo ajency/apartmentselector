@@ -655,7 +655,7 @@ define(['marionette'], function(Marionette) {
     });
 
     ScreenThreeLayout.prototype.loadbuildingsvg = function() {
-      var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, path, svgdata;
+      var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, floorid, maxvalue, path, svgdata;
       console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
       buildinArray = buildingCollection.toArray();
       console.log(building = _.first(buildinArray));
@@ -664,16 +664,18 @@ define(['marionette'], function(Marionette) {
       });
       svgdata = buildingModel.get('svgdata');
       floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
+      console.log(maxvalue = Marionette.getOption(this, 'maxvalue'));
       if (floor_layout_Basic !== "") {
         path = floor_layout_Basic;
         $('<div></div>').load(path, function(x) {
-          $('#' + 1).attr('class', 'floor-pos position');
-          return unitAssigedArray.push("1");
+          $('#' + maxvalue.id).attr('class', 'floor-pos position');
+          return unitAssigedArray.push(maxvalue.id);
         }).appendTo("#floorsvg");
       } else {
         path = "";
       }
-      return this.loadsvg();
+      floorid = maxvalue.id;
+      return this.loadsvg(floorid);
     };
 
     ScreenThreeLayout.prototype.loadsvg = function(floorid) {
@@ -1332,12 +1334,21 @@ define(['marionette'], function(Marionette) {
     UnitTypeView.prototype.childViewContainer = '.unitSlider';
 
     UnitTypeView.prototype.onShow = function() {
-      return sudoSlider = $("#unitsSlider").sudoSlider({
+      var container, height, maxcoll, maxvalue;
+      console.log(container = $("#unitsSlider"));
+      height = container.height("auto").height();
+      container.height("auto");
+      sudoSlider = $("#unitsSlider").sudoSlider({
         customLink: "a",
         prevNext: false,
         responsive: true,
         speed: 800
       });
+      console.log(maxcoll = this.collection.toArray());
+      console.log(maxvalue = _.max(maxcoll, function(model) {
+        return model.get('count');
+      }));
+      return sudoSlider.goToSlide(maxvalue.get('id'));
     };
 
     return UnitTypeView;

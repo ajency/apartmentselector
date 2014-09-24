@@ -12,6 +12,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 uintVariantId : @Collection[8]
                 uintVariantIdArray : @Collection[8]
                 unitVariants:@Collection[7]
+                maxvalue:@Collection[9]
                 templateHelpers:
                     selection :@Collection[2]
                     countUnits : @Collection[3]
@@ -19,6 +20,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     high : @Collection[5]
                     rangetext : @Collection[6]
                     unitVariants:@Collection[7]
+                    maxvalue:@Collection[9]
 
 
             )
@@ -55,6 +57,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         uintVariantId : @Collection[8]
                         uintVariantIdArray : @Collection[8]
                         unitVariants:@Collection[7]
+                        maxvalue:@Collection[9]
                         templateHelpers:
                                 selection :@Collection[2]
                                 countUnits : @Collection[3]
@@ -62,6 +65,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                                 high : @Collection[5]
                                 rangetext : @Collection[6]
                                 unitVariants:@Collection[7]
+                                maxvalue:@Collection[9]
 
 
                 )
@@ -292,10 +296,18 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                             flag++
                     else if value.key != 'floor'
-                        value1.get(value.key) + '== ' + parseInt(value.value)
-                        if value1.get(value.key) == parseInt(value.value)
-
-                            flag++
+                        temp = []
+                        temp.push value.value
+                        tempstring = temp.join(',')
+                        initvariant = tempstring.split(',')
+                        if initvariant.length > 1
+                            for element in initvariant
+                               if value1.get(value.key) == parseInt(element)
+                                    flag++ 
+                        else
+                            if value1.get(value.key) == parseInt(value.value)
+                                flag++
+                        
 
 
                 )
@@ -392,8 +404,60 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     b.get('floor') - a.get('floor')
 
                 )
+                maxcount = []
+                maxunits = []  
+                track = 0  
+                $.each(unitAssgendModels, (index,value1)->
+                    flag = 0
+                    $.each(myArray, (index,value)->
+                        paramKey = {}
+                        paramKey[value.key] = value.value
+                        if value.key == 'budget'
+                            buildingModel = App.master.building.findWhere({'id':value1.get 'building'})
+                            floorRise = buildingModel.get 'floorrise'
+                            floorRiseValue = floorRise[value1.get 'floor']
+                            unitVariantmodel = App.master.unit_variant.findWhere({'id':value1.get 'unitVariant'})
+                            #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                            unitPrice = value1.get 'unitPrice'
+                            budget_arr = value.value.split(' ')
+                            budget_price = budget_arr[0].split('-')
+                            budget_price[0] = budget_price[0]+'00000'
+                            budget_price[1] = budget_price[1]+'00000'
+                            if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                                flag++
+                        else if value.key != 'floor'
+                            temp = []
+                            temp.push value.value
+                            tempstring = temp.join(',')
+                            initvariant = tempstring.split(',')
+                            if initvariant.length > 1
+                                for element in initvariant
+                                   if value1.get(value.key) == parseInt(element)
+                                        flag++ 
+                            else
+                                if value1.get(value.key) == parseInt(value.value)
+                                    flag++
+                            
+
+
+                    )
+                    if flag == myArray.length - 1
+                        track = 1
+                    if myArray.length == 0
+                        track = 1
+                    if track==1 && value1.get('status') == 9 && value1.get('unitType') != 14
+                        maxunits.push(value1)
+
+
+                    
+
+
+
+
+
+                )
                 unitAssgendModelsColl = new Backbone.Collection unitAssgendModels
-                unitArray.push({id:value,units:unitAssgendModelsColl})
+                unitArray.push({id:value,units:unitAssgendModelsColl,count:maxunits.length})
 
 
 
@@ -402,11 +466,15 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 a.id - b.id
 
             )
+            console.log unitArray
+            console.log maxvalue = _.max(unitArray,  (model)->
+                model.count
+            )
             newunitCollection = new Backbone.Collection unitArray
             buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
             console.log buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
-            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID]
+            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue]
 
 
 

@@ -24,13 +24,15 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
         unitVariants: this.Collection[7],
+        maxvalue: this.Collection[9],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
           range: this.Collection[4],
           high: this.Collection[5],
           rangetext: this.Collection[6],
-          unitVariants: this.Collection[7]
+          unitVariants: this.Collection[7],
+          maxvalue: this.Collection[9]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
@@ -55,13 +57,15 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         uintVariantId: this.Collection[8],
         uintVariantIdArray: this.Collection[8],
         unitVariants: this.Collection[7],
+        maxvalue: this.Collection[9],
         templateHelpers: {
           selection: this.Collection[2],
           countUnits: this.Collection[3],
           range: this.Collection[4],
           high: this.Collection[5],
           rangetext: this.Collection[6],
-          unitVariants: this.Collection[7]
+          unitVariants: this.Collection[7],
+          maxvalue: this.Collection[9]
         }
       });
       this.listenTo(this.layout, "show", this.showViews);
@@ -127,7 +131,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, uniqunitAssignedval, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, maxvalue, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, track, trackArray, uniqBuildings, uniqUnitvariant, uniqunitAssigned, uniqunitAssignedval, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -263,7 +267,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       $.each(floorUnitsArray, function(index, value1) {
         flag = 0;
         $.each(myArray, function(index, value) {
-          var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, paramKey, unitPrice, unitVariantmodel;
+          var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
           paramKey = {};
           paramKey[value.key] = value.value;
           if (value.key === 'budget') {
@@ -284,9 +288,25 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               return flag++;
             }
           } else if (value.key !== 'floor') {
-            value1.get(value.key) + '== ' + parseInt(value.value);
-            if (value1.get(value.key) === parseInt(value.value)) {
-              return flag++;
+            temp = [];
+            temp.push(value.value);
+            tempstring = temp.join(',');
+            initvariant = tempstring.split(',');
+            if (initvariant.length > 1) {
+              _results = [];
+              for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+                element = initvariant[_i];
+                if (value1.get(value.key) === parseInt(element)) {
+                  _results.push(flag++);
+                } else {
+                  _results.push(void 0);
+                }
+              }
+              return _results;
+            } else {
+              if (value1.get(value.key) === parseInt(value.value)) {
+                return flag++;
+              }
             }
           }
         });
@@ -371,7 +391,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         return a - b;
       });
       $.each(uniqunitAssigned, function(index, value) {
-        var floorColl, unitAssgendModels, unitAssgendModelsColl;
+        var floorColl, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
         floorColl = new Backbone.Collection(floorUnitsArray);
         if (App.defaults['building'] === "All") {
           unitAssgendModels = floorColl.where({
@@ -398,22 +418,86 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         unitAssgendModels.sort(function(a, b) {
           return b.get('floor') - a.get('floor');
         });
+        maxcount = [];
+        maxunits = [];
+        track = 0;
+        $.each(unitAssgendModels, function(index, value1) {
+          flag = 0;
+          $.each(myArray, function(index, value) {
+            var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
+            paramKey = {};
+            paramKey[value.key] = value.value;
+            if (value.key === 'budget') {
+              buildingModel = App.master.building.findWhere({
+                'id': value1.get('building')
+              });
+              floorRise = buildingModel.get('floorrise');
+              floorRiseValue = floorRise[value1.get('floor')];
+              unitVariantmodel = App.master.unit_variant.findWhere({
+                'id': value1.get('unitVariant')
+              });
+              unitPrice = value1.get('unitPrice');
+              budget_arr = value.value.split(' ');
+              budget_price = budget_arr[0].split('-');
+              budget_price[0] = budget_price[0] + '00000';
+              budget_price[1] = budget_price[1] + '00000';
+              if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+                return flag++;
+              }
+            } else if (value.key !== 'floor') {
+              temp = [];
+              temp.push(value.value);
+              tempstring = temp.join(',');
+              initvariant = tempstring.split(',');
+              if (initvariant.length > 1) {
+                _results = [];
+                for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+                  element = initvariant[_i];
+                  if (value1.get(value.key) === parseInt(element)) {
+                    _results.push(flag++);
+                  } else {
+                    _results.push(void 0);
+                  }
+                }
+                return _results;
+              } else {
+                if (value1.get(value.key) === parseInt(value.value)) {
+                  return flag++;
+                }
+              }
+            }
+          });
+          if (flag === myArray.length - 1) {
+            track = 1;
+          }
+          if (myArray.length === 0) {
+            track = 1;
+          }
+          if (track === 1 && value1.get('status') === 9 && value1.get('unitType') !== 14) {
+            return maxunits.push(value1);
+          }
+        });
         unitAssgendModelsColl = new Backbone.Collection(unitAssgendModels);
         return unitArray.push({
           id: value,
-          units: unitAssgendModelsColl
+          units: unitAssgendModelsColl,
+          count: maxunits.length
         });
       });
       unitArray.sort(function(a, b) {
         return a.id - b.id;
       });
+      console.log(unitArray);
+      console.log(maxvalue = _.max(unitArray, function(model) {
+        return model.count;
+      }));
       newunitCollection = new Backbone.Collection(unitArray);
       buildingModel = App.currentStore.building.where({
         id: parseInt(buildingvalue)
       });
       console.log(buildingCollection = new Backbone.Collection(buildingModel));
       mainnewarr = "";
-      return [buildingCollection, newunitCollection, templateString, Countunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID];
+      return [buildingCollection, newunitCollection, templateString, Countunits.length, templateString, mainnewarr, range, unitVariantModels, unitVariantID, maxvalue];
     };
 
     ScreenThreeController.prototype.mainUnitSelected = function(childview, childview1, unit, unittypeid, range, size) {
