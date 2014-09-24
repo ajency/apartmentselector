@@ -128,6 +128,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log str1 = id.replace( /[^\d.]/g, '' )
                 floorUnitsArray = []
                 myArray = []
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if buildigmodel == undefined || buildigmodel == ""
+                    return false
                 screenonearray = App.backFilter['screen1']
                 for element in screenonearray
                     if App.defaults[element] != 'All'

@@ -58,6 +58,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         floorUnitsArray = [];
         myArray = [];
+        buildigmodel = App.master.building.findWhere({
+          id: parseInt(str1)
+        });
+        if (buildigmodel === void 0 || buildigmodel === "") {
+          return false;
+        }
         screenonearray = App.backFilter['screen1'];
         for (_i = 0, _len = screenonearray.length; _i < _len; _i++) {
           element = screenonearray[_i];

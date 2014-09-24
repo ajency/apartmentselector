@@ -391,12 +391,12 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         return a - b;
       });
       $.each(uniqunitAssigned, function(index, value) {
-        var floorColl, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
-        floorColl = new Backbone.Collection(floorUnitsArray);
+        var floorColl, floorColl1, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
+        floorColl1 = _.reject(floorUnitsArray, function(model) {
+          return model.get('unitType') === 14 || model.get('unitType') === 16;
+        });
+        console.log(floorColl = new Backbone.Collection(floorColl1));
         if (App.defaults['building'] === "All") {
-          floorColl = _.reject(floorColl, function(model) {
-            return model.get('unitType') !== 14 && model.get('unitType') !== 16;
-          });
           unitAssgendModels = floorColl.where({
             unitAssigned: value,
             building: buildingvalue

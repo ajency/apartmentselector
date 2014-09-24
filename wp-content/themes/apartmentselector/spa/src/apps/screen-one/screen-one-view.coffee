@@ -261,6 +261,9 @@ define [ 'marionette' ], ( Marionette )->
                 e.preventDefault()
                 id  = e.target.id
                 str1 = id.replace( /[^\d.]/g, '' )
+                buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
+                if buildigmodel == undefined || buildigmodel == ""
+                    return false
                 floorUnitsArray = []
                 myArray = []
                 screenonearray = App.backFilter['screen1']
