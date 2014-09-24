@@ -48,6 +48,17 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'facing': 'All',
     'unittypeback': 'All'
   };
+  window.onunload = function() {
+    App.navigate("");
+    $.map(App.defaults, function(value, index) {
+      return App.defaults[index] = 'All';
+    });
+    App.currentStore.unit.reset(UNITS);
+    App.currentStore.building.reset(BUILDINGS);
+    App.currentStore.unit_type.reset(UNITTYPES);
+    App.currentStore.unit_variant.reset(UNITVARIANTS);
+    return msgbus.showApp('main:app').insideRegion(App.mainRegion).withOptions();
+  };
   App.filter = function(params) {
     var budgetUnitArray, buildingArray, buildingModel, buildings, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
     if (params == null) {

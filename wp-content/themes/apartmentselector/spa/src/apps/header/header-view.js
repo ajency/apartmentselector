@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return HeaderView.__super__.constructor.apply(this, arguments);
     }
 
-    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns hidden {{btnClass}}"> <!--<a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>--> <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h3 class="m-t-15 light"><span class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3> </div>';
+    HeaderView.prototype.template = '<div class="backBtn {{textClass}}"> <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a> </div> <div class="rightBtns  {{btnClass}}"> <a  id="showTop" class="text-white hidden"><span class="glyphicon glyphicon-filter"></span></a> <a id="showRightPush" class="text-white hidden "><span class="glyphicon glyphicon-user"></span></a> </div> <div class="text-center"> <h3 class="m-t-15 light"><span class="slctnTxt">Your selection</span> <span id="textstring"></span> </h3> </div>';
 
     HeaderView.prototype.className = "header navbar navbar-inverse";
 
@@ -96,7 +96,15 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, cookieOldValue, disableOther, flag, menuRight, menuTop, showRightPush, textString;
+      var body, capability, cookieOldValue, disableOther, flag, menuRight, menuTop, showRightPush, textString, usermodel;
+      usermodel = new Backbone.Model(USER);
+      capability = usermodel.get('all_caps');
+      if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
+        console.log("222");
+        $('#showTop').removeClass('hidden');
+      } else {
+        $('#showTop').hide();
+      }
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
       flag = 0;
@@ -121,6 +129,11 @@ define(['marionette'], function(Mariontte) {
       menuTop = document.getElementById("cbp-spmenu-s3");
       showRightPush = document.getElementById("showRightPush");
       body = document.body;
+      showTop.onclick = function() {
+        classie.toggle(this, "active");
+        classie.toggle(menuTop, "cbp-spmenu-open");
+        disableOther("showTop");
+      };
       showRightPush.onclick = function() {
         classie.toggle(this, "active");
         classie.toggle(body, "cbp-spmenu-push-toleft");
@@ -130,7 +143,7 @@ define(['marionette'], function(Mariontte) {
       if (window.location.href.indexOf('screen-two') > -1 || window.location.href.indexOf('screen-three') > -1 || window.location.href.indexOf('screen-four') > -1) {
         true;
       } else if (window.location.href.indexOf('wishList') > -1) {
-        $('.rightBtns').addClass('hidden');
+        $('#showRightPush').addClass('hidden');
         $('.backBtn').addClass('hidden');
         $('.slctnTxt').addClass('hidden');
         $('h3').addClass('step1');
@@ -148,7 +161,7 @@ define(['marionette'], function(Mariontte) {
         });
       }
       if (cookieOldValue.length >= 1) {
-        return $(".rightBtns").removeClass("hidden");
+        return $("#showRightPush").removeClass("hidden");
       }
     };
 

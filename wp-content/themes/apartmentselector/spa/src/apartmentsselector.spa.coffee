@@ -74,7 +74,20 @@ require [ 'plugin-loader'
     App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All','unittypeback':'All'}
 
 
-   
+    window.onunload = ()->
+        App.navigate ""
+        $.map(App.defaults, (value, index)->
+                App.defaults[index] = 'All'
+
+            )
+        App.currentStore.unit.reset UNITS
+        App.currentStore.building.reset BUILDINGS
+        App.currentStore.unit_type.reset UNITTYPES
+        App.currentStore.unit_variant.reset UNITVARIANTS
+        msgbus.showApp 'main:app'
+        .insideRegion  App.mainRegion
+            .withOptions()
+
 
 
 

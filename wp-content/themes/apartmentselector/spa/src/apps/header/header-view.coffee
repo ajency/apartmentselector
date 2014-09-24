@@ -7,9 +7,9 @@ define [ 'marionette' ], ( Mariontte )->
                         <a  class="back text-white"><span class="glyphicon glyphicon-chevron-left "></span></a>
         		    </div>
 
-                    <div class="rightBtns hidden {{btnClass}}">
-                        <!--<a  id="showTop" class="text-white"><span class="glyphicon glyphicon-filter"></span></a>-->
-                        <a id="showRightPush" class="text-white"><span class="glyphicon glyphicon-user"></span></a>
+                    <div class="rightBtns  {{btnClass}}">
+                        <a  id="showTop" class="text-white hidden"><span class="glyphicon glyphicon-filter"></span></a>
+                        <a id="showRightPush" class="text-white hidden "><span class="glyphicon glyphicon-user"></span></a>
                     </div>
 
                     <div class="text-center">
@@ -103,7 +103,14 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
-            
+            usermodel = new Backbone.Model USER
+            capability = usermodel.get('all_caps')
+            if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+                console.log "222"
+                $('#showTop').removeClass 'hidden'
+            else
+                $('#showTop').hide()
+                #@trigger "get:perSqft:price"
             textString  = Marionette.getOption( @, 'textString' )
             $('#textstring').html textString
             flag = 0
@@ -131,11 +138,11 @@ define [ 'marionette' ], ( Mariontte )->
             # showTop = document.getElementById("showTop")
             showRightPush = document.getElementById("showRightPush")
             body = document.body
-            # showTop.onclick = ->
-            #   classie.toggle this, "active"
-            #   classie.toggle menuTop, "cbp-spmenu-open"
-            #   disableOther "showTop"
-            #   return
+            showTop.onclick = ->
+              classie.toggle this, "active"
+              classie.toggle menuTop, "cbp-spmenu-open"
+              disableOther "showTop"
+              return
 
             showRightPush.onclick = ->
               classie.toggle this, "active"
@@ -149,7 +156,7 @@ define [ 'marionette' ], ( Mariontte )->
                 true
 
             else if  window.location.href.indexOf('wishList') > -1
-                $('.rightBtns').addClass 'hidden'
+                $('#showRightPush').addClass 'hidden'
                 $('.backBtn').addClass 'hidden'
                 $('.slctnTxt').addClass 'hidden'
                 $('h3').addClass 'step1'
@@ -169,7 +176,7 @@ define [ 'marionette' ], ( Mariontte )->
 
 
             if cookieOldValue.length >= 1
-                $(".rightBtns").removeClass "hidden"
+                $("#showRightPush").removeClass "hidden"
             
 
                 
