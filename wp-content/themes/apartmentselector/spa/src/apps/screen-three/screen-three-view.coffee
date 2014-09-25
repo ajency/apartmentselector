@@ -122,9 +122,14 @@ define [ 'marionette' ], ( Marionette )->
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
-                temp = ['f','ff']
-                temp1 = ['t','tt']
-                temp2 = ['c','cc']
+                temp = ['ff','f']
+                temp1 = ['tt','t']
+                temp2 = ['cc','cc']
+                
+                if  parseInt(building.get('id')) == 11
+                        temp = ['f','ff']
+                        temp1 = ['t','tt']
+                        temp2 = ['c','cc']
                 id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
@@ -241,9 +246,14 @@ define [ 'marionette' ], ( Marionette )->
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
-                temp = ['f','ff']
-                temp1 = ['t','tt']
-                temp2 = ['c','cc']
+                temp = ['ff','f']
+                temp1 = ['tt','t']
+                temp2 = ['cc','cc']
+                
+                if  parseInt(building.get('id')) == 11
+                        temp = ['f','ff']
+                        temp1 = ['t','tt']
+                        temp2 = ['c','cc']
                 console.log id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
@@ -338,9 +348,14 @@ define [ 'marionette' ], ( Marionette )->
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
-                temp = ['f','ff']
-                temp1 = ['t','tt']
-                temp2 = ['c','cc']
+                temp = ['ff','f']
+                temp1 = ['tt','t']
+                temp2 = ['cc','cc']
+                
+                if  parseInt(building.get('id')) == 11
+                        temp = ['f','ff']
+                        temp1 = ['t','tt']
+                        temp2 = ['c','cc']
                 id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
@@ -385,9 +400,14 @@ define [ 'marionette' ], ( Marionette )->
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
-                temp = ['f','ff']
-                temp1 = ['t','tt']
-                temp2 = ['c','cc']
+                temp = ['ff','f']
+                temp1 = ['tt','t']
+                temp2 = ['cc','cc']
+                
+                if  parseInt(building.get('id')) == 11
+                        temp = ['f','ff']
+                        temp1 = ['t','tt']
+                        temp2 = ['c','cc']
                 id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
@@ -445,9 +465,14 @@ define [ 'marionette' ], ( Marionette )->
                 svgposition = ""
                 unitvalues = ""
                 indexvalue = ""
-                temp = ['f','ff']
-                temp1 = ['t','tt']
-                temp2 = ['c','cc']
+                temp = ['ff','f']
+                temp1 = ['tt','t']
+                temp2 = ['cc','cc']
+                
+                if  parseInt(building.get('id')) == 11
+                        temp = ['f','ff']
+                        temp1 = ['t','tt']
+                        temp2 = ['c','cc']
                 id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
