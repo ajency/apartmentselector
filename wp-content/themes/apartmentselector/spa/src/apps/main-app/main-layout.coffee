@@ -58,55 +58,7 @@ You can add Apartments to your wish list by clicking on the \'Add to wish list\'
 You can compare up to 4 apartments!</div>
 
         </nav>
-        <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
-            <div class="row m-l-0 m-r-0">
-                <div class="col-sm-3">
-                    <!--<h3>Additional Filters</h3>-->
-                    <div class="small blockTitle">Select Position</div>
-                    <div id="mainsvg"><label id="floorText">Floormap can be selected only on screen three</label></div>
-                </div>
-                <div class="col-sm-3 b-l b-r b-grey">
-                    <div class="small blockTitle">Select View</div>
-
-                    {{#VIEWS}}
-                     <div class="filterBox">
-                        <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" class="checkbox view" value="{{id}}"/>
-                        <label for="view{{id}}">{{name}}</label>
-                    </div>
-                     {{/VIEWS}}
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-sm-3 b-r b-grey">
-                    <div class="small blockTitle">Select Facing</div>
-
-                    {{#FACINGS}}
-                     <div class="filterBox">
-                        <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" class="checkbox facing" value="{{id}}"/>
-                        <label for="facing{{id}}">{{name}}</label>
-                    </div>
-                    {{/FACINGS}}
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-sm-3 summaryBox">
-                    <div class="small blockTitle">Option Selected</div>
-                    <div class="section">
-                        <div class="small">Position</div>
-                        5
-                    </div>
-                    <div class="section">
-                        <div class="small" >View</div>
-                        <span id="viewName"></span>
-                    </div>
-                    <div class="section">
-                        <div class="small" >Facing</div>
-                        <span id="facingName"></span>
-                    </div>
-                    
-                    <a href="#" class="btn btn-primary m-t-20 m-b-10" id="">Apply</a>
-                    
-                </div>
-            </div>
-        </nav>
+        
         
         <div id="screen-one-region" class="section">
 

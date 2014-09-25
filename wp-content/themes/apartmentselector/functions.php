@@ -193,7 +193,9 @@ if ( is_development_environment() ) {
 
         $module = get_module_name();
 
-        wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css" );
+        wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css", array(), "", "screen" );
+
+        wp_enqueue_style( "$module-print-style", get_template_directory_uri() . "/css/{$module}.print.css", array(), "", "print" );
 
     } 
         add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );

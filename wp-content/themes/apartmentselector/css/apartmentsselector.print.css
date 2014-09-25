@@ -1,0 +1,115 @@
+@import url('apartmentsselector.styles.css');
+/**** Print Styles Here ****/
+img,
+svg {
+  max-width: 100% !important;
+}
+@page  {
+  margin: 0.5cm;
+}
+p,
+h2,
+h3 {
+  orphans: 3;
+  widows: 3;
+}
+h2,
+h3 {
+  page-break-after: avoid;
+}
+body {
+  font-size: 12pt;
+  width: 100%;
+}
+/****Clearfix****/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after,
+.clearfix:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+[class^="visible-"],
+[class^="col-"] {
+  display: block !important;
+}
+#header-region,
+#filter-region,
+.cbp-spmenu,
+.grid-link,
+.btn,
+.web-view {
+  display: none !important;
+}
+.print-view {
+  display: block !important;
+}
+.section .row {
+  *zoom: 1;
+}
+.section .row:after,
+.section .row:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.section .row [class^="col-"] {
+  float: left;
+}
+.section .row [class^="col-"]:first-child {
+  width: 33.3333%;
+}
+.section .row [class^="col-"]:nth-child(2) {
+  width: 66.6667%;
+}
+.section .row [class^="col-"] .im-map {
+  width: 100% !important;
+  height: 100% !important;
+}
+.print-header {
+  display: block !important;
+  margin: 0 0 20px;
+  padding: 0 30px;
+}
+.print-header .row {
+  *zoom: 1;
+}
+.print-header .row:after,
+.print-header .row:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.print-header .row [class^="col-"] {
+  float: left;
+}
+.print-header .row [class^="col-"]:first-child {
+  width: 50%;
+}
+.print-header .row [class^="col-"]:last-child {
+  width: 50%;
+}
+.print-header .print-head {
+  border: 1px solid #555555;
+  border-top: 2px solid #555555;
+  background: #eeeeee;
+}
+.print-header .print-head h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20pt;
+  line-height: 1em;
+}
+.print-header .print-sub-head {
+  border: 1px solid #555555;
+  border-top: 0;
+  background: #ffffff;
+}
+.print-header .print-sub-head h2 {
+  font-weight: normal;
+  text-align: center;
+  font-size: 13pt;
+  line-height: 1em;
+}
