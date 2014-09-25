@@ -831,10 +831,17 @@ define [ 'marionette' ], ( Marionette )->
             unitvalues = ""
             indexvalue = ""
             $('#positionsvg').text ""
-            temp = ['f','ff']
-            temp1 = ['t','tt']
-            temp2 = ['c','cc']
+            temp = ['ff','f']
+            temp1 = ['tt','t']
+            temp2 = ['cc','cc']
+            
+            if  parseInt(building.get('id')) == 11
+                    temp = ['f','ff']
+                    temp1 = ['t','tt']
+                    temp2 = ['c','cc']
             $.each(svgdata, (index,value)->
+                
+                    
                 if $.inArray(floorid,value.svgposition ) >= 0 && value.svgposition != null
                     ii = 0
                     if value.svgfile != ""

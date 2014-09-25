@@ -23,6 +23,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     medium : @Collection[6]
                     low : @Collection[7]
                     unitVariants:@Collection[8]
+                    views :@Collection[11] 
                     AJAXURL : AJAXURL)
 
 
@@ -329,7 +330,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
             unitVariantID = []
+            viewModels = []
+            viewID = []
 
+            # views = floorCollection.pluck("views")
+            # uniqviews = _.uniq(views)
+
+            # $.each(uniqviews, (index,value)->
+            #     viewModel = App.master.view.findWhere({id:value})
+            #     viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
+            #     viewID.push(parseInt(viewModel.get('id')))
+
+            # )
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
@@ -729,7 +741,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             units = new Backbone.Collection(unitsactual)
 
 
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID]
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID,viewModels]
 
 
 
