@@ -23,7 +23,9 @@
 
     <meta charset="<?php bloginfo( 'charset' ); ?>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><?php wp_title(); ?></title>
+    <!--<title><?php wp_title(); ?></title>-->
+    <title>Apartment Selector - Manas Lake</title>
+    <link rel="shortcut icon" href="../wp-content/themes/apartmentselector/images/favicon.png" />
     <meta name="viewport" content="width=device-width"/>
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.js"></script>
