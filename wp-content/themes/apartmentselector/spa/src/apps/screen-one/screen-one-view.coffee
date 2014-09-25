@@ -145,7 +145,7 @@ define [ 'marionette' ], ( Marionette )->
     class ScreenOneView extends Marionette.CompositeView
 
                             
-        template : '<h3 class="light text-center m-t-0">LOREM IPSUM TITLE</h3>
+        template : '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3>
                     <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4>
                     <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div>
                     <div class="introTxt text-center">To get started, either:</div>-->
