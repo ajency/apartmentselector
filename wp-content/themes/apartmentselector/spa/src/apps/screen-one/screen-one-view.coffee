@@ -30,17 +30,36 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unittype'+@model.get("id"))
 
         unitTypeSelected : ( evt )->
+
             if @model.get('id') == 'nopreferences'
-               $('#unittype'+@model.get("id")+' a' ).removeClass 'selected'
-               for element , index in unitType
-                    $("#check"+element).val '0'
-                    $('#unittype'+element+' a' ).removeClass 'selected'
-                    App.backFilter['screen1'] = []
-               $('#showbudget').removeClass 'hidden'
-               unitType = []
-               $("#finalButton").addClass 'disabled btn-default'
-               $("#finalButton").removeClass 'btn-primary'
-               return false 
+                if  parseInt($("#check"+@model.get 'id').val()) == 0
+                    $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
+                    for element , index in unitType
+                        $("#check"+element).val '0'
+                        $('#unittype'+element+' a' ).removeClass 'selected'
+                        App.backFilter['screen1'] = []
+                    $('#showbudget').removeClass 'hidden'
+                    masterbuilding = App.master.building
+                    masterbuilding.each ( index)->
+                        $("#hglighttower"+index.get('id')).attr('class','overlay')
+                    
+                    
+                    $("#check"+@model.get 'id').val "1"
+                else
+                    console.log "eeeeeeee"
+                    $("li").removeClass 'cs-selected'
+                    $(".cs-placeholder").text('Undecided')
+                    $('#showbudget').addClass 'hidden'
+                    $("#check"+@model.get 'id').val "0"
+                    masterbuilding = App.master.building
+                    masterbuilding.each ( index)->
+                        $("#hglighttower"+index.get('id')).attr('class','overlay')
+                    
+                    $('#unittype'+@model.get("id")+' a' ).removeClass 'selected'
+                unitType = []
+                $("#finalButton").addClass 'disabled btn-default'
+                $("#finalButton").removeClass 'btn-primary'
+                return false 
             $.map(App.backFilter, (value, index)->
                 
                 screenArray  = App.backFilter[index]
@@ -66,7 +85,7 @@ define [ 'marionette' ], ( Marionette )->
             
             $("li").removeClass 'cs-selected'
             $(".cs-placeholder").text('Undecided')
-
+            $("#checknopreferences").val "0"
             $('a' ).removeClass 'selected'
             
             for element , index in unitType

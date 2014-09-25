@@ -103,7 +103,7 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             )
             noPrefereceModel = new Backbone.Model
             noPrefereceModel.set 'id' , 'nopreferences'
-            noPrefereceModel.set 'name' , 'No Preference'
+            noPrefereceModel.set 'name' , 'BUDGET'
             modelArray.push noPrefereceModel
             priceArray.sort( (a,b) ->
                 a = a.split(' ')

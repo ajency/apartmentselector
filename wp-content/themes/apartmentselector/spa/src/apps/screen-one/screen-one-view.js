@@ -28,16 +28,34 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var buildings, element, index, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _j, _len, _len1;
+      var buildings, element, index, masterbuilding, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _j, _len, _len1;
       if (this.model.get('id') === 'nopreferences') {
-        $('#unittype' + this.model.get("id") + ' a').removeClass('selected');
-        for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
-          element = unitType[index];
-          $("#check" + element).val('0');
-          $('#unittype' + element + ' a').removeClass('selected');
-          App.backFilter['screen1'] = [];
+        if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
+          $('#unittype' + this.model.get("id") + ' a').addClass('selected');
+          for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
+            element = unitType[index];
+            $("#check" + element).val('0');
+            $('#unittype' + element + ' a').removeClass('selected');
+            App.backFilter['screen1'] = [];
+          }
+          $('#showbudget').removeClass('hidden');
+          masterbuilding = App.master.building;
+          masterbuilding.each(function(index) {
+            return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
+          });
+          $("#check" + this.model.get('id')).val("1");
+        } else {
+          console.log("eeeeeeee");
+          $("li").removeClass('cs-selected');
+          $(".cs-placeholder").text('Undecided');
+          $('#showbudget').addClass('hidden');
+          $("#check" + this.model.get('id')).val("0");
+          masterbuilding = App.master.building;
+          masterbuilding.each(function(index) {
+            return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
+          });
+          $('#unittype' + this.model.get("id") + ' a').removeClass('selected');
         }
-        $('#showbudget').removeClass('hidden');
         unitType = [];
         $("#finalButton").addClass('disabled btn-default');
         $("#finalButton").removeClass('btn-primary');
@@ -71,6 +89,7 @@ define(['marionette'], function(Marionette) {
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
+      $("#checknopreferences").val("0");
       $('a').removeClass('selected');
       for (index = _j = 0, _len1 = unitType.length; _j < _len1; index = ++_j) {
         element = unitType[index];

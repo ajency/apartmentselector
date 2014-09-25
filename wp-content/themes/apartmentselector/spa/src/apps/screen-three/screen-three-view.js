@@ -1107,7 +1107,7 @@ define(['marionette'], function(Marionette) {
 
     unitChildView.prototype.events = {
       'click ': function(e) {
-        var buildingModel, check, element, idValue, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues, _i, _len;
+        var buildingModel, check, element, idValue, idvalue, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues, _i, _len;
         screenThreeLayout = new ScreenThreeLayout();
         check = screenThreeLayout.checkSelection(this.model);
         if (check === 1 && this.model.get('status') === 9) {
@@ -1139,6 +1139,15 @@ define(['marionette'], function(Marionette) {
                   return $('#ff' + value).attr('class', 'unit-hover');
                 });
               });
+            }
+          });
+          object = this;
+          idvalue = "";
+          $.each(indexvalue, function(index, value) {
+            if (parseInt($('#f' + index).attr('data-value')) === object.model.get('id')) {
+              return idvalue = $('#f' + index).attr('data-idvalue');
+            } else if (parseInt($('#ff' + index).attr('data-value')) === object.model.get('id')) {
+              return idvalue = $('#ff' + index).attr('data-idvalue');
             }
           });
           $('#screen-four-region').removeClass('section');
@@ -1177,15 +1186,17 @@ define(['marionette'], function(Marionette) {
               if (App.defaults['floor'] !== 'All') {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
+                  var textid;
                   console.log(position);
                   if (parseInt(value) === parseInt(val)) {
-                    if (position === 3 || position === 1) {
-                      $('#f' + value).attr('class', 'unit-hover range');
-                      return $('#t' + value).text("");
+                    textid = "";
+                    $('#' + idvalue + value).attr('class', 'unit-hover range');
+                    if (idvalue === 'f') {
+                      textid = 't';
                     } else {
-                      $('#ff' + value).attr('class', 'unit-hover range');
-                      return $('#tt' + value).text("");
+                      textid = 'tt';
                     }
+                    return $('#' + textid + value).text("");
                   }
                 });
               } else {
@@ -1196,18 +1207,24 @@ define(['marionette'], function(Marionette) {
               }
             });
             $.map(indexvalue, function(index, value) {
-              var positionassigend;
+              var currency, positionassigend, text, textid, unittpe;
               if (parseInt(index) === object.model.get("id")) {
                 positionassigend = value;
-                if (position === 3 || position === 1) {
-                  $("#f" + value).attr('class', 'selected-flat');
-                  $("#t" + value).attr('class', 'selected-flat');
-                  return $('#t' + value).text(object.model.get('name'));
+                $("#" + idvalue + value).attr('class', 'selected-flat');
+                if (idvalue === 'f') {
+                  textid = 't';
                 } else {
-                  $("#ff" + value).attr('class', 'selected-flat');
-                  $("#tt" + value).attr('class', 'selected-flat');
-                  return $('#tt' + value).text(object.model.get('name'));
+                  textid = 'tt';
                 }
+                $("#" + textid + value).attr('class', 'selected-flat');
+                $('#currency2').autoNumeric('init');
+                $('#currency2').autoNumeric('set', object.model.get('unitPrice'));
+                currency = $('#currency2').val();
+                unittpe = App.master.unit_type.findWhere({
+                  id: object.model.get('unitType')
+                });
+                text = '<tspan x="-50" y="-10">' + object.model.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                return $('#' + textid + value).html(text);
               }
             });
             $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
@@ -1234,11 +1251,7 @@ define(['marionette'], function(Marionette) {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
                   if (parseInt(value) === parseInt(val)) {
-                    if (position === 3 || position === 1) {
-                      return $('#f' + val).attr('class', 'unit-hover range');
-                    } else {
-                      return $('#ff' + val).attr('class', 'unit-hover range');
-                    }
+                    return $("#" + idvalue + val).attr('class', 'unit-hover range');
                   }
                 });
               }
