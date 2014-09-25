@@ -84,7 +84,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
                                 <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                             </div>
-                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "   data-d-group="2">
+                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
                     </div>'
 
 

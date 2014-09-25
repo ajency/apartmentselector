@@ -80,7 +80,7 @@ define [ 'marionette' ], ( Marionette )->
                                 
                             </div>
                         </div>
-                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-d-group="2">
+                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2">
                     </div>'
 
 
