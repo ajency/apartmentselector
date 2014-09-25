@@ -118,6 +118,14 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
                     )
+                    terraceoptions = unitVariantModel.get 'terraceoptions'
+                    if terraceoptions == null
+                        terraceoptionstext = '---------'
+                    else
+                        terraceoptionstext = unitVariantModel.get 'terraceoptions'
+
+                    unitModel.set 'terraceoptions','with '+terraceoptionstext
+                    terraceoptions = 'with '+terraceoptionstext
                     console.log roomSizesArray
                     roomsizearr = []
                     mainArr = []
@@ -126,13 +134,24 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         roomsizearr = []
                         console.log val
                         console.log roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
-                        $.each(roomtype, (index1,value1)->
-                            roomsizearr.push({room_size:value1.get('room_size')})
+                        ii = 0
+                        if parseInt(val) == 70
+                            if ii > 0
+                                terraceoptions = ""
+                            $.each(roomtype, (index1,value1)->
+                                roomsizearr.push({room_size:value1.get('room_size'),terace:terraceoptions})
+                                ii++
+
+                            )
+                        else
+                            $.each(roomtype, (index1,value1)->
+                                roomsizearr.push({room_size:value1.get('room_size')})
 
 
                             )
+
                         roomsizearr.sort( (a,b)->
-                            b - a
+                            b.room_size - a.room_size
 
                             )
                         if roomsizearr.length == 0
@@ -144,6 +163,8 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         
                     console.log mainArr
                     unitModel.set 'mainArr',mainArr
+                    
+
                     
                     unitModelArray.push(unitModel)
                 console.log unitModelArray
