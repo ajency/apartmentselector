@@ -831,10 +831,12 @@ define [ 'marionette' ], ( Marionette )->
                         svgposition = value.svgfile
                         unitsarray = value.units
                         $('#positionsvg').load(svgposition,  (x)->
+                            console.log value.svgposition
                             value.svgposition.sort( (a,b)->
                                 b - a
 
                                 )
+                            console.log value.svgposition
                             $.each(value.svgposition, (index1,val1)->
                                 indexvalue = unitsarray[val1]
                                 

@@ -26,7 +26,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var buildingModel, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      var buildingModel, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       console.log(modelstring);
       console.log(cookeArray = modelstring);
       unitModelArray = [];
@@ -135,24 +135,46 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             console.log(value1);
             return [index];
           });
+          terraceoptions = unitVariantModel.get('terraceoptions');
+          if (terraceoptions === null) {
+            terraceoptionstext = '---------';
+          } else {
+            terraceoptionstext = unitVariantModel.get('terraceoptions');
+          }
+          unitModel.set('terraceoptions', 'with ' + terraceoptionstext);
+          terraceoptions = 'with ' + terraceoptionstext;
           console.log(roomSizesArray);
           roomsizearr = [];
           mainArr = [];
           console.log(roomsizesCollection = new Backbone.Collection(roomSizesArray));
           $.each(roomTypeArr, function(ind, val) {
-            var roomtype;
+            var ii, roomtype;
             roomsizearr = [];
             console.log(val);
             console.log(roomtype = roomsizesCollection.where({
               room_type_id: parseInt(val)
             }));
-            $.each(roomtype, function(index1, value1) {
-              return roomsizearr.push({
-                room_size: value1.get('room_size')
+            ii = 0;
+            if (parseInt(val) === 70) {
+              if (ii > 0) {
+                terraceoptions = "";
+              }
+              $.each(roomtype, function(index1, value1) {
+                roomsizearr.push({
+                  room_size: value1.get('room_size'),
+                  terace: terraceoptions
+                });
+                return ii++;
               });
-            });
+            } else {
+              $.each(roomtype, function(index1, value1) {
+                return roomsizearr.push({
+                  room_size: value1.get('room_size')
+                });
+              });
+            }
             roomsizearr.sort(function(a, b) {
-              return b - a;
+              return b.room_size - a.room_size;
             });
             if (roomsizearr.length === 0) {
               roomsizearr.push({
