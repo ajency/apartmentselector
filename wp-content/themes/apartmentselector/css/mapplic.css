@@ -377,7 +377,7 @@
 
 /* Tooltip */
 .im-tooltip {
-background :rgba(0, 0, 0, 0.85)url(../images/skyi-logo-1.png)no-repeat;
+background :rgba(0, 0, 0, 0.85);
 box-shadow: 0 0 6px rgba(0, 0, 0, 1);
 background-position: 0px 10px;
 background-size: 23%;
@@ -390,7 +390,7 @@ text-align: left;
 	position: absolute;
 	width: 200px;
 	border: 1px solid rgba(255, 255, 255, 0.4);
-	padding-left: 48px;
+	/*padding-left: 48px;*/
 }
 /*
 .im-tooltip-triangle {

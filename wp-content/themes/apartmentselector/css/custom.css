@@ -6255,8 +6255,8 @@ h5 {
   /* IE10+ */
   background: linear-gradient(to bottom, #ff6600 0%, #d65600 100%);
   /* W3C */
-  -webkit-box-shadow: -4px 1px 6px 1px #b3b3b3;
-  box-shadow: -4px 1px 6px 1px #b3b3b3;
+  -webkit-box-shadow: -4px 1px 4px 1px #b3b3b3;
+  box-shadow: -4px 1px 4px 1px #b3b3b3;
 }
 .header.navbar h3 {
   font-family: 'kievit';
@@ -6293,7 +6293,7 @@ h5 {
   .slctnTxt {
     display: inline-block;
     text-transform: capitalize;
-    padding: 13px 2% 13px 0;
+    padding: 13px 8px 13px 0;
     position: relative;
     color: #e2e2e2;
     text-shadow: none;
@@ -6315,6 +6315,8 @@ h5 {
     color: #ffffff;
     margin: 0;
     text-align: center;
+    font-size: 28px;
+    font-weight: 400;
     margin-left: 0;
   }
   .header.navbar h3 small,
@@ -6353,20 +6355,20 @@ h5 {
 @media (min-width: 768px) {
   .backBtn a,
   .rightBtns a {
-    padding: 20.5px 0;
-    width: 60px;
+    padding: 16.5px 0;
+    width: 55px;
   }
 }
 #textstring span {
   display: inline-block;
-  padding: 13px 2%;
+  padding: 13px 25px 13px 5px;
   position: relative;
 }
 #textstring span:after {
   content: '>';
   position: absolute;
-  right: -8px;
-  top: 2px;
+  right: 2px;
+  top: 4px;
   color: #cc5200;
   font-size: 35px;
   font-weight: 700;
@@ -6377,7 +6379,7 @@ h5 {
 }
 @media (min-width: 768px) {
   #textstring span:after {
-    font-size: 50px;
+    font-size: 40px;
   }
 }
 /*Notification Popup*/
@@ -6431,6 +6433,7 @@ h5 {
     margin-top: 21px;
     margin-bottom: 10.5px;
     font-size: 35px;
+    font-size: 28px;
     margin: 0;
     padding: 18px 10px;
   }
@@ -7086,6 +7089,7 @@ h5 {
 .introTxt {
   margin: 0 auto;
   font-weight: 400;
+  color: #999999;
 }
 .subTxt {
   margin: 20px auto 10px;
@@ -8710,6 +8714,11 @@ text {
 }
 body {
   background-color: #ffffff;
+  background-image: url('../images/manaslake.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 15px 80px;
+  background-size: 125px;
 }
 .page-container {
   padding: 0 5px;
@@ -8717,7 +8726,7 @@ body {
 }
 @media (min-width: 768px) {
   .page-container {
-    padding-top: 80px !important;
+    padding-top: 75px !important;
   }
 }
 .ease {
