@@ -14,11 +14,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
-                        <div class="text-center subTxt m-b-20 unittype hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span> <strong>{{selection}}</strong> apartments</div>
-                        <div class="text-center subTxt m-b-20 budget hidden animated pulse">We have <span class="bold text-primary"> {{unitsCount }} </span>  apartments in the budget of <strong>{{selection}}</strong></div>
-                        <div class="text-center subTxt m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</div>
+                        <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3>
+                        <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3>
+                        <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3>
 
-                        <div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>
+                        <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>-->
 
                         <div class="introTxt text-center">You are seeing 
                             <div id="tagslist" class="taglist">
@@ -28,15 +28,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
                         
                         <div class="variantBox1">
-                            <div class="pull-left m-l-15">
-                                <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
-                                <label for="selectall">Select/Unselect All</label>
-                            </div>
-                            <div class="text-right m-b-20">
-                                <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span>
-                            </div>
 
                             <div class="grid-container">
+
+                                <div class="pull-left m-l-15">
+                                    <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/>
+                                    <label for="selectall">Select/Unselect All</label>
+                                </div>
+                                <div class="text-right m-b-20">
+                                    <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span>
+                                </div>
+
                                 {{#unitVariants}}
                                 <div class="grid-block-3" >
                                     <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}">
@@ -548,7 +550,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         onShow:->
             $('#screen-two-button').on('click',  ()->
                 new jBox('Notice', 
-                    content: 'Wait 1 Second',
+                    content: 'Finding available apartments that match your selection...',
                     autoClose: 2000
                     addClass: 'notifyBox'
                     position:

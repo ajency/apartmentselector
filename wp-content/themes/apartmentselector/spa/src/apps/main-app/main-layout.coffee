@@ -43,7 +43,7 @@ define [ 'extm'], ( Extm)->
         <div id="notify" class="notifyBox" style="display:none;">
             You have clicked on a box!
         </div>
-        <div>dfsfsfs</div>
+        <!--<div>dfsfsfs</div>-->
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
             <h3>My Menu</h3>
             <ul>

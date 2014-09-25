@@ -9,12 +9,11 @@ define [ 'marionette' ], ( Marionette )->
 
         template : '<a class="grid-link">
               	        <div class="grid-text-wrap">
-              	          <span class="grid-main-title">{{name}}</span>
-              	          <span class="grid-sub-title">{{min_value}} to {{max_value}} (sq. ft.)</span>
-
-                        <input type="hidden" name="check{{id}}"   id="check{{id}}"       value="0" />
-     	        </div>
-              	      </a>
+                            <span class="grid-main-title">{{name}}</span>
+              	            <span class="grid-sub-title">{{min_value}} to {{max_value}} (sq. ft.)</span>
+                            <input type="hidden" name="check{{id}}"   id="check{{id}}"       value="0" />
+     	                </div>
+                    </a>
               	  	'
 
         events :
@@ -129,8 +128,10 @@ define [ 'marionette' ], ( Marionette )->
     class ScreenOneView extends Marionette.CompositeView
 
                             
-        template : '<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div>
-                    <!--<div class="introTxt text-center">To get started, either:</div>-->
+        template : '<h3 class="light text-center m-t-0">LOREM IPSUM TITLE</h3>
+                    <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4>
+                    <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div>
+                    <div class="introTxt text-center">To get started, either:</div>-->
 
                     <div class="row m-l-0 m-r-0 bgClass">
                         <div class="col-md-5 col-lg-4">
@@ -376,7 +377,7 @@ define [ 'marionette' ], ( Marionette )->
             
             $('#finalButton').on('click',  ()->
                 new jBox('Notice', 
-                    content: 'Wait 1 Second...',
+                    content: 'Finding available apartments matching your selection...',
                     autoClose: 2000
                     addClass: 'notifyBox'
                     position:

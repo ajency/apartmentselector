@@ -9,8 +9,14 @@
 	background: -ms-linear-gradient(top,  @color-primary 0%,darken(@color-primary, 8%) 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  @color-primary 0%,darken(@color-primary, 8%) 100%); /* W3C */
 
-	-webkit-box-shadow: -4px 1px 6px 1px lighten(@gray-light, 10%);
-			box-shadow: -4px 1px 6px 1px lighten(@gray-light, 10%);
+	// background-image: url('../images/manaslake.png');
+	// background-repeat: no-repeat;
+	// background-attachment: fixed;
+	// background-size: 100px;
+	// background-position: center 6px;
+
+	-webkit-box-shadow: -4px 1px 4px 1px lighten(@gray-light, 10%);
+			box-shadow: -4px 1px 4px 1px lighten(@gray-light, 10%);
 	h3{
 		.h4;
 		color: @color-white;
@@ -38,7 +44,7 @@
 		// .bold;
 		text-transform: capitalize;
 		// border-right: 1px solid @gray-lighter;
-		padding: 13px 2% 13px 0;
+		padding: 13px 8px 13px 0;
 		position: relative;
 		color: darken(@gray-lighter, 5%);
 		text-shadow: none;
@@ -55,7 +61,8 @@
 		color: @color-white;
 		margin: 0;
 		text-align: center;
-		// font-size: 24px;
+		font-size: 28px;
+		.light;
 		margin-left: 0;
 	}
 }
@@ -87,8 +94,8 @@
 @media (min-width:768px){
 	.backBtn, .rightBtns{
 		a{
-			padding: 20.5px 0;
-			width: 60px;
+			padding: 16.5px 0;
+			width: 55px;
 		}
 	}
 }
@@ -97,13 +104,13 @@
 	// border-right: 1px solid @gray-lighter;
 	// background-color: darken(@color-primary, 5%);
 	display: inline-block;
-	padding: 13px 2%;
+	padding: 13px 25px 13px 5px;
 	position: relative;
 	&:after{
 		content: '>';
 		position: absolute;
-		right: -8px;
-		top: 2px;
+		right: 2px;
+		top: 4px;
 		color: darken(@color-primary, 10%);
 		font-size: 35px;
 		.bold;
@@ -117,7 +124,7 @@
 @media (min-width:768px){
 	#textstring span {
 		&:after{
-			font-size: 50px;
+			font-size: 40px;
 		}
 	}
 }
@@ -138,7 +145,6 @@
 		// .bold;
 		// background-color: darken(@color-primary, 10%);
 		// background-color: @gray-light;
-		
 		background: -webkit-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* Chrome 10+, Saf5.1+ */
 		background:    -moz-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* FF3.6+ */
 		background:     -ms-linear-gradient(90deg, #FF512F 10%, #F09819 90%); /* IE10 */
@@ -157,6 +163,7 @@
 	.notifyBox{
 		.jBox-content{
 			.h3;
+			font-size: 28px;
 			margin: 0;
 			padding: 18px 10px;
 		}

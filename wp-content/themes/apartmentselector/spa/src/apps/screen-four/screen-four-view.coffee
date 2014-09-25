@@ -1080,13 +1080,13 @@ define [ 'marionette' ], ( Marionette )->
                                     <div class="col-md-4">
                                         <div class="unitBox facing">
                                             <h4 class="view facingclass">{{facings_name}}</h4>
-                                            <h4 class="titles"><span class="sky-location"></span> Facing</h4>
+                                            <h4 class="titles"><span class="sky-map"></span> Views</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="unitBox facing">
                                             <h4 class="view viewclass">{{views_name}}</h4>
-                                            <h4 class="titles"><span class="sky-map"></span> Views</h4>
+                                            <h4 class="titles"><span class="sky-location"></span> Entrance</h4>
                                         </div>
                                     </div>
                                 </div>
