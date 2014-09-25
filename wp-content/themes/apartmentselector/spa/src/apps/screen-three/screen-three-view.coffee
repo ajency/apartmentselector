@@ -613,7 +613,7 @@ define [ 'marionette' ], ( Marionette )->
             unitVariantString = ""
             $('#screen-three-button').on('click',  ()->
                 new jBox('Notice', 
-                    content: 'Wait 1 Second',
+                    content: 'Loading your apartment...',
                     autoClose: 2000
                     addClass: 'notifyBox'
                     position:
