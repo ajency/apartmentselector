@@ -36,7 +36,7 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
     };
 
     ScreenOneController.prototype._getUnitTypeCollection = function() {
-      var Model, UnitsCollection, collection, element, modelArray, newUnits, priceArray, priceRange, priceUnits, rangeArray, status, units, _i, _len;
+      var Model, UnitsCollection, collection, element, modelArray, newUnits, noPrefereceModel, priceArray, priceRange, priceUnits, rangeArray, status, units, _i, _len;
       Model = Backbone.Model.extend({});
       UnitsCollection = Backbone.Collection.extend({
         model: Model
@@ -105,9 +105,15 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
             'max_value': max_val,
             'min_value': min_val
           });
+          unitTypemodel.set('sqft', '(sq. ft.)');
+          unitTypemodel.set('to', 'to');
           return modelArray.push(unitTypemodel);
         }
       });
+      noPrefereceModel = new Backbone.Model;
+      noPrefereceModel.set('id', 'nopreferences');
+      noPrefereceModel.set('name', 'No Preference');
+      modelArray.push(noPrefereceModel);
       priceArray.sort(function(a, b) {
         var budget_pricea, budget_priceb;
         a = a.split(' ');

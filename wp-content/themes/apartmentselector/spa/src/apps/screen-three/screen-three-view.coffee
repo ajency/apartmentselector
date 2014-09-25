@@ -67,11 +67,20 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg">
+                            
+                            <div class="svgLegend">
+                                <div class="row">
+                                    <div class="col-sm-3"><span class="legendBox available"></span> Available</div>
+                                    <div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>
+                                    <div class="col-sm-5"><span class="legendBox na"></span> Not in Selection/Not Released</div>
+                                </div>
+                            </div>
+
                             <div id="positionsvg" class="positionSvg">
                                 
                             </div>
                         </div>
-                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. " data-d-group="2">
+                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2">
                     </div>'
 
 
@@ -348,7 +357,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
-                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
@@ -395,7 +404,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
-                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
@@ -454,8 +463,9 @@ define [ 'marionette' ], ( Marionette )->
                             if parseInt(pos) == parseInt(val1)  
                                 $('#currency2').autoNumeric('init')
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
-                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
@@ -845,6 +855,7 @@ define [ 'marionette' ], ( Marionette )->
                                             console.log temp[ii]
                                             $('#'+temp[ii]+value).attr('class', 'unselected-floor')
                                             $('#'+temp[ii]+value).attr('data-value', index)
+                                            $('#'+temp[ii]+value).attr('data-idvalue', temp[ii])
                                             
                                 )
                                 $.map(indexvalue, (index1,value1)->
@@ -1206,7 +1217,7 @@ define [ 'marionette' ], ( Marionette )->
                     temp = ['f','ff']
                     temp1 = ['t','tt']
                     temp2 = ['c','cc']
-            
+                    idValue = ""
                     $.each(svgdata, (index,value)->
                         if $.inArray(position,value.svgposition ) >= 0 && value.svgposition != null
                             $.each(value.svgposition, (index1,val1)->
@@ -1214,7 +1225,6 @@ define [ 'marionette' ], ( Marionette )->
                                     indexvalue1 = unitsarray1[val1]
                                     if parseInt(position) == parseInt(val1)
                                         console.log position
-                                    
                                         svgposition = value.svgfile
                                         unitsarray = value.units
                                         indexvalue = unitsarray[position]
@@ -1265,6 +1275,7 @@ define [ 'marionette' ], ( Marionette )->
                         $("#select"+@model.get('id')).val "1"
                         object = @
                         $.map(indexvalue,  (index,value)->
+
                             if App.defaults['floor'] != 'All'
                                 floorArr  = App.defaults['floor'].split(',')
                                 $.each(floorArr, (ind,val)->

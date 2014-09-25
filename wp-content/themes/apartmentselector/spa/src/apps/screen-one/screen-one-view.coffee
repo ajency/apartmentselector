@@ -10,7 +10,7 @@ define [ 'marionette' ], ( Marionette )->
         template : '<a class="grid-link">
               	        <div class="grid-text-wrap">
                             <span class="grid-main-title">{{name}}</span>
-              	            <span class="grid-sub-title">{{min_value}} to {{max_value}} (sq. ft.)</span>
+              	            <span class="grid-sub-title">{{min_value}}  {{to}}  {{max_value}} {{sqft}} </span>
                             <input type="hidden" name="check{{id}}"   id="check{{id}}"       value="0" />
      	                </div>
                     </a>
@@ -19,12 +19,28 @@ define [ 'marionette' ], ( Marionette )->
         events :
             'click ' : 'unitTypeSelected'
 
+            'click #checknopreferences':->
+                
+
+       
+
 
 
         initialize :->
             @$el.prop("id", 'unittype'+@model.get("id"))
 
         unitTypeSelected : ( evt )->
+            if @model.get('id') == 'nopreferences'
+               $('#unittype'+@model.get("id")+' a' ).removeClass 'selected'
+               for element , index in unitType
+                    $("#check"+element).val '0'
+                    $('#unittype'+element+' a' ).removeClass 'selected'
+                    App.backFilter['screen1'] = []
+               $('#showbudget').removeClass 'hidden'
+               unitType = []
+               $("#finalButton").addClass 'disabled btn-default'
+               $("#finalButton").removeClass 'btn-primary'
+               return false 
             $.map(App.backFilter, (value, index)->
                 
                 screenArray  = App.backFilter[index]
@@ -34,6 +50,7 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults[element] = 'All'
 
             )
+            $('#showbudget').addClass 'hidden'
             App.layout.screenTwoRegion.el.innerHTML = ""
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""
@@ -128,55 +145,32 @@ define [ 'marionette' ], ( Marionette )->
     class ScreenOneView extends Marionette.CompositeView
 
                             
-        template : '<h3 class="light text-center m-t-0">LOREM IPSUM TITLE</h3>
+        template : '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3>
                     <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4>
                     <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div>
                     <div class="introTxt text-center">To get started, either:</div>-->
-                    <div class="print-header hide">
-                        <div class="row print-head">
-                            <div class="col-sm-6 head">
-                                <h1>Flat No: <strong>1201</strong></h1>
-                            </div>
-                            <div class="col-sm-6 head">
-                                <h1>Tower 1</h1>
-                            </div>
-                        </div>
-                        <div class="row print-sub-head">
-                            <div class="col-sm-6 head">
-                                <h2>Flat Type: <strong>2BHK</strong>(975 to 1165 sq. ft.)</h2>
-                            </div>
-                            <div class="col-sm-6 head">
-                                <h2>Floor Range: <strong>Highrise</strong></h2>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row m-l-0 m-r-0 bgClass">
                         <div class="col-md-5 col-lg-4">
-                            <div class="web-view">
-                                <div class="text-center subTxt">Choose a unit type</div>
-                                <div class="grid-container"></div>
-                                <h5 class="text-center m-t-20 m-b-20 bold">OR</h5>
-            	                <div class="text-center subTxt">Choose a budget</div>
-                                <section>
-                                    <select class="cs-select cs-skin-underline" id="budgetValue">
-                                        <option value="" disabled selected>Undecided</option>
-                                        {{#priceArray}}
-                                        <option value="{{id}}">{{name}}</option>
-                                        {{/priceArray}}
-                                    </select>
-                                </section>
-                                <div class="h-align-middle m-t-50 m-b-20">
-                                    <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a>
-                                </div>
-                            </div>
-                            <div class="print-view hide">
-                                Zoom View Image here
+                            <div class="text-center subTxt">Choose a unit type</div>
+                            <div class="grid-container"></div>
+                            <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>-->
+        	                <div id="showbudget" class="hidden"><div class="text-center subTxt">Choose a budget</div>
+                            <section>
+                                <select class="cs-select cs-skin-underline" id="budgetValue">
+                                    <option value="" disabled selected>Undecided</option>
+                                    {{#priceArray}}
+                                    <option value="{{id}}">{{name}}</option>
+                                    {{/priceArray}}
+                                </select>
+                            </section></div>
+                            <div class="h-align-middle m-t-50 m-b-20">
+                                <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a>
                             </div>
                         </div>
                         <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
                             <div id="mapplic_new1" class="towersMap center-block"></div>
-                        </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2">
+                        </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-m-dec=""  data-d-group="2" >
                     </div>'
 
         className : 'page-container row-fluid'
@@ -339,7 +333,8 @@ define [ 'marionette' ], ( Marionette )->
 
                     )
                     if flag == myArray.length
-                        floorCollunits.push(value1)
+                        if  value1.get('unitType') != 14 && value1.get('unitType') != 16
+                            floorCollunits.push(value1)
 
 
 
@@ -348,8 +343,15 @@ define [ 'marionette' ], ( Marionette )->
                 )
                 mainnewarr =  []
                 mainunique = {}
+                floorarray = []
                 if myArray.length == 0 
-                    floorCollunits = unitslen
+                    $.each(floorCollunits, (ind,val)->
+                        if  val.get('unitType') != 14 && val.get('unitType') != 16
+                            floorarray.push val
+
+
+                    )
+                    floorCollunits = floorarray
                 units  = new Backbone.Collection floorCollunits
                 mainunitTypeArray1 = []
                 units1 = App.master.unit.where({'status':status.get('id')})

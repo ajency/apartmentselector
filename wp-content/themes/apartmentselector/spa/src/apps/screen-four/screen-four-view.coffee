@@ -36,7 +36,7 @@ define [ 'marionette' ], ( Marionette )->
                                         </a>
                                     </div>
                                     <div class="grid-block-4">
-                                        <a class="grid-link">
+                                        <a class="grid-link" id="emailBtn">
                                             <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3>
                                             <h4 class="m-t-0 m-b-0">Email</h4>
                                         </a>
@@ -52,6 +52,7 @@ define [ 'marionette' ], ( Marionette )->
 
                         </div>
                     </div>
+
 
                     <div class="remodal" data-remodal-id="modal">
 
@@ -165,9 +166,11 @@ define [ 'marionette' ], ( Marionette )->
             				</section><!-- e: invoice financials -->
 
             			</div><!-- e: invoice -->
-                	</div>'
+                	</div>
 
-
+                    <div class="formPopup" style="display: none;">
+                        Form will come here
+                    </div>'
 
 
 
@@ -1053,7 +1056,7 @@ define [ 'marionette' ], ( Marionette )->
                                     <div class="col-lg-6">
                                         <div class="unitBox chargeArea">
                                             <h3>{{sellablearea}} <span class="light">Sq.Ft.</span></h3>
-                                            <h4 class="titles"><span class="sky-banknote"></span> Chargeable Area</h4>
+                                            <h4 class="titles"><span class="sky-banknote"></span> Total Area</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -1125,10 +1128,10 @@ define [ 'marionette' ], ( Marionette )->
                                     <h2 class="title">3D Layout</h2>
                                     <img src="{{ThreeDimage}}" class="img-responsive">
                                 </div>
-                                <div>
+                                <!--<div>
                                     <h2 class="title">Floor Layout</h2>
                                     <img src="{{floorLayoutimage}}" class="img-responsive">
-                                </div>
+                                </div>-->
                                 <div>
                                     <h2 class="title">Building Position</h2>
                                     <img src="{{BuildingPositionimage}}" class="img-responsive">
@@ -1194,6 +1197,13 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow:->
+
+            $("#emailBtn").on "click", (e) ->
+              e.preventDefault()
+              $(".formPopup").bPopup()
+              return
+
+
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad"
                 autoSlide: true
@@ -1208,6 +1218,9 @@ define [ 'marionette' ], ( Marionette )->
                 # continuous: false
                 # autoHeight: false
             )
+
+            
+
 
 
 
