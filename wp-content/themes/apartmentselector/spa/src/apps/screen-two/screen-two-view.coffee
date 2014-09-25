@@ -25,6 +25,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                               <ul></ul>
                             </div>
                             <span class="text-primary variantToggle1"> </span>variants of your apartment selection
+                            <a class="btn btn-primary btn-sm" data-remodal-target="filterModal">Special Filters</a>
                         </div>
                         
                         <div class="variantBox1">
@@ -85,6 +86,53 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                             </div>
                         </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
+                    </div>
+
+                    <div class="remodal specialFilter" data-remodal-id="filterModal">
+                        <div class="bgClass">
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-sm-4">
+                                    <!--<h3>Additional Filters</h3>-->
+                                    <div class="small blockTitle">Terrace</div>
+                                    <div class="filterBox"> <input type="checkbox" name="view10" data-name="Standard View" id="" class="checkbox view" value="10"> <label for="view10">Dining</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view11" data-name="Ocean View" id="" class="checkbox view" value="11"> <label for="view11">Bedroom</label> </div>
+
+                                </div>
+
+                                <div class="col-sm-4 b-l b-r b-grey">
+                                    <div class="small blockTitle">View</div>
+                                    <div class="filterBox"> <input type="checkbox" name="view10" data-name="Standard View" id="view10" class="checkbox view" value="10"> <label for="view10">Standard View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view11" data-name="Ocean View" id="view11" class="checkbox view" value="11"> <label for="view11">Ocean View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view12" data-name="Partial Ocean View" id="view12" class="checkbox view" value="12"> <label for="view12">Partial Ocean View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view13" data-name="Poolside Gardens View" id="view13" class="checkbox view" value="13"> <label for="view13">Poolside Gardens View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view14" data-name="Island Gardens View" id="view14" class="checkbox view" value="14"> <label for="view14">Island Gardens View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view15" data-name="Garden View" id="view15" class="checkbox view" value="15"> <label for="view15">Garden View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view16" data-name="Beach View" id="view16" class="checkbox view" value="16"> <label for="view16">Beach View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view17" data-name="City View" id="view17" class="checkbox view" value="17"> <label for="view17">City View</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view76" data-name="Sports Facility" id="view76" class="checkbox view" value="76"> <label for="view76">Sports Facility</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view77" data-name="Manas Lake" id="view77" class="checkbox view" value="77"> <label for="view77">Manas Lake</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view78" data-name="4 Lane Road" id="view78" class="checkbox view" value="78"> <label for="view78">4 Lane Road</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view79" data-name="Courtyard" id="view79" class="checkbox view" value="79"> <label for="view79">Courtyard</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view80" data-name="Central Park" id="view80" class="checkbox view" value="80"> <label for="view80">Central Park</label> </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                
+
+                                <div class="col-sm-4 b-r b-grey">
+                                    <div class="small blockTitle">Entrance</div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing18" data-name="East" id="facing18" class="checkbox facing" value="18"> <label for="facing18">East</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing19" data-name="West" id="facing19" class="checkbox facing" value="19"> <label for="facing19">West</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing20" data-name="North" id="facing20" class="checkbox facing" value="20"> <label for="facing20">North</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing21" data-name="South" id="facing21" class="checkbox facing" value="21"> <label for="facing21">South</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing22" data-name="North-East" id="facing22" class="checkbox facing" value="22"> <label for="facing22">North-East</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing23" data-name="North-West" id="facing23" class="checkbox facing" value="23"> <label for="facing23">North-West</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing24" data-name="South-East" id="facing24" class="checkbox facing" value="24"> <label for="facing24">South-East</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing25" data-name="South-West" id="facing25" class="checkbox facing" value="25"> <label for="facing25">South-West</label> </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>'
 
 

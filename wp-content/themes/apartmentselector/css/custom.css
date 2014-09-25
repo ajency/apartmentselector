@@ -7526,6 +7526,15 @@ h5 {
   background: rgba(153, 153, 153, 0.35);
   color: #ff6600;
 }
+.specialFilter {
+  max-width: 1000px;
+  margin: 20px auto;
+  min-height: 0;
+}
+.specialFilter .filterBox {
+  float: left;
+  width: 50%;
+}
 /**** Responsive Table Styles ****/
 .unitTable {
   width: 100%;
