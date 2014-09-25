@@ -387,8 +387,12 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 )
             $.each(uniqunitAssigned, (index,value)->
-                floorColl =  new Backbone.Collection floorUnitsArray
+                floorColl1 = _.reject(floorUnitsArray, (model)->
+                        return model.get('unitType') == 14 || model.get('unitType') == 16
+                    )
+                console.log floorColl =  new Backbone.Collection floorColl1
                 if App.defaults['building'] == "All"
+                     
                     unitAssgendModels = floorColl.where({unitAssigned:value,building:buildingvalue})
                 else
                     unitAssgendModels = floorColl.where({unitAssigned:value})
@@ -445,7 +449,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         track = 1
                     if myArray.length == 0
                         track = 1
-                    if track==1 && value1.get('status') == 9 && value1.get('unitType') != 14
+                    if track==1 && value1.get('status') == 9 && value1.get('unitType') != 14 && value1.get('unitType') != 16
                         maxunits.push(value1)
 
 

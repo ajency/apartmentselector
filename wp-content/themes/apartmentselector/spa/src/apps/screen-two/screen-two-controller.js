@@ -373,7 +373,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       $.each(mainunitTypeArray1, function(key, item) {
         var classname, count;
         if (!mainunique[item.id]) {
-          if (item.id !== 14) {
+          if (item.id !== 14 && item.id !== 16) {
             status = App.master.status.findWhere({
               'name': 'Available'
             });

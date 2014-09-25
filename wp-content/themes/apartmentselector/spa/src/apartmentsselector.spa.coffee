@@ -74,8 +74,12 @@ require [ 'plugin-loader'
     App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All','unittypeback':'All'}
 
 
-   
-
+    localStorage.setItem("refreshvalue", 1)
+    refreshvalue = localStorage.getItem("refreshvalue")
+    if parseInt(refreshvalue) == 1
+        window.location.hash = ""
+        
+        
 
 
     

@@ -363,7 +363,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             $.each(mainunitTypeArray1, (key,item)->
                 if (!mainunique[item.id])
-                    if item.id != 14
+                    if item.id != 14 && item.id != 16
                         status = App.master.status.findWhere({'name':'Available'})
 
                         count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})

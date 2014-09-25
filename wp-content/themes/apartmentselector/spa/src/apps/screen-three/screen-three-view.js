@@ -278,7 +278,7 @@ define(['marionette'], function(Marionette) {
                   id: unitModel.get('unitType')
                 });
                 text = '<tspan x="10" y="45">Flat no:' + unitModel.get('name') + '</tspan><tspan x="10" y="60">unittype:' + unittpe.get('name') + '</tspan><tspan x="10" y="75">Unit Price:' + currency + '</tspan>';
-                $('#' + temp1[ii] + flatid).text(text);
+                $('#' + temp1[ii] + flatid).html(text);
               }
               return ii++;
             });
@@ -337,7 +337,7 @@ define(['marionette'], function(Marionette) {
         });
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
           return $("#" + e.target.id).attr('class', 'unit-hover range aviable');
-        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
+        } else if (checktrack === 1 && (parseInt(unitModel.get('status')) === 8 || parseInt(unitModel.get('status')) === 47)) {
           return $("#" + e.target.id).attr('class', 'sold range');
         } else {
           return $("#" + e.target.id).attr('class', 'other range');
@@ -381,7 +381,7 @@ define(['marionette'], function(Marionette) {
                   id: unitModel.get('unitType')
                 });
                 text = '<tspan x="10" y="45">Flat no:' + unitModel.get('name') + '</tspan><tspan x="10" y="60">unittype:' + unittpe.get('name') + '</tspan><tspan x="10" y="75">Unit Price:' + currency + '</tspan>';
-                $('#' + temp1[ii] + flatid).text(text);
+                $('#' + temp1[ii] + flatid).html(text);
               }
               return ii++;
             });
@@ -390,7 +390,7 @@ define(['marionette'], function(Marionette) {
         checktrack = this.checkSelection(unitModel);
         if (checktrack === 1 && parseInt(unitModel.get('status')) === 9) {
           return $("#" + e.target.id).attr('class', 'unselected-floor aviable');
-        } else if (checktrack === 1 && parseInt(unitModel.get('status')) === 8) {
+        } else if (checktrack === 1 && (parseInt(unitModel.get('status')) === 8 || parseInt(unitModel.get('status')) === 47)) {
           return $("#" + e.target.id).attr('class', 'sold ');
         } else {
           return $("#" + e.target.id).attr('class', 'other ');
@@ -987,10 +987,10 @@ define(['marionette'], function(Marionette) {
       if (myArray.length === 0) {
         track = 1;
       }
-      if (track === 1 && model.get('status') === 9 && model.get('unitType') !== 14) {
+      if (track === 1 && model.get('status') === 9 && model.get('unitType') !== 14 && model.get('unitType') !== 16) {
         $('#check' + model.get("id")).addClass('boxLong filtered');
         return $('#flag' + model.get("id")).val('1');
-      } else if (track === 1 && model.get('status') === 8 && model.get('unitType') !== 14) {
+      } else if (track === 1 && model.get('status') === 8 && model.get('unitType') !== 14 && model.get('unitType') !== 16) {
         return $('#check' + model.get("id")).addClass('boxLong sold');
       } else {
         $('#check' + model.get("id")).addClass('boxLong other');
@@ -1308,10 +1308,10 @@ define(['marionette'], function(Marionette) {
       if (myArray.length === 0) {
         track = 1;
       }
-      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14) {
+      if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14 && this.model.get('unitType') !== 16) {
         $('#check' + this.model.get("id")).addClass('boxLong filtered');
         return $('#flag' + this.model.get("id")).val('1');
-      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14) {
+      } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14 && this.model.get('unitType') !== 16) {
         return $('#check' + this.model.get("id")).addClass('boxLong sold');
       } else {
         $('#check' + this.model.get("id")).addClass('boxLong other');

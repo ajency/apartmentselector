@@ -193,7 +193,7 @@ define [ 'marionette' ], ( Marionette )->
                     # fade: 1000
                 )
 
-                $(".rightBtns").removeClass "hidden"
+                $("#showRightPush").removeClass "hidden"
 
                 cookieOldValue = $.cookie("key")
                 if cookieOldValue == undefined || $.cookie("key") == ""

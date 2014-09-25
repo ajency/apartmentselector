@@ -4,7 +4,7 @@ define('plugin-loader', ['selectFx', 'jquerymousewheel', 'mapplic', 'mapplic_new
 define('apps-loader', ['src/apps/footer/footer-controller', 'src/apps/header/header-controller', 'src/apps/screen-one/screen-one-controller', 'src/apps/screen-two/screen-two-controller', 'src/apps/screen-three/screen-three-controller', 'src/apps/screen-four/screen-four-controller', 'src/apps/popup/popup-controller', 'src/apps/main-app/main-layout'], function() {});
 
 require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'apps-loader'], function(plugins, Extm) {
-  var staticApps;
+  var refreshvalue, staticApps;
   window.App = new Extm.Application;
   App.layout = "";
   App.addRegions({
@@ -48,6 +48,11 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'facing': 'All',
     'unittypeback': 'All'
   };
+  localStorage.setItem("refreshvalue", 1);
+  refreshvalue = localStorage.getItem("refreshvalue");
+  if (parseInt(refreshvalue) === 1) {
+    window.location.hash = "";
+  }
   App.filter = function(params) {
     var budgetUnitArray, buildingArray, buildingModel, buildings, element, index, key, param_arr, param_key, paramsArray, uniqBuildings, uniqUnittype, uniqUnitvariant, uniqviews, unittype, unittypeArray, unittypeModel, unitvariant, unitvariantArray, unitvariantModel, view, viewArray, viewModel, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m;
     if (params == null) {
