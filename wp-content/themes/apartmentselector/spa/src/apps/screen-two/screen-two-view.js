@@ -497,6 +497,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
+        $('#screen-three-region').removeClass('section');
+        $('#screen-four-region').removeClass('section');
         App.navigate("screen-two");
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
