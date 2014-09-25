@@ -262,15 +262,11 @@
 	background: lighten(@color-grey, 38%);
 	padding-top: 5px;
 	& > div{
-		width: 45%;
+		width: 55%;
 		margin: auto
 	}
 }
 
-.positionSvg{
-		width: 80%;
-		margin: 0 auto;
-}
 
 /**** Hide Header with Tower Name ****/
 #screen-three-region{
@@ -279,8 +275,32 @@
 	}
 }
 
+/**** SVG Legend ****/
+.svgLegend{
+	.h5;
+	margin: 20px auto 30px;
+	text-align: center;
+	.legendBox{
+		display: inline-block;
+		height: 15px;
+		width: 25px;
+		border: 1px solid @gray-light;
+		&.available{
+			background: #99DD1F;
+		}
+		&.sold{
+			background: #DD1F1F;
+		}
+		&.na{
+			background: #EEE;
+		}
+	}
+}
+
 /**** Labels on Tower SVG ****/
 .positionSvg{
+	width: 100%;
+	margin: 0 auto;
 	.HIGHRISE, .LOWRISE, .MIDRISE{
 		position: relative;
 		visibility: hidden;
@@ -291,6 +311,17 @@
 			// color: @color-primary;
 			// .bold;
 		}
+	}
+}
+
+@media (min-width:1200px) and (max-width:1400px){
+	.positionSvg, .svgLegend{
+		width: 80%;
+	}
+}
+@media (min-width:1401px){
+	.positionSvg, .svgLegend{
+		width: 75%;
 	}
 }
 
@@ -309,4 +340,5 @@
 	top: 0;
 	box-shadow: 0 0 5px @gray-light;
 }
+
 

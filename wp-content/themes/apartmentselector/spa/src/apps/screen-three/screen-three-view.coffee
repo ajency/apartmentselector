@@ -67,6 +67,15 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg">
+                            
+                            <div class="svgLegend">
+                                <div class="row">
+                                    <div class="col-sm-3"><span class="legendBox available"></span> Available</div>
+                                    <div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>
+                                    <div class="col-sm-5"><span class="legendBox na"></span> Not in Selection/Not Released</div>
+                                </div>
+                            </div>
+
                             <div id="positionsvg" class="positionSvg">
                                 
                             </div>
@@ -348,7 +357,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
-                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
@@ -395,7 +404,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
-                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
@@ -455,7 +464,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#currency2').autoNumeric('init')
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
-                                text = '<tspan x="10" y="45">Flat no:'+unitModel.get('name')+'</tspan><tspan x="10" y="60">unittype:'+unittpe.get('name')+'</tspan><tspan x="10" y="75">Unit Price:'+ currency+'</tspan>'
+                                text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
