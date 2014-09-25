@@ -71,7 +71,7 @@ define [ 'marionette' ], ( Marionette )->
                                 
                             </div>
                         </div>
-                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. " data-d-group="2">
+                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. " data-a-dec="null"  data-d-group="2">
                     </div>'
 
 
@@ -845,6 +845,7 @@ define [ 'marionette' ], ( Marionette )->
                                             console.log temp[ii]
                                             $('#'+temp[ii]+value).attr('class', 'unselected-floor')
                                             $('#'+temp[ii]+value).attr('data-value', index)
+                                            $('#'+temp[ii]+value).attr('data-idvalue', temp[ii])
                                             
                                 )
                                 $.map(indexvalue, (index1,value1)->
@@ -1206,7 +1207,7 @@ define [ 'marionette' ], ( Marionette )->
                     temp = ['f','ff']
                     temp1 = ['t','tt']
                     temp2 = ['c','cc']
-            
+                    idValue = ""
                     $.each(svgdata, (index,value)->
                         if $.inArray(position,value.svgposition ) >= 0 && value.svgposition != null
                             $.each(value.svgposition, (index1,val1)->
@@ -1214,7 +1215,6 @@ define [ 'marionette' ], ( Marionette )->
                                     indexvalue1 = unitsarray1[val1]
                                     if parseInt(position) == parseInt(val1)
                                         console.log position
-                                    
                                         svgposition = value.svgfile
                                         unitsarray = value.units
                                         indexvalue = unitsarray[position]
@@ -1265,6 +1265,7 @@ define [ 'marionette' ], ( Marionette )->
                         $("#select"+@model.get('id')).val "1"
                         object = @
                         $.map(indexvalue,  (index,value)->
+
                             if App.defaults['floor'] != 'All'
                                 floorArr  = App.defaults['floor'].split(',')
                                 $.each(floorArr, (ind,val)->

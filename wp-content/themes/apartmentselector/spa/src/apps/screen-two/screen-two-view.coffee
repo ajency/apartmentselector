@@ -84,7 +84,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
                                 <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
                             </div>
-                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. " data-d-group="2">
+                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. " data-a-dec="null"  data-d-group="2">
                     </div>'
 
 
@@ -189,7 +189,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     )
                     if flag == myArray.length
-                        floorCollunits.push(value1)
+                        if  value1.get('unitType') != 14 && value1.get('unitType') != 16
+                            floorCollunits.push(value1)
+                        
 
 
 
@@ -198,8 +200,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 )
                 mainnewarr =  []
                 mainunique = {}
+                floorarray = []
                 if myArray.length == 0 
-                    floorCollunits = unitslen
+                    $.each(floorCollunits, (ind,val)->
+                        if  val.get('unitType') != 14 && val.get('unitType') != 16
+                            floorarray.push val
+
+
+                    )
+                    floorCollunits = floorarray
                 units  = new Backbone.Collection floorCollunits
                 mainunitTypeArray1 = []
                 units1 = App.master.unit.where({'status':status.get('id')})

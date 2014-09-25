@@ -23,7 +23,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoLayout.prototype.template = '<div class=""> <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>--> <div class="introTxt text-center">You are seeing <div id="tagslist" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle1"> </span>variants of your apartment selection </div> <div class="variantBox1"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> </div> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container vs-triplelayout"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div class="m-t-10 text-center"> <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>--> <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div> </div> </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. " data-d-group="2"> </div>';
+    ScreenTwoLayout.prototype.template = '<div class=""> <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>--> <div class="introTxt text-center">You are seeing <div id="tagslist" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle1"> </span>variants of your apartment selection </div> <div class="variantBox1"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> </div> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container vs-triplelayout"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div class="m-t-10 text-center"> <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>--> <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div> </div> </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. " data-a-dec="null"  data-d-group="2"> </div>';
 
     ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
@@ -53,7 +53,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover a.tower-link': function(e) {
-        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, id, key, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext, _i, _len;
+        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, floorarray, id, key, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext, _i, _len;
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         floorUnitsArray = [];
@@ -147,13 +147,21 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           });
           if (flag === myArray.length) {
-            return floorCollunits.push(value1);
+            if (value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
+              return floorCollunits.push(value1);
+            }
           }
         });
         mainnewarr = [];
         mainunique = {};
+        floorarray = [];
         if (myArray.length === 0) {
-          floorCollunits = unitslen;
+          $.each(floorCollunits, function(ind, val) {
+            if (val.get('unitType') !== 14 && val.get('unitType') !== 16) {
+              return floorarray.push(val);
+            }
+          });
+          floorCollunits = floorarray;
         }
         units = new Backbone.Collection(floorCollunits);
         mainunitTypeArray1 = [];
