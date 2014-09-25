@@ -80,7 +80,7 @@ define [ 'marionette' ], ( Marionette )->
                                 
                             </div>
                         </div>
-                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. " data-a-dec="null"  data-d-group="2">
+                    <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-d-group="2">
                     </div>'
 
 
@@ -463,6 +463,7 @@ define [ 'marionette' ], ( Marionette )->
                             if parseInt(pos) == parseInt(val1)  
                                 $('#currency2').autoNumeric('init')
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
+                                currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 
