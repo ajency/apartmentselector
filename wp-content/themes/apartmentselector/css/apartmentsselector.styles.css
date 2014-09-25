@@ -10654,6 +10654,7 @@ h5 {
 }
 /*Slider*/
 .ls-nav ul li a {
+  width: 25%;
   margin: 0 2%;
   color: #999999;
   font-weight: 700;
@@ -11073,9 +11074,10 @@ input.checkbox:checked ~ label:before {
   margin-top: 21px;
   margin-bottom: 10.5px;
   font-size: 35px;
+  font-size: 32px;
   font-weight: 400;
   margin-top: 0;
-  margin-right: 10px;
+  margin-right: 5px;
   float: left;
 }
 .msPercent small,
@@ -11365,6 +11367,10 @@ tr.milestoneReached td {
     padding-top: 18px;
     font-size: 12px;
   }
+}
+.formPopup {
+  background: #ffffff;
+  padding: 20px;
 }
 .compareWishlist {
   position: relative;

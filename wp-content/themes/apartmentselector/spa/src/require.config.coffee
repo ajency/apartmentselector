@@ -47,6 +47,7 @@ requirejs.config
         JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min'
         buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
         autoNumeric: 'src/bower_components/autoNumeric/autoNumeric'
+        bPopup: 'src/bower_components/bpopup/jquery.bpopup'
 
 
 
@@ -96,6 +97,7 @@ requirejs.config
         fullPage: ['jquery']
         JqueryPriceFormat :['jquery']
         autoNumeric : ['jquery']
+        bPopup : ['jquery']
 
 
 
