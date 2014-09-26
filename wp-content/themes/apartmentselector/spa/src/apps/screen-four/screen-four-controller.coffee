@@ -52,6 +52,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
                 unitVariantModel = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
                 unitTypeModel = App.master.unit_type.findWhere({id:value.get('unitType')})
+                value.set 'unittypename' , unitTypeModel.get('name')
                 value.set 'terracearea' , unitVariantModel.get('terracearea')
                 value.set 'sellablearea' , unitVariantModel.get('sellablearea')
                 value.set 'carpetarea' , unitVariantModel.get('carpetarea')
@@ -60,6 +61,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
 
                 building = App.master.building.findWhere({id:value.get('building')})
+                value.set 'buildingname' , building.get('name')
                 exceptionObject = building.get 'floorexceptionpositions'
                 floorLayoutimage = ""
                 $.each(exceptionObject, (index,value1)->
@@ -150,12 +152,40 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'roomsizearray' , roomsizearray
                 value.set 'terraceoptions' , terraceoptionstext
 
+                floorriserange = building.get 'floorriserange'
+                    #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
+                rangeArrayVal = []
+                i = 0
+                $.each(floorriserange, (index,value1)->
+                    rangeArrayVal = []
+                    i = 0
+                    start = parseInt(value1.start)
+                    end = parseInt(value1.end)
+                    while parseInt(start) <= parseInt(end)
+                        rangeArrayVal[i] = start
+                        start = parseInt(start) + 1
+                        i++
+                    console.log rangeArrayVal
+                    rangename = ""
+                    if jQuery.inArray(parseInt(value.get('floor')),rangeArrayVal) >= 0
+                        if value.name1 == "medium"
+                            rangename = "mid"
+                        else
+                            rangename = value1.name
+                    
+                        console.log rangename = _.str.capitalize rangename
+                        value.set "flooRange" ,rangename+'rise'
+
+
+
+                )
+
 
 
 
 
             )
-
+            
 
 
 
