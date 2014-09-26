@@ -40,7 +40,7 @@ define [ 'marionette' ], ( Marionette )->
 
                             {{#unitVariants}}
                             <div class="grid-block-3" >
-                                <a class="grid-link selected" href="#" id="gridlink{{id}}" data-id="{{id}}">
+                                <a class="grid-link2 selected" href="#" id="gridlink{{id}}" data-id="{{id}}">
                                     {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
                                 </a>
                             </div>
@@ -540,7 +540,7 @@ define [ 'marionette' ], ( Marionette )->
             'click a':(e)->
                 e.preventDefault()
 
-            'click .grid-link':(e)->
+            'click .grid-link2':(e)->
                 count = unitVariantArray.length
                 id = $('#'+e.target.id).attr('data-id')
                 track = 0
@@ -733,7 +733,7 @@ define [ 'marionette' ], ( Marionette )->
                 $(".variantToggle").toggleClass("open")
                 return
 
-            $(".grid-link").click  (e)->
+            $(".grid-link2").click  (e)->
                 $(this).toggleClass("selected")
                 return
 
