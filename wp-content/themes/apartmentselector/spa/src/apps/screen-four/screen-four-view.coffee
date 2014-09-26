@@ -169,7 +169,8 @@ define [ 'marionette' ], ( Marionette )->
                 	</div>
 
                     <div class="formPopup" style="display: none;">
-                        
+                        <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div>
+                        <div class="formFields"></div>                        
                     </div>'
 
 
@@ -184,12 +185,18 @@ define [ 'marionette' ], ( Marionette )->
         events:->
             'click #emailBtn':(e)->
                 e.preventDefault()
-                $(".formPopup").html(EMAILFORM)
-                $(".formPopup").bPopup()
+                
+                
+                $('.formIntro').html ""
                 unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
                 building = App.master.building.findWhere({id:parseInt(unit.get('building'))})
+                $(".formFields").html(EMAILFORM)
+                $('.formIntro').html  'I\'m interested in <br>Flat <span id="emailflatno">'+unit.get('name')+'</span> in <span id="emailtower">'+building.get('name')+'</span></div>'
+                $(".formPopup").bPopup()
                 $('#field_emailunit').val unit.get('name')
                 $('#field_emailtower').val building.get('name')
+                
+                
                 return
 
 
@@ -345,6 +352,8 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             #@trigger "get:perSqft:price"
+
+             
             $(".discountToggle").click ->
                 $(".discountBox").slideToggle()
                 return
@@ -1009,6 +1018,8 @@ define [ 'marionette' ], ( Marionette )->
             $('#finalcost').autoNumeric('init')
             $('#totalcost' ).text $('#totalcost').autoNumeric('set', totalcost).text()
             $('#finalcost' ).text $('#finalcost').autoNumeric('set', finalcost).text()
+
+
             
 
 
@@ -1232,6 +1243,12 @@ define [ 'marionette' ], ( Marionette )->
                 # continuous: false
                 # autoHeight: false
             )
+            console.log @model.get 'flooRange'
+            $("#flatno").text @model.get 'name'
+            $("#towerno").text @model.get 'buildingname'
+            $("#unittypename").text @model.get 'unittypename'
+            $("#area").text @model.get 'sellablearea'
+            $("#floorrise").text @model.get 'flooRange'
 
             
 
