@@ -473,6 +473,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     else
                         unitVariantString = unitVariantArray.join(',')
+                console.log unitVariantString
                 if unitVariantString == "All"
                     $('#selectall' ).prop 'checked', true
                 else

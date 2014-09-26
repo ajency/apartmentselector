@@ -464,6 +464,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
+        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#selectall').prop('checked', true);
         } else {
