@@ -32,6 +32,7 @@ define(['marionette'], function(Marionette) {
       if (this.model.get('id') === 'nopreferences') {
         if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
           $('#unittype' + this.model.get("id") + ' a').addClass('selected');
+          App.defaults['unitType'] = 'All';
           for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
             element = unitType[index];
             $("#check" + element).val('0');
@@ -45,7 +46,7 @@ define(['marionette'], function(Marionette) {
           });
           $("#check" + this.model.get('id')).val("1");
         } else {
-          console.log("eeeeeeee");
+          App.backFilter['screen1'] = [];
           $("li").removeClass('cs-selected');
           $(".cs-placeholder").text('Undecided');
           $('#showbudget').addClass('hidden');

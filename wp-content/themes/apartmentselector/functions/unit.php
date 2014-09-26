@@ -511,23 +511,45 @@ function get_units(){
         $blocked_till =   get_post_meta($result->ID, 'blocked_till', true);
         
         $block_status_comments =   get_post_meta($result->ID, 'block_status_comments', true);
+       
+        $single_unit = array(   'id'=>intval($result->ID),
+                                    'name'=>$result->post_title,
+                                    'unitType'=>intval($unit_type),
+                                    'unitVariant'=>intval($unit_variant),
+                                    'building'=>intval($unit_building),
+                                    'floor'=>intval($floor), 
+                                    'status'=>intval($unit_status),
+                                    'unitAssigned'=>intval($unit_assigned),
+                                    'unitPrice'=> ($unitprice),
+                                    'premiumUnitPrice'=> ($premiumunitprice), 
+                                    'blockedBy'=> ($blocked_by),
+                                    'forCustomer'=> ($for_customer),
+                                    'blockedOn'=> convert_mysql_to_custom_date($blocked_on),
+                                    'blockedTill'=> convert_mysql_to_custom_date($blocked_till),
+                                    'blockStatusComments'=> ($block_status_comments)
+                                );
+        if(current_user_can('does_sales')){
 
-        $units[] = array(   'id'=>intval($result->ID),
-                            'name'=>$result->post_title,
-                            'unitType'=>intval($unit_type),
-                            'unitVariant'=>intval($unit_variant),
-                            'building'=>intval($unit_building),
-                            'floor'=>intval($floor), 
-                            'status'=>intval($unit_status),
-                            'unitAssigned'=>intval($unit_assigned),
-                            'unitPrice'=> ($unitprice),
-                            'premiumUnitPrice'=> ($premiumunitprice), 
-                            'blockedBy'=> ($blocked_by),
-                            'forCustomer'=> ($for_customer),
-                            'blockedOn'=> convert_mysql_to_custom_date($blocked_on),
-                            'blockedTill'=> convert_mysql_to_custom_date($blocked_till),
-                            'blockStatusComments'=> ($block_status_comments)
-                        );
+
+            $unit_facing =   maybe_unserialize(get_post_meta($result->ID, 'facing', true));
+
+            if(is_array($unit_facing)){
+
+                   $unit_facing = array_map ('intval', $unit_facing);
+            }else{
+                    $unit_facing = array();
+            }
+
+            $apartment_views =   get_post_meta($result->ID, 'apartment_views', true);
+           
+            $single_unit['apartment_views'] = $apartment_views;
+
+            $single_unit['facing'] = $unit_facing;
+        }
+
+        $units[] =  $single_unit;
+
+
 
     }
 

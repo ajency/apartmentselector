@@ -34,6 +34,7 @@ define [ 'marionette' ], ( Marionette )->
             if @model.get('id') == 'nopreferences'
                 if  parseInt($("#check"+@model.get 'id').val()) == 0
                     $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
+                    App.defaults['unitType'] = 'All'
                     for element , index in unitType
                         $("#check"+element).val '0'
                         $('#unittype'+element+' a' ).removeClass 'selected'
@@ -46,7 +47,8 @@ define [ 'marionette' ], ( Marionette )->
                     
                     $("#check"+@model.get 'id').val "1"
                 else
-                    console.log "eeeeeeee"
+                    App.backFilter['screen1'] = []
+
                     $("li").removeClass 'cs-selected'
                     $(".cs-placeholder").text('Undecided')
                     $('#showbudget').addClass 'hidden'
