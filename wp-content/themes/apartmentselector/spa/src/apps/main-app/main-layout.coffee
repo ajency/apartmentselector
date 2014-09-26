@@ -63,18 +63,18 @@ You can compare up to 4 apartments!</div>
             <div class="print-header hide">
                 <div class="row print-head">
                     <div class="col-sm-6 head">
-                        <h1>Flat No: <strong>1201</strong></h1>
+                        <h1>Flat No: <strong><span id="flatno"></span></strong></h1>
                     </div>
                     <div class="col-sm-6 head">
-                        <h1>Tower 1</h1>
+                        <h1 id="towerno"></h1>
                     </div>
                 </div>
                 <div class="row print-sub-head">
                     <div class="col-sm-6 head">
-                        <h2>Flat Type: <strong>2BHK</strong>(975 to 1165 sq. ft.)</h2>
+                        <h2>Flat Type: <strong><span id="unittypename"></span></strong>(<span id="area"></span> sq. ft.)</h2>
                     </div>
                     <div class="col-sm-6 head">
-                        <h2>Floor Range: <strong>Highrise</strong></h2>
+                        <h2>Floor Range: <strong><span id="floorrise"></span></strong></h2>
                     </div>
                 </div>
             </div>
