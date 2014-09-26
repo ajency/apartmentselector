@@ -169,7 +169,8 @@ define [ 'marionette' ], ( Marionette )->
                 	</div>
 
                     <div class="formPopup" style="display: none;">
-                        
+                        <div class="formIntro">I\'m interested in <br>Flat <span>101</span> in Tower <span>1</span></div>
+                        <div class="formFields"></div>                        
                     </div>'
 
 
@@ -184,7 +185,7 @@ define [ 'marionette' ], ( Marionette )->
         events:->
             'click #emailBtn':(e)->
                 e.preventDefault()
-                $(".formPopup").html(EMAILFORM)
+                $(".formFields").html(EMAILFORM)
                 $(".formPopup").bPopup()
                 unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
                 building = App.master.building.findWhere({id:parseInt(unit.get('building'))})
