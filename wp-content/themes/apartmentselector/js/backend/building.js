@@ -13,6 +13,10 @@ if($("#fileuploadposition_in_project").length>0){
  
     fileUploadById("position_in_project")
 } 
+if($("#fileuploadzoomed_in_image").length>0){
+ 
+    fileUploadById("zoomed_in_image")
+} 
 if($("#floor_layout_basic").length>0){
  
     fileUploadById("floor_layout_basic")

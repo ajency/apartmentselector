@@ -36,6 +36,8 @@ $heading = "Edit";
 
     $position_in_project = $building["positioninproject"];
 
+    $zoomed_in_image = $building["zoomedinimage"];
+
     $floor_layout_basic = $building["floor_layout_basic"];
 
     $floor_layout_detailed = $building["floor_layout_detailed"];
@@ -133,10 +135,11 @@ $heading = "Edit";
             </div>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="form-group">
             <label class="form-label">
                 Position in project
+                <?php var_dump($position_in_project);?>
             </label>
             <div class="row">
                 <div class="col-md-6">
@@ -144,8 +147,9 @@ $heading = "Edit";
                         <span class="btn btn-success fileinput-button">
                              
                             <span>Select file..</span>
-                            <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo @$position_in_project["id"];?>"><input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
-                        </span> 
+                            <input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
+                        </span>
+                        <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo @$position_in_project["id"];?>"> 
                         <div id="progressposition_in_project" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -154,6 +158,36 @@ $heading = "Edit";
                         <div class="row-fluid">
                             <div class="col-md-12">
                                 <img src="<?php echo @$position_in_project["thumbnail_url"];?>" id="image_displayposition_in_project" <?php if(@$position_in_project["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+             
+            </div> 
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-label">
+                Zoomed in image
+            </label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-with-icon  right">
+                        <span class="btn btn-success fileinput-button">
+                             
+                            <span>Select file..</span>
+                            <input id="fileuploadzoomed_in_image" class="fileuploadzoomed_in_image" type="file" name="files">
+                        </span> 
+                        <input type="hidden" class="zoomed_in_image" id="zoomed_in_image" name="zoomed_in_image" value="<?php echo @$zoomed_in_image["id"];?>">
+                        <div id="progresszoomed_in_image" class="progress" >
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="fileszoomed_in_image" class="files"></div>
+                        <br>
+                        <div class="row-fluid">
+                            <div class="col-md-12">
+                                <img src="<?php echo @$zoomed_in_image["thumbnail_url"];?>" id="image_displayzoomed_in_image" <?php if(@$zoomed_in_image["thumbnail_url"]==""){?>style="display:none"<?}?>>
                             </div>
                         </div>
                     </div>

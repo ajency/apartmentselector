@@ -44,19 +44,13 @@ body {
 
 .print-header {
 	display: block !important;
-	margin: 0 0 20px;
+	margin: 5mm 0 20px;
 	padding: 0 30px;
-	.row {
-		.clearfix;
-		[class^="col-"]{
-			float: left;
-			&:first-child {
-				width: 50%;
-			}
-			&:last-child {
-				width: 50%;
-			}
-		}
+	.clearfix;
+	[class^="col-"] {
+		border-top: 1px solid @gray-light;
+		float: left;
+		width: 50%;
 	}
 	.print-head {
 		border: 1px solid @gray;
@@ -80,4 +74,59 @@ body {
 			line-height: 1em;
 		}
 	}
+}
+
+.print-row {
+	display: block !important;
+	margin: 0 0 10px;
+	padding: 0 30px;
+	.clearfix;
+	[class^="col-"] {
+		border-top: 1px solid @gray-light;
+		min-height: 70mm;
+		float: left;
+		width: 50%;
+	}
+	&:nth-child(4) {
+		>[class^="col-"] {
+			border: 0;
+			padding-top: 10px;
+		}
+	}
+	.layout-header {
+		margin-bottom: 10px;
+	}
+}
+
+.details {
+	margin: 10px 0 0;
+	border: 1px solid @gray;
+	border-top: 2px solid @gray;
+	.rooms {
+		margin: 2mm 0;
+		padding: 0 10px;
+		span {
+			display: inline-block;
+			width: 40%;
+		}
+	}
+}
+
+.extra-details {
+	margin: 0;
+	border-left: 1px solid @gray;
+	.col-sm-4 {
+		float: left;
+		width: 33.3333%;
+		border: 1px solid @gray;
+		border-left: 0;
+		border-top: 0;
+		min-height: 22mm;
+		font-size: 9pt;
+		h5 {
+			font-weight: bold;
+			font-size: 10pt;
+			margin: 5px 0;
+		}
+	}		
 }

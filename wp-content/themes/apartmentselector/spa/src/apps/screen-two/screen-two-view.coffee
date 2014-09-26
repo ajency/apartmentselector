@@ -13,7 +13,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     cloneunitVariantArrayColl = ""
     class ScreenTwoLayout extends Marionette.LayoutView
 
-        template : '<div class="hidden-print">
+        template : '<div class="">
                         <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3>
                         <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3>
                         <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3>
@@ -57,7 +57,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     <div class="row m-l-0 m-r-0 bgClass">
 
-                        <div class="col-md-5 col-lg-4 hidden-print">
+                        <div class="col-md-5 col-lg-4">
                             
                     		<div class="legend text-center m-b-20">
                                 {{#unittypes}}
