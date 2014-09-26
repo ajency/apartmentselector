@@ -59,8 +59,8 @@ You can compare up to 4 apartments!</div>
 
         </nav>
         
-        <div id="print-view">
-            <div class="print-header hide">
+        <div id="print-view" class="visible-print">
+            <div class="print-header">
                 <div class="row print-head">
                     <div class="col-sm-6 head">
                         <h1>Flat No: <strong>1201</strong></h1>
@@ -75,6 +75,74 @@ You can compare up to 4 apartments!</div>
                     </div>
                     <div class="col-sm-6 head">
                         <h2>Floor Range: <strong>Highrise</strong></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="print-row">
+                <div class="row">
+                    <div class="col-sm-5">
+                        Zoomed-in Vew
+                    </div>
+                    <div class="col-sm-7">
+                        Project Map
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        Floor Plan
+                    </div>
+                    <div class="col-sm-7">
+                        Tower View
+                    </div>
+                </div>
+            </div>
+            <div class="print-row">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h4 class="layout-header">&nbsp</h4>
+                        <div class="details">
+                            <div class="rooms">
+                                <span>Bedroom</span>: 1300sq ft
+                            </div>
+                            <div class="rooms">
+                                <span>Hall Room</span>: 1300sq ft
+                            </div>
+                            <div class="rooms">
+                                <span>Dining Room</span>: 1300sq ft
+                            </div>
+                            <div class="rooms">
+                                <span>Terrace</span>: 1300sq ft
+                            </div>
+                            <div class="rooms">
+                                <span>Bedroom</span>: 1300sq ft
+                            </div>
+                            <div class="rooms">
+                                <span>Bathroom</span>: 1300sq ft
+                            </div>
+                            <div class="rooms">
+                                <span>Kitchen</span>: 1300sq ft
+                            </div>
+                        </div>
+                        <div class="row extra-details">
+                            <div class="col-sm-4">
+                                <h5>Terrace</h5>
+                                Terrace with Dining
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Facing</h5>
+                                Beach View
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>Views</h5>
+                                East, South
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <h4 class="layout-header">2D Layout</h4>
+                        <div class="details">
+                            Layout Image
+                        </div>
                     </div>
                 </div>
             </div>
