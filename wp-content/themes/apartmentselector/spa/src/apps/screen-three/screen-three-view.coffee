@@ -375,7 +375,7 @@ define [ 'marionette' ], ( Marionette )->
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
                                     text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 else
-                                    text = 'Not realeased'
+                                    text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
@@ -430,7 +430,7 @@ define [ 'marionette' ], ( Marionette )->
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
                                     text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 else
-                                    text = 'Not realeased'
+                                    text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
@@ -499,7 +499,7 @@ define [ 'marionette' ], ( Marionette )->
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
                                     text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
                                 else
-                                    text = 'Not realeased'
+                                    text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).html text
                             ii++
                 
