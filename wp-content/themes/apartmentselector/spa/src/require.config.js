@@ -46,7 +46,8 @@ requirejs.config({
     JqueryPriceFormat: 'src/bower_components/Jquery-Price-Format/jquery.price_format.min',
     buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill',
     autoNumeric: 'src/bower_components/autoNumeric/autoNumeric',
-    bPopup: 'src/bower_components/bpopup/jquery.bpopup'
+    bPopup: 'src/bower_components/bpopup/jquery.bpopup',
+    printPreview: 'src/bower_components/preload/jquery.print-preview'
   },
   shim: {
     jquery: ['underscore'],
@@ -92,6 +93,7 @@ requirejs.config({
     fullPage: ['jquery'],
     JqueryPriceFormat: ['jquery'],
     autoNumeric: ['jquery'],
-    bPopup: ['jquery']
+    bPopup: ['jquery'],
+    printPreview: ['jquery']
   }
 });

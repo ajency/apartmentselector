@@ -1,4 +1,4 @@
-define('plugin-loader', ['selectFx', 'jquerymousewheel', 'mapplic', 'mapplic_new', 'jqueryEasingmin', 'jquerytouchswipe', 'jqueryliquidslider', 'jqueryCookie', 'sudoSlider', 'underscorestring', 'jbox', 'jReject', 'autoNumeric', 'bPopup'], function() {});
+define('plugin-loader', ['selectFx', 'jquerymousewheel', 'mapplic', 'mapplic_new', 'jqueryEasingmin', 'jquerytouchswipe', 'jqueryliquidslider', 'jqueryCookie', 'sudoSlider', 'underscorestring', 'jbox', 'jReject', 'autoNumeric', 'bPopup', 'printPreview'], function() {});
 
 define('apps-loader', ['src/apps/footer/footer-controller', 'src/apps/header/header-controller', 'src/apps/screen-one/screen-one-controller', 'src/apps/screen-two/screen-two-controller', 'src/apps/screen-three/screen-three-controller', 'src/apps/screen-four/screen-four-controller', 'src/apps/popup/popup-controller', 'src/apps/main-app/main-layout'], function() {});
 

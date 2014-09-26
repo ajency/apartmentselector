@@ -4,7 +4,7 @@ img,
 svg {
   max-width: 100% !important;
 }
-@page  {
+@page {
   margin: 0.5cm;
 }
 p,
@@ -43,30 +43,18 @@ body {
 .web-view {
   display: none !important;
 }
-.print-view {
+.hidden-print {
+  display: none !important;
+}
+.print-view,
+.visible-print {
   display: block !important;
 }
-.section .row {
-  *zoom: 1;
-}
-.section .row:after,
-.section .row:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.section .row [class^="col-"] {
-  float: left;
-}
-.section .row [class^="col-"]:first-child {
-  width: 33.3333%;
-}
-.section .row [class^="col-"]:nth-child(2) {
-  width: 66.6667%;
-}
-.section .row [class^="col-"] .im-map {
-  width: 100% !important;
-  height: 100% !important;
+#screen-one-region,
+#screen-two-region,
+#screen-three-region,
+#screen-four-region {
+  display: none;
 }
 .print-header {
   display: block !important;
