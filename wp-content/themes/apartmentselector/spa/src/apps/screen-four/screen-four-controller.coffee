@@ -140,16 +140,15 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 if terraceoptions == null
                     terraceoptionstext = '---------'
                 else
-                    terraceoptionstextArr.push(unitVariantModel.get 'terraceoptions')
-                    terraceoptionstext = ' Terrace with '+unitVariantModel.get 'terraceoptions'
-
+                    terraceoptionstext = unitVariantModel.get 'terraceoptions'
+                    
                 
-                terraceoptionsString = terraceoptionstextArr.join(', ')
+                
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
                 value.set 'BuildingPositionimage' , building.get('positioninproject').image_url
                 value.set 'roomsizearray' , roomsizearray
-                value.set 'terraceoptions' , terraceoptionsString
+                value.set 'terraceoptions' , terraceoptionstext
 
 
 
