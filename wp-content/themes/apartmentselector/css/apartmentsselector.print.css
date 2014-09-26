@@ -58,25 +58,19 @@ body {
 }
 .print-header {
   display: block !important;
-  margin: 0 0 20px;
+  margin: 5mm 0 20px;
   padding: 0 30px;
-}
-.print-header .row {
   *zoom: 1;
 }
-.print-header .row:after,
-.print-header .row:before {
+.print-header:after,
+.print-header:before {
   clear: both;
   content: "";
   display: table;
 }
-.print-header .row [class^="col-"] {
+.print-header [class^="col-"] {
+  border-top: 1px solid #999999;
   float: left;
-}
-.print-header .row [class^="col-"]:first-child {
-  width: 50%;
-}
-.print-header .row [class^="col-"]:last-child {
   width: 50%;
 }
 .print-header .print-head {
@@ -100,4 +94,60 @@ body {
   text-align: center;
   font-size: 13pt;
   line-height: 1em;
+}
+.print-row {
+  display: block !important;
+  margin: 0 0 10px;
+  padding: 0 30px;
+  *zoom: 1;
+}
+.print-row:after,
+.print-row:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.print-row [class^="col-"] {
+  border-top: 1px solid #999999;
+  min-height: 70mm;
+  float: left;
+  width: 50%;
+}
+.print-row:nth-child(4) > [class^="col-"] {
+  border: 0;
+  padding-top: 10px;
+}
+.print-row .layout-header {
+  margin-bottom: 10px;
+}
+.details {
+  margin: 10px 0 0;
+  border: 1px solid #555555;
+  border-top: 2px solid #555555;
+}
+.details .rooms {
+  margin: 2mm 0;
+  padding: 0 10px;
+}
+.details .rooms span {
+  display: inline-block;
+  width: 40%;
+}
+.extra-details {
+  margin: 0;
+  border-left: 1px solid #555555;
+}
+.extra-details .col-sm-4 {
+  float: left;
+  width: 33.3333%;
+  border: 1px solid #555555;
+  border-left: 0;
+  border-top: 0;
+  min-height: 22mm;
+  font-size: 9pt;
+}
+.extra-details .col-sm-4 h5 {
+  font-weight: bold;
+  font-size: 10pt;
+  margin: 5px 0;
 }
