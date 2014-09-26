@@ -128,7 +128,7 @@ if ( is_development_environment() ) {
     //check not to enqueue frontend scritps for backend
         if(!check_backend_template()){
             // TODO: handle with better logic to define patterns and folder names
-            $module = get_module_name();
+           echo $module = get_module_name();
 
             $pattern     = 'scripts';
             $folder_path = 'js/src';
@@ -194,7 +194,9 @@ if ( is_development_environment() ) {
 
         $module = get_module_name();
 
-        wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css" );
+        wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css", array(), "", "screen" );
+
+        wp_enqueue_style( "$module-print-style", get_template_directory_uri() . "/css/{$module}.print.css", array(), "", "print" );
 
     } 
         add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
@@ -304,6 +306,7 @@ function get_module_name() {
     // TODO: Handle with project specific logic here to define module names
     if ( is_page() )
         $module = sanitize_title( get_the_title() );
+   
 
     return $module;
 

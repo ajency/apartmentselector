@@ -16,10 +16,11 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.className = "grid-block-1";
 
-    UnitTypeView.prototype.template = '<a class="grid-link"> <div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{min_value}} to {{max_value}} (sq. ft.)</span> <input type="hidden" name="check{{id}}"   id="check{{id}}"       value="0" /> </div> </a>';
+    UnitTypeView.prototype.template = '<a class="grid-link"> <div class="grid-text-wrap"> <span class="grid-main-title">{{name}}</span> <span class="grid-sub-title">{{min_value}}  {{to}}  {{max_value}} {{sqft}} </span> <input type="hidden" name="check{{id}}"   id="check{{id}}"       value="0" /> </div> </a>';
 
     UnitTypeView.prototype.events = {
-      'click ': 'unitTypeSelected'
+      'click ': 'unitTypeSelected',
+      'click #checknopreferences': function() {}
     };
 
     UnitTypeView.prototype.initialize = function() {
@@ -27,13 +28,45 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.unitTypeSelected = function(evt) {
-      var buildings, element, index, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _len;
+      var buildings, element, index, masterbuilding, newColl, newUnits, status, uniqBuildings, unitTypeModel, unitTypeString, _i, _j, _len, _len1;
+      if (this.model.get('id') === 'nopreferences') {
+        if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
+          $('#unittype' + this.model.get("id") + ' a').addClass('selected');
+          for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
+            element = unitType[index];
+            $("#check" + element).val('0');
+            $('#unittype' + element + ' a').removeClass('selected');
+            App.backFilter['screen1'] = [];
+          }
+          $('#showbudget').removeClass('hidden');
+          masterbuilding = App.master.building;
+          masterbuilding.each(function(index) {
+            return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
+          });
+          $("#check" + this.model.get('id')).val("1");
+        } else {
+          console.log("eeeeeeee");
+          $("li").removeClass('cs-selected');
+          $(".cs-placeholder").text('Undecided');
+          $('#showbudget').addClass('hidden');
+          $("#check" + this.model.get('id')).val("0");
+          masterbuilding = App.master.building;
+          masterbuilding.each(function(index) {
+            return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
+          });
+          $('#unittype' + this.model.get("id") + ' a').removeClass('selected');
+        }
+        unitType = [];
+        $("#finalButton").addClass('disabled btn-default');
+        $("#finalButton").removeClass('btn-primary');
+        return false;
+      }
       $.map(App.backFilter, function(value, index) {
-        var element, key, screenArray, _i, _len, _results;
+        var key, screenArray, _j, _len1, _results;
         screenArray = App.backFilter[index];
         _results = [];
-        for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
-          element = screenArray[_i];
+        for (_j = 0, _len1 = screenArray.length; _j < _len1; _j++) {
+          element = screenArray[_j];
           key = App.defaults.hasOwnProperty(element);
           if (key === true) {
             _results.push(App.defaults[element] = 'All');
@@ -43,6 +76,7 @@ define(['marionette'], function(Marionette) {
         }
         return _results;
       });
+      $('#showbudget').addClass('hidden');
       App.layout.screenTwoRegion.el.innerHTML = "";
       App.layout.screenThreeRegion.el.innerHTML = "";
       App.layout.screenFourRegion.el.innerHTML = "";
@@ -55,8 +89,9 @@ define(['marionette'], function(Marionette) {
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       $("li").removeClass('cs-selected');
       $(".cs-placeholder").text('Undecided');
+      $("#checknopreferences").val("0");
       $('a').removeClass('selected');
-      for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
+      for (index = _j = 0, _len1 = unitType.length; _j < _len1; index = ++_j) {
         element = unitType[index];
         if (parseInt(element) === parseInt(this.model.get('id'))) {
           $("#check" + this.model.get('id')).val('1');
@@ -148,7 +183,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<h3 class="light text-center m-t-0">LOREM IPSUM TITLE</h3> <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4> <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a unit type</div> <div class="grid-container"></div> <h5 class="text-center m-t-20 m-b-20 bold">OR</h5> <div class="text-center subTxt">Choose a budget</div> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-d-group="2"> </div>';
+    ScreenOneView.prototype.template = '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3> <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4> <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a unit type</div> <div class="grid-container"></div> <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>--> <div id="showbudget" class="hidden"><div class="text-center subTxt">Choose a budget</div> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section></div> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-m-dec=""  data-d-group="2" > </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -256,7 +291,7 @@ define(['marionette'], function(Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover .tower-over': function(e) {
-        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, id, key, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext, _i, _len;
+        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, floorarray, id, key, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext, _i, _len;
         e.preventDefault();
         id = e.target.id;
         str1 = id.replace(/[^\d.]/g, '');
@@ -341,13 +376,21 @@ define(['marionette'], function(Marionette) {
             }
           });
           if (flag === myArray.length) {
-            return floorCollunits.push(value1);
+            if (value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
+              return floorCollunits.push(value1);
+            }
           }
         });
         mainnewarr = [];
         mainunique = {};
+        floorarray = [];
         if (myArray.length === 0) {
-          floorCollunits = unitslen;
+          $.each(floorCollunits, function(ind, val) {
+            if (val.get('unitType') !== 14 && val.get('unitType') !== 16) {
+              return floorarray.push(val);
+            }
+          });
+          floorCollunits = floorarray;
         }
         units = new Backbone.Collection(floorCollunits);
         mainunitTypeArray1 = [];

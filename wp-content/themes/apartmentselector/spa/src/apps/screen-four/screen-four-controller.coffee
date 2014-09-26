@@ -105,6 +105,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
 
 
                 roomSizesArray = unitVariantModel.get 'roomsizes'
+                temp = []
                 roomsizearray = []
                 $.each(roomSizesArray, (index,value1)->
                     roomsizearray.push({size: value1.room_size, type: value1.room_type})
@@ -134,11 +135,15 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'views_name' , facingModelArray.join(', ')
 
                 terraceoptions = unitVariantModel.get 'terraceoptions'
+                terraceoptionstext = ""
+                terraceoptionstextArr = []
                 if terraceoptions == null
                     terraceoptionstext = '---------'
                 else
                     terraceoptionstext = unitVariantModel.get 'terraceoptions'
-
+                    
+                
+                
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
                 value.set 'BuildingPositionimage' , building.get('positioninproject').image_url

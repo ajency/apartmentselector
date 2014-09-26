@@ -55,7 +55,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       });
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
-        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, roomSizesArray, roomsizearray, terraceoptions, terraceoptionstext, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
+        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, roomSizesArray, roomsizearray, temp, terraceoptions, terraceoptionstext, terraceoptionstextArr, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
         unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -91,6 +91,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
           floorLayoutimage = building.get('floor_layout_detailed').image_url;
         }
         roomSizesArray = unitVariantModel.get('roomsizes');
+        temp = [];
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
           return roomsizearray.push({
@@ -127,6 +128,8 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         }
         value.set('views_name', facingModelArray.join(', '));
         terraceoptions = unitVariantModel.get('terraceoptions');
+        terraceoptionstext = "";
+        terraceoptionstextArr = [];
         if (terraceoptions === null) {
           terraceoptionstext = '---------';
         } else {

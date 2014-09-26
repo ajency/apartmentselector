@@ -87,6 +87,8 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
                     min_val = Math.min.apply( Math, max_coll )
                     #set max and min attribute to the unit type model
                     unitTypemodel.set( { 'max_value' : max_val, 'min_value' : min_val } )
+                    unitTypemodel.set 'sqft' , '(sq. ft.)'
+                    unitTypemodel.set 'to' , 'to'
                     modelArray.push unitTypemodel
 
 
@@ -99,6 +101,10 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
 
 
             )
+            noPrefereceModel = new Backbone.Model
+            noPrefereceModel.set 'id' , 'nopreferences'
+            noPrefereceModel.set 'name' , 'BUDGET'
+            modelArray.push noPrefereceModel
             priceArray.sort( (a,b) ->
                 a = a.split(' ')
                 budget_pricea = a[0].split('-')
@@ -110,6 +116,8 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
             priceArray = _.uniq(priceArray)
             for element in priceArray
                 rangeArray.push({id:element,name:element})
+
+
 
             collection.add modelArray
 
