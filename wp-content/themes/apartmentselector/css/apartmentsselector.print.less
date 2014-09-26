@@ -1,0 +1,100 @@
+/**** Print Styles Here ****/
+@import url('../../../../HTML/assets/less/skyi-master/custom-variables.less');
+@import url('apartmentsselector.styles.css');
+
+img, svg { max-width: 100% !important; }
+@page { margin: 0.5cm; }
+p, h2, h3 { orphans: 3; widows: 3; }
+h2, h3 { page-break-after: avoid; }
+
+body {
+	font-size: 12pt;
+	width: 100%;
+}
+
+/****Clearfix****/
+.clearfix {
+    *zoom: 1;
+	&:after, &:before {
+		clear: both;
+		content: "";
+		display: table;
+	}
+}
+
+[class^="visible-"], [class^="col-"] {
+	display: block !important;
+}
+
+#header-region, #filter-region, .cbp-spmenu, .grid-link, .btn, .web-view {
+	display: none !important;
+}
+
+.print-view {
+	display: block !important;
+}
+
+.section {
+	.row {
+		.clearfix;
+		[class^="col-"]{
+			float: left;
+			&:first-child {
+				width: 33.3333%;
+			}
+			&:nth-child(2) {
+				width: 66.6667%;
+			}
+			.im-map {
+				width: 100% !important;
+				height: 100% !important;
+			}
+		}
+	}
+	&#screen-one-region {
+		
+	}
+	&#screen-two-region {
+		
+	}
+}
+
+.print-header {
+	display: block !important;
+	margin: 0 0 20px;
+	padding: 0 30px;
+	.row {
+		.clearfix;
+		[class^="col-"]{
+			float: left;
+			&:first-child {
+				width: 50%;
+			}
+			&:last-child {
+				width: 50%;
+			}
+		}
+	}
+	.print-head {
+		border: 1px solid @gray;
+		border-top: 2px solid @gray;
+		background: @gray-lighter;
+		h1 {
+			text-align: center;
+			text-transform: uppercase;
+			font-size: 20pt;
+			line-height: 1em;
+		}
+	}
+	.print-sub-head {
+		border: 1px solid @gray;
+		border-top: 0;
+		background: @color-white;
+		h2 {
+			font-weight: normal;
+			text-align: center;
+			font-size: 13pt;
+			line-height: 1em;
+		}
+	}
+}
