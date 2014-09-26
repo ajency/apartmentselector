@@ -30,33 +30,16 @@ body {
 	display: none !important;
 }
 
-.print-view {
+.hidden-print {
+	display: none !important;
+}
+
+.print-view, .visible-print {
 	display: block !important;
 }
 
-.section {
-	.row {
-		.clearfix;
-		[class^="col-"]{
-			float: left;
-			&:first-child {
-				width: 33.3333%;
-			}
-			&:nth-child(2) {
-				width: 66.6667%;
-			}
-			.im-map {
-				width: 100% !important;
-				height: 100% !important;
-			}
-		}
-	}
-	&#screen-one-region {
-		
-	}
-	&#screen-two-region {
-		
-	}
+#screen-one-region, #screen-two-region, #screen-three-region, #screen-four-region {
+	display: none;
 }
 
 .print-header {

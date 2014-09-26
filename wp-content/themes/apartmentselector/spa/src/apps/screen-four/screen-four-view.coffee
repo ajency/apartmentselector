@@ -30,7 +30,7 @@ define [ 'marionette' ], ( Marionette )->
                                         </a>
                                     </div>
                                     <div class="grid-block-4">
-                                        <a class="grid-link">
+                                        <a class="grid-link print-preview">
                                             <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3>
                                             <h4 class="m-t-0 m-b-0">Print</h4>
                                         </a>
@@ -340,6 +340,9 @@ define [ 'marionette' ], ( Marionette )->
                 .insideRegion  App.layout.screenFourRegion
                     .withOptions()
 
+            #'click .print-preview':(e)->
+
+
 
         onShow:->
             #@trigger "get:perSqft:price"
@@ -439,6 +442,8 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray = []
             flag = 0
             count = 0
+
+            $('a.print-preview').printPreview();
 
         showWishList:->
             table = ""
