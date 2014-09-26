@@ -10838,6 +10838,57 @@ h5 {
 .formPopup {
   background: #ffffff;
   padding: 20px;
+  width: 500px;
+  text-align: center;
+}
+.formPopup .formIntro {
+  line-height: 30px;
+  font-size: 28px;
+  margin: 10px 0 20px;
+}
+.formPopup .formIntro span {
+  font-family: 'kievit';
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 21px;
+  margin-bottom: 10.5px;
+  font-size: 35px;
+  color: #ff6600;
+  font-weight: 500;
+}
+.formPopup .formIntro span small,
+.formPopup .formIntro span .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.formPopup .formIntro span small,
+.formPopup .formIntro span .small {
+  font-size: 65%;
+}
+.formPopup .with_frm_style label.frm_primary_label,
+.formPopup .with_frm_style.frm_login_form label {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 14px;
+}
+.formPopup .with_frm_style label.frm_primary_label small,
+.formPopup .with_frm_style.frm_login_form label small,
+.formPopup .with_frm_style label.frm_primary_label .small,
+.formPopup .with_frm_style.frm_login_form label .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.formPopup .with_frm_style label.frm_primary_label small,
+.formPopup .with_frm_style.frm_login_form label small,
+.formPopup .with_frm_style label.frm_primary_label .small,
+.formPopup .with_frm_style.frm_login_form label .small {
+  font-size: 75%;
 }
 .vs-nav li a {
   color: #333333;
