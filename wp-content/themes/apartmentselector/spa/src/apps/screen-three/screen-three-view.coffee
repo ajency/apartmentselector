@@ -70,9 +70,9 @@ define [ 'marionette' ], ( Marionette )->
                             
                             <div class="svgLegend">
                                 <div class="row">
-                                    <div class="col-sm-3"><span class="legendBox available"></span> Available</div>
-                                    <div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>
-                                    <div class="col-sm-5"><span class="legendBox na"></span> Not in Selection/Not Released</div>
+                                    <div class="col-sm-6"><span class="legendBox available"></span> Available</div>
+                                    <!--<div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>-->
+                                    <div class="col-sm-6"><span class="legendBox na"></span> Not in Selection/Not Released</div>
                                 </div>
                             </div>
 
