@@ -7945,11 +7945,15 @@ h5 {
   transition: all 0.3s ease-out;
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
+/* Email Popup */
 .formPopup {
   background: #ffffff;
   padding: 20px;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   text-align: center;
+  border: 10px solid #999999;
+  min-height: 0;
 }
 .formPopup .formIntro {
   line-height: 30px;
@@ -7976,6 +7980,17 @@ h5 {
 .formPopup .formIntro span .small {
   font-size: 65%;
 }
+.formPopup .remodal-close {
+  background: #333333;
+  top: -20px;
+  right: -20px;
+}
+.formPopup .remodal-close:hover {
+  text-decoration: none;
+}
+.formPopup .remodal-close:after {
+  line-height: 25px;
+}
 .formPopup .with_frm_style label.frm_primary_label,
 .formPopup .with_frm_style.frm_login_form label {
   font-family: 'kievit';
@@ -7985,6 +8000,8 @@ h5 {
   margin-top: 10.5px;
   margin-bottom: 10.5px;
   font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 .formPopup .with_frm_style label.frm_primary_label small,
 .formPopup .with_frm_style.frm_login_form label small,
@@ -7999,6 +8016,194 @@ h5 {
 .formPopup .with_frm_style label.frm_primary_label .small,
 .formPopup .with_frm_style.frm_login_form label .small {
   font-size: 75%;
+}
+.formPopup .with_frm_style input[type=text],
+.formPopup .with_frm_style input[type=password],
+.formPopup .with_frm_style input[type=email],
+.formPopup .with_frm_style input[type=number],
+.formPopup .with_frm_style input[type=url],
+.formPopup .with_frm_style input[type=tel],
+.formPopup .with_frm_style select,
+.formPopup .with_frm_style textarea,
+.formPopup .frm_form_fields_style,
+.formPopup .with_frm_style .frm_scroll_box .frm_opt_container,
+.formPopup .frm_form_fields_active_style,
+.formPopup .frm_form_fields_error_style,
+.formPopup .with_frm_style .chzn-container-multi .chzn-choices,
+.formPopup .with_frm_style .chzn-container-single .chzn-single {
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 18px;
+  padding: 8px;
+  margin-top: 0;
+  border-radius: 0;
+}
+.formPopup .with_frm_style input[type=text] small,
+.formPopup .with_frm_style input[type=password] small,
+.formPopup .with_frm_style input[type=email] small,
+.formPopup .with_frm_style input[type=number] small,
+.formPopup .with_frm_style input[type=url] small,
+.formPopup .with_frm_style input[type=tel] small,
+.formPopup .with_frm_style select small,
+.formPopup .with_frm_style textarea small,
+.formPopup .frm_form_fields_style small,
+.formPopup .with_frm_style .frm_scroll_box .frm_opt_container small,
+.formPopup .frm_form_fields_active_style small,
+.formPopup .frm_form_fields_error_style small,
+.formPopup .with_frm_style .chzn-container-multi .chzn-choices small,
+.formPopup .with_frm_style .chzn-container-single .chzn-single small,
+.formPopup .with_frm_style input[type=text] .small,
+.formPopup .with_frm_style input[type=password] .small,
+.formPopup .with_frm_style input[type=email] .small,
+.formPopup .with_frm_style input[type=number] .small,
+.formPopup .with_frm_style input[type=url] .small,
+.formPopup .with_frm_style input[type=tel] .small,
+.formPopup .with_frm_style select .small,
+.formPopup .with_frm_style textarea .small,
+.formPopup .frm_form_fields_style .small,
+.formPopup .with_frm_style .frm_scroll_box .frm_opt_container .small,
+.formPopup .frm_form_fields_active_style .small,
+.formPopup .frm_form_fields_error_style .small,
+.formPopup .with_frm_style .chzn-container-multi .chzn-choices .small,
+.formPopup .with_frm_style .chzn-container-single .chzn-single .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.formPopup .with_frm_style input[type=text] small,
+.formPopup .with_frm_style input[type=password] small,
+.formPopup .with_frm_style input[type=email] small,
+.formPopup .with_frm_style input[type=number] small,
+.formPopup .with_frm_style input[type=url] small,
+.formPopup .with_frm_style input[type=tel] small,
+.formPopup .with_frm_style select small,
+.formPopup .with_frm_style textarea small,
+.formPopup .frm_form_fields_style small,
+.formPopup .with_frm_style .frm_scroll_box .frm_opt_container small,
+.formPopup .frm_form_fields_active_style small,
+.formPopup .frm_form_fields_error_style small,
+.formPopup .with_frm_style .chzn-container-multi .chzn-choices small,
+.formPopup .with_frm_style .chzn-container-single .chzn-single small,
+.formPopup .with_frm_style input[type=text] .small,
+.formPopup .with_frm_style input[type=password] .small,
+.formPopup .with_frm_style input[type=email] .small,
+.formPopup .with_frm_style input[type=number] .small,
+.formPopup .with_frm_style input[type=url] .small,
+.formPopup .with_frm_style input[type=tel] .small,
+.formPopup .with_frm_style select .small,
+.formPopup .with_frm_style textarea .small,
+.formPopup .frm_form_fields_style .small,
+.formPopup .with_frm_style .frm_scroll_box .frm_opt_container .small,
+.formPopup .frm_form_fields_active_style .small,
+.formPopup .frm_form_fields_error_style .small,
+.formPopup .with_frm_style .chzn-container-multi .chzn-choices .small,
+.formPopup .with_frm_style .chzn-container-single .chzn-single .small {
+  font-size: 75%;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit] {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 16px;
+  line-height: 1.36;
+  border-radius: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #ff6600;
+  border-color: #e65c00;
+  margin: auto;
+  display: block;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit]:focus,
+.formPopup .with_frm_style .frm_submit input[type=submit]:active:focus,
+.formPopup .with_frm_style .frm_submit input[type=submit].active:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit]:hover,
+.formPopup .with_frm_style .frm_submit input[type=submit]:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit]:active,
+.formPopup .with_frm_style .frm_submit input[type=submit].active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.formPopup .with_frm_style .frm_submit input[type=submit].disabled,
+.formPopup .with_frm_style .frm_submit input[type=submit][disabled],
+fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit] {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit]:hover,
+.formPopup .with_frm_style .frm_submit input[type=submit]:focus,
+.formPopup .with_frm_style .frm_submit input[type=submit]:active,
+.formPopup .with_frm_style .frm_submit input[type=submit].active,
+.open > .dropdown-toggle.formPopup .with_frm_style .frm_submit input[type=submit] {
+  color: #ffffff;
+  background-color: #cc5200;
+  border-color: #a84300;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit]:active,
+.formPopup .with_frm_style .frm_submit input[type=submit].active,
+.open > .dropdown-toggle.formPopup .with_frm_style .frm_submit input[type=submit] {
+  background-image: none;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit].disabled,
+.formPopup .with_frm_style .frm_submit input[type=submit][disabled],
+fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit],
+.formPopup .with_frm_style .frm_submit input[type=submit].disabled:hover,
+.formPopup .with_frm_style .frm_submit input[type=submit][disabled]:hover,
+fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit]:hover,
+.formPopup .with_frm_style .frm_submit input[type=submit].disabled:focus,
+.formPopup .with_frm_style .frm_submit input[type=submit][disabled]:focus,
+fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit]:focus,
+.formPopup .with_frm_style .frm_submit input[type=submit].disabled:active,
+.formPopup .with_frm_style .frm_submit input[type=submit][disabled]:active,
+fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit]:active,
+.formPopup .with_frm_style .frm_submit input[type=submit].disabled.active,
+.formPopup .with_frm_style .frm_submit input[type=submit][disabled].active,
+fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit].active {
+  background-color: #ff6600;
+  border-color: #e65c00;
+}
+.formPopup .with_frm_style .frm_submit input[type=submit] .badge {
+  color: #ff6600;
+  background-color: #ffffff;
+}
+.formPopup img {
+  margin: auto;
+  display: block;
+  margin-top: 10px;
+}
+.formPopup .with_frm_style .frm_message,
+.formPopup .frm_success_style {
+  background: #eeeeee;
+  color: #333333;
+  border: none;
 }
 .vs-nav li a {
   color: #333333;
