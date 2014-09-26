@@ -181,7 +181,8 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "MILESTONES", get_milestones() );
             wp_localize_script( "requirejs", "SETTINGS", get_apratment_selector_settings() );
             wp_localize_script( "requirejs", "USER", get_ap_current_user() );
-
+            wp_localize_script( "requirejs", "EMAILFORM", FrmEntriesController::show_form(27, $key = '', $title=false, $description=true  ));
+ 
 
         }
     }
@@ -242,6 +243,7 @@ if (! is_development_environment() ) {
             wp_localize_script( "$module-script", "MILESTONES", get_milestones() );
             wp_localize_script( "$module-script", "SETTINGS", get_apratment_selector_settings() );
             wp_localize_script( "$module-script", "USER", get_ap_current_user() );
+            wp_localize_script( "$module-script", "EMAILFORM", FrmEntriesController::show_form(27, $key = '', $title=false, $description=true  ));
         }
     }
 
@@ -304,6 +306,7 @@ function get_module_name() {
     // TODO: Handle with project specific logic here to define module names
     if ( is_page() )
         $module = sanitize_title( get_the_title() );
+   
 
     return $module;
 

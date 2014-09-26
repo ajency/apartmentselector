@@ -169,7 +169,7 @@ define [ 'marionette' ], ( Marionette )->
                 	</div>
 
                     <div class="formPopup" style="display: none;">
-                        Form will come here
+                        
                     </div>'
 
 
@@ -182,6 +182,18 @@ define [ 'marionette' ], ( Marionette )->
             mainRegion : '#mainunit-region'
 
         events:->
+            'click #emailBtn':(e)->
+                e.preventDefault()
+                $(".formPopup").html(EMAILFORM)
+                $(".formPopup").bPopup()
+                unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+                building = App.master.building.findWhere({id:parseInt(unit.get('building'))})
+                $('#field_emailunit').val unit.get('name')
+                $('#field_emailtower').val building.get('name')
+                return
+
+
+            
             'click #list':(e)->
                 myModal = new jBox('Notice', 
                     content: '',
@@ -1198,10 +1210,7 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
 
-            $("#emailBtn").on "click", (e) ->
-              e.preventDefault()
-              $(".formPopup").bPopup()
-              return
+            
 
 
             $('#slider-plans').liquidSlider(

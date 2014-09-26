@@ -365,7 +365,7 @@ function add_input_class($classes, $field){
 add_filter('frm_field_classes', 'add_input_class', 10, 2);
 
 
-add_filter('frm_validate_field_entry', 'your_custom_validation', 20, 3);
+//add_filter('frm_validate_field_entry', 'your_custom_validation', 20, 3);
 function your_custom_validation($errors, $field, $value){
     formatted_echo($errors) ;
 }
