@@ -63,7 +63,7 @@ You can compare up to 4 apartments!</div>
             <div class="print-header hide">
                 <div class="row print-head">
                     <div class="col-sm-6 head">
-                        <h1>Flat No: <strong>1201</strong></h1>
+                        <h1>Flat No: <strong><span id="flatno"></span></strong></h1>
                     </div>
                     <div class="col-sm-6 head">
                         <h1>Tower 1</h1>

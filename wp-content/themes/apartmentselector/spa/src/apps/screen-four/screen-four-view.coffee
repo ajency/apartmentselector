@@ -345,6 +345,8 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             #@trigger "get:perSqft:price"
+
+            $("#flatno").text @model.get 'name' 
             $(".discountToggle").click ->
                 $(".discountBox").slideToggle()
                 return
@@ -1009,6 +1011,8 @@ define [ 'marionette' ], ( Marionette )->
             $('#finalcost').autoNumeric('init')
             $('#totalcost' ).text $('#totalcost').autoNumeric('set', totalcost).text()
             $('#finalcost' ).text $('#finalcost').autoNumeric('set', finalcost).text()
+
+
             
 
 
