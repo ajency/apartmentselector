@@ -94,9 +94,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         temp = [];
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
-          if (value1.room_type_id === 70) {
-            temp.push(value1);
-          }
           return roomsizearray.push({
             size: value1.room_size,
             type: value1.room_type
@@ -136,12 +133,9 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         if (terraceoptions === null) {
           terraceoptionstext = '---------';
         } else {
-          terraceoptionstextArr.push(' Terrace with ' + unitVariantModel.get('terraceoptions'));
+          terraceoptionstextArr.push(unitVariantModel.get('terraceoptions'));
           terraceoptionstext = ' Terrace with ' + unitVariantModel.get('terraceoptions');
         }
-        $.each(temp, function(index, value) {
-          return terraceoptionstextArr.push('Terrace with bedroom');
-        });
         terraceoptionsString = terraceoptionstextArr.join(', ');
         value.set('floorLayoutimage', floorLayoutimage);
         value.set('BuildingPositionimage', building.get('positioninproject').image_url);

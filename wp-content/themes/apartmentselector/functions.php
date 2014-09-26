@@ -128,7 +128,7 @@ if ( is_development_environment() ) {
     //check not to enqueue frontend scritps for backend
         if(!check_backend_template()){
             // TODO: handle with better logic to define patterns and folder names
-            $module = get_module_name();
+           echo $module = get_module_name();
 
             $pattern     = 'scripts';
             $folder_path = 'js/src';
@@ -304,6 +304,7 @@ function get_module_name() {
     // TODO: Handle with project specific logic here to define module names
     if ( is_page() )
         $module = sanitize_title( get_the_title() );
+   
 
     return $module;
 

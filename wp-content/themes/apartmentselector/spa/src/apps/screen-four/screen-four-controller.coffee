@@ -108,9 +108,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 temp = []
                 roomsizearray = []
                 $.each(roomSizesArray, (index,value1)->
-                    if value1.room_type_id == 70
-                        temp.push(value1)
-
                     roomsizearray.push({size: value1.room_size, type: value1.room_type})
 
 
@@ -143,16 +140,10 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 if terraceoptions == null
                     terraceoptionstext = '---------'
                 else
-                    terraceoptionstextArr.push(' Terrace with '+unitVariantModel.get 'terraceoptions')
+                    terraceoptionstextArr.push(unitVariantModel.get 'terraceoptions')
                     terraceoptionstext = ' Terrace with '+unitVariantModel.get 'terraceoptions'
 
-                $.each(temp, (index,value)->
-                    terraceoptionstextArr.push('Terrace with bedroom')
-                    
-
-
-
-                    )
+                
                 terraceoptionsString = terraceoptionstextArr.join(', ')
                 #value.set 'facings_name',facingModelArray.join(', ')
                 value.set 'floorLayoutimage' , floorLayoutimage
