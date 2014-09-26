@@ -39,6 +39,12 @@ body{
 	background-size: 125px;
 }
 
+@media (max-width:768px){
+	body{
+		background-image: none;
+	}
+}
+
 
 .page-container {
 	padding: 0 5px;
@@ -128,6 +134,18 @@ body{
 	#screen-two-region, #screen-three-region, #screen-four-region{
 		&.section{
 			min-height: 100%;
+		}
+	}
+}
+
+@media (max-width:767px){
+	#screen-one-region, #screen-two-region, #screen-three-region{
+		h3{
+			.h4;
+			.bold;
+		}
+		h4{
+			.h5;
 		}
 	}
 }
