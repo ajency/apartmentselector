@@ -55,7 +55,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       });
       unitsArray = App.master.unit.toArray();
       $.each(units, function(index, value) {
-        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, roomSizesArray, roomsizearray, temp, terraceoptions, terraceoptionsString, terraceoptionstext, terraceoptionstextArr, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
+        var building, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, roomSizesArray, roomsizearray, temp, terraceoptions, terraceoptionstext, terraceoptionstextArr, unitTypeModel, unitVariantModel, viewModel, viewModelArray, viewsArray, _i, _j, _len, _len1;
         unitVariantModel = App.master.unit_variant.findWhere({
           id: value.get('unitVariant')
         });
@@ -94,9 +94,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         temp = [];
         roomsizearray = [];
         $.each(roomSizesArray, function(index, value1) {
-          if (value1.room_type_id === 70) {
-            temp.push(value1);
-          }
           return roomsizearray.push({
             size: value1.room_size,
             type: value1.room_type
@@ -136,17 +133,12 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         if (terraceoptions === null) {
           terraceoptionstext = '---------';
         } else {
-          terraceoptionstextArr.push(' Terrace with ' + unitVariantModel.get('terraceoptions'));
-          terraceoptionstext = ' Terrace with ' + unitVariantModel.get('terraceoptions');
+          terraceoptionstext = unitVariantModel.get('terraceoptions');
         }
-        $.each(temp, function(index, value) {
-          return terraceoptionstextArr.push('Terrace with bedroom');
-        });
-        terraceoptionsString = terraceoptionstextArr.join(', ');
         value.set('floorLayoutimage', floorLayoutimage);
         value.set('BuildingPositionimage', building.get('positioninproject').image_url);
         value.set('roomsizearray', roomsizearray);
-        return value.set('terraceoptions', terraceoptionsString);
+        return value.set('terraceoptions', terraceoptionstext);
       });
       units.sort(function(a, b) {
         return a.get('id') - b.get('id');

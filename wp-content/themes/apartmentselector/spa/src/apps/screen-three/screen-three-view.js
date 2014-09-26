@@ -292,7 +292,11 @@ define(['marionette'], function(Marionette) {
                 unittpe = App.master.unit_type.findWhere({
                   id: unitModel.get('unitType')
                 });
-                text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
+                  text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                } else {
+                  text = 'Not Released';
+                }
                 $('#' + temp1[ii] + flatid).html(text);
               }
               return ii++;
@@ -348,7 +352,11 @@ define(['marionette'], function(Marionette) {
                 unittpe = App.master.unit_type.findWhere({
                   id: unitModel.get('unitType')
                 });
-                text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
+                  text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                } else {
+                  text = 'Not Released';
+                }
                 $('#' + temp1[ii] + flatid).html(text);
               }
               return ii++;
@@ -406,7 +414,11 @@ define(['marionette'], function(Marionette) {
                 unittpe = App.master.unit_type.findWhere({
                   id: unitModel.get('unitType')
                 });
-                text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
+                  text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                } else {
+                  text = 'Not Released';
+                }
                 $('#' + temp1[ii] + flatid).html(text);
               }
               return ii++;
