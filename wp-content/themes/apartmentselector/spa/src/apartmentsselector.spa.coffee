@@ -3,7 +3,7 @@
 
 # add your required plugins here.
 define 'plugin-loader', ['selectFx','jquerymousewheel','mapplic','mapplic_new','jqueryEasingmin'
-,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring', 'jbox', 'jReject','autoNumeric', 'bPopup', 'printPreview'], ->
+,'jquerytouchswipe','jqueryliquidslider','jqueryCookie', 'sudoSlider','underscorestring', 'jbox', 'jReject','autoNumeric', 'printPreview'], ->
 
     # add your marionette apps here
 define 'apps-loader', [
