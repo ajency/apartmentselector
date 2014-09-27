@@ -196,7 +196,7 @@ define(['marionette'], function(Marionette) {
     });
 
     ScreenFourLayout.prototype.loadPrint = function() {
-      var building, image, indexvalue, roomsizearray, roomtext, svgdata, temp, temp1, temp2, units;
+      var building, image, indexvalue, indexvalue1, roomsizearray, roomtext, svgdata, temp, temp1, temp2, units;
       $('.prntLoader').removeClass("hidden");
       $("#flatno").text("");
       $("#towerno").text("");
@@ -245,6 +245,7 @@ define(['marionette'], function(Marionette) {
       });
       svgdata = building.get('svgdata');
       indexvalue = "";
+      indexvalue1 = "";
       temp = ['ff', 'f'];
       temp1 = ['tt', 't'];
       temp2 = ['cc', 'cc'];
@@ -266,9 +267,8 @@ define(['marionette'], function(Marionette) {
                 return b - a;
               });
               $.each(value.svgposition, function(index1, val1) {
-                var indexvalue1;
                 indexvalue = unitsarray[units.get('unitAssigned')];
-                indexvalue1 = unitsarray[units.get('unitAssigned')];
+                indexvalue1 = unitsarray[val1];
                 $.map(indexvalue1, function(index, value) {
                   console.log(temp[ii]);
                   $('#' + temp[ii] + value).attr('class', 'unselected-floor');

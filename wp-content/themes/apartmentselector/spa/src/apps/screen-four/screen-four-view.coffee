@@ -409,6 +409,7 @@ define [ 'marionette' ], ( Marionette )->
                 building = App.master.building.findWhere({id:units.get('building')})
                 svgdata = building.get 'svgdata'
                 indexvalue = ""
+                indexvalue1 = ""
                 temp = ['ff','f']
                 temp1 = ['tt','t']
                 temp2 = ['cc','cc']
@@ -433,7 +434,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $.each(value.svgposition, (index1,val1)->
                                             
                                             indexvalue = unitsarray[units.get('unitAssigned')]
-                                            indexvalue1 = unitsarray[units.get('unitAssigned')]
+                                            indexvalue1 = unitsarray[val1]
                                             $.map(indexvalue1, (index,value)->
                                                 console.log temp[ii]
                                                 $('#'+temp[ii]+value).attr('class', 'unselected-floor')
