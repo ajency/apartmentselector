@@ -59,7 +59,7 @@ You can compare up to 4 apartments!</div>
 
         </nav>
         
-        <div class="prntLoader"></div>
+        <div class="prntLoader hidden"></div>
 
         <div id="print-view" class="visible-print">
             <div class="print-header">

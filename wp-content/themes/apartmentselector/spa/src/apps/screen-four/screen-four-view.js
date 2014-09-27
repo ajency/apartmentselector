@@ -197,7 +197,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.loadPrint = function() {
       var building, image, indexvalue, roomsizearray, roomtext, svgdata, temp, temp1, temp2, units;
-      $('.prntLoader').show();
+      $('.prntLoader').removeClass("hidden");
       $("#flatno").text("");
       $("#towerno").text("");
       $("#unittypename").text("");

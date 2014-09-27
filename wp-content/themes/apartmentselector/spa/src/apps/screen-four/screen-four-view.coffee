@@ -359,7 +359,7 @@ define [ 'marionette' ], ( Marionette )->
         )
 
         loadPrint:->
-                $('.prntLoader').show()
+                $('.prntLoader').removeClass "hidden"
                 $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
