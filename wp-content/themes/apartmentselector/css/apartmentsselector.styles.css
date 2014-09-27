@@ -11108,6 +11108,7 @@ fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit].act
   width: 100%;
   opacity: 0.5;
   z-index: 9999;
+  position: fixed;
 }
 .vs-nav li a {
   color: #333333;
