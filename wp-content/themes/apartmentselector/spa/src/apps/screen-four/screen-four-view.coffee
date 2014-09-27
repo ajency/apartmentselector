@@ -417,6 +417,7 @@ define [ 'marionette' ], ( Marionette )->
                         temp = ['f','ff']
                         temp1 = ['t','tt']
                         temp2 = ['c','cc']
+                
                 $.each(svgdata, (index,value)->
                     
                     if $.inArray(units.get('unitAssigned'),value.svgposition ) >= 0 && value.svgposition != null
@@ -425,9 +426,23 @@ define [ 'marionette' ], ( Marionette )->
                             svgposition = value.svgfile
                             unitsarray = value.units
                             $('#towerview').load(svgposition,  (x)->
+                                value.svgposition.sort( (a,b)->
+                                    b - a
+
+                                )
                                 $.each(value.svgposition, (index1,val1)->
-                                        if parseInt(units.get('unitAssigned')) == parseInt(val1)
+                                            
                                             indexvalue = unitsarray[units.get('unitAssigned')]
+                                            indexvalue1 = unitsarray[units.get('unitAssigned')]
+                                            $.map(indexvalue1, (index,value)->
+                                                console.log temp[ii]
+                                                $('#'+temp[ii]+value).attr('class', 'unselected-floor')
+                                                $('#'+temp[ii]+value).attr('data-value', index)
+                                                $('#'+temp[ii]+value).attr('data-idvalue', temp[ii])
+                                            
+                                                
+                                            )
+                                            ii++
 
                                         
                                             
@@ -435,13 +450,8 @@ define [ 'marionette' ], ( Marionette )->
 
                                 )
                                 idvalue = ""
-                                $.map(indexvalue, (index,value)->
-                                                console.log temp[ii]
-                                                $('#'+temp[ii]+value).attr('class', 'unselected-floor')
-                                                $('#'+temp[ii]+value).attr('data-value', index)
-                                                $('#'+temp[ii]+value).attr('data-idvalue', temp[ii])
-                                                
-                                    )
+
+                               
                                 position = ""
                                 $.each(indexvalue, (index,value)->
                                     if parseInt($('#f'+index).attr('data-value'))  == units.get('id')
@@ -466,6 +476,7 @@ define [ 'marionette' ], ( Marionette )->
                                 
 
                             )
+                        
 
 
                 )

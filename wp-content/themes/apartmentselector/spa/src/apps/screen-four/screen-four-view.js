@@ -262,18 +262,22 @@ define(['marionette'], function(Marionette) {
             unitsarray = value.units;
             return $('#towerview').load(svgposition, function(x) {
               var idvalue, position, text, textid, unittpe;
+              value.svgposition.sort(function(a, b) {
+                return b - a;
+              });
               $.each(value.svgposition, function(index1, val1) {
-                if (parseInt(units.get('unitAssigned')) === parseInt(val1)) {
-                  return indexvalue = unitsarray[units.get('unitAssigned')];
-                }
+                var indexvalue1;
+                indexvalue = unitsarray[units.get('unitAssigned')];
+                indexvalue1 = unitsarray[units.get('unitAssigned')];
+                $.map(indexvalue1, function(index, value) {
+                  console.log(temp[ii]);
+                  $('#' + temp[ii] + value).attr('class', 'unselected-floor');
+                  $('#' + temp[ii] + value).attr('data-value', index);
+                  return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
+                });
+                return ii++;
               });
               idvalue = "";
-              $.map(indexvalue, function(index, value) {
-                console.log(temp[ii]);
-                $('#' + temp[ii] + value).attr('class', 'unselected-floor');
-                $('#' + temp[ii] + value).attr('data-value', index);
-                return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
-              });
               position = "";
               $.each(indexvalue, function(index, value) {
                 if (parseInt($('#f' + index).attr('data-value')) === units.get('id')) {
