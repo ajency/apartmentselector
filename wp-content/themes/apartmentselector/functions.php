@@ -265,7 +265,7 @@ if (! is_development_environment() ) {
         wp_enqueue_style( "$module-print-style",
             get_template_directory_uri() . "/css/{$module}.print.css",
             array(),
-            get_current_version(),
+            "",
             "print" );
 
         
