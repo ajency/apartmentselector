@@ -50,7 +50,7 @@ define [ 'marionette' ], ( Marionette )->
                     App.backFilter['screen1'] = []
 
                     $("li").removeClass 'cs-selected'
-                    $(".cs-placeholder").text('Undecided')
+                    $(".cs-placeholder").text('Choose a budget')
                     $('#showbudget').addClass 'hidden'
                     $("#check"+@model.get 'id').val "0"
                     masterbuilding = App.master.building
@@ -86,7 +86,7 @@ define [ 'marionette' ], ( Marionette )->
                 .withOptions()
             
             $("li").removeClass 'cs-selected'
-            $(".cs-placeholder").text('Undecided')
+            $(".cs-placeholder").text('Choose a budget')
             $("#checknopreferences").val "0"
             $('a' ).removeClass 'selected'
             
@@ -176,10 +176,10 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="text-center subTxt">Choose a preference</div>
                             <div class="grid-container"></div>
                             <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>-->
-        	                <div id="showbudget" class="hidden"><div class="text-center subTxt">Choose a budget</div>
+        	                <div id="showbudget" class="hidden"><!--<div class="text-center subTxt">Choose a budget</div>-->
                             <section>
                                 <select class="cs-select cs-skin-underline" id="budgetValue">
-                                    <option value="" disabled selected>Undecided</option>
+                                    <option value="" disabled selected>Choose a budget</option>
                                     {{#priceArray}}
                                     <option value="{{id}}">{{name}}</option>
                                     {{/priceArray}}
@@ -205,7 +205,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 
 
-                if $(".cs-placeholder").text() != 'Undecided'
+                if $(".cs-placeholder").text() != 'Choose a budget'
                     budget_val = $(".cs-selected").text().split(' ')
                     if(budget_val[1]=='lakhs')
                         budget_price = budget_val[0].split('-')
@@ -232,7 +232,7 @@ define [ 'marionette' ], ( Marionette )->
                             App.defaults[element] = 'All'
 
                 )
-                if $(".cs-placeholder").text() != 'Undecided'
+                if $(".cs-placeholder").text() != 'Choose a budget'
                     budget_val = $(".cs-selected").text().split(' ')
                     if(budget_val[1]=='lakhs')
                         budget_price = budget_val[0].split('-')

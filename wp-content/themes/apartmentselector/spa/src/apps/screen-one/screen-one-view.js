@@ -47,7 +47,7 @@ define(['marionette'], function(Marionette) {
         } else {
           App.backFilter['screen1'] = [];
           $("li").removeClass('cs-selected');
-          $(".cs-placeholder").text('Undecided');
+          $(".cs-placeholder").text('Choose a budget');
           $('#showbudget').addClass('hidden');
           $("#check" + this.model.get('id')).val("0");
           masterbuilding = App.master.building;
@@ -88,7 +88,7 @@ define(['marionette'], function(Marionette) {
       evt.preventDefault();
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       $("li").removeClass('cs-selected');
-      $(".cs-placeholder").text('Undecided');
+      $(".cs-placeholder").text('Choose a budget');
       $("#checknopreferences").val("0");
       $('a').removeClass('selected');
       for (index = _j = 0, _len1 = unitType.length; _j < _len1; index = ++_j) {
@@ -183,7 +183,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3> <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4> <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a preference</div> <div class="grid-container"></div> <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>--> <div id="showbudget" class="hidden"><div class="text-center subTxt">Choose a budget</div> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Undecided</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section></div> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-m-dec=""  data-d-group="2" > </div>';
+    ScreenOneView.prototype.template = '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3> <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4> <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a preference</div> <div class="grid-container"></div> <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>--> <div id="showbudget" class="hidden"><!--<div class="text-center subTxt">Choose a budget</div>--> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Choose a budget</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section></div> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-m-dec=""  data-d-group="2" > </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -194,7 +194,7 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.events = {
       'click #finalButton': function(e) {
         var budget_price, budget_val;
-        if ($(".cs-placeholder").text() !== 'Undecided') {
+        if ($(".cs-placeholder").text() !== 'Choose a budget') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');
@@ -229,7 +229,7 @@ define(['marionette'], function(Marionette) {
           }
           return _results;
         });
-        if ($(".cs-placeholder").text() !== 'Undecided') {
+        if ($(".cs-placeholder").text() !== 'Choose a budget') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');

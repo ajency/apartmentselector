@@ -108,7 +108,7 @@ You can compare up to 4 apartments!</div>
                                 <span id="terrace"></span>
                             </div>
                             <div class="col-sm-4">
-                                <h5>Facing</h5>
+                                <h5>Entrance</h5>
                                 <span id="printfacing"></span>
                             </div>
                             <div class="col-sm-4">
@@ -122,8 +122,10 @@ You can compare up to 4 apartments!</div>
                         <div class="details ">
                             <img src="" id="twoDimage" />
                         </div>
+
                         <h4 class="layout-header">3D Layout</h4>
-                            <div class="details ">
+                        <div class="details ">
+
                             <img src="" id="threeDimage" />
                         </div>
                     </div>

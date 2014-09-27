@@ -356,8 +356,10 @@ define [ 'marionette' ], ( Marionette )->
             if(e.ctrlKey && e.keyCode == 80)
                 @loadPrint()
 
+        )
+
         loadPrint:->
-            $("#flatno").text ""
+                $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
                 $("#area").text ""
@@ -394,6 +396,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log image = document.getElementById('twoDimage')
                 $("#twoDimage").attr('src' , units.get 'TwoDimage')
                 $("#zoomedinimage").attr('src' , units.get 'zoomedinimage')
+                $("#threeDimage").attr('src' , units.get 'ThreeDimage')
                 object = @
                 $("#floorlayoutbasic").load(units.get('floor_layout_basic'), (x)->
                         $('#'+units.get('unitAssigned')).attr('class','floor-pos position')
@@ -1188,7 +1191,7 @@ define [ 'marionette' ], ( Marionette )->
     class UnitMainView extends Marionette.CompositeView
 
         template : '<div class="row m-l-0 m-r-0 bgClass">
-						<div class="col-md-5 col-lg-4 p-b-10">
+						<div class="col-md-5 col-lg-4 p-b-10 b-grey b-r">
                             <div class="unitDetails">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -1218,19 +1221,23 @@ define [ 'marionette' ], ( Marionette )->
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <div class="unitBox facing">
                                             <h4 class="view">{{terraceoptions}}</h4>
                                             <h4 class="titles"><span class="sky-content-left"></span> Terrace</h4>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="unitBox facing">
                                             <h4 class="view facingclass">{{facings_name}}</h4>
                                             <h4 class="titles"><span class="sky-map"></span> Views</h4>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="unitBox facing">
                                             <h4 class="view viewclass">{{views_name}}</h4>
                                             <h4 class="titles"><span class="sky-location"></span> Entrance</h4>
@@ -1262,7 +1269,7 @@ define [ 'marionette' ], ( Marionette )->
 							</div>
 						</div>-->
 
-                        <div class="col-md-7 col-lg-8 b-grey b-l">
+                        <div class="col-md-7 col-lg-8">
                             <div class="liquid-slider center-block" id="slider-plans">
                                 <div>
                                     <h2 class="title">2D Layout</h2>
