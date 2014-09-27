@@ -402,7 +402,7 @@ define [ 'marionette' ], ( Marionette )->
                 $("#floorlayoutbasic").load(units.get('floor_layout_basic'), (x)->
                         $('#'+units.get('unitAssigned')).attr('class','floor-pos position')
                 )
-                $('#printmapplic1').load('http://localhost/apartmentselector/wp-content/uploads/2014/08/first-map.svg', (x)->
+                $('#printmapplic1').load(SITEURL+'/wp-content/uploads/2014/08/first-map.svg', (x)->
                         $('#hglighttower'+units.get('building')).attr('class','overlay highlight')
 
                 )
