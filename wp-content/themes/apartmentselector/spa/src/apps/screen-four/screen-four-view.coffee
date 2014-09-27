@@ -168,7 +168,7 @@ define [ 'marionette' ], ( Marionette )->
             			</div><!-- e: invoice -->
                 	</div>
 
-                    <div class="formPopup" style="display: none;">
+                    <div class="formPopup remodal" data-remodal-id="emailpop">
                         <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div>
                         <div class="formFields"></div>                        
                     </div>'
@@ -192,7 +192,9 @@ define [ 'marionette' ], ( Marionette )->
                 building = App.master.building.findWhere({id:parseInt(unit.get('building'))})
                 $(".formFields").html(EMAILFORM)
                 $('.formIntro').html  'I\'m interested in <br>Flat <span id="emailflatno">'+unit.get('name')+'</span> in <span id="emailtower">'+building.get('name')+'</span></div>'
-                $(".formPopup").bPopup()
+                # $(".formPopup").bPopup()
+                inst = $.remodal.lookup[$("[data-remodal-id=emailpop]").data("remodal")]
+                inst.open()
                 $('#field_emailunit').val unit.get('name')
                 $('#field_emailtower').val building.get('name')
                 

@@ -173,7 +173,7 @@ define [ 'marionette' ], ( Marionette )->
 
                     <div class="row m-l-0 m-r-0 bgClass">
                         <div class="col-md-5 col-lg-4">
-                            <div class="text-center subTxt">Choose a unit type</div>
+                            <div class="text-center subTxt">Choose a preference</div>
                             <div class="grid-container"></div>
                             <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>-->
         	                <div id="showbudget" class="hidden"><div class="text-center subTxt">Choose a budget</div>
