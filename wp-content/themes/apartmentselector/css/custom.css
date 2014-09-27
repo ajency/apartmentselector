@@ -7810,6 +7810,10 @@ h5 {
   position: relative;
   visibility: hidden;
 }
+.positionSvg text {
+  font-family: 'kievit' !important;
+  font-weight: 700;
+}
 @media (min-width: 1200px) and (max-width: 1400px) {
   .positionSvg,
   .svgLegend {
@@ -9025,6 +9029,14 @@ polygon.selected-flat {
   fill: #99DD1F !important;
   cursor: pointer;
   opacity: 0.8;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 .aviable:hover + text,
 rect.selected-flat + text,
@@ -9043,6 +9055,14 @@ polygon.range {
   fill: #DD1F1F   !important;
   cursor: pointer;
   opacity: 0.8;
+  -webkit-transition: all 0.3s ease-out;
+  /* Chrome 1-25, Safari 3.2+ */
+  -moz-transition: all 0.3s ease-out;
+  /* Firefox 4-15 */
+  -o-transition: all 0.3s ease-out;
+  /* Opera 10.50–12.00 */
+  transition: all 0.3s ease-out;
+  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 .position {
   fill: #F60   !important;
@@ -9063,7 +9083,8 @@ polygon.range {
 .other:hover {
   fill: #EEEEEE !important;
   cursor: default;
-  opacity: 0.8;
+  opacity: 0.8
+  .ease;
 }
 text {
   pointer-events: none;

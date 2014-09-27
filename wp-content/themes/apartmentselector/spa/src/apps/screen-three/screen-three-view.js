@@ -299,6 +299,7 @@ define(['marionette'], function(Marionette) {
                   text = 'Not Released';
                 }
                 $('#' + temp1[ii] + flatid).text(text);
+                $('#' + temp1[ii] + flatid).attr('x', '-30');
               }
               return ii++;
             });
@@ -359,6 +360,7 @@ define(['marionette'], function(Marionette) {
                   text = 'Not Released';
                 }
                 $('#' + temp1[ii] + flatid).text(text);
+                $('#' + temp1[ii] + flatid).attr('x', '-30');
               }
               return ii++;
             });
@@ -421,6 +423,7 @@ define(['marionette'], function(Marionette) {
                   text = 'Not Released';
                 }
                 $('#' + temp1[ii] + flatid).text(text);
+                $('#' + temp1[ii] + flatid).attr('x', '-30');
               }
               return ii++;
             });
@@ -1267,7 +1270,8 @@ define(['marionette'], function(Marionette) {
                   id: object.model.get('unitType')
                 });
                 text = object.model.get('name') + ' | ' + unittpe.get('name');
-                return $('#' + textid + value).html(text);
+                $('#' + textid + value).html(text);
+                return $("#" + textid + value).attr('x', '-30');
               }
             });
             $('#' + this.model.get("unitAssigned")).attr('class', 'floor-pos position');
