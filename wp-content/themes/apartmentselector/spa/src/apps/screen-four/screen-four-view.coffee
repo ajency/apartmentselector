@@ -1257,7 +1257,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 roomtext += '<div class="rooms">
                                 <span>'+value.type+'</span>: '+value.size+' sq ft
-                            </div'
+                            </div>'
 
 
                 )

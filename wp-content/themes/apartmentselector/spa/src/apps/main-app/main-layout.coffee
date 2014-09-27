@@ -81,7 +81,6 @@ You can compare up to 4 apartments!</div>
             <div class="print-row">
                 <div class="row">
                     <div class="col-sm-5">
-                        Zoomed-in Vew
                         <img src="" id="zoomedinimage" />
                     </div>
                     <div class="col-sm-7">
@@ -90,11 +89,9 @@ You can compare up to 4 apartments!</div>
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        Floor Plan
                         <div id="floorlayoutbasic" ></div>
                     </div>
                     <div class="col-sm-7">
-                        Tower View
                         <div id="towerview" ></div>
                     </div>
                 </div>
