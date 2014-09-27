@@ -80,13 +80,18 @@ body {
 	display: block !important;
 	margin: 0 0 10px;
 	padding: 0 30px;
-	page-break-after: avoid;
 	.clearfix;
 	[class^="col-"] {
 		border-top: 1px solid @gray-lighter;
-		min-height: 60mm;
+		max-height: 60mm;
 		float: left;
 		width: 50%;
+		img {
+			max-height: 100%;
+			width: auto;
+			display: block;
+			margin: auto;
+		}
 	}
 	&:nth-child(4) {
 		>[class^="col-"] {
@@ -96,6 +101,11 @@ body {
 	}
 	.layout-header {
 		margin-bottom: 10px;
+	}
+	&.last {
+		[class^="col-"] {
+			max-height: initial;
+		}
 	}
 }
 
@@ -124,6 +134,7 @@ body {
 		border-top: 0;
 		min-height: 22mm;
 		font-size: 9pt;
+		max-height: initial;
 		h5 {
 			font-weight: bold;
 			font-size: 10pt;

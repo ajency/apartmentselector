@@ -96,7 +96,7 @@ You can compare up to 4 apartments!</div>
                     </div>
                 </div>
             </div>
-            <div class="print-row">
+            <div class="print-row last">
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="details room">
