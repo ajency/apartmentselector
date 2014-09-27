@@ -176,10 +176,10 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="text-center subTxt">Choose a preference</div>
                             <div class="grid-container"></div>
                             <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>-->
-        	                <div id="showbudget" class="hidden"><div class="text-center subTxt">Choose a budget</div>
+        	                <div id="showbudget" class="hidden"><!--<div class="text-center subTxt">Choose a budget</div>-->
                             <section>
                                 <select class="cs-select cs-skin-underline" id="budgetValue">
-                                    <option value="" disabled selected>Undecided</option>
+                                    <option value="" disabled selected>Choose a budget</option>
                                     {{#priceArray}}
                                     <option value="{{id}}">{{name}}</option>
                                     {{/priceArray}}
