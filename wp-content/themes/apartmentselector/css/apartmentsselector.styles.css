@@ -12421,3 +12421,6 @@ a.im-clear-button {
 }
 /**** end print modal styles ****/
 
+iframe#print-modal-content{
+	height: 5000px !important;
+}
