@@ -378,6 +378,7 @@ define [ 'marionette' ], ( Marionette )->
                                 else
                                     text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).text text
+                                $('#'+temp1[ii]+flatid).attr('x','-30')
                             ii++
                 
                                 
@@ -433,6 +434,7 @@ define [ 'marionette' ], ( Marionette )->
                                 else
                                     text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).text text
+                                $('#'+temp1[ii]+flatid).attr('x','-30')
                             ii++
                 
                                 
@@ -502,6 +504,7 @@ define [ 'marionette' ], ( Marionette )->
                                 else
                                     text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).text text
+                                $('#'+temp1[ii]+flatid).attr('x','-30')
                             ii++
                 
                                 
@@ -1366,6 +1369,7 @@ define [ 'marionette' ], ( Marionette )->
                                 unittpe = App.master.unit_type.findWhere({id:object.model.get('unitType')})
                                 text = object.model.get('name')+' | '+unittpe.get('name')
                                 $('#'+textid+value).html text
+                                $("#"+textid+value).attr('x','-30')
                                 
 
 
