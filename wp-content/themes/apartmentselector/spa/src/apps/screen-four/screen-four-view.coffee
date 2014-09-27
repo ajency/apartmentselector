@@ -23,7 +23,7 @@ define [ 'marionette' ], ( Marionette )->
 
                             <div class="step4Actions">
                                 <div class="grid-container">
-                                    <div class="grid-block-4 hidden">
+                                    <div class="grid-block-4 ">
                                         <a class="grid-link remove" name="list" id="list">
                                             <h3 class="m-t-0 m-b-0"><span class="skyicon sky-heart"></span></h3>
                                             <h4 class="m-t-0 m-b-0 ">Add to Wishlist</h4>
@@ -41,7 +41,7 @@ define [ 'marionette' ], ( Marionette )->
                                             <h4 class="m-t-0 m-b-0">Email</h4>
                                         </a>
                                     </div>
-                                    <div class="grid-block-4 costsheetbutton hidden" >
+                                    <div class="grid-block-4 costsheetbutton " >
                                         <a class="grid-link" data-remodal-target="modal">
                                             <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3>
                                             <h4 class="m-t-0 m-b-0 ">Cost Sheet</h4>
@@ -286,7 +286,7 @@ define [ 'marionette' ], ( Marionette )->
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
                 if App.cookieArray.length < 1
-                    console.log "eeeeeeeeeeeee"
+                    $("#showRightPushs").addClass "hidden"
                     menuRight = document.getElementById("cbp-spmenu-s2")
                     menuTop = document.getElementById("cbp-spmenu-s3")
                     showTop = document.getElementById("showTop")
