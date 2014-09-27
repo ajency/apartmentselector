@@ -124,7 +124,8 @@ define(['marionette'], function(Marionette) {
                     id: units.get('unitType')
                   });
                   text = units.get('name') + ' | ' + unittpe.get('name');
-                  return $('#' + textid + position).html(text);
+                  $('#' + textid + position).html(text);
+                  return $('#' + textid + position).attr('x', '-30');
                 });
               }
             }

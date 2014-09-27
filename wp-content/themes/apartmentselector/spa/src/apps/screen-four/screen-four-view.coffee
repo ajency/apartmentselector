@@ -286,6 +286,7 @@ define [ 'marionette' ], ( Marionette )->
                                 unittpe = App.master.unit_type.findWhere({id:units.get('unitType')})
                                 text = units.get('name')+' | '+unittpe.get('name')
                                 $('#'+textid+position).html text
+                                $('#'+textid+position).attr('x','-30')
                                 
 
                             )
