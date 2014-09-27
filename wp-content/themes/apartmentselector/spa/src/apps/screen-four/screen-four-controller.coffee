@@ -151,6 +151,8 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'BuildingPositionimage' , building.get('positioninproject').image_url
                 value.set 'roomsizearray' , roomsizearray
                 value.set 'terraceoptions' , terraceoptionstext
+                value.set 'zoomedinimage' , building.get('zoomedinimage').image_url
+                value.set 'floor_layout_basic' , building.get('floor_layout_basic').image_url
 
                 floorriserange = building.get 'floorriserange'
                     #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]

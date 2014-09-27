@@ -1249,6 +1249,93 @@ define [ 'marionette' ], ( Marionette )->
             $("#unittypename").text @model.get 'unittypename'
             $("#area").text @model.get 'sellablearea'
             $("#floorrise").text @model.get 'flooRange'
+            roomsizearray = @model.get 'roomsizearray'
+            roomtext = ""
+            $.each(roomsizearray, (index,value)->
+
+                roomtext += '<div class="rooms">
+                                <span>'+value.type+'</span>: '+value.size+' sq ft
+                            </div'
+
+
+                )
+            $('.room').html roomtext
+            $('#terrace').text @model.get 'terraceoptions'
+            $('#printfacing').text @model.get 'facings_name'
+            $('#printview').text @model.get 'views_name'
+            console.log image = document.getElementById('twoDimage')
+            $("#twoDimage").attr('src' , @model.get 'TwoDimage')
+            $("#zoomedinimage").attr('src' , @model.get 'zoomedinimage')
+            object = @
+            $("#floorlayoutbasic").load(@model.get('floor_layout_basic'), (x)->
+                    console.log $('#'+object.model.get('unitAssigned'))
+                    $('#'+1).attr('class','floor-pos position')
+            )
+            $('#printmapplic1').load('http://localhost/apartmentselector/wp-content/uploads/2014/08/first-map.svg', (x)->
+                    console.log object.model.get('building')
+                    $('#hglighttower'+object.model.get('building')).attr('class','overlay highlight')
+
+            )
+            building = App.master.building.findWhere({id:@model.get('building')})
+            svgdata = building.get 'svgdata'
+            indexvalue = ""
+            temp = ['ff','f']
+            temp1 = ['tt','t']
+            temp2 = ['cc','cc']
+            
+            if  parseInt(building.get('id')) == 11
+                    temp = ['f','ff']
+                    temp1 = ['t','tt']
+                    temp2 = ['c','cc']
+            $.each(svgdata, (index,value)->
+                
+                if $.inArray(object.model.get('unitAssigned'),value.svgposition ) >= 0 && value.svgposition != null
+                    ii = 0
+                    if value.svgfile != ""
+                        svgposition = value.svgfile
+                        unitsarray = value.units
+                        $('#towerview').load(svgposition,  (x)->
+                            $.each(value.svgposition, (index1,val1)->
+                                    if parseInt(object.model.get('unitAssigned')) == parseInt(val1)
+                                        indexvalue = unitsarray[object.model.get('unitAssigned')]
+
+                                    
+                                        
+
+
+                            )
+                            idvalue = ""
+                            $.map(indexvalue, (index,value)->
+                                            console.log temp[ii]
+                                            $('#'+temp[ii]+value).attr('class', 'unselected-floor')
+                                            $('#'+temp[ii]+value).attr('data-value', index)
+                                            $('#'+temp[ii]+value).attr('data-idvalue', temp[ii])
+                                            
+                                )
+                            $.each(indexvalue, (index,value)->
+                                if parseInt($('#f'+index).attr('data-value'))  == object.model.get('id')
+                                   idvalue = $('#f'+index).attr('data-idvalue')
+                                else if parseInt($('#ff'+index).attr('data-value'))  == object.model.get('id')
+                                   idvalue = $('#ff'+index).attr('data-idvalue')
+
+                                )
+                            textid = ""
+                            $('#'+idvalue+object.model.get('unitAssigned')).attr('class', 'selected-flat')
+                            if idvalue == 'f'
+                                textid = 't'
+                            else
+                                textid = 'tt'
+                            $("#"+textid+object.model.get('unitAssigned')).attr('class','selected-flat')
+                            unittpe = App.master.unit_type.findWhere({id:object.model.get('unitType')})
+                            text = object.model.get('name')+' | '+unittpe.get('name')
+                            $('#'+textid+object.model.get('unitAssigned')).html text
+                            
+
+                        )
+
+
+            )
+            
 
             
 

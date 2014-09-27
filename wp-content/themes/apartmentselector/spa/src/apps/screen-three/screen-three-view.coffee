@@ -102,6 +102,7 @@ define [ 'marionette' ], ( Marionette )->
 
             'click .customLink':(e)->
                 id = parseInt(e.target.id)
+                console.log unitAssigedArray
                 for element , index in unitAssigedArray
                     if element == parseInt(id)
                         $('#'+element).attr('class','floor-pos position')
@@ -373,10 +374,10 @@ define [ 'marionette' ], ( Marionette )->
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
-                                    text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
+                                    text = unitModel.get('name')+' | '+unittpe.get('name')
                                 else
                                     text = 'Not Released'
-                                $('#'+temp1[ii]+flatid).html text
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 
@@ -428,10 +429,10 @@ define [ 'marionette' ], ( Marionette )->
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
-                                    text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
+                                    text = unitModel.get('name')+' | '+unittpe.get('name')
                                 else
                                     text = 'Not Released'
-                                $('#'+temp1[ii]+flatid).html text
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 
@@ -497,10 +498,10 @@ define [ 'marionette' ], ( Marionette )->
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
-                                    text = '<tspan x="-50" y="-10">'+unitModel.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
+                                    text = unitModel.get('name')+' | '+unittpe.get('name')
                                 else
                                     text = 'Not Released'
-                                $('#'+temp1[ii]+flatid).html text
+                                $('#'+temp1[ii]+flatid).text text
                             ii++
                 
                                 
@@ -1363,7 +1364,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#currency2').autoNumeric('set', object.model.get('unitPrice'));
                                 currency = $('#currency2').val()
                                 unittpe = App.master.unit_type.findWhere({id:object.model.get('unitType')})
-                                text = '<tspan x="-50" y="-10">'+object.model.get('name')+' | '+unittpe.get('name')+'</tspan><tspan x="-50" y="10">'+ currency+'</tspan>'
+                                text = object.model.get('name')+' | '+unittpe.get('name')
                                 $('#'+textid+value).html text
                                 
 

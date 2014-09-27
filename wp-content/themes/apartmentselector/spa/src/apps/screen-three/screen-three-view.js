@@ -39,6 +39,7 @@ define(['marionette'], function(Marionette) {
       'click .customLink': function(e) {
         var element, id, index, _i, _len;
         id = parseInt(e.target.id);
+        console.log(unitAssigedArray);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
           element = unitAssigedArray[index];
           if (element === parseInt(id)) {
@@ -293,11 +294,11 @@ define(['marionette'], function(Marionette) {
                   id: unitModel.get('unitType')
                 });
                 if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
-                  text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                  text = unitModel.get('name') + ' | ' + unittpe.get('name');
                 } else {
                   text = 'Not Released';
                 }
-                $('#' + temp1[ii] + flatid).html(text);
+                $('#' + temp1[ii] + flatid).text(text);
               }
               return ii++;
             });
@@ -353,11 +354,11 @@ define(['marionette'], function(Marionette) {
                   id: unitModel.get('unitType')
                 });
                 if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
-                  text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                  text = unitModel.get('name') + ' | ' + unittpe.get('name');
                 } else {
                   text = 'Not Released';
                 }
-                $('#' + temp1[ii] + flatid).html(text);
+                $('#' + temp1[ii] + flatid).text(text);
               }
               return ii++;
             });
@@ -415,11 +416,11 @@ define(['marionette'], function(Marionette) {
                   id: unitModel.get('unitType')
                 });
                 if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
-                  text = '<tspan x="-50" y="-10">' + unitModel.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                  text = unitModel.get('name') + ' | ' + unittpe.get('name');
                 } else {
                   text = 'Not Released';
                 }
-                $('#' + temp1[ii] + flatid).html(text);
+                $('#' + temp1[ii] + flatid).text(text);
               }
               return ii++;
             });
@@ -1265,7 +1266,7 @@ define(['marionette'], function(Marionette) {
                 unittpe = App.master.unit_type.findWhere({
                   id: object.model.get('unitType')
                 });
-                text = '<tspan x="-50" y="-10">' + object.model.get('name') + ' | ' + unittpe.get('name') + '</tspan><tspan x="-50" y="10">' + currency + '</tspan>';
+                text = object.model.get('name') + ' | ' + unittpe.get('name');
                 return $('#' + textid + value).html(text);
               }
             });
