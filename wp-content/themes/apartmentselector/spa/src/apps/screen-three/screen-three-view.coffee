@@ -101,6 +101,20 @@ define [ 'marionette' ], ( Marionette )->
         events:
 
             'click .customLink':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 id = parseInt(e.target.id)
                 console.log unitAssigedArray
                 for element , index in unitAssigedArray
@@ -113,6 +127,20 @@ define [ 'marionette' ], ( Marionette )->
                 @loadsvg(id)
 
             'click .unit-hover':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
@@ -237,6 +265,20 @@ define [ 'marionette' ], ( Marionette )->
                 
 
             'click .unselected-floor':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
@@ -339,6 +381,20 @@ define [ 'marionette' ], ( Marionette )->
                 
 
             'mouseover .unit-hover':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
@@ -395,6 +451,20 @@ define [ 'marionette' ], ( Marionette )->
 
 
             'mouseover .range':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
@@ -464,6 +534,20 @@ define [ 'marionette' ], ( Marionette )->
                 
            
             'mouseover .unselected-floor':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
                 buildinArray = buildingCollection.toArray()
                 building  = _.first(buildinArray)
@@ -828,6 +912,7 @@ define [ 'marionette' ], ( Marionette )->
                 object1.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
         loadbuildingsvg:->
+
             console.log buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
             buildinArray = buildingCollection.toArray()
             console.log building  = _.first(buildinArray)
@@ -1249,6 +1334,20 @@ define [ 'marionette' ], ( Marionette )->
         events:
 
             'click ':(e)->
+                $("#flatno").text ""
+                $("#towerno").text ""
+                $("#unittypename").text ""
+                $("#area").text ""
+                $("#floorrise").text ""
+                $('.room').html ""
+                $('#terrace').text ""
+                $('#printfacing').text ""
+                $('#printview').text ""
+                $("#twoDimage").attr('src' , "")
+                $("#zoomedinimage").attr('src' , "")
+                $("#floorlayoutbasic").text ""
+                $('#printmapplic1').text ""
+                $('#towerview').text ""
                 screenThreeLayout = new ScreenThreeLayout()
                 check = screenThreeLayout.checkSelection(@model)
                 if check == 1 && @model.get('status') == 9
