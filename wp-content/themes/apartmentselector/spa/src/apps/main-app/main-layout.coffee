@@ -123,6 +123,9 @@ You can compare up to 4 apartments!</div>
                         <div class="details ">
                             <img src="" id="twoDimage" />
                         </div>
+                        <div class="details ">
+                            <img src="" id="threeDimage" />
+                        </div>
                     </div>
                 </div>
             </div>
