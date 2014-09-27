@@ -38,6 +38,20 @@ define(['marionette'], function(Marionette) {
     ScreenThreeLayout.prototype.events = {
       'click .customLink': function(e) {
         var element, id, index, _i, _len;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         id = parseInt(e.target.id);
         console.log(unitAssigedArray);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
@@ -54,6 +68,20 @@ define(['marionette'], function(Marionette) {
       },
       'click .unit-hover': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, id, indexvalue, rangeArrayVal, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -168,6 +196,20 @@ define(['marionette'], function(Marionette) {
       },
       'click .unselected-floor': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, id, indexvalue, rangeArrayVal, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -254,6 +296,20 @@ define(['marionette'], function(Marionette) {
       },
       'mouseover .unit-hover': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -314,6 +370,20 @@ define(['marionette'], function(Marionette) {
       },
       'mouseover .range': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -374,6 +444,20 @@ define(['marionette'], function(Marionette) {
       },
       'mouseover .unselected-floor': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, checktrack, flatid, floorriserange, id, indexvalue, pos, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         buildingCollection = Marionette.getOption(this, 'buildingCollection');
         buildinArray = buildingCollection.toArray();
         building = _.first(buildinArray);
@@ -1151,6 +1235,20 @@ define(['marionette'], function(Marionette) {
     unitChildView.prototype.events = {
       'click ': function(e) {
         var buildingModel, check, element, idValue, idvalue, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues, _i, _len;
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
         screenThreeLayout = new ScreenThreeLayout();
         check = screenThreeLayout.checkSelection(this.model);
         if (check === 1 && this.model.get('status') === 9) {

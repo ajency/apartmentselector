@@ -25,6 +25,111 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.events = function() {
       return {
+        'click .print-preview': function(e) {
+          var building, image, indexvalue, roomsizearray, roomtext, svgdata, temp, temp1, temp2, units;
+          $("#flatno").text("");
+          $("#towerno").text("");
+          $("#unittypename").text("");
+          $("#area").text("");
+          $("#floorrise").text("");
+          $('.room').html("");
+          $('#terrace').text("");
+          $('#printfacing').text("");
+          $('#printview').text("");
+          $("#twoDimage").attr('src', "");
+          $("#zoomedinimage").attr('src', "");
+          $("#floorlayoutbasic").text("");
+          $('#printmapplic1').text("");
+          $('#towerview').text("");
+          units = App.master.unit.findWhere({
+            id: parseInt(App.unit['name'])
+          });
+          $("#flatno").text(units.get('name'));
+          $("#towerno").text(units.get('buildingname'));
+          $("#unittypename").text(units.get('unittypename'));
+          $("#area").text(units.get('sellablearea'));
+          $("#floorrise").text(units.get('flooRange'));
+          roomsizearray = units.get('roomsizearray');
+          roomtext = "";
+          $.each(roomsizearray, function(index, value) {
+            return roomtext += '<div class="rooms"> <span>' + value.type + '</span>: ' + value.size + ' sq ft </div>';
+          });
+          $('.room').html(roomtext);
+          $('#terrace').text(units.get('terraceoptions'));
+          $('#printfacing').text(units.get('facings_name'));
+          $('#printview').text(units.get('views_name'));
+          console.log(image = document.getElementById('twoDimage'));
+          $("#twoDimage").attr('src', units.get('TwoDimage'));
+          $("#zoomedinimage").attr('src', units.get('zoomedinimage'));
+          object = this;
+          $("#floorlayoutbasic").load(units.get('floor_layout_basic'), function(x) {
+            return $('#' + units.get('unitAssigned')).attr('class', 'floor-pos position');
+          });
+          $('#printmapplic1').load('http://localhost/apartmentselector/wp-content/uploads/2014/08/first-map.svg', function(x) {
+            return $('#hglighttower' + units.get('building')).attr('class', 'overlay highlight');
+          });
+          building = App.master.building.findWhere({
+            id: units.get('building')
+          });
+          svgdata = building.get('svgdata');
+          indexvalue = "";
+          temp = ['ff', 'f'];
+          temp1 = ['tt', 't'];
+          temp2 = ['cc', 'cc'];
+          if (parseInt(building.get('id')) === 11) {
+            temp = ['f', 'ff'];
+            temp1 = ['t', 'tt'];
+            temp2 = ['c', 'cc'];
+          }
+          return $.each(svgdata, function(index, value) {
+            var ii, svgposition, unitsarray;
+            if ($.inArray(units.get('unitAssigned'), value.svgposition) >= 0 && value.svgposition !== null) {
+              ii = 0;
+              if (value.svgfile !== "") {
+                svgposition = value.svgfile;
+                unitsarray = value.units;
+                return $('#towerview').load(svgposition, function(x) {
+                  var idvalue, position, text, textid, unittpe;
+                  $.each(value.svgposition, function(index1, val1) {
+                    if (parseInt(units.get('unitAssigned')) === parseInt(val1)) {
+                      return indexvalue = unitsarray[units.get('unitAssigned')];
+                    }
+                  });
+                  idvalue = "";
+                  $.map(indexvalue, function(index, value) {
+                    console.log(temp[ii]);
+                    $('#' + temp[ii] + value).attr('class', 'unselected-floor');
+                    $('#' + temp[ii] + value).attr('data-value', index);
+                    return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
+                  });
+                  position = "";
+                  $.each(indexvalue, function(index, value) {
+                    if (parseInt($('#f' + index).attr('data-value')) === units.get('id')) {
+                      idvalue = $('#f' + index).attr('data-idvalue');
+                      return position = index;
+                    } else if (parseInt($('#ff' + index).attr('data-value')) === units.get('id')) {
+                      idvalue = $('#ff' + index).attr('data-idvalue');
+                      return position = index;
+                    }
+                  });
+                  textid = "";
+                  $('#' + idvalue + position).attr('class', 'selected-flat');
+                  if (idvalue === 'f') {
+                    textid = 't';
+                  } else {
+                    textid = 'tt';
+                  }
+                  $("#" + textid + position).attr('class', 'selected-flat');
+                  unittpe = App.master.unit_type.findWhere({
+                    id: units.get('unitType')
+                  });
+                  text = units.get('name') + ' | ' + unittpe.get('name');
+                  return $('#' + textid + position).html(text);
+                });
+              }
+            }
+          });
+        },
         'click #emailBtn': function(e) {
           var building, inst, unit;
           e.preventDefault();
@@ -185,6 +290,114 @@ define(['marionette'], function(Marionette) {
         }
       };
     };
+
+    jQuery(document).bind("keyup keydown", function(e) {
+      var building, image, indexvalue, roomsizearray, roomtext, svgdata, temp, temp1, temp2, units;
+      if (e.ctrlKey && e.keyCode === 80) {
+        $("#flatno").text("");
+        $("#towerno").text("");
+        $("#unittypename").text("");
+        $("#area").text("");
+        $("#floorrise").text("");
+        $('.room').html("");
+        $('#terrace').text("");
+        $('#printfacing').text("");
+        $('#printview').text("");
+        $("#twoDimage").attr('src', "");
+        $("#zoomedinimage").attr('src', "");
+        $("#floorlayoutbasic").text("");
+        $('#printmapplic1').text("");
+        $('#towerview').text("");
+        units = App.master.unit.findWhere({
+          id: parseInt(App.unit['name'])
+        });
+        $("#flatno").text(units.get('name'));
+        $("#towerno").text(units.get('buildingname'));
+        $("#unittypename").text(units.get('unittypename'));
+        $("#area").text(units.get('sellablearea'));
+        $("#floorrise").text(units.get('flooRange'));
+        roomsizearray = units.get('roomsizearray');
+        roomtext = "";
+        $.each(roomsizearray, function(index, value) {
+          return roomtext += '<div class="rooms"> <span>' + value.type + '</span>: ' + value.size + ' sq ft </div>';
+        });
+        $('.room').html(roomtext);
+        $('#terrace').text(units.get('terraceoptions'));
+        $('#printfacing').text(units.get('facings_name'));
+        $('#printview').text(units.get('views_name'));
+        console.log(image = document.getElementById('twoDimage'));
+        $("#twoDimage").attr('src', units.get('TwoDimage'));
+        $("#zoomedinimage").attr('src', units.get('zoomedinimage'));
+        object = this;
+        $("#floorlayoutbasic").load(units.get('floor_layout_basic'), function(x) {
+          return $('#' + units.get('unitAssigned')).attr('class', 'floor-pos position');
+        });
+        $('#printmapplic1').load('http://localhost/apartmentselector/wp-content/uploads/2014/08/first-map.svg', function(x) {
+          return $('#hglighttower' + units.get('building')).attr('class', 'overlay highlight');
+        });
+        building = App.master.building.findWhere({
+          id: units.get('building')
+        });
+        svgdata = building.get('svgdata');
+        indexvalue = "";
+        temp = ['ff', 'f'];
+        temp1 = ['tt', 't'];
+        temp2 = ['cc', 'cc'];
+        if (parseInt(building.get('id')) === 11) {
+          temp = ['f', 'ff'];
+          temp1 = ['t', 'tt'];
+          temp2 = ['c', 'cc'];
+        }
+        return $.each(svgdata, function(index, value) {
+          var ii, svgposition, unitsarray;
+          if ($.inArray(units.get('unitAssigned'), value.svgposition) >= 0 && value.svgposition !== null) {
+            ii = 0;
+            if (value.svgfile !== "") {
+              svgposition = value.svgfile;
+              unitsarray = value.units;
+              return $('#towerview').load(svgposition, function(x) {
+                var idvalue, position, text, textid, unittpe;
+                $.each(value.svgposition, function(index1, val1) {
+                  if (parseInt(units.get('unitAssigned')) === parseInt(val1)) {
+                    return indexvalue = unitsarray[units.get('unitAssigned')];
+                  }
+                });
+                idvalue = "";
+                $.map(indexvalue, function(index, value) {
+                  console.log(temp[ii]);
+                  $('#' + temp[ii] + value).attr('class', 'unselected-floor');
+                  $('#' + temp[ii] + value).attr('data-value', index);
+                  return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
+                });
+                position = "";
+                $.each(indexvalue, function(index, value) {
+                  if (parseInt($('#f' + index).attr('data-value')) === units.get('id')) {
+                    idvalue = $('#f' + index).attr('data-idvalue');
+                    return position = index;
+                  } else if (parseInt($('#ff' + index).attr('data-value')) === units.get('id')) {
+                    idvalue = $('#ff' + index).attr('data-idvalue');
+                    return position = index;
+                  }
+                });
+                textid = "";
+                $('#' + idvalue + position).attr('class', 'selected-flat');
+                if (idvalue === 'f') {
+                  textid = 't';
+                } else {
+                  textid = 'tt';
+                }
+                $("#" + textid + position).attr('class', 'selected-flat');
+                unittpe = App.master.unit_type.findWhere({
+                  id: units.get('unitType')
+                });
+                text = units.get('name') + ' | ' + unittpe.get('name');
+                return $('#' + textid + position).html(text);
+              });
+            }
+          }
+        });
+      }
+    });
 
     ScreenFourLayout.prototype.onShow = function() {
       var capability, cookieOldValue, costSheetArray, count, flag, scr, usermodel;
@@ -811,8 +1024,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitMainView.prototype.onShow = function() {
-      var building, image, indexvalue, roomsizearray, roomtext, svgdata, temp, temp1, temp2;
-      $('#slider-plans').liquidSlider({
+      return $('#slider-plans').liquidSlider({
         slideEaseFunction: "easeInOutQuad",
         autoSlide: true,
         includeTitle: false,
@@ -822,91 +1034,6 @@ define(['marionette'], function(Marionette) {
         hideArrowsWhenMobile: false,
         dynamicTabsAlign: "center",
         dynamicArrows: false
-      });
-      console.log(this.model.get('flooRange'));
-      $("#flatno").text(this.model.get('name'));
-      $("#towerno").text(this.model.get('buildingname'));
-      $("#unittypename").text(this.model.get('unittypename'));
-      $("#area").text(this.model.get('sellablearea'));
-      $("#floorrise").text(this.model.get('flooRange'));
-      roomsizearray = this.model.get('roomsizearray');
-      roomtext = "";
-      $.each(roomsizearray, function(index, value) {
-        return roomtext += '<div class="rooms"> <span>' + value.type + '</span>: ' + value.size + ' sq ft </div';
-      });
-      $('.room').html(roomtext);
-      $('#terrace').text(this.model.get('terraceoptions'));
-      $('#printfacing').text(this.model.get('facings_name'));
-      $('#printview').text(this.model.get('views_name'));
-      console.log(image = document.getElementById('twoDimage'));
-      $("#twoDimage").attr('src', this.model.get('TwoDimage'));
-      $("#zoomedinimage").attr('src', this.model.get('zoomedinimage'));
-      object = this;
-      $("#floorlayoutbasic").load(this.model.get('floor_layout_basic'), function(x) {
-        console.log($('#' + object.model.get('unitAssigned')));
-        return $('#' + 1).attr('class', 'floor-pos position');
-      });
-      $('#printmapplic1').load('http://localhost/apartmentselector/wp-content/uploads/2014/08/first-map.svg', function(x) {
-        console.log(object.model.get('building'));
-        return $('#hglighttower' + object.model.get('building')).attr('class', 'overlay highlight');
-      });
-      building = App.master.building.findWhere({
-        id: this.model.get('building')
-      });
-      svgdata = building.get('svgdata');
-      indexvalue = "";
-      temp = ['ff', 'f'];
-      temp1 = ['tt', 't'];
-      temp2 = ['cc', 'cc'];
-      if (parseInt(building.get('id')) === 11) {
-        temp = ['f', 'ff'];
-        temp1 = ['t', 'tt'];
-        temp2 = ['c', 'cc'];
-      }
-      return $.each(svgdata, function(index, value) {
-        var ii, svgposition, unitsarray;
-        if ($.inArray(object.model.get('unitAssigned'), value.svgposition) >= 0 && value.svgposition !== null) {
-          ii = 0;
-          if (value.svgfile !== "") {
-            svgposition = value.svgfile;
-            unitsarray = value.units;
-            return $('#towerview').load(svgposition, function(x) {
-              var idvalue, text, textid, unittpe;
-              $.each(value.svgposition, function(index1, val1) {
-                if (parseInt(object.model.get('unitAssigned')) === parseInt(val1)) {
-                  return indexvalue = unitsarray[object.model.get('unitAssigned')];
-                }
-              });
-              idvalue = "";
-              $.map(indexvalue, function(index, value) {
-                console.log(temp[ii]);
-                $('#' + temp[ii] + value).attr('class', 'unselected-floor');
-                $('#' + temp[ii] + value).attr('data-value', index);
-                return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
-              });
-              $.each(indexvalue, function(index, value) {
-                if (parseInt($('#f' + index).attr('data-value')) === object.model.get('id')) {
-                  return idvalue = $('#f' + index).attr('data-idvalue');
-                } else if (parseInt($('#ff' + index).attr('data-value')) === object.model.get('id')) {
-                  return idvalue = $('#ff' + index).attr('data-idvalue');
-                }
-              });
-              textid = "";
-              $('#' + idvalue + object.model.get('unitAssigned')).attr('class', 'selected-flat');
-              if (idvalue === 'f') {
-                textid = 't';
-              } else {
-                textid = 'tt';
-              }
-              $("#" + textid + object.model.get('unitAssigned')).attr('class', 'selected-flat');
-              unittpe = App.master.unit_type.findWhere({
-                id: object.model.get('unitType')
-              });
-              text = object.model.get('name') + ' | ' + unittpe.get('name');
-              return $('#' + textid + object.model.get('unitAssigned')).html(text);
-            });
-          }
-        }
       });
     };
 
