@@ -48,7 +48,7 @@ define(['marionette'], function(Marionette) {
         } else {
           App.backFilter['screen1'] = [];
           $("li").removeClass('cs-selected');
-          $(".cs-placeholder").text('Undecided');
+          $(".cs-placeholder").text('Choose a budget');
           $('#showbudget').addClass('hidden');
           $("#check" + this.model.get('id')).val("0");
           masterbuilding = App.master.building;
@@ -89,7 +89,7 @@ define(['marionette'], function(Marionette) {
       evt.preventDefault();
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
       $("li").removeClass('cs-selected');
-      $(".cs-placeholder").text('Undecided');
+      $(".cs-placeholder").text('Choose a budget');
       $("#checknopreferences").val("0");
       $('a').removeClass('selected');
       for (index = _j = 0, _len1 = unitType.length; _j < _len1; index = ++_j) {
@@ -195,7 +195,7 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.events = {
       'click #finalButton': function(e) {
         var budget_price, budget_val;
-        if ($(".cs-placeholder").text() !== 'Undecided') {
+        if ($(".cs-placeholder").text() !== 'Choose a budget') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');
@@ -230,7 +230,7 @@ define(['marionette'], function(Marionette) {
           }
           return _results;
         });
-        if ($(".cs-placeholder").text() !== 'Undecided') {
+        if ($(".cs-placeholder").text() !== 'Choose a budget') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');

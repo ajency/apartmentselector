@@ -356,8 +356,10 @@ define [ 'marionette' ], ( Marionette )->
             if(e.ctrlKey && e.keyCode == 80)
                 @loadPrint()
 
+        )
+
         loadPrint:->
-            $("#flatno").text ""
+                $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
                 $("#area").text ""
@@ -394,6 +396,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log image = document.getElementById('twoDimage')
                 $("#twoDimage").attr('src' , units.get 'TwoDimage')
                 $("#zoomedinimage").attr('src' , units.get 'zoomedinimage')
+                $("#threeDimage").attr('src' , units.get 'ThreeDimage')
                 object = @
                 $("#floorlayoutbasic").load(units.get('floor_layout_basic'), (x)->
                         $('#'+units.get('unitAssigned')).attr('class','floor-pos position')
