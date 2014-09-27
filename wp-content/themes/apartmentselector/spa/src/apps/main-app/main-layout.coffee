@@ -60,6 +60,7 @@ You can compare up to 4 apartments!</div>
         </nav>
         
         <div id="print-view" class="visible-print">
+            <div class="prntLoader"></div>
             <div class="print-header">
                 <div class="row print-head">
                     <div class="col-sm-6 head">
