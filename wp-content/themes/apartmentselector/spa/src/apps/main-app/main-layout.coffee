@@ -108,7 +108,7 @@ You can compare up to 4 apartments!</div>
                                 <span id="terrace"></span>
                             </div>
                             <div class="col-sm-4">
-                                <h5>Facing</h5>
+                                <h5>Entrance</h5>
                                 <span id="printfacing"></span>
                             </div>
                             <div class="col-sm-4">
