@@ -260,7 +260,15 @@ if (! is_development_environment() ) {
             get_template_directory_uri() . "/production/{$module}.styles.min.css",
             array(),
             get_current_version(),
-            "all" );
+            "screen" );
+
+        wp_enqueue_style( "$module-print-style",
+            get_template_directory_uri() . "/css/{$module}.print.css",
+            array(),
+            get_current_version(),
+            "print" );
+
+        
         }
 
     }
