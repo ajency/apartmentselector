@@ -49,7 +49,10 @@
 <div id="wishlist-region"></div>
 
 <!-- footer-region -->
-<div id="footer-region"></div>
+<div id="footer-region">
+<p style="text-align:center;"><a href="http://manaslake.com/terms-conditions/">Terms &amp; Conditions</a></p>
+
+</div>
 
 
 
