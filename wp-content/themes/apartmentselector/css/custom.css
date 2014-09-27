@@ -8211,9 +8211,12 @@ fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit].act
 }
 /* Print Loader */
 .prntLoader {
-  background: url(../images/loader.gif) center center no-repeat;
-  height: 19px;
+  background: url(../images/loader.gif) center center no-repeat #000000;
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
+  opacity: 0.5;
+  z-index: 9999;
 }
 .vs-nav li a {
   color: #333333;
