@@ -1510,6 +1510,20 @@ define [ 'marionette' ], ( Marionette )->
 
 
         onShow :->
+            $("#flatno").text ""
+            $("#towerno").text ""
+            $("#unittypename").text ""
+            $("#area").text ""
+            $("#floorrise").text ""
+            $('.room').html ""
+            $('#terrace').text ""
+            $('#printfacing').text ""
+            $('#printview').text ""
+            $("#twoDimage").attr('src' , "")
+            $("#zoomedinimage").attr('src' , "")
+            $("#floorlayoutbasic").text ""
+            $('#printmapplic1').text ""
+            $('#towerview').text ""
             myArray = []
             $.map(App.defaults, (value, index)->
                 if value!='All' && index != 'floor' && index != 'unittypeback'
