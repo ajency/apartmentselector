@@ -99,7 +99,6 @@ You can compare up to 4 apartments!</div>
             <div class="print-row">
                 <div class="row">
                     <div class="col-sm-5">
-                        <h4 class="layout-header">&nbsp</h4>
                         <div class="details room">
                             
                         </div>
@@ -123,7 +122,10 @@ You can compare up to 4 apartments!</div>
                         <div class="details ">
                             <img src="" id="twoDimage" />
                         </div>
+
+                        <h4 class="layout-header">3D Layout</h4>
                         <div class="details ">
+
                             <img src="" id="threeDimage" />
                         </div>
                     </div>
