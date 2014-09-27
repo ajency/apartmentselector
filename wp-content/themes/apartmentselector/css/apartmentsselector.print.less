@@ -2,7 +2,11 @@
 @import url('../../../../HTML/assets/less/skyi-master/custom-variables.less');
 @import url('apartmentsselector.styles.css');
 
-img, svg { max-width: 100% !important; }
+* {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+img, svg { max-width: 100% !important; page-break-inside: avoid; }
 @page { margin: 0.5cm; }
 p, h2, h3 { orphans: 3; widows: 3; }
 h2, h3 { page-break-after: avoid; }
@@ -83,7 +87,7 @@ body {
 	.clearfix;
 	[class^="col-"] {
 		border-top: 1px solid @gray-lighter;
-		max-height: 60mm;
+		min-height: 60mm;
 		float: left;
 		width: 50%;
 		img {

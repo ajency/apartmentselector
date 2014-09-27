@@ -1,8 +1,13 @@
 @import url('apartmentsselector.styles.css');
 /**** Print Styles Here ****/
+* {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 img,
 svg {
   max-width: 100% !important;
+  page-break-inside: avoid;
 }
 @page {
   margin: 0.5cm;
@@ -109,7 +114,7 @@ body {
 }
 .print-row [class^="col-"] {
   border-top: 1px solid #eeeeee;
-  max-height: 60mm;
+  min-height: 60mm;
   float: left;
   width: 50%;
 }
