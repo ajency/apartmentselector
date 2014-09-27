@@ -615,6 +615,20 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            $("#flatno").text ""
+            $("#towerno").text ""
+            $("#unittypename").text ""
+            $("#area").text ""
+            $("#floorrise").text ""
+            $('.room').html ""
+            $('#terrace').text ""
+            $('#printfacing').text ""
+            $('#printview').text ""
+            $("#twoDimage").attr('src' , "")
+            $("#zoomedinimage").attr('src' , "")
+            $("#floorlayoutbasic").text ""
+            $('#printmapplic1').text ""
+            $('#towerview').text ""
             $('#screen-two-button').on('click',  ()->
                 new jBox('Notice', 
                     content: 'Finding available apartments that match your selection...',
