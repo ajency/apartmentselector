@@ -379,29 +379,32 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             facingtemp = []
             terraceModels = []
             terraceID = []
-            floorCollection.each (item)->
-                if item.get('apartment_views') != ""
-                    $.merge(viewtemp,item.get('apartment_views'))
-                if item.get('facing').length != 0
-                    $.merge(facingtemp,item.get('facing'))
+            usermodel = new Backbone.Model USER
+            capability = usermodel.get('all_caps')
+            if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+                floorCollection.each (item)->
+                    if item.get('apartment_views') != ""
+                        $.merge(viewtemp,item.get('apartment_views'))
+                    if item.get('facing').length != 0
+                        $.merge(facingtemp,item.get('facing'))
 
 
-                
-            console.log uniqviews = _.uniq(viewtemp)
-            console.log uniqfacings = _.uniq(facingtemp)
+                    
+                console.log uniqviews = _.uniq(viewtemp)
+                console.log uniqfacings = _.uniq(facingtemp)
 
-            $.each(uniqviews, (index,value)->
-                viewModel = App.master.view.findWhere({id:parseInt(value)})
-                viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
-                viewID.push(parseInt(viewModel.get('id')))
+                $.each(uniqviews, (index,value)->
+                    viewModel = App.master.view.findWhere({id:parseInt(value)})
+                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
+                    viewID.push(parseInt(viewModel.get('id')))
 
-            )
-            $.each(uniqfacings, (index,value)->
-                facingModel = App.master.facings.findWhere({id:parseInt(value)})
-                facingModels.push({id:facingModel.get('id'),name:facingModel.get('name')})
-                facingID.push(parseInt(facingModel.get('id')))
+                )
+                $.each(uniqfacings, (index,value)->
+                    facingModel = App.master.facings.findWhere({id:parseInt(value)})
+                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name')})
+                    facingID.push(parseInt(facingModel.get('id')))
 
-            )
+                )
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
