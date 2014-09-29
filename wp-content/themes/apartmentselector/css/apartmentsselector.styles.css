@@ -12253,6 +12253,13 @@ body {
   padding-left: 40px;
   border: none;
   border-bottom: 1px solid #b34700;
+  font-weight: 700;
+}
+.cbp-spmenu-vertical .compareTxt {
+  padding: 0 10px 5px;
+  color: #b3b3b3;
+  font-size: 87%;
+  font-weight: 400;
 }
 .cbp-spmenu-top {
   top: -600px;
@@ -12421,6 +12428,6 @@ a.im-clear-button {
 }
 /**** end print modal styles ****/
 
-iframe#print-modal-content{
-	height: 5000px !important;
+iframe#print-modal-content {
+  height: 4000px !important;
 }

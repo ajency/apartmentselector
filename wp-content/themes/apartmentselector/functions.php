@@ -174,6 +174,7 @@ if ( is_development_environment() ) {
             wp_localize_script( "requirejs", "UNITS", $units );
             wp_localize_script( "requirejs", "STATUS", get_unit_status() );
             wp_localize_script( "requirejs", "UNITTYPES", get_unit_types() );
+            wp_localize_script( "requirejs", "TERRACEOPTIONS", get_terrace_options() );
             wp_localize_script( "requirejs", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "requirejs", "VIEWS", get_views() );
             wp_localize_script( "requirejs", "FACINGS", get_facings() );
@@ -236,6 +237,7 @@ if (! is_development_environment() ) {
             wp_localize_script( "$module-script", "UNITS", $units );
             wp_localize_script( "$module-script", "STATUS", get_unit_status() );
             wp_localize_script( "$module-script", "UNITTYPES", get_unit_types() );
+            wp_localize_script( "$module-script", "TERRACEOPTIONS", get_terrace_options() );
             wp_localize_script( "$module-script", "UNITVARIANTS", get_unit_variants() );
             wp_localize_script( "$module-script", "VIEWS", get_views() );
             wp_localize_script( "$module-script", "FACINGS", get_facings() );

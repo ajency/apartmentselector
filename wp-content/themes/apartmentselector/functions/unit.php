@@ -11,6 +11,11 @@ function get_unit_status($id = 0){
 
 }
 
+function get_terrace_options($id = 0){
+
+    return get_default_data('terrace-options',$id);
+
+}
 
 
 

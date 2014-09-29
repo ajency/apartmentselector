@@ -180,6 +180,31 @@ function frm_form_fields_customize($field, $field_name){
 
 add_action('frm_form_fields', 'frm_form_fields_customize', 10, 2);
 
+
+
+function frm_set_checked($values, $field){
+
+ 
+	if($field->field_key == 'terraceoptions'){
+
+		 
+		$terrace_options = get_terrace_options();
+	 
+		foreach($terrace_options as $terrace_option){ 
+
+			$values['options'][$terrace_option['id']] = $terrace_option['name'];
+			$values['use_key'] = true;           
+		 
+		}
+		
+	}
+	return $values;
+	}
+
+
+add_filter('frm_setup_new_fields_vars', 'frm_set_checked', 20, 2);
+add_filter('frm_setup_edit_fields_vars', 'frm_set_checked', 20, 2);
+
 function ajax_fetch_form_views(){
 
     global $wpdb;
@@ -408,6 +433,16 @@ function edit_frm_display_value($value, $field, $atts){
  		case "3dlayout":
  	  $value_edited = explode("</a>",$value);
  	  $value = $value_edited[0]."</a>" ;
+ 
+ 	break;
+ 	case "terraceoptions": 
+ 	  $terrace_option  = get_terrace_options($value) ;
+      if(is_array($terrace_option)){
+      	$value = $terrace_option[0]["name"] ;
+      }else{
+      	$value = "";
+      }
+ 	  
  
  	break;
  	default:
