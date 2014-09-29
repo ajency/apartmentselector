@@ -48,14 +48,15 @@ define [ 'extm'], ( Extm)->
             <h3>My Menu</h3>
             <ul>
                 <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Wishlist</a>
+                    <div id="comparetext" class="compareTxt">
+                        Compare Apartments here!<br>You can compare up to 4 apartments.
+                    </div>
                     <ul class="menuWishlist" id="showWishlist">
                     </ul>
                 </li>
-                <a href="#" id="compare" class="compareBtn">Compare</a>
+                <a href="#" id="compare" class="compareBtn">COMPARE</a>
             </ul>
-            <div id="comparetext">Compare Apartments here!
-You can add Apartments to your wish list by clicking on the \'Add to wish list\' button on the view Apartment page after you have made a selection!
-You can compare up to 4 apartments!</div>
+            
 
         </nav>
         
