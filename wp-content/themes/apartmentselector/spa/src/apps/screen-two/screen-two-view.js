@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, firstElement, globalUnitArrayInt, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, facing, facingnames, firstElement, globalUnitArrayInt, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants, view, viewnames;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -16,6 +16,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
   object = "";
   unitVariants = [];
   cloneunitVariantArrayColl = "";
+  view = [];
+  facing = [];
+  facingnames = [];
+  viewnames = [];
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -23,7 +27,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoLayout.prototype.template = '<div class=""> <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>--> <div class="introTxt text-center">You are seeing <div id="tagslist" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle1"> </span>variants of your apartment selection <a class="btn btn-primary btn-sm" data-remodal-target="filterModal">Special Filters</a> </div> <div class="variantBox1"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> </div> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container vs-triplelayout"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a> </div> </div> <div class="remodal specialFilter" data-remodal-id="filterModal"> <div class="bgClass"> <div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <!--<h3>Additional Filters</h3>--> <div class="small blockTitle">Terrace</div> <div class="filterBox"> <input type="checkbox" name="view10" data-name="Standard View" id="" class="checkbox view" value="10"> <label for="view10">Dining</label> </div> <div class="filterBox"> <input type="checkbox" name="view11" data-name="Ocean View" id="" class="checkbox view" value="11"> <label for="view11">Bedroom</label> </div> </div> <div class="col-sm-4 b-l b-r b-grey"> <div class="small blockTitle">View</div> {{#views}} <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" class="checkbox view" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-4 b-r b-grey"> <div class="small blockTitle">Entrance</div> {{#facings}} <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> </div> </div> </div></div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div class="m-t-10 text-center"> <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>--> <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div> </div> </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2"> </div>';
+    ScreenTwoLayout.prototype.template = '<div class=""> <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>--> <div class="introTxt text-center">You are seeing <div id="tagslist" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle1"> </span>variants of your apartment selection <a class="btn btn-primary btn-sm" data-remodal-target="filterModal">Special Filters</a> </div> <div class="variantBox1"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> </div> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container vs-triplelayout"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a> </div> </div> <div class="remodal specialFilter" data-remodal-id="filterModal"> <div class="bgClass"> <div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <!--<h3>Additional Filters</h3>--> <div class="small blockTitle">Terrace</div> <div class="filterBox"> <input type="checkbox" name="view10" data-name="Standard View" id="" class="checkbox view" value="10"> <label for="view10">Dining</label> </div> <div class="filterBox"> <input type="checkbox" name="view11" data-name="Ocean View" id="" class="checkbox view" value="11"> <label for="view11">Bedroom</label> </div> </div> <div class="col-sm-4 b-l b-r b-grey"> <div class="small blockTitle">View</div> {{#views}} <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-4 b-r b-grey"> <div class="small blockTitle">Entrance</div> {{#facings}} <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> </div> </div> </div></div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div class="m-t-10 text-center"> <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>--> <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div> </div> </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2"> </div>';
 
     ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
@@ -32,24 +36,44 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       unitRegion: '#unit-region'
     };
 
-    ScreenTwoLayout.prototype.onAfterRender = function(Collection) {
-      this.itemview1 = new UnitTypeChildView({
-        collection: Collection[0]
-      });
-      this.itemview2 = new UnitTypeView({
-        collection: Collection[1]
-      });
-      this.$el.empty();
-      this.itemview1.delegateEvents();
-      this.$el.append(this.itemview1.render().el);
-      return this.$el.append(this.itemview2.render().el);
-    };
-
     ScreenTwoLayout.prototype.events = {
-      'click .view': function(e) {
-        viewarr;
-        App.defaults['view'] = $('e.target.id').val();
-        return App.filter();
+      'click .viewname': function(e) {
+        var facingtemp, index, originalviews, uniqfacings, unselected, viewColl, viewString, viewtemp;
+        console.log("eeeeeeeeeeeeee");
+        viewString = 'All';
+        if ($('#' + e.target.id).prop('checked') === true) {
+          view.push($('#' + e.target.id).val());
+          viewnames.push($('#' + e.target.id).attr('data-name'));
+        } else {
+          index = view.indexOf($('#' + e.target.id).val());
+          if (index !== -1) {
+            view.splice(index, 1);
+            viewnames.splice(index, 1);
+          }
+        }
+        if (view.length !== 0) {
+          viewString = view.join(',');
+        }
+        App.defaults['view'] = viewString;
+        viewtemp = [];
+        $.each(view, function(index, value) {
+          view = App.master.unit.findWhere({
+            'apartment_views': parseInt(value)
+          });
+          return viewtemp.push(view.get('id'));
+        });
+        viewColl = new Backbone.Collection(viewtemp);
+        facingtemp = [];
+        viewColl.each(function(item) {});
+        if (item.get('facing').length !== 0) {
+          $.merge(facingtemp, item.get('facing'));
+        }
+        uniqfacings = _.uniq(facingtemp);
+        originalviews = Marionette.getOption(this, 'views').toArray();
+        console.log(unselected = _.without(originalviews, uniqfacings));
+        return $.each(unselected, function(index, value) {
+          return $('#facing' + value).prop('checked', false);
+        });
       },
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();

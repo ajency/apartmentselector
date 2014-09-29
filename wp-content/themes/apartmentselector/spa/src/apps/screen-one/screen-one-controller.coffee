@@ -114,11 +114,18 @@ define [ 'extm', 'src/apps/screen-one/screen-one-view' ], ( Extm, ScreenOneView 
                 budget_pricea[0] - budget_priceb[0]
             )
             priceArray = _.uniq(priceArray)
+            i = 0 
+            
             for element in priceArray
-                rangeArray.push({id:element,name:element})
+                if i == 0
+                    classname = 'selected' 
+                else
+                    classname = ""
+                rangeArray.push({id:element,name:element,class:classname})
+                i++
 
 
-
+            console.log rangeArray
             collection.add modelArray
 
             newUnits = App.currentStore.unit.where()

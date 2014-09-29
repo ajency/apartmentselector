@@ -11,6 +11,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
+    view = []
+    facing = []
+    facingnames = []
+    viewnames = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
@@ -92,7 +96,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="col-sm-4 b-l b-r b-grey">
                                     <div class="small blockTitle">View</div>
                                     {{#views}}
-                                    <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" class="checkbox view" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -101,7 +105,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="col-sm-4 b-r b-grey">
                                     <div class="small blockTitle">Entrance</div>
                                         {{#facings}}
-                                    <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -132,19 +136,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
-        onAfterRender:(Collection)->
-            @itemview1 = new UnitTypeChildView
-                collection : Collection[0]
-
-            @itemview2 = new UnitTypeView
-                collection : Collection[1]
-            this.$el.empty();
-            this.itemview1.delegateEvents();
-            this.$el.append(@itemview1.render().el ); 
-            this.$el.append(@itemview2.render().el );            
-            
-
-                
+        
                 
 
              
@@ -154,10 +146,41 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     
 
         events:
-            'click .view':(e)->
-                viewarr
-                App.defaults['view'] = $('e.target.id').val()
-                App.filter() 
+            'click .viewname':(e)->
+                console.log "eeeeeeeeeeeeee"
+                viewString = 'All'
+                if $('#'+e.target.id).prop('checked') == true
+                    view.push $('#'+e.target.id).val()
+                    viewnames.push $('#'+e.target.id).attr('data-name')
+                else
+                    index = view.indexOf(($('#'+e.target.id).val()))
+                    if index != -1
+                        view.splice( index, 1 )
+                        viewnames.splice( index, 1 )
+                if view.length != 0
+                    viewString = view.join(',')
+                App.defaults['view'] = viewString
+                viewtemp = []
+                $.each(view, (index,value)->
+                    view = App.master.unit.findWhere({'apartment_views':parseInt(value)})
+                    viewtemp.push(view.get('id'))
+
+
+                    )
+                viewColl = new Backbone.Collection viewtemp
+                facingtemp = []
+                viewColl.each (item)->
+                if item.get('facing').length != 0
+                    $.merge(facingtemp,item.get('facing'))
+                uniqfacings = _.uniq(facingtemp)
+                originalviews  = Marionette.getOption( @, 'views' ).toArray()
+                console.log unselected = _.without(originalviews, uniqfacings);
+                $.each(unselected, (index,value)->
+                    $('#facing'+value).prop('checked',false)
+
+                )
+                
+
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
             'mouseout .tower-link':(e)->

@@ -15,6 +15,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 uintVariantId : @Collection[9]
                 uintVariantIdArray : @Collection[10]
                 unitVariants:@Collection[8]
+                views :@Collection[11] 
+                facings : @Collection[12]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -53,6 +55,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingColl : @Collection[0]
                 uintVariantId : @Collection[9]
                 uintVariantIdArray : @Collection[10]
+                views :@Collection[11] 
+                facings : @Collection[12]
                 unitVariants:@Collection[8]
                 templateHelpers:
                     selection :@Collection[2]
@@ -368,7 +372,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
                 unitVariantID.push(parseInt(unitVarinatModel.get('id')))
-                
+
 
             )
             console.log unitVariantModels.length
