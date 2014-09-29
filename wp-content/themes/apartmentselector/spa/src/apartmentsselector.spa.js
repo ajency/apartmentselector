@@ -102,7 +102,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
           if (collectionNew.length === 0) {
             units = App.currentStore.unit;
             units.each(function(item) {
-              if ($.inArray(value, item.get('views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
+              if ($.inArray(value, item.get('apartment_views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
                 return unitSplitArray.push(item);
               }
             }, collectionNew = unitSplitArray);
@@ -124,7 +124,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
           units = App.currentStore.unit;
           if (collection.length === 0) {
             units.each(function(item) {
-              if ($.inArray(value_arr[1], item.get('views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
+              if ($.inArray(value_arr[1], item.get('apartment_views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
                 return unitSplitArray.push(item);
               }
             });
@@ -158,7 +158,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
       unitvariantModel = App.currentStore.unit_variant.get(element);
       unitvariantArray.push(unitvariantModel);
     }
-    view = App.currentStore.unit.pluck("view");
+    view = App.currentStore.unit.pluck("apartment_views");
     uniqviews = _.uniq(buildings);
     viewArray = Array();
     for (index = _m = 0, _len4 = uniqviews.length; _m < _len4; index = ++_m) {

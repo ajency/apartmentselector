@@ -11,6 +11,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
+    view = []
+    facing = []
+    facingnames = []
+    viewnames = []
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
@@ -84,15 +88,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="col-sm-4">
                                     <!--<h3>Additional Filters</h3>-->
                                     <div class="small blockTitle">Terrace</div>
-                                    <div class="filterBox"> <input type="checkbox" name="view10" data-name="Standard View" id="" class="checkbox view" value="10"> <label for="view10">Dining</label> </div>
-                                    <div class="filterBox"> <input type="checkbox" name="view11" data-name="Ocean View" id="" class="checkbox view" value="11"> <label for="view11">Bedroom</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="views10" data-name="Standard View" id="" class="checkbox view" value="10"> <label for="view10">Dining</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="views11" data-name="Ocean View" id="" class="checkbox view" value="11"> <label for="view11">Bedroom</label> </div>
 
                                 </div>
 
                                 <div class="col-sm-4 b-l b-r b-grey">
                                     <div class="small blockTitle">View</div>
                                     {{#views}}
-                                    <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" class="checkbox view" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -101,11 +105,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="col-sm-4 b-r b-grey">
                                     <div class="small blockTitle">Entrance</div>
                                         {{#facings}}
-                                    <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
-
+                                <input type="button" id="donepopup" value="Done" />
+                                <input type="button" id="cancelpopup" value="Cancel" />
+                                <span id="count2bhk"></span>
+                                <span id="count3bhk"></span>
                             </div>
                         </div>
                     </div></div>
@@ -132,19 +139,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             buildingRegion : '#building-region'
             unitRegion : '#unit-region'
 
-        onAfterRender:(Collection)->
-            @itemview1 = new UnitTypeChildView
-                collection : Collection[0]
-
-            @itemview2 = new UnitTypeView
-                collection : Collection[1]
-            this.$el.empty();
-            this.itemview1.delegateEvents();
-            this.$el.append(@itemview1.render().el ); 
-            this.$el.append(@itemview2.render().el );            
-            
-
-                
+        
                 
 
              
@@ -154,10 +149,41 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     
 
         events:
-            'click .view':(e)->
-                viewarr
-                App.defaults['view'] = $('e.target.id').val()
-                App.filter() 
+            'click .viewname':(e)->
+                console.log "eeeeeeeeeeeeee"
+                viewString = 'All'
+                if $('#'+e.target.id).prop('checked') == true
+                    view.push $('#'+e.target.id).val()
+                    viewnames.push $('#'+e.target.id).attr('data-name')
+                else
+                    index = view.indexOf(($('#'+e.target.id).val()))
+                    if index != -1
+                        view.splice( index, 1 )
+                        viewnames.splice( index, 1 )
+                if view.length != 0
+                    viewString = view.join(',')
+                App.defaults['view'] = viewString
+                viewtemp = []
+                $.each(view, (index,value)->
+                    view = App.master.unit.findWhere({'apartment_views':parseInt(value)})
+                    viewtemp.push(view.get('id'))
+
+
+                    )
+                viewColl = new Backbone.Collection viewtemp
+                facingtemp = []
+                viewColl.each (item)->
+                if item.get('facing').length != 0
+                    $.merge(facingtemp,item.get('facing'))
+                uniqfacings = _.uniq(facingtemp)
+                originalviews  = Marionette.getOption( @, 'views' ).toArray()
+                console.log unselected = _.without(originalviews, uniqfacings);
+                $.each(unselected, (index,value)->
+                    $('#facing'+value).prop('checked',false)
+
+                )
+                
+
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
             'mouseout .tower-link':(e)->
@@ -645,6 +671,167 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            console.log originalviews  = Marionette.getOption( @, 'views' )
+            console.log originalOviews  = Marionette.getOption( @, 'Oviews' )
+            originalfacings  = Marionette.getOption( @, 'facings' )
+            originalOfacings  = Marionette.getOption( @, 'Ofacings' )
+            object = @
+            globalviews = []
+            globalviewInt = []
+            globalfacing = []
+            globalfacingInt = []
+            view = []
+            if App.defaults['view'] != 'All'
+                globalviews = App.defaults['view'].split(',')
+                $.each(globalviews, (index,value)->
+                    globalviewInt.push(parseInt(value))
+
+                )
+            if App.defaults['facing'] != 'All'
+                globalfacing = App.defaults['facing'].split(',')
+                $.each(globalfacing, (index,value)->
+                    globalfacingInt.push(parseInt(value))
+
+                )
+            if App.defaults['view'] != 'All'
+                $.each(originalOviews,(index,value)->
+                    
+                   
+                        if $.inArray(parseInt(value.id),globalviewInt) >=0 
+                            $('#view'+value.id).prop('checked',true)
+                            view.push(value.id)
+                        else
+                            $('#view'+value.id).prop('checked',false)
+
+                        
+
+                    )
+            else
+                $.each(originalOviews,(index,value)->
+                    $('#view'+value.id).prop('checked',true)
+                    view.push(value.id)
+
+                    )
+            if App.defaults['facing'] != 'All'
+                $.each(originalOfacings,(index,value)->
+                    
+                   
+                        if $.inArray(parseInt(value.id),globalfacingInt) >=0 
+                            $('#facing'+value.id).prop('checked',true)
+                        else
+                            $('#facing'+value.id).prop('checked',false)
+
+                        
+
+                    )
+            else
+                $.each(originalOfacings,(index,value)->
+                    $('#facing'+value.id).prop('checked',true)
+
+                    )
+            mainnewarr =  []
+            mainunique = {}
+            $(document).on('open', '.remodal',  () ->
+                
+                $('.viewname').on('click' , (e)->
+                    viewnames = originalviews
+                    viewString = 'All'
+                    if $('#'+e.target.id).prop('checked') == true
+                        view.push $('#'+e.target.id).val()
+                        
+                    else
+                        index = _.indexOf(view, parseInt($('#'+e.target.id).val()));
+                        if index != -1
+                            view.splice( index, 1 )
+                            
+                    view = _.uniq(view)
+                    view = view.map((item)->
+                        return parseInt(item))
+                    if view.length != 0
+                        viewString = view.join(',')
+                    App.defaults['view'] = viewString
+                    if originalOviews.length  == view.length
+                        App.defaults['view'] = 'All'
+                        App.defaults['facing'] = 'All'
+                        App.currentStore.unit.reset UNITS
+                        App.currentStore.building.reset BUILDINGS
+                        App.currentStore.unit_type.reset UNITTYPES
+                        App.currentStore.unit_variant.reset UNITVARIANTS
+                    App.filter()
+                    viewtemp1 = []
+                    viewtemp = []
+                    floorCollection = App.currentStore.unit
+                    floorCollection.each ( item)->
+                        if item.get('apartment_views') != ""
+                            $.merge(viewtemp1,item.get('apartment_views'))
+                    
+
+
+                
+                    console.log uniqviews = _.uniq(viewtemp1).map((item)->
+                        return parseInt(item)
+
+
+                        )
+                    console.log view
+                    $.each(view, (index,value)->
+                        
+                            if $.inArray(value,uniqviews) >=0 
+                                viewtemp.push(value)
+                        
+
+
+                    )
+                    console.log unviewtemp = _.uniq(viewtemp)
+                    tempUnitArray= []
+                    $.each(unviewtemp, (index,value)->
+                        floorCollection.each ( item)->
+                            if item.get('apartment_views') != ""
+                                temp = item.get('apartment_views')
+                                apartment = temp.map((item)->
+                                    return parseInt(item))
+                                if $.inArray(value,apartment) >=0 
+                                    tempUnitArray.push(item)
+                                
+                    )
+                    viewColl = new Backbone.Collection tempUnitArray
+                    facingtemp = []
+                    viewColl.each ( item)->
+                        if item.get('facing').length != 0
+                            $.merge(facingtemp,item.get('facing'))
+                    console.log uniqfacings = _.uniq(facingtemp)
+                    $.each(uniqfacings, (index,value)->
+                            $('#facing'+value).prop('checked',true)
+
+                    )
+                    unselected = _.difference(originalfacings, uniqfacings);
+                    $.each(unselected, (index,value)->
+                            $('#facing'+value).prop('checked',false)
+
+                        )
+                    if uniqfacings.length != 0
+
+                        App.defaults['facing'] = uniqfacings.join(',')
+                    
+                    
+
+                )
+                
+                $('#donepopup').on('click' , (e)->
+
+                        inst = $.remodal.lookup[$('[data-remodal-id=filterModal]').data('remodal')];
+                        inst.close()
+
+                        object.trigger 'unit:variants:selected'
+                )
+                $('#cancelpopup').on('click' , (e)->
+
+                        inst = $.remodal.lookup[$('[data-remodal-id=filterModal]').data('remodal')];
+                        inst.close()
+                        
+                )
+                
+            )
             $("#flatno").text ""
             $("#towerno").text ""
             $("#unittypename").text ""
