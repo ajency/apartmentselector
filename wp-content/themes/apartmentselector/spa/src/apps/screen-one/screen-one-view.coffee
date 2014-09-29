@@ -35,6 +35,7 @@ define [ 'marionette' ], ( Marionette )->
                 if  parseInt($("#check"+@model.get 'id').val()) == 0
                     $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
                     App.defaults['unitType'] = 'All'
+                    console.log unitType
                     for element , index in unitType
                         $("#check"+element).val '0'
                         $('#unittype'+element+' a' ).removeClass 'selected'
@@ -195,10 +196,7 @@ define [ 'marionette' ], ( Marionette )->
                 .insideRegion  App.headerRegion
                     .withOptions()
                 
-                for element in unitType
-                    $('a' ).removeClass 'selected'
-                    $("#check"+element).val "0"
-                unitType = []
+                
                 App.defaults['unitType'] = 'All'
                 $("#finalButton").removeClass 'disabled btn-default'
                 $("#finalButton").addClass 'btn-primary'
@@ -256,7 +254,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 
 
-                if $(".cs-placeholder").text() != 'Choose a budget'
+                if App.defaults['unitType'] == 'All'
                     budget_val = $(".cs-selected").text().split(' ')
                     if(budget_val[1]=='lakhs')
                         budget_price = budget_val[0].split('-')

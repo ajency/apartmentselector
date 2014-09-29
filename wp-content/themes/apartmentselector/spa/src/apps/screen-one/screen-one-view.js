@@ -33,6 +33,7 @@ define(['marionette'], function(Marionette) {
         if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
           $('#unittype' + this.model.get("id") + ' a').addClass('selected');
           App.defaults['unitType'] = 'All';
+          console.log(unitType);
           for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
             element = unitType[index];
             $("#check" + element).val('0');
@@ -172,7 +173,7 @@ define(['marionette'], function(Marionette) {
     };
 
     UnitTypeView.prototype.showBuildings = function(e) {
-      var budget_price, budget_val, buildings, element, newColl, newUnits, uniqBuildings, _i, _len;
+      var budget_price, budget_val, buildings, newColl, newUnits, uniqBuildings;
       $.map(App.backFilter, function(value, index) {
         var element, key, screenArray, _i, _len, _results;
         screenArray = App.backFilter[index];
@@ -215,12 +216,6 @@ define(['marionette'], function(Marionette) {
       App.currentStore.unit_type.reset(UNITTYPES);
       App.currentStore.unit_variant.reset(UNITVARIANTS);
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      for (_i = 0, _len = unitType.length; _i < _len; _i++) {
-        element = unitType[_i];
-        $('a').removeClass('selected');
-        $("#check" + element).val("0");
-      }
-      unitType = [];
       App.defaults['unitType'] = 'All';
       $("#finalButton").removeClass('disabled btn-default');
       $("#finalButton").addClass('btn-primary');
@@ -254,7 +249,7 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.events = {
       'click #finalButton': function(e) {
         var budget_price, budget_val;
-        if ($(".cs-placeholder").text() !== 'Choose a budget') {
+        if (App.defaults['unitType'] === 'All') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');
