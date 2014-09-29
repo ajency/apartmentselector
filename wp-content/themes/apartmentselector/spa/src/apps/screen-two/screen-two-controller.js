@@ -143,7 +143,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
-      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, facingID, facingModels, facingtemp, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, hnewarr, i, index, itemCollection, j, key, keycheck, lnewarr, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitTypeArray1, mainunitsTypeArray, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, terraceID, terraceModels, uniqUnitvariant, uniqfacings, uniqviews, unitColl, unitVariantID, unitVariantModels, units, units1, unitsactual, unitslen, unitslen1, unitvariant, viewID, viewModels, viewtemp;
+      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, capability, facingID, facingModels, facingtemp, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, hnewarr, i, index, itemCollection, j, key, keycheck, lnewarr, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitTypeArray1, mainunitsTypeArray, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, terraceID, terraceModels, uniqUnitvariant, uniqfacings, uniqviews, unitColl, unitVariantID, unitVariantModels, units, units1, unitsactual, unitslen, unitslen1, unitvariant, usermodel, viewID, viewModels, viewtemp;
       if (paramid == null) {
         paramid = {};
       }
@@ -388,38 +388,42 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       facingtemp = [];
       terraceModels = [];
       terraceID = [];
-      floorCollection.each(function(item) {
-        if (item.get('apartment_views') !== "") {
-          $.merge(viewtemp, item.get('apartment_views'));
-        }
-        if (item.get('facing').length !== 0) {
-          return $.merge(facingtemp, item.get('facing'));
-        }
-      });
-      console.log(uniqviews = _.uniq(viewtemp));
-      console.log(uniqfacings = _.uniq(facingtemp));
-      $.each(uniqviews, function(index, value) {
-        var viewModel;
-        viewModel = App.master.view.findWhere({
-          id: parseInt(value)
+      usermodel = new Backbone.Model(USER);
+      capability = usermodel.get('all_caps');
+      if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
+        floorCollection.each(function(item) {
+          if (item.get('apartment_views') !== "") {
+            $.merge(viewtemp, item.get('apartment_views'));
+          }
+          if (item.get('facing').length !== 0) {
+            return $.merge(facingtemp, item.get('facing'));
+          }
         });
-        viewModels.push({
-          id: viewModel.get('id'),
-          name: viewModel.get('name')
+        console.log(uniqviews = _.uniq(viewtemp));
+        console.log(uniqfacings = _.uniq(facingtemp));
+        $.each(uniqviews, function(index, value) {
+          var viewModel;
+          viewModel = App.master.view.findWhere({
+            id: parseInt(value)
+          });
+          viewModels.push({
+            id: viewModel.get('id'),
+            name: viewModel.get('name')
+          });
+          return viewID.push(parseInt(viewModel.get('id')));
         });
-        return viewID.push(parseInt(viewModel.get('id')));
-      });
-      $.each(uniqfacings, function(index, value) {
-        var facingModel;
-        facingModel = App.master.facings.findWhere({
-          id: parseInt(value)
+        $.each(uniqfacings, function(index, value) {
+          var facingModel;
+          facingModel = App.master.facings.findWhere({
+            id: parseInt(value)
+          });
+          facingModels.push({
+            id: facingModel.get('id'),
+            name: facingModel.get('name')
+          });
+          return facingID.push(parseInt(facingModel.get('id')));
         });
-        facingModels.push({
-          id: facingModel.get('id'),
-          name: facingModel.get('name')
-        });
-        return facingID.push(parseInt(facingModel.get('id')));
-      });
+      }
       $.each(uniqUnitvariant, function(index, value) {
         var unitVarinatModel;
         unitVarinatModel = App.master.unit_variant.findWhere({
