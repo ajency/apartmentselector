@@ -574,6 +574,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     ScreenTwoLayout.prototype.onShow = function() {
       var ajaxurl, buidlingValue, building, capability, clonefacings, cloneterraces, cloneviews, defer, entrance, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, i, mainnewarr, mainunique, mainunitTypeArray1, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, params, scr, selector, status, teraace, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel;
       usermodel = new Backbone.Model(USER);
+      object = this;
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
         $('.special').removeClass('hidden');
@@ -1113,7 +1114,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             return object.trigger('unit:variants:selected');
           });
           return $('#cancelpopup').on('click', function(e) {
-            object = this;
             globalviews = [];
             globalviewInt = [];
             globalfacing = [];

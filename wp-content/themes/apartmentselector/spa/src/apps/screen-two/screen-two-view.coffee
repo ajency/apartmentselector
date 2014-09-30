@@ -639,6 +639,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         onShow:->
             usermodel = new Backbone.Model USER
+            object = @     
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
                 $('.special').removeClass 'hidden'
@@ -1124,7 +1125,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
                         
                     inst = $.remodal.lookup[$('[data-remodal-id=filterModal]').data('remodal')];
-                            
+                     
                     $('#donepopup').on('click' , (e)->
 
                             inst.close()
@@ -1137,7 +1138,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
                     $('#cancelpopup').on('click' , (e)->
 
-                            object = @
+                            
                             globalviews = []
                             globalviewInt = []
                             globalfacing = []
