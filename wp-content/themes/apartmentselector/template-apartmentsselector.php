@@ -50,7 +50,7 @@
 
 <!-- footer-region -->
 <div id="footer-region">
-<p style="text-align:center;"><a href="http://manaslake.com/terms-conditions/" target="_blank">Terms &amp; Conditions</a></p>
+<p style="text-align:center;" class="termsTxt"><a href="http://manaslake.com/terms-conditions/" target="_blank">Terms &amp; Conditions</a></p>
 
 </div>
 

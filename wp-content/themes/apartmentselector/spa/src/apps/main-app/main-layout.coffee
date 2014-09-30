@@ -92,35 +92,39 @@ define [ 'extm'], ( Extm)->
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <div id="floorlayoutbasic" ></div>
+                        <div id="floorlayoutbasic" class="floorlayout"></div>
                     </div>
                     <div class="col-sm-7">
                         <div id="towerview" ></div>
                     </div>
                 </div>
             </div>
-            <div class="print-row last">
+            <div class="print-row areaInfo">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-12">
                         <div class="details room">
                             
                         </div>
-                        <div class="row extra-details">
-                            <div class="col-sm-4">
-                                <h5>Terrace</h5>
-                                <span id="terrace"></span>
-                            </div>
-                            <div class="col-sm-4">
-                                <h5>Entrance</h5>
-                                <span id="printfacing"></span>
-                            </div>
-                            <div class="col-sm-4">
-                                <h5>Views</h5>
-                                <span id="printview"></span>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-sm-7">
+                </div>
+                <div class="row extra-details">
+                    <div class="col-sm-4">
+                        <h5>Terrace</h5>
+                        <span id="terrace"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <h5>Entrance</h5>
+                        <span id="printfacing"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <h5>Views</h5>
+                        <span id="printview"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="print-row areaInfo last">
+                <div class="row">
+                    <div class="col-sm-12">
                         <h4 class="layout-header">2D Layout</h4>
                         <div class="details ">
                             <img src="" id="twoDimage" />

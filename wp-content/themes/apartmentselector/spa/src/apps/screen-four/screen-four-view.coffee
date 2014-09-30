@@ -1225,7 +1225,7 @@ define [ 'marionette' ], ( Marionette )->
                                         <div class="unitBox">
 
                                             {{#roomsizearray}}
-                                             <div class="rooms">{{type}}<h4 class="size">{{size}} Sq.Ft.</h4></div>
+                                             <div class="rooms">{{type}}: <h4 class="size">{{size}} Sq.Ft.</h4></div>
 
 
                                     {{/roomsizearray}}
@@ -1234,6 +1234,17 @@ define [ 'marionette' ], ( Marionette )->
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="unitBox">
+                                            <div class="others"><h4 class="size">Terrace:</h4> {{terraceoptions}} </div>
+                                            <div class="others"><h4 class="size">Views:</h4> {{facings_name}}</div>
+                                            <div class="others"><h4 class="size">Entrance:</h4> {{views_name}}</div>
+                                            <h4 class="titles"><span class="sky-location"></span> Other Details</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--<div class="row">
                                     <div class="col-md-12">
                                         <div class="unitBox facing">
                                             <h4 class="view">{{terraceoptions}}</h4>
@@ -1256,31 +1267,9 @@ define [ 'marionette' ], ( Marionette )->
                                             <h4 class="titles"><span class="sky-location"></span> Entrance</h4>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
 						</div>
-
-						<!--<div class="col-sm-8">
-							<h4 class="bold">FLAT SUMMARY</h4>
-							<div class="summary">
-                                <div class="row">
-									<div class="col-xs-6">CARPET AREA</div>
-									<div class="col-xs-6 text-right text-primary">{{carpetarea}} sqft</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">TERRACE AREA</div>
-									<div class="col-xs-6 text-right text-primary">{{terracearea}} sqft</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">CHARGEABLE AREA</div>
-									<div class="col-xs-6 text-right text-primary">{{sellablearea}} sqft</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">PRICE per SQ.FT - starts from</div>
-									<div class="col-xs-6 text-right text-primary">-</div>
-								</div>
-							</div>
-						</div>-->
 
                         <div class="col-md-7 col-lg-8">
                             <div class="liquid-slider center-block" id="slider-plans">
@@ -1304,45 +1293,6 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 					</div>
 					
-                    <!--<div class="row m-l-0 m-r-0 m-t-20 p-t-20 b-grey b-t">
-						<div class="col-md-6 p-b-10">
-							<h4 class="bold">ROOM DIMENSIONS</h4>
-							<div class="summary">
-								<div class="row p-b-10">
-									<div class="col-sm-6">
-										TERRACE
-										<h3 class="text-primary"</h3>
-									</div>
-                                    <div class="col-sm-6">
-                                        TOILET
-                                        {{#toiletArray}}
-                                        <h3 class="text-primary">{{size}}</h3>
-                                        {{/toiletArray}}
-                                    </div>
-                                </div>
-    							<div class="row m-t-20">
-    								<div class="col-sm-6">
-    									LIVING ROOM
-    									<h3 class="text-primary"></h3>
-                                    </div>
-    								<div class="col-sm-6">
-    									KITCHEN
-    									<h3 class="text-primary"></h3>
-                                    </div>
-    							</div>
-                            </div>
-    					</div>
-                        <div class="col-md-6">
-                            <h4 class="bold">ROOM DIMENSIONS</h4>
-							<div class="summary facilities">
-								<div class="row">
-								</div>
-                                <div class="row m-t-20">
-								</div>
-                            </div>
-						</div>
-                    </div>-->
-                    <!--<a  class="btn btn-primary">Cost Sheet</a>-->
                     '
 
 
