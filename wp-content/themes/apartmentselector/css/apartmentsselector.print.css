@@ -158,19 +158,26 @@ body {
   font-size: 10pt;
   margin: 5px 0;
 }
+.print-row.areaInfo .extra-details .col-sm-4 span {
+  font-weight: 600;
+}
 .details {
   margin: 10px 0 0;
   border: 1px solid #555555;
 }
 .details .rooms {
-  width: 48%;
+  width: 50%;
   display: inline-block;
-  margin: 2mm 0;
-  padding: 0 10px;
+  margin: 0;
+  padding: 2mm 10px;
 }
 .details .rooms span {
   display: inline-block;
-  width: 40%;
+  width: 50%;
+  font-weight: 700;
+}
+.details .rooms:nth-child(odd) {
+  border-right: 1px solid #999999;
 }
 .details.room {
   margin-top: 20px;
@@ -180,4 +187,7 @@ body {
 }
 .termsTxt {
   display: none;
+}
+iframe#print-modal-content {
+  height: 5500px !important;
 }

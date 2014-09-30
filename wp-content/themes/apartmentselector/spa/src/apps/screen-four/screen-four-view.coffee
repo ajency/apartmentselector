@@ -1225,7 +1225,7 @@ define [ 'marionette' ], ( Marionette )->
                                         <div class="unitBox">
 
                                             {{#roomsizearray}}
-                                             <div class="rooms">{{type}}<h4 class="size">{{size}} Sq.Ft.</h4></div>
+                                             <div class="rooms">{{type}}: <h4 class="size">{{size}} Sq.Ft.</h4></div>
 
 
                                     {{/roomsizearray}}
@@ -1234,6 +1234,17 @@ define [ 'marionette' ], ( Marionette )->
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="unitBox">
+                                            <div class="others"><h4 class="size">Terrace:</h4> {{terraceoptions}} </div>
+                                            <div class="others"><h4 class="size">Views:</h4> {{facings_name}}</div>
+                                            <div class="others"><h4 class="size">Entrance:</h4> {{views_name}}</div>
+                                            <h4 class="titles"><span class="sky-location"></span> Other Details</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--<div class="row">
                                     <div class="col-md-12">
                                         <div class="unitBox facing">
                                             <h4 class="view">{{terraceoptions}}</h4>
@@ -1256,7 +1267,7 @@ define [ 'marionette' ], ( Marionette )->
                                             <h4 class="titles"><span class="sky-location"></span> Entrance</h4>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
 						</div>
 

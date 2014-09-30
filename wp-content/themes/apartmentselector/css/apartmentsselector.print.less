@@ -136,6 +136,9 @@ body {
 					font-size: 10pt;
 					margin: 5px 0;
 				}
+				span{
+					font-weight: 600;
+				}
 			}		
 		}
 	}
@@ -146,13 +149,18 @@ body {
 	border: 1px solid @gray;
 	// border-top: 2px solid @gray;
 	.rooms {
-		width: 48%;
+		width: 50%;
 		display: inline-block;
-		margin: 2mm 0;
-		padding: 0 10px;
+		margin: 0;
+		padding: 2mm 10px;
 		span {
 			display: inline-block;
-			width: 40%;
+			width: 50%;
+			font-weight: 700;
+			// text-align: right;
+		}
+		&:nth-child(odd){
+			border-right: 1px solid @gray-light;
 		}
 	}
 	&.room{
@@ -168,4 +176,8 @@ body {
 
 .termsTxt{
 	display: none;
+}
+
+iframe#print-modal-content{
+	height: 5500px !important;
 }

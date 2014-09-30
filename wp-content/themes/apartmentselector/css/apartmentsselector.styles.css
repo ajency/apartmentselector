@@ -10794,20 +10794,26 @@ h5 {
 .unitDetails .unitBox h4.titles span {
   color: #b3b3b3;
 }
-.unitDetails .unitBox .rooms {
-  width: 33%;
+.unitDetails .unitBox .rooms,
+.unitDetails .unitBox .others {
+  width: 48%;
   display: inline-block;
   padding: 10px 0;
   color: #999999;
   font-weight: 700;
 }
-.unitDetails .unitBox .rooms h4.size {
+.unitDetails .unitBox .rooms h4.size,
+.unitDetails .unitBox .others h4.size {
   margin: 0;
   padding: 0;
   background: none;
   border: none;
   font-weight: 400;
   font-style: italic;
+  display: inline-block;
+}
+.unitDetails .unitBox .others {
+  width: 100%;
 }
 .unitDetails .unitNmbr h3 {
   color: #ff6600;
@@ -12432,6 +12438,3 @@ a.im-clear-button {
 }
 /**** end print modal styles ****/
 
-iframe#print-modal-content {
-  height: 5000px !important;
-}
