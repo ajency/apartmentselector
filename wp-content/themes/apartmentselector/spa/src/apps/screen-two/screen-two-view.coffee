@@ -1137,6 +1137,128 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     )
                     $('#cancelpopup').on('click' , (e)->
 
+                            object = @
+                            globalviews = []
+                            globalviewInt = []
+                            globalfacing = []
+                            globalfacingInt = []
+                            globalterrace = []
+                            globalterraceInt= []
+                            cloneviews = originalviews.slice(0)
+                            clonefacings = originalfacings.slice(0)
+                            cloneterraces = originalterraces.slice(0)
+                            view = []
+                            teraace = []
+                            entrance = []
+                            if App.defaults['view'] != 'All'
+                                globalviews = App.defaults['view'].split(',')
+                                $.each(globalviews, (index,value)->
+                                    globalviewInt.push(parseInt(value))
+
+                                )
+                            if App.defaults['facing'] != 'All'
+                                globalfacing = App.defaults['facing'].split(',')
+                                $.each(globalfacing, (index,value)->
+                                    globalfacingInt.push(parseInt(value))
+
+                                )
+                            if App.defaults['terrace'] != 'All'
+                                globalterrace = App.defaults['terrace'].split(',')
+                                $.each(globalterrace, (index,value)->
+                                    globalterraceInt.push(parseInt(value))
+
+                                )
+                            if App.defaults['view'] != 'All'
+                                $.each(originalOviews,(index,value)->
+                                    
+                                   
+                                        if $.inArray(parseInt(value.id),globalviewInt) >=0 
+                                            $('#view'+value.id).prop('checked',true)
+                                            view.push(value.id)
+                                        else
+                                            $('#view'+value.id).prop('checked',false)
+
+                                        
+
+                                    )
+                            else
+                                $.each(originalOviews,(index,value)->
+                                    $('#view'+value.id).prop('checked',true)
+                                    view.push(value.id)
+
+                                    )
+                            if App.defaults['facing'] != 'All'
+                                $.each(originalOfacings,(index,value)->
+                                    
+                                   
+                                        if $.inArray(parseInt(value.id),globalfacingInt) >=0 
+                                            $('#facing'+value.id).prop('checked',true)
+                                            entrance.push(value.id)
+                                        else
+                                            $('#facing'+value.id).prop('checked',false)
+
+                                        
+
+                                    )
+                            else
+                                $.each(originalOfacings,(index,value)->
+                                    $('#facing'+value.id).prop('checked',true)
+                                    entrance.push(value.id)
+
+                                    )
+                            if App.defaults['terrace'] != 'All'
+                                $.each(originalOterraces,(index,value)->
+                                    
+                                   
+                                        if $.inArray(parseInt(value.id),globalterraceInt) >=0 
+                                            $('#terrace'+value.id).prop('checked',true)
+                                            teraace.push(value.id)
+                                        else
+                                            $('#terrace'+value.id).prop('checked',false)
+
+                                        
+
+                                    )
+                            else
+                                $.each(originalOterraces,(index,value)->
+                                    $('#terrace'+value.id).prop('checked',true)
+                                    teraace.push(value.id)
+
+                                    )
+                            mainnewarr =  []
+                            mainunique = {}
+                            mainunitTypeArray1 = []
+                            status = App.master.status.findWhere({'name':'Available'})
+                            units1 = App.master.unit.where({'status':status.get('id')})
+                            $.each(units1, (index,value)->
+                                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                                mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
+                            )
+                            $.each(mainunitTypeArray1, (key,item)->
+                                if (!mainunique[item.id])
+                                    if item.id != 14 && item.id != 16
+                                        status = App.master.status.findWhere({'name':'Available'})
+
+                                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                                        if parseInt(item.id) == 9
+                                            classname = 'twoBHK'
+                                        else
+                                            classname = 'threeBHK'
+
+                                        mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
+                                        mainunique[item.id] = item;
+
+
+                                )
+                            console.log mainnewarr
+                            unittypetext = ""
+                            $.each(mainnewarr, (index,value)->
+                                            unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+
+
+                            )
+                            $('#unittypecount').html unittypetext
                             inst.close()
                             
                     )
