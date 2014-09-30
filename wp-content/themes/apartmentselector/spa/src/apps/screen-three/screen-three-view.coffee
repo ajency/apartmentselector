@@ -83,7 +83,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                     <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2">
                     </div>
-                    <div class="specialFilter1">
+                    <div class="specialFilter1" style="display:none">
                         <div class="bgClass">
                             <div class="row m-l-0 m-r-0">
                                 <div class="col-sm-4">

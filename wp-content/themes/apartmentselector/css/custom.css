@@ -7566,14 +7566,31 @@ h5 {
     padding: 0 20px 0;
   }
 }
+/* Special Filters */
+a.special {
+  cursor: pointer;
+}
 .specialFilter {
-  max-width: 1000px;
+  max-width: 1200px;
+  width: 100%;
   margin: 20px auto;
   min-height: 0;
+  border: 10px solid #999999;
 }
 .specialFilter .filterBox {
   float: left;
   width: 50%;
+}
+#unittypecount {
+  margin: 20px;
+  margin-right: 0;
+}
+.filterBlock {
+  background: #ffffff;
+  padding: 10px 20px 20px;
+}
+.blockTitle {
+  color: #999999;
 }
 /**** Responsive Table Styles ****/
 .unitTable {

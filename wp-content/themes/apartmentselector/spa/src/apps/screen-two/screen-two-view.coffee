@@ -26,9 +26,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                               <ul></ul>
                             </div>
                             <span class="text-primary variantToggle1"> </span>variants of your apartment selection
-                            <a class="btn btn-primary btn-sm special hidden" id="filterModal">Special Filters</a>
                         </div>
-                        
+
                         <div class="variantBox1">
 
                             <div class="grid-container">
@@ -54,6 +53,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 </div>
                             </div>
                         </div>
+
+                        <div class="introTxt text-center">
+                            <div id="tagslist2" class="taglist">
+                              <ul></ul>
+                            </div>
+                            <a class="special hidden" id="filterModal">Additional Filters</a>
+                        </div>
+
+                        
                     </div>
 
                     <div class="row m-l-0 m-r-0 bgClass">
@@ -90,37 +98,43 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
                     </div>
 
-                    <div class="specialFilter" >
+                    <div class="specialFilter" style="display:none;">
                         <div class="bgClass">
-                            <div class="row m-l-0 m-r-0">
-                                <div class="col-sm-4">
-                                    <!--<h3>Additional Filters</h3>-->
-                                    <div class="small blockTitle">Terrace</div>
-                                     {{#terrace}}   
-                                    <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
-                                    {{/terrace}}  
-                                </div>
+                            <h3 class="text-center light">Choose from the options below to filter your selection</h3>
+                            <div class="row m-l-0 m-r-0 filterBlock">
 
-                                <div class="col-sm-4 b-l b-r b-grey">
-                                    <div class="small blockTitle">View</div>
+                                <div class="col-sm-5 b-r b-grey">
+                                    <h4 class="bold blockTitle">View</h4>
                                     {{#views}}
                                     <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
-                                
 
                                 <div class="col-sm-4 b-r b-grey">
-                                    <div class="small blockTitle">Entrance</div>
+                                    <h4 class="bold blockTitle">Entrance</h4>
                                         {{#facings}}
                                     <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
-                                <input type="button" id="donepopup" class="b-close" value="Done" />
-                                <input type="button" id="cancelpopup" class="b-close" value="Cancel" />
-                                <div id="unittypecount"></div>
+
+                                <div class="col-sm-3">
+                                    <h4 class="bold blockTitle">Terrace</h4>
+                                     {{#terrace}}   
+                                    <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
+                                    {{/terrace}}  
+                                </div>
+                                
                             </div>
+
+                            <h4 id="unittypecount" class="text-center"></h4>
+
+                            <div class="text-center m-t-10 m-b-10">
+                                <a id="donepopup" class="btn btn-primary btn-sm b-close">DONE</a>
+                                <a id="cancelpopup" class="btn btn-primary btn-sm b-close">CANCEL</a>
+                            </div>
+
                         </div>
                     </div>
 
@@ -766,7 +780,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 console.log mainnewarr
                 unittypetext = ""
                 $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                 )
@@ -884,7 +898,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log mainnewarr
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
@@ -1000,7 +1014,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log mainnewarr
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
@@ -1118,7 +1132,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log mainnewarr
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
@@ -1255,7 +1269,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             console.log mainnewarr
                             unittypetext = ""
                             $.each(mainnewarr, (index,value)->
-                                            unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                            unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
