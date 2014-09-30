@@ -27,7 +27,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       return ScreenTwoLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenTwoLayout.prototype.template = '<div class=""> <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>--> <div class="introTxt text-center">You are seeing <div id="tagslist" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle1"> </span>variants of your apartment selection <a class="btn btn-primary btn-sm special hidden" data-remodal-target="filterModal">Special Filters</a> </div> <div class="variantBox1"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> </div> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container vs-triplelayout"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div class="m-t-10 text-center"> <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>--> <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div> </div> </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2"> </div> <div class="remodal specialFilter" data-remodal-id="filterModal"> <div class="bgClass"> <div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <!--<h3>Additional Filters</h3>--> <div class="small blockTitle">Terrace</div> {{#terrace}} <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div> {{/terrace}} </div> <div class="col-sm-4 b-l b-r b-grey"> <div class="small blockTitle">View</div> {{#views}} <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-4 b-r b-grey"> <div class="small blockTitle">Entrance</div> {{#facings}} <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> <input type="button" id="donepopup" value="Done" /> <input type="button" id="cancelpopup" value="Cancel" /> <div id="unittypecount"></div> </div> </div> </div>';
+    ScreenTwoLayout.prototype.template = '<div class=""> <h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span> apartments that matched your selection</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{unitsCount }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <!--<div class="text-center introTxt m-b-10">These apartments are spread over different towers. Each tower has three floor blocks. The number in the boxes indicate the number of apartments of your selection. Select one for more details.</div>--> <div class="introTxt text-center">You are seeing <div id="tagslist" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle1"> </span>variants of your apartment selection <a class="btn btn-primary btn-sm special hidden" id="filterModal">Special Filters</a> </div> <div class="variantBox1"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="selectall" id="selectall" class="checkbox" value="0" checked/> <label for="selectall">Select/Unselect All</label> </div> <div class="text-right m-b-20"> <span class="variantClose1 glyphicon glyphicon-remove text-grey"></span> </div> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link selected" href="#" id="grid{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> </div> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="legend text-center m-b-20"> {{#unittypes}} <span class={{classname}}>.</span>{{name}} {{/unittypes}} </div> <div class="towerTable"> <div class="tableBody"> <div id="vs-container2" class="vs-container vs-triplelayout"> <header class="vs-header" id="building-region"></header> <div id="unit-region"></div> </div> </div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div class="m-t-10 text-center"> <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4> <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>--> <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div> </div> </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2"> </div> <div class="specialFilter" > <div class="bgClass"> <div class="row m-l-0 m-r-0"> <div class="col-sm-4"> <!--<h3>Additional Filters</h3>--> <div class="small blockTitle">Terrace</div> {{#terrace}} <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div> {{/terrace}} </div> <div class="col-sm-4 b-l b-r b-grey"> <div class="small blockTitle">View</div> {{#views}} <div class="filterBox"> <input type="checkbox" name="view{{id}}" data-name="{{name}}" id="view{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-4 b-r b-grey"> <div class="small blockTitle">Entrance</div> {{#facings}} <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> <input type="button" id="donepopup" class="b-close" value="Done" /> <input type="button" id="cancelpopup" class="b-close" value="Cancel" /> <div id="unittypecount"></div> </div> </div> </div>';
 
     ScreenTwoLayout.prototype.className = 'page-container row-fluid';
 
@@ -37,6 +37,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.events = {
+      'click #filterModal': function(e) {
+        return $('.specialFilter').bPopup();
+      },
       'mouseout .im-pin': function(e) {
         return $('.im-tooltip').hide();
       },
@@ -711,536 +714,534 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
         });
         $('#unittypecount').html(unittypetext);
-        $('.specialFilter').on('open', function() {
-          var inst;
-          $('.viewname').on('click', function(e) {
-            var facingtemp, first, floorCollection, index, teracetemp, uniqfacings, uniqterrace, unselected, unselected1, viewString;
-            mainnewarr = [];
-            mainunique = {};
-            console.log('click');
-            viewnames = originalviews;
-            viewString = 'All';
-            if ($('#' + e.target.id).prop('checked') === true) {
-              view.push($('#' + e.target.id).val());
-            } else {
-              index = _.indexOf(view, parseInt($('#' + e.target.id).val()));
-              if (index !== -1) {
-                view.splice(index, 1);
-              }
+        $('.viewname').on('click', function(e) {
+          var facingtemp, floorCollection, index, teracetemp, terrace, uniqfacings, uniqterrace, unselected, unselected1, viewString;
+          mainnewarr = [];
+          mainunique = {};
+          console.log('click');
+          viewnames = originalviews;
+          viewString = 'All';
+          console.log(view.length);
+          if ($('#' + e.target.id).prop('checked') === true) {
+            view.push($('#' + e.target.id).val());
+          } else {
+            if (parseInt(view.length) === 1) {
+              return false;
             }
-            if (view.length === 0) {
-              first = _.first(originalOviews);
-              view.push(first.id);
+            $('#' + e.target.id).prop('checked', false);
+            index = _.indexOf(view, parseInt($('#' + e.target.id).val()));
+            if (index !== -1) {
+              view.splice(index, 1);
             }
-            view = view.map(function(item) {
-              return parseInt(item);
-            });
-            view = _.uniq(view);
-            if (view.length !== 0) {
-              viewString = view.join(',');
-            }
-            App.defaults['view'] = viewString;
-            App.backFilter['screen2'].push('view');
-            if (cloneviews.length === view.length) {
-              App.defaults['view'] = 'All';
-              view = originalviews;
-            }
-            App.currentStore.unit.reset(UNITS);
-            App.currentStore.building.reset(BUILDINGS);
-            App.currentStore.unit_type.reset(UNITTYPES);
-            App.currentStore.unit_variant.reset(UNITVARIANTS);
-            App.filter();
-            teracetemp = [];
-            floorCollection = App.currentStore.unit;
-            console.log(floorCollection.length);
-            facingtemp = [];
-            floorCollection.each(function(item) {
-              if (item.get('facing').length !== 0) {
-                $.merge(facingtemp, item.get('facing'));
-              }
-              if (item.get('terrace') !== "") {
-                return teracetemp.push(item.get('terrace'));
-              }
-            });
-            facingtemp = facingtemp.map(function(item) {
-              return parseInt(item);
-            });
-            teracetemp = teracetemp.map(function(item) {
-              return parseInt(item);
-            });
-            console.log(uniqfacings = _.uniq(facingtemp));
-            console.log(uniqterrace = _.uniq(teracetemp));
-            $.each(uniqfacings, function(index, value) {
-              return $('#facing' + value).prop('checked', true);
-            });
-            if (uniqfacings.length !== clonefacings.length) {
-              App.defaults['facing'] = uniqfacings.join(',');
-              App.backFilter['screen2'].push('facing');
-            } else {
-              App.defaults['facing'] = 'All';
-            }
-            if (uniqterrace.length !== cloneterraces.length) {
-              App.defaults['terrace'] = uniqterrace.join(',');
-              App.backFilter['screen2'].push('terrace');
-            } else {
-              App.defaults['terrace'] = 'All';
-            }
-            console.log(unselected = _.difference(clonefacings, uniqfacings));
-            $.each(unselected, function(index, value) {
-              return $('#facing' + value).prop('checked', false);
-            });
-            $.each(uniqterrace, function(index, value) {
-              return $('#terrace' + value).prop('checked', true);
-            });
-            console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
-            $.each(unselected1, function(index, value) {
-              return $('#terrace' + value).prop('checked', false);
-            });
-            mainunitTypeArray1 = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            units1 = App.master.unit.where({
-              'status': status.get('id')
-            });
-            $.each(units1, function(index, value) {
-              var unitType;
-              unitType = App.master.unit_type.findWhere({
-                id: value.get('unitType')
-              });
-              return mainunitTypeArray1.push({
-                id: unitType.get('id'),
-                name: unitType.get('name')
-              });
-            });
-            $.each(mainunitTypeArray1, function(key, item) {
-              var classname;
-              if (!mainunique[item.id]) {
-                if (item.id !== 14 && item.id !== 16) {
-                  status = App.master.status.findWhere({
-                    'name': 'Available'
-                  });
-                  count = floorCollection.where({
-                    unitType: item.id,
-                    'status': status.get('id')
-                  });
-                  if (parseInt(item.id) === 9) {
-                    classname = 'twoBHK';
-                  } else {
-                    classname = 'threeBHK';
-                  }
-                  mainnewarr.push({
-                    id: item.id,
-                    name: item.name,
-                    classname: classname,
-                    count: count
-                  });
-                  return mainunique[item.id] = item;
-                }
-              }
-            });
-            console.log(mainnewarr);
-            unittypetext = "";
-            $.each(mainnewarr, function(index, value) {
-              return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
-            });
-            return $('#unittypecount').html(unittypetext);
+          }
+          view = view.map(function(item) {
+            return parseInt(item);
           });
-          $('.terrace').on('click', function(e) {
-            var facingtemp, first, index, uniqfacings, uniqviews, units, unselected, unselected1, viewtemp;
-            mainnewarr = [];
-            mainunique = {};
-            App.currentStore.unit.reset(UNITS);
-            App.currentStore.building.reset(BUILDINGS);
-            App.currentStore.unit_type.reset(UNITTYPES);
-            App.currentStore.unit_variant.reset(UNITVARIANTS);
-            if ($('#' + e.target.id).prop('checked') === true) {
-              teraace.push($('#' + e.target.id).val());
-            } else {
-              index = _.indexOf(teraace, parseInt($('#' + e.target.id).val()));
-              if (index !== -1) {
-                teraace.splice(index, 1);
-              }
+          view = _.uniq(view);
+          if (view.length !== 0) {
+            viewString = view.join(',');
+          }
+          App.defaults['view'] = viewString;
+          if (cloneviews.length === view.length) {
+            App.defaults['view'] = 'All';
+            view = originalviews;
+          }
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.filter();
+          teracetemp = [];
+          floorCollection = App.currentStore.unit;
+          console.log(floorCollection.length);
+          facingtemp = [];
+          floorCollection.each(function(item) {
+            if (item.get('facing').length !== 0) {
+              $.merge(facingtemp, item.get('facing'));
             }
-            if (teraace.length === 0) {
-              console.log(first = _.first(originalOterraces));
-              teraace.push(first.id);
+            if (item.get('terrace') !== "") {
+              return teracetemp.push(item.get('terrace'));
             }
-            teraace = teraace.map(function(item) {
-              return parseInt(item);
-            });
-            teraace = _.uniq(teraace);
-            App.defaults['terrace'] = teraace.join(',');
-            App.backFilter['screen2'].push('terrace');
-            if (cloneterraces.length === teraace.length) {
-              App.defaults['terrace'] = 'All';
-              teraace = originalterraces;
-            }
-            App.filter();
-            units = App.currentStore.unit;
-            console.log(units.length);
-            viewtemp = [];
-            facingtemp = [];
-            units.each(function(item) {
-              if (item.get('apartment_views') !== "") {
-                $.merge(viewtemp, item.get('apartment_views'));
-              }
-              if (item.get('facing').length !== 0) {
-                return $.merge(facingtemp, item.get('facing'));
-              }
-            });
-            viewtemp = viewtemp.map(function(item) {
-              return parseInt(item);
-            });
-            facingtemp = facingtemp.map(function(item) {
-              return parseInt(item);
-            });
-            console.log(uniqviews = _.uniq(viewtemp));
-            console.log(uniqfacings = _.uniq(facingtemp));
-            if (uniqviews.length !== cloneviews.length) {
-              App.defaults['view'] = uniqviews.join(',');
-              App.backFilter['screen2'].push('view');
-            } else {
-              App.defaults['view'] = 'All';
-            }
-            if (uniqfacings.length !== clonefacings.length) {
-              App.defaults['facing'] = uniqfacings.join(',');
-              App.backFilter['screen2'].push('facing');
-            } else {
-              App.defaults['facing'] = 'All';
-            }
-            $.each(uniqviews, function(index, value) {
-              return $('#view' + value).prop('checked', true);
-            });
-            console.log(unselected1 = _.difference(cloneviews, uniqviews));
-            $.each(unselected1, function(index, value) {
-              return $('#view' + value).prop('checked', false);
-            });
-            $.each(uniqfacings, function(index, value) {
-              return $('#facing' + value).prop('checked', true);
-            });
-            console.log(unselected = _.difference(clonefacings, uniqfacings));
-            $.each(unselected, function(index, value) {
-              return $('#facing' + value).prop('checked', false);
-            });
-            mainunitTypeArray1 = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            units1 = App.master.unit.where({
-              'status': status.get('id')
-            });
-            $.each(units1, function(index, value) {
-              var unitType;
-              unitType = App.master.unit_type.findWhere({
-                id: value.get('unitType')
-              });
-              return mainunitTypeArray1.push({
-                id: unitType.get('id'),
-                name: unitType.get('name')
-              });
-            });
-            $.each(mainunitTypeArray1, function(key, item) {
-              var classname;
-              if (!mainunique[item.id]) {
-                if (item.id !== 14 && item.id !== 16) {
-                  status = App.master.status.findWhere({
-                    'name': 'Available'
-                  });
-                  count = units.where({
-                    unitType: item.id,
-                    'status': status.get('id')
-                  });
-                  if (parseInt(item.id) === 9) {
-                    classname = 'twoBHK';
-                  } else {
-                    classname = 'threeBHK';
-                  }
-                  mainnewarr.push({
-                    id: item.id,
-                    name: item.name,
-                    classname: classname,
-                    count: count
-                  });
-                  return mainunique[item.id] = item;
-                }
-              }
-            });
-            console.log(mainnewarr);
-            unittypetext = "";
-            $.each(mainnewarr, function(index, value) {
-              return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
-            });
-            return $('#unittypecount').html(unittypetext);
           });
-          $('.facing').on('click', function(e) {
-            var facingString, first, floorCollection, index, teracetemp, uniqterrace, uniqviews, unselected, unselected1, viewtemp;
-            mainnewarr = [];
-            mainunique = {};
-            console.log(entrance);
-            if ($('#' + e.target.id).prop('checked') === true) {
-              entrance.push($('#' + e.target.id).val());
-            } else {
-              index = _.indexOf(entrance, parseInt($('#' + e.target.id).val()));
-              if (index !== -1) {
-                entrance.splice(index, 1);
-              }
-            }
-            if (entrance.length === 0) {
-              first = _.first(originalOfacings);
-              entrance.push(first.id);
-            }
-            entrance = entrance.map(function(item) {
-              return parseInt(item);
-            });
-            console.log(entrance = _.uniq(entrance));
-            if (entrance.length !== 0) {
-              facingString = entrance.join(',');
-            }
-            App.defaults['facing'] = facingString;
-            App.backFilter['screen2'].push('facing');
-            console.log(clonefacings.length);
-            if (clonefacings.length === entrance.length) {
-              App.defaults['facing'] = 'All';
-              entrance = originalfacings;
-            }
-            App.currentStore.unit.reset(UNITS);
-            App.currentStore.building.reset(BUILDINGS);
-            App.currentStore.unit_type.reset(UNITTYPES);
-            App.currentStore.unit_variant.reset(UNITVARIANTS);
-            App.filter();
-            teracetemp = [];
-            floorCollection = App.currentStore.unit;
-            console.log(floorCollection.length);
-            viewtemp = [];
-            floorCollection.each(function(item) {
-              if (item.get('apartment_views').length !== 0) {
-                $.merge(viewtemp, item.get('apartment_views'));
-              }
-              if (item.get('terrace') !== "") {
-                return teracetemp.push(item.get('terrace'));
-              }
-            });
-            viewtemp = viewtemp.map(function(item) {
-              return parseInt(item);
-            });
-            teracetemp = teracetemp.map(function(item) {
-              return parseInt(item);
-            });
-            console.log(uniqviews = _.uniq(viewtemp));
-            console.log(uniqterrace = _.uniq(teracetemp));
-            if (uniqviews.length !== cloneviews.length) {
-              App.defaults['view'] = uniqviews.join(',');
-              App.backFilter['screen2'].push('view');
-            } else {
-              App.defaults['view'] = 'All';
-            }
-            if (uniqterrace.length !== cloneterraces.length) {
-              App.defaults['terrace'] = uniqterrace.join(',');
-              App.backFilter['screen2'].push('terrace');
-            } else {
-              App.defaults['terrace'] = 'All';
-            }
-            $.each(uniqviews, function(index, value) {
-              return $('#view' + value).prop('checked', true);
-            });
-            console.log(unselected = _.difference(cloneviews, uniqviews));
-            $.each(unselected, function(index, value) {
-              return $('#view' + value).prop('checked', false);
-            });
-            $.each(uniqterrace, function(index, value) {
-              return $('#terrace' + value).prop('checked', true);
-            });
-            console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
-            $.each(unselected1, function(index, value) {
-              return $('#terrace' + value).prop('checked', false);
-            });
-            mainunitTypeArray1 = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            units1 = App.master.unit.where({
-              'status': status.get('id')
-            });
-            $.each(units1, function(index, value) {
-              var unitType;
-              unitType = App.master.unit_type.findWhere({
-                id: value.get('unitType')
-              });
-              return mainunitTypeArray1.push({
-                id: unitType.get('id'),
-                name: unitType.get('name')
-              });
-            });
-            $.each(mainunitTypeArray1, function(key, item) {
-              var classname;
-              if (!mainunique[item.id]) {
-                if (item.id !== 14 && item.id !== 16) {
-                  status = App.master.status.findWhere({
-                    'name': 'Available'
-                  });
-                  count = floorCollection.where({
-                    unitType: item.id,
-                    'status': status.get('id')
-                  });
-                  if (parseInt(item.id) === 9) {
-                    classname = 'twoBHK';
-                  } else {
-                    classname = 'threeBHK';
-                  }
-                  mainnewarr.push({
-                    id: item.id,
-                    name: item.name,
-                    classname: classname,
-                    count: count
-                  });
-                  return mainunique[item.id] = item;
-                }
-              }
-            });
-            console.log(mainnewarr);
-            unittypetext = "";
-            $.each(mainnewarr, function(index, value) {
-              return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
-            });
-            return $('#unittypecount').html(unittypetext);
+          facingtemp = facingtemp.map(function(item) {
+            return parseInt(item);
           });
-          inst = $.remodal.lookup[$('[data-remodal-id=filterModal]').data('remodal')];
-          $('#donepopup').on('click', function(e) {
-            inst.close();
-            $('.remodal-overlay').remove();
-            $(document).unbind('open', '.remodal', function() {});
-            $("script[src='../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js']").remove();
-            return object.trigger('unit:variants:selected');
+          teracetemp = teracetemp.map(function(item) {
+            return parseInt(item);
           });
-          return $('#cancelpopup').on('click', function(e) {
-            globalviews = [];
-            globalviewInt = [];
-            globalfacing = [];
-            globalfacingInt = [];
-            globalterrace = [];
-            globalterraceInt = [];
-            cloneviews = originalviews.slice(0);
-            clonefacings = originalfacings.slice(0);
-            cloneterraces = originalterraces.slice(0);
-            view = [];
-            teraace = [];
-            entrance = [];
-            if (App.defaults['view'] !== 'All') {
-              globalviews = App.defaults['view'].split(',');
-              $.each(globalviews, function(index, value) {
-                return globalviewInt.push(parseInt(value));
-              });
-            }
-            if (App.defaults['facing'] !== 'All') {
-              globalfacing = App.defaults['facing'].split(',');
-              $.each(globalfacing, function(index, value) {
-                return globalfacingInt.push(parseInt(value));
-              });
-            }
-            if (App.defaults['terrace'] !== 'All') {
-              globalterrace = App.defaults['terrace'].split(',');
-              $.each(globalterrace, function(index, value) {
-                return globalterraceInt.push(parseInt(value));
-              });
-            }
-            if (App.defaults['view'] !== 'All') {
-              $.each(originalOviews, function(index, value) {
-                if ($.inArray(parseInt(value.id), globalviewInt) >= 0) {
-                  $('#view' + value.id).prop('checked', true);
-                  return view.push(value.id);
+          console.log(uniqfacings = _.uniq(facingtemp));
+          console.log(uniqterrace = _.uniq(teracetemp));
+          $.each(uniqfacings, function(index, value) {
+            return $('#facing' + value).prop('checked', true);
+          });
+          if (uniqfacings.length !== clonefacings.length) {
+            App.defaults['facing'] = uniqfacings.join(',');
+            entrance = uniqfacings;
+          } else {
+            App.defaults['facing'] = 'All';
+          }
+          if (uniqterrace.length !== cloneterraces.length) {
+            App.defaults['terrace'] = uniqterrace.join(',');
+            terrace = uniqterrace;
+          } else {
+            App.defaults['terrace'] = 'All';
+          }
+          console.log(unselected = _.difference(clonefacings, uniqfacings));
+          $.each(unselected, function(index, value) {
+            return $('#facing' + value).prop('checked', false);
+          });
+          $.each(uniqterrace, function(index, value) {
+            return $('#terrace' + value).prop('checked', true);
+          });
+          console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+          $.each(unselected1, function(index, value) {
+            return $('#terrace' + value).prop('checked', false);
+          });
+          mainunitTypeArray1 = [];
+          status = App.master.status.findWhere({
+            'name': 'Available'
+          });
+          units1 = App.master.unit.where({
+            'status': status.get('id')
+          });
+          $.each(units1, function(index, value) {
+            var unitType;
+            unitType = App.master.unit_type.findWhere({
+              id: value.get('unitType')
+            });
+            return mainunitTypeArray1.push({
+              id: unitType.get('id'),
+              name: unitType.get('name')
+            });
+          });
+          $.each(mainunitTypeArray1, function(key, item) {
+            var classname;
+            if (!mainunique[item.id]) {
+              if (item.id !== 14 && item.id !== 16) {
+                status = App.master.status.findWhere({
+                  'name': 'Available'
+                });
+                count = floorCollection.where({
+                  unitType: item.id,
+                  'status': status.get('id')
+                });
+                if (parseInt(item.id) === 9) {
+                  classname = 'twoBHK';
                 } else {
-                  return $('#view' + value.id).prop('checked', false);
+                  classname = 'threeBHK';
                 }
-              });
-            } else {
-              $.each(originalOviews, function(index, value) {
+                mainnewarr.push({
+                  id: item.id,
+                  name: item.name,
+                  classname: classname,
+                  count: count
+                });
+                return mainunique[item.id] = item;
+              }
+            }
+          });
+          console.log(mainnewarr);
+          unittypetext = "";
+          $.each(mainnewarr, function(index, value) {
+            return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+          });
+          return $('#unittypecount').html(unittypetext);
+        });
+        $('.terrace').on('click', function(e) {
+          var facingtemp, first, index, uniqfacings, uniqviews, units, unselected, unselected1, viewtemp;
+          mainnewarr = [];
+          mainunique = {};
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
+          if ($('#' + e.target.id).prop('checked') === true) {
+            teraace.push($('#' + e.target.id).val());
+          } else {
+            if (parseInt(teraace.length) === 1) {
+              return false;
+            }
+            index = _.indexOf(teraace, parseInt($('#' + e.target.id).val()));
+            if (index !== -1) {
+              teraace.splice(index, 1);
+            }
+          }
+          if (teraace.length === 0) {
+            console.log(first = _.first(originalOterraces));
+            teraace.push(first.id);
+          }
+          teraace = teraace.map(function(item) {
+            return parseInt(item);
+          });
+          teraace = _.uniq(teraace);
+          App.defaults['terrace'] = teraace.join(',');
+          if (cloneterraces.length === teraace.length) {
+            App.defaults['terrace'] = 'All';
+            teraace = originalterraces;
+          }
+          App.filter();
+          units = App.currentStore.unit;
+          console.log(units.length);
+          viewtemp = [];
+          facingtemp = [];
+          units.each(function(item) {
+            if (item.get('apartment_views') !== "") {
+              $.merge(viewtemp, item.get('apartment_views'));
+            }
+            if (item.get('facing').length !== 0) {
+              return $.merge(facingtemp, item.get('facing'));
+            }
+          });
+          viewtemp = viewtemp.map(function(item) {
+            return parseInt(item);
+          });
+          facingtemp = facingtemp.map(function(item) {
+            return parseInt(item);
+          });
+          console.log(uniqviews = _.uniq(viewtemp));
+          console.log(uniqfacings = _.uniq(facingtemp));
+          if (uniqviews.length !== cloneviews.length) {
+            App.defaults['view'] = uniqviews.join(',');
+            view = uniqviews;
+          } else {
+            App.defaults['view'] = 'All';
+          }
+          if (uniqfacings.length !== clonefacings.length) {
+            App.defaults['facing'] = uniqfacings.join(',');
+            entrance = uniqfacings;
+          } else {
+            App.defaults['facing'] = 'All';
+          }
+          $.each(uniqviews, function(index, value) {
+            return $('#view' + value).prop('checked', true);
+          });
+          console.log(unselected1 = _.difference(cloneviews, uniqviews));
+          $.each(unselected1, function(index, value) {
+            return $('#view' + value).prop('checked', false);
+          });
+          $.each(uniqfacings, function(index, value) {
+            return $('#facing' + value).prop('checked', true);
+          });
+          console.log(unselected = _.difference(clonefacings, uniqfacings));
+          $.each(unselected, function(index, value) {
+            return $('#facing' + value).prop('checked', false);
+          });
+          mainunitTypeArray1 = [];
+          status = App.master.status.findWhere({
+            'name': 'Available'
+          });
+          units1 = App.master.unit.where({
+            'status': status.get('id')
+          });
+          $.each(units1, function(index, value) {
+            var unitType;
+            unitType = App.master.unit_type.findWhere({
+              id: value.get('unitType')
+            });
+            return mainunitTypeArray1.push({
+              id: unitType.get('id'),
+              name: unitType.get('name')
+            });
+          });
+          $.each(mainunitTypeArray1, function(key, item) {
+            var classname;
+            if (!mainunique[item.id]) {
+              if (item.id !== 14 && item.id !== 16) {
+                status = App.master.status.findWhere({
+                  'name': 'Available'
+                });
+                count = units.where({
+                  unitType: item.id,
+                  'status': status.get('id')
+                });
+                if (parseInt(item.id) === 9) {
+                  classname = 'twoBHK';
+                } else {
+                  classname = 'threeBHK';
+                }
+                mainnewarr.push({
+                  id: item.id,
+                  name: item.name,
+                  classname: classname,
+                  count: count
+                });
+                return mainunique[item.id] = item;
+              }
+            }
+          });
+          console.log(mainnewarr);
+          unittypetext = "";
+          $.each(mainnewarr, function(index, value) {
+            return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+          });
+          return $('#unittypecount').html(unittypetext);
+        });
+        $('.facing').on('click', function(e) {
+          var facingString, first, floorCollection, index, teracetemp, terrace, uniqterrace, uniqviews, unselected, unselected1, viewtemp;
+          mainnewarr = [];
+          mainunique = {};
+          console.log(entrance);
+          if ($('#' + e.target.id).prop('checked') === true) {
+            entrance.push($('#' + e.target.id).val());
+          } else {
+            if (parseInt(entrance.length) === 1) {
+              return false;
+            }
+            index = _.indexOf(entrance, parseInt($('#' + e.target.id).val()));
+            if (index !== -1) {
+              entrance.splice(index, 1);
+            }
+          }
+          if (entrance.length === 0) {
+            first = _.first(originalOfacings);
+            entrance.push(first.id);
+          }
+          entrance = entrance.map(function(item) {
+            return parseInt(item);
+          });
+          console.log(entrance = _.uniq(entrance));
+          if (entrance.length !== 0) {
+            facingString = entrance.join(',');
+          }
+          App.defaults['facing'] = facingString;
+          console.log(clonefacings.length);
+          if (clonefacings.length === entrance.length) {
+            App.defaults['facing'] = 'All';
+            entrance = originalfacings;
+          }
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.filter();
+          teracetemp = [];
+          floorCollection = App.currentStore.unit;
+          console.log(floorCollection.length);
+          viewtemp = [];
+          floorCollection.each(function(item) {
+            if (item.get('apartment_views').length !== 0) {
+              $.merge(viewtemp, item.get('apartment_views'));
+            }
+            if (item.get('terrace') !== "") {
+              return teracetemp.push(item.get('terrace'));
+            }
+          });
+          viewtemp = viewtemp.map(function(item) {
+            return parseInt(item);
+          });
+          teracetemp = teracetemp.map(function(item) {
+            return parseInt(item);
+          });
+          console.log(uniqviews = _.uniq(viewtemp));
+          console.log(uniqterrace = _.uniq(teracetemp));
+          if (uniqviews.length !== cloneviews.length) {
+            App.defaults['view'] = uniqviews.join(',');
+            view = uniqviews;
+          } else {
+            App.defaults['view'] = 'All';
+          }
+          if (uniqterrace.length !== cloneterraces.length) {
+            App.defaults['terrace'] = uniqterrace.join(',');
+            terrace = uniqterrace;
+          } else {
+            App.defaults['terrace'] = 'All';
+          }
+          $.each(uniqviews, function(index, value) {
+            return $('#view' + value).prop('checked', true);
+          });
+          console.log(unselected = _.difference(cloneviews, uniqviews));
+          $.each(unselected, function(index, value) {
+            return $('#view' + value).prop('checked', false);
+          });
+          $.each(uniqterrace, function(index, value) {
+            return $('#terrace' + value).prop('checked', true);
+          });
+          console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+          $.each(unselected1, function(index, value) {
+            return $('#terrace' + value).prop('checked', false);
+          });
+          mainunitTypeArray1 = [];
+          status = App.master.status.findWhere({
+            'name': 'Available'
+          });
+          units1 = App.master.unit.where({
+            'status': status.get('id')
+          });
+          $.each(units1, function(index, value) {
+            var unitType;
+            unitType = App.master.unit_type.findWhere({
+              id: value.get('unitType')
+            });
+            return mainunitTypeArray1.push({
+              id: unitType.get('id'),
+              name: unitType.get('name')
+            });
+          });
+          $.each(mainunitTypeArray1, function(key, item) {
+            var classname;
+            if (!mainunique[item.id]) {
+              if (item.id !== 14 && item.id !== 16) {
+                status = App.master.status.findWhere({
+                  'name': 'Available'
+                });
+                count = floorCollection.where({
+                  unitType: item.id,
+                  'status': status.get('id')
+                });
+                if (parseInt(item.id) === 9) {
+                  classname = 'twoBHK';
+                } else {
+                  classname = 'threeBHK';
+                }
+                mainnewarr.push({
+                  id: item.id,
+                  name: item.name,
+                  classname: classname,
+                  count: count
+                });
+                return mainunique[item.id] = item;
+              }
+            }
+          });
+          console.log(mainnewarr);
+          unittypetext = "";
+          $.each(mainnewarr, function(index, value) {
+            return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+          });
+          return $('#unittypecount').html(unittypetext);
+        });
+        $('#donepopup').on('click', function(e) {
+          return object.trigger('unit:variants:selected');
+        });
+        $('#cancelpopup').on('click', function(e) {
+          globalviews = [];
+          globalviewInt = [];
+          globalfacing = [];
+          globalfacingInt = [];
+          globalterrace = [];
+          globalterraceInt = [];
+          cloneviews = originalviews.slice(0);
+          clonefacings = originalfacings.slice(0);
+          cloneterraces = originalterraces.slice(0);
+          view = [];
+          teraace = [];
+          entrance = [];
+          if (App.defaults['view'] !== 'All') {
+            globalviews = App.defaults['view'].split(',');
+            $.each(globalviews, function(index, value) {
+              return globalviewInt.push(parseInt(value));
+            });
+          }
+          if (App.defaults['facing'] !== 'All') {
+            globalfacing = App.defaults['facing'].split(',');
+            $.each(globalfacing, function(index, value) {
+              return globalfacingInt.push(parseInt(value));
+            });
+          }
+          if (App.defaults['terrace'] !== 'All') {
+            globalterrace = App.defaults['terrace'].split(',');
+            $.each(globalterrace, function(index, value) {
+              return globalterraceInt.push(parseInt(value));
+            });
+          }
+          if (App.defaults['view'] !== 'All') {
+            $.each(originalOviews, function(index, value) {
+              if ($.inArray(parseInt(value.id), globalviewInt) >= 0) {
                 $('#view' + value.id).prop('checked', true);
                 return view.push(value.id);
-              });
-            }
-            if (App.defaults['facing'] !== 'All') {
-              $.each(originalOfacings, function(index, value) {
-                if ($.inArray(parseInt(value.id), globalfacingInt) >= 0) {
-                  $('#facing' + value.id).prop('checked', true);
-                  return entrance.push(value.id);
-                } else {
-                  return $('#facing' + value.id).prop('checked', false);
-                }
-              });
-            } else {
-              $.each(originalOfacings, function(index, value) {
-                $('#facing' + value.id).prop('checked', true);
-                return entrance.push(value.id);
-              });
-            }
-            if (App.defaults['terrace'] !== 'All') {
-              $.each(originalOterraces, function(index, value) {
-                if ($.inArray(parseInt(value.id), globalterraceInt) >= 0) {
-                  $('#terrace' + value.id).prop('checked', true);
-                  return teraace.push(value.id);
-                } else {
-                  return $('#terrace' + value.id).prop('checked', false);
-                }
-              });
-            } else {
-              $.each(originalOterraces, function(index, value) {
-                $('#terrace' + value.id).prop('checked', true);
-                return teraace.push(value.id);
-              });
-            }
-            mainnewarr = [];
-            mainunique = {};
-            mainunitTypeArray1 = [];
-            status = App.master.status.findWhere({
-              'name': 'Available'
-            });
-            units1 = App.master.unit.where({
-              'status': status.get('id')
-            });
-            $.each(units1, function(index, value) {
-              var unitType;
-              unitType = App.master.unit_type.findWhere({
-                id: value.get('unitType')
-              });
-              return mainunitTypeArray1.push({
-                id: unitType.get('id'),
-                name: unitType.get('name')
-              });
-            });
-            $.each(mainunitTypeArray1, function(key, item) {
-              var classname;
-              if (!mainunique[item.id]) {
-                if (item.id !== 14 && item.id !== 16) {
-                  status = App.master.status.findWhere({
-                    'name': 'Available'
-                  });
-                  count = App.currentStore.unit.where({
-                    unitType: item.id,
-                    'status': status.get('id')
-                  });
-                  if (parseInt(item.id) === 9) {
-                    classname = 'twoBHK';
-                  } else {
-                    classname = 'threeBHK';
-                  }
-                  mainnewarr.push({
-                    id: item.id,
-                    name: item.name,
-                    classname: classname,
-                    count: count
-                  });
-                  return mainunique[item.id] = item;
-                }
+              } else {
+                return $('#view' + value.id).prop('checked', false);
               }
             });
-            console.log(mainnewarr);
-            unittypetext = "";
-            $.each(mainnewarr, function(index, value) {
-              return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+          } else {
+            $.each(originalOviews, function(index, value) {
+              $('#view' + value.id).prop('checked', true);
+              return view.push(value.id);
             });
-            $('#unittypecount').html(unittypetext);
-            return inst.close();
+          }
+          if (App.defaults['facing'] !== 'All') {
+            $.each(originalOfacings, function(index, value) {
+              if ($.inArray(parseInt(value.id), globalfacingInt) >= 0) {
+                $('#facing' + value.id).prop('checked', true);
+                return entrance.push(value.id);
+              } else {
+                return $('#facing' + value.id).prop('checked', false);
+              }
+            });
+          } else {
+            $.each(originalOfacings, function(index, value) {
+              $('#facing' + value.id).prop('checked', true);
+              return entrance.push(value.id);
+            });
+          }
+          if (App.defaults['terrace'] !== 'All') {
+            $.each(originalOterraces, function(index, value) {
+              if ($.inArray(parseInt(value.id), globalterraceInt) >= 0) {
+                $('#terrace' + value.id).prop('checked', true);
+                return teraace.push(value.id);
+              } else {
+                return $('#terrace' + value.id).prop('checked', false);
+              }
+            });
+          } else {
+            $.each(originalOterraces, function(index, value) {
+              $('#terrace' + value.id).prop('checked', true);
+              return teraace.push(value.id);
+            });
+          }
+          mainnewarr = [];
+          mainunique = {};
+          mainunitTypeArray1 = [];
+          status = App.master.status.findWhere({
+            'name': 'Available'
+          });
+          units1 = App.master.unit.where({
+            'status': status.get('id')
+          });
+          $.each(units1, function(index, value) {
+            var unitType;
+            unitType = App.master.unit_type.findWhere({
+              id: value.get('unitType')
+            });
+            return mainunitTypeArray1.push({
+              id: unitType.get('id'),
+              name: unitType.get('name')
+            });
+          });
+          $.each(mainunitTypeArray1, function(key, item) {
+            var classname;
+            if (!mainunique[item.id]) {
+              if (item.id !== 14 && item.id !== 16) {
+                status = App.master.status.findWhere({
+                  'name': 'Available'
+                });
+                count = App.currentStore.unit.where({
+                  unitType: item.id,
+                  'status': status.get('id')
+                });
+                if (parseInt(item.id) === 9) {
+                  classname = 'twoBHK';
+                } else {
+                  classname = 'threeBHK';
+                }
+                mainnewarr.push({
+                  id: item.id,
+                  name: item.name,
+                  classname: classname,
+                  count: count
+                });
+                return mainunique[item.id] = item;
+              }
+            }
+          });
+          console.log(mainnewarr);
+          unittypetext = "";
+          $.each(mainnewarr, function(index, value) {
+            return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+          });
+          $('#unittypecount').html(unittypetext);
+          return $('.specialFilter').bPopup({
+            modalClose: true
           });
         });
       }
@@ -1376,11 +1377,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       object = this;
       scr = document.createElement('script');
       scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js';
-      document.body.appendChild(scr);
-      scr = document.createElement('script');
-      scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js';
       return document.body.appendChild(scr);
     };
+
+    object = ScreenTwoLayout;
 
     $(document).on("click", ".closeButton", function() {
       var theidtodel;
@@ -1536,7 +1536,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         var buildingModel, element, floorriserange, i, index, q, rangeArrayVal, rangeString, _i, _len;
         q = 1;
         $.map(App.backFilter, function(value, index) {
-          var element, key, screenArray, _i, _len;
+          var element, screenArray, _i, _len;
           if (q !== 1) {
             screenArray = App.backFilter[index];
             for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
@@ -1546,11 +1546,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
                   unitVariantString = "All";
                 }
                 App.defaults[element] = unitVariantString;
-              } else {
-                key = App.defaults.hasOwnProperty(element);
-                if (key === true) {
-                  App.defaults[element] = 'All';
-                }
               }
             }
           }

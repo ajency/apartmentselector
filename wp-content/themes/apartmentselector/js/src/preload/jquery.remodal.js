@@ -263,7 +263,7 @@
             var elem = e.currentTarget,
                 id = elem.getAttribute("data-" + pluginName + "-target"),
                 $target = $("[data-" + pluginName + "-id=" + id + "]");
-
+                
             $[pluginName].lookup[$target.data(pluginName)].open();
         });
 

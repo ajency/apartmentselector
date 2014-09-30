@@ -48,6 +48,8 @@ requirejs.config
         buggyFill: 'src/bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
         autoNumeric: 'src/bower_components/autoNumeric/autoNumeric'
         printPreview: 'src/bower_components/preload/jquery.print-preview'
+        bpopup: 'src/bower_components/bpopup/jquery.bpopup.min'
+
 
 
 
@@ -98,6 +100,7 @@ requirejs.config
         JqueryPriceFormat :['jquery']
         autoNumeric : ['jquery']
         printPreview : ['jquery']
+        bpopup : ['jquery']
 
 
 

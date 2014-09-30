@@ -36,7 +36,7 @@ define [ 'marionette' ], ( Marionette )->
                                         </a>
                                     </div>
                                     <div class="grid-block-4">
-                                        <a class="grid-link" id="emailBtn">
+                                        <a class="grid-link" id="emailBtn"  data-remodal-target="emailpop">
                                             <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3>
                                             <h4 class="m-t-0 m-b-0">Email</h4>
                                         </a>
@@ -196,8 +196,8 @@ define [ 'marionette' ], ( Marionette )->
                 $(".formFields").html(EMAILFORM)
                 $('.formIntro').html  'I\'m interested in <br>Flat <span id="emailflatno">'+unit.get('name')+'</span> in <span id="emailtower">'+building.get('name')+'</span></div>'
                 # $(".formPopup").bPopup()
-                inst = $.remodal.lookup[$("[data-remodal-id=emailpop]").data("remodal")]
-                inst.open()
+                # inst = $.remodal.lookup[$("[data-remodal-id=emailpop]").data("remodal")]
+                # inst.open()
                 $('#field_emailunit').val unit.get('name')
                 $('#field_emailtower').val building.get('name')
                 

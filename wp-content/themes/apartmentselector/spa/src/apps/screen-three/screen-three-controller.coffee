@@ -13,6 +13,12 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 uintVariantIdArray : @Collection[8]
                 unitVariants:@Collection[7]
                 maxvalue:@Collection[9]
+                views :@Collection[12] 
+                facings : @Collection[13]
+                Oviews :@Collection[10] 
+                Ofacings : @Collection[11]
+                terrace :@Collection[14] 
+                terraceID : @Collection[15]
                 templateHelpers:
                     selection :@Collection[2]
                     countUnits : @Collection[3]
@@ -20,6 +26,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     high : @Collection[5]
                     rangetext : @Collection[6]
                     unitVariants:@Collection[7]
+                    views :@Collection[10] 
+                    facings : @Collection[11]
+                    terrace :@Collection[14] 
+                    terraceID : @Collection[15]
                     maxvalue:@Collection[9]
 
 
@@ -58,6 +68,12 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         uintVariantIdArray : @Collection[8]
                         unitVariants:@Collection[7]
                         maxvalue:@Collection[9]
+                        views :@Collection[12] 
+                        facings : @Collection[13]
+                        Oviews :@Collection[10] 
+                        Ofacings : @Collection[11]
+                        terrace :@Collection[14] 
+                        terraceID : @Collection[15]
                         templateHelpers:
                                 selection :@Collection[2]
                                 countUnits : @Collection[3]
@@ -66,6 +82,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                                 rangetext : @Collection[6]
                                 unitVariants:@Collection[7]
                                 maxvalue:@Collection[9]
+                                views :@Collection[10] 
+                                facings : @Collection[11]
+                                terrace :@Collection[14] 
+                                terraceID : @Collection[15]
 
 
                 )
@@ -175,8 +195,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             status = App.currentStore.status.findWhere({'name':'Available'})
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
-                if value!='All'
-                    if  index != 'unitVariant' && index != 'unittypeback'
+                if value!='All' 
+                    if  index != 'unitVariant' && index != 'unittypeback'  && index != 'view' && index != 'facing' && index != 'apartment_views' && index != 'terrace'
                         myArray.push({key:index,value:value})
 
             )
@@ -296,14 +316,35 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                             flag++
                     else if value.key != 'floor'
+                        tempnew = []
+                        console.log value.key
+                        if value.key == 'view' ||  value.key == 'apartment_views'
+                            tempnew = []
+                            value.key = 'apartment_views'
+                            console.log tempnew = value1.get(value.key)
+                            if tempnew != ""
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        else if value.key == 'facing'
+                            tempnew = []
+                            tempnew = value1.get(value.key)
+                            if tempnew.length != 0
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
                         temp = []
                         temp.push value.value
                         tempstring = temp.join(',')
-                        initvariant = tempstring.split(',')
-                        if initvariant.length > 1
+                        initvariant = tempstring.split(',').map((item)->
+                            return parseInt(item)
+                        )
+                        
+                        if initvariant.length >= 1
                             for element in initvariant
-                               if value1.get(value.key) == parseInt(element)
+                                if value1.get(value.key) == parseInt(element)
                                     flag++ 
+                                else if $.inArray(parseInt(element),tempnew) >=0 
+                                    flag++ 
+
                         else
                             if value1.get(value.key) == parseInt(value.value)
                                 flag++
@@ -311,7 +352,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
                 )
-                if flag == myArray.length - 1
+                if flag >= myArray.length - 1
                     floorCollunits.push(value1)
 
 
@@ -329,6 +370,51 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
             unitVariantID = []
+            viewModels = []
+            viewID = []
+            viewtemp = []
+            facingModels = []
+            facingID = []
+            facingtemp = []
+            terraceModels = []
+            terraceID = []
+            terracetemp = []
+            usermodel = new Backbone.Model USER
+            capability = usermodel.get('all_caps')
+            if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+                units.each (item)->
+                    if item.get('apartment_views') != ""
+                        $.merge(viewtemp,item.get('apartment_views'))
+                    if item.get('facing').length != 0
+                        $.merge(facingtemp,item.get('facing'))
+                    if item.get('terrace') != ""
+                        console.log item.get('terrace')
+                        terracetemp.push item.get('terrace')
+
+
+                    
+                uniqviews = _.uniq(viewtemp)
+                uniqfacings = _.uniq(facingtemp)
+                uniqterrace = _.uniq(terracetemp)
+
+                $.each(uniqviews, (index,value)->
+                    viewModel = App.master.view.findWhere({id:parseInt(value)})
+                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
+                    viewID.push(parseInt(viewModel.get('id')))
+
+                )
+                $.each(uniqfacings, (index,value)->
+                    facingModel = App.master.facings.findWhere({id:parseInt(value)})
+                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name')})
+                    facingID.push(parseInt(facingModel.get('id')))
+
+                )
+                $.each(uniqterrace, (index,value)->
+                    terraceModel = App.master.terrace.findWhere({id:parseInt(value)})
+                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name')})
+                    terraceID.push(parseInt(terraceModel.get('id')))
+
+                )
 
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
@@ -478,7 +564,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
             console.log buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
-            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue]
+            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue,viewModels,facingModels,viewID,facingID,terraceModels,terraceID]
 
 
 

@@ -29,7 +29,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                               <ul></ul>
                             </div>
                             <span class="text-primary variantToggle1"> </span>variants of your apartment selection
-                            <a class="btn btn-primary btn-sm special hidden" data-remodal-target="filterModal">Special Filters</a>
+                            <a class="btn btn-primary btn-sm special hidden" id="filterModal">Special Filters</a>
                         </div>
                         
                         <div class="variantBox1">
@@ -93,7 +93,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
                     </div>
 
-                    <div class="remodal specialFilter" data-remodal-id="filterModal">
+                    <div class="specialFilter" >
                         <div class="bgClass">
                             <div class="row m-l-0 m-r-0">
                                 <div class="col-sm-4">
@@ -120,8 +120,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
-                                <input type="button" id="donepopup" value="Done" />
-                                <input type="button" id="cancelpopup" value="Cancel" />
+                                <input type="button" id="donepopup" class="b-close" value="Done" />
+                                <input type="button" id="cancelpopup" class="b-close" value="Cancel" />
                                 <div id="unittypecount"></div>
                             </div>
                         </div>
@@ -151,6 +151,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     
 
         events:
+            'click #filterModal':(e)->
+                $('.specialFilter').bPopup()
+
             'mouseout .im-pin':(e)->
                 $('.im-tooltip').hide()
             'mouseout .tower-link':(e)->
@@ -771,33 +774,33 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
                 $('#unittypecount').html unittypetext
-                
-                $('.specialFilter').on('open',   () ->
-                    
-                    $('.viewname').on('click' , (e)->
+                $('.viewname').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
                         console.log 'click'
                         viewnames = originalviews
                         viewString = 'All'
+                        console.log view.length
+                        
                         if $('#'+e.target.id).prop('checked') == true
                             view.push $('#'+e.target.id).val()
                             
                         else
+                            if parseInt(view.length) == 1
+                                return false
+                            $('#'+e.target.id).prop('checked',false)
                             index = _.indexOf(view, parseInt($('#'+e.target.id).val()));
                             if index != -1
                                 view.splice( index, 1 )
                                 
-                        if view.length == 0
-                            first = _.first(originalOviews)
-                            view.push first.id
+                        
                         view = view.map((item)->
                             return parseInt(item))
                         view = _.uniq(view)
                         if view.length != 0
                             viewString = view.join(',')
                         App.defaults['view'] = viewString
-                        App.backFilter['screen2'].push 'view'
+                        #App.backFilter['screen2'].push 'view'
                         if cloneviews.length  == view.length
                             App.defaults['view'] = 'All'
                             view = originalviews
@@ -832,12 +835,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         )
                         if uniqfacings.length != clonefacings.length
                             App.defaults['facing'] = uniqfacings.join(',')
-                            App.backFilter['screen2'].push 'facing'
+                            entrance = uniqfacings
+                            #App.backFilter['screen2'].push 'facing'
                         else
                             App.defaults['facing'] = 'All'
                         if uniqterrace.length != cloneterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
-                            App.backFilter['screen2'].push 'terrace'
+                            terrace = uniqterrace
+                            #App.backFilter['screen2'].push 'terrace'
                         else
                             App.defaults['terrace'] = 'All'
 
@@ -887,12 +892,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                             )
                         $('#unittypecount').html unittypetext
-                        
-                        
-                        
-
-                    )
-                    $('.terrace').on('click' , (e)->
+                )
+                $('.terrace').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
                         App.currentStore.unit.reset UNITS
@@ -904,6 +905,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             teraace.push $('#'+e.target.id).val()
                             
                         else
+                            if parseInt(teraace.length) == 1
+                                return false
                             index = _.indexOf(teraace, parseInt($('#'+e.target.id).val()));
                             if index != -1
                                 teraace.splice( index, 1 )
@@ -915,7 +918,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             return parseInt(item))
                         teraace = _.uniq(teraace)
                         App.defaults['terrace'] = teraace.join(',')
-                        App.backFilter['screen2'].push 'terrace'
+                        #App.backFilter['screen2'].push 'terrace'
                         if cloneterraces.length  == teraace.length
                             App.defaults['terrace'] = 'All'
                             teraace = originalterraces
@@ -945,12 +948,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log uniqfacings = _.uniq(facingtemp)
                         if uniqviews.length != cloneviews.length
                             App.defaults['view'] = uniqviews.join(',')
-                            App.backFilter['screen2'].push 'view'
+                            view = uniqviews
+                            #App.backFilter['screen2'].push 'view'
                         else
                             App.defaults['view'] = 'All'
                         if uniqfacings.length != clonefacings.length
                             App.defaults['facing'] = uniqfacings.join(',')
-                            App.backFilter['screen2'].push 'facing'
+                            entrance = uniqfacings
+                            #App.backFilter['screen2'].push 'facing'
                         else
                             App.defaults['facing'] = 'All'
                         $.each(uniqviews, (index,value)->
@@ -1006,17 +1011,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                         
 
-                        )
-                    
-                        
-                    $('.facing').on('click' , (e)->
+                )
+                $('.facing').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
                         console.log entrance
+                        
                         if $('#'+e.target.id).prop('checked') == true
                             entrance.push $('#'+e.target.id).val()
                             
                         else
+                            if parseInt(entrance.length) == 1
+                                return false
                             index = _.indexOf(entrance, parseInt($('#'+e.target.id).val()));
                             if index != -1
                                 entrance.splice( index, 1 )
@@ -1030,7 +1036,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         if entrance.length != 0
                             facingString = entrance.join(',')
                         App.defaults['facing'] = facingString
-                        App.backFilter['screen2'].push 'facing'
+                        #App.backFilter['screen2'].push 'facing'
                         console.log clonefacings.length
                         if clonefacings.length  == entrance.length
                             App.defaults['facing'] = 'All'
@@ -1060,12 +1066,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log uniqterrace = _.uniq(teracetemp)
                         if uniqviews.length != cloneviews.length
                             App.defaults['view'] = uniqviews.join(',')
-                            App.backFilter['screen2'].push 'view'
+                            view = uniqviews
+                            #App.backFilter['screen2'].push 'view'
                         else
                             App.defaults['view'] = 'All'
                         if uniqterrace.length != cloneterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
-                            App.backFilter['screen2'].push 'terrace'
+                            terrace = uniqterrace
+                            #App.backFilter['screen2'].push 'terrace'
                         else
                             App.defaults['terrace'] = 'All'
                         $.each(uniqviews, (index,value)->
@@ -1122,21 +1130,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         
                         
 
-                    )
-                        
-                    inst = $.remodal.lookup[$('[data-remodal-id=filterModal]').data('remodal')];
+                )
+                
                      
-                    $('#donepopup').on('click' , (e)->
+                $('#donepopup').on('click' , (e)->
 
-                            inst.close()
-                            $('.remodal-overlay').remove()
-                            $(document).unbind('open', '.remodal',  () ->
-
-                                )
-                            $("script[src='../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js']").remove()
+                            
+                            #$("script[src='../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js']").remove()
                             object.trigger 'unit:variants:selected'
-                    )
-                    $('#cancelpopup').on('click' , (e)->
+                )
+                $('#cancelpopup').on('click' , (e)->
 
                             
                             globalviews = []
@@ -1260,11 +1263,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                             )
                             $('#unittypecount').html unittypetext
-                            inst.close()
+                            $('.specialFilter').bPopup({
+                                modalClose: true
+
+
+                            })
                             
-                    )
-                    
+                            
                 )
+                
             $("#flatno").text ""
             $("#towerno").text ""
             $("#unittypename").text ""
@@ -1414,14 +1421,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
 
             document.body.appendChild(scr)
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
-            document.body.appendChild(scr)
+            
 
            
             
 
-            
+        object = @   
         $(document).on("click", ".closeButton",  ()->
                 theidtodel = $(this).parent('li').attr('id')
                
@@ -1620,10 +1625,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 if unitVariantString == ""
                                     unitVariantString = "All"
                                 App.defaults[element] = unitVariantString
-                            else
-                                key = App.defaults.hasOwnProperty(element)
-                                if key == true
-                                    App.defaults[element] = 'All'
+                            
                     q++
 
                 )
