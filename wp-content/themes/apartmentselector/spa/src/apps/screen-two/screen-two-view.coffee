@@ -82,7 +82,18 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-two-button">Show Apartments</a>
                             </div>
                         </div>
-                                            <div class="remodal specialFilter" data-remodal-id="filterModal">
+                        
+                        
+                        <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
+                            <div class="m-t-10 text-center">
+                               <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
+                                <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
+                                <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
+                            </div>
+                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
+                    </div>
+
+                    <div class="remodal specialFilter" data-remodal-id="filterModal">
                         <div class="bgClass">
                             <div class="row m-l-0 m-r-0">
                                 <div class="col-sm-4">
@@ -114,14 +125,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div id="unittypecount"></div>
                             </div>
                         </div>
-                    </div></div>
-                        <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg">
-                            <div class="m-t-10 text-center">
-                               <!--<h4 class="bold m-t-0">Where is this tower located in the project?</h4>
-                                <p class="light">This is a map of the entire project that shows the location of the tower selected (on the left).</p>-->
-                                <div id="loadmap"><div id="mapplic1" class="towersMap center-block"></div></div>
-                            </div>
-                        </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
                     </div>
 
                    '
