@@ -985,6 +985,141 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         
 
                         )
+                        $('.facing').on('click' , (e)->
+                            entrance = originalfacings
+                            App.currentStore.unit.reset UNITS
+                            App.currentStore.building.reset BUILDINGS
+                            App.currentStore.unit_type.reset UNITTYPES
+                            App.currentStore.unit_variant.reset UNITVARIANTS   
+                            
+                            if $('#'+e.target.id).prop('checked') == true
+                                entrance.push $('#'+e.target.id).val()
+                                
+                            else
+                                index = _.indexOf(entrance, parseInt($('#'+e.target.id).val()));
+                                if index != -1
+                                    entrance.splice( index, 1 )
+                                    
+                            if entrance.length == 0
+                                console.log first = _.first(originalOterraces)
+                                entrance.push first.id
+                            entrance = entrance.map((item)->
+                                return parseInt(item))
+                            entrance = _.uniq(entrance)
+                            unitvarinttemp = []
+                            viewtemp1 = []
+                            tempunit = []
+                            floorCollection = App.currentStore.unit
+                            floorCollection.each ( item)->
+                            if item.get('apartment_views') != ""
+                                $.merge(viewtemp1,item.get('apartment_views'))
+                        
+
+
+                    
+                            console.log uniqviews = _.uniq(viewtemp1).map((item)->
+                                return parseInt(item)
+
+
+                                )
+                            console.log view
+                            $.each(view, (index,value)->
+                                
+                                    if $.inArray(value,uniqviews) >=0 
+                                        viewtemp.push(value)
+                                
+
+
+                            )
+                            console.log unviewtemp = _.uniq(viewtemp)
+                            tempUnitArray= []
+                            $.each(unviewtemp, (index,value)->
+                                floorCollection.each ( item)->
+                                    if item.get('apartment_views') != ""
+                                        temp = item.get('apartment_views')
+                                        apartment = temp.map((item)->
+                                            return parseInt(item))
+                                        if $.inArray(value,apartment) >=0 
+                                            tempUnitArray.push(item)
+                                        
+                            )
+                            viewColl = new Backbone.Collection tempUnitArray
+                            facingtemp = []
+                            viewColl.each ( item)->
+                                if item.get('facing').length != 0
+                                    $.merge(facingtemp,item.get('facing'))
+                            console.log uniqfacings = _.uniq(facingtemp)
+                            $.each(uniqviews, (index,value)->
+                                    $('#view'+value).prop('checked',true)
+
+                            )
+                            console.log unselected1 = _.difference(originalviews, uniqviews);
+                            $.each(unselected1, (index,value)->
+                                    $('#view'+value).prop('checked',false)
+
+                            )
+                            $.each(uniqfacings, (index,value)->
+                                    $('#facing'+value).prop('checked',true)
+
+                            )
+                            console.log unselected = _.difference(originalfacings, uniqfacings);
+                            $.each(unselected, (index,value)->
+                                    $('#facing'+value).prop('checked',false)
+
+                            )
+                            if uniqviews.length != 0
+                                if uniqviews.length == originalviews.length
+                                    App.defaults['view'] = 'All'
+                                else
+
+
+                                    App.defaults['view'] = uniqviews.join(',')
+                                    App.backFilter['screen2'].push 'view'
+                            if uniqfacings.length != 0
+                                if uniqfacings.length == originalfacings.length
+                                    App.defaults['facing'] = 'All'
+                                else
+
+
+                                    App.defaults['facing'] = uniqfacings.join(',')
+                                    App.backFilter['screen2'].push 'facing'
+                            App.filter()
+                            mainunitTypeArray1 = []
+                            status = App.master.status.findWhere({'name':'Available'})
+                            units1 = App.master.unit.where({'status':status.get('id')})
+                            $.each(units1, (index,value)->
+                                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                                mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
+                            )
+                            $.each(mainunitTypeArray1, (key,item)->
+                                if (!mainunique[item.id])
+                                    if item.id != 14 && item.id != 16
+                                        status = App.master.status.findWhere({'name':'Available'})
+
+                                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                                        if parseInt(item.id) == 9
+                                            classname = 'twoBHK'
+                                        else
+                                            classname = 'threeBHK'
+
+                                        mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
+                                        mainunique[item.id] = item;
+
+
+                            )
+                            console.log mainnewarr
+                            unittypetext = ""
+                            $.each(mainnewarr, (index,value)->
+                                    unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+
+
+                                )
+                            $('#unittypecount').html unittypetext
+
+
+                        )
+
                     inst = $.remodal.lookup[$('[data-remodal-id=filterModal]').data('remodal')];
                             
                     $('#donepopup').on('click' , (e)->
