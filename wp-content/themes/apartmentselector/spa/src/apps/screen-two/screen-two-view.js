@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['extm', 'marionette'], function(Extm, Marionette) {
-  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, facing, facingnames, firstElement, globalUnitArrayInt, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants, view, viewnames;
+  var BuildingView, ScreenTwoLayout, UnitTypeChildView, UnitTypeView, UnitView, UnitViewChildView, cloneunitVariantArrayColl, count, firstElement, globalUnitArrayInt, m, object, rangeArray, tagsArray, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants;
   m = "";
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -16,10 +16,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
   object = "";
   unitVariants = [];
   cloneunitVariantArrayColl = "";
-  view = [];
-  facing = [];
-  facingnames = [];
-  viewnames = [];
   ScreenTwoLayout = (function(_super) {
     __extends(ScreenTwoLayout, _super);
 
@@ -575,7 +571,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, buidlingValue, building, capability, clonefacings, cloneterraces, cloneviews, defer, entrance, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, i, mainnewarr, mainunique, mainunitTypeArray1, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, params, scr, selector, status, teraace, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel;
+      var ajaxurl, buidlingValue, building, capability, clonefacings, cloneterraces, cloneviews, defer, entrance, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, i, mainnewarr, mainunique, mainunitTypeArray1, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, params, scr, selector, status, teraace, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel, view;
       usermodel = new Backbone.Model(USER);
       object = this;
       capability = usermodel.get('all_caps');
@@ -715,7 +711,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         $('#unittypecount').html(unittypetext);
         $('.viewname').on('click', function(e) {
-          var facingtemp, floorCollection, index, teracetemp, terrace, uniqfacings, uniqterrace, unselected, unselected1, viewString;
+          var facingtemp, floorCollection, index, teracetemp, terrace, uniqfacings, uniqterrace, unselected, unselected1, viewString, viewnames;
           mainnewarr = [];
           mainunique = {};
           console.log('click');

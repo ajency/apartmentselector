@@ -11,10 +11,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
-    view = []
-    facing = []
-    facingnames = []
-    viewnames = []
+    
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
