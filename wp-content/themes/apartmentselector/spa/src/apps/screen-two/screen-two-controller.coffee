@@ -15,6 +15,12 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 uintVariantId : @Collection[9]
                 uintVariantIdArray : @Collection[10]
                 unitVariants:@Collection[8]
+                views :@Collection[13] 
+                facings : @Collection[14]
+                Oviews :@Collection[11] 
+                Ofacings : @Collection[12]
+                terrace :@Collection[15] 
+                terraceID : @Collection[16]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -24,6 +30,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     low : @Collection[7]
                     unitVariants:@Collection[8]
                     views :@Collection[11] 
+                    facings : @Collection[12]
+                    terrace :@Collection[15] 
+                    terraceID : @Collection[16]
                     AJAXURL : AJAXURL)
 
 
@@ -52,7 +61,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 buildingColl : @Collection[0]
                 uintVariantId : @Collection[9]
                 uintVariantIdArray : @Collection[10]
+                views :@Collection[13] 
+                facings : @Collection[14]
+                Oviews :@Collection[11] 
+                Ofacings : @Collection[12]
                 unitVariants:@Collection[8]
+                terrace :@Collection[15] 
+                terraceID : @Collection[16]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -61,6 +76,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     medium : @Collection[6]
                     low : @Collection[7]
                     unitVariants:@Collection[8]
+                    views :@Collection[11] 
+                    facings : @Collection[12]
+                    terrace :@Collection[15] 
+                    terraceID : @Collection[16]
                     AJAXURL : AJAXURL)
 
 
@@ -260,8 +279,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             floorUnitsArray = []
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All'
-                    if  index != 'unitVariant' && index != 'unittypeback'
+                if value!='All' 
+                    if  index != 'unitVariant' && index != 'unittypeback'  && index != 'view' && index != 'facing' && index != 'apartment_views' && index != 'terrace'
                         myArray.push({key:index,value:value})
 
             )
@@ -309,14 +328,43 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                             flag++
                     else if value.key != 'floor'
-                        value1.get(value.key) + '== ' + parseInt(value.value)
-                        if value1.get(value.key) == parseInt(value.value)
+                        tempnew = []
+                        console.log value.key
+                        if value.key == 'view' ||  value.key == 'apartment_views'
+                            tempnew = []
+                            value.key = 'apartment_views'
+                            console.log tempnew = value1.get(value.key)
+                            if tempnew != ""
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        else if value.key == 'facing'
+                            tempnew = []
+                            tempnew = value1.get(value.key)
+                            if tempnew.length != 0
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        temp = []
+                        temp.push value.value
+                        tempstring = temp.join(',')
+                        initvariant = tempstring.split(',').map((item)->
+                            return parseInt(item)
+                        )
+                        
+                        if initvariant.length >= 1
+                            for element in initvariant
+                                if value1.get(value.key) == parseInt(element)
+                                    flag++ 
+                                else if $.inArray(parseInt(element),tempnew) >=0 
+                                    flag++ 
 
-                            flag++
+                        else
+                            if value1.get(value.key) == parseInt(value.value)
+                                flag++
+                        
 
 
                 )
-                if flag == myArray.length
+                if flag >= myArray.length
                     floorCollunits.push(value1)
 
 
@@ -325,27 +373,62 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             
-            floorCollection = new Backbone.Collection(floorCollunits)
+            console.log floorCollection = new Backbone.Collection(floorCollunits)
             unitvariant = floorCollection.pluck("unitVariant")
             uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
             unitVariantID = []
             viewModels = []
             viewID = []
+            viewtemp = []
+            facingModels = []
+            facingID = []
+            facingtemp = []
+            terraceModels = []
+            terraceID = []
+            terracetemp = []
+            usermodel = new Backbone.Model USER
+            capability = usermodel.get('all_caps')
+            if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+                floorCollection.each (item)->
+                    if item.get('apartment_views') != ""
+                        $.merge(viewtemp,item.get('apartment_views'))
+                    if item.get('facing').length != 0
+                        $.merge(facingtemp,item.get('facing'))
+                    if item.get('terrace') != ""
+                        console.log item.get('terrace')
+                        terracetemp.push item.get('terrace')
 
-            # views = floorCollection.pluck("views")
-            # uniqviews = _.uniq(views)
 
-            # $.each(uniqviews, (index,value)->
-            #     viewModel = App.master.view.findWhere({id:value})
-            #     viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
-            #     viewID.push(parseInt(viewModel.get('id')))
+                    
+                uniqviews = _.uniq(viewtemp)
+                uniqfacings = _.uniq(facingtemp)
+                uniqterrace = _.uniq(terracetemp)
 
-            # )
+                $.each(uniqviews, (index,value)->
+                    viewModel = App.master.view.findWhere({id:parseInt(value)})
+                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
+                    viewID.push(parseInt(viewModel.get('id')))
+
+                )
+                $.each(uniqfacings, (index,value)->
+                    facingModel = App.master.facings.findWhere({id:parseInt(value)})
+                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name')})
+                    facingID.push(parseInt(facingModel.get('id')))
+
+                )
+                $.each(uniqterrace, (index,value)->
+                    terraceModel = App.master.terrace.findWhere({id:parseInt(value)})
+                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name')})
+                    terraceID.push(parseInt(terraceModel.get('id')))
+
+                )
+                
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
                 unitVariantID.push(parseInt(unitVarinatModel.get('id')))
+
 
             )
             console.log unitVariantModels.length
@@ -550,7 +633,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 totalfloorcollection = new Backbone.Collection(totalunits)
                 floors = totalfloorcollection.pluck("floor")
                 uniqFloors = _.uniq(floors)
-                newunits = floorCollection.where({'building':value,'status':status.get('id')})
+                newunits = App.currentStore.unit.where({'building':value,'status':status.get('id')})
                 buildingUnits.push({id:buildingid,count:newunits.length,name:'tower'+buildingid})
                 lowArray = Array()
                 mediumArray = Array()
@@ -741,7 +824,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             units = new Backbone.Collection(unitsactual)
 
 
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID,viewModels]
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID,viewModels,facingModels,viewID,facingID,terraceModels,terraceID]
 
 
 

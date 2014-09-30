@@ -55,6 +55,7 @@ require [ 'plugin-loader'
         'unit_type' : new Backbone.Collection  UNITTYPES
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
+        'terrace': new Backbone.Collection  TERRACEOPTIONS
 
 
     # master store
@@ -66,12 +67,13 @@ require [ 'plugin-loader'
         'unit_type' : new Backbone.Collection  UNITTYPES
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
+        'terrace': new Backbone.Collection  TERRACEOPTIONS
 
     # global variable to keep track of the filter the user has selected on the previous screen
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[],'back':""}
 
     # global variable to keep track of the filtr the user has selected
-    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All','unittypeback':'All'}
+    App.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','floor':'All','view':'All','facing':'All','terrace':'All','unittypeback':'All'}
 
 
     localStorage.setItem("refreshvalue", 1)
@@ -111,12 +113,12 @@ require [ 'plugin-loader'
 
             #set the params with the filters selected by the user
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&facing='+App.defaults['facing']
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&facing='+App.defaults['facing']+'&terrace='+App.defaults['terrace']
         else
 
             #url doesnt contain any parameters take the value of the defaults
             params = 'unitType='+App.defaults['unitType']+'&budget='+App.defaults['budget']+'&building='+App.defaults['building']+'&unitVariant='+App.defaults['unitVariant']+
-            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&facing='+App.defaults['facing']
+            '&floor='+App.defaults['floor']+'&view='+App.defaults['view']+'&facing='+App.defaults['facing']+'&terrace='+App.defaults['terrace']
 
 
 
@@ -143,7 +145,7 @@ require [ 'plugin-loader'
                     if collectionNew.length == 0
                         units = App.currentStore.unit
                         units.each( (item)->
-                            if $.inArray(value,item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                            if $.inArray(value,item.get('apartment_views')) >=0 || $.inArray(value,item.get('facing')) >=0
                                 unitSplitArray.push item
 
                         collectionNew = unitSplitArray
@@ -176,7 +178,7 @@ require [ 'plugin-loader'
                     units = App.currentStore.unit
                     if collection.length == 0
                         units.each( (item)->
-                            if $.inArray(value_arr[1],item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                            if $.inArray(value_arr[1],item.get('apartment_views')) >=0 || $.inArray(value_arr[1],item.get('facing')) >=0
                                 unitSplitArray.push item
                         )
                         collection = unitSplitArray
@@ -210,7 +212,7 @@ require [ 'plugin-loader'
             unitvariantModel = App.currentStore.unit_variant.get element
             unitvariantArray.push unitvariantModel
 
-        view = App.currentStore.unit.pluck("view")
+        view = App.currentStore.unit.pluck("apartment_views")
         uniqviews = _.uniq(buildings)
         viewArray = Array()
         for element , index in uniqviews

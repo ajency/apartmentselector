@@ -137,12 +137,13 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 value.set 'views_name' , facingModelArray.join(', ')
 
                 terraceoptions = unitVariantModel.get 'terraceoptions'
+                terraceModel = App.master.terrace.findWhere({id:parseInt(terraceoptions)})
                 terraceoptionstext = ""
                 terraceoptionstextArr = []
-                if terraceoptions == null
+                if terraceModel == undefined
                     terraceoptionstext = '---------'
                 else
-                    terraceoptionstext = unitVariantModel.get 'terraceoptions'
+                    terraceoptionstext = terraceModel.get 'name'
                     
                 
                 

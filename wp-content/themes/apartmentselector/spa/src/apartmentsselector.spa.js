@@ -21,7 +21,8 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
-    'facings': new Backbone.Collection(FACINGS)
+    'facings': new Backbone.Collection(FACINGS),
+    'terrace': new Backbone.Collection(TERRACEOPTIONS)
   };
   App.master = {
     'unit': new Backbone.Collection(UNITS),
@@ -30,7 +31,8 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
-    'facings': new Backbone.Collection(FACINGS)
+    'facings': new Backbone.Collection(FACINGS),
+    'terrace': new Backbone.Collection(TERRACEOPTIONS)
   };
   App.backFilter = {
     'screen1': [],
@@ -46,6 +48,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'floor': 'All',
     'view': 'All',
     'facing': 'All',
+    'terrace': 'All',
     'unittypeback': 'All'
   };
   localStorage.setItem("refreshvalue", 1);
@@ -76,9 +79,9 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
           App.defaults[param_key[0]] = param_key[1];
         }
       }
-      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'] + '&terrace=' + App.defaults['terrace'];
     } else {
-      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'] + '&terrace=' + App.defaults['terrace'];
     }
     param_arr = params.split('&');
     budgetUnitArray = [];
@@ -102,7 +105,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
           if (collectionNew.length === 0) {
             units = App.currentStore.unit;
             units.each(function(item) {
-              if ($.inArray(value, item.get('views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
+              if ($.inArray(value, item.get('apartment_views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
                 return unitSplitArray.push(item);
               }
             }, collectionNew = unitSplitArray);
@@ -124,7 +127,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
           units = App.currentStore.unit;
           if (collection.length === 0) {
             units.each(function(item) {
-              if ($.inArray(value_arr[1], item.get('views')) >= 0 || $.inArray(value, item.get('facing')) >= 0) {
+              if ($.inArray(value_arr[1], item.get('apartment_views')) >= 0 || $.inArray(value_arr[1], item.get('facing')) >= 0) {
                 return unitSplitArray.push(item);
               }
             });
@@ -158,7 +161,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
       unitvariantModel = App.currentStore.unit_variant.get(element);
       unitvariantArray.push(unitvariantModel);
     }
-    view = App.currentStore.unit.pluck("view");
+    view = App.currentStore.unit.pluck("apartment_views");
     uniqviews = _.uniq(buildings);
     viewArray = Array();
     for (index = _m = 0, _len4 = uniqviews.length; _m < _len4; index = ++_m) {
