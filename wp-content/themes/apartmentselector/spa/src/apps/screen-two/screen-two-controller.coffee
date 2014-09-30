@@ -19,7 +19,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 facings : @Collection[14]
                 Oviews :@Collection[11] 
                 Ofacings : @Collection[12]
-                
+                terrace :@Collection[15] 
+                terraceID : @Collection[16]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -30,6 +31,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     unitVariants:@Collection[8]
                     views :@Collection[11] 
                     facings : @Collection[12]
+                    terrace :@Collection[15] 
+                    terraceID : @Collection[16]
                     AJAXURL : AJAXURL)
 
 
@@ -63,6 +66,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 Oviews :@Collection[11] 
                 Ofacings : @Collection[12]
                 unitVariants:@Collection[8]
+                terrace :@Collection[15] 
+                terraceID : @Collection[16]
                 templateHelpers:
                     selection :@Collection[2]
                     unitsCount:@Collection[3]
@@ -73,6 +78,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     unitVariants:@Collection[8]
                     views :@Collection[11] 
                     facings : @Collection[12]
+                    terrace :@Collection[15] 
+                    terraceID : @Collection[16]
                     AJAXURL : AJAXURL)
 
 
@@ -379,6 +386,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             facingtemp = []
             terraceModels = []
             terraceID = []
+            terracetemp = []
             usermodel = new Backbone.Model USER
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
@@ -387,11 +395,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         $.merge(viewtemp,item.get('apartment_views'))
                     if item.get('facing').length != 0
                         $.merge(facingtemp,item.get('facing'))
+                    if item.get('terrace') != ""
+                        $.merge(terracetemp,item.get('terrace'))
 
 
                     
-                console.log uniqviews = _.uniq(viewtemp)
-                console.log uniqfacings = _.uniq(facingtemp)
+                uniqviews = _.uniq(viewtemp)
+                uniqfacings = _.uniq(facingtemp)
+                uniqterrace = _.uniq(terracetemp)
 
                 $.each(uniqviews, (index,value)->
                     viewModel = App.master.view.findWhere({id:parseInt(value)})
@@ -405,6 +416,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     facingID.push(parseInt(facingModel.get('id')))
 
                 )
+                $.each(uniqterrace, (index,value)->
+                    terraceModel = App.master.terrace.findWhere({id:parseInt(value)})
+                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name')})
+                    terraceID.push(parseInt(terraceModel.get('id')))
+
+                )
+                
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
@@ -805,7 +823,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             units = new Backbone.Collection(unitsactual)
 
 
-            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID,viewModels,facingModels,viewID,facingID]
+            [buildingCollection ,units,templateString,Countunits.length,mainnewarr,hnewarr,mnewarr,lnewarr,unitVariantModels,unitVariantID,unitVariantID,viewModels,facingModels,viewID,facingID,terraceModels,terraceID]
 
 
 

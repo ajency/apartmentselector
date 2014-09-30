@@ -28,6 +28,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         facings: this.Collection[14],
         Oviews: this.Collection[11],
         Ofacings: this.Collection[12],
+        terrace: this.Collection[15],
+        terraceID: this.Collection[16],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -38,6 +40,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unitVariants: this.Collection[8],
           views: this.Collection[11],
           facings: this.Collection[12],
+          terrace: this.Collection[15],
+          terraceID: this.Collection[16],
           AJAXURL: AJAXURL
         }
       });
@@ -60,6 +64,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         Oviews: this.Collection[11],
         Ofacings: this.Collection[12],
         unitVariants: this.Collection[8],
+        terrace: this.Collection[15],
+        terraceID: this.Collection[16],
         templateHelpers: {
           selection: this.Collection[2],
           unitsCount: this.Collection[3],
@@ -70,6 +76,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           unitVariants: this.Collection[8],
           views: this.Collection[11],
           facings: this.Collection[12],
+          terrace: this.Collection[15],
+          terraceID: this.Collection[16],
           AJAXURL: AJAXURL
         }
       });
@@ -143,7 +151,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype._getUnitsCountCollection = function(paramid) {
-      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, capability, facingID, facingModels, facingtemp, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, hnewarr, i, index, itemCollection, j, key, keycheck, lnewarr, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitTypeArray1, mainunitsTypeArray, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, terraceID, terraceModels, uniqUnitvariant, uniqfacings, uniqviews, unitColl, unitVariantID, unitVariantModels, units, units1, unitsactual, unitslen, unitslen1, unitvariant, usermodel, viewID, viewModels, viewtemp;
+      var Countunits, MainCollection, ModelActualArr, arrayvalue, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildingUnits, buildingsactual, buildingvalue, capability, facingID, facingModels, facingtemp, first, flag, floorCollection, floorCollunits, floorUnitsArray, floorriserange, highLength, hnewarr, i, index, itemCollection, j, key, keycheck, lnewarr, mainArray, mainnewarr, mainunique, mainunitTypeArray, mainunitTypeArray1, mainunitsTypeArray, mnewarr, modelArr, modelIdArr, myArray, param, paramkey, range, status, templateArr, templateString, terraceID, terraceModels, terracetemp, uniqUnitvariant, uniqfacings, uniqterrace, uniqviews, unitColl, unitVariantID, unitVariantModels, units, units1, unitsactual, unitslen, unitslen1, unitvariant, usermodel, viewID, viewModels, viewtemp;
       if (paramid == null) {
         paramid = {};
       }
@@ -388,6 +396,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       facingtemp = [];
       terraceModels = [];
       terraceID = [];
+      terracetemp = [];
       usermodel = new Backbone.Model(USER);
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
@@ -396,11 +405,15 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             $.merge(viewtemp, item.get('apartment_views'));
           }
           if (item.get('facing').length !== 0) {
-            return $.merge(facingtemp, item.get('facing'));
+            $.merge(facingtemp, item.get('facing'));
+          }
+          if (item.get('terrace') !== "") {
+            return $.merge(terracetemp, item.get('terrace'));
           }
         });
-        console.log(uniqviews = _.uniq(viewtemp));
-        console.log(uniqfacings = _.uniq(facingtemp));
+        uniqviews = _.uniq(viewtemp);
+        uniqfacings = _.uniq(facingtemp);
+        uniqterrace = _.uniq(terracetemp);
         $.each(uniqviews, function(index, value) {
           var viewModel;
           viewModel = App.master.view.findWhere({
@@ -422,6 +435,17 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             name: facingModel.get('name')
           });
           return facingID.push(parseInt(facingModel.get('id')));
+        });
+        $.each(uniqterrace, function(index, value) {
+          var terraceModel;
+          terraceModel = App.master.terrace.findWhere({
+            id: parseInt(value)
+          });
+          terraceModels.push({
+            id: parseInt(terraceModel.get('id')),
+            name: terraceModel.get('name')
+          });
+          return terraceID.push(parseInt(terraceModel.get('id')));
         });
       }
       $.each(uniqUnitvariant, function(index, value) {
@@ -986,7 +1010,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       buildingCollection = new Backbone.Collection(buildingsactual);
       units = new Backbone.Collection(unitsactual);
-      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID, unitVariantID, viewModels, facingModels, viewID, facingID];
+      return [buildingCollection, units, templateString, Countunits.length, mainnewarr, hnewarr, mnewarr, lnewarr, unitVariantModels, unitVariantID, unitVariantID, viewModels, facingModels, viewID, facingID, terraceModels, terraceID];
     };
 
     return ScreenTwoController;

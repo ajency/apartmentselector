@@ -89,8 +89,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <!--<h3>Additional Filters</h3>-->
                                     <div class="small blockTitle">Terrace</div>
                                      {{#terrace}}   
-                                    <!--<div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="" class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
-                                    {{/terrace}}-->   
+                                    <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
+                                    {{/terrace}}  
                                 </div>
 
                                 <div class="col-sm-4 b-l b-r b-grey">
@@ -639,10 +639,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
                 $('.special').removeClass 'hidden'
-                console.log originalviews  = Marionette.getOption( @, 'views' )
-                console.log originalOviews  = Marionette.getOption( @, 'Oviews' )
-                console.log originalfacings  = Marionette.getOption( @, 'facings' )
+                originalviews  = Marionette.getOption( @, 'views' )
+                originalOviews  = Marionette.getOption( @, 'Oviews' )
+                originalfacings  = Marionette.getOption( @, 'facings' )
                 originalOfacings  = Marionette.getOption( @, 'Ofacings' )
+                originalterraces  = Marionette.getOption( @, 'terraceID' )
+                originalOterraces  = Marionette.getOption( @, 'terrace' )
                 object = @
                 globalviews = []
                 globalviewInt = []
@@ -748,20 +750,23 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             if index != -1
                                 view.splice( index, 1 )
                                 
-                        
+                        if view.length == 0
+                            first = _.first(originalOviews)
+                            view.push first.id
                         view = view.map((item)->
                             return parseInt(item))
                         view = _.uniq(view)
                         if view.length != 0
                             viewString = view.join(',')
                         App.defaults['view'] = viewString
+                        App.backFilter['screen2'].push 'view'
                         if originalOviews.length  == view.length
                             App.defaults['view'] = 'All'
                             App.defaults['facing'] = 'All'
-                            App.currentStore.unit.reset UNITS
-                            App.currentStore.building.reset BUILDINGS
-                            App.currentStore.unit_type.reset UNITTYPES
-                            App.currentStore.unit_variant.reset UNITVARIANTS
+                        App.currentStore.unit.reset UNITS
+                        App.currentStore.building.reset BUILDINGS
+                        App.currentStore.unit_type.reset UNITTYPES
+                        App.currentStore.unit_variant.reset UNITVARIANTS   
                         App.filter()
                         viewtemp1 = []
                         viewtemp = []
@@ -822,6 +827,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                                 App.defaults['facing'] = uniqfacings.join(',')
+                                App.backFilter['screen2'].push 'facing'
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})
@@ -859,9 +865,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         
 
                     )
-                    teraace = []
+                    teraace = originalterraces
                     $('.terrace').on('click' , (e)->
-                        terracesnames = originalterraces
+                        App.currentStore.unit.reset UNITS
+                        App.currentStore.building.reset BUILDINGS
+                        App.currentStore.unit_type.reset UNITTYPES
+                        App.currentStore.unit_variant.reset UNITVARIANTS   
+                        
                         if $('#'+e.target.id).prop('checked') == true
                             teraace.push $('#'+e.target.id).val()
                             
@@ -870,10 +880,108 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             if index != -1
                                 teraace.splice( index, 1 )
                                 
-                        
+                        if teraace.length == 0
+                            console.log first = _.first(originalOterraces)
+                            teraace.push first.id
                         teraace = teraace.map((item)->
                             return parseInt(item))
                         teraace = _.uniq(teraace)
+                        unitvarinttemp = []
+                        
+                        tempunit = []
+                        units = App.currentStore.unit
+                        $.each(teraace, (index,value)->
+                            units.each ( item)->
+                                unitmodel = App.currentStore.unit.where({'terrace':parseInt(value)})
+                                if unitmodel != undefined
+                                    $.merge(tempunit,unitmodel)
+
+
+                        )
+                        viewtemp = []
+                        facingtemp = []
+                        
+                        tempunitColl = new Backbone.Collection tempunit
+                        tempunitColl.each (item)->
+                            if item.get('apartment_views') != ""
+                                $.merge(viewtemp,item.get('apartment_views'))
+                            if item.get('facing').length != 0
+                                $.merge(facingtemp,item.get('facing'))
+
+
+                        viewtemp = viewtemp.map((item)->
+                            return parseInt(item)
+                            )
+                        console.log uniqviews = _.uniq(viewtemp)
+                        console.log uniqfacings = _.uniq(facingtemp)
+                        $.each(uniqviews, (index,value)->
+                                $('#view'+value).prop('checked',true)
+
+                        )
+                        console.log unselected1 = _.difference(originalviews, uniqviews);
+                        $.each(unselected1, (index,value)->
+                                $('#view'+value).prop('checked',false)
+
+                        )
+                        $.each(uniqfacings, (index,value)->
+                                $('#facing'+value).prop('checked',true)
+
+                        )
+                        console.log unselected = _.difference(originalfacings, uniqfacings);
+                        $.each(unselected, (index,value)->
+                                $('#facing'+value).prop('checked',false)
+
+                        )
+                        if uniqviews.length != 0
+                            if uniqviews.length == originalviews.length
+                                App.defaults['view'] = 'All'
+                            else
+
+
+                                App.defaults['view'] = uniqviews.join(',')
+                                App.backFilter['screen2'].push 'view'
+                        if uniqfacings.length != 0
+                            if uniqfacings.length == originalfacings.length
+                                App.defaults['facing'] = 'All'
+                            else
+
+
+                                App.defaults['facing'] = uniqfacings.join(',')
+                                App.backFilter['screen2'].push 'facing'
+                        App.filter()
+                        mainunitTypeArray1 = []
+                        status = App.master.status.findWhere({'name':'Available'})
+                        units1 = App.master.unit.where({'status':status.get('id')})
+                        $.each(units1, (index,value)->
+                            unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                            mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
+                        )
+                        $.each(mainunitTypeArray1, (key,item)->
+                            if (!mainunique[item.id])
+                                if item.id != 14 && item.id != 16
+                                    status = App.master.status.findWhere({'name':'Available'})
+
+                                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                                    if parseInt(item.id) == 9
+                                        classname = 'twoBHK'
+                                    else
+                                        classname = 'threeBHK'
+
+                                    mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
+                                    mainunique[item.id] = item;
+
+
+                        )
+                        console.log mainnewarr
+                        unittypetext = ""
+                        $.each(mainnewarr, (index,value)->
+                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+
+
+                            )
+                        $('#unittypecount').html unittypetext
+
                         
 
                         )

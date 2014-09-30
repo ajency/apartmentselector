@@ -21,7 +21,8 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
-    'facings': new Backbone.Collection(FACINGS)
+    'facings': new Backbone.Collection(FACINGS),
+    'terrace': new Backbone.Collection(TERRACEOPTIONS)
   };
   App.master = {
     'unit': new Backbone.Collection(UNITS),
@@ -30,7 +31,8 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'unit_variant': new Backbone.Collection(UNITVARIANTS),
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
-    'facings': new Backbone.Collection(FACINGS)
+    'facings': new Backbone.Collection(FACINGS),
+    'terrace': new Backbone.Collection(TERRACEOPTIONS)
   };
   App.backFilter = {
     'screen1': [],
@@ -46,6 +48,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'floor': 'All',
     'view': 'All',
     'facing': 'All',
+    'terrace': 'All',
     'unittypeback': 'All'
   };
   localStorage.setItem("refreshvalue", 1);
@@ -76,9 +79,9 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
           App.defaults[param_key[0]] = param_key[1];
         }
       }
-      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'] + '&terrace=' + App.defaults['terrace'];
     } else {
-      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'];
+      params = 'unitType=' + App.defaults['unitType'] + '&budget=' + App.defaults['budget'] + '&building=' + App.defaults['building'] + '&unitVariant=' + App.defaults['unitVariant'] + '&floor=' + App.defaults['floor'] + '&view=' + App.defaults['view'] + '&facing=' + App.defaults['facing'] + '&terrace=' + App.defaults['terrace'];
     }
     param_arr = params.split('&');
     budgetUnitArray = [];
