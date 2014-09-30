@@ -178,7 +178,7 @@ require [ 'plugin-loader'
                     units = App.currentStore.unit
                     if collection.length == 0
                         units.each( (item)->
-                            if $.inArray(value_arr[1],item.get('apartment_views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                            if $.inArray(value_arr[1],item.get('apartment_views')) >=0 || $.inArray(value_arr[1],item.get('facing')) >=0
                                 unitSplitArray.push item
                         )
                         collection = unitSplitArray

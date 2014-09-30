@@ -552,7 +552,7 @@ function get_units(){
 
             if(is_array($unit_facing)){
 
-                   $unit_facing = array_map ('intval', $unit_facing);
+                   $unit_facing = $unit_facing;
             }else{
                     $unit_facing = array();
             }

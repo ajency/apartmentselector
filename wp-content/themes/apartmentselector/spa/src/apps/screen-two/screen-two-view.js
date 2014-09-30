@@ -572,7 +572,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
     };
 
     ScreenTwoLayout.prototype.onShow = function() {
-      var ajaxurl, buidlingValue, building, capability, defer, globalUnitVariants, globalfacing, globalfacingInt, globalviewInt, globalviews, i, mainnewarr, mainunique, mainunitTypeArray1, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, params, scr, selector, status, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel;
+      var ajaxurl, buidlingValue, building, capability, clonefacings, cloneterraces, cloneviews, defer, entrance, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, i, mainnewarr, mainunique, mainunitTypeArray1, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, params, scr, selector, status, teraace, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel;
       usermodel = new Backbone.Model(USER);
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
@@ -588,7 +588,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         globalviewInt = [];
         globalfacing = [];
         globalfacingInt = [];
+        globalterrace = [];
+        globalterraceInt = [];
+        cloneviews = originalviews.slice(0);
+        clonefacings = originalfacings.slice(0);
+        cloneterraces = originalterraces.slice(0);
         view = [];
+        teraace = [];
+        entrance = [];
         if (App.defaults['view'] !== 'All') {
           globalviews = App.defaults['view'].split(',');
           $.each(globalviews, function(index, value) {
@@ -599,6 +606,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           globalfacing = App.defaults['facing'].split(',');
           $.each(globalfacing, function(index, value) {
             return globalfacingInt.push(parseInt(value));
+          });
+        }
+        if (App.defaults['terrace'] !== 'All') {
+          globalterrace = App.defaults['terrace'].split(',');
+          $.each(globalterrace, function(index, value) {
+            return globalterraceInt.push(parseInt(value));
           });
         }
         if (App.defaults['view'] !== 'All') {
@@ -619,14 +632,31 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         if (App.defaults['facing'] !== 'All') {
           $.each(originalOfacings, function(index, value) {
             if ($.inArray(parseInt(value.id), globalfacingInt) >= 0) {
-              return $('#facing' + value.id).prop('checked', true);
+              $('#facing' + value.id).prop('checked', true);
+              return entrance.push(value.id);
             } else {
               return $('#facing' + value.id).prop('checked', false);
             }
           });
         } else {
           $.each(originalOfacings, function(index, value) {
-            return $('#facing' + value.id).prop('checked', true);
+            $('#facing' + value.id).prop('checked', true);
+            return entrance.push(value.id);
+          });
+        }
+        if (App.defaults['terrace'] !== 'All') {
+          $.each(originalOterraces, function(index, value) {
+            if ($.inArray(parseInt(value.id), globalterraceInt) >= 0) {
+              $('#terrace' + value.id).prop('checked', true);
+              return teraace.push(value.id);
+            } else {
+              return $('#terrace' + value.id).prop('checked', false);
+            }
+          });
+        } else {
+          $.each(originalOterraces, function(index, value) {
+            $('#terrace' + value.id).prop('checked', true);
+            return teraace.push(value.id);
           });
         }
         mainnewarr = [];
@@ -681,9 +711,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         $('#unittypecount').html(unittypetext);
         $('.specialFilter').on('open', function() {
-          var inst, teraace;
+          var inst;
           $('.viewname').on('click', function(e) {
-            var facingtemp, first, floorCollection, index, tempUnitArray, uniqfacings, uniqviews, unselected, unviewtemp, viewColl, viewString, viewtemp, viewtemp1;
+            var facingtemp, first, floorCollection, index, teracetemp, uniqfacings, uniqterrace, unselected, unselected1, viewString;
             mainnewarr = [];
             mainunique = {};
             console.log('click');
@@ -710,72 +740,61 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
             App.defaults['view'] = viewString;
             App.backFilter['screen2'].push('view');
-            if (originalOviews.length === view.length) {
+            if (cloneviews.length === view.length) {
               App.defaults['view'] = 'All';
-              App.defaults['facing'] = 'All';
+              view = originalviews;
             }
             App.currentStore.unit.reset(UNITS);
             App.currentStore.building.reset(BUILDINGS);
             App.currentStore.unit_type.reset(UNITTYPES);
             App.currentStore.unit_variant.reset(UNITVARIANTS);
             App.filter();
-            viewtemp1 = [];
-            viewtemp = [];
+            teracetemp = [];
             floorCollection = App.currentStore.unit;
-            console.log(floorCollection);
-            floorCollection.each(function(item) {
-              if (item.get('apartment_views') !== "") {
-                return $.merge(viewtemp1, item.get('apartment_views'));
-              }
-            });
-            console.log(uniqviews = _.uniq(viewtemp1).map(function(item) {
-              return parseInt(item);
-            }));
-            console.log(view);
-            $.each(view, function(index, value) {
-              if ($.inArray(value, uniqviews) >= 0) {
-                return viewtemp.push(value);
-              }
-            });
-            console.log(unviewtemp = _.uniq(viewtemp));
-            tempUnitArray = [];
-            $.each(unviewtemp, function(index, value) {
-              return floorCollection.each(function(item) {
-                var apartment, temp;
-                if (item.get('apartment_views') !== "") {
-                  temp = item.get('apartment_views');
-                  apartment = temp.map(function(item) {
-                    return parseInt(item);
-                  });
-                  if ($.inArray(value, apartment) >= 0) {
-                    return tempUnitArray.push(item);
-                  }
-                }
-              });
-            });
-            viewColl = new Backbone.Collection(tempUnitArray);
+            console.log(floorCollection.length);
             facingtemp = [];
-            viewColl.each(function(item) {
+            floorCollection.each(function(item) {
               if (item.get('facing').length !== 0) {
-                return $.merge(facingtemp, item.get('facing'));
+                $.merge(facingtemp, item.get('facing'));
               }
+              if (item.get('terrace') !== "") {
+                return teracetemp.push(item.get('terrace'));
+              }
+            });
+            facingtemp = facingtemp.map(function(item) {
+              return parseInt(item);
+            });
+            teracetemp = teracetemp.map(function(item) {
+              return parseInt(item);
             });
             console.log(uniqfacings = _.uniq(facingtemp));
+            console.log(uniqterrace = _.uniq(teracetemp));
             $.each(uniqfacings, function(index, value) {
               return $('#facing' + value).prop('checked', true);
             });
-            console.log(unselected = _.difference(originalfacings, uniqfacings));
+            if (uniqfacings.length !== clonefacings.length) {
+              App.defaults['facing'] = uniqfacings.join(',');
+              App.backFilter['screen2'].push('facing');
+            } else {
+              App.defaults['facing'] = 'All';
+            }
+            if (uniqterrace.length !== cloneterraces.length) {
+              App.defaults['terrace'] = uniqterrace.join(',');
+              App.backFilter['screen2'].push('terrace');
+            } else {
+              App.defaults['terrace'] = 'All';
+            }
+            console.log(unselected = _.difference(clonefacings, uniqfacings));
             $.each(unselected, function(index, value) {
               return $('#facing' + value).prop('checked', false);
             });
-            if (uniqfacings.length !== 0) {
-              if (uniqfacings.length === originalfacings.length) {
-                App.defaults['facing'] = 'All';
-              } else {
-                App.defaults['facing'] = uniqfacings.join(',');
-                App.backFilter['screen2'].push('facing');
-              }
-            }
+            $.each(uniqterrace, function(index, value) {
+              return $('#terrace' + value).prop('checked', true);
+            });
+            console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+            $.each(unselected1, function(index, value) {
+              return $('#terrace' + value).prop('checked', false);
+            });
             mainunitTypeArray1 = [];
             status = App.master.status.findWhere({
               'name': 'Available'
@@ -826,9 +845,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             });
             return $('#unittypecount').html(unittypetext);
           });
-          teraace = originalterraces;
           $('.terrace').on('click', function(e) {
-            var facingtemp, first, index, tempunit, tempunitColl, uniqfacings, uniqviews, units, unitvarinttemp, unselected, unselected1, viewtemp;
+            var facingtemp, first, index, uniqfacings, uniqviews, units, unselected, unselected1, viewtemp;
+            mainnewarr = [];
+            mainunique = {};
             App.currentStore.unit.reset(UNITS);
             App.currentStore.building.reset(BUILDINGS);
             App.currentStore.unit_type.reset(UNITTYPES);
@@ -849,24 +869,18 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               return parseInt(item);
             });
             teraace = _.uniq(teraace);
-            unitvarinttemp = [];
-            tempunit = [];
+            App.defaults['terrace'] = teraace.join(',');
+            App.backFilter['screen2'].push('terrace');
+            if (cloneterraces.length === teraace.length) {
+              App.defaults['terrace'] = 'All';
+              teraace = originalterraces;
+            }
+            App.filter();
             units = App.currentStore.unit;
-            $.each(teraace, function(index, value) {
-              return units.each(function(item) {
-                var unitmodel;
-                unitmodel = App.currentStore.unit.where({
-                  'terrace': parseInt(value)
-                });
-                if (unitmodel !== void 0) {
-                  return $.merge(tempunit, unitmodel);
-                }
-              });
-            });
+            console.log(units.length);
             viewtemp = [];
             facingtemp = [];
-            tempunitColl = new Backbone.Collection(tempunit);
-            tempunitColl.each(function(item) {
+            units.each(function(item) {
               if (item.get('apartment_views') !== "") {
                 $.merge(viewtemp, item.get('apartment_views'));
               }
@@ -877,39 +891,37 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             viewtemp = viewtemp.map(function(item) {
               return parseInt(item);
             });
+            facingtemp = facingtemp.map(function(item) {
+              return parseInt(item);
+            });
             console.log(uniqviews = _.uniq(viewtemp));
             console.log(uniqfacings = _.uniq(facingtemp));
+            if (uniqviews.length !== cloneviews.length) {
+              App.defaults['view'] = uniqviews.join(',');
+              App.backFilter['screen2'].push('view');
+            } else {
+              App.defaults['view'] = 'All';
+            }
+            if (uniqfacings.length !== clonefacings.length) {
+              App.defaults['facing'] = uniqfacings.join(',');
+              App.backFilter['screen2'].push('facing');
+            } else {
+              App.defaults['facing'] = 'All';
+            }
             $.each(uniqviews, function(index, value) {
               return $('#view' + value).prop('checked', true);
             });
-            console.log(unselected1 = _.difference(originalviews, uniqviews));
+            console.log(unselected1 = _.difference(cloneviews, uniqviews));
             $.each(unselected1, function(index, value) {
               return $('#view' + value).prop('checked', false);
             });
             $.each(uniqfacings, function(index, value) {
               return $('#facing' + value).prop('checked', true);
             });
-            console.log(unselected = _.difference(originalfacings, uniqfacings));
+            console.log(unselected = _.difference(clonefacings, uniqfacings));
             $.each(unselected, function(index, value) {
               return $('#facing' + value).prop('checked', false);
             });
-            if (uniqviews.length !== 0) {
-              if (uniqviews.length === originalviews.length) {
-                App.defaults['view'] = 'All';
-              } else {
-                App.defaults['view'] = uniqviews.join(',');
-                App.backFilter['screen2'].push('view');
-              }
-            }
-            if (uniqfacings.length !== 0) {
-              if (uniqfacings.length === originalfacings.length) {
-                App.defaults['facing'] = 'All';
-              } else {
-                App.defaults['facing'] = uniqfacings.join(',');
-                App.backFilter['screen2'].push('facing');
-              }
-            }
-            App.filter();
             mainunitTypeArray1 = [];
             status = App.master.status.findWhere({
               'name': 'Available'
@@ -934,7 +946,139 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
                   status = App.master.status.findWhere({
                     'name': 'Available'
                   });
-                  count = App.currentStore.unit.where({
+                  count = units.where({
+                    unitType: item.id,
+                    'status': status.get('id')
+                  });
+                  if (parseInt(item.id) === 9) {
+                    classname = 'twoBHK';
+                  } else {
+                    classname = 'threeBHK';
+                  }
+                  mainnewarr.push({
+                    id: item.id,
+                    name: item.name,
+                    classname: classname,
+                    count: count
+                  });
+                  return mainunique[item.id] = item;
+                }
+              }
+            });
+            console.log(mainnewarr);
+            unittypetext = "";
+            $.each(mainnewarr, function(index, value) {
+              return unittypetext += '<span>' + value.name + ' :</span><span>' + value.count.length + '</span></br>';
+            });
+            return $('#unittypecount').html(unittypetext);
+          });
+          $('.facing').on('click', function(e) {
+            var facingString, first, floorCollection, index, teracetemp, uniqterrace, uniqviews, unselected, unselected1, viewtemp;
+            mainnewarr = [];
+            mainunique = {};
+            console.log(entrance);
+            if ($('#' + e.target.id).prop('checked') === true) {
+              entrance.push($('#' + e.target.id).val());
+            } else {
+              index = _.indexOf(entrance, parseInt($('#' + e.target.id).val()));
+              if (index !== -1) {
+                entrance.splice(index, 1);
+              }
+            }
+            if (entrance.length === 0) {
+              first = _.first(originalOfacings);
+              entrance.push(first.id);
+            }
+            entrance = entrance.map(function(item) {
+              return parseInt(item);
+            });
+            console.log(entrance = _.uniq(entrance));
+            if (entrance.length !== 0) {
+              facingString = entrance.join(',');
+            }
+            App.defaults['facing'] = facingString;
+            App.backFilter['screen2'].push('facing');
+            console.log(clonefacings.length);
+            if (clonefacings.length === entrance.length) {
+              App.defaults['facing'] = 'All';
+              entrance = originalfacings;
+            }
+            App.currentStore.unit.reset(UNITS);
+            App.currentStore.building.reset(BUILDINGS);
+            App.currentStore.unit_type.reset(UNITTYPES);
+            App.currentStore.unit_variant.reset(UNITVARIANTS);
+            App.filter();
+            teracetemp = [];
+            floorCollection = App.currentStore.unit;
+            console.log(floorCollection.length);
+            viewtemp = [];
+            floorCollection.each(function(item) {
+              if (item.get('apartment_views').length !== 0) {
+                $.merge(viewtemp, item.get('apartment_views'));
+              }
+              if (item.get('terrace') !== "") {
+                return teracetemp.push(item.get('terrace'));
+              }
+            });
+            viewtemp = viewtemp.map(function(item) {
+              return parseInt(item);
+            });
+            teracetemp = teracetemp.map(function(item) {
+              return parseInt(item);
+            });
+            console.log(uniqviews = _.uniq(viewtemp));
+            console.log(uniqterrace = _.uniq(teracetemp));
+            if (uniqviews.length !== cloneviews.length) {
+              App.defaults['view'] = uniqviews.join(',');
+              App.backFilter['screen2'].push('view');
+            } else {
+              App.defaults['view'] = 'All';
+            }
+            if (uniqterrace.length !== cloneterraces.length) {
+              App.defaults['terrace'] = uniqterrace.join(',');
+              App.backFilter['screen2'].push('terrace');
+            } else {
+              App.defaults['terrace'] = 'All';
+            }
+            $.each(uniqviews, function(index, value) {
+              return $('#view' + value).prop('checked', true);
+            });
+            console.log(unselected = _.difference(cloneviews, uniqviews));
+            $.each(unselected, function(index, value) {
+              return $('#view' + value).prop('checked', false);
+            });
+            $.each(uniqterrace, function(index, value) {
+              return $('#terrace' + value).prop('checked', true);
+            });
+            console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+            $.each(unselected1, function(index, value) {
+              return $('#terrace' + value).prop('checked', false);
+            });
+            mainunitTypeArray1 = [];
+            status = App.master.status.findWhere({
+              'name': 'Available'
+            });
+            units1 = App.master.unit.where({
+              'status': status.get('id')
+            });
+            $.each(units1, function(index, value) {
+              var unitType;
+              unitType = App.master.unit_type.findWhere({
+                id: value.get('unitType')
+              });
+              return mainunitTypeArray1.push({
+                id: unitType.get('id'),
+                name: unitType.get('name')
+              });
+            });
+            $.each(mainunitTypeArray1, function(key, item) {
+              var classname;
+              if (!mainunique[item.id]) {
+                if (item.id !== 14 && item.id !== 16) {
+                  status = App.master.status.findWhere({
+                    'name': 'Available'
+                  });
+                  count = floorCollection.where({
                     unitType: item.id,
                     'status': status.get('id')
                   });

@@ -275,7 +275,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       myArray = [];
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant' && index !== 'unittypeback' && index !== 'view' && index !== 'facing' && index !== 'apartment_views') {
+          if (index !== 'unitVariant' && index !== 'unittypeback' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
             return myArray.push({
               key: index,
               value: value
@@ -408,7 +408,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             $.merge(facingtemp, item.get('facing'));
           }
           if (item.get('terrace') !== "") {
-            return $.merge(terracetemp, item.get('terrace'));
+            console.log(item.get('terrace'));
+            return terracetemp.push(item.get('terrace'));
           }
         });
         uniqviews = _.uniq(viewtemp);
