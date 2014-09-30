@@ -9821,6 +9821,10 @@ h5 {
   height: 6vw;
   background: #ffffff;
 }
+.grid-container .grid-block-1 .grid-link,
+.grid-container .grid-block-1 .grid-link2 {
+  min-height: 80px;
+}
 .grid-container .grid-block-1 .grid-link .grid-text-wrap,
 .grid-container .grid-block-1 .grid-link2 .grid-text-wrap {
   display: table-cell;
@@ -10423,8 +10427,8 @@ h5 {
 }
 .boxBlank {
   width: 100%;
-  min-height: 65px;
-  height: 65px;
+  min-height: 85px;
+  height: 85px;
   height: 7vw;
   padding: 20px 20px 0;
   padding: 1.5vw 4vw 0 3vw;
@@ -10449,7 +10453,7 @@ h5 {
 }
 @media (max-width: 767px) {
   .boxBlank {
-    height: 65px;
+    height: 85px;
     padding: 0 20px 0;
   }
 }
@@ -12429,5 +12433,5 @@ a.im-clear-button {
 /**** end print modal styles ****/
 
 iframe#print-modal-content {
-  height: 4000px !important;
+  height: 5000px !important;
 }
