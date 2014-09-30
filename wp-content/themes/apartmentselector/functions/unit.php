@@ -388,7 +388,17 @@ function get_unit_variants($variant_id=0){
 
     return $unit_variants;
 }
+/*get unit variants by unit type*/
+function get_unit_variants_property($variant_id,$property){
 
+global $frm_entry;
+
+    $results=   $frm_entry->getAll(array('it.id' => $variant_id),'','',true);  
+    
+    $property_value  =   $results[$variant_id]->metas[$property] ;
+        
+    return $property_value;
+}
 
 function get_unit_variants_persqftprice($variant_id=0){
 
@@ -517,7 +527,8 @@ function get_units(){
         
         $block_status_comments =   get_post_meta($result->ID, 'block_status_comments', true);
        
-        $single_unit = array(   'id'=>intval($result->ID),
+       $terrace = get_unit_variants_property($unit_variant,'terraceoptions');
+       $single_unit = array(   'id'=>intval($result->ID),
                                     'name'=>$result->post_title,
                                     'unitType'=>intval($unit_type),
                                     'unitVariant'=>intval($unit_variant),
@@ -531,7 +542,8 @@ function get_units(){
                                     'forCustomer'=> ($for_customer),
                                     'blockedOn'=> convert_mysql_to_custom_date($blocked_on),
                                     'blockedTill'=> convert_mysql_to_custom_date($blocked_till),
-                                    'blockStatusComments'=> ($block_status_comments)
+                                    'blockStatusComments'=> ($block_status_comments),
+                                    'terrace'=>intval($terrace)
                                 );
         if(current_user_can('does_sales')){
 
