@@ -35,6 +35,7 @@ define [ 'marionette' ], ( Marionette )->
                 if  parseInt($("#check"+@model.get 'id').val()) == 0
                     $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
                     App.defaults['unitType'] = 'All'
+                    console.log unitType
                     for element , index in unitType
                         $("#check"+element).val '0'
                         $('#unittype'+element+' a' ).removeClass 'selected'
@@ -46,11 +47,10 @@ define [ 'marionette' ], ( Marionette )->
                     
                     
                     $("#check"+@model.get 'id').val "1"
+                    @showBuildings()
                 else
                     App.backFilter['screen1'] = []
 
-                    $("li").removeClass 'cs-selected'
-                    $(".cs-placeholder").text('Choose a budget')
                     $('#showbudget').addClass 'hidden'
                     $("#check"+@model.get 'id').val "0"
                     masterbuilding = App.master.building
@@ -58,9 +58,10 @@ define [ 'marionette' ], ( Marionette )->
                         $("#hglighttower"+index.get('id')).attr('class','overlay')
                     
                     $('#unittype'+@model.get("id")+' a' ).removeClass 'selected'
+                    $("#finalButton").addClass 'disabled btn-default'
+                    $("#finalButton").removeClass 'btn-primary'
+                
                 unitType = []
-                $("#finalButton").addClass 'disabled btn-default'
-                $("#finalButton").removeClass 'btn-primary'
                 return false 
             $.map(App.backFilter, (value, index)->
                 
@@ -85,8 +86,6 @@ define [ 'marionette' ], ( Marionette )->
             .insideRegion  App.headerRegion
                 .withOptions()
             
-            $("li").removeClass 'cs-selected'
-            $(".cs-placeholder").text('Choose a budget')
             $("#checknopreferences").val "0"
             $('a' ).removeClass 'selected'
             
@@ -157,6 +156,57 @@ define [ 'marionette' ], ( Marionette )->
             masterbuilding = App.master.building
             masterbuilding.each ( index)->
                 $("#hglighttower"+index.get('id')).attr('class','overlay')
+
+
+        showBuildings:(e)->
+                $.map(App.backFilter, (value, index)->
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            key = App.defaults.hasOwnProperty(element)
+                            if key == true
+                                App.defaults[element] = 'All'
+
+                    )
+                if $(".cs-placeholder").text() != 'Choose a budget'
+                    console.log budget_val = $(".cs-selected").text().split(' ')
+                    if(budget_val[1]=='lakhs')
+                        budget_price = budget_val[0].split('-')
+                        budget_price[0] = budget_price[0] + ('00000')
+                        budget_price[1] = budget_price[1]+ ('00000')
+                        budget_price = budget_price.join('-')
+                    App.defaults['budget'] = $(".cs-selected").text()
+                    App.backFilter['screen1'].push 'budget'
+                    App.screenOneFilter['value'] = $(".cs-selected").text()
+                    App.screenOneFilter['key'] = 'budget'
+                else
+                    App.defaults['budget'] = 'All'
+                $('#screen-two-region').removeClass 'section'
+                $('#screen-three-region').removeClass 'section'
+                $('#screen-four-region').removeClass 'section'
+            
+                App.layout.screenTwoRegion.el.innerHTML = ""
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate ""
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                msgbus.showApp 'header'
+                .insideRegion  App.headerRegion
+                    .withOptions()
+                
+                
+                App.defaults['unitType'] = 'All'
+                $("#finalButton").removeClass 'disabled btn-default'
+                $("#finalButton").addClass 'btn-primary'
+                $("#finalButton").text "Show Apartments in my Budget"
+                budget_val = $(".cs-selected").text().split(' ')
+                newUnits = App.getBudget(budget_val[0])
+                newColl = new Backbone.Collection newUnits
+                buildings = newColl.pluck("building")
+                uniqBuildings = _.uniq(buildings)
+                @showHighlightedTowers(uniqBuildings)
            
 
 
@@ -179,9 +229,8 @@ define [ 'marionette' ], ( Marionette )->
         	                <div id="showbudget" class="hidden"><!--<div class="text-center subTxt">Choose a budget</div>-->
                             <section>
                                 <select class="cs-select cs-skin-underline" id="budgetValue">
-                                    <option value="" disabled selected>Choose a budget</option>
                                     {{#priceArray}}
-                                    <option value="{{id}}">{{name}}</option>
+                                    <option value="{{id}}" {{class}}>{{name}}</option>
                                     {{/priceArray}}
                                 </select>
                             </section></div>
@@ -205,7 +254,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 
 
-                if $(".cs-placeholder").text() != 'Choose a budget'
+                if App.defaults['unitType'] == 'All'
                     budget_val = $(".cs-selected").text().split(' ')
                     if(budget_val[1]=='lakhs')
                         budget_price = budget_val[0].split('-')

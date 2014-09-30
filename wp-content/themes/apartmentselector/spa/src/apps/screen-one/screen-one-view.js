@@ -33,6 +33,7 @@ define(['marionette'], function(Marionette) {
         if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
           $('#unittype' + this.model.get("id") + ' a').addClass('selected');
           App.defaults['unitType'] = 'All';
+          console.log(unitType);
           for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
             element = unitType[index];
             $("#check" + element).val('0');
@@ -45,10 +46,9 @@ define(['marionette'], function(Marionette) {
             return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
           });
           $("#check" + this.model.get('id')).val("1");
+          this.showBuildings();
         } else {
           App.backFilter['screen1'] = [];
-          $("li").removeClass('cs-selected');
-          $(".cs-placeholder").text('Choose a budget');
           $('#showbudget').addClass('hidden');
           $("#check" + this.model.get('id')).val("0");
           masterbuilding = App.master.building;
@@ -56,10 +56,10 @@ define(['marionette'], function(Marionette) {
             return $("#hglighttower" + index.get('id')).attr('class', 'overlay');
           });
           $('#unittype' + this.model.get("id") + ' a').removeClass('selected');
+          $("#finalButton").addClass('disabled btn-default');
+          $("#finalButton").removeClass('btn-primary');
         }
         unitType = [];
-        $("#finalButton").addClass('disabled btn-default');
-        $("#finalButton").removeClass('btn-primary');
         return false;
       }
       $.map(App.backFilter, function(value, index) {
@@ -88,8 +88,6 @@ define(['marionette'], function(Marionette) {
       App.currentStore.unit_variant.reset(UNITVARIANTS);
       evt.preventDefault();
       msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
-      $("li").removeClass('cs-selected');
-      $(".cs-placeholder").text('Choose a budget');
       $("#checknopreferences").val("0");
       $('a').removeClass('selected');
       for (index = _j = 0, _len1 = unitType.length; _j < _len1; index = ++_j) {
@@ -174,6 +172,62 @@ define(['marionette'], function(Marionette) {
       });
     };
 
+    UnitTypeView.prototype.showBuildings = function(e) {
+      var budget_price, budget_val, buildings, newColl, newUnits, uniqBuildings;
+      $.map(App.backFilter, function(value, index) {
+        var element, key, screenArray, _i, _len, _results;
+        screenArray = App.backFilter[index];
+        _results = [];
+        for (_i = 0, _len = screenArray.length; _i < _len; _i++) {
+          element = screenArray[_i];
+          key = App.defaults.hasOwnProperty(element);
+          if (key === true) {
+            _results.push(App.defaults[element] = 'All');
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
+      });
+      if ($(".cs-placeholder").text() !== 'Choose a budget') {
+        console.log(budget_val = $(".cs-selected").text().split(' '));
+        if (budget_val[1] === 'lakhs') {
+          budget_price = budget_val[0].split('-');
+          budget_price[0] = budget_price[0] + '00000';
+          budget_price[1] = budget_price[1] + '00000';
+          budget_price = budget_price.join('-');
+        }
+        App.defaults['budget'] = $(".cs-selected").text();
+        App.backFilter['screen1'].push('budget');
+        App.screenOneFilter['value'] = $(".cs-selected").text();
+        App.screenOneFilter['key'] = 'budget';
+      } else {
+        App.defaults['budget'] = 'All';
+      }
+      $('#screen-two-region').removeClass('section');
+      $('#screen-three-region').removeClass('section');
+      $('#screen-four-region').removeClass('section');
+      App.layout.screenTwoRegion.el.innerHTML = "";
+      App.layout.screenThreeRegion.el.innerHTML = "";
+      App.layout.screenFourRegion.el.innerHTML = "";
+      App.navigate("");
+      App.currentStore.unit.reset(UNITS);
+      App.currentStore.building.reset(BUILDINGS);
+      App.currentStore.unit_type.reset(UNITTYPES);
+      App.currentStore.unit_variant.reset(UNITVARIANTS);
+      msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
+      App.defaults['unitType'] = 'All';
+      $("#finalButton").removeClass('disabled btn-default');
+      $("#finalButton").addClass('btn-primary');
+      $("#finalButton").text("Show Apartments in my Budget");
+      budget_val = $(".cs-selected").text().split(' ');
+      newUnits = App.getBudget(budget_val[0]);
+      newColl = new Backbone.Collection(newUnits);
+      buildings = newColl.pluck("building");
+      uniqBuildings = _.uniq(buildings);
+      return this.showHighlightedTowers(uniqBuildings);
+    };
+
     return UnitTypeView;
 
   })(Marionette.ItemView);
@@ -184,7 +238,7 @@ define(['marionette'], function(Marionette) {
       return ScreenOneView.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenOneView.prototype.template = '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3> <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4> <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a preference</div> <div class="grid-container"></div> <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>--> <div id="showbudget" class="hidden"><!--<div class="text-center subTxt">Choose a budget</div>--> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> <option value="" disabled selected>Choose a budget</option> {{#priceArray}} <option value="{{id}}">{{name}}</option> {{/priceArray}} </select> </section></div> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-m-dec=""  data-d-group="2" > </div>';
+    ScreenOneView.prototype.template = '<h3 class="light text-center m-t-0">3 STEPS TO FINDING YOUR APARTMENT</h3> <h4 class="text-center introTxt">We at Skyi have built a unique apartment selector for you.<br>Of the hundreds of apartments available you can now find the one that best fits your requirements.</h4> <!--<div class="text-center introTxt">The apartment selector helps you find your ideal home. Browse through available apartments and find the location, size, budget and layout that best suit you.</div> <div class="introTxt text-center">To get started, either:</div>--> <div class="row m-l-0 m-r-0 bgClass"> <div class="col-md-5 col-lg-4"> <div class="text-center subTxt">Choose a preference</div> <div class="grid-container"></div> <!--<h5 class="text-center m-t-20 m-b-20 bold">OR</h5>--> <div id="showbudget" class="hidden"><!--<div class="text-center subTxt">Choose a budget</div>--> <section> <select class="cs-select cs-skin-underline" id="budgetValue"> {{#priceArray}} <option value="{{id}}" {{class}}>{{name}}</option> {{/priceArray}} </select> </section></div> <div class="h-align-middle m-t-50 m-b-20"> <a href="#screen-two-region" class="btn btn-default btn-lg disabled" id="finalButton">Show Apartments</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg"> <div id="mapplic_new1" class="towersMap center-block"></div> </div><input type="hidden" name="currency" id="currency" class="demo" data-a-sign="Rs. " data-m-dec=""  data-d-group="2" > </div>';
 
     ScreenOneView.prototype.className = 'page-container row-fluid';
 
@@ -195,7 +249,7 @@ define(['marionette'], function(Marionette) {
     ScreenOneView.prototype.events = {
       'click #finalButton': function(e) {
         var budget_price, budget_val;
-        if ($(".cs-placeholder").text() !== 'Choose a budget') {
+        if (App.defaults['unitType'] === 'All') {
           budget_val = $(".cs-selected").text().split(' ');
           if (budget_val[1] === 'lakhs') {
             budget_price = budget_val[0].split('-');

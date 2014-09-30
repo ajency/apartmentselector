@@ -143,7 +143,7 @@ require [ 'plugin-loader'
                     if collectionNew.length == 0
                         units = App.currentStore.unit
                         units.each( (item)->
-                            if $.inArray(value,item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                            if $.inArray(value,item.get('apartment_views')) >=0 || $.inArray(value,item.get('facing')) >=0
                                 unitSplitArray.push item
 
                         collectionNew = unitSplitArray
@@ -176,7 +176,7 @@ require [ 'plugin-loader'
                     units = App.currentStore.unit
                     if collection.length == 0
                         units.each( (item)->
-                            if $.inArray(value_arr[1],item.get('views')) >=0 || $.inArray(value,item.get('facing')) >=0
+                            if $.inArray(value_arr[1],item.get('apartment_views')) >=0 || $.inArray(value,item.get('facing')) >=0
                                 unitSplitArray.push item
                         )
                         collection = unitSplitArray
@@ -210,7 +210,7 @@ require [ 'plugin-loader'
             unitvariantModel = App.currentStore.unit_variant.get element
             unitvariantArray.push unitvariantModel
 
-        view = App.currentStore.unit.pluck("view")
+        view = App.currentStore.unit.pluck("apartment_views")
         uniqviews = _.uniq(buildings)
         viewArray = Array()
         for element , index in uniqviews
