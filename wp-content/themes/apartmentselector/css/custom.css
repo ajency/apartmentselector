@@ -7287,16 +7287,19 @@ h5 {
   border-color: #ff6600;
 }
 /* Tags for Variant Filters*/
-.taglist {
+.taglist,
+.taglist2 {
   display: inline;
 }
-.taglist ul {
+.taglist ul,
+.taglist2 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
   display: inline;
 }
-.taglist ul li {
+.taglist ul li,
+.taglist2 ul li {
   display: inline-block;
   background-color: #eeeeee;
   color: #ff6600;
@@ -7307,20 +7310,29 @@ h5 {
   font-weight: 700;
 }
 .taglist ul li .closeButton,
+.taglist2 ul li .closeButton,
 .taglist ul li .closeButton1,
-.taglist ul li .closeButton2 {
+.taglist2 ul li .closeButton1,
+.taglist ul li .closeButton2,
+.taglist2 ul li .closeButton2 {
   display: inline;
   cursor: pointer;
   color: #999999;
   padding: 1px 2px 1px 6px;
 }
 .taglist ul li .closeButton:after,
+.taglist2 ul li .closeButton:after,
 .taglist ul li .closeButton1:after,
-.taglist ul li .closeButton2:after {
+.taglist2 ul li .closeButton1:after,
+.taglist ul li .closeButton2:after,
+.taglist2 ul li .closeButton2:after {
   font-family: 'Glyphicons Halflings';
   content: "\e014";
   display: inline-block;
   font-size: 12px;
+}
+.taglist2 {
+  margin-right: 20px;
 }
 /*Arrows for Tower Selection*/
 .vs-nav-right a:after {
@@ -7570,18 +7582,22 @@ h5 {
 a.special {
   cursor: pointer;
 }
-.specialFilter {
+.specialFilter,
+.specialFilter1 {
+  display: none;
   max-width: 1200px;
   width: 100%;
   margin: 20px auto;
   min-height: 0;
   border: 10px solid #999999;
 }
-.specialFilter .filterBox {
+.specialFilter .filterBox,
+.specialFilter1 .filterBox {
   float: left;
   width: 50%;
 }
-#unittypecount {
+#unittypecount,
+#unittypecount1 {
   margin: 20px;
   margin-right: 0;
 }

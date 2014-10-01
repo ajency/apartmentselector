@@ -55,16 +55,30 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div>
 
                         <div class="introTxt text-center">
-                            <div id="tagslist2" class="taglist">
+                            <div>
+                                <a class="special bold hidden" id="filterModal">Additional Filters</a>
+                            </div>
+
+                            View:
+                            <div id="" class="taglist2">
                               <ul></ul>
                             </div>
-                            <a class="special hidden" id="filterModal">Additional Filters</a>
+
+                            Entrance:
+                            <div id="" class="taglist2">
+                              <ul></ul>
+                            </div>
+
+                            Terrace:
+                            <div id="" class="taglist2">
+                              <ul></ul>
+                            </div>
                         </div>
 
                         
                     </div>
 
-                    <div class="row m-l-0 m-r-0 bgClass">
+                    <div class="row m-l-0 m-r-0 m-t-20 bgClass">
 
                         <div class="col-md-5 col-lg-4">
                             
@@ -98,7 +112,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
                     </div>
 
-                    <div class="specialFilter" style="display:none;">
+                    <div class="specialFilter">
                         <div class="bgClass">
                             <h3 class="text-center light">Choose from the options below to filter your selection</h3>
                             <div class="row m-l-0 m-r-0 filterBlock">
@@ -111,7 +125,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <div class="clearfix"></div>
                                 </div>
 
-                                <div class="col-sm-4 b-r b-grey">
+                                <div class="col-sm-3 b-r b-grey">
                                     <h4 class="bold blockTitle">Entrance</h4>
                                         {{#facings}}
                                     <div class="filterBox"> <input type="checkbox" name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
@@ -119,7 +133,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <div class="clearfix"></div>
                                 </div>
 
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <h4 class="bold blockTitle">Terrace</h4>
                                      {{#terrace}}   
                                     <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
