@@ -58,7 +58,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                         <div class="special introTxt text-center hidden">
                             <div>
-                                <a class="special bold hidden" id="filterModal">Additional Filters</a>
+                                Click <a class="special bold hidden" id="filterModal">here</a> to set <span class="bold"> Additional Filters</span>
                             </div>
 
                             View:
@@ -142,8 +142,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
                                     {{/terrace}}  
                                 </div>
-                              <div id="filtermsg"></div>  
                             </div>
+                              <div id="filtermsg" class="alrtMsg animated pulse"></div>  
 
                             <h4 id="unittypecount" class="text-center"></h4>
 

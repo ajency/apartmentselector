@@ -59,7 +59,7 @@ define [ 'marionette' ], ( Marionette )->
 
                     <div class="special introTxt text-center hidden ">
                         <div>
-                            <a class="special bold hidden" id="filterModalscren3">Additional Filters</a>
+                            Click <a class="special bold hidden" id="filterModalscren3">here</a> to set <span class="bold"> Additional Filters</span>
                         </div>
                         
                         View:
@@ -135,8 +135,9 @@ define [ 'marionette' ], ( Marionette )->
                                     <div class="filterBox"> <input type="checkbox" name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
                                     {{/terrace}}  
                                 </div>
-                                <div id="filtermsg1"></div>
                             </div>
+                            
+                            <div id="filtermsg1" class="alrtMsg animated pulse"></div>
 
                             <h4 id="unittypecount1" class="text-center"></h4>
 

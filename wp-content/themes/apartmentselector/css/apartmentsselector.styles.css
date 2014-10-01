@@ -10519,6 +10519,30 @@ a.special {
 .blockTitle {
   color: #999999;
 }
+.alrtMsg {
+  margin: auto;
+  font-family: 'kievit';
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+  width: 40%;
+  color: #d9534f;
+}
+.alrtMsg small,
+.alrtMsg .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+.alrtMsg small,
+.alrtMsg .small {
+  font-size: 75%;
+}
 /**** Responsive Table Styles ****/
 .unitTable {
   width: 100%;
