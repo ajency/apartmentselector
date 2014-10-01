@@ -196,7 +196,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
                 if value!='All' 
-                    if  index != 'unitVariant' &&  index != 'view' && index != 'facing' && index != 'apartment_views' && index != 'terrace'
+                    if  index != 'unitVariant' 
                         myArray.push({key:index,value:value})
 
             )
@@ -382,6 +382,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             usermodel = new Backbone.Model USER
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+                units = App.currentStore.unit
                 units.each (item)->
                     if item.get('apartment_views') != ""
                         $.merge(viewtemp,item.get('apartment_views'))

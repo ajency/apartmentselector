@@ -8,7 +8,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     rangeArray =[]
     tagsArray = []
     count = 0
-    object = ""
     unitVariants = []
     cloneunitVariantArrayColl = ""
     
@@ -836,6 +835,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 )
                 $('#unittypecount').html unittypetext
                 $('.viewname').on('click' , (e)->
+                        App.layout.screenThreeRegion.el.innerHTML = ""
+                        App.layout.screenFourRegion.el.innerHTML = ""
+                        $('#screen-three-region').removeClass 'section'
+                        $('#screen-four-region').removeClass 'section' 
+                        screentwoArray  = App.backFilter['screen2']
+                        for element in screentwoArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                        screenthreeArray  = App.backFilter['screen3']
+                        for element in screenthreeArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                        App.navigate "screen-two"
+                            
                         mainnewarr =  []
                         mainunique = {}
                         console.log 'click'
@@ -955,6 +970,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         $('#unittypecount').html unittypetext
                 )
                 $('.terrace').on('click' , (e)->
+                        App.layout.screenThreeRegion.el.innerHTML = ""
+                        App.layout.screenFourRegion.el.innerHTML = ""
+                        $('#screen-three-region').removeClass 'section'
+                        $('#screen-four-region').removeClass 'section' 
+                        screentwoArray  = App.backFilter['screen2']
+                        for element in screentwoArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                        screenthreeArray  = App.backFilter['screen3']
+                        for element in screenthreeArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                        App.navigate "screen-two"
                         mainnewarr =  []
                         mainunique = {}
                         App.currentStore.unit.reset UNITS
@@ -1074,6 +1104,21 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
                 $('.facing').on('click' , (e)->
+                        App.layout.screenThreeRegion.el.innerHTML = ""
+                        App.layout.screenFourRegion.el.innerHTML = ""
+                        $('#screen-three-region').removeClass 'section'
+                        $('#screen-four-region').removeClass 'section' 
+                        screentwoArray  = App.backFilter['screen2']
+                        for element in screentwoArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                        screenthreeArray  = App.backFilter['screen3']
+                        for element in screenthreeArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                        App.navigate "screen-two"
                         mainnewarr =  []
                         mainunique = {}
                         console.log entrance
@@ -1198,22 +1243,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             $('.specialFilter').empty()
                             $('.specialFilter').addClass 'hidden'
                             $('.b-modal').addClass 'hidden'
-                            App.layout.screenThreeRegion.el.innerHTML = ""
-                            App.layout.screenFourRegion.el.innerHTML = ""
-                            $('#screen-three-region').removeClass 'section'
-                            $('#screen-four-region').removeClass 'section' 
-                            screentwoArray  = App.backFilter['screen2']
-                            for element in screentwoArray
-                                key = App.defaults.hasOwnProperty(element)
-                                if key == true
-                                    App.defaults[element] = 'All'
-                            screenthreeArray  = App.backFilter['screen3']
-                            for element in screenthreeArray
-                                key = App.defaults.hasOwnProperty(element)
-                                if key == true
-                                    App.defaults[element] = 'All'
-                            App.navigate "screen-two"
-                            #$("script[src='../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js']").remove()
+                            console.log 'ffdfdfsf'
+
                             object.trigger 'unit:variants:selected'
                 )
                 $('#cancelpopup').on('click' , (e)->
