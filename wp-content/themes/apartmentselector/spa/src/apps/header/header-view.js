@@ -96,15 +96,7 @@ define(['marionette'], function(Mariontte) {
     };
 
     HeaderView.prototype.onShow = function() {
-      var body, capability, cookieOldValue, disableOther, flag, menuRight, menuTop, showRightPush, textString, usermodel;
-      usermodel = new Backbone.Model(USER);
-      capability = usermodel.get('all_caps');
-      if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
-        console.log("222");
-        $('#showTop').removeClass('hidden');
-      } else {
-        $('#showTop').hide();
-      }
+      var body, cookieOldValue, disableOther, flag, menuRight, menuTop, showRightPush, textString;
       textString = Marionette.getOption(this, 'textString');
       $('#textstring').html(textString);
       flag = 0;

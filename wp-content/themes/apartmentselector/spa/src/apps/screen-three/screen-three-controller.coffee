@@ -317,11 +317,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             flag++
                     else if value.key != 'floor'
                         tempnew = []
-                        console.log value.key
+                        
                         if value.key == 'view' ||  value.key == 'apartment_views'
                             tempnew = []
                             value.key = 'apartment_views'
-                            console.log tempnew = value1.get(value.key)
+                            tempnew = value1.get(value.key)
                             if tempnew != ""
                                 tempnew = tempnew.map((item)->
                                     return parseInt(item))
@@ -391,7 +391,6 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if item.get('facing').length != 0
                             $.merge(facingtemp,item.get('facing'))
                         if item.get('terrace') != ""
-                            console.log item.get('terrace')
                             terracetemp.push item.get('terrace')
 
 
@@ -446,9 +445,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 buildingvalue = _.max(unitsArray,  (model)->
                     model.count
                 )
-                console.log buildingvalue = buildingvalue.id
-            console.log units1 = new Backbone.Collection floorUnitsArray
-            console.log unitsCollection = units1.where({building:parseInt(buildingvalue)})
+                buildingvalue = buildingvalue.id
+            units1 = new Backbone.Collection floorUnitsArray
+            unitsCollection = units1.where({building:parseInt(buildingvalue)})
             $.each(unitsCollection, (index,value)->
                     if floorArray.indexOf(value.get 'floor') ==  -1
                         floorArray.push value.get 'floor'
@@ -479,7 +478,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 floorColl1 = _.reject(floorUnitsArray, (model)->
                         return model.get('unitType') == 14 || model.get('unitType') == 16
                     )
-                console.log floorColl =  new Backbone.Collection floorColl1
+                floorColl =  new Backbone.Collection floorColl1
                 if App.defaults['building'] == "All"
                      
                     unitAssgendModels = floorColl.where({unitAssigned:value,building:buildingvalue})
@@ -520,11 +519,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                                 flag++
                         else if value.key != 'floor'
                             tempnew = []
-                            console.log value.key
+                            
                             if value.key == 'view' ||  value.key == 'apartment_views'
                                 tempnew = []
                                 value.key = 'apartment_views'
-                                console.log tempnew = value1.get(value.key)
+                                tempnew = value1.get(value.key)
                                 if tempnew != ""
                                     tempnew = tempnew.map((item)->
                                         return parseInt(item))
@@ -580,13 +579,13 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 a.id - b.id
 
             )
-            console.log unitArray
-            console.log maxvalue = _.max(unitArray,  (model)->
+            
+            maxvalue = _.max(unitArray,  (model)->
                 model.count
             )
             newunitCollection = new Backbone.Collection unitArray
             buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
-            console.log buildingCollection = new Backbone.Collection buildingModel
+            buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
             [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue,viewModels,facingModels,viewID,facingID,terraceModels,terraceID]
 

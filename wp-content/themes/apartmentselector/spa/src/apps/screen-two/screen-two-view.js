@@ -48,7 +48,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       'mouseover a.tower-link': function(e) {
         var buildigmodel, countunits, currency, floorCollunits, floorUnitsArray, floorarray, id, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext;
         id = e.target.id;
-        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        str1 = id.replace(/[^\d.]/g, '');
         floorUnitsArray = [];
         myArray = [];
         buildigmodel = App.master.building.findWhere({
@@ -71,7 +71,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         unitslen = App.master.unit.where({
           'status': status.get('id')
         });
-        console.log(myArray);
         floorCollunits = [];
         $.each(unitslen, function(index, value1) {
           var flag;
@@ -99,11 +98,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             } else {
               tempnew = [];
-              console.log(value.key);
               if (value.key === 'view' || value.key === 'apartment_views') {
                 tempnew = [];
                 value.key = 'apartment_views';
-                console.log(tempnew = value1.get(value.key));
+                tempnew = value1.get(value.key);
                 if (tempnew !== "") {
                   tempnew = tempnew.map(function(item) {
                     return parseInt(item);
@@ -174,7 +172,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             name: unitTypemodel.get('name')
           });
         });
-        console.log(mainunitTypeArray1);
         $.each(mainunitTypeArray1, function(key, item) {
           var classname;
           if (!mainunique[item.id]) {
@@ -215,11 +212,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           min = "";
           text = "<span></span>";
           if (countunits.length > 0) {
-            console.log(minmodel = _.min(countunits, function(model) {
+            minmodel = _.min(countunits, function(model) {
               if (model.get('unitType') !== 14 && model.get('unitType') !== 16) {
                 return model.get('unitPrice');
               }
-            }));
+            });
             $('#currency1').autoNumeric('init');
             $('#currency1').autoNumeric('set', minmodel.get('unitPrice'));
             currency = $('#currency1').val();
@@ -281,8 +278,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .tower-link': function(e) {
         var buildigmodel, element, floorColl, floorCollunits, floorUnitsArray, id, key, locationData, myArray, params, screenthreeArray, screentwoArray, status, str1, text, units, unitslen, _i, _j, _len, _len1;
-        console.log(id = e.target.id);
-        console.log(str1 = id.replace(/[^\d.]/g, ''));
+        id = e.target.id;
+        str1 = id.replace(/[^\d.]/g, '');
         buildigmodel = App.master.building.findWhere({
           id: parseInt(str1)
         });
@@ -332,11 +329,10 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             } else {
               tempnew = [];
-              console.log(value.key);
               if (value.key === 'view' || value.key === 'apartment_views') {
                 tempnew = [];
                 value.key = 'apartment_views';
-                console.log(tempnew = value1.get(value.key));
+                tempnew = value1.get(value.key);
                 if (tempnew !== "") {
                   tempnew = tempnew.map(function(item) {
                     return parseInt(item);
@@ -385,7 +381,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         units = floorColl.where({
           building: parseInt(str1)
         });
-        console.log(units.length);
         if (units.length !== 0) {
           App.layout.screenThreeRegion.el.innerHTML = "";
           App.layout.screenFourRegion.el.innerHTML = "";
@@ -411,7 +406,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
-          console.log(App.defaults);
           App.filter(params = {});
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
@@ -457,7 +451,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             unitVariantString = unitVariantArray.join(',');
           }
         }
-        console.log(unitVariantString);
         if (unitVariantString === "All") {
           return $('#selectall').prop('checked', true);
         } else {
@@ -713,7 +706,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           }
         });
-        console.log(mainnewarr);
         unittypetext = "";
         $.each(mainnewarr, function(index, value) {
           return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -744,10 +736,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.navigate("screen-two");
           mainnewarr = [];
           mainunique = {};
-          console.log('click');
           viewnames = originalviews;
           viewString = 'All';
-          console.log(view.length);
           if ($('#' + e.target.id).prop('checked') === true) {
             view.push($('#' + e.target.id).val());
           } else {
@@ -779,7 +769,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
-          console.log(floorCollection.length);
           facingtemp = [];
           floorCollection.each(function(item) {
             if (item.get('facing').length !== 0) {
@@ -795,8 +784,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           teracetemp = teracetemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqfacings = _.uniq(facingtemp));
-          console.log(uniqterrace = _.uniq(teracetemp));
+          uniqfacings = _.uniq(facingtemp);
+          uniqterrace = _.uniq(teracetemp);
           $.each(uniqfacings, function(index, value) {
             return $('#facing' + value).prop('checked', true);
           });
@@ -812,14 +801,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           } else {
             App.defaults['terrace'] = 'All';
           }
-          console.log(unselected = _.difference(clonefacings, uniqfacings));
+          unselected = _.difference(clonefacings, uniqfacings);
           $.each(unselected, function(index, value) {
             return $('#facing' + value).prop('checked', false);
           });
           $.each(uniqterrace, function(index, value) {
             return $('#terrace' + value).prop('checked', true);
           });
-          console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+          unselected1 = _.difference(cloneterraces, uniqterrace);
           $.each(unselected1, function(index, value) {
             return $('#terrace' + value).prop('checked', false);
           });
@@ -866,7 +855,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             }
           });
-          console.log(mainnewarr);
           unittypetext = "";
           $.each(mainnewarr, function(index, value) {
             return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -875,7 +863,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         $('.terrace').on('click', function(e) {
           var element, facingtemp, first, index, key, screenthreeArray, screentwoArray, uniqfacings, uniqviews, units, unselected, unselected1, viewtemp, _i, _j, _len, _len1;
-          console.log(teraace.length);
           App.layout.screenThreeRegion.el.innerHTML = "";
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
@@ -916,7 +903,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           }
           if (teraace.length === 0) {
-            console.log(first = _.first(originalOterraces));
+            first = _.first(originalOterraces);
             teraace.push(first.id);
           }
           teraace = teraace.map(function(item) {
@@ -929,7 +916,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           }
           App.filter();
           units = App.currentStore.unit;
-          console.log(units.length);
           viewtemp = [];
           facingtemp = [];
           units.each(function(item) {
@@ -946,8 +932,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           facingtemp = facingtemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqviews = _.uniq(viewtemp));
-          console.log(uniqfacings = _.uniq(facingtemp));
+          uniqviews = _.uniq(viewtemp);
+          uniqfacings = _.uniq(facingtemp);
           if (uniqviews.length !== cloneviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
@@ -963,14 +949,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $.each(uniqviews, function(index, value) {
             return $('#view' + value).prop('checked', true);
           });
-          console.log(unselected1 = _.difference(cloneviews, uniqviews));
+          unselected1 = _.difference(cloneviews, uniqviews);
           $.each(unselected1, function(index, value) {
             return $('#view' + value).prop('checked', false);
           });
           $.each(uniqfacings, function(index, value) {
             return $('#facing' + value).prop('checked', true);
           });
-          console.log(unselected = _.difference(clonefacings, uniqfacings));
+          unselected = _.difference(clonefacings, uniqfacings);
           $.each(unselected, function(index, value) {
             return $('#facing' + value).prop('checked', false);
           });
@@ -1017,7 +1003,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             }
           });
-          console.log(mainnewarr);
           unittypetext = "";
           $.each(mainnewarr, function(index, value) {
             return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -1049,7 +1034,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.navigate("screen-two");
           mainnewarr = [];
           mainunique = {};
-          console.log(entrance);
           if ($('#' + e.target.id).prop('checked') === true) {
             entrance.push($('#' + e.target.id).val());
           } else {
@@ -1069,12 +1053,11 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           entrance = entrance.map(function(item) {
             return parseInt(item);
           });
-          console.log(entrance = _.uniq(entrance));
+          entrance = _.uniq(entrance);
           if (entrance.length !== 0) {
             facingString = entrance.join(',');
           }
           App.defaults['facing'] = facingString;
-          console.log(clonefacings.length);
           if (clonefacings.length === entrance.length) {
             App.defaults['facing'] = 'All';
           }
@@ -1085,7 +1068,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
-          console.log(floorCollection.length);
           viewtemp = [];
           floorCollection.each(function(item) {
             if (item.get('apartment_views').length !== 0) {
@@ -1101,8 +1083,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           teracetemp = teracetemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqviews = _.uniq(viewtemp));
-          console.log(uniqterrace = _.uniq(teracetemp));
+          uniqviews = _.uniq(viewtemp);
+          uniqterrace = _.uniq(teracetemp);
           if (uniqviews.length !== cloneviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
@@ -1118,14 +1100,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $.each(uniqviews, function(index, value) {
             return $('#view' + value).prop('checked', true);
           });
-          console.log(unselected = _.difference(cloneviews, uniqviews));
+          unselected = _.difference(cloneviews, uniqviews);
           $.each(unselected, function(index, value) {
             return $('#view' + value).prop('checked', false);
           });
           $.each(uniqterrace, function(index, value) {
             return $('#terrace' + value).prop('checked', true);
           });
-          console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+          unselected1 = _.difference(cloneterraces, uniqterrace);
           $.each(unselected1, function(index, value) {
             return $('#terrace' + value).prop('checked', false);
           });
@@ -1172,7 +1154,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             }
           });
-          console.log(mainnewarr);
           unittypetext = "";
           $.each(mainnewarr, function(index, value) {
             return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -1224,8 +1205,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
       }
       unitVariantString = "";
-      console.log(App.defaults['unitVariant']);
-      console.log(unitVariantString);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
         $('#selectall').prop('checked', true);
       } else {
@@ -1529,7 +1508,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       if (index >= 0) {
         viewtagsArray.splice(index, 1);
         $('#li-viewitem-' + delnum).remove();
-        console.log(viewtagsArray);
         viewarrayValues = [];
         $.each(viewtagsArray, function(index, value) {
           return viewarrayValues.push(value.id);
@@ -1833,7 +1811,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             App.backFilter['screen2'].push('building');
             $('#screen-two-button').removeClass('disabled btn-default');
             $("#screen-two-button").addClass('btn-primary');
-            console.log(App.defaults);
             this.trigger('unit:count:selected');
           } else {
             rangeArray = [];

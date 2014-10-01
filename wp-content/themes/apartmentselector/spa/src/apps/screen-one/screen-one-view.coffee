@@ -35,7 +35,6 @@ define [ 'marionette' ], ( Marionette )->
                 if  parseInt($("#check"+@model.get 'id').val()) == 0
                     $('#unittype'+@model.get("id")+' a' ).addClass 'selected'
                     App.defaults['unitType'] = 'All'
-                    console.log unitType
                     for element , index in unitType
                         $("#check"+element).val '0'
                         $('#unittype'+element+' a' ).removeClass 'selected'
@@ -168,7 +167,7 @@ define [ 'marionette' ], ( Marionette )->
 
                     )
                 if $(".cs-placeholder").text() != 'Choose a budget'
-                    console.log budget_val = $(".cs-selected").text().split(' ')
+                    budget_val = $(".cs-selected").text().split(' ')
                     if(budget_val[1]=='lakhs')
                         budget_price = budget_val[0].split('-')
                         budget_price[0] = budget_price[0] + ('00000')
@@ -359,12 +358,10 @@ define [ 'marionette' ], ( Marionette )->
                     if App.defaults[element] != 'All'
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
-                            console.log App.defaults[element]
                             myArray.push({key:element,value:App.defaults[element]})
                 
                 status = App.master.status.findWhere({'name':'Available'})
                 unitslen = App.master.unit.where({'status':status.get('id')})
-                console.log myArray
                 floorCollunits = []
                 $.each(unitslen, (index,value1)->
                     flag = 0
@@ -429,7 +426,6 @@ define [ 'marionette' ], ( Marionette )->
                     unitTypemodel = App.master.unit_type.findWhere({id:value.get 'unitType'})
                     mainunitTypeArray1.push({id:unitTypemodel.get('id'),name: unitTypemodel.get('name')})
                 )
-                console.log mainunitTypeArray1
                 $.each(mainunitTypeArray1, (key,item)->
                     if (!mainunique[item.id])
                         if item.id != 14 && item.id != 16
@@ -447,7 +443,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
                 )
-                console.log mainnewarr
                 unittypetext = ""
                 countunits = units.where({building:parseInt(str1)})
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
@@ -458,7 +453,7 @@ define [ 'marionette' ], ( Marionette )->
                     min = ""
                     text = "<span></span>"
                     if countunits.length > 0
-                        console.log minmodel = _.min(countunits, (model)->
+                        minmodel = _.min(countunits, (model)->
                             if model.get('unitType') != 14 && model.get('unitType') != 16
                                 return model.get('unitPrice')
                         )

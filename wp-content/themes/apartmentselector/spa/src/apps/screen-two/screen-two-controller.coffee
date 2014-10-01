@@ -53,7 +53,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
         showUpdateBuildings:->
-            console.log "eeeeeee"
+            
             @Collection = @_getUnitsCountCollection()
 
 
@@ -285,7 +285,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         myArray.push({key:index,value:value})
 
             )
-            console.log myArray
+            
             status = App.master.status.findWhere({'name':'Available'})
             unitslen = App.currentStore.unit.where({'status':status.get('id')})
             unitslen1 = App.master.unit.where({'status':status.get('id')})
@@ -330,11 +330,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                             flag++
                     else if value.key != 'floor'
                         tempnew = []
-                        console.log value.key
                         if value.key == 'view' ||  value.key == 'apartment_views'
                             tempnew = []
                             value.key = 'apartment_views'
-                            console.log tempnew = value1.get(value.key)
+                            tempnew = value1.get(value.key)
                             if tempnew != ""
                                 tempnew = tempnew.map((item)->
                                     return parseInt(item))
@@ -374,7 +373,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
             )
             
-            console.log floorCollection = new Backbone.Collection(floorCollunits)
+            floorCollection = new Backbone.Collection(floorCollunits)
             unitvariant = floorCollection.pluck("unitVariant")
             uniqUnitvariant = _.uniq(unitvariant)
             unitVariantModels = []
@@ -398,7 +397,6 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if item.get('facing').length != 0
                             $.merge(facingtemp,item.get('facing'))
                         if item.get('terrace') != ""
-                            console.log item.get('terrace')
                             terracetemp.push item.get('terrace')
 
 
@@ -433,7 +431,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             )
-            console.log unitVariantModels.length
+            
             unitVariantModels.sort( (a,b)->
                 a.id - b.id
 

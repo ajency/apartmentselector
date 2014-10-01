@@ -139,7 +139,6 @@ define(['extm', 'src/apps/screen-one/screen-one-view'], function(Extm, ScreenOne
         });
         i++;
       }
-      console.log(rangeArray);
       collection.add(modelArray);
       newUnits = App.currentStore.unit.where();
       return [collection, rangeArray];

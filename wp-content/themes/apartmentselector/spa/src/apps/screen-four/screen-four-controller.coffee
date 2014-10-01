@@ -66,7 +66,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                 floorLayoutimage = ""
                 $.each(exceptionObject, (index,value1)->
                     floorvalue = $.inArray( value.get('floor'),value1.floors)
-                    console.log floorvalue
                     if floorvalue == -1
                         floorLayoutimage = building.get('floor_layout_detailed').image_url
                     else
@@ -168,7 +167,6 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                         rangeArrayVal[i] = start
                         start = parseInt(start) + 1
                         i++
-                    console.log rangeArrayVal
                     rangename = ""
                     if jQuery.inArray(parseInt(value.get('floor')),rangeArrayVal) >= 0
                         if value.name1 == "medium"
@@ -176,7 +174,7 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
                         else
                             rangename = value1.name
                     
-                        console.log rangename = _.str.capitalize rangename
+                        rangename = _.str.capitalize rangename
                         value.set "flooRange" ,rangename+'rise'
 
 

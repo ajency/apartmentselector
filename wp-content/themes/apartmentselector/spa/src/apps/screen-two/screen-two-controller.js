@@ -53,7 +53,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
     };
 
     ScreenTwoController.prototype.showUpdateBuildings = function() {
-      console.log("eeeeeee");
       this.Collection = this._getUnitsCountCollection();
       this.layout = new ScreenTwoView.ScreenTwoLayout({
         collection: this.Collection[1],
@@ -284,7 +283,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           }
         }
       });
-      console.log(myArray);
       status = App.master.status.findWhere({
         'name': 'Available'
       });
@@ -335,11 +333,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             }
           } else if (value.key !== 'floor') {
             tempnew = [];
-            console.log(value.key);
             if (value.key === 'view' || value.key === 'apartment_views') {
               tempnew = [];
               value.key = 'apartment_views';
-              console.log(tempnew = value1.get(value.key));
+              tempnew = value1.get(value.key);
               if (tempnew !== "") {
                 tempnew = tempnew.map(function(item) {
                   return parseInt(item);
@@ -384,7 +381,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           return floorCollunits.push(value1);
         }
       });
-      console.log(floorCollection = new Backbone.Collection(floorCollunits));
+      floorCollection = new Backbone.Collection(floorCollunits);
       unitvariant = floorCollection.pluck("unitVariant");
       uniqUnitvariant = _.uniq(unitvariant);
       unitVariantModels = [];
@@ -409,7 +406,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             $.merge(facingtemp, item.get('facing'));
           }
           if (item.get('terrace') !== "") {
-            console.log(item.get('terrace'));
             return terracetemp.push(item.get('terrace'));
           }
         });
@@ -462,7 +458,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         return unitVariantID.push(parseInt(unitVarinatModel.get('id')));
       });
-      console.log(unitVariantModels.length);
       unitVariantModels.sort(function(a, b) {
         return a.id - b.id;
       });

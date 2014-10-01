@@ -11,22 +11,19 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
         _getPopupView:(Collection)->
-            console.log Collection
             new PopupView
                 collection : Collection
 
 
 
         _getUnitsCountCollection:(modelstring)->
-            console.log modelstring
-            console.log cookeArray = modelstring
+            cookeArray = modelstring
             unitModelArray = []
-            console.log cookeArray.length
             floorLayoutimage = ""
             if cookeArray.length != 0
                 for element in cookeArray
-                    console.log unitModel = element
-                    console.log buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
+                    unitModel = element
+                    buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
                     exceptionObject = buildingModel.get 'floorexceptionpositions'
                     $.each(exceptionObject, (index,value1)->
                         floorvalue = $.inArray( unitModel.get('floor'),value1.floors)
@@ -60,14 +57,12 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                             rangeArrayVal[i] = start
                             start = parseInt(start) + 1
                             i++
-                        console.log rangeArrayVal
                         rangename = ""
                         if jQuery.inArray(parseInt(unitModel.get('floor')),rangeArrayVal) >= 0
                             if value.name == "medium"
                                 rangename = "mid"
                             else
                                 rangename = value.name
-                            console.log rangename
                             rangename = _.str.capitalize rangename
                             unitModel.set "flooRange" ,rangename+'rise'
 
@@ -86,10 +81,8 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     unitModel.set 'TwoDimage' , unitVariantModel.get('url2dlayout_image')
                     unitModel.set 'ThreeDimage' , unitVariantModel.get('url3dlayout_image')
                     unitModel.set 'floorLayoutimage' , floorLayoutimage
-                    console.log unitModel.get('views_name')
                     if unitModel.get('views_name') != ""
                         viewsArray = unitModel.get('views_name')
-                        console.log viewsArray.length
                         for element in viewsArray
                             viewModel = App.master.view.findWhere({id:parseInt(element)})
                             viewModelArray.push(viewModel.get('name'))
@@ -110,8 +103,6 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     roomsizearray = []
                     roomTypeArr = [68,71,72,70,66]
                     roomSizesArray = $.map(roomSizesObject, (index,value1)->
-                        console.log index
-                        console.log value1
                         [index]
 
 
@@ -126,14 +117,12 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
                     unitModel.set 'terraceoptions','with '+terraceoptionstext
                     terraceoptions = 'with '+terraceoptionstext
-                    console.log roomSizesArray
                     roomsizearr = []
                     mainArr = []
-                    console.log roomsizesCollection = new Backbone.Collection roomSizesArray
+                    roomsizesCollection = new Backbone.Collection roomSizesArray
                     $.each(roomTypeArr, (ind,val)->
                         roomsizearr = []
-                        console.log val
-                        console.log roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
+                        roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
                         ii = 0
                         if parseInt(val) == 70
                             if ii > 0
@@ -161,13 +150,13 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
                         )
                         
-                    console.log mainArr
+                    
                     unitModel.set 'mainArr',mainArr
                     
 
                     
                     unitModelArray.push(unitModel)
-                console.log unitModelArray
+                
                 unitCollection = new Backbone.Collection unitModelArray
                 
                 @view = view = @_getPopupView unitCollection
@@ -175,14 +164,13 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
         getAjaxData:->
-            console.log localStorage.getItem("cookievalue" )
-            console.log cookeArray = localStorage.getItem("cookievalue" ).split(',')
+            cookeArray = localStorage.getItem("cookievalue" ).split(',')
             unitModelArray = []
             modelArray = []
             i = 0
             if cookeArray.length != 0
                 for element in cookeArray
-                    console.log unitModel = App.master.unit.findWhere({id:parseInt(element)})
+                    unitModel = App.master.unit.findWhere({id:parseInt(element)})
                     object = @
                     $.ajax(
                         method: "POST" ,
@@ -190,23 +178,18 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                         data : 'id='+unitModel.get('id'),
                         success :(result)-> 
                             i++
-                            console.log unitModel1 = App.master.unit.findWhere({id:parseInt(result.id)})
-                            console.log result
-                            console.log unitModel1
+                            unitModel1 = App.master.unit.findWhere({id:parseInt(result.id)})
                             unitModel1.set 'persqftprice' , result.persqftprice
                             unitModel1.set 'views_name' , result.views
                             unitModel1.set 'facing_name' , result.facings
-                            console.log unitModel1
                             modelArray.push unitModel1
                             if i == cookeArray.length
-                                console.log modelArray
                                 object._getUnitsCountCollection(modelArray)
                         error:(result)->
 
                     )
 
-                console.log i
-                console.log cookeArray.length
+                
                 
 
 

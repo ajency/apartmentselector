@@ -78,7 +78,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         $.each(exceptionObject, function(index, value1) {
           var floorvalue;
           floorvalue = $.inArray(value.get('floor'), value1.floors);
-          console.log(floorvalue);
           if (floorvalue === -1) {
             return floorLayoutimage = building.get('floor_layout_detailed').image_url;
           } else {
@@ -160,7 +159,6 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             start = parseInt(start) + 1;
             i++;
           }
-          console.log(rangeArrayVal);
           rangename = "";
           if (jQuery.inArray(parseInt(value.get('floor')), rangeArrayVal) >= 0) {
             if (value.name1 === "medium") {
@@ -168,7 +166,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
             } else {
               rangename = value1.name;
             }
-            console.log(rangename = _.str.capitalize(rangename));
+            rangename = _.str.capitalize(rangename);
             return value.set("flooRange", rangename + 'rise');
           }
         });

@@ -33,7 +33,6 @@ define(['marionette'], function(Marionette) {
         if (parseInt($("#check" + this.model.get('id')).val()) === 0) {
           $('#unittype' + this.model.get("id") + ' a').addClass('selected');
           App.defaults['unitType'] = 'All';
-          console.log(unitType);
           for (index = _i = 0, _len = unitType.length; _i < _len; index = ++_i) {
             element = unitType[index];
             $("#check" + element).val('0');
@@ -190,7 +189,7 @@ define(['marionette'], function(Marionette) {
         return _results;
       });
       if ($(".cs-placeholder").text() !== 'Choose a budget') {
-        console.log(budget_val = $(".cs-selected").text().split(' '));
+        budget_val = $(".cs-selected").text().split(' ');
         if (budget_val[1] === 'lakhs') {
           budget_price = budget_val[0].split('-');
           budget_price[0] = budget_price[0] + '00000';
@@ -364,7 +363,6 @@ define(['marionette'], function(Marionette) {
           if (App.defaults[element] !== 'All') {
             key = App.defaults.hasOwnProperty(element);
             if (key === true) {
-              console.log(App.defaults[element]);
               myArray.push({
                 key: element,
                 value: App.defaults[element]
@@ -378,7 +376,6 @@ define(['marionette'], function(Marionette) {
         unitslen = App.master.unit.where({
           'status': status.get('id')
         });
-        console.log(myArray);
         floorCollunits = [];
         $.each(unitslen, function(index, value1) {
           var flag;
@@ -462,7 +459,6 @@ define(['marionette'], function(Marionette) {
             name: unitTypemodel.get('name')
           });
         });
-        console.log(mainunitTypeArray1);
         $.each(mainunitTypeArray1, function(key, item) {
           var classname, count;
           if (!mainunique[item.id]) {
@@ -490,7 +486,6 @@ define(['marionette'], function(Marionette) {
             }
           }
         });
-        console.log(mainnewarr);
         unittypetext = "";
         countunits = units.where({
           building: parseInt(str1)
@@ -504,11 +499,11 @@ define(['marionette'], function(Marionette) {
           min = "";
           text = "<span></span>";
           if (countunits.length > 0) {
-            console.log(minmodel = _.min(countunits, function(model) {
+            minmodel = _.min(countunits, function(model) {
               if (model.get('unitType') !== 14 && model.get('unitType') !== 16) {
                 return model.get('unitPrice');
               }
-            }));
+            });
             $('#currency').autoNumeric('init');
             $('#currency').autoNumeric('set', minmodel.get('unitPrice'));
             currency = $('#currency').val();

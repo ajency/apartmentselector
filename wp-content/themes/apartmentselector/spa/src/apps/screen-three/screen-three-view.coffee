@@ -182,7 +182,6 @@ define [ 'marionette' ], ( Marionette )->
                 $('#printmapplic1').text ""
                 $('#towerview').text ""
                 id = parseInt(e.target.id)
-                console.log unitAssigedArray
                 for element , index in unitAssigedArray
                     if element == parseInt(id)
                         $('#'+element).attr('class','floor-pos position')
@@ -284,7 +283,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $("#"+e.target.id).attr('class','selected-flat')
                                 $("#"+temp1[ii]+flatid).attr('class','selected-flat')
                                 unit = indexvalue[parseInt(flatid)]
-                                console.log unitModel = App.master.unit.findWhere(id:parseInt(unit))
+                                unitModel = App.master.unit.findWhere(id:parseInt(unit))
                                 position = unitModel.get('unitAssigned')
                                 for element , index in unitAssigedArray
                                                     if element == parseInt(unitModel.get('unitAssigned'))
@@ -363,7 +362,7 @@ define [ 'marionette' ], ( Marionette )->
                         temp = ['f','ff']
                         temp1 = ['t','tt']
                         temp2 = ['c','cc']
-                console.log id = $('#'+e.target.id).attr('data-value')
+                id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
                 position = unitModel.get('unitAssigned')
@@ -423,7 +422,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
                                 )
-                                console.log e.target.id
                                 $("#"+e.target.id).attr('class','selected-flat')
                                 $("#"+temp1[ii]+flatid).attr('class','selected-flat')
 
@@ -442,7 +440,7 @@ define [ 'marionette' ], ( Marionette )->
                 )
                  
                 
-                console.log unitModel
+                
                 @trigger "load:range:data", unitModel
                 
 
@@ -642,8 +640,6 @@ define [ 'marionette' ], ( Marionette )->
                         ii = 0
                         $.each(value.svgposition, (index1,val1)->
                             
-                            console.log position
-                            console.log temp1[ii]
                             if parseInt(pos) == parseInt(val1)  
                                 $('#currency2').autoNumeric('init')
                                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
@@ -745,8 +741,6 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
-                console.log cloneunitVariantArrayColl.length
-                console.log unitVariantArray.length
                 if unitVariantString == "" || parseInt(cloneunitVariantArrayColl.length) == parseInt(unitVariantArray.length)
                     unitVariantString = "All"
                 App.defaults['unitVariant'] = unitVariantString
@@ -815,12 +809,12 @@ define [ 'marionette' ], ( Marionette )->
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
                 $('.special').removeClass 'hidden'
-                console.log originalviews  = Marionette.getOption( @, 'views' )
-                console.log originalOviews  = Marionette.getOption( @, 'Oviews' )
-                console.log originalfacings  = Marionette.getOption( @, 'facings' )
-                console.log originalOfacings  = Marionette.getOption( @, 'Ofacings' )
-                console.log originalterraces  = Marionette.getOption( @, 'terraceID' )
-                console.log originalOterraces  = Marionette.getOption( @, 'terrace' )
+                originalviews  = Marionette.getOption( @, 'views' )
+                originalOviews  = Marionette.getOption( @, 'Oviews' )
+                originalfacings  = Marionette.getOption( @, 'facings' )
+                originalOfacings  = Marionette.getOption( @, 'Ofacings' )
+                originalterraces  = Marionette.getOption( @, 'terraceID' )
+                originalOterraces  = Marionette.getOption( @, 'terrace' )
                 globalviews = []
                 globalviewInt = []
                 globalfacing = []
@@ -934,7 +928,6 @@ define [ 'marionette' ], ( Marionette )->
 
 
                     )
-                console.log mainnewarr
                 unittypetext = ""
                 $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -945,10 +938,9 @@ define [ 'marionette' ], ( Marionette )->
                 $('.viewname').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
-                        console.log 'click'
                         viewnames = originalviews
                         viewString = 'All'
-                        console.log view.length
+                        
                         
                         if $('#'+e.target.id).prop('checked') == true
                             view.push $('#'+e.target.id).val()
@@ -981,7 +973,6 @@ define [ 'marionette' ], ( Marionette )->
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
-                        console.log floorCollection.length
                         facingtemp = []
                         floorCollection.each ( item)->
                             if item.get('facing').length != 0
@@ -996,8 +987,8 @@ define [ 'marionette' ], ( Marionette )->
                             return parseInt(item)
 
                             )
-                        console.log uniqfacings = _.uniq(facingtemp)
-                        console.log uniqterrace = _.uniq(teracetemp)
+                        uniqfacings = _.uniq(facingtemp)
+                        uniqterrace = _.uniq(teracetemp)
                         $.each(uniqfacings, (index,value)->
                                 $('#screenfacing'+value).prop('checked',true)
 
@@ -1015,7 +1006,7 @@ define [ 'marionette' ], ( Marionette )->
                         else
                             App.defaults['terrace'] = 'All'
 
-                        console.log unselected = _.difference(clonefacings, uniqfacings);
+                        unselected = _.difference(clonefacings, uniqfacings);
                         $.each(unselected, (index,value)->
                                 $('#screenfacing'+value).prop('checked',false)
 
@@ -1024,7 +1015,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenterrace'+value).prop('checked',true)
 
                         )
-                        console.log unselected1 = _.difference(cloneterraces, uniqterrace);
+                        unselected1 = _.difference(cloneterraces, uniqterrace);
                         $.each(unselected1, (index,value)->
                                 $('#screenterrace'+value).prop('checked',false)
 
@@ -1053,7 +1044,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                         )
-                        console.log mainnewarr
+                        
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -1069,7 +1060,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('.terrace').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
-                        console.log teraace.length
+                        
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
@@ -1087,7 +1078,7 @@ define [ 'marionette' ], ( Marionette )->
                                 teraace.splice( index, 1 )
                                 
                         if teraace.length == 0
-                            console.log first = _.first(originalOterraces)
+                            first = _.first(originalOterraces)
                             teraace.push first.id
                         teraace = teraace.map((item)->
                             return parseInt(item))
@@ -1100,7 +1091,7 @@ define [ 'marionette' ], ( Marionette )->
                             
                         App.filter()
                         units = App.currentStore.unit
-                        console.log units.length
+                        
                         viewtemp = []
                         facingtemp = []
                         
@@ -1119,8 +1110,8 @@ define [ 'marionette' ], ( Marionette )->
 
                             )
                         
-                        console.log uniqviews = _.uniq(viewtemp)
-                        console.log uniqfacings = _.uniq(facingtemp)
+                        uniqviews = _.uniq(viewtemp)
+                        uniqfacings = _.uniq(facingtemp)
                         if uniqviews.length != cloneviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
@@ -1137,7 +1128,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenview'+value).prop('checked',true)
 
                         )
-                        console.log unselected1 = _.difference(cloneviews, uniqviews);
+                        unselected1 = _.difference(cloneviews, uniqviews);
                         $.each(unselected1, (index,value)->
                                 $('#screenview'+value).prop('checked',false)
 
@@ -1146,7 +1137,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenfacing'+value).prop('checked',true)
 
                         )
-                        console.log unselected = _.difference(clonefacings, uniqfacings);
+                        unselected = _.difference(clonefacings, uniqfacings);
                         $.each(unselected, (index,value)->
                                 $('#screenfacing'+value).prop('checked',false)
 
@@ -1175,7 +1166,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                         )
-                        console.log mainnewarr
+                        
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -1190,7 +1181,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('.facing').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
-                        console.log entrance
+                        
                         
                         if $('#'+e.target.id).prop('checked') == true
                             entrance.push $('#'+e.target.id).val()
@@ -1208,12 +1199,12 @@ define [ 'marionette' ], ( Marionette )->
                             entrance.push first.id
                         entrance = entrance.map((item)->
                             return parseInt(item))
-                        console.log entrance = _.uniq(entrance)
+                        entrance = _.uniq(entrance)
                         if entrance.length != 0
                             facingString = entrance.join(',')
                         App.defaults['facing'] = facingString
                         #App.backFilter['screen2'].push 'facing'
-                        console.log clonefacings.length
+                        
                         if clonefacings.length  == entrance.length
                             App.defaults['facing'] = 'All'
                             # entrance = originalfacings
@@ -1225,7 +1216,7 @@ define [ 'marionette' ], ( Marionette )->
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
-                        console.log floorCollection.length
+                        
                         viewtemp = []
                         floorCollection.each ( item)->
                             if item.get('apartment_views').length != 0
@@ -1238,8 +1229,8 @@ define [ 'marionette' ], ( Marionette )->
                             return parseInt(item)
 
                             )
-                        console.log uniqviews = _.uniq(viewtemp)
-                        console.log uniqterrace = _.uniq(teracetemp)
+                        uniqviews = _.uniq(viewtemp)
+                        uniqterrace = _.uniq(teracetemp)
                         if uniqviews.length != cloneviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
@@ -1256,7 +1247,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenview'+value).prop('checked',true)
 
                         )
-                        console.log unselected = _.difference(cloneviews, uniqviews);
+                        unselected = _.difference(cloneviews, uniqviews);
                         $.each(unselected, (index,value)->
                                 $('#screenview'+value).prop('checked',false)
 
@@ -1265,7 +1256,7 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenterrace'+value).prop('checked',true)
 
                         )
-                        console.log unselected1 = _.difference(cloneterraces, uniqterrace);
+                        unselected1 = _.difference(cloneterraces, uniqterrace);
                         $.each(unselected1, (index,value)->
                                 $('#screenterrace'+value).prop('checked',false)
 
@@ -1294,7 +1285,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                         )
-                        console.log mainnewarr
+                        
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -1314,7 +1305,7 @@ define [ 'marionette' ], ( Marionette )->
                             App.layout.screenFourRegion.el.innerHTML = ""
                             $('#screen-four-region').removeClass 'section' 
                             App.navigate "screen-three"
-                            console.log object
+                            
                             object.trigger 'unit:variants:selected'
                 )
                 
@@ -1443,9 +1434,7 @@ define [ 'marionette' ], ( Marionette )->
                 )
             App.defaults['unitVariant'] = selectedArray.join(',')
             # App.backFilter['screen2'].push "unitVariant"
-            console.log selectedArray
             unitVariantString = ""
-            console.log unitVariantArray
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All" || selectedArray.length == unitVariantArray.length
                 $('#unselectall' ).prop 'checked', true
             else
@@ -1468,7 +1457,6 @@ define [ 'marionette' ], ( Marionette )->
             tagsArray = []
             testtext = App.defaults['unitVariant']
             if parseInt(selectedArray.length) != parseInt(unitVariantArray.length)
-                console.log selectedArray
                 unitVariantArrayText = selectedArray
                 $.each(unitVariantArrayText, (index,value)->
                     unitVariantModel = App.master.unit_variant.findWhere({id:parseInt(value)})
@@ -1496,7 +1484,6 @@ define [ 'marionette' ], ( Marionette )->
                     )
                 else
                     viewtagsArray.push({id:'All' , name : 'All'})
-                console.log viewtagsArray
                 @doViewListing()
 
                 entrancetagsArray = []
@@ -1562,14 +1549,14 @@ define [ 'marionette' ], ( Marionette )->
         
         loadbuildingsvg:->
 
-            console.log buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
             buildinArray = buildingCollection.toArray()
-            console.log building  = _.first(buildinArray)
+            building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgdata = buildingModel.get 'svgdata'
 
             floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url
-            console.log maxvalue  = Marionette.getOption( @, 'maxvalue' )
+            maxvalue  = Marionette.getOption( @, 'maxvalue' )
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if floor_layout_Basic != ""
                 path = floor_layout_Basic
@@ -1582,7 +1569,7 @@ define [ 'marionette' ], ( Marionette )->
         loadsvg:(floorid)->
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
             buildinArray = buildingCollection.toArray()
-            console.log building  = _.first(buildinArray)
+            building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             floorange = buildingModel.get('floorriserange')
             lowrange = floorange[0]
@@ -1619,26 +1606,21 @@ define [ 'marionette' ], ( Marionette )->
                         svgposition = value.svgfile
                         unitsarray = value.units
                         $('#positionsvg').load(svgposition,  (x)->
-                            console.log value.svgposition
                             value.svgposition.sort( (a,b)->
                                 b - a
 
                                 )
-                            console.log value.svgposition
                             $.each(value.svgposition, (index1,val1)->
                                 indexvalue = unitsarray[val1]
                                 
                                     
                                 $.map(indexvalue, (index,value)->
-                                            console.log temp[ii]
                                             $('#'+temp[ii]+value).attr('class', 'unselected-floor')
                                             $('#'+temp[ii]+value).attr('data-value', index)
                                             $('#'+temp[ii]+value).attr('data-idvalue', temp[ii])
                                             
                                 )
                                 $.map(indexvalue, (index1,value1)->
-                                            console.log floorid
-                                            console.log val1
                                             if App.defaults['floor'] != "All"
                                                 floorArr  = App.defaults['floor'].split(',')
                                                 if floorid == val1
@@ -1713,11 +1695,10 @@ define [ 'marionette' ], ( Marionette )->
                         flag++
                 else if value.key != 'floor'
                         tempnew = []
-                        console.log value.key
                         if value.key == 'view' ||  value.key == 'apartment_views'
                             tempnew = []
                             value.key = 'apartment_views'
-                            console.log tempnew = model.get(value.key)
+                            tempnew = model.get(value.key)
                             if tempnew != ""
                                 tempnew = tempnew.map((item)->
                                     return parseInt(item))
@@ -1760,7 +1741,7 @@ define [ 'marionette' ], ( Marionette )->
         
         onShowRangeData:(unitModel,collection)->
             $('#floorsvg').text ""
-            console.log unitModel
+            
 
             position = unitModel.get('unitAssigned')
             object = @
@@ -1784,7 +1765,6 @@ define [ 'marionette' ], ( Marionette )->
             floorLayoutimage = ""
             $.each(exceptionObject, (index,value1)->
                     floorvalue = $.inArray( unitModel.get('floor'),value1.floors)
-                    console.log floorvalue
                     if floorvalue == -1
                         floorLayoutimage = building.get('floor_layout_basic').image_url
                     else
@@ -1811,8 +1791,6 @@ define [ 'marionette' ], ( Marionette )->
                         
             unitAssigedArray.push unitModel.get('unitAssigned')
             $('#'+unitModel.get('unitAssigned')).attr('class','position')
-            console.log unitModel.get('unitAssigned')
-            console.log sudoSlider
             sudoSlider.goToSlide(unitModel.get('unitAssigned'));
             for element , index in rangeunitArray
                 if element == parseInt(unitModel.get('id'))
@@ -1856,11 +1834,10 @@ define [ 'marionette' ], ( Marionette )->
                         flag++
                 else if value.key != 'floor'
                         tempnew = []
-                        console.log value.key
                         if value.key == 'view' ||  value.key == 'apartment_views'
                             tempnew = []
                             value.key = 'apartment_views'
-                            console.log tempnew = model.get(value.key)
+                            tempnew = model.get(value.key)
                             if tempnew != ""
                                 tempnew = tempnew.map((item)->
                                     return parseInt(item))
@@ -1923,7 +1900,6 @@ define [ 'marionette' ], ( Marionette )->
                 $('.closeButton1').addClass 'hidden'
 
         doViewListing:->
-            console.log "enter"
             $('#viewtaglist2 ul li').remove()
             $.each(viewtagsArray,  (index, value) ->
                 $('#viewtaglist2 ul').append('<li id="li-view2item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.name + '</span><div class="closeButton5"></div></li>')
@@ -1991,7 +1967,6 @@ define [ 'marionette' ], ( Marionette )->
             if (index >= 0)
                 viewtagsArray.splice(index, 1)
                 $('#li-view2item-' + delnum).remove()
-                console.log viewtagsArray
                 viewarrayValues = []
                 $.each(viewtagsArray , (index,value)->
                     viewarrayValues.push(value.id)
@@ -2154,7 +2129,6 @@ define [ 'marionette' ], ( Marionette )->
         events:
 
             'click ':(e)->
-                console.log "click"
                 $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
@@ -2170,10 +2144,10 @@ define [ 'marionette' ], ( Marionette )->
                 $('#printmapplic1').text ""
                 $('#towerview').text ""
                 screenThreeLayout = new ScreenThreeLayout()
-                console.log check = screenThreeLayout.checkSelection(@model)
+                check = screenThreeLayout.checkSelection(@model)
                 if check == 1 && @model.get('status') == 9
                     buildingModel = App.master.building.findWhere({id:parseInt(@model.get('building'))})
-                    console.log svgdata = buildingModel.get('svgdata')
+                    svgdata = buildingModel.get('svgdata')
                     #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:{1:{1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152}}]]
                     svgposition = ""
                     unitvalues = ""
@@ -2188,7 +2162,6 @@ define [ 'marionette' ], ( Marionette )->
                                     unitsarray1 = value.units
                                     indexvalue1 = unitsarray1[val1]
                                     if parseInt(position) == parseInt(val1)
-                                        console.log position
                                         svgposition = value.svgfile
                                         unitsarray = value.units
                                         indexvalue = unitsarray[position]
@@ -2228,8 +2201,7 @@ define [ 'marionette' ], ( Marionette )->
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
                     App.currentStore.unit_variant.reset UNITVARIANTS
-                    console.log unitModel = App.master.unit.findWhere({id:@model.get("id")})
-                    console.log indexvalue
+                    unitModel = App.master.unit.findWhere({id:@model.get("id")})
                     for element , index in rangeunitArray
                         if element == @model.get('id')
                             $("#select"+@model.get('id')).val '1'
@@ -2252,7 +2224,6 @@ define [ 'marionette' ], ( Marionette )->
                             if App.defaults['floor'] != 'All'
                                 floorArr  = App.defaults['floor'].split(',')
                                 $.each(floorArr, (ind,val)->
-                                    console.log position
                                     if parseInt(value) == parseInt(val)
                                         textid = ""
                                         $('#'+idvalue+value).attr('class', 'unit-hover range')
@@ -2371,11 +2342,10 @@ define [ 'marionette' ], ( Marionette )->
                         flag++
                 else if value.key != 'floor'
                         tempnew = []
-                        console.log value.key
                         if value.key == 'view' ||  value.key == 'apartment_views'
                             tempnew = []
                             value.key = 'apartment_views'
-                            console.log tempnew = obj.model.get(value.key)
+                            tempnew = obj.model.get(value.key)
                             if tempnew != ""
                                 tempnew = tempnew.map((item)->
                                     return parseInt(item))
@@ -2483,7 +2453,7 @@ define [ 'marionette' ], ( Marionette )->
         childViewContainer : '.unitSlider'
 
         onShow:->
-                console.log container = $("#unitsSlider");
+                container = $("#unitsSlider");
                 height = container.height("auto").height();
                 container.height("auto");
                 sudoSlider = $("#unitsSlider").sudoSlider(
@@ -2493,8 +2463,8 @@ define [ 'marionette' ], ( Marionette )->
                     speed: 800
                     # continuous:true
                 )
-                console.log maxcoll = @collection.toArray()
-                console.log maxvalue = _.max(maxcoll,  (model)->
+                maxcoll = @collection.toArray()
+                maxvalue = _.max(maxcoll,  (model)->
                     model.get('count')
                 )
                 sudoSlider.goToSlide(maxvalue.get('id'))

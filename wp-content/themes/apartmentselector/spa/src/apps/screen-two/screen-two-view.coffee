@@ -189,7 +189,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 $('.im-tooltip').hide()
             'mouseover a.tower-link':(e)->
                 id  = e.target.id
-                console.log str1 = id.replace( /[^\d.]/g, '' )
+                str1 = id.replace( /[^\d.]/g, '' )
                 floorUnitsArray = []
                 myArray = []
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
@@ -219,7 +219,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 unitslen = App.master.unit.where({'status':status.get('id')})
 
 
-                console.log myArray
+                
                 floorCollunits = []
                 $.each(unitslen, (index,value1)->
                     flag = 0
@@ -243,11 +243,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             # if value.key == 'unittypeback'
                             #     value.key = 'unitVariant'
                             tempnew = []
-                            console.log value.key
+                            
                             if value.key == 'view' ||  value.key == 'apartment_views'
                                 tempnew = []
                                 value.key = 'apartment_views'
-                                console.log tempnew = value1.get(value.key)
+                                tempnew = value1.get(value.key)
                                 if tempnew != ""
                                     tempnew = tempnew.map((item)->
                                         return parseInt(item))
@@ -305,7 +305,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     unitTypemodel = App.master.unit_type.findWhere({id:value.get 'unitType'})
                     mainunitTypeArray1.push({id:unitTypemodel.get('id'),name: unitTypemodel.get('name')})
                 )
-                console.log mainunitTypeArray1
+                
                 $.each(mainunitTypeArray1, (key,item)->
                     if (!mainunique[item.id])
                         if item.id != 14 && item.id != 16
@@ -333,7 +333,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     min = ""
                     text = "<span></span>"
                     if countunits.length > 0
-                        console.log minmodel = _.min(countunits, (model)->
+                        minmodel = _.min(countunits, (model)->
                             if model.get('unitType') != 14 && model.get('unitType') != 16
                                 return model.get('unitPrice')
                         )
@@ -405,8 +405,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
             'click .tower-link':(e)->
-                console.log id = e.target.id
-                console.log str1 = id.replace( /[^\d.]/g, '' )
+                id = e.target.id
+                str1 = id.replace( /[^\d.]/g, '' )
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
                 if buildigmodel == undefined || buildigmodel == ""
                     return false
@@ -452,11 +452,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             # if value.key == 'unittypeback'
                             #     value.key = 'unitVariant'
                             tempnew = []
-                            console.log value.key
+                            
                             if value.key == 'view' ||  value.key == 'apartment_views'
                                 tempnew = []
                                 value.key = 'apartment_views'
-                                console.log tempnew = value1.get(value.key)
+                                tempnew = value1.get(value.key)
                                 if tempnew != ""
                                     tempnew = tempnew.map((item)->
                                         return parseInt(item))
@@ -498,7 +498,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 floorColl  = new Backbone.Collection floorCollunits
                 
                 units = floorColl.where({building:parseInt(str1)})
-                console.log units.length
+                
                 if units.length != 0
                     App.layout.screenThreeRegion.el.innerHTML = ""
                     App.layout.screenFourRegion.el.innerHTML = ""
@@ -521,7 +521,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
                     App.currentStore.unit_variant.reset UNITVARIANTS
-                    console.log App.defaults
+                    
                     App.filter(params={})
                     msgbus.showApp 'header'
                     .insideRegion  App.headerRegion
@@ -575,7 +575,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     else
                         unitVariantString = unitVariantArray.join(',')
-                console.log unitVariantString
+                
                 if unitVariantString == "All"
                     $('#selectall' ).prop 'checked', true
                 else
@@ -845,7 +845,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                     )
-                console.log mainnewarr
+                
                 unittypetext = ""
                 $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -872,10 +872,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             
                         mainnewarr =  []
                         mainunique = {}
-                        console.log 'click'
+                        
                         viewnames = originalviews
                         viewString = 'All'
-                        console.log view.length
+                        
                         
                         if $('#'+e.target.id).prop('checked') == true
                             view.push $('#'+e.target.id).val()
@@ -909,7 +909,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
-                        console.log floorCollection.length
+                        
                         facingtemp = []
                         floorCollection.each ( item)->
                             if item.get('facing').length != 0
@@ -924,8 +924,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             return parseInt(item)
 
                             )
-                        console.log uniqfacings = _.uniq(facingtemp)
-                        console.log uniqterrace = _.uniq(teracetemp)
+                        uniqfacings = _.uniq(facingtemp)
+                        uniqterrace = _.uniq(teracetemp)
                         $.each(uniqfacings, (index,value)->
                                 $('#facing'+value).prop('checked',true)
 
@@ -943,7 +943,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         else
                             App.defaults['terrace'] = 'All'
 
-                        console.log unselected = _.difference(clonefacings, uniqfacings);
+                        unselected = _.difference(clonefacings, uniqfacings);
                         $.each(unselected, (index,value)->
                                 $('#facing'+value).prop('checked',false)
 
@@ -952,7 +952,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#terrace'+value).prop('checked',true)
 
                         )
-                        console.log unselected1 = _.difference(cloneterraces, uniqterrace);
+                        unselected1 = _.difference(cloneterraces, uniqterrace);
                         $.each(unselected1, (index,value)->
                                 $('#terrace'+value).prop('checked',false)
 
@@ -981,7 +981,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                         )
-                        console.log mainnewarr
+                        
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -991,7 +991,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         $('#unittypecount').html unittypetext
                 )
                 $('.terrace').on('click' , (e)->
-                        console.log  teraace.length
                         App.layout.screenThreeRegion.el.innerHTML = ""
                         App.layout.screenFourRegion.el.innerHTML = ""
                         $('#screen-three-region').removeClass 'section'
@@ -1026,7 +1025,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 teraace.splice( index, 1 )
                                 
                         if teraace.length == 0
-                            console.log first = _.first(originalOterraces)
+                            first = _.first(originalOterraces)
                             teraace.push first.id
                         teraace = teraace.map((item)->
                             return parseInt(item))
@@ -1039,7 +1038,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             
                         App.filter()
                         units = App.currentStore.unit
-                        console.log units.length
                         viewtemp = []
                         facingtemp = []
                         
@@ -1058,8 +1056,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                             )
                         
-                        console.log uniqviews = _.uniq(viewtemp)
-                        console.log uniqfacings = _.uniq(facingtemp)
+                        uniqviews = _.uniq(viewtemp)
+                        uniqfacings = _.uniq(facingtemp)
                         if uniqviews.length != cloneviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
@@ -1076,7 +1074,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#view'+value).prop('checked',true)
 
                         )
-                        console.log unselected1 = _.difference(cloneviews, uniqviews);
+                        unselected1 = _.difference(cloneviews, uniqviews);
                         $.each(unselected1, (index,value)->
                                 $('#view'+value).prop('checked',false)
 
@@ -1085,7 +1083,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#facing'+value).prop('checked',true)
 
                         )
-                        console.log unselected = _.difference(clonefacings, uniqfacings);
+                        unselected = _.difference(clonefacings, uniqfacings);
                         $.each(unselected, (index,value)->
                                 $('#facing'+value).prop('checked',false)
 
@@ -1114,7 +1112,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                         )
-                        console.log mainnewarr
+                        
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -1144,7 +1142,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.navigate "screen-two"
                         mainnewarr =  []
                         mainunique = {}
-                        console.log entrance
+                        
                         
                         if $('#'+e.target.id).prop('checked') == true
                             entrance.push $('#'+e.target.id).val()
@@ -1162,12 +1160,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             entrance.push first.id
                         entrance = entrance.map((item)->
                             return parseInt(item))
-                        console.log entrance = _.uniq(entrance)
+                        entrance = _.uniq(entrance)
                         if entrance.length != 0
                             facingString = entrance.join(',')
                         App.defaults['facing'] = facingString
                         #App.backFilter['screen2'].push 'facing'
-                        console.log clonefacings.length
+                        
                         if clonefacings.length  == entrance.length
                             App.defaults['facing'] = 'All'
                             # entrance = originalfacings
@@ -1179,7 +1177,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
-                        console.log floorCollection.length
+                        
                         viewtemp = []
                         floorCollection.each ( item)->
                             if item.get('apartment_views').length != 0
@@ -1192,8 +1190,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             return parseInt(item)
 
                             )
-                        console.log uniqviews = _.uniq(viewtemp)
-                        console.log uniqterrace = _.uniq(teracetemp)
+                        uniqviews = _.uniq(viewtemp)
+                        uniqterrace = _.uniq(teracetemp)
                         if uniqviews.length != cloneviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
@@ -1210,7 +1208,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#view'+value).prop('checked',true)
 
                         )
-                        console.log unselected = _.difference(cloneviews, uniqviews);
+                        unselected = _.difference(cloneviews, uniqviews);
                         $.each(unselected, (index,value)->
                                 $('#view'+value).prop('checked',false)
 
@@ -1219,7 +1217,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#terrace'+value).prop('checked',true)
 
                         )
-                        console.log unselected1 = _.difference(cloneterraces, uniqterrace);
+                        unselected1 = _.difference(cloneterraces, uniqterrace);
                         $.each(unselected1, (index,value)->
                                 $('#terrace'+value).prop('checked',false)
 
@@ -1248,7 +1246,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                         )
-                        console.log mainnewarr
+                        
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
                                 unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
@@ -1312,8 +1310,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
             unitVariantString = ""
-            console.log App.defaults['unitVariant']
-            console.log unitVariantString
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
                 $('#selectall' ).prop 'checked', true
             else
@@ -1599,7 +1595,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             if (index >= 0)
                 viewtagsArray.splice(index, 1)
                 $('#li-viewitem-' + delnum).remove()
-                console.log viewtagsArray
+                
                 viewarrayValues = []
                 $.each(viewtagsArray , (index,value)->
                     viewarrayValues.push(value.id)
@@ -1935,7 +1931,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.backFilter['screen2'].push 'building'
                         $('#screen-two-button').removeClass 'disabled btn-default'
                         $("#screen-two-button").addClass 'btn-primary'
-                        console.log App.defaults
                         @trigger 'unit:count:selected'
                     else
                         rangeArray=[]

@@ -60,7 +60,6 @@ define(['marionette'], function(Marionette) {
         $('#printmapplic1').text("");
         $('#towerview').text("");
         id = parseInt(e.target.id);
-        console.log(unitAssigedArray);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
           element = unitAssigedArray[index];
           if (element === parseInt(id)) {
@@ -163,9 +162,9 @@ define(['marionette'], function(Marionette) {
                 $("#" + e.target.id).attr('class', 'selected-flat');
                 $("#" + temp1[ii] + flatid).attr('class', 'selected-flat');
                 unit = indexvalue[parseInt(flatid)];
-                console.log(unitModel = App.master.unit.findWhere({
+                unitModel = App.master.unit.findWhere({
                   id: parseInt(unit)
-                }));
+                });
                 position = unitModel.get('unitAssigned');
                 for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
                   element = unitAssigedArray[index];
@@ -236,7 +235,7 @@ define(['marionette'], function(Marionette) {
           temp1 = ['t', 'tt'];
           temp2 = ['c', 'cc'];
         }
-        console.log(id = $('#' + e.target.id).attr('data-value'));
+        id = $('#' + e.target.id).attr('data-value');
         flatid = $('#' + e.target.id).attr('data-id');
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
@@ -290,7 +289,6 @@ define(['marionette'], function(Marionette) {
                     return $('#' + temp1[ii] + value).attr('class', 'unselected-floor ');
                   }
                 });
-                console.log(e.target.id);
                 $("#" + e.target.id).attr('class', 'selected-flat');
                 $("#" + temp1[ii] + flatid).attr('class', 'selected-flat');
               }
@@ -298,7 +296,6 @@ define(['marionette'], function(Marionette) {
             });
           }
         });
-        console.log(unitModel);
         return this.trigger("load:range:data", unitModel);
       },
       'mouseover .unit-hover': function(e) {
@@ -499,8 +496,6 @@ define(['marionette'], function(Marionette) {
             ii = 0;
             return $.each(value.svgposition, function(index1, val1) {
               var currency, text, unittpe;
-              console.log(position);
-              console.log(temp1[ii]);
               if (parseInt(pos) === parseInt(val1)) {
                 $('#currency2').autoNumeric('init');
                 $('#currency2').autoNumeric('set', unitModel.get('unitPrice'));
@@ -586,8 +581,6 @@ define(['marionette'], function(Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
-        console.log(cloneunitVariantArrayColl.length);
-        console.log(unitVariantArray.length);
         if (unitVariantString === "" || parseInt(cloneunitVariantArrayColl.length) === parseInt(unitVariantArray.length)) {
           unitVariantString = "All";
         }
@@ -662,12 +655,12 @@ define(['marionette'], function(Marionette) {
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
         $('.special').removeClass('hidden');
-        console.log(originalviews = Marionette.getOption(this, 'views'));
-        console.log(originalOviews = Marionette.getOption(this, 'Oviews'));
-        console.log(originalfacings = Marionette.getOption(this, 'facings'));
-        console.log(originalOfacings = Marionette.getOption(this, 'Ofacings'));
-        console.log(originalterraces = Marionette.getOption(this, 'terraceID'));
-        console.log(originalOterraces = Marionette.getOption(this, 'terrace'));
+        originalviews = Marionette.getOption(this, 'views');
+        originalOviews = Marionette.getOption(this, 'Oviews');
+        originalfacings = Marionette.getOption(this, 'facings');
+        originalOfacings = Marionette.getOption(this, 'Ofacings');
+        originalterraces = Marionette.getOption(this, 'terraceID');
+        originalOterraces = Marionette.getOption(this, 'terrace');
         globalviews = [];
         globalviewInt = [];
         globalfacing = [];
@@ -788,7 +781,6 @@ define(['marionette'], function(Marionette) {
             }
           }
         });
-        console.log(mainnewarr);
         unittypetext = "";
         $.each(mainnewarr, function(index, value) {
           return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -798,10 +790,8 @@ define(['marionette'], function(Marionette) {
           var facingtemp, floorCollection, index, teracetemp, terrace, uniqfacings, uniqterrace, unselected, unselected1, viewString, viewnames;
           mainnewarr = [];
           mainunique = {};
-          console.log('click');
           viewnames = originalviews;
           viewString = 'All';
-          console.log(view.length);
           if ($('#' + e.target.id).prop('checked') === true) {
             view.push($('#' + e.target.id).val());
           } else {
@@ -833,7 +823,6 @@ define(['marionette'], function(Marionette) {
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
-          console.log(floorCollection.length);
           facingtemp = [];
           floorCollection.each(function(item) {
             if (item.get('facing').length !== 0) {
@@ -849,8 +838,8 @@ define(['marionette'], function(Marionette) {
           teracetemp = teracetemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqfacings = _.uniq(facingtemp));
-          console.log(uniqterrace = _.uniq(teracetemp));
+          uniqfacings = _.uniq(facingtemp);
+          uniqterrace = _.uniq(teracetemp);
           $.each(uniqfacings, function(index, value) {
             return $('#screenfacing' + value).prop('checked', true);
           });
@@ -866,14 +855,14 @@ define(['marionette'], function(Marionette) {
           } else {
             App.defaults['terrace'] = 'All';
           }
-          console.log(unselected = _.difference(clonefacings, uniqfacings));
+          unselected = _.difference(clonefacings, uniqfacings);
           $.each(unselected, function(index, value) {
             return $('#screenfacing' + value).prop('checked', false);
           });
           $.each(uniqterrace, function(index, value) {
             return $('#screenterrace' + value).prop('checked', true);
           });
-          console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+          unselected1 = _.difference(cloneterraces, uniqterrace);
           $.each(unselected1, function(index, value) {
             return $('#screenterrace' + value).prop('checked', false);
           });
@@ -920,7 +909,6 @@ define(['marionette'], function(Marionette) {
               }
             }
           });
-          console.log(mainnewarr);
           unittypetext = "";
           $.each(mainnewarr, function(index, value) {
             return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -931,7 +919,6 @@ define(['marionette'], function(Marionette) {
           var facingtemp, first, index, uniqfacings, uniqviews, units, unselected, unselected1, viewtemp;
           mainnewarr = [];
           mainunique = {};
-          console.log(teraace.length);
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
@@ -949,7 +936,7 @@ define(['marionette'], function(Marionette) {
             }
           }
           if (teraace.length === 0) {
-            console.log(first = _.first(originalOterraces));
+            first = _.first(originalOterraces);
             teraace.push(first.id);
           }
           teraace = teraace.map(function(item) {
@@ -962,7 +949,6 @@ define(['marionette'], function(Marionette) {
           }
           App.filter();
           units = App.currentStore.unit;
-          console.log(units.length);
           viewtemp = [];
           facingtemp = [];
           units.each(function(item) {
@@ -979,8 +965,8 @@ define(['marionette'], function(Marionette) {
           facingtemp = facingtemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqviews = _.uniq(viewtemp));
-          console.log(uniqfacings = _.uniq(facingtemp));
+          uniqviews = _.uniq(viewtemp);
+          uniqfacings = _.uniq(facingtemp);
           if (uniqviews.length !== cloneviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
@@ -996,14 +982,14 @@ define(['marionette'], function(Marionette) {
           $.each(uniqviews, function(index, value) {
             return $('#screenview' + value).prop('checked', true);
           });
-          console.log(unselected1 = _.difference(cloneviews, uniqviews));
+          unselected1 = _.difference(cloneviews, uniqviews);
           $.each(unselected1, function(index, value) {
             return $('#screenview' + value).prop('checked', false);
           });
           $.each(uniqfacings, function(index, value) {
             return $('#screenfacing' + value).prop('checked', true);
           });
-          console.log(unselected = _.difference(clonefacings, uniqfacings));
+          unselected = _.difference(clonefacings, uniqfacings);
           $.each(unselected, function(index, value) {
             return $('#screenfacing' + value).prop('checked', false);
           });
@@ -1050,7 +1036,6 @@ define(['marionette'], function(Marionette) {
               }
             }
           });
-          console.log(mainnewarr);
           unittypetext = "";
           $.each(mainnewarr, function(index, value) {
             return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -1061,7 +1046,6 @@ define(['marionette'], function(Marionette) {
           var facingString, first, floorCollection, index, teracetemp, terrace, uniqterrace, uniqviews, unselected, unselected1, viewtemp;
           mainnewarr = [];
           mainunique = {};
-          console.log(entrance);
           if ($('#' + e.target.id).prop('checked') === true) {
             entrance.push($('#' + e.target.id).val());
           } else {
@@ -1081,12 +1065,11 @@ define(['marionette'], function(Marionette) {
           entrance = entrance.map(function(item) {
             return parseInt(item);
           });
-          console.log(entrance = _.uniq(entrance));
+          entrance = _.uniq(entrance);
           if (entrance.length !== 0) {
             facingString = entrance.join(',');
           }
           App.defaults['facing'] = facingString;
-          console.log(clonefacings.length);
           if (clonefacings.length === entrance.length) {
             App.defaults['facing'] = 'All';
           }
@@ -1097,7 +1080,6 @@ define(['marionette'], function(Marionette) {
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
-          console.log(floorCollection.length);
           viewtemp = [];
           floorCollection.each(function(item) {
             if (item.get('apartment_views').length !== 0) {
@@ -1113,8 +1095,8 @@ define(['marionette'], function(Marionette) {
           teracetemp = teracetemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqviews = _.uniq(viewtemp));
-          console.log(uniqterrace = _.uniq(teracetemp));
+          uniqviews = _.uniq(viewtemp);
+          uniqterrace = _.uniq(teracetemp);
           if (uniqviews.length !== cloneviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
@@ -1130,14 +1112,14 @@ define(['marionette'], function(Marionette) {
           $.each(uniqviews, function(index, value) {
             return $('#screenview' + value).prop('checked', true);
           });
-          console.log(unselected = _.difference(cloneviews, uniqviews));
+          unselected = _.difference(cloneviews, uniqviews);
           $.each(unselected, function(index, value) {
             return $('#screenview' + value).prop('checked', false);
           });
           $.each(uniqterrace, function(index, value) {
             return $('#screenterrace' + value).prop('checked', true);
           });
-          console.log(unselected1 = _.difference(cloneterraces, uniqterrace));
+          unselected1 = _.difference(cloneterraces, uniqterrace);
           $.each(unselected1, function(index, value) {
             return $('#screenterrace' + value).prop('checked', false);
           });
@@ -1184,7 +1166,6 @@ define(['marionette'], function(Marionette) {
               }
             }
           });
-          console.log(mainnewarr);
           unittypetext = "";
           $.each(mainnewarr, function(index, value) {
             return unittypetext += '<span>' + value.name + ' :</span><span class="text-primary bold m-r-20">' + value.count.length + '</span>';
@@ -1198,7 +1179,6 @@ define(['marionette'], function(Marionette) {
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-four-region').removeClass('section');
           App.navigate("screen-three");
-          console.log(object);
           return object.trigger('unit:variants:selected');
         });
       }
@@ -1314,9 +1294,7 @@ define(['marionette'], function(Marionette) {
         });
       }
       App.defaults['unitVariant'] = selectedArray.join(',');
-      console.log(selectedArray);
       unitVariantString = "";
-      console.log(unitVariantArray);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All" || selectedArray.length === unitVariantArray.length) {
         $('#unselectall').prop('checked', true);
       } else {
@@ -1328,7 +1306,6 @@ define(['marionette'], function(Marionette) {
       tagsArray = [];
       testtext = App.defaults['unitVariant'];
       if (parseInt(selectedArray.length) !== parseInt(unitVariantArray.length)) {
-        console.log(selectedArray);
         unitVariantArrayText = selectedArray;
         $.each(unitVariantArrayText, function(index, value) {
           var unitVariantModel;
@@ -1371,7 +1348,6 @@ define(['marionette'], function(Marionette) {
             name: 'All'
           });
         }
-        console.log(viewtagsArray);
         this.doViewListing();
         entrancetagsArray = [];
         testtext = App.defaults['facing'];
@@ -1452,15 +1428,15 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.loadbuildingsvg = function() {
       var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, floorid, maxvalue, path, svgdata;
-      console.log(buildingCollection = Marionette.getOption(this, 'buildingCollection'));
+      buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();
-      console.log(building = _.first(buildinArray));
+      building = _.first(buildinArray);
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
       svgdata = buildingModel.get('svgdata');
       floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
-      console.log(maxvalue = Marionette.getOption(this, 'maxvalue'));
+      maxvalue = Marionette.getOption(this, 'maxvalue');
       if (floor_layout_Basic !== "") {
         path = floor_layout_Basic;
         $('<div></div>').load(path, function(x) {
@@ -1478,7 +1454,7 @@ define(['marionette'], function(Marionette) {
       var buildinArray, building, buildingCollection, buildingModel, floorange, highrange, indexvalue, lowrange, mediumrange, svgdata, svgposition, temp, temp1, temp2, unitvalues;
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();
-      console.log(building = _.first(buildinArray));
+      building = _.first(buildinArray);
       buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
       });
@@ -1510,24 +1486,19 @@ define(['marionette'], function(Marionette) {
             svgposition = value.svgfile;
             unitsarray = value.units;
             return $('#positionsvg').load(svgposition, function(x) {
-              console.log(value.svgposition);
               value.svgposition.sort(function(a, b) {
                 return b - a;
               });
-              console.log(value.svgposition);
               return $.each(value.svgposition, function(index1, val1) {
                 var i, rangClass;
                 indexvalue = unitsarray[val1];
                 $.map(indexvalue, function(index, value) {
-                  console.log(temp[ii]);
                   $('#' + temp[ii] + value).attr('class', 'unselected-floor');
                   $('#' + temp[ii] + value).attr('data-value', index);
                   return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
                 });
                 $.map(indexvalue, function(index1, value1) {
                   var floorArr;
-                  console.log(floorid);
-                  console.log(val1);
                   if (App.defaults['floor'] !== "All") {
                     floorArr = App.defaults['floor'].split(',');
                     if (floorid === val1) {
@@ -1601,11 +1572,10 @@ define(['marionette'], function(Marionette) {
           }
         } else if (value.key !== 'floor') {
           tempnew = [];
-          console.log(value.key);
           if (value.key === 'view' || value.key === 'apartment_views') {
             tempnew = [];
             value.key = 'apartment_views';
-            console.log(tempnew = model.get(value.key));
+            tempnew = model.get(value.key);
             if (tempnew !== "") {
               tempnew = tempnew.map(function(item) {
                 return parseInt(item);
@@ -1658,7 +1628,6 @@ define(['marionette'], function(Marionette) {
     ScreenThreeLayout.prototype.onShowRangeData = function(unitModel, collection) {
       var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, unitcoll, _i, _j, _len, _len1;
       $('#floorsvg').text("");
-      console.log(unitModel);
       position = unitModel.get('unitAssigned');
       object = this;
       unitcoll = collection.toArray();
@@ -1680,7 +1649,6 @@ define(['marionette'], function(Marionette) {
       $.each(exceptionObject, function(index, value1) {
         var floorvalue;
         floorvalue = $.inArray(unitModel.get('floor'), value1.floors);
-        console.log(floorvalue);
         if (floorvalue === -1) {
           return floorLayoutimage = building.get('floor_layout_basic').image_url;
         } else {
@@ -1709,8 +1677,6 @@ define(['marionette'], function(Marionette) {
       }
       unitAssigedArray.push(unitModel.get('unitAssigned'));
       $('#' + unitModel.get('unitAssigned')).attr('class', 'position');
-      console.log(unitModel.get('unitAssigned'));
-      console.log(sudoSlider);
       sudoSlider.goToSlide(unitModel.get('unitAssigned'));
       for (index = _j = 0, _len1 = rangeunitArray.length; _j < _len1; index = ++_j) {
         element = rangeunitArray[index];
@@ -1765,11 +1731,10 @@ define(['marionette'], function(Marionette) {
           }
         } else if (value.key !== 'floor') {
           tempnew = [];
-          console.log(value.key);
           if (value.key === 'view' || value.key === 'apartment_views') {
             tempnew = [];
             value.key = 'apartment_views';
-            console.log(tempnew = model.get(value.key));
+            tempnew = model.get(value.key);
             if (tempnew !== "") {
               tempnew = tempnew.map(function(item) {
                 return parseInt(item);
@@ -1838,7 +1803,6 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.doViewListing = function() {
-      console.log("enter");
       $('#viewtaglist2 ul li').remove();
       $.each(viewtagsArray, function(index, value) {
         return $('#viewtaglist2 ul').append('<li id="li-view2item-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.name + '</span><div class="closeButton5"></div></li>');
@@ -1914,7 +1878,6 @@ define(['marionette'], function(Marionette) {
       if (index >= 0) {
         viewtagsArray.splice(index, 1);
         $('#li-view2item-' + delnum).remove();
-        console.log(viewtagsArray);
         viewarrayValues = [];
         $.each(viewtagsArray, function(index, value) {
           return viewarrayValues.push(value.id);
@@ -2067,7 +2030,6 @@ define(['marionette'], function(Marionette) {
     unitChildView.prototype.events = {
       'click ': function(e) {
         var buildingModel, check, element, idValue, idvalue, index, indexvalue, obj, screenThreeLayout, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues, _i, _len;
-        console.log("click");
         $("#flatno").text("");
         $("#towerno").text("");
         $("#unittypename").text("");
@@ -2083,12 +2045,12 @@ define(['marionette'], function(Marionette) {
         $('#printmapplic1').text("");
         $('#towerview').text("");
         screenThreeLayout = new ScreenThreeLayout();
-        console.log(check = screenThreeLayout.checkSelection(this.model));
+        check = screenThreeLayout.checkSelection(this.model);
         if (check === 1 && this.model.get('status') === 9) {
           buildingModel = App.master.building.findWhere({
             id: parseInt(this.model.get('building'))
           });
-          console.log(svgdata = buildingModel.get('svgdata'));
+          svgdata = buildingModel.get('svgdata');
           svgposition = "";
           unitvalues = "";
           indexvalue = "";
@@ -2103,7 +2065,6 @@ define(['marionette'], function(Marionette) {
                 unitsarray1 = value.units;
                 indexvalue1 = unitsarray1[val1];
                 if (parseInt(position) === parseInt(val1)) {
-                  console.log(position);
                   svgposition = value.svgfile;
                   unitsarray = value.units;
                   indexvalue = unitsarray[position];
@@ -2131,10 +2092,9 @@ define(['marionette'], function(Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
-          console.log(unitModel = App.master.unit.findWhere({
+          unitModel = App.master.unit.findWhere({
             id: this.model.get("id")
-          }));
-          console.log(indexvalue);
+          });
           for (index = _i = 0, _len = rangeunitArray.length; _i < _len; index = ++_i) {
             element = rangeunitArray[index];
             if (element === this.model.get('id')) {
@@ -2160,7 +2120,6 @@ define(['marionette'], function(Marionette) {
                 floorArr = App.defaults['floor'].split(',');
                 return $.each(floorArr, function(ind, val) {
                   var textid;
-                  console.log(position);
                   if (parseInt(value) === parseInt(val)) {
                     textid = "";
                     $('#' + idvalue + value).attr('class', 'unit-hover range');
@@ -2286,11 +2245,10 @@ define(['marionette'], function(Marionette) {
           }
         } else if (value.key !== 'floor') {
           tempnew = [];
-          console.log(value.key);
           if (value.key === 'view' || value.key === 'apartment_views') {
             tempnew = [];
             value.key = 'apartment_views';
-            console.log(tempnew = obj.model.get(value.key));
+            tempnew = obj.model.get(value.key);
             if (tempnew !== "") {
               tempnew = tempnew.map(function(item) {
                 return parseInt(item);
@@ -2387,7 +2345,7 @@ define(['marionette'], function(Marionette) {
 
     UnitTypeView.prototype.onShow = function() {
       var container, height, maxcoll, maxvalue;
-      console.log(container = $("#unitsSlider"));
+      container = $("#unitsSlider");
       height = container.height("auto").height();
       container.height("auto");
       sudoSlider = $("#unitsSlider").sudoSlider({
@@ -2396,10 +2354,10 @@ define(['marionette'], function(Marionette) {
         responsive: true,
         speed: 800
       });
-      console.log(maxcoll = this.collection.toArray());
-      console.log(maxvalue = _.max(maxcoll, function(model) {
+      maxcoll = this.collection.toArray();
+      maxvalue = _.max(maxcoll, function(model) {
         return model.get('count');
-      }));
+      });
       return sudoSlider.goToSlide(maxvalue.get('id'));
     };
 

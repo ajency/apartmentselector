@@ -103,13 +103,13 @@ define [ 'marionette' ], ( Mariontte )->
 
 
         onShow:->
-            usermodel = new Backbone.Model USER
-            capability = usermodel.get('all_caps')
-            if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
-                console.log "222"
-                $('#showTop').removeClass 'hidden'
-            else
-                $('#showTop').hide()
+            # usermodel = new Backbone.Model USER
+            # capability = usermodel.get('all_caps')
+            # if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+            #     console.log "222"
+            #     $('#showTop').removeClass 'hidden'
+            # else
+            #     $('#showTop').hide()
                 #@trigger "get:perSqft:price"
             textString  = Marionette.getOption( @, 'textString' )
             $('#textstring').html textString

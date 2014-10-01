@@ -227,7 +227,7 @@ define(['marionette'], function(Marionette) {
       $('#terrace').text(units.get('terraceoptions'));
       $('#printfacing').text(units.get('facings_name'));
       $('#printview').text(units.get('views_name'));
-      console.log(image = document.getElementById('twoDimage'));
+      image = document.getElementById('twoDimage');
       $("#twoDimage").attr('src', units.get('TwoDimage'));
       $("#zoomedinimage").attr('src', units.get('zoomedinimage'));
       $("#threeDimage").attr('src', units.get('ThreeDimage'));
@@ -268,7 +268,6 @@ define(['marionette'], function(Marionette) {
                 indexvalue = unitsarray[units.get('unitAssigned')];
                 indexvalue1 = unitsarray[val1];
                 $.map(indexvalue1, function(index, value) {
-                  console.log(temp[ii]);
                   $('#' + temp[ii] + value).attr('class', 'unselected-floor');
                   $('#' + temp[ii] + value).attr('data-value', index);
                   return $('#' + temp[ii] + value).attr('data-idvalue', temp[ii]);
@@ -737,8 +736,8 @@ define(['marionette'], function(Marionette) {
         addon = $('#payment').val() - count;
       }
       $('.addonpay').autoNumeric('init');
-      console.log(addoncount = $('.addonpay').autoNumeric('set', addon));
-      console.log(addonCount = $('.addonpay').autoNumeric('set', addon).text());
+      addoncount = $('.addonpay').autoNumeric('set', addon);
+      addonCount = $('.addonpay').autoNumeric('set', addon).text();
       $('.addonpay').text(addonCount);
       $('#paymentTable').append(table);
       _results = [];
