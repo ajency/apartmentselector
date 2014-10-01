@@ -54,7 +54,9 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
 
                     <div class="text-center">
-                        <a class="special bold hidden" id="filterModalscren3">Additional Filters</a>
+                        <div>
+                            <a class="special bold hidden" id="filterModalscren3">Additional Filters</a>
+                        </div>
                         
                         View:
                         <div id="" class="taglist2">
