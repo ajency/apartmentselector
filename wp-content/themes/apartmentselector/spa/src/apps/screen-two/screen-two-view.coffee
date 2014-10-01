@@ -10,7 +10,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     count = 0
     unitVariants = []
     cloneunitVariantArrayColl = ""
-    
+    viewtagsArray = []
    
     class ScreenTwoLayout extends Marionette.LayoutView
 
@@ -60,17 +60,17 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
 
                             View:
-                            <div id="" class="taglist2">
+                            <div id="viewtaglist" class="taglist2">
                               <ul></ul>
                             </div>
 
                             Entrance:
-                            <div id="" class="taglist2">
+                            <div id="entrancetaglist" class="taglist2">
                               <ul></ul>
                             </div>
 
                             Terrace:
-                            <div id="" class="taglist2">
+                            <div id="terracetaglist" class="taglist2">
                               <ul></ul>
                             </div>
                         </div>
@@ -887,6 +887,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         view = view.map((item)->
                             return parseInt(item))
                         view = _.uniq(view)
+
                         if view.length != 0
                             viewString = view.join(',')
                         App.defaults['view'] = viewString
@@ -1541,6 +1542,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()
+
+            viewtagsArray = []
+            testtext = App.defaults['view']
+            if testtext != 'All'
+                viewArrayText = testtext.split(',')
+                $.each(viewArrayText, (index,value)->
+                    viewModel = App.master.view.findWhere({id:parseInt(value)})
+                    viewtagsArray.push({id:value , name : viewModel.get('name')})
+
+
+                )
+            else
+                viewtagsArray.push({id:'All' , name : 'All'})
+
+            @doViewListing()
+
             object = @
             scr = document.createElement('script')
             scr.src = '../wp-content/themes/apartmentselector/js/src/preload/main2.js'
@@ -1558,7 +1575,13 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 object.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
-
+        
+        $(document).on("click", ".closeButton2",  ()->
+                console.log theidtodel = $(this).parent('li').attr('id')
+               
+                console.log $('#' + theidtodel).attr('data-itemNum')
+                object.delViewItem($('#' + theidtodel).attr('data-itemNum'))
+        )
         doListing:->
             $('#tagslist ul li').remove()
             $.each(tagsArray,  (index, value) ->
@@ -1566,6 +1589,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             )
             if tagsArray.length == 1
                 $('.closeButton').addClass 'hidden'
+
+        doViewListing:->
+            $('#viewtaglist ul li').remove()
+            $.each(viewtagsArray,  (index, value) ->
+                $('#viewtaglist ul').append('<li id="li-viewitem-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.name + '</span><div class="closeButton2"></div></li>')
+            )
+            if viewtagsArray.length == 1
+                $('.closeButton2').addClass 'hidden'
 
         delItem:(delnum)->
             removeItem = delnum
@@ -1606,6 +1637,52 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate "screen-two"
                 App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                @trigger 'unit:variants:selected'
+
+        delViewItem:(delnum)->
+            removeItem = delnum
+            i =0
+            key = ""
+
+            $.each(viewtagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
+
+            )
+            index = key
+            if (index >= 0)
+                viewtagsArray.splice(index, 1)
+                $('#li-viewitem-' + delnum).remove()
+                viewarrayValues = []
+                $.each(viewtagsArray , (index,value)->
+                    viewarrayValues.push(value.id)
+
+                )
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
+                App.defaults['view'] = viewarrayValues.join(',')
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
