@@ -618,9 +618,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 # App.defaults['unittypeback'] = unitVariantString
                 #App.backFilter['screen2'].push 'unitVariant'
                 App.filter(params={})
+                $('.specialFilter').empty()
+                $('.specialFilter').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
                 @trigger 'unit:variants:selected'
 
             'click .cancel':(e)->
+                $('.specialFilter').empty()
+                $('.specialFilter').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $(".variantBox1").slideToggle()
                 globalUnitVariants = App.defaults['unitVariant'].split(',')
@@ -1259,13 +1265,53 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         
 
                 )
+
                 
                      
                 $('#donepopup').on('click' , (e)->
                             $('.specialFilter').empty()
                             $('.specialFilter').addClass 'hidden'
                             $('.b-modal').addClass 'hidden'
+                            console.log object
                             object.trigger 'unit:variants:selected'
+                )
+                $('#cancelpopup').on('click' , (e)->
+                            $('.specialFilter').empty()
+                            $('.specialFilter').addClass 'hidden'
+                            $('.b-modal').addClass 'hidden'
+                            view = []
+                            entrance = []
+                            terrace = []
+                            $.each(cloneviews,(index,value)->
+                                $('#view'+value.id).prop('checked',true)
+                                view.push(value.id)
+
+                            )
+                            $.each(clonefacings,(index,value)->
+                                $('#facings'+value.id).prop('checked',true)
+                                entrance.push(value.id)
+
+                            )
+                            $.each(cloneterraces,(index,value)->
+                                $('#terrace'+value.id).prop('checked',true)
+                                terrace.push(value.id)
+
+                            )
+                            App.defaults['view'] = 'All'
+                            App.defaults['facing'] = 'All'
+                            App.defaults['terrace'] = 'All'
+                            App.layout.screenThreeRegion.el.innerHTML = ""
+                            App.layout.screenFourRegion.el.innerHTML = ""
+                            $('#screen-three-region').removeClass 'section'
+                            $('#screen-four-region').removeClass 'section' 
+                            App.navigate "screen-two"
+                            App.currentStore.unit.reset UNITS
+                            App.currentStore.building.reset BUILDINGS
+                            App.currentStore.unit_type.reset UNITTYPES
+                            App.currentStore.unit_variant.reset UNITVARIANTS
+                            App.filter()
+                            object.trigger 'unit:variants:selected'
+
                 )
                 
                 
@@ -1904,11 +1950,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         buildingModel = App.currentStore.building.findWhere({id:@model.get('buildingid')})
                         floorriserange = buildingModel.get 'floorriserange'
                         #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
-                        object = @
+                        obj = @
                         rangeArrayVal = []
                         i = 0
                         $.each(floorriserange, (index,value)->
-                            if object.model.get('range') == value.name
+                            if obj.model.get('range') == value.name
                                 start = parseInt(value.start)
                                 end = parseInt(value.end)
                                 while parseInt(start) <= parseInt(end)

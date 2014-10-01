@@ -746,9 +746,15 @@ define [ 'marionette' ], ( Marionette )->
                 App.defaults['unitVariant'] = unitVariantString
                 # App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
+                $('.specialFilter1').empty()
+                $('.specialFilter1').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
                 @trigger 'unit:variants:selected'
 
             'click .cancel':(e)->
+                $('.specialFilter1').empty()
+                $('.specialFilter1').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $(".variantBox").slideToggle()
                 globalUnitVariants = App.defaults['unitVariant'].split(',')
@@ -1307,6 +1313,43 @@ define [ 'marionette' ], ( Marionette )->
                             App.navigate "screen-three"
                             
                             object.trigger 'unit:variants:selected'
+                )
+                $('#cancelpopupscreen').on('click' , (e)->
+                            $('.specialFilter1').empty()
+                            $('.specialFilter1').addClass 'hidden'
+                            $('.b-modal').addClass 'hidden'
+                            view = []
+                            entrance = []
+                            terrace = []
+                            $.each(cloneviews,(index,value)->
+                                $('#screenview'+value.id).prop('checked',true)
+                                view.push(value.id)
+
+                            )
+                            $.each(clonefacings,(index,value)->
+                                $('#screenfacings'+value.id).prop('checked',true)
+                                entrance.push(value.id)
+
+                            )
+                            $.each(cloneterraces,(index,value)->
+                                $('#screenterrace'+value.id).prop('checked',true)
+                                terrace.push(value.id)
+
+                            )
+                            App.defaults['view'] = 'All'
+                            App.defaults['facing'] = 'All'
+                            App.defaults['terrace'] = 'All'
+                            App.layout.screenFourRegion.el.innerHTML = ""
+                            $('#screen-four-region').removeClass 'section' 
+                            App.navigate "screen-three"
+                            App.currentStore.unit.reset UNITS
+                            App.currentStore.building.reset BUILDINGS
+                            App.currentStore.unit_type.reset UNITTYPES
+                            App.currentStore.unit_variant.reset UNITVARIANTS
+                            App.filter()
+
+                            object.trigger 'unit:variants:selected'
+
                 )
                 
                 

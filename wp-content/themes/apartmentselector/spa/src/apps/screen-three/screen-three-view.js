@@ -586,10 +586,16 @@ define(['marionette'], function(Marionette) {
         }
         App.defaults['unitVariant'] = unitVariantString;
         App.filter(params = {});
+        $('.specialFilter1').empty();
+        $('.specialFilter1').addClass('hidden');
+        $('.b-modal').addClass('hidden');
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
         var globalUnitVariants;
+        $('.specialFilter1').empty();
+        $('.specialFilter1').addClass('hidden');
+        $('.b-modal').addClass('hidden');
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox").slideToggle();
         globalUnitVariants = App.defaults['unitVariant'].split(',');
@@ -1179,6 +1185,39 @@ define(['marionette'], function(Marionette) {
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-four-region').removeClass('section');
           App.navigate("screen-three");
+          return object.trigger('unit:variants:selected');
+        });
+        $('#cancelpopupscreen').on('click', function(e) {
+          var terrace;
+          $('.specialFilter1').empty();
+          $('.specialFilter1').addClass('hidden');
+          $('.b-modal').addClass('hidden');
+          view = [];
+          entrance = [];
+          terrace = [];
+          $.each(cloneviews, function(index, value) {
+            $('#screenview' + value.id).prop('checked', true);
+            return view.push(value.id);
+          });
+          $.each(clonefacings, function(index, value) {
+            $('#screenfacings' + value.id).prop('checked', true);
+            return entrance.push(value.id);
+          });
+          $.each(cloneterraces, function(index, value) {
+            $('#screenterrace' + value.id).prop('checked', true);
+            return terrace.push(value.id);
+          });
+          App.defaults['view'] = 'All';
+          App.defaults['facing'] = 'All';
+          App.defaults['terrace'] = 'All';
+          App.layout.screenFourRegion.el.innerHTML = "";
+          $('#screen-four-region').removeClass('section');
+          App.navigate("screen-three");
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.filter();
           return object.trigger('unit:variants:selected');
         });
       }

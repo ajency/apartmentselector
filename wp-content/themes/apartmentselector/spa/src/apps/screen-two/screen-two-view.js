@@ -496,10 +496,16 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
         App.defaults['unitVariant'] = unitVariantString;
         App.filter(params = {});
+        $('.specialFilter').empty();
+        $('.specialFilter').addClass('hidden');
+        $('.b-modal').addClass('hidden');
         return this.trigger('unit:variants:selected');
       },
       'click .cancel': function(e) {
         var globalUnitVariants;
+        $('.specialFilter').empty();
+        $('.specialFilter').addClass('hidden');
+        $('.b-modal').addClass('hidden');
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox1").slideToggle();
         globalUnitVariants = App.defaults['unitVariant'].split(',');
@@ -1164,6 +1170,42 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $('.specialFilter').empty();
           $('.specialFilter').addClass('hidden');
           $('.b-modal').addClass('hidden');
+          console.log(object);
+          return object.trigger('unit:variants:selected');
+        });
+        $('#cancelpopup').on('click', function(e) {
+          var terrace;
+          $('.specialFilter').empty();
+          $('.specialFilter').addClass('hidden');
+          $('.b-modal').addClass('hidden');
+          view = [];
+          entrance = [];
+          terrace = [];
+          $.each(cloneviews, function(index, value) {
+            $('#view' + value.id).prop('checked', true);
+            return view.push(value.id);
+          });
+          $.each(clonefacings, function(index, value) {
+            $('#facings' + value.id).prop('checked', true);
+            return entrance.push(value.id);
+          });
+          $.each(cloneterraces, function(index, value) {
+            $('#terrace' + value.id).prop('checked', true);
+            return terrace.push(value.id);
+          });
+          App.defaults['view'] = 'All';
+          App.defaults['facing'] = 'All';
+          App.defaults['terrace'] = 'All';
+          App.layout.screenThreeRegion.el.innerHTML = "";
+          App.layout.screenFourRegion.el.innerHTML = "";
+          $('#screen-three-region').removeClass('section');
+          $('#screen-four-region').removeClass('section');
+          App.navigate("screen-two");
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.filter();
           return object.trigger('unit:variants:selected');
         });
       }
@@ -1739,7 +1781,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
 
     UnitViewChildView.prototype.events = {
       'click ': function(e) {
-        var buildingModel, element, floorriserange, i, index, q, rangeArrayVal, rangeString, _i, _len;
+        var buildingModel, element, floorriserange, i, index, obj, q, rangeArrayVal, rangeString, _i, _len;
         q = 1;
         $.map(App.backFilter, function(value, index) {
           var element, screenArray, _i, _len;
@@ -1788,12 +1830,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               id: this.model.get('buildingid')
             });
             floorriserange = buildingModel.get('floorriserange');
-            object = this;
+            obj = this;
             rangeArrayVal = [];
             i = 0;
             $.each(floorriserange, function(index, value) {
               var end, start;
-              if (object.model.get('range') === value.name) {
+              if (obj.model.get('range') === value.name) {
                 start = parseInt(value.start);
                 end = parseInt(value.end);
                 while (parseInt(start) <= parseInt(end)) {
