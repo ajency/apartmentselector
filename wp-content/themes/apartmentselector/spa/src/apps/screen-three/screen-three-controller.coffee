@@ -353,7 +353,8 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 )
                 if flag >= myArray.length - 1
-                    floorCollunits.push(value1)
+                    if  value1.get('unitType') != 14 && value1.get('unitType') != 16
+                        floorCollunits.push(value1)
 
 
 
@@ -384,13 +385,14 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
                 units = App.currentStore.unit
                 units.each (item)->
-                    if item.get('apartment_views') != ""
-                        $.merge(viewtemp,item.get('apartment_views'))
-                    if item.get('facing').length != 0
-                        $.merge(facingtemp,item.get('facing'))
-                    if item.get('terrace') != ""
-                        console.log item.get('terrace')
-                        terracetemp.push item.get('terrace')
+                    if  item.get('unitType') != 14 && item.get('unitType') != 16
+                        if item.get('apartment_views') != ""
+                            $.merge(viewtemp,item.get('apartment_views'))
+                        if item.get('facing').length != 0
+                            $.merge(facingtemp,item.get('facing'))
+                        if item.get('terrace') != ""
+                            console.log item.get('terrace')
+                            terracetemp.push item.get('terrace')
 
 
                     

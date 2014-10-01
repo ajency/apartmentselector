@@ -366,7 +366,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 )
                 if flag >= myArray.length
-                    floorCollunits.push(value1)
+                    if  value1.get('unitType') != 14 && value1.get('unitType') != 16
+                        floorCollunits.push(value1)
 
 
 
@@ -393,13 +394,14 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
                 floorCollection = App.currentStore.unit
                 floorCollection.each (item)->
-                    if item.get('apartment_views') != ""
-                        $.merge(viewtemp,item.get('apartment_views'))
-                    if item.get('facing').length != 0
-                        $.merge(facingtemp,item.get('facing'))
-                    if item.get('terrace') != ""
-                        console.log item.get('terrace')
-                        terracetemp.push item.get('terrace')
+                    if  item.get('unitType') != 14 && item.get('unitType') != 16
+                        if item.get('apartment_views') != ""
+                            $.merge(viewtemp,item.get('apartment_views'))
+                        if item.get('facing').length != 0
+                            $.merge(facingtemp,item.get('facing'))
+                        if item.get('terrace') != ""
+                            console.log item.get('terrace')
+                            terracetemp.push item.get('terrace')
 
 
                     
@@ -643,17 +645,18 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 mainArray = Array()
                 unitTypeArray = []
                 $.each(newunits, (index,value)->
-                    if (value.get('floor') >= parseInt(floorriserange[0].start) &&  value.get('floor') <= parseInt(floorriserange[0].end))
-                        lowArray.push value.get 'id'
+                    if  value.get('unitType') != 14 && value.get('unitType') != 16
+                        if (value.get('floor') >= parseInt(floorriserange[0].start) &&  value.get('floor') <= parseInt(floorriserange[0].end))
+                            lowArray.push value.get 'id'
 
 
 
-                    if (value.get('floor') >= parseInt(floorriserange[1].start) &&  value.get('floor') <= parseInt(floorriserange[1].end))
-                        mediumArray.push value.get 'id'
+                        if (value.get('floor') >= parseInt(floorriserange[1].start) &&  value.get('floor') <= parseInt(floorriserange[1].end))
+                            mediumArray.push value.get 'id'
 
 
-                    if (value.get('floor') >= parseInt(floorriserange[2].start) &&  value.get('floor') <= parseInt(floorriserange[2].end))
-                        highArray.push value.get 'id'
+                        if (value.get('floor') >= parseInt(floorriserange[2].start) &&  value.get('floor') <= parseInt(floorriserange[2].end))
+                            highArray.push value.get 'id'
 
                     unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
                     unitTypeArray.push({id:unitType.get('id'),name: unitType.get('name')})

@@ -5,13 +5,15 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariantString = ''
     globalUnitArrayInt = []
     firstElement = ''
-    rangeArray =[]
+    rangeArray = []
     tagsArray = []
     count = 0
     unitVariants = []
     cloneunitVariantArrayColl = ""
     viewtagsArray = []
-   
+    entrancetagsArray = []
+    terracetagsArray = []
+    object = 'this'
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
@@ -54,23 +56,23 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
                         </div>
 
-                        <div class="introTxt text-center">
+                        <div class="special introTxt text-center hidden">
                             <div>
                                 <a class="special bold hidden" id="filterModal">Additional Filters</a>
                             </div>
 
                             View:
-                            <div id="viewtaglist" class="taglist2">
+                            <div id="viewtaglist" class="special taglist2 hidden">
                               <ul></ul>
                             </div>
 
                             Entrance:
-                            <div id="entrancetaglist" class="taglist2">
+                            <div id="entrancetaglist" class="special taglist2 hidden">
                               <ul></ul>
                             </div>
 
                             Terrace:
-                            <div id="terracetaglist" class="taglist2">
+                            <div id="terracetaglist" class="special taglist2 hidden">
                               <ul></ul>
                             </div>
                         </div>
@@ -1542,21 +1544,54 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 tagsArray.push({id:'All' , area : 'All'})
 
             @doListing()
+            usermodel = new Backbone.Model USER
+            capability = usermodel.get('all_caps')
+            if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
+                viewtagsArray = []
+                testtext = App.defaults['view']
+                if testtext != 'All'
+                    viewArrayText = testtext.split(',')
+                    $.each(viewArrayText, (index,value)->
+                        viewModel = App.master.view.findWhere({id:parseInt(value)})
+                        viewtagsArray.push({id:value , name : viewModel.get('name')})
 
-            viewtagsArray = []
-            testtext = App.defaults['view']
-            if testtext != 'All'
-                viewArrayText = testtext.split(',')
-                $.each(viewArrayText, (index,value)->
-                    viewModel = App.master.view.findWhere({id:parseInt(value)})
-                    viewtagsArray.push({id:value , name : viewModel.get('name')})
+
+                    )
+                else
+                    viewtagsArray.push({id:'All' , name : 'All'})
+
+                @doViewListing()
+
+                entrancetagsArray = []
+                testtext = App.defaults['facing']
+                if testtext != 'All'
+                    entranceArrayText = testtext.split(',')
+                    $.each(entranceArrayText, (index,value)->
+                        facingModel = App.master.facings.findWhere({id:parseInt(value)})
+                        entrancetagsArray.push({id:value , name : facingModel.get('name')})
 
 
-                )
-            else
-                viewtagsArray.push({id:'All' , name : 'All'})
+                    )
+                else
+                    entrancetagsArray.push({id:'All' , name : 'All'})
 
-            @doViewListing()
+                @doentranceListing()
+
+
+                terracetagsArray = []
+                testtext = App.defaults['terrace']
+                if testtext != 'All'
+                    terraceArrayText = testtext.split(',')
+                    $.each(terraceArrayText, (index,value)->
+                        terraceModel = App.master.terrace.findWhere({id:parseInt(value)})
+                        terracetagsArray.push({id:value , name : terraceModel.get('name')})
+
+
+                    )
+                else
+                    terracetagsArray.push({id:'All' , name : 'All'})
+
+                @doterraceListing()
 
             object = @
             scr = document.createElement('script')
@@ -1568,19 +1603,29 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
            
             
 
-        object = @   
+            object = @   
         $(document).on("click", ".closeButton",  ()->
-                theidtodel = $(this).parent('li').attr('id')
-               
+                    theidtodel = $(this).parent('li').attr('id')
+                   
 
-                object.delItem($('#' + theidtodel).attr('data-itemNum'))
+                    object.delItem($('#' + theidtodel).attr('data-itemNum'))
         )
-        
+            
         $(document).on("click", ".closeButton2",  ()->
-                console.log theidtodel = $(this).parent('li').attr('id')
-               
-                console.log $('#' + theidtodel).attr('data-itemNum')
-                object.delViewItem($('#' + theidtodel).attr('data-itemNum'))
+                    theidtodel = $(this).parent('li').attr('id')
+                   
+                    
+                    object.delViewItem($('#' + theidtodel).attr('data-itemNum'))
+        )
+        $(document).on("click", ".closeButton3",  ()->
+                    theidtodel = $(this).parent('li').attr('id')
+                   
+                    object.delEntranceItem($('#' + theidtodel).attr('data-itemNum'))
+        )
+        $(document).on("click", ".closeButton4",  ()->
+                    theidtodel = $(this).parent('li').attr('id')
+                   
+                    object.delTerraceItem($('#' + theidtodel).attr('data-itemNum'))
         )
         doListing:->
             $('#tagslist ul li').remove()
@@ -1597,6 +1642,22 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             )
             if viewtagsArray.length == 1
                 $('.closeButton2').addClass 'hidden'
+
+        doentranceListing:->
+            $('#entrancetaglist ul li').remove()
+            $.each(entrancetagsArray,  (index, value) ->
+                $('#entrancetaglist ul').append('<li id="li-entranceitem-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.name + '</span><div class="closeButton3"></div></li>')
+            )
+            if entrancetagsArray.length == 1
+                $('.closeButton3').addClass 'hidden'
+
+        doterraceListing:->
+            $('#terracetaglist ul li').remove()
+            $.each(terracetagsArray,  (index, value) ->
+                $('#terracetaglist ul').append('<li id="li-terraceitem-' + value.id + '" data-itemNum="' + value.id + '"><span class="itemText">' + value.name + '</span><div class="closeButton4"></div></li>')
+            )
+            if terracetagsArray.length == 1
+                $('.closeButton4').addClass 'hidden'
 
         delItem:(delnum)->
             removeItem = delnum
@@ -1659,6 +1720,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
             if (index >= 0)
                 viewtagsArray.splice(index, 1)
                 $('#li-viewitem-' + delnum).remove()
+                console.log viewtagsArray
                 viewarrayValues = []
                 $.each(viewtagsArray , (index,value)->
                     viewarrayValues.push(value.id)
@@ -1688,6 +1750,110 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
                 App.filter(params={})
+                $('.specialFilter').empty()
+                $('.specialFilter').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
+                @trigger 'unit:variants:selected'
+
+
+        delEntranceItem:(delnum)->
+            removeItem = delnum
+            i =0
+            key = ""
+
+            $.each(entrancetagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
+
+            )
+            index = key
+            if (index >= 0)
+                entrancetagsArray.splice(index, 1)
+                $('#li-entranceitem-' + delnum).remove()
+                entrancearrayValues = []
+                $.each(entrancetagsArray , (index,value)->
+                    entrancearrayValues.push(value.id)
+
+                )
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
+                App.defaults['facing'] = entrancearrayValues.join(',')
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                $('.specialFilter').empty()
+                $('.specialFilter').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
+                
+                @trigger 'unit:variants:selected'
+
+        delTerraceItem:(delnum)->
+            removeItem = delnum
+            i =0
+            key = ""
+
+            $.each(terracetagsArray, (index,val)->
+                if val.id == delnum
+                    key = i
+                i++
+
+            )
+            index = key
+            if (index >= 0)
+                terracetagsArray.splice(index, 1)
+                $('#li-terraceitem-' + delnum).remove()
+                terracearrayValues = []
+                $.each(terracetagsArray , (index,value)->
+                    terracearrayValues.push(value.id)
+
+                )
+                q = 1
+                $.map(App.backFilter, (value, index)->
+
+                    if q!=1
+                        screenArray  = App.backFilter[index]
+                        for element in screenArray
+                            if element == 'unitVariant'
+                                App.defaults[element] = unitVariantString
+                            else
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                    q++
+
+                )
+                App.layout.screenThreeRegion.el.innerHTML = ""
+                App.layout.screenFourRegion.el.innerHTML = ""
+                App.navigate "screen-two"
+                App.defaults['terrace'] = terracearrayValues.join(',')
+                App.currentStore.unit.reset UNITS
+                App.currentStore.building.reset BUILDINGS
+                App.currentStore.unit_type.reset UNITTYPES
+                App.currentStore.unit_variant.reset UNITVARIANTS
+                App.filter(params={})
+                $('.specialFilter').empty()
+                $('.specialFilter').addClass 'hidden'
+                $('.b-modal').addClass 'hidden'
+                
                 @trigger 'unit:variants:selected'
 
 
