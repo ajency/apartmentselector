@@ -55,7 +55,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             </div>
                         </div>
 
-                        <div class="text-center">
+                        <div class="introTxt text-center">
                             <div>
                                 <a class="special bold hidden" id="filterModal">Additional Filters</a>
                             </div>
