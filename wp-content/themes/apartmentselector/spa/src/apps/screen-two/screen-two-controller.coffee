@@ -281,7 +281,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             myArray = []
             $.map(App.defaults, (value, index)->
                 if value!='All' 
-                    if  index != 'unitVariant' 
+                    if  index != 'unitVariant' && index != 'view' && index != 'facing' && index != 'terrace'
                         myArray.push({key:index,value:value})
 
             )
@@ -391,7 +391,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             usermodel = new Backbone.Model USER
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
-                floorCollection = App.currentStore.unit
+                # floorCollection = App.currentStore.unit
                 floorCollection.each (item)->
                     if item.get('apartment_views') != ""
                             $.merge(viewtemp,item.get('apartment_views'))

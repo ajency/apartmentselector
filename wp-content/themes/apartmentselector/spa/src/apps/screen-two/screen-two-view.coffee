@@ -75,6 +75,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             <div id="terracetaglist" class="special taglist2 hidden">
                               <ul></ul>
                             </div>
+                        
                         </div>
 
                         
@@ -141,7 +142,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     <div class="filterBox"> <input type="checkbox" name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
                                     {{/terrace}}  
                                 </div>
-                                
+                              <div id="filtermsg"></div>  
                             </div>
 
                             <h4 id="unittypecount" class="text-center"></h4>
@@ -716,6 +717,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
         onShow:->
+            viewtagsArray = []
+            entrancetagsArray = []
+            terracetagsArray = []
             usermodel = new Backbone.Model USER
             object = @     
             capability = usermodel.get('all_caps')
@@ -878,6 +882,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             
                         else
                             if parseInt(view.length) == 1
+                                object.showMsg()
                                 return false
                             $('#'+e.target.id).prop('checked',false)
                             index = _.indexOf(view, parseInt($('#'+e.target.id).val()));
@@ -895,7 +900,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         #App.backFilter['screen2'].push 'view'
                         if cloneviews.length  == view.length
                             App.defaults['view'] = 'All'
-                            view = originalviews
+                            # vew = originalviews
                             
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
@@ -986,6 +991,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         $('#unittypecount').html unittypetext
                 )
                 $('.terrace').on('click' , (e)->
+                        console.log  teraace.length
                         App.layout.screenThreeRegion.el.innerHTML = ""
                         App.layout.screenFourRegion.el.innerHTML = ""
                         $('#screen-three-region').removeClass 'section'
@@ -1013,6 +1019,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             
                         else
                             if parseInt(teraace.length) == 1
+                                object.showMsg()
                                 return false
                             index = _.indexOf(teraace, parseInt($('#'+e.target.id).val()));
                             if index != -1
@@ -1028,7 +1035,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         #App.backFilter['screen2'].push 'terrace'
                         if cloneterraces.length  == teraace.length
                             App.defaults['terrace'] = 'All'
-                            teraace = originalterraces
+                            # teraace = originalterraces
                             
                         App.filter()
                         units = App.currentStore.unit
@@ -1144,6 +1151,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             
                         else
                             if parseInt(entrance.length) == 1
+                                object.showMsg()
                                 return false
                             index = _.indexOf(entrance, parseInt($('#'+e.target.id).val()));
                             if index != -1
@@ -1162,7 +1170,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         console.log clonefacings.length
                         if clonefacings.length  == entrance.length
                             App.defaults['facing'] = 'All'
-                            entrance = originalfacings
+                            # entrance = originalfacings
                             
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
@@ -1259,142 +1267,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             $('.specialFilter').empty()
                             $('.specialFilter').addClass 'hidden'
                             $('.b-modal').addClass 'hidden'
-                            console.log 'ffdfdfsf'
-
                             object.trigger 'unit:variants:selected'
                 )
-                $('#cancelpopup').on('click' , (e)->
-
-                            
-                            globalviews = []
-                            globalviewInt = []
-                            globalfacing = []
-                            globalfacingInt = []
-                            globalterrace = []
-                            globalterraceInt= []
-                            cloneviews = originalviews.slice(0)
-                            clonefacings = originalfacings.slice(0)
-                            cloneterraces = originalterraces.slice(0)
-                            view = []
-                            teraace = []
-                            entrance = []
-                            if App.defaults['view'] != 'All'
-                                globalviews = App.defaults['view'].split(',')
-                                $.each(globalviews, (index,value)->
-                                    globalviewInt.push(parseInt(value))
-
-                                )
-                            if App.defaults['facing'] != 'All'
-                                globalfacing = App.defaults['facing'].split(',')
-                                $.each(globalfacing, (index,value)->
-                                    globalfacingInt.push(parseInt(value))
-
-                                )
-                            if App.defaults['terrace'] != 'All'
-                                globalterrace = App.defaults['terrace'].split(',')
-                                $.each(globalterrace, (index,value)->
-                                    globalterraceInt.push(parseInt(value))
-
-                                )
-                            if App.defaults['view'] != 'All'
-                                $.each(originalOviews,(index,value)->
-                                    
-                                   
-                                        if $.inArray(parseInt(value.id),globalviewInt) >=0 
-                                            $('#view'+value.id).prop('checked',true)
-                                            view.push(value.id)
-                                        else
-                                            $('#view'+value.id).prop('checked',false)
-
-                                        
-
-                                    )
-                            else
-                                $.each(originalOviews,(index,value)->
-                                    $('#view'+value.id).prop('checked',true)
-                                    view.push(value.id)
-
-                                    )
-                            if App.defaults['facing'] != 'All'
-                                $.each(originalOfacings,(index,value)->
-                                    
-                                   
-                                        if $.inArray(parseInt(value.id),globalfacingInt) >=0 
-                                            $('#facing'+value.id).prop('checked',true)
-                                            entrance.push(value.id)
-                                        else
-                                            $('#facing'+value.id).prop('checked',false)
-
-                                        
-
-                                    )
-                            else
-                                $.each(originalOfacings,(index,value)->
-                                    $('#facing'+value.id).prop('checked',true)
-                                    entrance.push(value.id)
-
-                                    )
-                            if App.defaults['terrace'] != 'All'
-                                $.each(originalOterraces,(index,value)->
-                                    
-                                   
-                                        if $.inArray(parseInt(value.id),globalterraceInt) >=0 
-                                            $('#terrace'+value.id).prop('checked',true)
-                                            teraace.push(value.id)
-                                        else
-                                            $('#terrace'+value.id).prop('checked',false)
-
-                                        
-
-                                    )
-                            else
-                                $.each(originalOterraces,(index,value)->
-                                    $('#terrace'+value.id).prop('checked',true)
-                                    teraace.push(value.id)
-
-                                    )
-                            mainnewarr =  []
-                            mainunique = {}
-                            mainunitTypeArray1 = []
-                            status = App.master.status.findWhere({'name':'Available'})
-                            units1 = App.master.unit.where({'status':status.get('id')})
-                            $.each(units1, (index,value)->
-                                unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
-                                mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
-                            )
-                            $.each(mainunitTypeArray1, (key,item)->
-                                if (!mainunique[item.id])
-                                    if item.id != 14 && item.id != 16
-                                        status = App.master.status.findWhere({'name':'Available'})
-
-                                        count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
-
-                                        if parseInt(item.id) == 9
-                                            classname = 'twoBHK'
-                                        else
-                                            classname = 'threeBHK'
-
-                                        mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
-                                        mainunique[item.id] = item;
-
-
-                                )
-                            console.log mainnewarr
-                            unittypetext = ""
-                            $.each(mainnewarr, (index,value)->
-                                            unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
-
-
-                            )
-                            $('#unittypecount').html unittypetext
-                            $('.specialFilter').bPopup({
-                                modalClose: true
-
-
-                            })
-                            
-                            
-                )
+                
                 
             $("#flatno").text ""
             $("#towerno").text ""
@@ -1626,6 +1501,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                    
                     object.delTerraceItem($('#' + theidtodel).attr('data-itemNum'))
         )
+
+        showMsg:->
+            $('#filtermsg').show()
+            $('#filtermsg').text(' Atleast one option in each category must be selected to proceed').delay(2000).fadeOut( (x)->$('filtermsg').text(""));
+                                
         doListing:->
             $('#tagslist ul li').remove()
             $.each(tagsArray,  (index, value) ->
