@@ -173,7 +173,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant' && index !== 'unittypeback' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
+          if (index !== 'unitVariant' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
             return myArray.push({
               key: index,
               value: value

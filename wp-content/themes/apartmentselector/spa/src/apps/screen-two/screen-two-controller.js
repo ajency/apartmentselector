@@ -275,7 +275,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       myArray = [];
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant' && index !== 'unittypeback' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
+          if (index !== 'unitVariant' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
             return myArray.push({
               key: index,
               value: value

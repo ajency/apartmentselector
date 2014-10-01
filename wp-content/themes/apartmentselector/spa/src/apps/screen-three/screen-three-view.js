@@ -588,7 +588,6 @@ define(['marionette'], function(Marionette) {
           unitVariantString = "All";
         }
         App.defaults['unitVariant'] = unitVariantString;
-        App.backFilter['screen2'].push("unitVariant");
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },
@@ -1186,6 +1185,9 @@ define(['marionette'], function(Marionette) {
           return $('#unittypecount1').html(unittypetext);
         });
         $('#donepopupscreen').on('click', function(e) {
+          App.layout.screenFourRegion.el.innerHTML = "";
+          $('#screen-four-region').removeClass('section');
+          App.navigate("screen-three");
           return object.trigger('unit:variants:selected');
         });
         $('#cancelpopupscreen').on('click', function(e) {
@@ -1429,7 +1431,6 @@ define(['marionette'], function(Marionette) {
         });
       }
       App.defaults['unitVariant'] = selectedArray.join(',');
-      App.backFilter['screen2'].push("unitVariant");
       console.log(selectedArray);
       console.log(unitVariantArray);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All" || selectedArray.length === unitVariantArray.length) {
@@ -1591,7 +1592,7 @@ define(['marionette'], function(Marionette) {
       var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor' && index !== 'unittypeback') {
+        if (value !== 'All' && index !== 'floor') {
           return myArray.push({
             key: index,
             value: value
@@ -1731,7 +1732,7 @@ define(['marionette'], function(Marionette) {
       var flag, myArray, object, track;
       myArray = [];
       $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor' && index !== 'unittypeback') {
+        if (value !== 'All' && index !== 'floor') {
           return myArray.push({
             key: index,
             value: value
@@ -2095,7 +2096,7 @@ define(['marionette'], function(Marionette) {
       $('#towerview').text("");
       myArray = [];
       $.map(App.defaults, function(value, index) {
-        if (value !== 'All' && index !== 'floor' && index !== 'unittypeback') {
+        if (value !== 'All' && index !== 'floor') {
           return myArray.push({
             key: index,
             value: value

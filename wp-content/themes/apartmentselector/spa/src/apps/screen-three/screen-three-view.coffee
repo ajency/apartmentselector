@@ -719,7 +719,7 @@ define [ 'marionette' ], ( Marionette )->
                 if unitVariantString == "" || parseInt(cloneunitVariantArrayColl.length) == parseInt(unitVariantArray.length)
                     unitVariantString = "All"
                 App.defaults['unitVariant'] = unitVariantString
-                App.backFilter['screen2'].push "unitVariant"
+                # App.backFilter['screen2'].push "unitVariant"
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -1272,6 +1272,9 @@ define [ 'marionette' ], ( Marionette )->
                 )
                 $('#donepopupscreen').on('click' , (e)->
 
+                            App.layout.screenFourRegion.el.innerHTML = ""
+                            $('#screen-four-region').removeClass 'section' 
+                            App.navigate "screen-three"
                             object.trigger 'unit:variants:selected'
                 )
                 $('#cancelpopupscreen').on('click' , (e)->
@@ -1525,7 +1528,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
             App.defaults['unitVariant'] = selectedArray.join(',')
-            App.backFilter['screen2'].push "unitVariant"
+            # App.backFilter['screen2'].push "unitVariant"
             console.log selectedArray
             console.log unitVariantArray
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All" || selectedArray.length == unitVariantArray.length
@@ -1701,7 +1704,7 @@ define [ 'marionette' ], ( Marionette )->
         checkSelection:(model)->
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor' && index != 'unittypeback'
+                if value!='All' && index != 'floor' 
                     myArray.push({key:index,value:value})
 
             )
@@ -1823,7 +1826,7 @@ define [ 'marionette' ], ( Marionette )->
         checkClassSelection:(model)->
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor' && index != 'unittypeback'
+                if value!='All' && index != 'floor' 
                     myArray.push({key:index,value:value})
 
             )
@@ -2187,7 +2190,7 @@ define [ 'marionette' ], ( Marionette )->
             $('#towerview').text ""
             myArray = []
             $.map(App.defaults, (value, index)->
-                if value!='All' && index != 'floor' && index != 'unittypeback'
+                if value!='All' && index != 'floor' 
                     myArray.push({key:index,value:value})
 
             )
