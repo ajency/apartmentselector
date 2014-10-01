@@ -43,7 +43,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return $('.im-tooltip').hide();
       },
       'mouseover a.tower-link': function(e) {
-        var buildigmodel, countunits, currency, element, floorCollunits, floorUnitsArray, floorarray, id, key, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, screenonearray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext, _i, _len;
+        var buildigmodel, countunits, currency, floorCollunits, floorUnitsArray, floorarray, id, locationData, mainnewarr, mainunique, mainunitTypeArray1, min, minmodel, myArray, selectorname, status, str1, text, units, units1, unitslen, unittypemodel, unittypetext;
         id = e.target.id;
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         floorUnitsArray = [];
@@ -54,28 +54,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         if (buildigmodel === void 0 || buildigmodel === "") {
           return false;
         }
-        screenonearray = App.backFilter['screen1'];
-        for (_i = 0, _len = screenonearray.length; _i < _len; _i++) {
-          element = screenonearray[_i];
-          if (App.defaults[element] !== 'All') {
-            key = App.defaults.hasOwnProperty(element);
-            if (key === true) {
-              console.log(App.defaults[element]);
-              myArray.push({
-                key: element,
-                value: App.defaults[element]
-              });
-            }
-          }
-        }
         $.map(App.defaults, function(value, index) {
           if (value !== 'All') {
-            if (index === 'unittypeback') {
-              return myArray.push({
-                key: index,
-                value: value
-              });
-            }
+            return myArray.push({
+              key: index,
+              value: value
+            });
           }
         });
         status = App.master.status.findWhere({
@@ -90,7 +74,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           var flag;
           flag = 0;
           $.each(myArray, function(index, value) {
-            var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _j, _len1, _results;
+            var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempnew, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
             paramKey = {};
             paramKey[value.key] = value.value;
             if (value.key === 'budget') {
@@ -110,19 +94,40 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
                 return flag++;
               }
-            } else if (value.key !== 'floor') {
-              if (value.key === 'unittypeback') {
-                value.key = 'unitVariant';
+            } else {
+              tempnew = [];
+              console.log(value.key);
+              if (value.key === 'view' || value.key === 'apartment_views') {
+                tempnew = [];
+                value.key = 'apartment_views';
+                console.log(tempnew = value1.get(value.key));
+                if (tempnew !== "") {
+                  tempnew = tempnew.map(function(item) {
+                    return parseInt(item);
+                  });
+                }
+              } else if (value.key === 'facing') {
+                tempnew = [];
+                tempnew = value1.get(value.key);
+                if (tempnew.length !== 0) {
+                  tempnew = tempnew.map(function(item) {
+                    return parseInt(item);
+                  });
+                }
               }
               temp = [];
               temp.push(value.value);
               tempstring = temp.join(',');
-              initvariant = tempstring.split(',');
-              if (initvariant.length > 1) {
+              initvariant = tempstring.split(',').map(function(item) {
+                return parseInt(item);
+              });
+              if (initvariant.length >= 1) {
                 _results = [];
-                for (_j = 0, _len1 = initvariant.length; _j < _len1; _j++) {
-                  element = initvariant[_j];
+                for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+                  element = initvariant[_i];
                   if (value1.get(value.key) === parseInt(element)) {
+                    _results.push(flag++);
+                  } else if ($.inArray(parseInt(element), tempnew) >= 0) {
                     _results.push(flag++);
                   } else {
                     _results.push(void 0);
@@ -136,7 +141,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             }
           });
-          if (flag === myArray.length) {
+          if (flag >= myArray.length) {
             if (value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
               return floorCollunits.push(value1);
             }
@@ -274,7 +279,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         return e.preventDefault();
       },
       'click .tower-link': function(e) {
-        var buildigmodel, element, floorColl, floorCollunits, floorUnitsArray, id, key, locationData, myArray, params, screenonearray, screenthreeArray, screentwoArray, status, str1, text, units, unitslen, _i, _j, _k, _len, _len1, _len2;
+        var buildigmodel, element, floorColl, floorCollunits, floorUnitsArray, id, key, locationData, myArray, params, screenthreeArray, screentwoArray, status, str1, text, units, unitslen, _i, _j, _len, _len1;
         console.log(id = e.target.id);
         console.log(str1 = id.replace(/[^\d.]/g, ''));
         buildigmodel = App.master.building.findWhere({
@@ -285,28 +290,12 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         }
         floorUnitsArray = [];
         myArray = [];
-        screenonearray = App.backFilter['screen1'];
-        for (_i = 0, _len = screenonearray.length; _i < _len; _i++) {
-          element = screenonearray[_i];
-          if (App.defaults[element] !== 'All') {
-            key = App.defaults.hasOwnProperty(element);
-            if (key === true) {
-              console.log(App.defaults[element]);
-              myArray.push({
-                key: element,
-                value: App.defaults[element]
-              });
-            }
-          }
-        }
         $.map(App.defaults, function(value, index) {
           if (value !== 'All') {
-            if (index === 'unittypeback') {
-              return myArray.push({
-                key: index,
-                value: value
-              });
-            }
+            return myArray.push({
+              key: index,
+              value: value
+            });
           }
         });
         status = App.master.status.findWhere({
@@ -320,7 +309,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           var flag;
           flag = 0;
           $.each(myArray, function(index, value) {
-            var budget_arr, budget_price, buildingModel, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _j, _len1, _results;
+            var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempnew, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
             paramKey = {};
             paramKey[value.key] = value.value;
             if (value.key === 'budget') {
@@ -340,19 +329,40 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
                 return flag++;
               }
-            } else if (value.key !== 'floor') {
-              if (value.key === 'unittypeback') {
-                value.key = 'unitVariant';
+            } else {
+              tempnew = [];
+              console.log(value.key);
+              if (value.key === 'view' || value.key === 'apartment_views') {
+                tempnew = [];
+                value.key = 'apartment_views';
+                console.log(tempnew = value1.get(value.key));
+                if (tempnew !== "") {
+                  tempnew = tempnew.map(function(item) {
+                    return parseInt(item);
+                  });
+                }
+              } else if (value.key === 'facing') {
+                tempnew = [];
+                tempnew = value1.get(value.key);
+                if (tempnew.length !== 0) {
+                  tempnew = tempnew.map(function(item) {
+                    return parseInt(item);
+                  });
+                }
               }
               temp = [];
               temp.push(value.value);
               tempstring = temp.join(',');
-              initvariant = tempstring.split(',');
-              if (initvariant.length > 1) {
+              initvariant = tempstring.split(',').map(function(item) {
+                return parseInt(item);
+              });
+              if (initvariant.length >= 1) {
                 _results = [];
-                for (_j = 0, _len1 = initvariant.length; _j < _len1; _j++) {
-                  element = initvariant[_j];
+                for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+                  element = initvariant[_i];
                   if (value1.get(value.key) === parseInt(element)) {
+                    _results.push(flag++);
+                  } else if ($.inArray(parseInt(element), tempnew) >= 0) {
                     _results.push(flag++);
                   } else {
                     _results.push(void 0);
@@ -366,7 +376,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               }
             }
           });
-          if (flag === myArray.length) {
+          if (flag >= myArray.length) {
             return floorCollunits.push(value1);
           }
         });
@@ -381,24 +391,21 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $('#screen-three-region').removeClass('section');
           $('#screen-four-region').removeClass('section');
           screentwoArray = App.backFilter['screen2'];
-          for (_j = 0, _len1 = screentwoArray.length; _j < _len1; _j++) {
-            element = screentwoArray[_j];
+          for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
+            element = screentwoArray[_i];
             key = App.defaults.hasOwnProperty(element);
             if (key === true) {
               App.defaults[element] = 'All';
             }
           }
           screenthreeArray = App.backFilter['screen3'];
-          for (_k = 0, _len2 = screenthreeArray.length; _k < _len2; _k++) {
-            element = screenthreeArray[_k];
+          for (_j = 0, _len1 = screenthreeArray.length; _j < _len1; _j++) {
+            element = screenthreeArray[_j];
             key = App.defaults.hasOwnProperty(element);
             if (key === true) {
               App.defaults[element] = 'All';
             }
           }
-          console.log(App.defaults['unittypeback']);
-          App.defaults['unitVariant'] = App.defaults['unittypeback'];
-          App.navigate("screen-two");
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
@@ -494,8 +501,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           unitVariantString = 'All';
         }
         App.defaults['unitVariant'] = unitVariantString;
-        App.defaults['unittypeback'] = unitVariantString;
-        App.backFilter['screen2'].push('unitVariant');
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       },
@@ -1107,6 +1112,31 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           return $('#unittypecount').html(unittypetext);
         });
         $('#donepopup').on('click', function(e) {
+          var element, key, screenthreeArray, screentwoArray, _i, _j, _len, _len1;
+          $('.specialFilter').empty();
+          $('.specialFilter').addClass('hidden');
+          $('.b-modal').addClass('hidden');
+          App.layout.screenThreeRegion.el.innerHTML = "";
+          App.layout.screenFourRegion.el.innerHTML = "";
+          $('#screen-three-region').removeClass('section');
+          $('#screen-four-region').removeClass('section');
+          screentwoArray = App.backFilter['screen2'];
+          for (_i = 0, _len = screentwoArray.length; _i < _len; _i++) {
+            element = screentwoArray[_i];
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              App.defaults[element] = 'All';
+            }
+          }
+          screenthreeArray = App.backFilter['screen3'];
+          for (_j = 0, _len1 = screenthreeArray.length; _j < _len1; _j++) {
+            element = screenthreeArray[_j];
+            key = App.defaults.hasOwnProperty(element);
+            if (key === true) {
+              App.defaults[element] = 'All';
+            }
+          }
+          App.navigate("screen-two");
           return object.trigger('unit:variants:selected');
         });
         $('#cancelpopup').on('click', function(e) {
@@ -1278,6 +1308,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           return globalUnitArrayInt.push(parseInt(value));
         });
       }
+      unitVariantString = "";
+      console.log(App.defaults['unitVariant']);
+      console.log(unitVariantString);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
         $('#selectall').prop('checked', true);
       } else {
@@ -1542,6 +1575,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
                   unitVariantString = "All";
                 }
                 App.defaults[element] = unitVariantString;
+              } else {
+                App.defaults[element] = 'All';
               }
             }
           }

@@ -12,6 +12,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariants = []
     cloneunitVariantArrayColl = ""
     
+   
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
@@ -177,6 +178,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'click #filterModal':(e)->
+                # $('.specialFilter').text ""
                 $('.specialFilter').bPopup()
 
             'mouseout .im-pin':(e)->
@@ -191,17 +193,24 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 buildigmodel = App.master.building.findWhere({id:parseInt(str1)})
                 if buildigmodel == undefined || buildigmodel == ""
                     return false
-                screenonearray = App.backFilter['screen1']
-                for element in screenonearray
-                    if App.defaults[element] != 'All'
-                        key = App.defaults.hasOwnProperty(element)
-                        if key == true
-                            console.log App.defaults[element]
-                            myArray.push({key:element,value:App.defaults[element]})
+                # screenonearray = App.backFilter['screen1']
+                # for element in screenonearray
+                #     if App.defaults[element] != 'All'
+                #         key = App.defaults.hasOwnProperty(element)
+                #         if key == true
+                #             console.log App.defaults[element]
+                #             myArray.push({key:element,value:App.defaults[element]})
+                # screentwoarray = App.backFilter['screen2']
+                # for element in screentwoarray
+                #     if App.defaults[element] != 'All'
+                #         key = App.defaults.hasOwnProperty(element)
+                #         if key == true
+                #             console.log App.defaults[element]
+                #             myArray.push({key:element,value:App.defaults[element]})
+
                 $.map(App.defaults, (value, index)->
                     if value!='All'
-                        if  index == 'unittypeback'
-                            myArray.push({key:index,value:value})
+                        myArray.push({key:index,value:value})
 
                     )
                 status = App.master.status.findWhere({'name':'Available'})
@@ -228,17 +237,38 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             budget_price[1] = budget_price[1]+'00000'
                             if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                                 flag++
-                        else if value.key != 'floor'
-                            if value.key == 'unittypeback'
-                                value.key = 'unitVariant'
+                        else 
+                            # if value.key == 'unittypeback'
+                            #     value.key = 'unitVariant'
+                            tempnew = []
+                            console.log value.key
+                            if value.key == 'view' ||  value.key == 'apartment_views'
+                                tempnew = []
+                                value.key = 'apartment_views'
+                                console.log tempnew = value1.get(value.key)
+                                if tempnew != ""
+                                    tempnew = tempnew.map((item)->
+                                        return parseInt(item))
+                            else if value.key == 'facing'
+                                tempnew = []
+                                tempnew = value1.get(value.key)
+                                if tempnew.length != 0
+                                    tempnew = tempnew.map((item)->
+                                        return parseInt(item))
                             temp = []
                             temp.push value.value
                             tempstring = temp.join(',')
-                            initvariant = tempstring.split(',')
-                            if initvariant.length > 1
+                            initvariant = tempstring.split(',').map((item)->
+                                return parseInt(item)
+                            )
+                            
+                            if initvariant.length >= 1
                                 for element in initvariant
-                                   if value1.get(value.key) == parseInt(element)
+                                    if value1.get(value.key) == parseInt(element)
                                         flag++ 
+                                    else if $.inArray(parseInt(element),tempnew) >=0 
+                                        flag++ 
+
                             else
                                 if value1.get(value.key) == parseInt(value.value)
                                     flag++
@@ -246,7 +276,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                     )
-                    if flag == myArray.length
+                    if flag >= myArray.length
                         if  value1.get('unitType') != 14 && value1.get('unitType') != 16
                             floorCollunits.push(value1)
                         
@@ -381,17 +411,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     return false
                 floorUnitsArray = []
                 myArray = []
-                screenonearray = App.backFilter['screen1']
-                for element in screenonearray
-                    if App.defaults[element] != 'All'
-                        key = App.defaults.hasOwnProperty(element)
-                        if key == true
-                            console.log App.defaults[element]
-                            myArray.push({key:element,value:App.defaults[element]})
+                # screenonearray = App.backFilter['screen1']
+                # for element in screenonearray
+                #     if App.defaults[element] != 'All'
+                #         key = App.defaults.hasOwnProperty(element)
+                #         if key == true
+                #             console.log App.defaults[element]
+                #             myArray.push({key:element,value:App.defaults[element]})
                 $.map(App.defaults, (value, index)->
                     if value!='All'
-                        if  index == 'unittypeback'
-                            myArray.push({key:index,value:value})
+                        myArray.push({key:index,value:value})
 
                     )
                 status = App.master.status.findWhere({'name':'Available'})
@@ -418,17 +447,38 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             budget_price[1] = budget_price[1]+'00000'
                             if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                                 flag++
-                        else if value.key != 'floor'
-                            if value.key == 'unittypeback'
-                                value.key = 'unitVariant'
+                        else 
+                            # if value.key == 'unittypeback'
+                            #     value.key = 'unitVariant'
+                            tempnew = []
+                            console.log value.key
+                            if value.key == 'view' ||  value.key == 'apartment_views'
+                                tempnew = []
+                                value.key = 'apartment_views'
+                                console.log tempnew = value1.get(value.key)
+                                if tempnew != ""
+                                    tempnew = tempnew.map((item)->
+                                        return parseInt(item))
+                            else if value.key == 'facing'
+                                tempnew = []
+                                tempnew = value1.get(value.key)
+                                if tempnew.length != 0
+                                    tempnew = tempnew.map((item)->
+                                        return parseInt(item))
                             temp = []
                             temp.push value.value
                             tempstring = temp.join(',')
-                            initvariant = tempstring.split(',')
-                            if initvariant.length > 1
+                            initvariant = tempstring.split(',').map((item)->
+                                return parseInt(item)
+                            )
+                            
+                            if initvariant.length >= 1
                                 for element in initvariant
-                                   if value1.get(value.key) == parseInt(element)
+                                    if value1.get(value.key) == parseInt(element)
                                         flag++ 
+                                    else if $.inArray(parseInt(element),tempnew) >=0 
+                                        flag++ 
+
                             else
                                 if value1.get(value.key) == parseInt(value.value)
                                     flag++
@@ -436,7 +486,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                     )
-                    if flag == myArray.length
+                    if flag >= myArray.length
                         floorCollunits.push(value1)
 
 
@@ -463,9 +513,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
                             App.defaults[element] = 'All'
-                    console.log App.defaults['unittypeback']
-                    App.defaults['unitVariant'] = App.defaults['unittypeback']
-                    App.navigate "screen-two"
+                    # console.log App.defaults['unittypeback']
+                    # App.defaults['unitVariant'] = App.defaults['unittypeback']
+                    # App.navigate "screen-two"
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
@@ -564,8 +614,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 if unitVariantString == ""
                     unitVariantString = 'All'
                 App.defaults['unitVariant'] = unitVariantString
-                App.defaults['unittypeback'] = unitVariantString
-                App.backFilter['screen2'].push 'unitVariant'
+                # App.defaults['unittypeback'] = unitVariantString
+                #App.backFilter['screen2'].push 'unitVariant'
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -1159,8 +1209,24 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 
                      
                 $('#donepopup').on('click' , (e)->
-
-                            
+                            $('.specialFilter').empty()
+                            $('.specialFilter').addClass 'hidden'
+                            $('.b-modal').addClass 'hidden'
+                            App.layout.screenThreeRegion.el.innerHTML = ""
+                            App.layout.screenFourRegion.el.innerHTML = ""
+                            $('#screen-three-region').removeClass 'section'
+                            $('#screen-four-region').removeClass 'section' 
+                            screentwoArray  = App.backFilter['screen2']
+                            for element in screentwoArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                            screenthreeArray  = App.backFilter['screen3']
+                            for element in screenthreeArray
+                                key = App.defaults.hasOwnProperty(element)
+                                if key == true
+                                    App.defaults[element] = 'All'
+                            App.navigate "screen-two"
                             #$("script[src='../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js']").remove()
                             object.trigger 'unit:variants:selected'
                 )
@@ -1337,6 +1403,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     globalUnitArrayInt.push(parseInt(value))
 
                 )
+            unitVariantString = ""
+            console.log App.defaults['unitVariant']
+            console.log unitVariantString
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
                 $('#selectall' ).prop 'checked', true
             else
@@ -1650,6 +1719,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 if unitVariantString == ""
                                     unitVariantString = "All"
                                 App.defaults[element] = unitVariantString
+                            else
+                               App.defaults[element] = 'All' 
                             
                     q++
 

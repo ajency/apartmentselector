@@ -173,7 +173,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant' && index !== 'unittypeback' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
+          if (index !== 'unitVariant' && index !== 'view' && index !== 'facing' && index !== 'apartment_views' && index !== 'terrace') {
             return myArray.push({
               key: index,
               value: value
@@ -532,7 +532,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         $.each(unitAssgendModels, function(index, value1) {
           flag = 0;
           $.each(myArray, function(index, value) {
-            var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
+            var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempnew, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
             paramKey = {};
             paramKey[value.key] = value.value;
             if (value.key === 'budget') {
@@ -553,15 +553,39 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
                 return flag++;
               }
             } else if (value.key !== 'floor') {
+              tempnew = [];
+              console.log(value.key);
+              if (value.key === 'view' || value.key === 'apartment_views') {
+                tempnew = [];
+                value.key = 'apartment_views';
+                console.log(tempnew = value1.get(value.key));
+                if (tempnew !== "") {
+                  tempnew = tempnew.map(function(item) {
+                    return parseInt(item);
+                  });
+                }
+              } else if (value.key === 'facing') {
+                tempnew = [];
+                tempnew = value1.get(value.key);
+                if (tempnew.length !== 0) {
+                  tempnew = tempnew.map(function(item) {
+                    return parseInt(item);
+                  });
+                }
+              }
               temp = [];
               temp.push(value.value);
               tempstring = temp.join(',');
-              initvariant = tempstring.split(',');
-              if (initvariant.length > 1) {
+              initvariant = tempstring.split(',').map(function(item) {
+                return parseInt(item);
+              });
+              if (initvariant.length >= 1) {
                 _results = [];
                 for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
                   element = initvariant[_i];
                   if (value1.get(value.key) === parseInt(element)) {
+                    _results.push(flag++);
+                  } else if ($.inArray(parseInt(element), tempnew) >= 0) {
                     _results.push(flag++);
                   } else {
                     _results.push(void 0);
@@ -575,7 +599,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
               }
             }
           });
-          if (flag === myArray.length - 1) {
+          if (flag >= myArray.length - 1) {
             track = 1;
           }
           if (myArray.length === 0) {

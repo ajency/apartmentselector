@@ -196,7 +196,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
                 if value!='All' 
-                    if  index != 'unitVariant' && index != 'unittypeback'  && index != 'view' && index != 'facing' && index != 'apartment_views' && index != 'terrace'
+                    if  index != 'unitVariant' &&  index != 'view' && index != 'facing' && index != 'apartment_views' && index != 'terrace'
                         myArray.push({key:index,value:value})
 
             )
@@ -516,14 +516,35 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                             if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                                 flag++
                         else if value.key != 'floor'
+                            tempnew = []
+                            console.log value.key
+                            if value.key == 'view' ||  value.key == 'apartment_views'
+                                tempnew = []
+                                value.key = 'apartment_views'
+                                console.log tempnew = value1.get(value.key)
+                                if tempnew != ""
+                                    tempnew = tempnew.map((item)->
+                                        return parseInt(item))
+                            else if value.key == 'facing'
+                                tempnew = []
+                                tempnew = value1.get(value.key)
+                                if tempnew.length != 0
+                                    tempnew = tempnew.map((item)->
+                                        return parseInt(item))
                             temp = []
                             temp.push value.value
                             tempstring = temp.join(',')
-                            initvariant = tempstring.split(',')
-                            if initvariant.length > 1
+                            initvariant = tempstring.split(',').map((item)->
+                                return parseInt(item)
+                            )
+                            
+                            if initvariant.length >= 1
                                 for element in initvariant
-                                   if value1.get(value.key) == parseInt(element)
+                                    if value1.get(value.key) == parseInt(element)
                                         flag++ 
+                                    else if $.inArray(parseInt(element),tempnew) >=0 
+                                        flag++ 
+
                             else
                                 if value1.get(value.key) == parseInt(value.value)
                                     flag++
@@ -531,7 +552,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
                     )
-                    if flag == myArray.length - 1
+                    if flag >= myArray.length - 1
                         track = 1
                     if myArray.length == 0
                         track = 1
