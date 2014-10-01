@@ -145,9 +145,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           });
           if (flag >= myArray.length) {
-            if (value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
-              return floorCollunits.push(value1);
-            }
+            return floorCollunits.push(value1);
           }
         });
         mainnewarr = [];

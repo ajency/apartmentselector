@@ -366,8 +366,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
                 )
                 if flag >= myArray.length
-                    if  value1.get('unitType') != 14 && value1.get('unitType') != 16
-                        floorCollunits.push(value1)
+                    floorCollunits.push(value1)
 
 
 
@@ -394,8 +393,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
                 floorCollection = App.currentStore.unit
                 floorCollection.each (item)->
-                    if  item.get('unitType') != 14 && item.get('unitType') != 16
-                        if item.get('apartment_views') != ""
+                    if item.get('apartment_views') != ""
                             $.merge(viewtemp,item.get('apartment_views'))
                         if item.get('facing').length != 0
                             $.merge(facingtemp,item.get('facing'))

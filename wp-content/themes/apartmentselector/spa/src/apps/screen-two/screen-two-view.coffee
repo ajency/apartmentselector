@@ -278,8 +278,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                     )
                     if flag >= myArray.length
-                        if  value1.get('unitType') != 14 && value1.get('unitType') != 16
-                            floorCollunits.push(value1)
+                        floorCollunits.push(value1)
                         
 
 
