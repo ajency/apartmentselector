@@ -1185,6 +1185,9 @@ define(['marionette'], function(Marionette) {
           return $('#unittypecount1').html(unittypetext);
         });
         $('#donepopupscreen').on('click', function(e) {
+          $('.specialFilter1').empty();
+          $('.specialFilter1').addClass('hidden');
+          $('.b-modal').addClass('hidden');
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-four-region').removeClass('section');
           App.navigate("screen-three");
@@ -1432,6 +1435,7 @@ define(['marionette'], function(Marionette) {
       }
       App.defaults['unitVariant'] = selectedArray.join(',');
       console.log(selectedArray);
+      unitVariantString = "";
       console.log(unitVariantArray);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All" || selectedArray.length === unitVariantArray.length) {
         $('#unselectall').prop('checked', true);
@@ -1603,7 +1607,7 @@ define(['marionette'], function(Marionette) {
       object = this;
       track = 0;
       $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
+        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempnew, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
         paramKey = {};
         if (value.key === 'budget') {
           buildingModel = App.master.building.findWhere({
@@ -1623,15 +1627,39 @@ define(['marionette'], function(Marionette) {
             return flag++;
           }
         } else if (value.key !== 'floor') {
+          tempnew = [];
+          console.log(value.key);
+          if (value.key === 'view' || value.key === 'apartment_views') {
+            tempnew = [];
+            value.key = 'apartment_views';
+            console.log(tempnew = model.get(value.key));
+            if (tempnew !== "") {
+              tempnew = tempnew.map(function(item) {
+                return parseInt(item);
+              });
+            }
+          } else if (value.key === 'facing') {
+            tempnew = [];
+            tempnew = model.get(value.key);
+            if (tempnew.length !== 0) {
+              tempnew = tempnew.map(function(item) {
+                return parseInt(item);
+              });
+            }
+          }
           temp = [];
           temp.push(value.value);
           tempstring = temp.join(',');
-          initvariant = tempstring.split(',');
-          if (initvariant.length > 1) {
+          initvariant = tempstring.split(',').map(function(item) {
+            return parseInt(item);
+          });
+          if (initvariant.length >= 1) {
             _results = [];
             for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
               element = initvariant[_i];
               if (model.get(value.key) === parseInt(element)) {
+                _results.push(flag++);
+              } else if ($.inArray(parseInt(element), tempnew) >= 0) {
                 _results.push(flag++);
               } else {
                 _results.push(void 0);
@@ -1645,7 +1673,7 @@ define(['marionette'], function(Marionette) {
           }
         }
       });
-      if (flag === myArray.length) {
+      if (flag >= myArray.length) {
         track = 1;
       }
       if (myArray.length === 0) {
@@ -1743,7 +1771,7 @@ define(['marionette'], function(Marionette) {
       object = this;
       track = 0;
       $.each(myArray, function(index, value) {
-        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
+        var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempnew, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
         paramKey = {};
         if (value.key === 'budget') {
           buildingModel = App.master.building.findWhere({
@@ -1763,15 +1791,39 @@ define(['marionette'], function(Marionette) {
             return flag++;
           }
         } else if (value.key !== 'floor') {
+          tempnew = [];
+          console.log(value.key);
+          if (value.key === 'view' || value.key === 'apartment_views') {
+            tempnew = [];
+            value.key = 'apartment_views';
+            console.log(tempnew = model.get(value.key));
+            if (tempnew !== "") {
+              tempnew = tempnew.map(function(item) {
+                return parseInt(item);
+              });
+            }
+          } else if (value.key === 'facing') {
+            tempnew = [];
+            tempnew = model.get(value.key);
+            if (tempnew.length !== 0) {
+              tempnew = tempnew.map(function(item) {
+                return parseInt(item);
+              });
+            }
+          }
           temp = [];
           temp.push(value.value);
           tempstring = temp.join(',');
-          initvariant = tempstring.split(',');
-          if (initvariant.length > 1) {
+          initvariant = tempstring.split(',').map(function(item) {
+            return parseInt(item);
+          });
+          if (initvariant.length >= 1) {
             _results = [];
             for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
               element = initvariant[_i];
               if (model.get(value.key) === parseInt(element)) {
+                _results.push(flag++);
+              } else if ($.inArray(parseInt(element), tempnew) >= 0) {
                 _results.push(flag++);
               } else {
                 _results.push(void 0);
@@ -1785,7 +1837,7 @@ define(['marionette'], function(Marionette) {
           }
         }
       });
-      if (flag === myArray.length) {
+      if (flag >= myArray.length) {
         track = 1;
       }
       if (myArray.length === 0) {
@@ -1908,6 +1960,7 @@ define(['marionette'], function(Marionette) {
     unitChildView.prototype.events = {
       'click ': function(e) {
         var buildingModel, check, element, idValue, idvalue, index, indexvalue, object, screenThreeLayout, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues, _i, _len;
+        console.log("click");
         $("#flatno").text("");
         $("#towerno").text("");
         $("#unittypename").text("");
@@ -1923,7 +1976,7 @@ define(['marionette'], function(Marionette) {
         $('#printmapplic1').text("");
         $('#towerview').text("");
         screenThreeLayout = new ScreenThreeLayout();
-        check = screenThreeLayout.checkSelection(this.model);
+        console.log(check = screenThreeLayout.checkSelection(this.model));
         if (check === 1 && this.model.get('status') === 9) {
           buildingModel = App.master.building.findWhere({
             id: parseInt(this.model.get('building'))

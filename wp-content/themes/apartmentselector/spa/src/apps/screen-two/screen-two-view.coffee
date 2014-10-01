@@ -12,6 +12,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
     unitVariants = []
     cloneunitVariantArrayColl = ""
     
+   
     class ScreenTwoLayout extends Marionette.LayoutView
 
         template : '<div class="">
@@ -163,6 +164,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'click #filterModal':(e)->
+                # $('.specialFilter').text ""
                 $('.specialFilter').bPopup()
 
             'mouseout .im-pin':(e)->
@@ -1193,7 +1195,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 
                      
                 $('#donepopup').on('click' , (e)->
-
+                            $('.specialFilter').empty()
+                            $('.specialFilter').addClass 'hidden'
+                            $('.b-modal').addClass 'hidden'
                             App.layout.screenThreeRegion.el.innerHTML = ""
                             App.layout.screenFourRegion.el.innerHTML = ""
                             $('#screen-three-region').removeClass 'section'
@@ -1385,6 +1389,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     globalUnitArrayInt.push(parseInt(value))
 
                 )
+            unitVariantString = ""
+            console.log App.defaults['unitVariant']
+            console.log unitVariantString
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All"
                 $('#selectall' ).prop 'checked', true
             else

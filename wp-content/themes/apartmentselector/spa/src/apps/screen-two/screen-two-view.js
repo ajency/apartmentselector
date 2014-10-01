@@ -1113,6 +1113,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         $('#donepopup').on('click', function(e) {
           var element, key, screenthreeArray, screentwoArray, _i, _j, _len, _len1;
+          $('.specialFilter').empty();
+          $('.specialFilter').addClass('hidden');
+          $('.b-modal').addClass('hidden');
           App.layout.screenThreeRegion.el.innerHTML = "";
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
@@ -1305,6 +1308,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           return globalUnitArrayInt.push(parseInt(value));
         });
       }
+      unitVariantString = "";
+      console.log(App.defaults['unitVariant']);
+      console.log(unitVariantString);
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All") {
         $('#selectall').prop('checked', true);
       } else {

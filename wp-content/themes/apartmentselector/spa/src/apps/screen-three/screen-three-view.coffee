@@ -1271,7 +1271,9 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 $('#donepopupscreen').on('click' , (e)->
-
+                            $('.specialFilter1').empty()
+                            $('.specialFilter1').addClass 'hidden'
+                            $('.b-modal').addClass 'hidden'
                             App.layout.screenFourRegion.el.innerHTML = ""
                             $('#screen-four-region').removeClass 'section' 
                             App.navigate "screen-three"
@@ -1530,6 +1532,7 @@ define [ 'marionette' ], ( Marionette )->
             App.defaults['unitVariant'] = selectedArray.join(',')
             # App.backFilter['screen2'].push "unitVariant"
             console.log selectedArray
+            unitVariantString = ""
             console.log unitVariantArray
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All" || selectedArray.length == unitVariantArray.length
                 $('#unselectall' ).prop 'checked', true
@@ -1727,23 +1730,44 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                         flag++
                 else if value.key != 'floor'
-                    temp = []
-                    temp.push value.value
-                    tempstring = temp.join(',')
-                    initvariant = tempstring.split(',')
-                    if initvariant.length > 1
-                        for element in initvariant
-                           if model.get(value.key) == parseInt(element)
-                                flag++ 
-                    else
-                        if model.get(value.key) == parseInt(value.value)
-                            flag++
+                        tempnew = []
+                        console.log value.key
+                        if value.key == 'view' ||  value.key == 'apartment_views'
+                            tempnew = []
+                            value.key = 'apartment_views'
+                            console.log tempnew = model.get(value.key)
+                            if tempnew != ""
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        else if value.key == 'facing'
+                            tempnew = []
+                            tempnew = model.get(value.key)
+                            if tempnew.length != 0
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        temp = []
+                        temp.push value.value
+                        tempstring = temp.join(',')
+                        initvariant = tempstring.split(',').map((item)->
+                            return parseInt(item)
+                        )
+                        
+                        if initvariant.length >= 1
+                            for element in initvariant
+                                if model.get(value.key) == parseInt(element)
+                                    flag++ 
+                                else if $.inArray(parseInt(element),tempnew) >=0 
+                                    flag++ 
+
+                        else
+                            if model.get(value.key) == parseInt(value.value)
+                                flag++
 
                    
 
 
             )
-            if flag == myArray.length
+            if flag >= myArray.length
                 track =1
 
 
@@ -1849,22 +1873,43 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
                         flag++
                 else if value.key != 'floor'
-                    temp = []
-                    temp.push value.value
-                    tempstring = temp.join(',')
-                    initvariant = tempstring.split(',')
-                    if initvariant.length > 1
-                        for element in initvariant
-                           if model.get(value.key) == parseInt(element)
-                                flag++ 
-                    else
-                        if model.get(value.key) == parseInt(value.value)
-                            flag++
+                        tempnew = []
+                        console.log value.key
+                        if value.key == 'view' ||  value.key == 'apartment_views'
+                            tempnew = []
+                            value.key = 'apartment_views'
+                            console.log tempnew = model.get(value.key)
+                            if tempnew != ""
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        else if value.key == 'facing'
+                            tempnew = []
+                            tempnew = model.get(value.key)
+                            if tempnew.length != 0
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        temp = []
+                        temp.push value.value
+                        tempstring = temp.join(',')
+                        initvariant = tempstring.split(',').map((item)->
+                            return parseInt(item)
+                        )
+                        
+                        if initvariant.length >= 1
+                            for element in initvariant
+                                if model.get(value.key) == parseInt(element)
+                                    flag++ 
+                                else if $.inArray(parseInt(element),tempnew) >=0 
+                                    flag++ 
+
+                        else
+                            if model.get(value.key) == parseInt(value.value)
+                                flag++
 
 
 
             )
-            if flag == myArray.length
+            if flag >= myArray.length
                 track =1
 
 
@@ -1998,6 +2043,7 @@ define [ 'marionette' ], ( Marionette )->
         events:
 
             'click ':(e)->
+                console.log "click"
                 $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
@@ -2013,7 +2059,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#printmapplic1').text ""
                 $('#towerview').text ""
                 screenThreeLayout = new ScreenThreeLayout()
-                check = screenThreeLayout.checkSelection(@model)
+                console.log check = screenThreeLayout.checkSelection(@model)
                 if check == 1 && @model.get('status') == 9
                     buildingModel = App.master.building.findWhere({id:parseInt(@model.get('building'))})
                     console.log svgdata = buildingModel.get('svgdata')
