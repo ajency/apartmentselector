@@ -10205,7 +10205,17 @@ h5 {
 .taglist ul li .closeButton1,
 .taglist2 ul li .closeButton1,
 .taglist ul li .closeButton2,
-.taglist2 ul li .closeButton2 {
+.taglist2 ul li .closeButton2,
+.taglist ul li .closeButton3,
+.taglist2 ul li .closeButton3,
+.taglist ul li .closeButton4,
+.taglist2 ul li .closeButton4,
+.taglist ul li .closeButton5,
+.taglist2 ul li .closeButton5,
+.taglist ul li .closeButton6,
+.taglist2 ul li .closeButton6,
+.taglist ul li .closeButton7,
+.taglist2 ul li .closeButton7 {
   display: inline;
   cursor: pointer;
   color: #999999;
@@ -10216,7 +10226,17 @@ h5 {
 .taglist ul li .closeButton1:after,
 .taglist2 ul li .closeButton1:after,
 .taglist ul li .closeButton2:after,
-.taglist2 ul li .closeButton2:after {
+.taglist2 ul li .closeButton2:after,
+.taglist ul li .closeButton3:after,
+.taglist2 ul li .closeButton3:after,
+.taglist ul li .closeButton4:after,
+.taglist2 ul li .closeButton4:after,
+.taglist ul li .closeButton5:after,
+.taglist2 ul li .closeButton5:after,
+.taglist ul li .closeButton6:after,
+.taglist2 ul li .closeButton6:after,
+.taglist ul li .closeButton7:after,
+.taglist2 ul li .closeButton7:after {
   font-family: 'Glyphicons Halflings';
   content: "\e014";
   display: inline-block;
