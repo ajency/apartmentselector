@@ -22,13 +22,12 @@ define [ 'marionette' ], ( Marionette )->
                     <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3>
                     <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div>
                     <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div>
-                    <div class="text-center light">
+                    <div class="introTxt text-center light">
                         You are seeing 
                         <div id="tagslist1" class="taglist">
                           <ul></ul>
                         </div>
                         <span class="text-primary variantToggle"></span>variants of your apartment selection
-                             <a class="btn btn-primary btn-sm special hidden" id="filterModalscren3">Special Filters</a>
                     </div>
 
                     <div class="variantBox">
@@ -53,6 +52,26 @@ define [ 'marionette' ], ( Marionette )->
                             </div>
                         </div>
                     </div>
+
+                    <div class="text-center">
+                        <a class="special bold hidden" id="filterModalscren3">Additional Filters</a>
+                        
+                        View:
+                        <div id="" class="taglist2">
+                          <ul></ul>
+                        </div>
+
+                        Entrance:
+                        <div id="" class="taglist2">
+                          <ul></ul>
+                        </div>
+
+                        Terrace:
+                        <div id="" class="taglist2">
+                          <ul></ul>
+                        </div>
+                    </div>
+
                     <div class="row m-l-0 m-r-0 m-t-20 bgClass">
 
                         <div class="col-md-5 col-lg-4">
@@ -83,37 +102,43 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                     <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2">
                     </div>
-                    <div class="specialFilter1" style="display:none">
+                    <div class="specialFilter1">
                         <div class="bgClass">
-                            <div class="row m-l-0 m-r-0">
-                                <div class="col-sm-4">
-                                    <!--<h3>Additional Filters</h3>-->
-                                    <div class="small blockTitle">Terrace</div>
-                                     {{#terrace}}   
-                                    <div class="filterBox"> <input type="checkbox" name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
-                                    {{/terrace}}  
-                                </div>
+                            <h3 class="text-center light">Choose from the options below to filter your selection</h3>
+                            <div class="row m-l-0 m-r-0 filterBlock">
 
-                                <div class="col-sm-4 b-l b-r b-grey">
-                                    <div class="small blockTitle">View</div>
+                                <div class="col-sm-5 b-r b-grey">
+                                    <h4 class="bold blockTitle">View</h4>
                                     {{#views}}
                                     <div class="filterBox"> <input type="checkbox" name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
                                 
-
-                                <div class="col-sm-4 b-r b-grey">
-                                    <div class="small blockTitle">Entrance</div>
+                                <div class="col-sm-3 b-r b-grey">
+                                    <h4 class="bold blockTitle">Entrance</h4>
                                         {{#facings}}
                                     <div class="filterBox"> <input type="checkbox" name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
-                                <input type="button" class="b-close" id="donepopupscreen" value="Done" />
-                                <input type="button" class="b-close" id="cancelpopupscreen" value="Cancel" />
-                                <div id="unittypecount1"></div>
+
+                                <div class="col-sm-4">
+                                    <h4 class="bold blockTitle">Terrace</h4>
+                                     {{#terrace}}   
+                                    <div class="filterBox"> <input type="checkbox" name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
+                                    {{/terrace}}  
+                                </div>
+
                             </div>
+
+                            <h4 id="unittypecount1" class="text-center"></h4>
+
+                            <div class="text-center m-t-10 m-b-10">
+                                <a id="donepopupscreen" class="btn btn-primary btn-sm b-close">DONE</a>
+                                <a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a>
+                            </div>
+
                         </div>
                     </div>'
 
@@ -904,7 +929,7 @@ define [ 'marionette' ], ( Marionette )->
                 console.log mainnewarr
                 unittypetext = ""
                 $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                 )
@@ -1022,7 +1047,7 @@ define [ 'marionette' ], ( Marionette )->
                         console.log mainnewarr
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
@@ -1142,7 +1167,7 @@ define [ 'marionette' ], ( Marionette )->
                         console.log mainnewarr
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
@@ -1260,7 +1285,7 @@ define [ 'marionette' ], ( Marionette )->
                         console.log mainnewarr
                         unittypetext = ""
                         $.each(mainnewarr, (index,value)->
-                                unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
@@ -1393,7 +1418,7 @@ define [ 'marionette' ], ( Marionette )->
                             console.log mainnewarr
                             unittypetext = ""
                             $.each(mainnewarr, (index,value)->
-                                            unittypetext  += '<span>'+value.name+' :</span><span>'+value.count.length+'</span></br>'
+                                            unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
 
 
                             )
