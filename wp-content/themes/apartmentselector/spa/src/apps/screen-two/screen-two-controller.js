@@ -439,6 +439,15 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             }
           }
         });
+        viewtemp = viewtemp.map(function(item) {
+          return parseInt(item);
+        });
+        facingtemp = facingtemp.map(function(item) {
+          return parseInt(item);
+        });
+        terracetemp = terracetemp.map(function(item) {
+          return parseInt(item);
+        });
         uniqviews = _.uniq(viewtemp);
         uniqfacings = _.uniq(facingtemp);
         uniqterrace = _.uniq(terracetemp);

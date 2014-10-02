@@ -422,6 +422,15 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             }
           }
         });
+        viewtemp = viewtemp.map(function(item) {
+          return parseInt(item);
+        });
+        facingtemp = facingtemp.map(function(item) {
+          return parseInt(item);
+        });
+        terracetemp = terracetemp.map(function(item) {
+          return parseInt(item);
+        });
         uniqviews = _.uniq(viewtemp);
         uniqfacings = _.uniq(facingtemp);
         uniqterrace = _.uniq(terracetemp);

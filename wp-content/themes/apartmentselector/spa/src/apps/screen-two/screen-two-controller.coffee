@@ -424,7 +424,15 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if item.get('terrace') != ""
                             terracetemp1.push item.get('terrace')
 
-
+                viewtemp = viewtemp.map((item)->
+                    return parseInt(item)
+                    )
+                facingtemp = facingtemp.map((item)->
+                    return parseInt(item)
+                    )
+                terracetemp = terracetemp.map((item)->
+                    return parseInt(item)
+                    )
                     
                 uniqviews = _.uniq(viewtemp)
                 uniqfacings = _.uniq(facingtemp)
