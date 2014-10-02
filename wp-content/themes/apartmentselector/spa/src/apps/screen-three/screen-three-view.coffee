@@ -1438,7 +1438,7 @@ define [ 'marionette' ], ( Marionette )->
                 $(this).toggleClass("selected")
                 return
 
-            unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
             unitVariantsArray  = Marionette.getOption( @, 'unitVariants' )
             unitVariantArrayColl = new Backbone.Collection unitVariantsArray
             cloneunitVariantArrayColl = unitVariantArrayColl.clone()
@@ -1595,8 +1595,8 @@ define [ 'marionette' ], ( Marionette )->
 
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
             buildinArray = buildingCollection.toArray()
-            building  = _.first(buildinArray)
-            buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
+            console.log building  = _.first(buildinArray)
+            console.log buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgdata = buildingModel.get 'svgdata'
 
             floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url

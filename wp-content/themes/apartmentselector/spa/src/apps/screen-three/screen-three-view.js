@@ -1295,7 +1295,7 @@ define(['marionette'], function(Marionette) {
       $(".grid-link2").click(function(e) {
         $(this).toggleClass("selected");
       });
-      unitVariantArray = Marionette.getOption(this, 'uintVariantId');
+      console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
       unitVariantsArray = Marionette.getOption(this, 'unitVariants');
       unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
       cloneunitVariantArrayColl = unitVariantArrayColl.clone();
@@ -1469,10 +1469,10 @@ define(['marionette'], function(Marionette) {
       var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, floorid, maxvalue, path, svgdata;
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();
-      building = _.first(buildinArray);
-      buildingModel = App.master.building.findWhere({
+      console.log(building = _.first(buildinArray));
+      console.log(buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
-      });
+      }));
       svgdata = buildingModel.get('svgdata');
       floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
       maxvalue = Marionette.getOption(this, 'maxvalue');

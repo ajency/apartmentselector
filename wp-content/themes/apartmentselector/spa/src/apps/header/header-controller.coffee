@@ -83,7 +83,7 @@ define [ 'extm', 'src/apps/header/header-view' ], ( Extm, HeaderView )->
             if templateArr.length == 0 
                 templateArr.push '<span>All</span>'
             if(flag==1)
-                buildingModel = App.currentStore.building.findWhere({id:App.defaults['building']})
+                buildingModel = App.master.building.findWhere({id:App.defaults['building']})
                 floorriserange = buildingModel.get 'floorriserange'
                 #floorriserange = [{"name":"low","start":"1","end":"2"},{"name":"medium","start":"3","end":"4"},{"name":"high","start":"5","end":"6"}]
 

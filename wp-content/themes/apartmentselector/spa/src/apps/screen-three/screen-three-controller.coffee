@@ -584,7 +584,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 model.count
             )
             newunitCollection = new Backbone.Collection unitArray
-            buildingModel = App.currentStore.building.where(id:parseInt(buildingvalue))
+            buildingModel = App.master.building.where(id:parseInt(buildingvalue))
             buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
             [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue,viewModels,facingModels,viewID,facingID,terraceModels,terraceID]

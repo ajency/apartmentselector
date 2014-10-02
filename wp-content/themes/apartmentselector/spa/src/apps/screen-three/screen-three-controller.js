@@ -624,7 +624,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         return model.count;
       });
       newunitCollection = new Backbone.Collection(unitArray);
-      buildingModel = App.currentStore.building.where({
+      buildingModel = App.master.building.where({
         id: parseInt(buildingvalue)
       });
       buildingCollection = new Backbone.Collection(buildingModel);
