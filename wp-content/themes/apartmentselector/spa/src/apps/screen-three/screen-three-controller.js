@@ -695,9 +695,9 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           if (myArray.length === 0) {
             track = 1;
           }
-          if (track === 1 && value1.get('status') === 9 && value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
-            return maxunits.push(value1);
-          }
+          return maxunits = App.currentStore.unit.where({
+            unitAssigned: value
+          });
         });
         unitAssgendModelsColl = new Backbone.Collection(unitAssgendModels);
         return unitArray.push({
