@@ -173,7 +173,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant' && index !== 'view' && index !== 'facing' && index !== 'terrace') {
+          if (index !== 'unitVariant') {
             return myArray.push({
               key: index,
               value: value
@@ -381,6 +381,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       usermodel = new Backbone.Model(USER);
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
+        units = App.currentStore.unit;
         units.each(function(item) {
           if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
             if (item.get('apartment_views') !== "") {

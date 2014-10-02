@@ -624,9 +624,9 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 @trigger 'unit:variants:selected'
 
             'click .cancel':(e)->
-                $('.specialFilter').empty()
-                $('.specialFilter').addClass 'hidden'
-                $('.b-modal').addClass 'hidden'
+                # $('.specialFilter').empty()
+                # $('.specialFilter').addClass 'hidden'
+                # $('.b-modal').addClass 'hidden'
                 unitVariantArray = _.union(unitVariantArray,unitVariantIdArray)
                 $(".variantBox1").slideToggle()
                 globalUnitVariants = App.defaults['unitVariant'].split(',')

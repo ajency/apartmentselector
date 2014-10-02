@@ -503,9 +503,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
       },
       'click .cancel': function(e) {
         var globalUnitVariants;
-        $('.specialFilter').empty();
-        $('.specialFilter').addClass('hidden');
-        $('.b-modal').addClass('hidden');
         unitVariantArray = _.union(unitVariantArray, unitVariantIdArray);
         $(".variantBox1").slideToggle();
         globalUnitVariants = App.defaults['unitVariant'].split(',');
