@@ -785,7 +785,7 @@ define [ 'marionette' ], ( Marionette )->
                     $.each(cloneunitVariantArrayColl, (index,value)->
                         $('#gridlink'+value).addClass 'selected'
                         $('#checklink'+value).val '1'
-                        unitVariantArray.push(index.get('id'))
+                        unitVariantArray.push(value)
 
                     )
                     unitVariantArray = _.uniq(unitVariantArray)

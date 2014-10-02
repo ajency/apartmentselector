@@ -629,7 +629,7 @@ define(['marionette'], function(Marionette) {
           $.each(cloneunitVariantArrayColl, function(index, value) {
             $('#gridlink' + value).addClass('selected');
             $('#checklink' + value).val('1');
-            return unitVariantArray.push(index.get('id'));
+            return unitVariantArray.push(value);
           });
           unitVariantArray = _.uniq(unitVariantArray);
           cloneunitVariantArrayColl.sort(function(a, b) {
