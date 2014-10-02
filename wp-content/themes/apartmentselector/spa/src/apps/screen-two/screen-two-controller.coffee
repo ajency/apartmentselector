@@ -281,7 +281,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             myArray = []
             $.map(App.defaults, (value, index)->
                 if value!='All' 
-                    if  index != 'unitVariant' 
+                    if  index != 'unitVariant' && index != 'facing' && index != 'terrace' && index != 'view' 
                         myArray.push({key:index,value:value})
 
             )
@@ -372,62 +372,131 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             )
+            tempunitvarinat = []
+            uniqUnitvariant = []
             
             floorCollection = new Backbone.Collection(floorCollunits)
-            unitvariant = floorCollection.pluck("unitVariant")
+            $.each(unitslen1, (index,value)->
+                if value.get('unitType') != 14 && value.get('unitType') != 16
+                    tempunitvarinat.push(value)
+
+                )
+            unitvarinatColl = new Backbone.Collection tempunitvarinat
+            unitvariant = unitvarinatColl.pluck("unitVariant")
             uniqUnitvariant = _.uniq(unitvariant)
+            floorunitvariant = floorCollection.pluck("unitVariant")
+            flooruniqUnitvariant = _.uniq(floorunitvariant)
+
             unitVariantModels = []
             unitVariantID = []
             viewModels = []
             viewID = []
             viewtemp = []
+            viewtemp1 = []
             facingModels = []
             facingID = []
             facingtemp = []
+            facingtemp1 = []
             terraceModels = []
             terraceID = []
             terracetemp = []
+            terracetemp1 = []
             usermodel = new Backbone.Model USER
             capability = usermodel.get('all_caps')
             if usermodel.get('id') != "0" && $.inArray('see_special_filters',capability) >= 0
-                floorCollection = App.currentStore.unit
-                floorCollection.each (item)->
-                    if item.get('apartment_views') != ""
+                floorCollectionmaster = App.master.unit
+                floorCollectionmaster.each (item)->
+                    if item.get('unitType') != 14 && item.get('unitType') != 16
+                        if item.get('apartment_views') != ""
                             $.merge(viewtemp,item.get('apartment_views'))
                         if item.get('facing').length != 0
                             $.merge(facingtemp,item.get('facing'))
                         if item.get('terrace') != ""
                             terracetemp.push item.get('terrace')
+                
+                floorCollectionCur = App.currentStore.unit
+                floorCollectionCur.each (item)->
+                    if item.get('unitType') != 14 && item.get('unitType') != 16
+                        if item.get('apartment_views') != ""
+                            $.merge(viewtemp1,item.get('apartment_views'))
+                        if item.get('facing').length != 0
+                            $.merge(facingtemp1,item.get('facing'))
+                        if item.get('terrace') != ""
+                            terracetemp1.push item.get('terrace')
 
 
                     
                 uniqviews = _.uniq(viewtemp)
                 uniqfacings = _.uniq(facingtemp)
                 uniqterrace = _.uniq(terracetemp)
-
+                viewtemp1 = viewtemp1.map((item)->
+                    return parseInt(item)
+                    )
+                viewtemp1 = _.uniq(viewtemp1)
+                facingtemp1 = facingtemp1.map((item)->
+                    return parseInt(item)
+                    )
+                facingtemp1 = _.uniq(facingtemp1)
+                terracetemp1 = terracetemp1.map((item)->
+                    return parseInt(item)
+                    )
+                terracetemp1 = _.uniq(terracetemp1)
                 $.each(uniqviews, (index,value)->
                     viewModel = App.master.view.findWhere({id:parseInt(value)})
-                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name')})
-                    viewID.push(parseInt(viewModel.get('id')))
+                    disabled = "disabled"
+                    checked = ""
+                    
+                    
+                    if $.inArray(parseInt(value),viewtemp1) >= 0
+                        viewID.push(parseInt(viewModel.get('id')))
+                        disabled = ""
+                        checked = "checked"
+                        
+                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name'),disabled:disabled,checked:checked})
 
                 )
                 $.each(uniqfacings, (index,value)->
                     facingModel = App.master.facings.findWhere({id:parseInt(value)})
-                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name')})
-                    facingID.push(parseInt(facingModel.get('id')))
+                    disabled = "disabled"
+                    checked = ""
+                    
+                    if $.inArray(parseInt(value),facingtemp1) >= 0
+                        facingID.push(parseInt(facingModel.get('id')))
+                        disabled = ""
+                        checked = "checked"
+                        
+                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name'),disabled:disabled,checked:checked})
+                    
 
                 )
                 $.each(uniqterrace, (index,value)->
                     terraceModel = App.master.terrace.findWhere({id:parseInt(value)})
-                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name')})
-                    terraceID.push(parseInt(terraceModel.get('id')))
-
+                    disabled = "disabled"
+                    checked = ""
+                    
+                    if $.inArray(parseInt(value),terracetemp1) >= 0
+                        terraceID.push(parseInt(terraceModel.get('id')))
+                        disabled = ""
+                        checked = "checked"
+                        
+                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name'),disabled:disabled,checked:checked})
+                    
                 )
-                
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
-                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea')})
-                unitVariantID.push(parseInt(unitVarinatModel.get('id')))
+                count = floorCollection.where({'unitVariant':value})
+                key  = $.inArray(value,flooruniqUnitvariant)
+                selected = ""
+                if count.length != 0 && key >= 0 
+                    classname = 'boxLong filtered'
+                    selected = 'selected'
+                    unitVariantID.push(parseInt(unitVarinatModel.get('id')))
+                else if count.length ==0 && key == -1
+                    classname = 'boxLong sold'
+                else
+                    classname = 'boxLong other'
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea'),count:count.length,classname:classname,selected:selected})
+                
 
 
             )

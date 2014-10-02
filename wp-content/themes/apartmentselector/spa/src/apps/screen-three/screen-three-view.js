@@ -30,7 +30,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span> apartments that matched your selection.</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="introTxt text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3" > <a class="grid-link2 selected" href="#" id="gridlink{{id}}" data-id="{{id}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="special introTxt text-center hidden "> <div> Click <a class="special bold hidden" id="filterModalscren3">here</a> to set <span class="bold"> Additional Filters</span> </div> View: <div id="viewtaglist2" class="taglist2"> <ul></ul> </div> Entrance: <div id="entrancetaglist2" class="taglist2"> <ul></ul> </div> Terrace: <div id="terracetaglist2" class="taglist2"> <ul></ul> </div> </div> <div class="row m-l-0 m-r-0 m-t-20 bgClass"> <div class="col-md-5 col-lg-4"> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg"> <div class="svgLegend"> <div class="row"> <div class="col-sm-6"><span class="legendBox available"></span> Available</div> <!--<div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>--> <div class="col-sm-6"><span class="legendBox na"></span> Not in Selection/Not Released</div> </div> </div> <div id="positionsvg" class="positionSvg"> </div> </div> <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2"> </div> <div class="specialFilter1"> <div class="bgClass"> <h3 class="text-center light">Choose from the options below to filter your selection</h3> <div class="row m-l-0 m-r-0 filterBlock"> <div class="col-sm-5 b-r b-grey"> <h4 class="bold blockTitle">View</h4> {{#views}} <div class="filterBox"> <input type="checkbox" name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-3 b-r b-grey"> <h4 class="bold blockTitle">Entrance</h4> {{#facings}} <div class="filterBox"> <input type="checkbox" name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> <div class="col-sm-4"> <h4 class="bold blockTitle">Terrace</h4> {{#terrace}} <div class="filterBox"> <input type="checkbox" name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div> {{/terrace}} </div> </div> <div id="filtermsg1" class="alrtMsg animated pulse"></div> <h4 id="unittypecount1" class="text-center"></h4> <div class="text-center m-t-10 m-b-10"> <a id="donepopupscreen" class="btn btn-primary btn-sm b-close">DONE</a> <a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a> </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span> apartments that matched your selection.</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="introTxt text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> <div class="grid-container"> {{#unitVariants}} <div class="grid-block-3 {{classname}}" > <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> </a></br> <span> No. of available apartments : </span> {{count}} </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="special introTxt text-center hidden "> <div> Click <a class="special bold hidden" id="filterModalscren3">here</a> to set <span class="bold"> Additional Filters</span> </div> View: <div id="viewtaglist2" class="taglist2"> <ul></ul> </div> Entrance: <div id="entrancetaglist2" class="taglist2"> <ul></ul> </div> Terrace: <div id="terracetaglist2" class="taglist2"> <ul></ul> </div> </div> <div class="row m-l-0 m-r-0 m-t-20 bgClass"> <div class="col-md-5 col-lg-4"> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg"> <div class="svgLegend"> <div class="row"> <div class="col-sm-6"><span class="legendBox available"></span> Available</div> <!--<div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>--> <div class="col-sm-6"><span class="legendBox na"></span> Not in Selection/Not Released</div> </div> </div> <div id="positionsvg" class="positionSvg"> </div> </div> <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2"> </div> <div class="specialFilter1"> <div class="bgClass"> <h3 class="text-center light">Choose from the options below to filter your selection</h3> <div class="row m-l-0 m-r-0 filterBlock"> <div class="col-sm-5 b-r b-grey"> <h4 class="bold blockTitle">View</h4> {{#views}} <div class="filterBox"> <input type="checkbox" {{disabled}} name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-3 b-r b-grey"> <h4 class="bold blockTitle">Entrance</h4> {{#facings}} <div class="filterBox"> <input type="checkbox" {{disabled}} name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> <div class="col-sm-4"> <h4 class="bold blockTitle">Terrace</h4> {{#terrace}} <div class="filterBox"> <input type="checkbox" {{disabled}}  name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div> {{/terrace}} </div> </div> <div id="filtermsg1" class="alrtMsg animated pulse"></div> <h4 id="unittypecount1" class="text-center"></h4> <div class="text-center m-t-10 m-b-10"> <a id="donepopupscreen" class="btn btn-primary btn-sm b-close">DONE</a> <a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -532,14 +532,19 @@ define(['marionette'], function(Marionette) {
         return e.preventDefault();
       },
       'click .grid-link2': function(e) {
-        var id, index, track;
+        var dataCount, id, index, track;
         count = unitVariantArray.length;
         id = $('#' + e.target.id).attr('data-id');
+        dataCount = $('#' + e.target.id).attr('data-count');
+        if (parseInt(dataCount) === 0) {
+          return false;
+        }
         track = 0;
         if ($('#checklink' + id).val() === '1') {
           index = unitVariantArray.indexOf(parseInt(id));
           if (index !== -1) {
             unitVariantArray.splice(index, 1);
+            $('#' + e.target.id).removeClass("selected");
             $('#checklink' + id).val('0');
             track = 0;
             unitVariantIdArray.push(parseInt(id));
@@ -547,6 +552,7 @@ define(['marionette'], function(Marionette) {
         } else {
           track = 1;
           unitVariantArray.push(parseInt(id));
+          $('#' + e.target.id).addClass("selected");
           $('#checklink' + id).val('1');
         }
         if (globalUnitArrayInt.length !== 0) {
@@ -618,23 +624,22 @@ define(['marionette'], function(Marionette) {
         }
       },
       'click #unselectall': function(e) {
-        var remainainArray, tempArray, units, value;
+        var remainainArray, tempArray, value;
         if ($('#' + e.target.id).prop('checked') === true) {
-          cloneunitVariantArrayColl.each(function(index) {
-            $('#gridlink' + index.get('id')).addClass('selected');
-            $('#checklink' + index.get('id')).val('1');
+          $.each(cloneunitVariantArrayColl, function(index, value) {
+            $('#gridlink' + value).addClass('selected');
+            $('#checklink' + value).val('1');
             return unitVariantArray.push(index.get('id'));
           });
           unitVariantArray = _.uniq(unitVariantArray);
-          units = cloneunitVariantArrayColl.toArray();
-          units.sort(function(a, b) {
-            return a.get('id') - b.get('id');
+          cloneunitVariantArrayColl.sort(function(a, b) {
+            return a - b;
           });
           return unitVariantString = 'All';
         } else {
           tempArray = [];
-          cloneunitVariantArrayColl.each(function(value) {
-            return tempArray.push(parseInt(value.get('id')));
+          $.each(cloneunitVariantArrayColl, function(index, value) {
+            return tempArray.push(parseInt(value));
           });
           value = _.first(tempArray);
           remainainArray = _.rest(tempArray);
@@ -698,48 +703,48 @@ define(['marionette'], function(Marionette) {
           });
         }
         if (App.defaults['view'] !== 'All') {
-          $.each(originalOviews, function(index, value) {
-            if ($.inArray(parseInt(value.id), globalviewInt) >= 0) {
-              $('#screenview' + value.id).prop('checked', true);
-              return view.push(value.id);
+          $.each(originalviews, function(index, value) {
+            if ($.inArray(parseInt(value), globalviewInt) >= 0) {
+              $('#screenview' + value).prop('checked', true);
+              return view.push(value);
             } else {
-              return $('#screenview' + value.id).prop('checked', false);
+              return $('#screenview' + value).prop('checked', false);
             }
           });
         } else {
-          $.each(originalOviews, function(index, value) {
-            $('#screenview' + value.id).prop('checked', true);
-            return view.push(value.id);
+          $.each(originalviews, function(index, value) {
+            $('#screenview' + value).prop('checked', true);
+            return view.push(value);
           });
         }
         if (App.defaults['facing'] !== 'All') {
-          $.each(originalOfacings, function(index, value) {
-            if ($.inArray(parseInt(value.id), globalfacingInt) >= 0) {
-              $('#screenfacing' + value.id).prop('checked', true);
-              return entrance.push(value.id);
+          $.each(originalfacings, function(index, value) {
+            if ($.inArray(parseInt(value), globalfacingInt) >= 0) {
+              $('#screenfacing' + value).prop('checked', true);
+              return entrance.push(value);
             } else {
-              return $('#screenfacing' + value.id).prop('checked', false);
+              return $('#screenfacing' + value).prop('checked', false);
             }
           });
         } else {
-          $.each(originalOfacings, function(index, value) {
-            $('#screenfacing' + value.id).prop('checked', true);
-            return entrance.push(value.id);
+          $.each(originalfacings, function(index, value) {
+            $('#screenfacing' + value).prop('checked', true);
+            return entrance.push(value);
           });
         }
         if (App.defaults['terrace'] !== 'All') {
-          $.each(originalOterraces, function(index, value) {
-            if ($.inArray(parseInt(value.id), globalterraceInt) >= 0) {
-              $('#screenterrace' + value.id).prop('checked', true);
-              return teraace.push(value.id);
+          $.each(originalterraces, function(index, value) {
+            if ($.inArray(parseInt(value), globalterraceInt) >= 0) {
+              $('#screenterrace' + value).prop('checked', true);
+              return teraace.push(value);
             } else {
-              return $('#screenterrace' + value.id).prop('checked', false);
+              return $('#screenterrace' + value).prop('checked', false);
             }
           });
         } else {
-          $.each(originalOterraces, function(index, value) {
-            $('#screenterrace' + value.id).prop('checked', true);
-            return teraace.push(value.id);
+          $.each(originalterraces, function(index, value) {
+            $('#screenterrace' + value).prop('checked', true);
+            return teraace.push(value);
           });
         }
         mainnewarr = [];
@@ -793,7 +798,7 @@ define(['marionette'], function(Marionette) {
         });
         $('#unittypecount1').html(unittypetext);
         $('.viewname').on('click', function(e) {
-          var facingtemp, floorCollection, index, teracetemp, terrace, uniqfacings, uniqterrace, unselected, unselected1, viewString, viewnames;
+          var facingtemp, floorCollection, index, teracetemp, uniqfacings, uniqterrace, unselected, unselected1, viewString, viewnames;
           mainnewarr = [];
           mainunique = {};
           viewnames = originalviews;
@@ -819,7 +824,7 @@ define(['marionette'], function(Marionette) {
             viewString = view.join(',');
           }
           App.defaults['view'] = viewString;
-          if (cloneviews.length === view.length) {
+          if (originalOviews.length === view.length) {
             App.defaults['view'] = 'All';
           }
           App.currentStore.unit.reset(UNITS);
@@ -849,15 +854,15 @@ define(['marionette'], function(Marionette) {
           $.each(uniqfacings, function(index, value) {
             return $('#screenfacing' + value).prop('checked', true);
           });
-          if (uniqfacings.length !== clonefacings.length) {
+          if (uniqfacings.length !== originalfacings.length) {
             App.defaults['facing'] = uniqfacings.join(',');
             entrance = uniqfacings;
           } else {
             App.defaults['facing'] = 'All';
           }
-          if (uniqterrace.length !== cloneterraces.length) {
+          if (uniqterrace.length !== originalOterraces.length) {
             App.defaults['terrace'] = uniqterrace.join(',');
-            terrace = uniqterrace;
+            teraace = uniqterrace;
           } else {
             App.defaults['terrace'] = 'All';
           }
@@ -950,7 +955,7 @@ define(['marionette'], function(Marionette) {
           });
           teraace = _.uniq(teraace);
           App.defaults['terrace'] = teraace.join(',');
-          if (cloneterraces.length === teraace.length) {
+          if (originalterraces.length === teraace.length) {
             App.defaults['terrace'] = 'All';
           }
           App.filter();
@@ -973,13 +978,13 @@ define(['marionette'], function(Marionette) {
           });
           uniqviews = _.uniq(viewtemp);
           uniqfacings = _.uniq(facingtemp);
-          if (uniqviews.length !== cloneviews.length) {
+          if (uniqviews.length !== originalOviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
           } else {
             App.defaults['view'] = 'All';
           }
-          if (uniqfacings.length !== clonefacings.length) {
+          if (uniqfacings.length !== originalfacings.length) {
             App.defaults['facing'] = uniqfacings.join(',');
             entrance = uniqfacings;
           } else {
@@ -1049,7 +1054,7 @@ define(['marionette'], function(Marionette) {
           return $('#unittypecount1').html(unittypetext);
         });
         $('.facing').on('click', function(e) {
-          var facingString, first, floorCollection, index, teracetemp, terrace, uniqterrace, uniqviews, unselected, unselected1, viewtemp;
+          var facingString, floorCollection, index, teracetemp, uniqterrace, uniqviews, unselected, unselected1, viewtemp;
           mainnewarr = [];
           mainunique = {};
           if ($('#' + e.target.id).prop('checked') === true) {
@@ -1064,10 +1069,6 @@ define(['marionette'], function(Marionette) {
               entrance.splice(index, 1);
             }
           }
-          if (entrance.length === 0) {
-            first = _.first(originalOfacings);
-            entrance.push(first.id);
-          }
           entrance = entrance.map(function(item) {
             return parseInt(item);
           });
@@ -1076,7 +1077,7 @@ define(['marionette'], function(Marionette) {
             facingString = entrance.join(',');
           }
           App.defaults['facing'] = facingString;
-          if (clonefacings.length === entrance.length) {
+          if (originalOfacings.length === entrance.length) {
             App.defaults['facing'] = 'All';
           }
           App.currentStore.unit.reset(UNITS);
@@ -1103,15 +1104,15 @@ define(['marionette'], function(Marionette) {
           });
           uniqviews = _.uniq(viewtemp);
           uniqterrace = _.uniq(teracetemp);
-          if (uniqviews.length !== cloneviews.length) {
+          if (uniqviews.length !== originalOviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
           } else {
             App.defaults['view'] = 'All';
           }
-          if (uniqterrace.length !== cloneterraces.length) {
+          if (uniqterrace.length !== originalOterraces.length) {
             App.defaults['terrace'] = uniqterrace.join(',');
-            terrace = uniqterrace;
+            teraace = uniqterrace;
           } else {
             App.defaults['terrace'] = 'All';
           }
@@ -1179,6 +1180,7 @@ define(['marionette'], function(Marionette) {
           return $('#unittypecount1').html(unittypetext);
         });
         $('#donepopupscreen').on('click', function(e) {
+          App.filter();
           $('.specialFilter1').empty();
           $('.specialFilter1').addClass('hidden');
           $('.b-modal').addClass('hidden');
@@ -1188,28 +1190,61 @@ define(['marionette'], function(Marionette) {
           return object.trigger('unit:variants:selected');
         });
         $('#cancelpopupscreen').on('click', function(e) {
-          var terrace;
+          var facingtemp1, floorCollectionCur, terracetemp1, viewtemp1;
           $('.specialFilter1').empty();
           $('.specialFilter1').addClass('hidden');
           $('.b-modal').addClass('hidden');
           view = [];
           entrance = [];
-          terrace = [];
-          $.each(cloneviews, function(index, value) {
-            $('#screenview' + value.id).prop('checked', true);
-            return view.push(value.id);
+          teraace = [];
+          App.defaults['view'] = "All";
+          App.defaults['facing'] = "All";
+          App.defaults['terrace'] = "All";
+          App.filter();
+          floorCollectionCur = App.currentStore.unit;
+          viewtemp1 = [];
+          facingtemp1 = [];
+          terracetemp1 = [];
+          floorCollectionCur.each(function(item) {
+            if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
+              if (item.get('apartment_views') !== "") {
+                $.merge(viewtemp1, item.get('apartment_views'));
+              }
+              if (item.get('facing').length !== 0) {
+                $.merge(facingtemp1, item.get('facing'));
+              }
+              if (item.get('terrace') !== "") {
+                return terracetemp1.push(item.get('terrace'));
+              }
+            }
           });
-          $.each(clonefacings, function(index, value) {
-            $('#screenfacings' + value.id).prop('checked', true);
-            return entrance.push(value.id);
+          viewtemp1 = viewtemp1.map(function(item) {
+            return parseInt(item);
           });
-          $.each(cloneterraces, function(index, value) {
-            $('#screenterrace' + value.id).prop('checked', true);
-            return terrace.push(value.id);
+          viewtemp1 = _.uniq(viewtemp1);
+          facingtemp1 = facingtemp1.map(function(item) {
+            return parseInt(item);
           });
-          App.defaults['view'] = 'All';
-          App.defaults['facing'] = 'All';
-          App.defaults['terrace'] = 'All';
+          facingtemp1 = _.uniq(facingtemp1);
+          terracetemp1 = terracetemp1.map(function(item) {
+            return parseInt(item);
+          });
+          terracetemp1 = _.uniq(terracetemp1);
+          $.each(viewtemp1, function(index, value) {
+            $('#view' + value).prop('checked', true);
+            return view.push(value);
+          });
+          $.each(facingtemp1, function(index, value) {
+            $('#facings' + value).prop('checked', true);
+            return entrance.push(value);
+          });
+          $.each(terracetemp1, function(index, value) {
+            $('#terrace' + value).prop('checked', true);
+            return teraace.push(value);
+          });
+          App.defaults['view'] = cloneviews.join(',');
+          App.defaults['facing'] = clonefacings.join(',');
+          App.defaults['terrace'] = cloneterraces.join(',');
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-four-region').removeClass('section');
           App.navigate("screen-three");
@@ -1292,13 +1327,10 @@ define(['marionette'], function(Marionette) {
         $(".variantBox").slideToggle();
         $(".variantToggle").toggleClass("open");
       });
-      $(".grid-link2").click(function(e) {
-        $(this).toggleClass("selected");
-      });
-      console.log(unitVariantArray = Marionette.getOption(this, 'uintVariantId'));
+      unitVariantArray = Marionette.getOption(this, 'uintVariantId');
       unitVariantsArray = Marionette.getOption(this, 'unitVariants');
       unitVariantArrayColl = new Backbone.Collection(unitVariantsArray);
-      cloneunitVariantArrayColl = unitVariantArrayColl.clone();
+      cloneunitVariantArrayColl = unitVariantArray.slice(0);
       unitVariants = unitVariantArray;
       firstElement = _.first(unitVariantArray);
       globalUnitVariants = App.defaults['unitVariant'].split(',');
@@ -1332,7 +1364,6 @@ define(['marionette'], function(Marionette) {
           return selectedArray.push(value);
         });
       }
-      App.defaults['unitVariant'] = selectedArray.join(',');
       unitVariantString = "";
       if (unitVariantString === "All" || App.defaults['unitVariant'] === "All" || selectedArray.length === unitVariantArray.length) {
         $('#unselectall').prop('checked', true);

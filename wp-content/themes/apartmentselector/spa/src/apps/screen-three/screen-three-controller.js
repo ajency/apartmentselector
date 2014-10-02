@@ -151,7 +151,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, capability, facingID, facingModels, facingtemp, first, flag, floorArray, floorCollunits, floorCountArray, floorUnitsArray, highUnits, lowUnits, mainnewarr, maxvalue, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, terraceID, terraceModels, terracetemp, track, trackArray, uniqBuildings, uniqUnitvariant, uniqfacings, uniqterrace, uniqunitAssigned, uniqunitAssignedval, uniqviews, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitslen, unitslen1, unitvariant, usermodel, viewID, viewModels, viewtemp;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, capability, facingID, facingModels, facingtemp, facingtemp1, first, flag, floorArray, floorCollectionCur, floorCollunits, floorCountArray, floorUnitsArray, flooruniqUnitvariant, floorunitvariant, highUnits, lowUnits, mainnewarr, maxvalue, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, tempunitvarinat, terraceID, terraceModels, terracetemp, terracetemp1, track, trackArray, uniqBuildings, uniqUnitvariant, uniqfacings, uniqterrace, uniqunitAssigned, uniqunitAssignedval, uniqviews, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitscur, unitslen, unitslen1, unitvariant, unitvarinatColl, usermodel, viewID, viewModels, viewtemp, viewtemp1;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -173,7 +173,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
-          if (index !== 'unitVariant') {
+          if (index !== 'unitVariant' && index !== 'facing' && index !== 'terrace' && index !== 'view') {
             return myArray.push({
               key: index,
               value: value
@@ -365,8 +365,18 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       units = new Backbone.Collection(floorCollunits);
       buildings = units.pluck("building");
       uniqBuildings = _.uniq(buildings);
-      unitvariant = units.pluck("unitVariant");
+      tempunitvarinat = [];
+      uniqUnitvariant = [];
+      $.each(unitslen, function(index, value) {
+        if (value.get('unitType') !== 14 && value.get('unitType') !== 16) {
+          return tempunitvarinat.push(value);
+        }
+      });
+      unitvarinatColl = new Backbone.Collection(tempunitvarinat);
+      unitvariant = unitvarinatColl.pluck("unitVariant");
       uniqUnitvariant = _.uniq(unitvariant);
+      floorunitvariant = units.pluck("unitVariant");
+      flooruniqUnitvariant = _.uniq(floorunitvariant);
       unitVariantModels = [];
       unitVariantID = [];
       viewModels = [];
@@ -378,11 +388,14 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       terraceModels = [];
       terraceID = [];
       terracetemp = [];
+      viewtemp1 = [];
+      facingtemp1 = [];
+      terracetemp1 = [];
       usermodel = new Backbone.Model(USER);
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
-        units = App.currentStore.unit;
-        units.each(function(item) {
+        unitscur = App.master.unit;
+        unitscur.each(function(item) {
           if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
             if (item.get('apartment_views') !== "") {
               $.merge(viewtemp, item.get('apartment_views'));
@@ -395,54 +408,120 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             }
           }
         });
+        floorCollectionCur = App.currentStore.unit;
+        floorCollectionCur.each(function(item) {
+          if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
+            if (item.get('apartment_views') !== "") {
+              $.merge(viewtemp1, item.get('apartment_views'));
+            }
+            if (item.get('facing').length !== 0) {
+              $.merge(facingtemp1, item.get('facing'));
+            }
+            if (item.get('terrace') !== "") {
+              return terracetemp1.push(item.get('terrace'));
+            }
+          }
+        });
         uniqviews = _.uniq(viewtemp);
         uniqfacings = _.uniq(facingtemp);
         uniqterrace = _.uniq(terracetemp);
+        viewtemp1 = viewtemp1.map(function(item) {
+          return parseInt(item);
+        });
+        viewtemp1 = _.uniq(viewtemp1);
+        facingtemp1 = facingtemp1.map(function(item) {
+          return parseInt(item);
+        });
+        facingtemp1 = _.uniq(facingtemp1);
+        terracetemp1 = terracetemp1.map(function(item) {
+          return parseInt(item);
+        });
+        terracetemp1 = _.uniq(terracetemp1);
         $.each(uniqviews, function(index, value) {
-          var viewModel;
+          var checked, disabled, viewModel;
           viewModel = App.master.view.findWhere({
             id: parseInt(value)
           });
-          viewModels.push({
+          disabled = "disabled";
+          checked = "";
+          if ($.inArray(parseInt(value), viewtemp1) >= 0) {
+            viewID.push(parseInt(viewModel.get('id')));
+            disabled = "";
+            checked = "checked";
+          }
+          return viewModels.push({
             id: viewModel.get('id'),
-            name: viewModel.get('name')
+            name: viewModel.get('name'),
+            disabled: disabled,
+            checked: checked
           });
-          return viewID.push(parseInt(viewModel.get('id')));
         });
         $.each(uniqfacings, function(index, value) {
-          var facingModel;
+          var checked, disabled, facingModel;
           facingModel = App.master.facings.findWhere({
             id: parseInt(value)
           });
-          facingModels.push({
+          disabled = "disabled";
+          checked = "";
+          if ($.inArray(parseInt(value), facingtemp1) >= 0) {
+            facingID.push(parseInt(facingModel.get('id')));
+            disabled = "";
+            checked = "checked";
+          }
+          return facingModels.push({
             id: facingModel.get('id'),
-            name: facingModel.get('name')
+            name: facingModel.get('name'),
+            disabled: disabled,
+            checked: checked
           });
-          return facingID.push(parseInt(facingModel.get('id')));
         });
         $.each(uniqterrace, function(index, value) {
-          var terraceModel;
+          var checked, disabled, terraceModel;
           terraceModel = App.master.terrace.findWhere({
             id: parseInt(value)
           });
-          terraceModels.push({
+          disabled = "disabled";
+          checked = "";
+          if ($.inArray(parseInt(value), terracetemp1) >= 0) {
+            terraceID.push(parseInt(terraceModel.get('id')));
+            disabled = "";
+            checked = "checked";
+          }
+          return terraceModels.push({
             id: parseInt(terraceModel.get('id')),
-            name: terraceModel.get('name')
+            name: terraceModel.get('name'),
+            disabled: disabled,
+            checked: checked
           });
-          return terraceID.push(parseInt(terraceModel.get('id')));
         });
       }
       $.each(uniqUnitvariant, function(index, value) {
-        var unitVarinatModel;
+        var classname, count, key, selected, unitVarinatModel;
         unitVarinatModel = App.master.unit_variant.findWhere({
           id: value
         });
-        unitVariantModels.push({
+        count = units.where({
+          'unitVariant': value
+        });
+        key = $.inArray(value, flooruniqUnitvariant);
+        selected = "";
+        if (count.length !== 0 && key >= 0) {
+          classname = 'boxLong filtered';
+          selected = 'selected';
+          unitVariantID.push(parseInt(unitVarinatModel.get('id')));
+        } else if (count.length === 0 && key === -1) {
+          classname = 'boxLong sold';
+        } else {
+          classname = 'boxLong other';
+        }
+        return unitVariantModels.push({
           id: unitVarinatModel.get('id'),
           name: unitVarinatModel.get('name'),
-          sellablearea: unitVarinatModel.get('sellablearea')
+          sellablearea: unitVarinatModel.get('sellablearea'),
+          count: count.length,
+          classname: classname,
+          selected: selected
         });
-        return unitVariantID.push(parseInt(unitVarinatModel.get('id')));
       });
       unitVariantModels.sort(function(a, b) {
         return a.id - b.id;

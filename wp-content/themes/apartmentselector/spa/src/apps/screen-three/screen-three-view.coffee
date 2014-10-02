@@ -43,10 +43,11 @@ define [ 'marionette' ], ( Marionette )->
                         <div class="grid-container">
 
                             {{#unitVariants}}
-                            <div class="grid-block-3" >
-                                <a class="grid-link2 selected" href="#" id="gridlink{{id}}" data-id="{{id}}">
+                            <div class="grid-block-3 {{classname}}" >
+                                <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}">
                                     {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
-                                </a>
+                                </a></br>
+                                    <span> No. of available apartments : </span> {{count}}
                             </div>
                             {{/unitVariants}}
 
@@ -116,7 +117,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="col-sm-5 b-r b-grey">
                                     <h4 class="bold blockTitle">View</h4>
                                     {{#views}}
-                                    <div class="filterBox"> <input type="checkbox" name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" checked class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -124,7 +125,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="col-sm-3 b-r b-grey">
                                     <h4 class="bold blockTitle">Entrance</h4>
                                         {{#facings}}
-                                    <div class="filterBox"> <input type="checkbox" name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" checked class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -132,7 +133,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="col-sm-4">
                                     <h4 class="bold blockTitle">Terrace</h4>
                                      {{#terrace}}   
-                                    <div class="filterBox"> <input type="checkbox" name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" checked class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox"> <input type="checkbox" {{disabled}}  name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
                                     {{/terrace}}  
                                 </div>
                             </div>
@@ -694,17 +695,22 @@ define [ 'marionette' ], ( Marionette )->
             'click .grid-link2':(e)->
                 count = unitVariantArray.length
                 id = $('#'+e.target.id).attr('data-id')
+                dataCount = $('#'+e.target.id).attr('data-count')
+                if parseInt(dataCount) == 0
+                    return false
                 track = 0
                 if $('#checklink'+id).val() == '1'
                     index = unitVariantArray.indexOf(parseInt(id))
                     if index != -1
                         unitVariantArray.splice( index, 1 )
+                        $('#'+e.target.id).removeClass "selected"
                         $('#checklink'+id).val '0'
                         track = 0
                         unitVariantIdArray.push(parseInt(id))
                 else
                     track = 1
                     unitVariantArray.push(parseInt(id))
+                    $('#'+e.target.id).addClass "selected"
                     $('#checklink'+id).val '1'
 
 
@@ -776,24 +782,25 @@ define [ 'marionette' ], ( Marionette )->
                     )
             'click #unselectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
-                    cloneunitVariantArrayColl.each ( index)->
-                        $('#gridlink'+index.get('id')).addClass 'selected'
-                        $('#checklink'+index.get('id')).val '1'
+                    $.each(cloneunitVariantArrayColl, (index,value)->
+                        $('#gridlink'+value).addClass 'selected'
+                        $('#checklink'+value).val '1'
                         unitVariantArray.push(index.get('id'))
+
+                    )
                     unitVariantArray = _.uniq(unitVariantArray)
 
 
-                    units = cloneunitVariantArrayColl.toArray()
-                    units.sort(  (a,b)->
-                        a.get('id') - b.get('id')
+                    cloneunitVariantArrayColl.sort(  (a,b)->
+                        a - b
                     )
                     unitVariantString = 'All'
                 else
                     tempArray = []
-                    cloneunitVariantArrayColl.each ( value)->
-                        tempArray.push(parseInt(value.get('id')))
+                    $.each(cloneunitVariantArrayColl, (index,value)->
+                        tempArray.push(parseInt(value))
 
-
+                    )
                     value = _.first(tempArray)
                     remainainArray = _.rest(tempArray)
                     $.each(remainainArray, (index,value)->
@@ -853,60 +860,60 @@ define [ 'marionette' ], ( Marionette )->
 
                     )
                 if App.defaults['view'] != 'All'
-                    $.each(originalOviews,(index,value)->
+                    $.each(originalviews,(index,value)->
                         
                        
-                            if $.inArray(parseInt(value.id),globalviewInt) >=0 
-                                $('#screenview'+value.id).prop('checked',true)
-                                view.push(value.id)
+                            if $.inArray(parseInt(value),globalviewInt) >=0 
+                                $('#screenview'+value).prop('checked',true)
+                                view.push(value)
                             else
-                                $('#screenview'+value.id).prop('checked',false)
+                                $('#screenview'+value).prop('checked',false)
 
                             
 
                         )
                 else
-                    $.each(originalOviews,(index,value)->
-                        $('#screenview'+value.id).prop('checked',true)
-                        view.push(value.id)
+                    $.each(originalviews,(index,value)->
+                        $('#screenview'+value).prop('checked',true)
+                        view.push(value)
 
                         )
                 if App.defaults['facing'] != 'All'
-                    $.each(originalOfacings,(index,value)->
+                    $.each(originalfacings,(index,value)->
                         
                        
-                            if $.inArray(parseInt(value.id),globalfacingInt) >=0 
-                                $('#screenfacing'+value.id).prop('checked',true)
-                                entrance.push(value.id)
+                            if $.inArray(parseInt(value),globalfacingInt) >=0 
+                                $('#screenfacing'+value).prop('checked',true)
+                                entrance.push(value)
                             else
-                                $('#screenfacing'+value.id).prop('checked',false)
+                                $('#screenfacing'+value).prop('checked',false)
 
                             
 
                         )
                 else
-                    $.each(originalOfacings,(index,value)->
-                        $('#screenfacing'+value.id).prop('checked',true)
-                        entrance.push(value.id)
+                    $.each(originalfacings,(index,value)->
+                        $('#screenfacing'+value).prop('checked',true)
+                        entrance.push(value)
 
                         )
                 if App.defaults['terrace'] != 'All'
-                    $.each(originalOterraces,(index,value)->
+                    $.each(originalterraces,(index,value)->
                         
                        
-                            if $.inArray(parseInt(value.id),globalterraceInt) >=0 
-                                $('#screenterrace'+value.id).prop('checked',true)
-                                teraace.push(value.id)
+                            if $.inArray(parseInt(value),globalterraceInt) >=0 
+                                $('#screenterrace'+value).prop('checked',true)
+                                teraace.push(value)
                             else
-                                $('#screenterrace'+value.id).prop('checked',false)
+                                $('#screenterrace'+value).prop('checked',false)
 
                             
 
                         )
                 else
-                    $.each(originalOterraces,(index,value)->
-                        $('#screenterrace'+value.id).prop('checked',true)
-                        teraace.push(value.id)
+                    $.each(originalterraces,(index,value)->
+                        $('#screenterrace'+value).prop('checked',true)
+                        teraace.push(value)
 
                         )
                 mainnewarr =  []
@@ -969,7 +976,7 @@ define [ 'marionette' ], ( Marionette )->
                             viewString = view.join(',')
                         App.defaults['view'] = viewString
                         #App.backFilter['screen2'].push 'view'
-                        if cloneviews.length  == view.length
+                        if originalOviews.length  == view.length
                             App.defaults['view'] = 'All'
                             # view = originalviews
                             
@@ -1000,15 +1007,15 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenfacing'+value).prop('checked',true)
 
                         )
-                        if uniqfacings.length != clonefacings.length
+                        if uniqfacings.length != originalfacings.length
                             App.defaults['facing'] = uniqfacings.join(',')
                             entrance = uniqfacings
                             #App.backFilter['screen2'].push 'facing'
                         else
                             App.defaults['facing'] = 'All'
-                        if uniqterrace.length != cloneterraces.length
+                        if uniqterrace.length != originalOterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
-                            terrace = uniqterrace
+                            teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
                         else
                             App.defaults['terrace'] = 'All'
@@ -1092,7 +1099,7 @@ define [ 'marionette' ], ( Marionette )->
                         teraace = _.uniq(teraace)
                         App.defaults['terrace'] = teraace.join(',')
                         #App.backFilter['screen2'].push 'terrace'
-                        if cloneterraces.length  == teraace.length
+                        if originalterraces.length  == teraace.length
                             App.defaults['terrace'] = 'All'
                             # teraace = originalterraces
                             
@@ -1119,13 +1126,13 @@ define [ 'marionette' ], ( Marionette )->
                         
                         uniqviews = _.uniq(viewtemp)
                         uniqfacings = _.uniq(facingtemp)
-                        if uniqviews.length != cloneviews.length
+                        if uniqviews.length != originalOviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
                             App.defaults['view'] = 'All'
-                        if uniqfacings.length != clonefacings.length
+                        if uniqfacings.length != originalfacings.length
                             App.defaults['facing'] = uniqfacings.join(',')
                             entrance = uniqfacings
                             #App.backFilter['screen2'].push 'facing'
@@ -1201,9 +1208,9 @@ define [ 'marionette' ], ( Marionette )->
                             if index != -1
                                 entrance.splice( index, 1 )
                                 
-                        if entrance.length == 0
-                            first = _.first(originalOfacings)
-                            entrance.push first.id
+                        # if entrance.length == 0
+                        #     first = _.first(originalOfacings)
+                        #     entrance.push first.id
                         entrance = entrance.map((item)->
                             return parseInt(item))
                         entrance = _.uniq(entrance)
@@ -1212,7 +1219,7 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults['facing'] = facingString
                         #App.backFilter['screen2'].push 'facing'
                         
-                        if clonefacings.length  == entrance.length
+                        if originalOfacings.length  == entrance.length
                             App.defaults['facing'] = 'All'
                             # entrance = originalfacings
                             
@@ -1238,15 +1245,15 @@ define [ 'marionette' ], ( Marionette )->
                             )
                         uniqviews = _.uniq(viewtemp)
                         uniqterrace = _.uniq(teracetemp)
-                        if uniqviews.length != cloneviews.length
+                        if uniqviews.length != originalOviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
                             App.defaults['view'] = 'All'
-                        if uniqterrace.length != cloneterraces.length
+                        if uniqterrace.length != originalOterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
-                            terrace = uniqterrace
+                            teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
                         else
                             App.defaults['terrace'] = 'All'
@@ -1306,6 +1313,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 $('#donepopupscreen').on('click' , (e)->
+                            App.filter()
                             $('.specialFilter1').empty()
                             $('.specialFilter1').addClass 'hidden'
                             $('.b-modal').addClass 'hidden'
@@ -1321,25 +1329,56 @@ define [ 'marionette' ], ( Marionette )->
                             $('.b-modal').addClass 'hidden'
                             view = []
                             entrance = []
-                            terrace = []
-                            $.each(cloneviews,(index,value)->
-                                $('#screenview'+value.id).prop('checked',true)
-                                view.push(value.id)
+                            teraace = []
+                            App.defaults['view'] = "All"
+                            App.defaults['facing'] = "All"
+                            App.defaults['terrace'] = "All"
+                            App.filter()
+                            floorCollectionCur = App.currentStore.unit
+                            viewtemp1 = []
+                            facingtemp1 = []
+                            terracetemp1  = []
+                            
+                            floorCollectionCur.each (item)->
+                                if item.get('unitType') != 14 && item.get('unitType') != 16
+                                    if item.get('apartment_views') != ""
+                                        $.merge(viewtemp1,item.get('apartment_views'))
+                                    if item.get('facing').length != 0
+                                        $.merge(facingtemp1,item.get('facing'))
+                                    if item.get('terrace') != ""
+                                        terracetemp1.push item.get('terrace')
+
+                            viewtemp1 = viewtemp1.map((item)->
+                                return parseInt(item)
+                                )
+                            viewtemp1 = _.uniq(viewtemp1)
+                            facingtemp1 = facingtemp1.map((item)->
+                                return parseInt(item)
+                                )
+                            facingtemp1 = _.uniq(facingtemp1)
+                            terracetemp1 = terracetemp1.map((item)->
+                                return parseInt(item)
+                                )
+                            terracetemp1 = _.uniq(terracetemp1)
+                            $.each(viewtemp1,(index,value)->
+                                $('#view'+value).prop('checked',true)
+                                view.push(value)
 
                             )
-                            $.each(clonefacings,(index,value)->
-                                $('#screenfacings'+value.id).prop('checked',true)
-                                entrance.push(value.id)
+                            $.each(facingtemp1,(index,value)->
+                                $('#facings'+value).prop('checked',true)
+                                entrance.push(value)
 
                             )
-                            $.each(cloneterraces,(index,value)->
-                                $('#screenterrace'+value.id).prop('checked',true)
-                                terrace.push(value.id)
+                            $.each(terracetemp1,(index,value)->
+                                $('#terrace'+value).prop('checked',true)
+                                teraace.push(value)
 
                             )
-                            App.defaults['view'] = 'All'
-                            App.defaults['facing'] = 'All'
-                            App.defaults['terrace'] = 'All'
+                            
+                            App.defaults['view'] = cloneviews.join(',')
+                            App.defaults['facing'] = clonefacings.join(',')
+                            App.defaults['terrace'] = cloneterraces.join(',')
                             App.layout.screenFourRegion.el.innerHTML = ""
                             $('#screen-four-region').removeClass 'section' 
                             App.navigate "screen-three"
@@ -1434,14 +1473,14 @@ define [ 'marionette' ], ( Marionette )->
                 $(".variantToggle").toggleClass("open")
                 return
 
-            $(".grid-link2").click  (e)->
-                $(this).toggleClass("selected")
-                return
+            # $(".grid-link2").click  (e)->
+            #     $(this).toggleClass("selected")
+            #     return
 
-            console.log unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
+            unitVariantArray  = Marionette.getOption( @, 'uintVariantId' )
             unitVariantsArray  = Marionette.getOption( @, 'unitVariants' )
             unitVariantArrayColl = new Backbone.Collection unitVariantsArray
-            cloneunitVariantArrayColl = unitVariantArrayColl.clone()
+            cloneunitVariantArrayColl = unitVariantArray.slice(0)
             unitVariants  = unitVariantArray
             firstElement = _.first(unitVariantArray)
             globalUnitVariants = App.defaults['unitVariant'].split(',')
@@ -1476,7 +1515,7 @@ define [ 'marionette' ], ( Marionette )->
                     selectedArray.push value
 
                 )
-            App.defaults['unitVariant'] = selectedArray.join(',')
+            # App.defaults['unitVariant'] = selectedArray.join(',')
             # App.backFilter['screen2'].push "unitVariant"
             unitVariantString = ""
             if unitVariantString == "All" || App.defaults['unitVariant'] == "All" || selectedArray.length == unitVariantArray.length

@@ -31,6 +31,9 @@ define [ 'marionette' ], ( Mariontte )->
                         key = App.defaults.hasOwnProperty(element)
                         if key == true
                             App.defaults[element] = 'All'
+                    App.defaults['view'] = 'All'
+                    App.defaults['facing'] = 'All'
+                    App.defaults['terrace'] = 'All'
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
@@ -81,7 +84,9 @@ define [ 'marionette' ], ( Mariontte )->
                             App.defaults[element.key] = 'All'
 
 
-
+                    App.defaults['view'] = 'All'
+                    App.defaults['facing'] = 'All'
+                    App.defaults['terrace'] = 'All'
                     App.currentStore.unit.reset UNITS
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
