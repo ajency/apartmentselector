@@ -513,7 +513,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
       }
       $.each(uniqUnitvariant, function(index, value) {
-        var classname, count, selected, unitVarinatModel;
+        var classname, count, filter, selected, unitVarinatModel, unittypemodel;
         unitVarinatModel = App.master.unit_variant.findWhere({
           id: value
         });
@@ -521,6 +521,14 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           'unitVariant': value
         });
         key = $.inArray(value, flooruniqUnitvariant);
+        if (App.defaults['unitType'] !== "All") {
+          unittypemodel = App.master.unit_type.findWhere({
+            id: parseInt(App.defaults['unitType'])
+          });
+          filter = unittypemodel.get('name') + ' apartments';
+        } else if (App.defaults['budget'] !== "All") {
+          filter = 'Apartments within ' + App.defaults['budget'];
+        }
         selected = "";
         if (count.length !== 0 && key >= 0) {
           classname = 'boxLong filtered';
@@ -537,7 +545,8 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           sellablearea: unitVarinatModel.get('sellablearea'),
           count: count.length,
           classname: classname,
-          selected: selected
+          selected: selected,
+          filter: filter
         });
       });
       unitVariantModels.sort(function(a, b) {

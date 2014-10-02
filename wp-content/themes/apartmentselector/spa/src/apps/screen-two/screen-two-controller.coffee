@@ -486,6 +486,11 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 count = floorCollection.where({'unitVariant':value})
                 key  = $.inArray(value,flooruniqUnitvariant)
+                if App.defaults['unitType'] != "All"
+                    unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
+                    filter = unittypemodel.get('name')+' apartments'
+                else if App.defaults['budget'] != "All"
+                    filter = 'Apartments within '+App.defaults['budget']
                 selected = ""
                 if count.length != 0 && key >= 0 
                     classname = 'boxLong filtered'
@@ -495,7 +500,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     classname = 'boxLong sold'
                 else
                     classname = 'boxLong other'
-                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea'),count:count.length,classname:classname,selected:selected})
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea'),count:count.length,classname:classname,selected:selected,filter:filter})
                 
 
 

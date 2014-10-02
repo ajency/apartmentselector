@@ -47,7 +47,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}">
                                     {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
                                 </a></br>
-                                    <span> No. of available apartments : </span> {{count}}
+                                    <span> {{filter}} : </span> {{count}}
                             </div>
                             {{/unitVariants}}
 
@@ -1375,7 +1375,7 @@ define [ 'marionette' ], ( Marionette )->
                                 teraace.push(value)
 
                             )
-                            
+
                             App.defaults['view'] = cloneviews.join(',')
                             App.defaults['facing'] = clonefacings.join(',')
                             App.defaults['terrace'] = cloneterraces.join(',')
