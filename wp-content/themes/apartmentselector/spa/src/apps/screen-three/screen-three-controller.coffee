@@ -409,7 +409,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         if item.get('terrace') != ""
                             terracetemp.push item.get('terrace')
 
-                floorCollectionCur = App.currentStore.unit
+                floorCollectionCur = units
                 floorCollectionCur.each (item)->
                     if item.get('unitType') != 14 && item.get('unitType') != 16
                         if item.get('apartment_views') != ""

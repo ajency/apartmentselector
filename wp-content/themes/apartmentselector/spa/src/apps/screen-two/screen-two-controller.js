@@ -425,7 +425,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
             }
           }
         });
-        floorCollectionCur = App.currentStore.unit;
+        floorCollectionCur = floorCollection;
         floorCollectionCur.each(function(item) {
           if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
             if (item.get('apartment_views') !== "") {

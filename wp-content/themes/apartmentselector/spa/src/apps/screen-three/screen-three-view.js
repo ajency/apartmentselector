@@ -1500,10 +1500,10 @@ define(['marionette'], function(Marionette) {
       var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, floorid, maxvalue, path, svgdata;
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
       buildinArray = buildingCollection.toArray();
-      console.log(building = _.first(buildinArray));
-      console.log(buildingModel = App.master.building.findWhere({
+      building = _.first(buildinArray);
+      buildingModel = App.master.building.findWhere({
         id: parseInt(building.get('id'))
-      }));
+      });
       svgdata = buildingModel.get('svgdata');
       floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
       maxvalue = Marionette.getOption(this, 'maxvalue');

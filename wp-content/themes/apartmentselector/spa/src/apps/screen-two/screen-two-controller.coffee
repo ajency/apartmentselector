@@ -414,7 +414,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if item.get('terrace') != ""
                             terracetemp.push item.get('terrace')
                 
-                floorCollectionCur = App.currentStore.unit
+                floorCollectionCur = floorCollection
                 floorCollectionCur.each (item)->
                     if item.get('unitType') != 14 && item.get('unitType') != 16
                         if item.get('apartment_views') != ""
