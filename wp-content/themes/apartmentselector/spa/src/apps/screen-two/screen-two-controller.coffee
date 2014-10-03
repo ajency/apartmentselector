@@ -201,6 +201,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             mnewarr =  []
             hnewarr =  []
             mainunique = {}
+            myArray1 = []
             MainCollection = new Backbone.Model()
             status = App.currentStore.status.findWhere({'name':'Available'})
             key =  _.isEmpty(paramid)
@@ -283,6 +284,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 if value!='All' 
                     if  index != 'unitVariant' && index != 'facing' && index != 'terrace' && index != 'view' 
                         myArray.push({key:index,value:value})
+                    if  index != 'facing' && index != 'terrace' && index != 'view'
+                        myArray1.push({key:index,value:value})
 
             )
             
@@ -372,6 +375,71 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
 
 
             )
+            floorCollunits1 = []
+            $.each(floorUnitsArray, (index,value1)->
+                flag = 0
+                $.each(myArray1, (index,value)->
+                    paramKey = {}
+                    paramKey[value.key] = value.value
+                    if value.key == 'budget'
+                        buildingModel = App.master.building.findWhere({'id':value1.get 'building'})
+                        floorRise = buildingModel.get 'floorrise'
+                        floorRiseValue = floorRise[value1.get 'floor']
+                        unitVariantmodel = App.master.unit_variant.findWhere({'id':value1.get 'unitVariant'})
+                        #unitPrice = (parseInt( unitVariantmodel.get('persqftprice')) + parseInt(floorRiseValue)) * parseInt(unitVariantmodel.get 'sellablearea')
+                        unitPrice = value1.get 'unitPrice'
+                        budget_arr = value.value.split(' ')
+                        budget_price = budget_arr[0].split('-')
+                        budget_price[0] = budget_price[0]+'00000'
+                        budget_price[1] = budget_price[1]+'00000'
+                        if parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])
+                            flag++
+                    else if value.key != 'floor'
+                        tempnew = []
+                        
+                        if value.key == 'view' ||  value.key == 'apartment_views'
+                            tempnew = []
+                            value.key = 'apartment_views'
+                            tempnew = value1.get(value.key)
+                            if tempnew != ""
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        else if value.key == 'facing'
+                            tempnew = []
+                            tempnew = value1.get(value.key)
+                            if tempnew.length != 0
+                                tempnew = tempnew.map((item)->
+                                    return parseInt(item))
+                        temp = []
+                        temp.push value.value
+                        tempstring = temp.join(',')
+                        initvariant = tempstring.split(',').map((item)->
+                            return parseInt(item)
+                        )
+                        
+                        if initvariant.length >= 1
+                            for element in initvariant
+                                if value1.get(value.key) == parseInt(element)
+                                    flag++ 
+                                else if $.inArray(parseInt(element),tempnew) >=0 
+                                    flag++ 
+
+                        else
+                            if value1.get(value.key) == parseInt(value.value)
+                                flag++
+                        
+
+
+                )
+                if flag == myArray1.length 
+                    if  value1.get('unitType') != 14 && value1.get('unitType') != 16
+                        floorCollunits1.push(value1)
+
+
+
+
+
+            )
             tempunitvarinat = []
             uniqUnitvariant = []
             
@@ -414,7 +482,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                         if item.get('terrace') != ""
                             terracetemp.push item.get('terrace')
                 
-                floorCollectionCur = floorCollection
+                floorCollectionCur = new Backbone.Collection floorCollunits1
                 floorCollectionCur.each (item)->
                     if item.get('unitType') != 14 && item.get('unitType') != 16
                         if item.get('apartment_views') != ""

@@ -151,7 +151,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
     };
 
     ScreenThreeController.prototype._getUnits = function() {
-      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, capability, facingID, facingModels, facingtemp, facingtemp1, first, flag, floorArray, floorCollectionCur, floorCollunits, floorCountArray, floorUnitsArray, flooruniqUnitvariant, floorunitvariant, highUnits, lowUnits, mainnewarr, maxvalue, mediumUnits, myArray, newunitCollection, param, paramkey, range, status, templateArr, templateString, tempunitvarinat, terraceID, terraceModels, terracetemp, terracetemp1, track, trackArray, uniqBuildings, uniqUnitvariant, uniqfacings, uniqterrace, uniqunitAssigned, uniqunitAssignedval, uniqviews, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitscur, unitslen, unitslen1, unitvariant, unitvarinatColl, usermodel, viewID, viewModels, viewtemp, viewtemp1;
+      var Countunits, buildingArray, buildingArrayModel, buildingCollection, buildingModel, buildings, buildingvalue, capability, facingID, facingModels, facingtemp, facingtemp1, first, flag, floorArray, floorCollectionCur, floorCollunits, floorCollunits1, floorCountArray, floorUnitsArray, flooruniqUnitvariant, floorunitvariant, highUnits, lowUnits, mainnewarr, maxvalue, mediumUnits, myArray, myArray1, newunitCollection, param, paramkey, range, status, templateArr, templateString, tempunitvarinat, terraceID, terraceModels, terracetemp, terracetemp1, track, trackArray, uniqBuildings, uniqUnitvariant, uniqfacings, uniqterrace, uniqunitAssigned, uniqunitAssignedval, uniqviews, unitArray, unitAssigned, unitColl, unitVariantID, unitVariantModels, units, units1, unitsArray, unitsCollection, unitscur, unitsfilter, unitslen, unitslen1, unitvariant, unitvarinatColl, usermodel, viewID, viewModels, viewtemp, viewtemp1;
       buildingArray = [];
       unitArray = [];
       unitsArray = [];
@@ -164,6 +164,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       trackArray = [];
       floorUnitsArray = [];
       myArray = [];
+      myArray1 = [];
       units = App.master.unit;
       status = App.currentStore.status.findWhere({
         'name': 'Available'
@@ -174,7 +175,13 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       $.map(App.defaults, function(value, index) {
         if (value !== 'All') {
           if (index !== 'unitVariant' && index !== 'facing' && index !== 'terrace' && index !== 'view') {
-            return myArray.push({
+            myArray.push({
+              key: index,
+              value: value
+            });
+          }
+          if (index !== 'facing' && index !== 'terrace' && index !== 'view') {
+            return myArray1.push({
               key: index,
               value: value
             });
@@ -284,6 +291,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         floorUnitsArray = unitslen;
       }
       floorCollunits = [];
+      floorCollunits1 = [];
       $.each(floorUnitsArray, function(index, value1) {
         flag = 0;
         $.each(myArray, function(index, value) {
@@ -359,10 +367,87 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           }
         }
       });
+      console.log(myArray1);
+      $.each(floorUnitsArray, function(index, value1) {
+        flag = 0;
+        $.each(myArray1, function(index, value) {
+          var budget_arr, budget_price, buildingModel, element, floorRise, floorRiseValue, initvariant, paramKey, temp, tempnew, tempstring, unitPrice, unitVariantmodel, _i, _len, _results;
+          paramKey = {};
+          paramKey[value.key] = value.value;
+          if (value.key === 'budget') {
+            buildingModel = App.master.building.findWhere({
+              'id': value1.get('building')
+            });
+            floorRise = buildingModel.get('floorrise');
+            floorRiseValue = floorRise[value1.get('floor')];
+            unitVariantmodel = App.master.unit_variant.findWhere({
+              'id': value1.get('unitVariant')
+            });
+            unitPrice = value1.get('unitPrice');
+            budget_arr = value.value.split(' ');
+            budget_price = budget_arr[0].split('-');
+            budget_price[0] = budget_price[0] + '00000';
+            budget_price[1] = budget_price[1] + '00000';
+            if (parseInt(unitPrice) >= parseInt(budget_price[0]) && parseInt(unitPrice) <= parseInt(budget_price[1])) {
+              return flag++;
+            }
+          } else if (value.key !== 'floor') {
+            tempnew = [];
+            if (value.key === 'view' || value.key === 'apartment_views') {
+              tempnew = [];
+              value.key = 'apartment_views';
+              tempnew = value1.get(value.key);
+              if (tempnew !== "") {
+                tempnew = tempnew.map(function(item) {
+                  return parseInt(item);
+                });
+              }
+            } else if (value.key === 'facing') {
+              tempnew = [];
+              tempnew = value1.get(value.key);
+              if (tempnew.length !== 0) {
+                tempnew = tempnew.map(function(item) {
+                  return parseInt(item);
+                });
+              }
+            }
+            temp = [];
+            temp.push(value.value);
+            tempstring = temp.join(',');
+            initvariant = tempstring.split(',').map(function(item) {
+              return parseInt(item);
+            });
+            if (initvariant.length >= 1) {
+              _results = [];
+              for (_i = 0, _len = initvariant.length; _i < _len; _i++) {
+                element = initvariant[_i];
+                if (value1.get(value.key) === parseInt(element)) {
+                  _results.push(flag++);
+                } else if ($.inArray(parseInt(element), tempnew) >= 0) {
+                  _results.push(flag++);
+                } else {
+                  _results.push(void 0);
+                }
+              }
+              return _results;
+            } else {
+              if (value1.get(value.key) === parseInt(value.value)) {
+                return flag++;
+              }
+            }
+          }
+        });
+        if (flag >= myArray1.length - 1) {
+          if (value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
+            return floorCollunits1.push(value1);
+          }
+        }
+      });
       if (App.defaults['floor'] === "All") {
         floorCollunits = unitslen;
       }
       units = new Backbone.Collection(floorCollunits);
+      console.log(unitsfilter = new Backbone.Collection(floorCollunits1));
       buildings = units.pluck("building");
       uniqBuildings = _.uniq(buildings);
       tempunitvarinat = [];
@@ -408,7 +493,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             }
           }
         });
-        floorCollectionCur = units;
+        floorCollectionCur = unitsfilter;
         floorCollectionCur.each(function(item) {
           if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
             if (item.get('apartment_views') !== "") {
