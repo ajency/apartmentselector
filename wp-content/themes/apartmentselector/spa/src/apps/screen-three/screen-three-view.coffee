@@ -994,7 +994,8 @@ define [ 'marionette' ], ( Marionette )->
                         if originalviews.length  == view.length
                             App.defaults['view'] = 'All'
                             # view = originalviews
-                            
+                        App.defaults['terrace'] = 'All'
+                        App.defaults['facing'] = 'All'  
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
@@ -1030,12 +1031,14 @@ define [ 'marionette' ], ( Marionette )->
                             entrance = uniqfacings
                             #App.backFilter['screen2'].push 'facing'
                         else
+                            entrance = uniqfacings
                             App.defaults['facing'] = 'All'
                         if uniqterrace.length != originalterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
                             teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
                         else
+                            teraace = uniqterrace
                             App.defaults['terrace'] = 'All'
 
                         unselected = _.difference(clonefacings, uniqfacings);
@@ -1123,7 +1126,8 @@ define [ 'marionette' ], ( Marionette )->
                         if originalterraces.length  == teraace.length
                             App.defaults['terrace'] = 'All'
                             # teraace = originalterraces
-                            
+                        App.defaults['view'] = 'All'
+                        App.defaults['facing'] = 'All'  
                         App.filter()
                         units = App.currentStore.unit
                         
@@ -1152,12 +1156,14 @@ define [ 'marionette' ], ( Marionette )->
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
+                            view = uniqviews
                             App.defaults['view'] = 'All'
                         if uniqfacings.length != originalfacings.length
                             App.defaults['facing'] = uniqfacings.join(',')
                             entrance = uniqfacings
                             #App.backFilter['screen2'].push 'facing'
                         else
+                            entrance = uniqfacings
                             App.defaults['facing'] = 'All'
                         $.each(uniqviews, (index,value)->
                                 $('#screenview'+value).prop('checked',true)
@@ -1251,6 +1257,8 @@ define [ 'marionette' ], ( Marionette )->
                         App.currentStore.terrace.reset TERRACEOPTIONS
                         App.currentStore.view.reset VIEWS
                         App.currentStore.facings.reset FACINGS   
+                        App.defaults['terrace'] = 'All'
+                        App.defaults['view'] = 'All'  
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
@@ -1274,12 +1282,14 @@ define [ 'marionette' ], ( Marionette )->
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
+                            view = uniqviews
                             App.defaults['view'] = 'All'
                         if uniqterrace.length != originalterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
                             teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
                         else
+                            teraace = uniqterrace
                             App.defaults['terrace'] = 'All'
                         $.each(uniqviews, (index,value)->
                                 $('#screenview'+value).prop('checked',true)

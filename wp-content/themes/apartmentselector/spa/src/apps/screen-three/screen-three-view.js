@@ -840,6 +840,8 @@ define(['marionette'], function(Marionette) {
           if (originalviews.length === view.length) {
             App.defaults['view'] = 'All';
           }
+          App.defaults['terrace'] = 'All';
+          App.defaults['facing'] = 'All';
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
@@ -874,12 +876,14 @@ define(['marionette'], function(Marionette) {
             App.defaults['facing'] = uniqfacings.join(',');
             entrance = uniqfacings;
           } else {
+            entrance = uniqfacings;
             App.defaults['facing'] = 'All';
           }
           if (uniqterrace.length !== originalterraces.length) {
             App.defaults['terrace'] = uniqterrace.join(',');
             teraace = uniqterrace;
           } else {
+            teraace = uniqterrace;
             App.defaults['terrace'] = 'All';
           }
           unselected = _.difference(clonefacings, uniqfacings);
@@ -977,6 +981,8 @@ define(['marionette'], function(Marionette) {
           if (originalterraces.length === teraace.length) {
             App.defaults['terrace'] = 'All';
           }
+          App.defaults['view'] = 'All';
+          App.defaults['facing'] = 'All';
           App.filter();
           units = App.currentStore.unit;
           viewtemp = [];
@@ -1001,12 +1007,14 @@ define(['marionette'], function(Marionette) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
           } else {
+            view = uniqviews;
             App.defaults['view'] = 'All';
           }
           if (uniqfacings.length !== originalfacings.length) {
             App.defaults['facing'] = uniqfacings.join(',');
             entrance = uniqfacings;
           } else {
+            entrance = uniqfacings;
             App.defaults['facing'] = 'All';
           }
           $.each(uniqviews, function(index, value) {
@@ -1106,6 +1114,8 @@ define(['marionette'], function(Marionette) {
           App.currentStore.terrace.reset(TERRACEOPTIONS);
           App.currentStore.view.reset(VIEWS);
           App.currentStore.facings.reset(FACINGS);
+          App.defaults['terrace'] = 'All';
+          App.defaults['view'] = 'All';
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
@@ -1130,12 +1140,14 @@ define(['marionette'], function(Marionette) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
           } else {
+            view = uniqviews;
             App.defaults['view'] = 'All';
           }
           if (uniqterrace.length !== originalterraces.length) {
             App.defaults['terrace'] = uniqterrace.join(',');
             teraace = uniqterrace;
           } else {
+            teraace = uniqterrace;
             App.defaults['terrace'] = 'All';
           }
           $.each(uniqviews, function(index, value) {
