@@ -684,10 +684,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         return a - b;
       });
       $.each(uniqunitAssigned, function(index, value) {
-        var floorColl, floorColl1, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
-        floorColl1 = _.reject(floorUnitsArray, function(model) {
-          return model.get('unitType') === 14 || model.get('unitType') === 16;
-        });
+        var floorColl, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
         floorColl = new Backbone.Collection(floorColl1);
         if (App.defaults['building'] === "All") {
           unitAssgendModels = floorColl.where({
@@ -701,14 +698,25 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         }
         $.each(unitAssgendModels, function(index, value) {
           var unitType, unitVariant;
-          unitType = App.master.unit_type.findWhere({
-            id: value.get('unitType')
-          });
-          value.set("unittypename", unitType.get("name"));
-          unitVariant = App.master.unit_variant.findWhere({
-            id: value.get('unitVariant')
-          });
-          return value.set("sellablearea", unitVariant.get("sellablearea"));
+          if (value.get('unitType') === 16) {
+            value.set("unittypename", "Not Released");
+            value.set("sellablearea", "");
+            return value.set("sqft", "");
+          } else if (value.get('unitType') === 14) {
+            value.set("unittypename", unitType.get("name"));
+            value.set("sellablearea", "");
+            return value.set("sqft", "");
+          } else {
+            unitType = App.master.unit_type.findWhere({
+              id: value.get('unitType')
+            });
+            value.set("unittypename", unitType.get("name"));
+            unitVariant = App.master.unit_variant.findWhere({
+              id: value.get('unitVariant')
+            });
+            value.set("sellablearea", unitVariant.get("sellablearea"));
+            return value.set("sqft", unitVariant.get("Sq.ft."));
+          }
         });
         unitAssgendModels = _.uniq(unitAssgendModels);
         unitAssgendModels.sort(function(a, b) {
