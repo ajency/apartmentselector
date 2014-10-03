@@ -197,7 +197,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             Countunits = App.currentStore.unit.where({'status':status.get('id')})
             $.map(App.defaults, (value, index)->
                 if value!='All' 
-                    if  index != 'unitVariant' && index != 'facing' && index != 'terrace' && index != 'view'
+                    if  index != 'unitVariant' 
                         myArray.push({key:index,value:value})
                     if  index != 'facing' && index != 'terrace' && index != 'view'
                         myArray1.push({key:index,value:value})

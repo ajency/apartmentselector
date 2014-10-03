@@ -1950,6 +1950,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
         events:
             'click .link':(e)->
+
                 #m = mapplic()
                 #m  = $('#mapplic1').data('mapplic')
                 id = @model.get('id')
@@ -1958,6 +1959,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 params = window['mapplic' + i]
                 selector = '#mapplic' + i
                 if @model.get('id') == undefined
+                    e.preventDefault();
                     id = ""
                 @showHighlightedBuildings(id)
                 #m.initial($(selector),params)

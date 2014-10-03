@@ -1856,6 +1856,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
         if (this.model.get('id') === void 0) {
+          e.preventDefault();
           id = "";
         }
         return this.showHighlightedBuildings(id);
