@@ -367,7 +367,6 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           }
         }
       });
-      console.log(myArray1);
       $.each(floorUnitsArray, function(index, value1) {
         flag = 0;
         $.each(myArray1, function(index, value) {
@@ -447,7 +446,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         floorCollunits = unitslen;
       }
       units = new Backbone.Collection(floorCollunits);
-      console.log(unitsfilter = new Backbone.Collection(floorCollunits1));
+      unitsfilter = new Backbone.Collection(floorCollunits1);
       buildings = units.pluck("building");
       uniqBuildings = _.uniq(buildings);
       tempunitvarinat = [];

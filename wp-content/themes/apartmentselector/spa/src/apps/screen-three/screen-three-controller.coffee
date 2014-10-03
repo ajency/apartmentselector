@@ -365,7 +365,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
             )
-            console.log myArray1
+            
             $.each(floorUnitsArray, (index,value1)->
                 flag = 0
                 $.each(myArray1, (index,value)->
@@ -433,7 +433,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             if App.defaults['floor'] == "All"
                 floorCollunits = unitslen
             units = new Backbone.Collection floorCollunits
-            console.log unitsfilter = new Backbone.Collection floorCollunits1
+            unitsfilter = new Backbone.Collection floorCollunits1
             buildings = units.pluck("building")
             uniqBuildings = _.uniq(buildings)
 

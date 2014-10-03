@@ -22,6 +22,8 @@ define [ 'marionette' ], ( Marionette )->
     object2 = "this"
     object3 = "this"
     object4 = "this"
+    
+                
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span> apartments that matched your selection.</h3>
@@ -757,6 +759,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 if unitVariantString == "" || parseInt(cloneunitVariantArrayColl.length) == parseInt(unitVariantArray.length)
                     unitVariantString = "All"
                 App.defaults['unitVariant'] = unitVariantString
@@ -986,14 +991,17 @@ define [ 'marionette' ], ( Marionette )->
                             viewString = view.join(',')
                         App.defaults['view'] = viewString
                         #App.backFilter['screen2'].push 'view'
-                        if originalOviews.length  == view.length
+                        if originalviews.length  == view.length
                             App.defaults['view'] = 'All'
                             # view = originalviews
                             
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
-                        App.currentStore.unit_variant.reset UNITVARIANTS   
+                        App.currentStore.unit_variant.reset UNITVARIANTS
+                        App.currentStore.terrace.reset TERRACEOPTIONS
+                        App.currentStore.view.reset VIEWS
+                        App.currentStore.facings.reset FACINGS   
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
@@ -1023,7 +1031,7 @@ define [ 'marionette' ], ( Marionette )->
                             #App.backFilter['screen2'].push 'facing'
                         else
                             App.defaults['facing'] = 'All'
-                        if uniqterrace.length != originalOterraces.length
+                        if uniqterrace.length != originalterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
                             teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
@@ -1088,7 +1096,10 @@ define [ 'marionette' ], ( Marionette )->
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
-                        App.currentStore.unit_variant.reset UNITVARIANTS   
+                        App.currentStore.unit_variant.reset UNITVARIANTS
+                        App.currentStore.terrace.reset TERRACEOPTIONS
+                        App.currentStore.view.reset VIEWS
+                        App.currentStore.facings.reset FACINGS   
                         
                         if $('#'+e.target.id).prop('checked') == true
                             teraace.push $('#'+e.target.id).val()
@@ -1136,7 +1147,7 @@ define [ 'marionette' ], ( Marionette )->
                         
                         uniqviews = _.uniq(viewtemp)
                         uniqfacings = _.uniq(facingtemp)
-                        if uniqviews.length != originalOviews.length
+                        if uniqviews.length != originalviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
@@ -1229,14 +1240,17 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults['facing'] = facingString
                         #App.backFilter['screen2'].push 'facing'
                         
-                        if originalOfacings.length  == entrance.length
+                        if originalfacings.length  == entrance.length
                             App.defaults['facing'] = 'All'
                             # entrance = originalfacings
                             
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
-                        App.currentStore.unit_variant.reset UNITVARIANTS   
+                        App.currentStore.unit_variant.reset UNITVARIANTS
+                        App.currentStore.terrace.reset TERRACEOPTIONS
+                        App.currentStore.view.reset VIEWS
+                        App.currentStore.facings.reset FACINGS   
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
@@ -1255,13 +1269,13 @@ define [ 'marionette' ], ( Marionette )->
                             )
                         uniqviews = _.uniq(viewtemp)
                         uniqterrace = _.uniq(teracetemp)
-                        if uniqviews.length != originalOviews.length
+                        if uniqviews.length != originalviews.length
                             App.defaults['view'] = uniqviews.join(',')
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
                             App.defaults['view'] = 'All'
-                        if uniqterrace.length != originalOterraces.length
+                        if uniqterrace.length != originalterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
                             teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
@@ -1331,6 +1345,9 @@ define [ 'marionette' ], ( Marionette )->
                             App.currentStore.building.reset BUILDINGS
                             App.currentStore.unit_type.reset UNITTYPES
                             App.currentStore.unit_variant.reset UNITVARIANTS
+                            App.currentStore.terrace.reset TERRACEOPTIONS
+                            App.currentStore.view.reset VIEWS
+                            App.currentStore.facings.reset FACINGS
                             App.filter()
                             $('.specialFilter1').empty()
                             $('.specialFilter1').addClass 'hidden'
@@ -1345,9 +1362,9 @@ define [ 'marionette' ], ( Marionette )->
                             view = []
                             entrance = []
                             teraace = []
-                            App.defaults['view'] = "All"
-                            App.defaults['facing'] = "All"
-                            App.defaults['terrace'] = "All"
+                            # App.defaults['view'] = "All"
+                            # App.defaults['facing'] = "All"
+                            # App.defaults['terrace'] = "All"
                             App.filter()
                             floorCollectionCur = App.currentStore.unit
                             viewtemp1 = []
@@ -1390,10 +1407,25 @@ define [ 'marionette' ], ( Marionette )->
                                 teraace.push(value)
 
                             )
-
-                            App.defaults['view'] = cloneviews.join(',')
-                            App.defaults['facing'] = clonefacings.join(',')
-                            App.defaults['terrace'] = cloneterraces.join(',')
+                            console.log originalOviews.length
+                            console.log viewtemp1.length
+                            if viewtemp1.length != originalviews.length
+                                App.defaults['view'] = viewtemp1.join(',')
+                            else
+                                App.defaults['view'] = 'All'
+                            if terracetemp1.length != originalterraces.length
+                                App.defaults['terrace'] = terracetemp1.join(',')
+                                
+                            else
+                                App.defaults['terrace'] = 'All'
+                            if facingtemp1.length != originalfacings.length
+                                App.defaults['facing'] = facingtemp1.join(',')
+                                
+                            else
+                                App.defaults['facing'] = 'All'
+                            # App.defaults['view'] = cloneviews.join(',')
+                            # App.defaults['facing'] = clonefacings.join(',')
+                            # App.defaults['terrace'] = cloneterraces.join(',')
                             App.layout.screenFourRegion.el.innerHTML = ""
                             $('#screen-four-region').removeClass 'section' 
                             App.navigate "screen-three"
@@ -1401,6 +1433,9 @@ define [ 'marionette' ], ( Marionette )->
                             App.currentStore.building.reset BUILDINGS
                             App.currentStore.unit_type.reset UNITTYPES
                             App.currentStore.unit_variant.reset UNITVARIANTS
+                            App.currentStore.terrace.reset TERRACEOPTIONS
+                            App.currentStore.view.reset VIEWS
+                            App.currentStore.facings.reset FACINGS
                             App.filter()
 
                             objectele.trigger 'unit:variants:selected'
@@ -2050,6 +2085,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 App.filter(params={})
                 @trigger 'unit:variants:selected'
 
@@ -2081,6 +2119,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 App.filter(params={})
                 $('.specialFilter1').empty()
                 $('.specialFilter1').addClass 'hidden'
@@ -2115,6 +2156,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 App.filter(params={})
                 $('.specialFilter1').empty()
                 $('.specialFilter1').addClass 'hidden'
@@ -2149,6 +2193,9 @@ define [ 'marionette' ], ( Marionette )->
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 App.filter(params={})
                 $('.specialFilter1').empty()
                 $('.specialFilter1').addClass 'hidden'
@@ -2302,6 +2349,9 @@ define [ 'marionette' ], ( Marionette )->
                     App.currentStore.building.reset BUILDINGS
                     App.currentStore.unit_type.reset UNITTYPES
                     App.currentStore.unit_variant.reset UNITVARIANTS
+                    App.currentStore.terrace.reset TERRACEOPTIONS
+                    App.currentStore.view.reset VIEWS
+                    App.currentStore.facings.reset FACINGS
                     unitModel = App.master.unit.findWhere({id:@model.get("id")})
                     for element , index in rangeunitArray
                         if element == @model.get('id')

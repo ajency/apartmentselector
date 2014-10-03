@@ -406,6 +406,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           App.filter(params = {});
           msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
           return this.trigger('show:updated:building', $('#' + e.target.id).attr('data-id'));
@@ -497,6 +500,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         if (unitVariantString === "") {
           unitVariantString = 'All';
         }
@@ -767,7 +773,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             viewString = view.join(',');
           }
           App.defaults['view'] = viewString;
-          if (originalOviews.length === view.length) {
+          if (originalviews.length === view.length) {
             App.defaults['view'] = 'All';
           }
           App.defaults['terrace'] = 'All';
@@ -776,6 +782,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
@@ -799,14 +808,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $.each(uniqfacings, function(index, value) {
             return $('#facing' + value).prop('checked', true);
           });
-          if (uniqfacings.length !== originalOfacings.length) {
+          if (uniqfacings.length !== originalfacings.length) {
             App.defaults['facing'] = uniqfacings.join(',');
             entrance = uniqfacings;
           } else {
             entrance = uniqfacings;
             App.defaults['facing'] = 'All';
           }
-          if (uniqterrace.length !== originalOterraces.length) {
+          if (uniqterrace.length !== originalterraces.length) {
             App.defaults['terrace'] = uniqterrace.join(',');
             teraace = uniqterrace;
           } else {
@@ -902,6 +911,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           if ($('#' + e.target.id).prop('checked') === true) {
             teraace.push($('#' + e.target.id).val());
           } else {
@@ -919,7 +931,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
           teraace = _.uniq(teraace);
           App.defaults['terrace'] = teraace.join(',');
-          if (originalOterraces.length === teraace.length) {
+          if (originalterraces.length === teraace.length) {
             App.defaults['terrace'] = 'All';
           }
           App.defaults['view'] = 'All';
@@ -944,14 +956,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
           uniqviews = _.uniq(viewtemp);
           uniqfacings = _.uniq(facingtemp);
-          if (uniqviews.length !== originalOviews.length) {
+          if (uniqviews.length !== originalviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
           } else {
             view = uniqviews;
             App.defaults['view'] = 'All';
           }
-          if (uniqfacings.length !== originalOfacings.length) {
+          if (uniqfacings.length !== originalfacings.length) {
             App.defaults['facing'] = uniqfacings.join(',');
             entrance = uniqfacings;
           } else {
@@ -1048,6 +1060,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           mainnewarr = [];
           mainunique = {};
           if ($('#' + e.target.id).prop('checked') === true) {
@@ -1070,7 +1085,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             facingString = entrance.join(',');
           }
           App.defaults['facing'] = facingString;
-          if (originalOterraces.length === entrance.length) {
+          if (originalterraces.length === entrance.length) {
             App.defaults['facing'] = 'All';
           }
           App.defaults['terrace'] = 'All';
@@ -1095,14 +1110,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           });
           uniqviews = _.uniq(viewtemp);
           uniqterrace = _.uniq(teracetemp);
-          if (uniqviews.length !== originalOviews.length) {
+          if (uniqviews.length !== originalviews.length) {
             App.defaults['view'] = uniqviews.join(',');
             view = uniqviews;
           } else {
             view = uniqviews;
             App.defaults['view'] = 'All';
           }
-          if (uniqterrace.length !== originalOterraces.length) {
+          if (uniqterrace.length !== originalterraces.length) {
             App.defaults['terrace'] = uniqterrace.join(',');
             teraace = uniqterrace;
           } else {
@@ -1195,10 +1210,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             }
           }
           App.navigate("screen-two");
+          App.navigate("screen-two");
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           App.filter();
           $('.specialFilter').empty();
           $('.specialFilter').addClass('hidden');
@@ -1232,15 +1251,15 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           $('.specialFilter').empty();
           $('.specialFilter').addClass('hidden');
           $('.b-modal').addClass('hidden');
           view = [];
           entrance = [];
           teraace = [];
-          App.defaults['view'] = "All";
-          App.defaults['facing'] = "All";
-          App.defaults['terrace'] = "All";
           App.filter();
           floorCollectionCur = App.currentStore.unit;
           viewtemp1 = [];
@@ -1283,18 +1302,36 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             $('#terrace' + value).prop('checked', true);
             return teraace.push(value);
           });
-          App.defaults['view'] = cloneviews.join(',');
-          App.defaults['facing'] = clonefacings.join(',');
-          App.defaults['terrace'] = cloneterraces.join(',');
+          console.log(originalOviews.length);
+          console.log(viewtemp1.length);
+          if (viewtemp1.length !== originalviews.length) {
+            App.defaults['view'] = viewtemp1.join(',');
+          } else {
+            App.defaults['view'] = 'All';
+          }
+          if (terracetemp1.length !== originalterraces.length) {
+            App.defaults['terrace'] = terracetemp1.join(',');
+          } else {
+            App.defaults['terrace'] = 'All';
+          }
+          if (facingtemp1.length !== originalfacings.length) {
+            App.defaults['facing'] = facingtemp1.join(',');
+          } else {
+            App.defaults['facing'] = 'All';
+          }
           App.layout.screenThreeRegion.el.innerHTML = "";
           App.layout.screenFourRegion.el.innerHTML = "";
           $('#screen-three-region').removeClass('section');
           $('#screen-four-region').removeClass('section');
           App.navigate("screen-two");
+          App.navigate("screen-two");
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           App.filter();
           return object.trigger('unit:variants:selected');
         });
@@ -1613,10 +1650,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.layout.screenFourRegion.el.innerHTML = "";
         App.navigate("screen-two");
         App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
+        App.navigate("screen-two");
         App.currentStore.unit.reset(UNITS);
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         App.filter(params = {});
         return this.trigger('unit:variants:selected');
       }
@@ -1668,6 +1709,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         App.filter(params = {});
         $('.specialFilter').empty();
         $('.specialFilter').addClass('hidden');
@@ -1722,6 +1766,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         App.filter(params = {});
         $('.specialFilter').empty();
         $('.specialFilter').addClass('hidden');
@@ -1776,6 +1823,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         App.filter(params = {});
         $('.specialFilter').empty();
         $('.specialFilter').addClass('hidden');
@@ -1897,6 +1947,9 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         App.currentStore.building.reset(BUILDINGS);
         App.currentStore.unit_type.reset(UNITTYPES);
         App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         msgbus.showApp('header').insideRegion(App.headerRegion).withOptions();
         if (this.model.get('count') !== 0) {
           for (index = _i = 0, _len = rangeArray.length; _i < _len; index = ++_i) {
