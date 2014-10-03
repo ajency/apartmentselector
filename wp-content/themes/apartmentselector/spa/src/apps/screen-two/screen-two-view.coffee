@@ -950,6 +950,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             )
                         uniqfacings = _.uniq(facingtemp)
                         uniqterrace = _.uniq(teracetemp)
+                        # uniqterrace = _.union(teracetemp,terrace)
+                        # uniqfacings = _.union(facingtemp,entrance)
                         $.each(uniqfacings, (index,value)->
                                 $('#facing'+value).prop('checked',true)
 

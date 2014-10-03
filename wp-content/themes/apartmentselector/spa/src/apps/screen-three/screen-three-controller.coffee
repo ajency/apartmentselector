@@ -642,7 +642,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 else
                     unitAssgendModels = floorColl.where({unitAssigned:value})
                 $.each(unitAssgendModels, (index,value)->
-                     = App.master.unit_type.findWhere({id:value.get('unitType')})
+                    unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
                         
                     if value.get('unitType') == 16
                         value.set "unittypename" , "Not Released"

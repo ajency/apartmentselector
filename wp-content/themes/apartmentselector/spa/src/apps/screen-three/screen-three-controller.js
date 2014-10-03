@@ -706,7 +706,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             value.set("sellablearea", "");
             return value.set("sqft", "");
           } else if (value.get('unitType') === 14) {
-            value.set("unittypename", value.get("name"));
+            value.set("unittypename", unitType.get("name"));
             value.set("sellablearea", "");
             return value.set("sqft", "");
           } else {
