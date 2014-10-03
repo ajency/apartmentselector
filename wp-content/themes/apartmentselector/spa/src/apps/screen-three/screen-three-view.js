@@ -355,6 +355,8 @@ define(['marionette'], function(Marionette) {
                 });
                 if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
                   text = unitModel.get('name') + ' | ' + unittpe.get('name');
+                } else if (unittpe.get('id') === 14) {
+                  text = 'Refuge';
                 } else {
                   text = 'Not Released';
                 }
@@ -430,6 +432,8 @@ define(['marionette'], function(Marionette) {
                 });
                 if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
                   text = unitModel.get('name') + ' | ' + unittpe.get('name');
+                } else if (unittpe.get('id') === 14) {
+                  text = 'Refuge';
                 } else {
                   text = 'Not Released';
                 }
@@ -505,6 +509,8 @@ define(['marionette'], function(Marionette) {
                 });
                 if (unittpe.get('id') !== 14 && unittpe.get('id') !== 16) {
                   text = unitModel.get('name') + ' | ' + unittpe.get('name');
+                } else if (unittpe.get('id') === 14) {
+                  text = 'Refuge';
                 } else {
                   text = 'Not Released';
                 }
