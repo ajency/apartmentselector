@@ -497,6 +497,8 @@ define [ 'marionette' ], ( Marionette )->
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
                                     text = unitModel.get('name')+' | '+unittpe.get('name')
+                                else if unittpe.get('id') == 14 
+                                    text = 'Refuge'
                                 else
                                     text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).text text
@@ -567,6 +569,8 @@ define [ 'marionette' ], ( Marionette )->
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
                                     text = unitModel.get('name')+' | '+unittpe.get('name')
+                                else if unittpe.get('id') == 14 
+                                    text = 'Refuge'
                                 else
                                     text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).text text
@@ -649,6 +653,8 @@ define [ 'marionette' ], ( Marionette )->
                                 unittpe = App.master.unit_type.findWhere({id:unitModel.get('unitType')})
                                 if unittpe.get('id') != 14 && unittpe.get('id') != 16
                                     text = unitModel.get('name')+' | '+unittpe.get('name')
+                                else if unittpe.get('id') == 14 
+                                    text = 'Refuge'
                                 else
                                     text = 'Not Released'
                                 $('#'+temp1[ii]+flatid).text text
