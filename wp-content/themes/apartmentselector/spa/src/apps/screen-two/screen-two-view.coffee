@@ -905,7 +905,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         
                         view = view.map((item)->
                             return parseInt(item))
-                        view = _.uniq(view)
+                        console.log view = _.uniq(view)
 
                         if view.length != 0
                             viewString = view.join(',')
@@ -914,7 +914,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         if originalOviews.length  == view.length
                             App.defaults['view'] = 'All'
                             # vew = originalviews
-                            
+                        App.defaults['terrace'] = 'All'
+                        App.defaults['facing'] = 'All' 
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
@@ -937,8 +938,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             return parseInt(item)
 
                             )
-                        uniqfacings = _.uniq(facingtemp)
-                        uniqterrace = _.uniq(teracetemp)
+                        console.log uniqfacings = _.uniq(facingtemp)
+                        console.log uniqterrace = _.uniq(teracetemp)
                         $.each(uniqfacings, (index,value)->
                                 $('#facing'+value).prop('checked',true)
 
@@ -948,12 +949,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             entrance = uniqfacings
                             #App.backFilter['screen2'].push 'facing'
                         else
+                            entrance = uniqfacings
                             App.defaults['facing'] = 'All'
                         if uniqterrace.length != originalOterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
                             teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
                         else
+                            teraace = uniqterrace
                             App.defaults['terrace'] = 'All'
 
                         unselected = _.difference(clonefacings, uniqfacings);
@@ -1048,7 +1051,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         if originalOterraces.length  == teraace.length
                             App.defaults['terrace'] = 'All'
                             # teraace = originalterraces
-                         
+                        App.defaults['view'] = 'All'
+                        App.defaults['facing'] = 'All' 
                         App.filter()
                         units = App.currentStore.unit
                         viewtemp = []
@@ -1076,12 +1080,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
+                            view = uniqviews
                             App.defaults['view'] = 'All'
                         if uniqfacings.length != originalOfacings.length
                             App.defaults['facing'] = uniqfacings.join(',')
                             entrance = uniqfacings
                             #App.backFilter['screen2'].push 'facing'
                         else
+                            entrance = uniqfacings
                             App.defaults['facing'] = 'All'
                         $.each(uniqviews, (index,value)->
                                 $('#view'+value).prop('checked',true)
@@ -1187,7 +1193,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             App.defaults['facing'] = 'All'
                             # entrance = originalfacings
                             
-                         
+                        App.defaults['terrace'] = 'All'
+                        App.defaults['facing'] = 'All'  
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
@@ -1211,12 +1218,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             view = uniqviews
                             #App.backFilter['screen2'].push 'view'
                         else
+                            view = uniqviews
                             App.defaults['view'] = 'All'
                         if uniqterrace.length != originalOterraces.length
                             App.defaults['terrace'] = uniqterrace.join(',')
                             teraace = uniqterrace
                             #App.backFilter['screen2'].push 'terrace'
                         else
+                            teraace = uniqterrace
                             App.defaults['terrace'] = 'All'
                         $.each(uniqviews, (index,value)->
                                 $('#view'+value).prop('checked',true)
