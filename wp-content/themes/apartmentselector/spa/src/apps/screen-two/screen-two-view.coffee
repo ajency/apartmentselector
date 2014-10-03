@@ -905,7 +905,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         
                         view = view.map((item)->
                             return parseInt(item))
-                        console.log view = _.uniq(view)
+                        view = _.uniq(view)
 
                         if view.length != 0
                             viewString = view.join(',')
@@ -938,8 +938,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             return parseInt(item)
 
                             )
-                        console.log uniqfacings = _.uniq(facingtemp)
-                        console.log uniqterrace = _.uniq(teracetemp)
+                        uniqfacings = _.uniq(facingtemp)
+                        uniqterrace = _.uniq(teracetemp)
                         $.each(uniqfacings, (index,value)->
                                 $('#facing'+value).prop('checked',true)
 
@@ -1194,7 +1194,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             # entrance = originalfacings
                             
                         App.defaults['terrace'] = 'All'
-                        App.defaults['facing'] = 'All'  
+                        App.defaults['view'] = 'All'  
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit

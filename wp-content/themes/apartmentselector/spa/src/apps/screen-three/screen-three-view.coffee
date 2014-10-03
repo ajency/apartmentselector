@@ -19,6 +19,9 @@ define [ 'marionette' ], ( Marionette )->
     entrancetagsArray = []
     terracetagsArray = []
     object = "this"
+    object2 = "this"
+    object3 = "this"
+    object4 = "this"
     class ScreenThreeLayout extends Marionette.LayoutView
 
         template : '<h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span> apartments that matched your selection.</h3>
@@ -821,6 +824,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+            objectele = "this"
             viewtagsArray = []
             entrancetagsArray = []
             terracetagsArray = []
@@ -1318,16 +1322,21 @@ define [ 'marionette' ], ( Marionette )->
                         
 
                 )
+                objectele = @
                 $('#donepopupscreen').on('click' , (e)->
+                            
+                            App.layout.screenFourRegion.el.innerHTML = ""
+                            App.navigate "screen-three"
+                            App.currentStore.unit.reset UNITS
+                            App.currentStore.building.reset BUILDINGS
+                            App.currentStore.unit_type.reset UNITTYPES
+                            App.currentStore.unit_variant.reset UNITVARIANTS
                             App.filter()
                             $('.specialFilter1').empty()
                             $('.specialFilter1').addClass 'hidden'
                             $('.b-modal').addClass 'hidden'
-                            App.layout.screenFourRegion.el.innerHTML = ""
-                            $('#screen-four-region').removeClass 'section' 
-                            App.navigate "screen-three"
-                            
-                            object.trigger 'unit:variants:selected'
+                            console.log objectele
+                            objectele.trigger 'unit:variants:selected'
                 )
                 $('#cancelpopupscreen').on('click' , (e)->
                             $('.specialFilter1').empty()
@@ -1394,7 +1403,7 @@ define [ 'marionette' ], ( Marionette )->
                             App.currentStore.unit_variant.reset UNITVARIANTS
                             App.filter()
 
-                            object.trigger 'unit:variants:selected'
+                            objectele.trigger 'unit:variants:selected'
 
                 )
                 
@@ -1606,6 +1615,9 @@ define [ 'marionette' ], ( Marionette )->
 
                 @doterraceListing()
             object1 = @
+            object2 = @
+            object3 = @
+            object4 = @
 
             
             
@@ -1619,17 +1631,17 @@ define [ 'marionette' ], ( Marionette )->
                     theidtodel = $(this).parent('li').attr('id')
                    
                     
-                    object.delViewItem($('#' + theidtodel).attr('data-itemNum'))
+                    object2.delViewItem($('#' + theidtodel).attr('data-itemNum'))
         )
         $(document).on("click", ".closeButton6",  ()->
                     theidtodel = $(this).parent('li').attr('id')
                    
-                    object.delEntranceItem($('#' + theidtodel).attr('data-itemNum'))
+                    object3.delEntranceItem($('#' + theidtodel).attr('data-itemNum'))
         )
         $(document).on("click", ".closeButton7",  ()->
                     theidtodel = $(this).parent('li').attr('id')
                    
-                    object.delTerraceItem($('#' + theidtodel).attr('data-itemNum'))
+                    object4.delTerraceItem($('#' + theidtodel).attr('data-itemNum'))
         )
 
         showMsg:->

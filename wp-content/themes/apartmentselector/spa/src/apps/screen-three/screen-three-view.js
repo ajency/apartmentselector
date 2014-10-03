@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, entrancetagsArray, firstElement, flag_set, globalUnitArrayInt, object, object1, position, rangeunitArray, sudoSlider, tagsArray, terracetagsArray, unitAssigedArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants, viewtagsArray;
+  var BuildingView, ScreenThreeLayout, UnitTypeChildView, UnitTypeView, UnitView, cloneunitVariantArrayColl, count, entrancetagsArray, firstElement, flag_set, globalUnitArrayInt, object, object1, object2, object3, object4, position, rangeunitArray, sudoSlider, tagsArray, terracetagsArray, unitAssigedArray, unitChildView, unitVariantArray, unitVariantIdArray, unitVariantString, unitVariants, viewtagsArray;
   flag_set = 0;
   unitVariantArray = '';
   unitVariantIdArray = [];
@@ -23,6 +23,9 @@ define(['marionette'], function(Marionette) {
   entrancetagsArray = [];
   terracetagsArray = [];
   object = "this";
+  object2 = "this";
+  object3 = "this";
+  object4 = "this";
   ScreenThreeLayout = (function(_super) {
     __extends(ScreenThreeLayout, _super);
 
@@ -663,7 +666,8 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShow = function() {
-      var $columns_number, capability, clonefacings, cloneterraces, cloneviews, entrance, entranceArrayText, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, mainnewarr, mainunique, mainunitTypeArray1, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, selectedArray, status, teraace, terraceArrayText, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel, view, viewArrayText;
+      var $columns_number, capability, clonefacings, cloneterraces, cloneviews, entrance, entranceArrayText, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, mainnewarr, mainunique, mainunitTypeArray1, objectele, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, selectedArray, status, teraace, terraceArrayText, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel, view, viewArrayText;
+      objectele = "this";
       viewtagsArray = [];
       entrancetagsArray = [];
       terracetagsArray = [];
@@ -1185,15 +1189,20 @@ define(['marionette'], function(Marionette) {
           });
           return $('#unittypecount1').html(unittypetext);
         });
+        objectele = this;
         $('#donepopupscreen').on('click', function(e) {
+          App.layout.screenFourRegion.el.innerHTML = "";
+          App.navigate("screen-three");
+          App.currentStore.unit.reset(UNITS);
+          App.currentStore.building.reset(BUILDINGS);
+          App.currentStore.unit_type.reset(UNITTYPES);
+          App.currentStore.unit_variant.reset(UNITVARIANTS);
           App.filter();
           $('.specialFilter1').empty();
           $('.specialFilter1').addClass('hidden');
           $('.b-modal').addClass('hidden');
-          App.layout.screenFourRegion.el.innerHTML = "";
-          $('#screen-four-region').removeClass('section');
-          App.navigate("screen-three");
-          return object.trigger('unit:variants:selected');
+          console.log(objectele);
+          return objectele.trigger('unit:variants:selected');
         });
         $('#cancelpopupscreen').on('click', function(e) {
           var facingtemp1, floorCollectionCur, terracetemp1, viewtemp1;
@@ -1259,7 +1268,7 @@ define(['marionette'], function(Marionette) {
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
           App.filter();
-          return object.trigger('unit:variants:selected');
+          return objectele.trigger('unit:variants:selected');
         });
       }
       unitVariantString = "";
@@ -1468,7 +1477,10 @@ define(['marionette'], function(Marionette) {
         }
         this.doterraceListing();
       }
-      return object1 = this;
+      object1 = this;
+      object2 = this;
+      object3 = this;
+      return object4 = this;
     };
 
     $(document).on("click", ".closeButton1", function() {
@@ -1480,19 +1492,19 @@ define(['marionette'], function(Marionette) {
     $(document).on("click", ".closeButton5", function() {
       var theidtodel;
       theidtodel = $(this).parent('li').attr('id');
-      return object.delViewItem($('#' + theidtodel).attr('data-itemNum'));
+      return object2.delViewItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
     $(document).on("click", ".closeButton6", function() {
       var theidtodel;
       theidtodel = $(this).parent('li').attr('id');
-      return object.delEntranceItem($('#' + theidtodel).attr('data-itemNum'));
+      return object3.delEntranceItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
     $(document).on("click", ".closeButton7", function() {
       var theidtodel;
       theidtodel = $(this).parent('li').attr('id');
-      return object.delTerraceItem($('#' + theidtodel).attr('data-itemNum'));
+      return object4.delTerraceItem($('#' + theidtodel).attr('data-itemNum'));
     });
 
     ScreenThreeLayout.prototype.showMsg = function() {

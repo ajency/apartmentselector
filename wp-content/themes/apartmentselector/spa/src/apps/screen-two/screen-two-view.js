@@ -762,7 +762,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           view = view.map(function(item) {
             return parseInt(item);
           });
-          console.log(view = _.uniq(view));
+          view = _.uniq(view);
           if (view.length !== 0) {
             viewString = view.join(',');
           }
@@ -794,8 +794,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           teracetemp = teracetemp.map(function(item) {
             return parseInt(item);
           });
-          console.log(uniqfacings = _.uniq(facingtemp));
-          console.log(uniqterrace = _.uniq(teracetemp));
+          uniqfacings = _.uniq(facingtemp);
+          uniqterrace = _.uniq(teracetemp);
           $.each(uniqfacings, function(index, value) {
             return $('#facing' + value).prop('checked', true);
           });
@@ -1074,7 +1074,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             App.defaults['facing'] = 'All';
           }
           App.defaults['terrace'] = 'All';
-          App.defaults['facing'] = 'All';
+          App.defaults['view'] = 'All';
           App.filter();
           teracetemp = [];
           floorCollection = App.currentStore.unit;
