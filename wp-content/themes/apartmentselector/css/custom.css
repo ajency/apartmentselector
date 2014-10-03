@@ -7049,11 +7049,12 @@ h5 {
 }
 .grid-container .grid-block-3 .grid-link,
 .grid-container .grid-block-3 .grid-link2 {
-  padding: 20px 0;
+  padding: 15px 0 5px;
   text-align: center;
   transition: color 250ms ease-out 0s;
   width: 100%;
   font-style: normal;
+  font-weight: bold;
   text-transform: capitalize;
 }
 .grid-container .grid-block-3 .grid-link.selected:before,
@@ -7074,6 +7075,20 @@ h5 {
   .grid-container .grid-block-3:nth-child(3n) {
     margin-right: 1.77305%;
   }
+}
+.grid-container .grid-block-3.sold {
+  opacity: 0.6;
+}
+.grid-container .grid-block-3.sold .grid-link:hover,
+.grid-container .grid-block-3.sold .grid-link2:hover {
+  border: none;
+  cursor: default;
+}
+.grid-container .grid-block-3 h5 {
+  pointer-events: none;
+}
+.grid-container .grid-block-3 h5 span {
+  color: #999999;
 }
 .grid-container .grid-block-4 {
   display: inline-block;

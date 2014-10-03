@@ -540,13 +540,13 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         }
         selected = "";
         if (count.length !== 0 && key >= 0) {
-          classname = 'boxLong filtered';
+          classname = 'filtered';
           selected = 'selected';
           unitVariantID.push(parseInt(unitVarinatModel.get('id')));
         } else if (count.length === 0 && key === -1) {
-          classname = 'boxLong sold';
+          classname = 'sold';
         } else {
-          classname = 'boxLong other';
+          classname = 'other';
         }
         return unitVariantModels.push({
           id: unitVarinatModel.get('id'),

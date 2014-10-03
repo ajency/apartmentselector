@@ -498,13 +498,16 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     filter = 'Apartments within '+App.defaults['budget']
                 if count.length != 0 && key >= 0 
                     classname = 'boxLong filtered'
+                    filtername = 'filtered'
                     selected = 'selected'
                     unitVariantID.push(parseInt(unitVarinatModel.get('id')))
                 else if count.length ==0 && key == -1
                     classname = 'boxLong sold'
+                    filtername = 'sold'
                 else
                     classname = 'boxLong other'
-                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea'),count:count.length,classname:classname,selected:selected,filter:filter})
+                    filtername = 'other'
+                unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea'),count:count.length,classname:classname,filtername:filtername,selected:selected,filter:filter})
                 
 
 

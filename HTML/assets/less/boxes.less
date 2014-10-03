@@ -191,13 +191,13 @@
 	    width: 30.2394%;
 		margin-right: 3.52113%;
 	    .grid-link, .grid-link2 {
-		    padding: 20px 0;
+		    padding: 15px 0 5px;
 		    text-align: center;
 		    transition: color 250ms ease-out 0s;
 		    width: 100%;
 		    // font-size: 0.8rem;
 		    font-style: normal;
-		    // font-weight: 500;
+		    font-weight: bold;
 		    // line-height: 16px;
 		    text-transform: capitalize;
 
@@ -220,6 +220,23 @@
 	    	&:nth-child(3n) {
 		    	margin-right: 1.77305%;
 		    }
+	    }
+
+	    &.sold{
+	    	opacity: 0.6;
+	    	.grid-link, .grid-link2{
+	    		&:hover{
+	    			border: none;
+	    			cursor: default;
+	    		}
+	    	}
+	    }
+
+	    h5{
+	    	pointer-events: none;
+	    	span{
+	    		color: @gray-light;
+	    	} 
 	    }
 	}
 

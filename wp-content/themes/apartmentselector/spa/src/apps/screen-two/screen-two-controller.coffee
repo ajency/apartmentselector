@@ -501,13 +501,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     filter = 'Apartments within '+App.defaults['budget']
                 selected = ""
                 if count.length != 0 && key >= 0 
-                    classname = 'boxLong filtered'
+                    classname = 'filtered'
                     selected = 'selected'
                     unitVariantID.push(parseInt(unitVarinatModel.get('id')))
                 else if count.length ==0 && key == -1
-                    classname = 'boxLong sold'
+                    classname = 'sold'
                 else
-                    classname = 'boxLong other'
+                    classname = 'other'
                 unitVariantModels.push({id:unitVarinatModel.get('id'),name:unitVarinatModel.get('name'),sellablearea:unitVarinatModel.get('sellablearea'),count:count.length,classname:classname,selected:selected,filter:filter})
                 
 
