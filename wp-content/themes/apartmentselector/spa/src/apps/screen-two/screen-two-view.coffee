@@ -647,7 +647,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     globalUnitArrayInt.push(parseInt(value))
 
                 )
-
+                
                 if App.defaults['unitVariant'] != 'All'
                     $.each(unitVariantArray, (index,value)->
                         key = _.contains(globalUnitArrayInt,parseInt(value))
@@ -666,6 +666,14 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
 
                     )
+                else
+                    globalUnitArrayInt = unitVariantArray
+                    $.each(unitVariantArray, (index,value)->
+                        $('#grid'+value).addClass 'selected'
+                        $('#check'+value).val '1'
+
+                        )
+                $('#selectall').prop 'checked' , true
 
             'click #selectall':(e)->
                 
@@ -696,6 +704,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         index = unitVariantArray.indexOf(parseInt(value))
                         if index != -1
                             unitVariantArray.splice( index, 1 )
+                            unitVariantIdArray.push(parseInt(value))
 
 
                     )
@@ -950,8 +959,6 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                             )
                         uniqfacings = _.uniq(facingtemp)
                         uniqterrace = _.uniq(teracetemp)
-                        # uniqterrace = _.union(teracetemp,terrace)
-                        # uniqfacings = _.union(facingtemp,entrance)
                         $.each(uniqfacings, (index,value)->
                                 $('#facing'+value).prop('checked',true)
 

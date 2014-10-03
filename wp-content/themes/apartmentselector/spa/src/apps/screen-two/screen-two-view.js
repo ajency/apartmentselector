@@ -523,7 +523,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           return globalUnitArrayInt.push(parseInt(value));
         });
         if (App.defaults['unitVariant'] !== 'All') {
-          return $.each(unitVariantArray, function(index, value) {
+          $.each(unitVariantArray, function(index, value) {
             var key;
             key = _.contains(globalUnitArrayInt, parseInt(value));
             if (key === true) {
@@ -534,7 +534,14 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
               return $('#check' + value).val('0');
             }
           });
+        } else {
+          globalUnitArrayInt = unitVariantArray;
+          $.each(unitVariantArray, function(index, value) {
+            $('#grid' + value).addClass('selected');
+            return $('#check' + value).val('1');
+          });
         }
+        return $('#selectall').prop('checked', true);
       },
       'click #selectall': function(e) {
         var remainainArray, tempArray, value;
@@ -561,7 +568,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             $('#check' + value).val('0');
             index = unitVariantArray.indexOf(parseInt(value));
             if (index !== -1) {
-              return unitVariantArray.splice(index, 1);
+              unitVariantArray.splice(index, 1);
+              return unitVariantIdArray.push(parseInt(value));
             }
           });
           return unitVariantString = value.toString();

@@ -623,7 +623,7 @@ define(['marionette'], function(Marionette) {
           return globalUnitArrayInt.push(parseInt(value));
         });
         if (App.defaults['unitVariant'] !== 'All') {
-          return $.each(unitVariantArray, function(index, value) {
+          $.each(unitVariantArray, function(index, value) {
             var key;
             key = _.contains(globalUnitArrayInt, parseInt(value));
             if (key === true) {
@@ -634,7 +634,14 @@ define(['marionette'], function(Marionette) {
               return $('#checklink' + value).val('0');
             }
           });
+        } else {
+          globalUnitArrayInt = unitVariantArray;
+          $.each(unitVariantArray, function(index, value) {
+            $('#gridlink' + value).addClass('selected');
+            return $('#checklink' + value).val('1');
+          });
         }
+        return $('#unselectall').prop('checked', true);
       },
       'click #unselectall': function(e) {
         var remainainArray, tempArray, value;
@@ -661,7 +668,8 @@ define(['marionette'], function(Marionette) {
             $('#checklink' + value).val('0');
             index = unitVariantArray.indexOf(parseInt(value));
             if (index !== -1) {
-              return unitVariantArray.splice(index, 1);
+              unitVariantArray.splice(index, 1);
+              return unitVariantIdArray.push(parseInt(value));
             }
           });
           return unitVariantString = value.toString();
