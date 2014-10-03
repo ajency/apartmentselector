@@ -1322,7 +1322,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
           $('#screen-three-region').removeClass('section');
           $('#screen-four-region').removeClass('section');
           App.navigate("screen-two");
-          App.navigate("screen-two");
           App.currentStore.unit.reset(UNITS);
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
@@ -1646,6 +1645,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
+        $('#screen-three-region').removeClass('hidden');
+        $('#screen-four-region').removeClass('hidden');
         App.navigate("screen-two");
         App.defaults['unitVariant'] = unitvariantarrayValues.join(',');
         App.navigate("screen-two");
@@ -1701,6 +1702,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
+        $('#screen-three-region').removeClass('hidden');
+        $('#screen-four-region').removeClass('hidden');
         App.navigate("screen-two");
         App.defaults['view'] = viewarrayValues.join(',');
         App.currentStore.unit.reset(UNITS);
@@ -1758,6 +1761,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
+        $('#screen-three-region').removeClass('hidden');
+        $('#screen-four-region').removeClass('hidden');
         App.navigate("screen-two");
         App.defaults['facing'] = entrancearrayValues.join(',');
         App.currentStore.unit.reset(UNITS);
@@ -1815,6 +1820,8 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         });
         App.layout.screenThreeRegion.el.innerHTML = "";
         App.layout.screenFourRegion.el.innerHTML = "";
+        $('#screen-three-region').removeClass('hidden');
+        $('#screen-four-region').removeClass('hidden');
         App.navigate("screen-two");
         App.defaults['terrace'] = terracearrayValues.join(',');
         App.currentStore.unit.reset(UNITS);
@@ -1856,7 +1863,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
         params = window['mapplic' + i];
         selector = '#mapplic' + i;
         if (this.model.get('id') === void 0) {
-          e.preventDefault();
           id = "";
         }
         return this.showHighlightedBuildings(id);

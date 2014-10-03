@@ -754,6 +754,7 @@ define [ 'marionette' ], ( Marionette )->
 
             'click .done':(e)->
                 App.layout.screenFourRegion.el.innerHTML = ""
+                $('#screen-four-region').removeClass 'section'
                 App.navigate "screen-three"
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
@@ -1350,6 +1351,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#donepopupscreen').on('click' , (e)->
                             
                             App.layout.screenFourRegion.el.innerHTML = ""
+                            $('#screen-four-region').removeClass 'hidden'
                             App.navigate "screen-three"
                             App.currentStore.unit.reset UNITS
                             App.currentStore.building.reset BUILDINGS
@@ -2089,6 +2091,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 App.layout.screenFourRegion.el.innerHTML = ""
+                $('#screen-four-region').removeClass 'hidden'
                 App.navigate "screen-three"
                 App.defaults['unitVariant'] = unitvariantarrayValues.join(',')
                 App.currentStore.unit.reset UNITS
@@ -2123,6 +2126,7 @@ define [ 'marionette' ], ( Marionette )->
                 )
                 
                 App.layout.screenFourRegion.el.innerHTML = ""
+                $('#screen-four-region').removeClass 'hidden'
                 App.navigate "screen-three"
                 App.defaults['view'] = viewarrayValues.join(',')
                 App.currentStore.unit.reset UNITS
@@ -2160,6 +2164,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 App.layout.screenFourRegion.el.innerHTML = ""
+                $('#screen-four-region').removeClass 'hidden'
                 App.navigate "screen-three"
                 App.defaults['facing'] = entrancearrayValues.join(',')
                 App.currentStore.unit.reset UNITS
@@ -2197,7 +2202,8 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 App.layout.screenFourRegion.el.innerHTML = ""
-                App.navigate "screen-two"
+                $('#screen-four-region').removeClass 'hidden'
+                App.navigate "screen-three"
                 App.defaults['terrace'] = terracearrayValues.join(',')
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
