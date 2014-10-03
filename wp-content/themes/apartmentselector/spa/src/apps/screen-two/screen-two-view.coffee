@@ -1405,8 +1405,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 teraace.push(value)
 
                             )
-                            console.log originalOviews.length
-                            console.log viewtemp1.length
+                            
                             if viewtemp1.length != originalviews.length
                                 App.defaults['view'] = viewtemp1.join(',')
                             else

@@ -1302,8 +1302,6 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             $('#terrace' + value).prop('checked', true);
             return teraace.push(value);
           });
-          console.log(originalOviews.length);
-          console.log(viewtemp1.length);
           if (viewtemp1.length !== originalviews.length) {
             App.defaults['view'] = viewtemp1.join(',');
           } else {
