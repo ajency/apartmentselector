@@ -11454,6 +11454,10 @@ input.checkbox:checked ~ label:before {
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
 /* checkbox focus */
+input.checkbox[disabled] + label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 #invoice {
   position: relative;
   padding: 18px;
