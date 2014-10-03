@@ -218,6 +218,8 @@ require [ 'plugin-loader'
         for element , index in uniqviews
             viewModel = App.currentStore.view.get element
             viewArray.push viewModel
+
+            
         App.currentStore.building.reset buildingArray
         App.currentStore.unit_type.reset unittypeArray
         App.currentStore.unit_variant.reset unitvariantArray

@@ -521,8 +521,8 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     viewModel = App.master.view.findWhere({id:parseInt(value)})
                     disabled = "disabled"
                     checked = ""
-                    
-                    
+                    # key  = $.inArray(value,viewtemp1)
+                    # count = floorCollectionCur.where({'unitVariant':value})
                     if $.inArray(parseInt(value),viewtemp1) >= 0
                         viewID.push(parseInt(viewModel.get('id')))
                         disabled = ""

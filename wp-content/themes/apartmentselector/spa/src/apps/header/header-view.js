@@ -36,6 +36,9 @@ define(['marionette'], function(Mariontte) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           key = App.defaults.hasOwnProperty(App.screenOneFilter['key']);
           if (key === true) {
             App.defaults[App.screenOneFilter['key']] = App.screenOneFilter['value'];
@@ -60,6 +63,9 @@ define(['marionette'], function(Mariontte) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           e.preventDefault();
           App.filter(params = {});
           App.layout.screenFourRegion.el.innerHTML = "";
@@ -68,6 +74,9 @@ define(['marionette'], function(Mariontte) {
             trigger: true
           });
         } else {
+          $('.specialFilter').empty();
+          $('.specialFilter').addClass('hidden');
+          $('.b-modal').addClass('hidden');
           App.backFilter['screen2'] = [];
           screenoneArray = App.backFilter['screen1'];
           myArray = [];
@@ -91,6 +100,9 @@ define(['marionette'], function(Mariontte) {
           App.currentStore.building.reset(BUILDINGS);
           App.currentStore.unit_type.reset(UNITTYPES);
           App.currentStore.unit_variant.reset(UNITVARIANTS);
+          App.currentStore.terrace.reset(TERRACEOPTIONS);
+          App.currentStore.view.reset(VIEWS);
+          App.currentStore.facings.reset(FACINGS);
           e.preventDefault();
           App.filter(params = {});
           App.layout.screenTwoRegion.el.innerHTML = "";

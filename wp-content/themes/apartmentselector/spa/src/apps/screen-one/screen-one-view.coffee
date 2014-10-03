@@ -76,10 +76,17 @@ define [ 'marionette' ], ( Marionette )->
             App.layout.screenThreeRegion.el.innerHTML = ""
             App.layout.screenFourRegion.el.innerHTML = ""
             App.navigate ""
+            App.defaults['view'] = 'All'
+            App.defaults['facing'] = 'All'
+            App.defaults['terrace'] = 'All'
+            App.defaults['unitVariant'] = 'All'
             App.currentStore.unit.reset UNITS
             App.currentStore.building.reset BUILDINGS
             App.currentStore.unit_type.reset UNITTYPES
             App.currentStore.unit_variant.reset UNITVARIANTS
+            App.currentStore.terrace.reset TERRACEOPTIONS
+            App.currentStore.view.reset VIEWS
+            App.currentStore.facings.reset FACINGS
             evt.preventDefault()
             msgbus.showApp 'header'
             .insideRegion  App.headerRegion
@@ -187,10 +194,17 @@ define [ 'marionette' ], ( Marionette )->
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate ""
+                App.defaults['view'] = 'All'
+                App.defaults['facing'] = 'All'
+                App.defaults['terrace'] = 'All'
+                App.defaults['unitVariant'] = 'All'
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 msgbus.showApp 'header'
                 .insideRegion  App.headerRegion
                     .withOptions()
@@ -301,10 +315,17 @@ define [ 'marionette' ], ( Marionette )->
                 App.layout.screenThreeRegion.el.innerHTML = ""
                 App.layout.screenFourRegion.el.innerHTML = ""
                 App.navigate ""
+                App.defaults['view'] = 'All'
+                App.defaults['facing'] = 'All'
+                App.defaults['terrace'] = 'All'
+                App.defaults['unitVariant'] = 'All'
                 App.currentStore.unit.reset UNITS
                 App.currentStore.building.reset BUILDINGS
                 App.currentStore.unit_type.reset UNITTYPES
                 App.currentStore.unit_variant.reset UNITVARIANTS
+                App.currentStore.terrace.reset TERRACEOPTIONS
+                App.currentStore.view.reset VIEWS
+                App.currentStore.facings.reset FACINGS
                 msgbus.showApp 'header'
                 .insideRegion  App.headerRegion
                     .withOptions()

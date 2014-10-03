@@ -149,7 +149,7 @@ define [ 'marionette' ], ( Marionette )->
 
                             <div class="text-center m-t-10 m-b-10">
                                 <a id="donepopupscreen" class="btn btn-primary btn-sm b-close">DONE</a>
-                                <a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a>
+                               <!--<a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a>-->
                             </div>
 
                         </div>
@@ -1005,8 +1005,8 @@ define [ 'marionette' ], ( Marionette )->
                         if originalviews.length  == view.length
                             App.defaults['view'] = 'All'
                             # view = originalviews
-                        App.defaults['terrace'] = 'All'
-                        App.defaults['facing'] = 'All'  
+                        # App.defaults['terrace'] = 'All'
+                        # App.defaults['facing'] = 'All'  
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
                         App.currentStore.unit_type.reset UNITTYPES
@@ -1137,8 +1137,8 @@ define [ 'marionette' ], ( Marionette )->
                         if originalterraces.length  == teraace.length
                             App.defaults['terrace'] = 'All'
                             # teraace = originalterraces
-                        App.defaults['view'] = 'All'
-                        App.defaults['facing'] = 'All'  
+                        # App.defaults['view'] = 'All'
+                        # App.defaults['facing'] = 'All'  
                         App.filter()
                         units = App.currentStore.unit
                         
@@ -1268,8 +1268,8 @@ define [ 'marionette' ], ( Marionette )->
                         App.currentStore.terrace.reset TERRACEOPTIONS
                         App.currentStore.view.reset VIEWS
                         App.currentStore.facings.reset FACINGS   
-                        App.defaults['terrace'] = 'All'
-                        App.defaults['view'] = 'All'  
+                        # App.defaults['terrace'] = 'All'
+                        # App.defaults['view'] = 'All'  
                         App.filter()
                         teracetemp = []
                         floorCollection = App.currentStore.unit
