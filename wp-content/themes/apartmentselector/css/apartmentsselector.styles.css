@@ -9975,6 +9975,23 @@ h5 {
   border: none;
   cursor: default;
 }
+.grid-container .grid-block-3.sold .grid-link:before,
+.grid-container .grid-block-3.sold .grid-link2:before {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-size: 20px;
+  font-family: 'Glyphicons Halflings';
+  content: '\e089';
+}
+.grid-container .grid-block-3.other {
+  opacity: 0.6;
+}
+.grid-container .grid-block-3.other .grid-link:hover,
+.grid-container .grid-block-3.other .grid-link2:hover {
+  border: none;
+  cursor: default;
+}
 .grid-container .grid-block-3 h5 {
   pointer-events: none;
 }
