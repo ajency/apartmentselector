@@ -698,18 +698,18 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         }
         $.each(unitAssgendModels, function(index, value) {
           var unitType, unitVariant;
+          unitType = App.master.unit_type.findWhere({
+            id: value.get('unitType')
+          });
           if (value.get('unitType') === 16) {
             value.set("unittypename", "Not Released");
             value.set("sellablearea", "");
             return value.set("sqft", "");
           } else if (value.get('unitType') === 14) {
-            value.set("unittypename", unitType.get("name"));
+            value.set("unittypename", value.get("name"));
             value.set("sellablearea", "");
             return value.set("sqft", "");
           } else {
-            unitType = App.master.unit_type.findWhere({
-              id: value.get('unitType')
-            });
             value.set("unittypename", unitType.get("name"));
             unitVariant = App.master.unit_variant.findWhere({
               id: value.get('unitVariant')
