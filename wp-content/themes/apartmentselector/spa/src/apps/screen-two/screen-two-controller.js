@@ -653,6 +653,9 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       });
       $.each(units1, function(index, value) {
         var unitType;
+        if (buildingArray.indexOf(value.get('building')) === -1) {
+          buildingArray.push(value.get('building'));
+        }
         unitType = App.master.unit_type.findWhere({
           id: value.get('unitType')
         });
@@ -664,9 +667,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       $.each(units, function(index, value) {
         var maxcoll, unitType;
         maxcoll = Array();
-        if (buildingArray.indexOf(value.get('building')) === -1) {
-          buildingArray.push(value.get('building'));
-        }
         unitType = App.master.unit_type.findWhere({
           id: value.get('unitType')
         });
@@ -1132,7 +1132,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         itemCollection = new Backbone.Collection(mainArray);
         unitColl.push({
-          id: 100,
+          id: 101,
           buildingname: 'Random',
           units: itemCollection,
           buildingid: 100,

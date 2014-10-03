@@ -623,7 +623,7 @@ define(['marionette'], function(Marionette) {
           return globalUnitArrayInt.push(parseInt(value));
         });
         if (App.defaults['unitVariant'] !== 'All') {
-          return $.each(unitVariantArray, function(index, value) {
+          $.each(unitVariantArray, function(index, value) {
             var key;
             key = _.contains(globalUnitArrayInt, parseInt(value));
             if (key === true) {
@@ -634,7 +634,14 @@ define(['marionette'], function(Marionette) {
               return $('#checklink' + value).val('0');
             }
           });
+        } else {
+          globalUnitArrayInt = unitVariantArray;
+          $.each(unitVariantArray, function(index, value) {
+            $('#gridlink' + value).addClass('selected');
+            return $('#checklink' + value).val('1');
+          });
         }
+        return $('#unselectall').prop('checked', true);
       },
       'click #unselectall': function(e) {
         var remainainArray, tempArray, value;
@@ -661,7 +668,8 @@ define(['marionette'], function(Marionette) {
             $('#checklink' + value).val('0');
             index = unitVariantArray.indexOf(parseInt(value));
             if (index !== -1) {
-              return unitVariantArray.splice(index, 1);
+              unitVariantArray.splice(index, 1);
+              return unitVariantIdArray.push(parseInt(value));
             }
           });
           return unitVariantString = value.toString();
@@ -2166,7 +2174,7 @@ define(['marionette'], function(Marionette) {
       return unitChildView.__super__.constructor.apply(this, arguments);
     }
 
-    unitChildView.prototype.template = '<div class="pull-left light"> <h5 class="rangeName bold m-t-5">Floor {{floor}}</h5> </div> <div class="pull-right text-center"> <div class="unitNo">{{name}}</div> <div class="small">{{unittypename}} {{sellablearea}} Sq.ft.</div> </div> <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/> <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/> <div class="clearfix"></div>';
+    unitChildView.prototype.template = '<div class="pull-left light"> <h5 class="rangeName bold m-t-5">Floor {{floor}}</h5> </div> <div class="pull-right text-center"> <div class="unitNo">{{name}}</div> <div class="small">{{unittypename}} {{sellablearea}} {{sqft}}</div> </div> <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/> <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/> <div class="clearfix"></div>';
 
     unitChildView.prototype.className = 'check';
 

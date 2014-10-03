@@ -632,10 +632,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
                 )
             $.each(uniqunitAssigned, (index,value)->
-                floorColl1 = _.reject(floorUnitsArray, (model)->
-                        return model.get('unitType') == 14 || model.get('unitType') == 16
-                    )
-                floorColl =  new Backbone.Collection floorColl1
+                # floorColl1 = _.reject(floorUnitsArray, (model)->
+                #         return model.get('unitType') == 14 || model.get('unitType') == 16
+                #     )
+                floorColl =  new Backbone.Collection floorUnitsArray
                 if App.defaults['building'] == "All"
                      
                     unitAssgendModels = floorColl.where({unitAssigned:value,building:buildingvalue})
@@ -643,9 +643,22 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     unitAssgendModels = floorColl.where({unitAssigned:value})
                 $.each(unitAssgendModels, (index,value)->
                     unitType = App.master.unit_type.findWhere({id:value.get('unitType')})
-                    value.set "unittypename" , unitType.get "name"
-                    unitVariant = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
-                    value.set "sellablearea" , unitVariant.get "sellablearea"
+                        
+                    if value.get('unitType') == 16
+                        value.set "unittypename" , "Not Released"
+                        value.set "sellablearea" ,  ""
+                        value.set "sqft" , ""
+                    else if value.get('unitType') == 14
+                        value.set "unittypename" , unitType.get "name"
+                        value.set "sellablearea" ,  ""
+                        value.set "sqft" , ""
+
+                    else
+
+                        value.set "unittypename" , unitType.get "name"
+                        unitVariant = App.master.unit_variant.findWhere({id:value.get('unitVariant')})
+                        value.set "sellablearea" , unitVariant.get "sellablearea"
+                        value.set "sqft" , unitVariant.get "Sq.ft."
 
                 )
                 unitAssgendModels = _.uniq(unitAssgendModels)

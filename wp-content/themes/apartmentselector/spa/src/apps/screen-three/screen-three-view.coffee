@@ -795,6 +795,15 @@ define [ 'marionette' ], ( Marionette )->
                             $('#gridlink'+value).removeClass 'selected'
                             $('#checklink'+value).val '0'
                     )
+                else
+                    globalUnitArrayInt = unitVariantArray
+                    $.each(unitVariantArray, (index,value)->
+                        $('#gridlink'+value).addClass 'selected'
+                        $('#checklink'+value).val '1'
+
+                        )
+                $('#unselectall').prop 'checked' , true
+
             'click #unselectall':(e)->
                 if $('#'+e.target.id).prop('checked') == true
                     $.each(cloneunitVariantArrayColl, (index,value)->
@@ -824,6 +833,7 @@ define [ 'marionette' ], ( Marionette )->
                         index = unitVariantArray.indexOf(parseInt(value))
                         if index != -1
                             unitVariantArray.splice( index, 1 )
+                            unitVariantIdArray.push(parseInt(value))
 
 
                     )
@@ -2277,7 +2287,7 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
                     <div class="pull-right text-center">
                         <div class="unitNo">{{name}}</div>
-                        <div class="small">{{unittypename}} {{sellablearea}} Sq.ft.</div>
+                        <div class="small">{{unittypename}} {{sellablearea}} {{sqft}}</div>
                     </div>
                     <input type="hidden" id="flag{{id}}" name="flag{{id}}" value="0"/>
                     <input type="hidden" id="select{{id}}" name="select{{id}}" value="0"/>

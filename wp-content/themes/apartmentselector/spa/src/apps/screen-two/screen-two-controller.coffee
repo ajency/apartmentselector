@@ -593,14 +593,16 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             mainunitTypeArray1 = []
             units1 = App.master.unit.where({'status':status.get('id')})
             $.each(units1, (index,value)->
+
+                if buildingArray.indexOf(value.get 'building') ==  -1
+                    buildingArray.push value.get 'building'
                 unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
                 mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
             )
             $.each(units, (index,value)->
                 maxcoll = Array()
                 
-                if buildingArray.indexOf(value.get 'building') ==  -1
-                    buildingArray.push value.get 'building'
+                
                     
 
 
@@ -917,7 +919,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 mainArray.push({count: '---',low_max_val: 0,low_min_val:0,range:'medium',buildingid:100,unittypes:0,classname:"",rangetext:'MIDRISE',rangeNo:'Floors --'})
                 mainArray.push({count: '---',low_max_val: 0,low_min_val:0,range:'low',buildingid:100,unittypes:0,classname:"",rangetext:'LOWRISE',rangeNo:'Floors --'})
                 itemCollection = new Backbone.Collection(mainArray)
-                unitColl.push {id:100,buildingname: 'Random' , units: itemCollection ,buildingid:100,
+                unitColl.push {id:101,buildingname: 'Random' , units: itemCollection ,buildingid:100,
                 unittypes:0,availableunits:0,totalunits:0,totalfloors:0,views:0}
             
 
