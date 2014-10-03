@@ -1277,6 +1277,25 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                 
                      
                 $('#donepopup').on('click' , (e)->
+                            App.layout.screenThreeRegion.el.innerHTML = ""
+                            App.layout.screenFourRegion.el.innerHTML = ""
+                            $('#screen-three-region').removeClass 'section'
+                            $('#screen-four-region').removeClass 'section' 
+                            screentwoArray  = App.backFilter['screen2']
+                            for element in screentwoArray
+                                    key = App.defaults.hasOwnProperty(element)
+                                    if key == true
+                                        App.defaults[element] = 'All'
+                            screenthreeArray  = App.backFilter['screen3']
+                            for element in screenthreeArray
+                                    key = App.defaults.hasOwnProperty(element)
+                                    if key == true
+                                        App.defaults[element] = 'All'
+                            App.navigate "screen-two"
+                            App.currentStore.unit.reset UNITS
+                            App.currentStore.building.reset BUILDINGS
+                            App.currentStore.unit_type.reset UNITTYPES
+                            App.currentStore.unit_variant.reset UNITVARIANTS
                             App.filter()
                             $('.specialFilter').empty()
                             $('.specialFilter').addClass 'hidden'
