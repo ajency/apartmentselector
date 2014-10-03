@@ -35,19 +35,19 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
 
                     <div class="variantBox">
-                        <div class="pull-left m-l-15">
-                            <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/>
-                            <label for="unselectall">Select/Unselect All</label>
-                        </div>
-                        <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
                         <div class="grid-container">
-
+                            <div class="pull-left m-l-15">
+                                <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/>
+                                <label for="unselectall">Select/Unselect All</label>
+                            </div>
+                            <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                        
                             {{#unitVariants}}
-                            <div class="grid-block-3 {{classname}}" >
+                            <div class="grid-block-3 {{filtername}}" >
                                 <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}">
                                     {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
-                                </a></br>
-                                    <span> {{filter}} : </span> {{count}}
+                                    <h5><span> {{filter}} : </span> {{count}}</h5>
+                                </a>
                             </div>
                             {{/unitVariants}}
 

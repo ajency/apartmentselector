@@ -46,8 +46,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="grid-block-3 {{classname}}" >
                                     <a class="grid-link {{selected}}" href="#" id="grid{{id}}" data-id="{{id}}" data-count = "{{count}}">
                                         {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
-                                    </a></br>
-                                    <span> {{filter}} : </span> {{count}}
+                                        <h5><span> {{filter}} : </span> {{count}}</h5>
+                                    </a>
                                 </div>
                                 {{/unitVariants}}
                                 <div class="variantAction m-t-5 m-b-20">

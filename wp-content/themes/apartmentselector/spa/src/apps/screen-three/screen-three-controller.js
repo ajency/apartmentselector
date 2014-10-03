@@ -590,7 +590,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         });
       }
       $.each(uniqUnitvariant, function(index, value) {
-        var classname, count, filter, key, selected, unitVarinatModel, unittypemodel;
+        var classname, count, filter, filtername, key, selected, unitVarinatModel, unittypemodel;
         unitVarinatModel = App.master.unit_variant.findWhere({
           id: value
         });
@@ -609,12 +609,15 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
         }
         if (count.length !== 0 && key >= 0) {
           classname = 'boxLong filtered';
+          filtername = 'filtered';
           selected = 'selected';
           unitVariantID.push(parseInt(unitVarinatModel.get('id')));
         } else if (count.length === 0 && key === -1) {
           classname = 'boxLong sold';
+          filtername = 'sold';
         } else {
           classname = 'boxLong other';
+          filtername = 'other';
         }
         return unitVariantModels.push({
           id: unitVarinatModel.get('id'),
@@ -622,6 +625,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           sellablearea: unitVarinatModel.get('sellablearea'),
           count: count.length,
           classname: classname,
+          filtername: filtername,
           selected: selected,
           filter: filter
         });

@@ -70,3 +70,8 @@ input.checkbox:checked ~ label {
 input.checkbox:focus ~ label:before {
 	 // box-shadow: 0 0 0 3px @color-primary;
 }
+
+input.checkbox[disabled] + label{
+	cursor: not-allowed;
+	opacity: 0.6;
+}
