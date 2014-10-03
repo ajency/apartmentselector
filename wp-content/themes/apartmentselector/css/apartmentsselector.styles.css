@@ -12109,6 +12109,10 @@ polygon.range {
 text {
   pointer-events: none;
 }
+.floor-pos.other:hover {
+  fill: #808080!important;
+  cursor: default;
+}
 body {
   background-color: #ffffff;
   background-image: url('../images/manaslake.png');
