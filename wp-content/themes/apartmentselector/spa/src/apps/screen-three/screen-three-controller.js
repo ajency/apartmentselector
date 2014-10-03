@@ -685,7 +685,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
       });
       $.each(uniqunitAssigned, function(index, value) {
         var floorColl, maxcount, maxunits, unitAssgendModels, unitAssgendModelsColl;
-        floorColl = new Backbone.Collection(floorColl1);
+        floorColl = new Backbone.Collection(floorUnitsArray);
         if (App.defaults['building'] === "All") {
           unitAssgendModels = floorColl.where({
             unitAssigned: value,
