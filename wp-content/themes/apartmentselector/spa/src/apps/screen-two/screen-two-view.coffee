@@ -151,7 +151,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                             <div class="text-center m-t-10 m-b-10">
                                 <a id="donepopup" class="btn btn-primary btn-sm b-close">DONE</a>
-                                <a id="cancelpopup" class="btn btn-primary btn-sm b-close">CANCEL</a>
+                                <!--<a id="cancelpopup" class="btn btn-primary btn-sm b-close">CANCEL</a>-->
                             </div>
 
                         </div>
