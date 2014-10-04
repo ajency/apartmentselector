@@ -117,12 +117,16 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="specialFilter1">
                         <div class="bgClass">
                             <h3 class="text-center light">Choose from the options below to filter your selection</h3>
+                                <div class="pull-left m-l-15">
+                                    <input type="checkbox" name="unselectview" id="unselectview" class="checkbox" value="0" checked/>
+                                    <label for="unselectview">Select/Unselect All</label>
+                                </div></br>
                             <div class="row m-l-0 m-r-0 filterBlock">
 
                                 <div class="col-sm-5 b-r b-grey">
                                     <h4 class="bold blockTitle">View</h4>
                                     {{#views}}
-                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -130,7 +134,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="col-sm-3 b-r b-grey">
                                     <h4 class="bold blockTitle">Entrance</h4>
                                         {{#facings}}
-                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -138,7 +142,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="col-sm-4">
                                     <h4 class="bold blockTitle">Terrace</h4>
                                      {{#terrace}}   
-                                    <div class="filterBox"> <input type="checkbox" {{disabled}}  name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}}  name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div>
                                     {{/terrace}}  
                                 </div>
                             </div>
@@ -174,8 +178,12 @@ define [ 'marionette' ], ( Marionette )->
 
         events:
             'click #filterModalscren3':(e)->
+                if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#unselectview').prop('checked',true)
+                else
+                            $('#unselectview').prop('checked',false)
                 $('.specialFilter1').bPopup()
-            'click .customLink':(e)->
+            'click .floor-pos ':(e)->
                 $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
@@ -842,6 +850,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariantString = value.toString()
 
         onShow:->
+
             objectele = "this"
             viewtagsArray = []
             entrancetagsArray = []
@@ -977,6 +986,134 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 $('#unittypecount1').html unittypetext
+                $('#unselectview').on('click' , (e)->
+                    mainnewarr =  []
+                    mainunique = {}
+                    if $('#'+e.target.id).prop('checked') != true
+                        firstview = _.first(view)
+                        rest = _.rest(view)
+                        $('#screenview'+firstview).prop('checked',true)
+                        $.each(rest, (index,value)->
+                  
+                                    $('#screenview'+value).prop('checked',false)
+
+                                )
+                        view = firstview
+                        App.defaults['view'] = view.toString()
+
+                        firstentrance = _.first(entrance)
+                        restent = _.rest(entrance)
+                        $('#screenfacing'+firstentrance).prop('checked',true)
+                        $.each(restent, (index,value)->
+                  
+                                    $('#screenfacing'+value).prop('checked',false)
+
+                                )
+                        entrance = firstentrance
+                        App.defaults['facing'] = entrance.toString()
+
+                        firstteraace = _.first(teraace)
+                        restter = _.rest(teraace)
+                        $('#screenterrace'+firstteraace).prop('checked',true)
+                        $.each(restter, (index,value)->
+                  
+                                    $('#screenterrace'+value).prop('checked',false)
+
+                                )
+                        teraace = firstteraace
+                        App.defaults['terrace'] = teraace.toString()
+                        $('#'+e.target.id).prop('checked' ,false)
+                    else
+                        view = cloneviews
+                        $.each(view, (index,value)->
+                  
+                                    $('#screenview'+value).prop('checked',true)
+
+                                )
+                        App.defaults['view'] = view.join(',')
+
+                        entrance = clonefacings
+                        $.each(entrance, (index,value)->
+                  
+                                    $('#screenfacing'+value).prop('checked',true)
+
+                                )
+                        App.defaults['facing'] = entrance.join(',')
+
+                        teraace = cloneterraces
+                        $.each(teraace, (index,value)->
+                  
+                                    $('#screenterrace'+value).prop('checked',true)
+
+                                )
+                        App.defaults['terrace'] = teraace.join(',')
+                        uniqfacings = _.uniq(entrance)
+                        uniqterrace = _.uniq(teraace)
+                        uniqviews = _.uniq(view)
+                        if uniqfacings.length != originalfacings.length
+                            App.defaults['facing'] = uniqfacings.join(',')
+                            entrance = uniqfacings
+                            #App.backFilter['screen2'].push 'facing'
+                        else
+                            entrance = uniqfacings
+                            App.defaults['facing'] = 'All'
+                        if uniqterrace.length != originalterraces.length
+                            App.defaults['terrace'] = uniqterrace.join(',')
+                            teraace = uniqterrace
+                            #App.backFilter['screen2'].push 'terrace'
+                        else
+                            teraace = uniqterrace
+                            App.defaults['terrace'] = 'All'
+                        if uniqviews.length != originalviews.length
+                            App.defaults['view'] = uniqviews.join(',')
+                            view = uniqviews
+                            #App.backFilter['screen2'].push 'terrace'
+                        else
+                            view = uniqviews
+                            App.defaults['view'] = 'All'
+                        $('#'+e.target.id).prop('checked' ,true)
+                    App.currentStore.unit.reset UNITS
+                    App.currentStore.building.reset BUILDINGS
+                    App.currentStore.unit_type.reset UNITTYPES
+                    App.currentStore.unit_variant.reset UNITVARIANTS
+                    App.currentStore.terrace.reset TERRACEOPTIONS
+                    App.currentStore.view.reset VIEWS
+                    App.currentStore.facings.reset FACINGS
+                    App.filter()
+                    mainunitTypeArray1 = []
+                    status = App.master.status.findWhere({'name':'Available'})
+                    units1 = App.master.unit.where({'status':status.get('id')})
+                    $.each(units1, (index,value)->
+                            unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                            mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
+                    )
+                    $.each(mainunitTypeArray1, (key,item)->
+                            if (!mainunique[item.id])
+                                if item.id != 14 && item.id != 16
+                                    status = App.master.status.findWhere({'name':'Available'})
+
+                                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                                    if parseInt(item.id) == 9
+                                        classname = 'twoBHK'
+                                    else
+                                        classname = 'threeBHK'
+
+                                    mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
+                                    mainunique[item.id] = item;
+
+
+                    )
+                        
+                    unittypetext = ""
+                    $.each(mainnewarr, (index,value)->
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
+
+
+                        )
+                    $('#unittypecount1').html unittypetext
+
+                    )
                 $('.viewname').on('click' , (e)->
                         mainnewarr =  []
                         mainunique = {}
@@ -1005,7 +1142,10 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults['view'] = viewString
                         #App.backFilter['screen2'].push 'view'
                         if originalviews.length  == view.length
+                            $('#unselectview').prop('checked',true)
                             App.defaults['view'] = 'All'
+                        else
+                            $('#unselectview').prop('checked',false)
                             # view = originalviews
                         # App.defaults['terrace'] = 'All'
                         # App.defaults['facing'] = 'All'  
@@ -1068,6 +1208,10 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenterrace'+value).prop('checked',false)
 
                             )
+                        if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#unselectview').prop('checked',true)
+                        else
+                            $('#unselectview').prop('checked',false)
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})
@@ -1137,7 +1281,10 @@ define [ 'marionette' ], ( Marionette )->
                         App.defaults['terrace'] = teraace.join(',')
                         #App.backFilter['screen2'].push 'terrace'
                         if originalterraces.length  == teraace.length
+                            $('#unselectview').prop('checked',true)
                             App.defaults['terrace'] = 'All'
+                        else
+                            $('#unselectview').prop('checked',false)
                             # teraace = originalterraces
                         # App.defaults['view'] = 'All'
                         # App.defaults['facing'] = 'All'  
@@ -1196,6 +1343,10 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenfacing'+value).prop('checked',false)
 
                         )
+                        if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#unselectview').prop('checked',true)
+                        else
+                            $('#unselectview').prop('checked',false)
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})
@@ -1260,8 +1411,11 @@ define [ 'marionette' ], ( Marionette )->
                         #App.backFilter['screen2'].push 'facing'
                         
                         if originalfacings.length  == entrance.length
+                            $('#unselectview').prop('checked',true)
                             App.defaults['facing'] = 'All'
                             # entrance = originalfacings
+                        else
+                            $('#unselectview').prop('checked',false)
                             
                         App.currentStore.unit.reset UNITS
                         App.currentStore.building.reset BUILDINGS
@@ -1322,6 +1476,10 @@ define [ 'marionette' ], ( Marionette )->
                                 $('#screenterrace'+value).prop('checked',false)
 
                             )
+                        if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#unselectview').prop('checked',true)
+                        else
+                            $('#unselectview').prop('checked',false)
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})
@@ -1376,7 +1534,7 @@ define [ 'marionette' ], ( Marionette )->
                             $('.specialFilter1').empty()
                             $('.specialFilter1').addClass 'hidden'
                             $('.b-modal').addClass 'hidden'
-                            console.log objectele
+                            
                             objectele.trigger 'unit:variants:selected'
                 )
                 $('#cancelpopupscreen').on('click' , (e)->
@@ -1720,10 +1878,12 @@ define [ 'marionette' ], ( Marionette )->
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if floor_layout_Basic != ""
                 path = floor_layout_Basic
-                $('<div></div>').load(path,  (x)->$('#'+maxvalue.id).attr('class','floor-pos position');unitAssigedArray.push(maxvalue.id)).appendTo("#floorsvg")
+                $('<div></div>').load(path,  (x)->$('#'+maxvalue.id).attr('class','floor-pos position');unitAssigedArray.push(maxvalue.id);$.each(trackposition, (ind,val)->$('#'+val).attr('class','other'))).appendTo("#floorsvg")
             else
                 path = ""
             floorid = maxvalue.id
+            trackposition = Marionette.getOption( @, 'position' )
+
             @loadsvg(floorid)
 
         loadsvg:(floorid)->
@@ -2612,6 +2772,8 @@ define [ 'marionette' ], ( Marionette )->
         initialize :->
             @collection = @model.get 'units'
             @$el.prop("id", @model.get("id"))
+
+        
 
 
 

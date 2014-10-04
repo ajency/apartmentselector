@@ -547,60 +547,112 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         });
         terracetemp1 = _.uniq(terracetemp1);
         $.each(uniqviews, function(index, value) {
-          var checked, disabled, viewModel;
+          var checked, classname, count, disabled, viewModel;
           viewModel = App.master.view.findWhere({
             id: parseInt(value)
           });
           disabled = "disabled";
           checked = "";
-          if ($.inArray(parseInt(value), viewtemp1) >= 0) {
-            viewID.push(parseInt(viewModel.get('id')));
+          key = "";
+          key = $.inArray(parseInt(value), viewtemp1);
+          count = [];
+          $.each(floorCollunits1, function(ind, val) {
+            var apartment;
+            apartment = val.get('apartment_views');
+            apartment = apartment.map(function(item) {
+              return parseInt(item);
+            });
+            if ($.inArray(parseInt(value), apartment) >= 0) {
+              return $.merge(count, val.get('apartment_views'));
+            }
+          });
+          if (count.length !== 0 && key >= 0) {
             disabled = "";
             checked = "checked";
+            classname = 'filtered';
+            viewID.push(parseInt(viewModel.get('id')));
+          } else if (count.length === 0 && key >= 0) {
+            classname = 'sold';
+          } else {
+            classname = 'other';
           }
           return viewModels.push({
             id: viewModel.get('id'),
             name: viewModel.get('name'),
             disabled: disabled,
-            checked: checked
+            checked: checked,
+            classname: classname
           });
         });
         $.each(uniqfacings, function(index, value) {
-          var checked, disabled, facingModel;
+          var checked, classname, count, disabled, facingModel;
           facingModel = App.master.facings.findWhere({
             id: parseInt(value)
           });
           disabled = "disabled";
           checked = "";
-          if ($.inArray(parseInt(value), facingtemp1) >= 0) {
-            facingID.push(parseInt(facingModel.get('id')));
+          key = "";
+          key = $.inArray(parseInt(value), facingtemp1);
+          count = [];
+          $.each(floorCollunits1, function(ind, val) {
+            var facing;
+            facing = val.get('facing');
+            facing = facing.map(function(item) {
+              return parseInt(item);
+            });
+            if ($.inArray(parseInt(value), facing) >= 0) {
+              return $.merge(count, val.get('facing'));
+            }
+          });
+          if (count.length !== 0 && key >= 0) {
             disabled = "";
             checked = "checked";
+            classname = 'filtered';
+            facingID.push(parseInt(facingModel.get('id')));
+          } else if (count.length === 0 && key >= 0) {
+            classname = 'sold';
+          } else {
+            classname = 'other';
           }
           return facingModels.push({
             id: facingModel.get('id'),
             name: facingModel.get('name'),
             disabled: disabled,
-            checked: checked
+            checked: checked,
+            classname: classname
           });
         });
         $.each(uniqterrace, function(index, value) {
-          var checked, disabled, terraceModel;
+          var checked, classname, count, disabled, terraceModel;
           terraceModel = App.master.terrace.findWhere({
             id: parseInt(value)
           });
           disabled = "disabled";
           checked = "";
-          if ($.inArray(parseInt(value), terracetemp1) >= 0) {
-            terraceID.push(parseInt(terraceModel.get('id')));
+          key = "";
+          key = $.inArray(parseInt(value), terracetemp1) >= 0;
+          count = [];
+          $.each(floorCollunits1, function(ind, val) {
+            if (parseInt(value) === val.get('terrace')) {
+              return count.push(val);
+            }
+          });
+          if (count.length !== 0 && key >= 0) {
             disabled = "";
             checked = "checked";
+            classname = 'filtered';
+            terraceID.push(parseInt(terraceModel.get('id')));
+          } else if (count.length === 0 && key >= 0) {
+            classname = 'sold';
+          } else {
+            classname = 'other';
           }
           return terraceModels.push({
             id: parseInt(terraceModel.get('id')),
             name: terraceModel.get('name'),
             disabled: disabled,
-            checked: checked
+            checked: checked,
+            classname: classname
           });
         });
       }
@@ -626,7 +678,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           classname = 'filtered';
           selected = 'selected';
           unitVariantID.push(parseInt(unitVarinatModel.get('id')));
-        } else if (count.length === 0 && key === -1) {
+        } else if (count.length === 0 && key >= 0) {
           classname = 'sold';
         } else {
           classname = 'other';

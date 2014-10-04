@@ -120,12 +120,16 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="specialFilter">
                         <div class="bgClass">
                             <h3 class="text-center light">Choose from the options below to filter your selection</h3>
+                                <div class="pull-left m-l-15">
+                                    <input type="checkbox" name="selectview" id="selectview" class="checkbox" value="0" checked/>
+                                    <label for="selectview">Select/Unselect All</label>
+                                </div></br>
                             <div class="row m-l-0 m-r-0 filterBlock">
-
+                                
                                 <div class="col-sm-5 b-r b-grey">
                                     <h4 class="bold blockTitle">View</h4>
                                     {{#views}}
-                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="view{{id}}" data-name="{{name}}" id="view{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="view{{id}}" data-name="{{name}}" id="view{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="view{{id}}">{{name}}</label> </div>
                                     {{/views}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -133,7 +137,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="col-sm-3 b-r b-grey">
                                     <h4 class="bold blockTitle">Entrance</h4>
                                         {{#facings}}
-                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="facing{{id}}" data-name="{{name}}" id="facing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="facing{{id}}">{{name}}</label> </div>
                                     {{/facings}}
                                     <div class="clearfix"></div>
                                 </div>
@@ -141,7 +145,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 <div class="col-sm-4">
                                     <h4 class="bold blockTitle">Terrace</h4>
                                      {{#terrace}}   
-                                    <div class="filterBox"> <input type="checkbox" {{disabled}} name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
+                                    <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="terrace{{id}}" data-name="{{name}}" id="terrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="terrace{{id}}">{{name}}</label> </div>
                                     {{/terrace}}  
                                 </div>
                             </div>
@@ -186,6 +190,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
         events:
             'click #filterModal':(e)->
                 # $('.specialFilter').text ""
+                if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                    $('#selectview').prop('checked',true)
+                else
+                    $('#selectview').prop('checked',false)
                 $('.specialFilter').bPopup()
 
             'mouseout .im-pin':(e)->
@@ -888,6 +896,135 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
 
                 )
                 $('#unittypecount').html unittypetext
+
+                $('#selectview').on('click' , (e)->
+                    mainnewarr =  []
+                    mainunique = {}
+                    if $('#'+e.target.id).prop('checked') != true
+                        firstview = _.first(view)
+                        rest = _.rest(view)
+                        $('#view'+firstview).prop('checked',true)
+                        $.each(rest, (index,value)->
+                  
+                                    $('#view'+value).prop('checked',false)
+
+                                )
+                        view = firstview
+                        App.defaults['view'] = view.toString()
+
+                        firstentrance = _.first(entrance)
+                        restent = _.rest(entrance)
+                        $('#facing'+firstentrance).prop('checked',true)
+                        $.each(restent, (index,value)->
+                  
+                                    $('#facing'+value).prop('checked',false)
+
+                                )
+                        entrance = firstentrance
+                        App.defaults['facing'] = entrance.toString()
+
+                        firstteraace = _.first(teraace)
+                        restter = _.rest(teraace)
+                        $('#terrace'+firstteraace).prop('checked',true)
+                        $.each(restter, (index,value)->
+                  
+                                    $('#terrace'+value).prop('checked',false)
+
+                                )
+                        teraace = firstteraace
+                        App.defaults['terrace'] = teraace.toString()
+                        $('#'+e.target.id).prop('checked' ,false)
+                    else
+                        view = cloneviews
+                        $.each(view, (index,value)->
+                  
+                                    $('#view'+value).prop('checked',true)
+
+                                )
+                        App.defaults['view'] = view.join(',')
+
+                        entrance = clonefacings
+                        $.each(entrance, (index,value)->
+                  
+                                    $('#facing'+value).prop('checked',true)
+
+                                )
+                        App.defaults['facing'] = entrance.join(',')
+
+                        teraace = cloneterraces
+                        $.each(teraace, (index,value)->
+                  
+                                    $('#terrace'+value).prop('checked',true)
+
+                                )
+                        App.defaults['terrace'] = teraace.join(',')
+                        uniqfacings = _.uniq(entrance)
+                        uniqterrace = _.uniq(teraace)
+                        uniqviews = _.uniq(view)
+                        if uniqfacings.length != originalfacings.length
+                            App.defaults['facing'] = uniqfacings.join(',')
+                            entrance = uniqfacings
+                            #App.backFilter['screen2'].push 'facing'
+                        else
+                            entrance = uniqfacings
+                            App.defaults['facing'] = 'All'
+                        if uniqterrace.length != originalterraces.length
+                            App.defaults['terrace'] = uniqterrace.join(',')
+                            teraace = uniqterrace
+                            #App.backFilter['screen2'].push 'terrace'
+                        else
+                            teraace = uniqterrace
+                            App.defaults['terrace'] = 'All'
+                        if uniqviews.length != originalviews.length
+                            App.defaults['view'] = uniqviews.join(',')
+                            view = uniqviews
+                            #App.backFilter['screen2'].push 'terrace'
+                        else
+                            view = uniqviews
+                            App.defaults['view'] = 'All'
+                        $('#'+e.target.id).prop('checked' ,true)
+                    App.currentStore.unit.reset UNITS
+                    App.currentStore.building.reset BUILDINGS
+                    App.currentStore.unit_type.reset UNITTYPES
+                    App.currentStore.unit_variant.reset UNITVARIANTS
+                    App.currentStore.terrace.reset TERRACEOPTIONS
+                    App.currentStore.view.reset VIEWS
+                    App.currentStore.facings.reset FACINGS
+                    App.filter()
+                    mainunitTypeArray1 = []
+                    status = App.master.status.findWhere({'name':'Available'})
+                    units1 = App.master.unit.where({'status':status.get('id')})
+                    $.each(units1, (index,value)->
+                            unitType = App.master.unit_type.findWhere({id:value.get 'unitType'})
+                            mainunitTypeArray1.push({id:unitType.get('id'),name: unitType.get('name')})
+                    )
+                    $.each(mainunitTypeArray1, (key,item)->
+                            if (!mainunique[item.id])
+                                if item.id != 14 && item.id != 16
+                                    status = App.master.status.findWhere({'name':'Available'})
+
+                                    count = App.currentStore.unit.where({unitType:item.id,'status':status.get('id')})
+
+                                    if parseInt(item.id) == 9
+                                        classname = 'twoBHK'
+                                    else
+                                        classname = 'threeBHK'
+
+                                    mainnewarr.push({id:item.id,name:item.name,classname:classname,count:count})
+                                    mainunique[item.id] = item;
+
+
+                    )
+                        
+                    unittypetext = ""
+                    $.each(mainnewarr, (index,value)->
+                                unittypetext  += '<span>'+value.name+' :</span><span class="text-primary bold m-r-20">'+value.count.length+'</span>'
+
+
+                        )
+                    $('#unittypecount').html unittypetext
+
+                    )
                 $('.viewname').on('click' , (e)->
                         App.layout.screenThreeRegion.el.innerHTML = ""
                         App.layout.screenFourRegion.el.innerHTML = ""
@@ -934,7 +1071,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.defaults['view'] = viewString
                         #App.backFilter['screen2'].push 'view'
                         if originalviews.length  == view.length
+                            $('#selectview').prop('checked',true)
                             App.defaults['view'] = 'All'
+                        else
+                            $('#selectview').prop('checked',false)
                             # vew = originalviews
                         # App.defaults['terrace'] = 'All'
                         # App.defaults['facing'] = 'All' 
@@ -998,6 +1138,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#terrace'+value).prop('checked',false)
 
                             )
+                        if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#selectview').prop('checked',true)
+                        else
+                            $('#selectview').prop('checked',false)
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})
@@ -1077,7 +1221,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         App.defaults['terrace'] = teraace.join(',')
                         #App.backFilter['screen2'].push 'terrace'
                         if originalterraces.length  == teraace.length
+                            $('#selectview').prop('checked',true)
                             App.defaults['terrace'] = 'All'
+                        else
+                            $('#selectview').prop('checked',false)
                             # teraace = originalterraces
                         # App.defaults['view'] = 'All'
                         # App.defaults['facing'] = 'All' 
@@ -1135,6 +1282,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#facing'+value).prop('checked',false)
 
                         )
+                        if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#selectview').prop('checked',true)
+                        else
+                            $('#selectview').prop('checked',false)
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})
@@ -1221,7 +1372,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         #App.backFilter['screen2'].push 'facing'
                         
                         if originalterraces.length  == entrance.length
+                            $('#selectview').prop('checked',true)
                             App.defaults['facing'] = 'All'
+                        else
+                            $('#selectview').prop('checked',false)
                             # entrance = originalfacings
                             
                         # App.defaults['terrace'] = 'All'
@@ -1276,6 +1430,10 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 $('#terrace'+value).prop('checked',false)
 
                             )
+                        if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
+                            $('#selectview').prop('checked',true)
+                        else
+                            $('#selectview').prop('checked',false)
                         mainunitTypeArray1 = []
                         status = App.master.status.findWhere({'name':'Available'})
                         units1 = App.master.unit.where({'status':status.get('id')})

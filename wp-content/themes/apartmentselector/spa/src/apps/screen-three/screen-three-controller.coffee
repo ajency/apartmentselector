@@ -19,6 +19,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 Ofacings : @Collection[11]
                 terrace :@Collection[14] 
                 terraceID : @Collection[15]
+                position : @Collection[16]
                 templateHelpers:
                     selection :@Collection[2]
                     countUnits : @Collection[3]
@@ -74,6 +75,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         Ofacings : @Collection[11]
                         terrace :@Collection[14] 
                         terraceID : @Collection[15]
+                        position : @Collection[16]
                         templateHelpers:
                                 selection :@Collection[2]
                                 countUnits : @Collection[3]
@@ -517,27 +519,73 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     viewModel = App.master.view.findWhere({id:parseInt(value)})
                     disabled = "disabled"
                     checked = ""
-                    
-                    
-                    if $.inArray(parseInt(value),viewtemp1) >= 0
-                        viewID.push(parseInt(viewModel.get('id')))
+                    key = ""
+                    key  =  $.inArray(parseInt(value),viewtemp1)
+                    count = []
+                    $.each(floorCollunits1, (ind,val)->
+                        apartment = val.get('apartment_views')
+                        apartment = apartment.map((item)->
+                            return parseInt(item)
+                            )
+                        if $.inArray(parseInt(value),apartment) >= 0
+                            $.merge(count,val.get('apartment_views'))
+
+
+
+                        )
+                    if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
+                        classname = 'filtered'
                         
-                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name'),disabled:disabled,checked:checked})
+                        viewID.push(parseInt(viewModel.get('id')))
+                    else if count.length == 0 && key >= 0
+                        classname = 'sold'
+                    else
+                        classname = 'other'
+                    
+                    # if $.inArray(parseInt(value),viewtemp1) >= 0
+                    #     viewID.push(parseInt(viewModel.get('id')))
+                    #     disabled = ""
+                    #     checked = "checked"
+                        
+                    viewModels.push({id:viewModel.get('id'),name:viewModel.get('name'),disabled:disabled,checked:checked,classname:classname})
 
                 )
                 $.each(uniqfacings, (index,value)->
                     facingModel = App.master.facings.findWhere({id:parseInt(value)})
                     disabled = "disabled"
                     checked = ""
-                    
-                    if $.inArray(parseInt(value),facingtemp1) >= 0
-                        facingID.push(parseInt(facingModel.get('id')))
+                    key = ""
+                    key  = $.inArray(parseInt(value),facingtemp1)
+                    count = []
+                    $.each(floorCollunits1, (ind,val)->
+                        facing = val.get('facing')
+                        facing = facing.map((item)->
+                            return parseInt(item)
+                            )
+                        if $.inArray(parseInt(value),facing) >= 0
+                            $.merge(count,val.get('facing'))
+
+
+
+                        )
+                    if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
+                        classname = 'filtered'
                         
-                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name'),disabled:disabled,checked:checked})
+                        facingID.push(parseInt(facingModel.get('id')))
+                    else if count.length ==0 && key >= 0
+                        classname = 'sold'
+                    else
+                        classname = 'other'
+                    # if $.inArray(parseInt(value),facingtemp1) >= 0
+                    #     facingID.push(parseInt(facingModel.get('id')))
+                    #     disabled = ""
+                    #     checked = "checked"
+                        
+                    facingModels.push({id:facingModel.get('id'),name:facingModel.get('name'),disabled:disabled,checked:checked,classname:classname})
                     
 
                 )
@@ -545,13 +593,32 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     terraceModel = App.master.terrace.findWhere({id:parseInt(value)})
                     disabled = "disabled"
                     checked = ""
-                    
-                    if $.inArray(parseInt(value),terracetemp1) >= 0
-                        terraceID.push(parseInt(terraceModel.get('id')))
+                    key = ""
+                    key  = $.inArray(parseInt(value),terracetemp1) >= 0
+                    count = []
+                    $.each(floorCollunits1, (ind,val)->
+                        if parseInt(value) == val.get('terrace') 
+                            count.push(val)
+
+
+
+                        )
+                    if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
+                        classname = 'filtered'
                         
-                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name'),disabled:disabled,checked:checked})
+                        terraceID.push(parseInt(terraceModel.get('id')))
+                    else if count.length ==0 && key >= 0
+                        classname = 'sold'
+                    else
+                        classname = 'other'
+                    # if $.inArray(parseInt(value),terracetemp1) >= 0
+                    #     terraceID.push(parseInt(terraceModel.get('id')))
+                    #     disabled = ""
+                    #     checked = "checked"
+                        
+                    terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name'),disabled:disabled,checked:checked,classname:classname})
                     
                 )
 
@@ -621,6 +688,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             floorCountArray.sort( (a,b) ->
                     b.id - a.id
             )
+            trackposition = []
             unitArray= []
             unitColl = new Backbone.Collection unitsCollection
             unitAssigned = unitColl.pluck("unitAssigned")
@@ -669,6 +737,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 maxcount = []
                 maxunits = []  
                 track = 0  
+                
                 $.each(unitAssgendModels, (index,value1)->
                     flag = 0
                     $.each(myArray, (index,value)->
@@ -739,8 +808,11 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
 
                 )
+                disabled = disabled
                 unitAssgendModelsColl = new Backbone.Collection unitAssgendModels
-                unitArray.push({id:value,units:unitAssgendModelsColl,count:maxunits.length})
+                if maxunits.length == 0
+                    trackposition.push(value)
+                unitArray.push({id:value,units:unitAssgendModelsColl,count:maxunits.length,disabled:disabled})
 
 
 
@@ -757,7 +829,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
             buildingModel = App.master.building.where(id:parseInt(buildingvalue))
             buildingCollection = new Backbone.Collection buildingModel
             mainnewarr = ""
-            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue,viewModels,facingModels,viewID,facingID,terraceModels,terraceID]
+            [buildingCollection,newunitCollection,templateString,Countunits.length,templateString,mainnewarr,range,unitVariantModels,unitVariantID,maxvalue,viewModels,facingModels,viewID,facingID,terraceModels,terraceID,trackposition]
 
 
 
