@@ -665,7 +665,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           filtername = 'filtered';
           selected = 'selected';
           unitVariantID.push(parseInt(unitVarinatModel.get('id')));
-        } else if (count.length === 0 && key === -1) {
+        } else if (count.length === 0 && key >= 0) {
           classname = 'boxLong sold';
           filtername = 'sold';
         } else {

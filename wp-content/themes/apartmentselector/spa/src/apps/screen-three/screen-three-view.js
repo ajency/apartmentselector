@@ -43,6 +43,9 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.events = {
+      'click .other': function(e) {
+        return $('#' + e.target.id).val('0');
+      },
       'click #filterModalscren3': function(e) {
         if (App.defaults['view'] === 'All' && App.defaults['facing'] === 'All' && App.defaults['terrace'] === 'All') {
           $('#unselectview').prop('checked', true);
