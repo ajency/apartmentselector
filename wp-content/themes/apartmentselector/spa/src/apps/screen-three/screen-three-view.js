@@ -660,7 +660,6 @@ define(['marionette'], function(Marionette) {
       object = this;
       capability = usermodel.get('all_caps');
       if (usermodel.get('id') !== "0" && $.inArray('see_special_filters', capability) >= 0) {
-        $('.special').removeClass('hidden');
         originalviews = Marionette.getOption(this, 'views');
         originalOviews = Marionette.getOption(this, 'Oviews');
         originalfacings = Marionette.getOption(this, 'facings');
