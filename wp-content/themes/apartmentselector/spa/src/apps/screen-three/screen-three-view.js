@@ -71,7 +71,6 @@ define(['marionette'], function(Marionette) {
         $('#printmapplic1').text("");
         $('#towerview').text("");
         id = parseInt(e.target.id);
-        console.log(unitAssigedArray);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
           element = unitAssigedArray[index];
           if (element === parseInt(id)) {
@@ -1737,7 +1736,6 @@ define(['marionette'], function(Marionette) {
         $('<div></div>').load(path, function(x) {
           $('#' + maxvalue.id).attr('class', 'floor-pos position');
           unitAssigedArray.push(maxvalue.id);
-          console.log(trackposition);
           return $.each(trackposition, function(ind, val) {
             $('#' + val).attr('class', 'other');
             return $("#" + val).parent().removeAttr('data-target');

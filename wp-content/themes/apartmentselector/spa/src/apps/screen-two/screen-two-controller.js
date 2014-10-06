@@ -630,10 +630,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           disabled = "disabled";
           checked = "";
           key = "";
-          key = $.inArray(parseInt(value), terracetemp1) >= 0;
+          key = $.inArray(parseInt(value), terracetemp1);
           count = [];
           $.each(floorCollunits1, function(ind, val) {
-            if (parseInt(value) === val.get('terrace')) {
+            if (parseInt(value) === parseInt(val.get('terrace'))) {
               return count.push(val);
             }
           });

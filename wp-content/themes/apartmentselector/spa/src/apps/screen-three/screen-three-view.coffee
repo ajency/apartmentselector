@@ -202,7 +202,7 @@ define [ 'marionette' ], ( Marionette )->
                 $('#printmapplic1').text ""
                 $('#towerview').text ""
                 id = parseInt(e.target.id)
-                console.log unitAssigedArray
+                
                 for element , index in unitAssigedArray
                     if element == parseInt(id)
                         $('#'+element).attr('class','floor-pos position')
@@ -1882,7 +1882,7 @@ define [ 'marionette' ], ( Marionette )->
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
             if floor_layout_Basic != ""
                 path = floor_layout_Basic
-                $('<div></div>').load(path,  (x)->$('#'+maxvalue.id).attr('class','floor-pos position');unitAssigedArray.push(maxvalue.id);console.log(trackposition);$.each(trackposition, (ind,val)->$('#'+val).attr('class','other');$("#"+val).parent().removeAttr('data-target'))).appendTo("#floorsvg")
+                $('<div></div>').load(path,  (x)->$('#'+maxvalue.id).attr('class','floor-pos position');unitAssigedArray.push(maxvalue.id);$.each(trackposition, (ind,val)->$('#'+val).attr('class','other');$("#"+val).parent().removeAttr('data-target'))).appendTo("#floorsvg")
             else
                 path = ""
             floorid = maxvalue.id

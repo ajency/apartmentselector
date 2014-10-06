@@ -594,10 +594,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     disabled = "disabled"
                     checked = ""
                     key = ""
-                    key  = $.inArray(parseInt(value),terracetemp1) >= 0
+                    key  = $.inArray(parseInt(value),terracetemp1) 
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        if parseInt(value) == val.get('terrace') 
+                        if parseInt(value) == parseInt(val.get('terrace')) 
                             count.push(val)
 
 
