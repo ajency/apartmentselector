@@ -10041,6 +10041,10 @@ h5 {
     margin-right: 0;
   }
 }
+/*Safari Fix*/
+.safari .grid-container .grid-block-1 {
+  height: 82px;
+}
 .introTxt {
   margin: 0 auto;
   font-weight: 400;
@@ -12555,3 +12559,6 @@ a.im-clear-button {
 }
 /**** end print modal styles ****/
 
+iframe#print-modal-content {
+  height: 5500px !important;
+}
