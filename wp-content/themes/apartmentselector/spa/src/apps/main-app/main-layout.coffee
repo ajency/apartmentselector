@@ -184,8 +184,14 @@ define [ 'extm'], ( Extm)->
                     </div>
                 </div>
 
-                <div id="costSheetTable">
+                <div id="costSheetTableprint">
                 </div>
+                <div class="invoice-items">
+                                    <h4 class="text-primary">Payment Schedule</h4>
+                                    <ul id="paymentTableprint">
+
+                                    </ul>
+                                </div>
 
             </div>
         </div>

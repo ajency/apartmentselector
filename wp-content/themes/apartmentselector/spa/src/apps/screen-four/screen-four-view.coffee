@@ -543,7 +543,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 )
                 $('#infra1').on('change' , ()->
-                    infraid = $('#infra' ).val()
+                    infraid = $('#infra1' ).val()
                     object.updated()
 
 
@@ -607,7 +607,7 @@ define [ 'marionette' ], ( Marionette )->
 
         onShowCostSheet:(value)->
             units = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
-            @generateCostSheet()
+            # @generateCostSheet()
             viewModelArray = []
             facingModelArray = []
             units.set 'views_name' , value.views
@@ -666,13 +666,16 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(basicCost)
             costSheetArray.push(discount)
             table = ""
+            table1 = ""
             $('.building').text buildingModel.get 'name'
             planselectedValue = buildingModel.get('payment_plan')
             milestoneselectedValue = buildingModel.get('milestone')
             $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             #$("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
-            id1=$('#paymentplans').val()
-
+            id1 = $('#paymentplans').val()
+            paymentColl = new Backbone.Collection PAYMENTPLANS
+            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+            $('.paymentplan').text milestones.get('name')
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
             SettingModel = new Backbone.Model SETTINGS
             stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
@@ -702,7 +705,8 @@ define [ 'marionette' ], ( Marionette )->
             
 
             basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]))
-            
+            $('#rec' ).text ""
+            $('.rec' ).text ""
 
 
 
@@ -740,13 +744,54 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">'+basicCost1+'</div>
                             <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
                         </div>
-                        <div class="costsRow">
+                       <div class="costsRow">
                             <div class="costCell costName">Infrastructure and Developement Charges</div>
                             <div class="costCell discCol showDisc"><select id="infra1"></select></div>
                             <div class="costCell"><select id="infra"></select></div>
                         </div>'
+
+            table1 += '  
+                        <div class="costsRow totals title">
+                            <div class="costCell costName">Cost Type</div>
+                            <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div>
+                            <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div>
+                        </div>
+                        
+                        <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5>
+
+                        <div class="costsRow">
+                            <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
+                            <div class="costCell discCol showDisc">'+costSheetArray[0]+'</div>
+                            <div class="costCell">'+costSheetArray[0]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Floorrise</div>
+                            <div class="costCell discCol showDisc">'+floorRiseValue+'</div>
+                            <div class="costCell">'+floorRiseValue+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Rate per Sq.Ft.</div>
+                            <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
+                            <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Revised Rate</div>
+                            <div class="costCell discCol showDisc ">--</div>
+                            <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Basic Cost</div>
+                            <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">'+basicCost1+'</div>
+                            <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
+                        </div>
+                        <div class="costsRow">
+                            <div class="costCell costName">Infrastructure and Developement Charges</div>
+                            <div class="costCell discCol showDisc infra">'+infraid+'</div>
+                            <div class="costCell infra1">'+infraid+'</div>
+                        </div>'
                         
             $('#costSheetTable' ).append table
+            $('#costSheetTableprint' ).append table1
             $('#infra' ).append infratxt
             $('#infra1' ).append infratxt
             $('.ratepersqft').autoNumeric('init')
@@ -808,10 +853,10 @@ define [ 'marionette' ], ( Marionette )->
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
             finalcost = parseFloat(totalcost) + parseFloat(maintenance)
             $('.totalcost').text totalcost
-            $('.rec').autoNumeric('init')
-            recount = $('.rec').autoNumeric('set', count)
-            reccount = recount.text()
-            $('.rec').text reccount
+            # $('.rec').autoNumeric('init')
+            # recount = $('.rec').autoNumeric('set', count)
+            # reccount = recount.text()
+            # $('.rec').text reccount
             table += '  <div class="costsRow totals">
                             <div class="costCell costName">Agreement Amount</div>
                             <div class="costCell discCol showDisc"><span id="agreement1" data-a-sign="Rs. " data-d-group="2">'+agreement1+'</span></div>
@@ -865,6 +910,7 @@ define [ 'marionette' ], ( Marionette )->
                         '
             # console.log $('table#costSheetTable tbody' )
             $('#costSheetTable' ).append table
+            $('#costSheetTableprint' ).append table
             $('#agreement1').autoNumeric('init')
             $('#agreement1').autoNumeric('set', agreement1);
             $('#agreement').autoNumeric('init')
@@ -911,7 +957,7 @@ define [ 'marionette' ], ( Marionette )->
 
             )
             $('#infra1').on('change' , ()->
-                infraid = $('#infra' ).val()
+                infraid = $('#infra1' ).val()
                 object.updated()
 
 
@@ -943,14 +989,18 @@ define [ 'marionette' ], ( Marionette )->
 
         generatePaymentSchedule:(id)->
             flag = 0
+            $('#rec' ).text ""
+            $('.rec' ).text ""
             #get_apratment_selector_settings()
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             milestonecompletion = buildingModel.get 'milestonecompletion'
             $('#paymentTable' ).text ""
+            $('#paymentTableprint' ).text ""
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
+            $('.paymentplan').text milestones.get('name')
             milestonesArrayColl = new Backbone.Collection milestonesArray
             milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
             milestonesArray = milestonesArray.sort( (a,b)->
@@ -1008,20 +1058,22 @@ define [ 'marionette' ], ( Marionette )->
             $('.rec').autoNumeric('init')
             recount = $('.rec').autoNumeric('set', count)
             reccount = recount.text()
-            $('#rec' ).text reccount
-            $('.rec' ).text reccount
+            # $('#rec' ).text reccount
+            # $('.rec' ).text reccount
             if parseInt($('#payment' ).val()) == 0
                 addon = 0
 
             else
                 addon = $('#payment' ).val() - count
-
+            $('.actpayment').autoNumeric('init')
+            $('.actpayment').autoNumeric('set', $('#payment' ).val())
             $('.addonpay').autoNumeric('init')
             addoncount = $('.addonpay').autoNumeric('set', addon)
             addonCount = $('.addonpay').autoNumeric('set', addon).text()
             $('.addonpay' ).text addonCount
 
             $('#paymentTable' ).append table
+            $('#paymentTableprint' ).append table
             for element,index in milestonesArray
                 percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
                 percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
@@ -1038,6 +1090,7 @@ define [ 'marionette' ], ( Marionette )->
             $('#milestones option' ).remove()
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
+            $('.paymentplan').text milestones.get('name')
             milestonesArray = milestones.get('milestones')
             milestonesArray = milestonesArray.sort( (a,b)->
                 parseInt( a.sort_index) - parseInt( b.sort_index)
@@ -1074,7 +1127,7 @@ define [ 'marionette' ], ( Marionette )->
             milestoneselectedValue = buildingModel.get('milestone')
             $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
-            id1=$('#paymentplans').val()
+            id1= $('#paymentplans').val()
 
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
             SettingModel = new Backbone.Model SETTINGS
