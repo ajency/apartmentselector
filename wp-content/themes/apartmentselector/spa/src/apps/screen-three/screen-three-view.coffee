@@ -89,6 +89,7 @@ define [ 'marionette' ], ( Marionette )->
                         <div class="col-md-5 col-lg-4">
                             <div id="vs-container" class="vs-container">
                                 <header class="vs-header" id="building-region"></header>
+                                    <div id="layoutmsg" class="alrtMsg animated pulse"></div>
                                 <div id="floorsvg" class="floorSvg"></div>
                                 <div  id="unit-region"></div>
                             </div>
@@ -180,6 +181,7 @@ define [ 'marionette' ], ( Marionette )->
         events:
             'click .other':(e)->
                 $( "#"+e.target.id ).parent().removeAttr('data-target')
+                @showLayoutMsg()
             'click #filterModalscren3':(e)->
                 if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
                             $('#unselectview').prop('checked',true)
@@ -1875,6 +1877,10 @@ define [ 'marionette' ], ( Marionette )->
             $('#filtermsg1').show()
             $('#filtermsg1').text(' Atleast one option in each category must be selected to proceed').delay(2000).fadeOut( (x)->$('filtermsg').text(""));
         
+        showLayoutMsg:->
+            $('#layoutmsg').show()
+            $('#layoutmsg').text('There are no flats available in this position').delay(2000).fadeOut( (x)->$('layoutmsg').text(""));
+       
         loadbuildingsvg:->
 
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
