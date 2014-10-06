@@ -138,6 +138,56 @@ define [ 'extm'], ( Extm)->
                     </div>
                 </div>
             </div>
+
+            <div class="costsheetPrint">
+                <div class="this-is">
+                    <h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3>
+                </div><!-- invoice headline -->
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Prepared for:</h5>
+                        <input type="text" id="" value="" class="form-control" placeholder="Customer Name"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Prepared by:</h5>
+                        <h4 class="preparedby"></h4>
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Prepared on:</h5>
+                        <h4 class="preparedon"></h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5 >Total Cost:</h5> <h4><span class="totalcost" data-a-sign="Rs. " data-d-group="2"></span></h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h5 >Amount Receivable as on Date:</h5> <h4><span class="rec" data-a-sign="Rs. " data-d-group="2"></span></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Payment Plan: </h5> <h4><span class="paymentplan"></span></h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h5>Actual Payment:</h5> 
+                        <span class="actpayment" data-a-sign="Rs. " data-d-group=""></span></h4>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+
+                <div id="costSheetTable">
+                </div>
+
+            </div>
         </div>
         
         <div id="screen-one-region" class="section">
