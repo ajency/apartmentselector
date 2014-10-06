@@ -44,7 +44,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.events = {
       'click .other': function(e) {
-        return $('#' + e.target.id).val('0');
+        return $("#" + e.target.id).parent().removeAttr('data-target');
       },
       'click #filterModalscren3': function(e) {
         if (App.defaults['view'] === 'All' && App.defaults['facing'] === 'All' && App.defaults['terrace'] === 'All') {
@@ -71,6 +71,7 @@ define(['marionette'], function(Marionette) {
         $('#printmapplic1').text("");
         $('#towerview').text("");
         id = parseInt(e.target.id);
+        console.log(unitAssigedArray);
         for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
           element = unitAssigedArray[index];
           if (element === parseInt(id)) {
@@ -687,6 +688,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.onShow = function() {
       var $columns_number, capability, clonefacings, cloneterraces, cloneviews, entrance, entranceArrayText, globalUnitVariants, globalfacing, globalfacingInt, globalterrace, globalterraceInt, globalviewInt, globalviews, mainnewarr, mainunique, mainunitTypeArray1, objectele, originalOfacings, originalOterraces, originalOviews, originalfacings, originalterraces, originalviews, selectedArray, status, teraace, terraceArrayText, testtext, unitVariantArrayColl, unitVariantArrayText, unitVariantsArray, units1, unittypetext, usermodel, view, viewArrayText;
+      unitAssigedArray = [];
       objectele = "this";
       viewtagsArray = [];
       entrancetagsArray = [];
@@ -1735,8 +1737,10 @@ define(['marionette'], function(Marionette) {
         $('<div></div>').load(path, function(x) {
           $('#' + maxvalue.id).attr('class', 'floor-pos position');
           unitAssigedArray.push(maxvalue.id);
+          console.log(trackposition);
           return $.each(trackposition, function(ind, val) {
-            return $('#' + val).attr('class', 'other');
+            $('#' + val).attr('class', 'other');
+            return $("#" + val).parent().removeAttr('data-target');
           });
         }).appendTo("#floorsvg");
       } else {
