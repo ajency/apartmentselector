@@ -797,10 +797,10 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                         track = 1
                     if myArray.length == 0
                         track = 1
-                    # if  value1.get('status') == 9 && value1.get('unitType') != 14 && value1.get('unitType') != 16
-                    #     maxunits.push(value1)
+                    if  value1.get('status') == 9 && value1.get('unitType') != 14 && value1.get('unitType') != 16
+                        maxunits = App.currentStore.unit.where({unitAssigned:value})
 
-                    maxunits = App.currentStore.unit.where({unitAssigned:value})
+                    
                     
 
 

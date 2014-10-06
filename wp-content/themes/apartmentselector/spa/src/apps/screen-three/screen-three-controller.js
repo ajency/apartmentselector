@@ -855,9 +855,11 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           if (myArray.length === 0) {
             track = 1;
           }
-          return maxunits = App.currentStore.unit.where({
-            unitAssigned: value
-          });
+          if (value1.get('status') === 9 && value1.get('unitType') !== 14 && value1.get('unitType') !== 16) {
+            return maxunits = App.currentStore.unit.where({
+              unitAssigned: value
+            });
+          }
         });
         disabled = disabled;
         unitAssgendModelsColl = new Backbone.Collection(unitAssgendModels);
