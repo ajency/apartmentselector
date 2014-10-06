@@ -33,7 +33,7 @@ define(['marionette'], function(Marionette) {
       return ScreenThreeLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenThreeLayout.prototype.template = '<h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span> apartments that matched your selection.</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="introTxt text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> {{#unitVariants}} <div class="grid-block-3 {{filtername}}" > <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> <h5><span> {{filter}} : </span> {{count}}</h5> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="special introTxt text-center hidden "> <div> Click <a class="special bold hidden" id="filterModalscren3">here</a> to set <span class="bold"> Additional Filters</span> </div> View: <div id="viewtaglist2" class="taglist2"> <ul></ul> </div> Entrance: <div id="entrancetaglist2" class="taglist2"> <ul></ul> </div> Terrace: <div id="terracetaglist2" class="taglist2"> <ul></ul> </div> </div> <div class="row m-l-0 m-r-0 m-t-20 bgClass"> <div class="col-md-5 col-lg-4"> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg"> <div class="svgLegend"> <div class="row"> <div class="col-sm-6"><span class="legendBox available"></span> Available</div> <!--<div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>--> <div class="col-sm-6"><span class="legendBox na"></span> Not in Selection/Not Released</div> </div> </div> <div id="positionsvg" class="positionSvg"> </div> </div> <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2"> </div> <div class="specialFilter1"> <div class="bgClass"> <h3 class="text-center light">Choose from the options below to filter your selection</h3> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectview" id="unselectview" class="checkbox" value="0" checked/> <label for="unselectview">Select/Unselect All</label> </div> <div class="clearfix"></div> <div class="row m-l-0 m-r-0 filterBlock"> <div class="col-sm-5 b-r b-grey"> <h4 class="bold blockTitle">View</h4> {{#views}} <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-3 b-r b-grey"> <h4 class="bold blockTitle">Entrance</h4> {{#facings}} <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> <div class="col-sm-4"> <h4 class="bold blockTitle">Terrace</h4> {{#terrace}} <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}}  name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div> {{/terrace}} </div> </div> <div id="filtermsg1" class="alrtMsg animated pulse"></div> <h4 id="unittypecount1" class="text-center"></h4> <div class="text-center m-t-10 m-b-10"> <a id="donepopupscreen" class="btn btn-primary btn-sm b-close">DONE</a> <!--<a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a>--> </div> </div> </div>';
+    ScreenThreeLayout.prototype.template = '<h3 class="text-center light m-t-0 m-b-20 unittype hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span> apartments that matched your selection.</h3> <h3 class="text-center light m-t-0 m-b-20 budget hidden animated pulse">We found <span class="bold text-primary"> {{countUnits }} </span>  apartments in your budget of <strong>{{selection}}</strong></h3> <h3 class="text-center light m-t-0 m-b-20 refresh hidden animated pulse">You just refreshed the page. You are now seeing <span class="bold text-primary">All</span> apartments across all the towers.</h3> <div class="text-center subTxt m-b-20 All hidden animated pulse">You are seeing <span class="bold text-primary">All</span> apartments in the selected floor range of the tower.</div> <div class="introTxt text-center">These apartments are available in different size variations on different floors of the tower. Click on any available apartment for more details. <!--<br><em>(You can scroll between towers to see other options.)</em>--></div> <div class="introTxt text-center light"> You are seeing <div id="tagslist1" class="taglist"> <ul></ul> </div> <span class="text-primary variantToggle"></span>variants of your apartment selection </div> <div class="variantBox"> <div class="grid-container"> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectall" id="unselectall" class="checkbox" value="0" checked/> <label for="unselectall">Select/Unselect All</label> </div> <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div> {{#unitVariants}} <div class="grid-block-3 {{filtername}}" > <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}"> {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" /> <h5><span> {{filter}} : </span> {{count}}</h5> </a> </div> {{/unitVariants}} <div class="variantAction m-t-5 m-b-20"> <a class="btn btn-primary m-r-10 done">DONE</a> <a class="btn btn-default cancel">CANCEL</a> </div> </div> </div> <div class="special introTxt text-center hidden "> <div> Click <a class="special bold hidden" id="filterModalscren3">here</a> to set <span class="bold"> Additional Filters</span> </div> View: <div id="viewtaglist2" class="taglist2"> <ul></ul> </div> Entrance: <div id="entrancetaglist2" class="taglist2"> <ul></ul> </div> Terrace: <div id="terracetaglist2" class="taglist2"> <ul></ul> </div> </div> <div class="row m-l-0 m-r-0 m-t-20 bgClass"> <div class="col-md-5 col-lg-4"> <div id="vs-container" class="vs-container"> <header class="vs-header" id="building-region"></header> <div id="layoutmsg" class="alrtMsg animated pulse"></div> <div id="floorsvg" class="floorSvg"></div> <div  id="unit-region"></div> </div> <div class="h-align-middle m-t-20 m-b-20"> <a href="#screen-three-region" class="btn btn-default btn-lg disabled" id="screen-three-button">Show Unit</a> </div> </div> <div class="col-md-7 col-lg-8 b-grey b-l visible-md visible-lg rightTowerSvg"> <div class="svgLegend"> <div class="row"> <div class="col-sm-6"><span class="legendBox available"></span> Available</div> <!--<div class="col-sm-4"><span class="legendBox sold"></span> Sold/Blocked</div>--> <div class="col-sm-6"><span class="legendBox na"></span> Not in Selection/Not Released</div> </div> </div> <div id="positionsvg" class="positionSvg"> </div> </div> <input type="hidden" name="currency2" id="currency2" class="demo" data-a-sign="Rs. "   data-m-dec="" data-d-group="2"> </div> <div class="specialFilter1"> <div class="bgClass"> <h3 class="text-center light">Choose from the options below to filter your selection</h3> <div class="pull-left m-l-15"> <input type="checkbox" name="unselectview" id="unselectview" class="checkbox" value="0" checked/> <label for="unselectview">Select/Unselect All</label> </div> <div class="clearfix"></div> <div class="row m-l-0 m-r-0 filterBlock"> <div class="col-sm-5 b-r b-grey"> <h4 class="bold blockTitle">View</h4> {{#views}} <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="screenview{{id}}" data-name="{{name}}" id="screenview{{id}}" {{checked}} class="checkbox viewname" value="{{id}}"> <label for="screenview{{id}}">{{name}}</label> </div> {{/views}} <div class="clearfix"></div> </div> <div class="col-sm-3 b-r b-grey"> <h4 class="bold blockTitle">Entrance</h4> {{#facings}} <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}} name="screenfacing{{id}}" data-name="{{name}}" id="screenfacing{{id}}" {{checked}} class="checkbox facing" value="{{id}}"> <label for="screenfacing{{id}}">{{name}}</label> </div> {{/facings}} <div class="clearfix"></div> </div> <div class="col-sm-4"> <h4 class="bold blockTitle">Terrace</h4> {{#terrace}} <div class="filterBox {{classname}}"> <input type="checkbox" {{disabled}}  name="screenterrace{{id}}" data-name="{{name}}" id="screenterrace{{id}}" {{checked}} class="checkbox terrace" value="{{id}}"> <label for="screenterrace{{id}}">{{name}}</label> </div> {{/terrace}} </div> </div> <div id="filtermsg1" class="alrtMsg animated pulse"></div> <h4 id="unittypecount1" class="text-center"></h4> <div class="text-center m-t-10 m-b-10"> <a id="donepopupscreen" class="btn btn-primary btn-sm b-close">DONE</a> <!--<a id="cancelpopupscreen" class="btn btn-primary btn-sm b-close">CANCEL</a>--> </div> </div> </div>';
 
     ScreenThreeLayout.prototype.className = 'page-container row-fluid';
 
@@ -44,7 +44,8 @@ define(['marionette'], function(Marionette) {
 
     ScreenThreeLayout.prototype.events = {
       'click .other': function(e) {
-        return $("#" + e.target.id).parent().removeAttr('data-target');
+        $("#" + e.target.id).parent().removeAttr('data-target');
+        return this.showLayoutMsg();
       },
       'click #filterModalscren3': function(e) {
         if (App.defaults['view'] === 'All' && App.defaults['facing'] === 'All' && App.defaults['terrace'] === 'All') {
@@ -829,33 +830,39 @@ define(['marionette'], function(Marionette) {
         });
         $('#unittypecount1').html(unittypetext);
         $('#unselectview').on('click', function(e) {
-          var firstentrance, firstteraace, firstview, rest, restent, restter, uniqfacings, uniqterrace, uniqviews;
+          var firstentrance, firstentrancearr, firstteraace, firstteraacearr, firstview, firstviewarr, rest, restent, restter, uniqfacings, uniqterrace, uniqviews;
           mainnewarr = [];
           mainunique = {};
           if ($('#' + e.target.id).prop('checked') !== true) {
             firstview = _.first(view);
             rest = _.rest(view);
+            firstviewarr = [];
+            firstviewarr.push(firstview);
             $('#screenview' + firstview).prop('checked', true);
             $.each(rest, function(index, value) {
               return $('#screenview' + value).prop('checked', false);
             });
-            view = firstview;
+            view = firstviewarr;
             App.defaults['view'] = view.toString();
             firstentrance = _.first(entrance);
+            firstentrancearr = [];
+            firstentrancearr.push(firstentrance);
             restent = _.rest(entrance);
             $('#screenfacing' + firstentrance).prop('checked', true);
             $.each(restent, function(index, value) {
               return $('#screenfacing' + value).prop('checked', false);
             });
-            entrance = firstentrance;
+            entrance = firstentrancearr;
             App.defaults['facing'] = entrance.toString();
             firstteraace = _.first(teraace);
+            firstteraacearr = [];
+            firstteraacearr.push(firstteraace);
             restter = _.rest(teraace);
             $('#screenterrace' + firstteraace).prop('checked', true);
             $.each(restter, function(index, value) {
               return $('#screenterrace' + value).prop('checked', false);
             });
-            teraace = firstteraace;
+            teraace = firstteraacearr;
             App.defaults['terrace'] = teraace.toString();
             $('#' + e.target.id).prop('checked', false);
           } else {
@@ -1720,6 +1727,13 @@ define(['marionette'], function(Marionette) {
       });
     };
 
+    ScreenThreeLayout.prototype.showLayoutMsg = function() {
+      $('#layoutmsg').show();
+      return $('#layoutmsg').text('There are no flats available in this position').delay(2000).fadeOut(function(x) {
+        return $('layoutmsg').text("");
+      });
+    };
+
     ScreenThreeLayout.prototype.loadbuildingsvg = function() {
       var buildinArray, building, buildingCollection, buildingModel, floor_layout_Basic, floorid, maxvalue, path, svgdata, trackposition;
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
@@ -1729,6 +1743,7 @@ define(['marionette'], function(Marionette) {
         id: parseInt(building.get('id'))
       });
       svgdata = buildingModel.get('svgdata');
+      trackposition = Marionette.getOption(this, 'position');
       floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
       maxvalue = Marionette.getOption(this, 'maxvalue');
       if (floor_layout_Basic !== "") {
@@ -1745,7 +1760,6 @@ define(['marionette'], function(Marionette) {
         path = "";
       }
       floorid = maxvalue.id;
-      trackposition = Marionette.getOption(this, 'position');
       return this.loadsvg(floorid);
     };
 
@@ -1925,7 +1939,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShowRangeData = function(unitModel, collection) {
-      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, unitcoll, _i, _j, _len, _len1;
+      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, trackposition, unitcoll, _i, _j, _len, _len1;
       $('#floorsvg').text("");
       position = unitModel.get('unitAssigned');
       object = this;
@@ -1938,6 +1952,7 @@ define(['marionette'], function(Marionette) {
         });
       });
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
+      trackposition = Marionette.getOption(this, 'position');
       buildinArray = buildingCollection.toArray();
       building = _.first(buildinArray);
       buildingModel = App.master.building.findWhere({
@@ -1964,7 +1979,11 @@ define(['marionette'], function(Marionette) {
       pos = unitModel.get('unitAssigned');
       $('<div></div>').load(floorLayoutimage, function(x) {
         $('#' + pos).attr('class', 'floor-pos position');
-        return unitAssigedArray.push(pos);
+        unitAssigedArray.push(pos);
+        return $.each(trackposition, function(ind, val) {
+          $('#' + val).attr('class', 'other');
+          return $("#" + val).parent().removeAttr('data-target');
+        });
       }).appendTo("#floorsvg");
       for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
         element = unitAssigedArray[index];

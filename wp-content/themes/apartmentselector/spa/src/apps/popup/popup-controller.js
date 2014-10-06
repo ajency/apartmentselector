@@ -89,6 +89,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           });
           unitModel.set("sellablearea", unitVariantModel.get('sellablearea'));
           unitModel.set("carpetarea", unitVariantModel.get('carpetarea'));
+          unitModel.set("terracearea", unitVariantModel.get('terracearea'));
           unitModel.set("unitTypeName", unitTypeModelName[0]);
           unitModel.set("buidlingName", buildingModel.get('name'));
           unitModel.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));

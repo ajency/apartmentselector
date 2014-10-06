@@ -286,7 +286,7 @@ define [ 'marionette' ], ( Marionette )->
                 $.cookie('key',App.cookieArray)
                 localStorage.setItem("cookievalue", App.cookieArray)
                 if App.cookieArray.length < 1
-                    $("#showRightPushs").addClass "hidden"
+                    $("#showRightPush").addClass "hidden"
                     menuRight = document.getElementById("cbp-spmenu-s2")
                     menuTop = document.getElementById("cbp-spmenu-s3")
                     showTop = document.getElementById("showTop")
@@ -597,7 +597,7 @@ define [ 'marionette' ], ( Marionette )->
                     unitVariant = App.master.unit_variant.findWhere(id:model.get('unitVariant'))
                     building = App.master.building.findWhere(id:model.get('building'))
                     table +='<li>
-                                <a href="#" id="unit'+element+'" data-id="'+element+'"  class="selectedunit">'+model.get('name')+'</a>
+                                <a href="#" id="unit'+element+'" data-id="'+element+'"  class="selectedunit">'+model.get('name')+' - '+building.get('name')+'</a>
                                 <a href="#" class="del" id="'+element+'" data-id="'+element+'"  ></a>
                                 <div class="clearfix"></div>
                             </li>'

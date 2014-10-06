@@ -5,7 +5,7 @@ define [ 'marionette' ], ( Mariontte )->
 
         template : ' <ul>
         							<li class="unitName">
-        								<div class="small"> Tower 1</div>{{name}}
+        								<div class="small"> {{buidlingName}}</div>{{name}}
         							</li>
         						</ul>
 
@@ -39,13 +39,13 @@ define [ 'marionette' ], ( Mariontte )->
                                 <!--Area-->
                                 <ul>
                                     <li>
-                                        684
-                                    </li>
-                                    <li>
                                         {{sellablearea}}
                                     </li>
                                     <li>
                                         {{carpetarea}}
+                                    </li>
+                                    <li>
+                                        {{terracearea}}
                                     </li>
                                 </ul>
 
@@ -123,10 +123,10 @@ define [ 'marionette' ], ( Mariontte )->
                                     Total Area
                                 </li>
                                 <li>
-                                    Chargeable Area
+                                    Carpet Area
                                 </li>
                                 <li>
-                                    Carpet Area
+                                    Terrace Area
                                 </li>
                             </ul>
                             <div class="compareHeader"><span class="sky-expand"></span> Room Area <small>(Sq. Ft.)</small></div>
@@ -180,6 +180,7 @@ define [ 'marionette' ], ( Mariontte )->
                 e.preventDefault()
 
         onShow:->
+            $('#showRightPush').hide()
             $(".2dlayout").fancybox
                 margin: 90
 

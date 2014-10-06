@@ -89,6 +89,7 @@ define [ 'marionette' ], ( Marionette )->
                         <div class="col-md-5 col-lg-4">
                             <div id="vs-container" class="vs-container">
                                 <header class="vs-header" id="building-region"></header>
+                                    <div id="layoutmsg" class="alrtMsg animated pulse"></div>
                                 <div id="floorsvg" class="floorSvg"></div>
                                 <div  id="unit-region"></div>
                             </div>
@@ -180,6 +181,7 @@ define [ 'marionette' ], ( Marionette )->
         events:
             'click .other':(e)->
                 $( "#"+e.target.id ).parent().removeAttr('data-target')
+                @showLayoutMsg()
             'click #filterModalscren3':(e)->
                 if App.defaults['view'] == 'All' && App.defaults['facing'] == 'All' && App.defaults['terrace'] == 'All'
                             $('#unselectview').prop('checked',true)
@@ -996,16 +998,20 @@ define [ 'marionette' ], ( Marionette )->
                     if $('#'+e.target.id).prop('checked') != true
                         firstview = _.first(view)
                         rest = _.rest(view)
+                        firstviewarr = []
+                        firstviewarr.push firstview
                         $('#screenview'+firstview).prop('checked',true)
                         $.each(rest, (index,value)->
                   
                                     $('#screenview'+value).prop('checked',false)
 
                                 )
-                        view = firstview
+                        view = firstviewarr
                         App.defaults['view'] = view.toString()
 
                         firstentrance = _.first(entrance)
+                        firstentrancearr = []
+                        firstentrancearr.push firstentrance
                         restent = _.rest(entrance)
                         $('#screenfacing'+firstentrance).prop('checked',true)
                         $.each(restent, (index,value)->
@@ -1013,10 +1019,12 @@ define [ 'marionette' ], ( Marionette )->
                                     $('#screenfacing'+value).prop('checked',false)
 
                                 )
-                        entrance = firstentrance
+                        entrance = firstentrancearr
                         App.defaults['facing'] = entrance.toString()
 
                         firstteraace = _.first(teraace)
+                        firstteraacearr = []
+                        firstteraacearr.push firstteraace
                         restter = _.rest(teraace)
                         $('#screenterrace'+firstteraace).prop('checked',true)
                         $.each(restter, (index,value)->
@@ -1024,7 +1032,7 @@ define [ 'marionette' ], ( Marionette )->
                                     $('#screenterrace'+value).prop('checked',false)
 
                                 )
-                        teraace = firstteraace
+                        teraace = firstteraacearr
                         App.defaults['terrace'] = teraace.toString()
                         $('#'+e.target.id).prop('checked' ,false)
                     else
@@ -1869,6 +1877,10 @@ define [ 'marionette' ], ( Marionette )->
             $('#filtermsg1').show()
             $('#filtermsg1').text(' Atleast one option in each category must be selected to proceed').delay(2000).fadeOut( (x)->$('filtermsg').text(""));
         
+        showLayoutMsg:->
+            $('#layoutmsg').show()
+            $('#layoutmsg').text('There are no flats available in this position').delay(2000).fadeOut( (x)->$('layoutmsg').text(""));
+       
         loadbuildingsvg:->
 
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
@@ -1876,7 +1888,7 @@ define [ 'marionette' ], ( Marionette )->
             building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgdata = buildingModel.get 'svgdata'
-
+            trackposition = Marionette.getOption( @, 'position' )
             floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url
             maxvalue  = Marionette.getOption( @, 'maxvalue' )
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
@@ -1886,7 +1898,7 @@ define [ 'marionette' ], ( Marionette )->
             else
                 path = ""
             floorid = maxvalue.id
-            trackposition = Marionette.getOption( @, 'position' )
+            
 
             @loadsvg(floorid)
 
@@ -2082,6 +2094,7 @@ define [ 'marionette' ], ( Marionette )->
                 )
             
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            trackposition = Marionette.getOption( @, 'position' )
             buildinArray = buildingCollection.toArray()
             building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
@@ -2104,7 +2117,7 @@ define [ 'marionette' ], ( Marionette )->
                     floorLayoutimage = building.get('floor_layout_basic').image_url
 
             pos = unitModel.get('unitAssigned')
-            $('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos)).appendTo("#floorsvg")
+            $('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos);$.each(trackposition, (ind,val)->$('#'+val).attr('class','other');$("#"+val).parent().removeAttr('data-target'))).appendTo("#floorsvg")
            
 
             for element , index in unitAssigedArray
