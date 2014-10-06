@@ -786,8 +786,8 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Infrastructure and Developement Charges</div>
-                            <div class="costCell discCol showDisc infra">'+infraid+'</div>
-                            <div class="costCell infra1">'+infraid+'</div>
+                            <div class="costCell discCol showDisc infra1">'+infraid+'</div>
+                            <div class="costCell infra">'+infraid+'</div>
                         </div>'
                         
             $('#costSheetTable' ).append table
@@ -945,8 +945,8 @@ define [ 'marionette' ], ( Marionette )->
             $('#finalcost').autoNumeric('set', finalcost);
             $('#finalcost1').autoNumeric('init')
             $('#finalcost1').autoNumeric('set', finalcost1);
-            
-
+            $('.infra').text $('#infra' ).val()
+            $('.infra1').text $('#infra1' ).val()
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
             #object.getMilestones(id1)
@@ -1102,7 +1102,8 @@ define [ 'marionette' ], ( Marionette )->
             $('#milestones' ).append milesstones
 
         updated:->
-
+            $('.infra').text $('#infra' ).val()
+            $('.infra1').text $('#infra1' ).val()
             costSheetArray = []
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
@@ -1156,9 +1157,9 @@ define [ 'marionette' ], ( Marionette )->
 
             table = ""
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
-            agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
+            console.log agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
             agreementValue1 = agreement1
-            agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
+            console.log agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
             $('#agreement').autoNumeric('init')
             $('#agreement1').autoNumeric('init')

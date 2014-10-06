@@ -537,7 +537,7 @@ define(['marionette'], function(Marionette) {
       $('#rec').text("");
       $('.rec').text("");
       table += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc"><select id="infra1"></select></div> <div class="costCell"><select id="infra"></select></div> </div>';
-      table1 += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc infra">' + infraid + '</div> <div class="costCell infra1">' + infraid + '</div> </div>';
+      table1 += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc infra1">' + infraid + '</div> <div class="costCell infra">' + infraid + '</div> </div>';
       $('#costSheetTable').append(table);
       $('#costSheetTableprint').append(table1);
       $('#infra').append(infratxt);
@@ -638,6 +638,8 @@ define(['marionette'], function(Marionette) {
       $('#finalcost').autoNumeric('set', finalcost);
       $('#finalcost1').autoNumeric('init');
       $('#finalcost1').autoNumeric('set', finalcost1);
+      $('.infra').text($('#infra').val());
+      $('.infra1').text($('#infra1').val());
       id = $('#paymentplans').val();
       object.generatePaymentSchedule(id);
       $('#infra').on('change', function() {
@@ -784,6 +786,8 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.updated = function() {
       var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
+      $('.infra').text($('#infra').val());
+      $('.infra1').text($('#infra1').val());
       costSheetArray = [];
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
@@ -839,9 +843,9 @@ define(['marionette'], function(Marionette) {
       }
       table = "";
       basicCost1 = costSheetArray[0] * costSheetArray[1];
-      agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
+      console.log(agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val()));
       agreementValue1 = agreement1;
-      agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
+      console.log(agreement = parseFloat(basicCost) + parseFloat($('#infra').val()));
       agreementValue = agreement;
       $('#agreement').autoNumeric('init');
       $('#agreement1').autoNumeric('init');
