@@ -285,7 +285,7 @@ define(['extm'], function(Extm) {
           building = App.master.building.findWhere({
             id: model.get('building')
           });
-          table += '<li> <a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + '(' + building.get('name') + ')</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a> <div class="clearfix"></div> </li>';
+          table += '<li> <a href="#" id="unit' + element + '" data-id="' + element + '" class="selectedunit">' + model.get('name') + ' - ' + building.get('name') + '</a> <a href="#" class="del" id="' + element + '" data-id="' + element + '"  ></a> <div class="clearfix"></div> </li>';
         }
       }
       return $('#showWishlist').html(table);

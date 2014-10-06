@@ -40,6 +40,7 @@ define(['marionette'], function(Mariontte) {
     };
 
     PopupView.prototype.onShow = function() {
+      $('#showRightPush').hide();
       return $(".2dlayout").fancybox({
         margin: 90
       });
