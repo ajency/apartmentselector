@@ -120,10 +120,11 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     <div class="specialFilter">
                         <div class="bgClass">
                             <h3 class="text-center light">Choose from the options below to filter your selection</h3>
-                                <div class="pull-left m-l-15">
-                                    <input type="checkbox" name="selectview" id="selectview" class="checkbox" value="0" checked/>
-                                    <label for="selectview">Select/Unselect All</label>
-                                </div></br>
+                            <div class="pull-left m-l-15">
+                                <input type="checkbox" name="selectview" id="selectview" class="checkbox" value="0" checked/>
+                                <label for="selectview">Select/Unselect All</label>
+                            </div>
+                            <div class="clearfix"></div>
                             <div class="row m-l-0 m-r-0 filterBlock">
                                 
                                 <div class="col-sm-5 b-r b-grey">
