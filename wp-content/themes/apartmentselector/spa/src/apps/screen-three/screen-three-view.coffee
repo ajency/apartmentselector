@@ -1888,7 +1888,7 @@ define [ 'marionette' ], ( Marionette )->
             building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
             svgdata = buildingModel.get 'svgdata'
-
+            trackposition = Marionette.getOption( @, 'position' )
             floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url
             maxvalue  = Marionette.getOption( @, 'maxvalue' )
             #svgdata = [[svposition:[1],svgfile:"../wp-content/uploads/2014/08/image/floor-pos-1.svg",units:[1:[1:49,2:55,3:61,4:67,5:73,6:80,7:85,8:90,9:98,10:113,11:142,12:152]]]]
@@ -1898,7 +1898,7 @@ define [ 'marionette' ], ( Marionette )->
             else
                 path = ""
             floorid = maxvalue.id
-            trackposition = Marionette.getOption( @, 'position' )
+            
 
             @loadsvg(floorid)
 
@@ -2094,6 +2094,7 @@ define [ 'marionette' ], ( Marionette )->
                 )
             
             buildingCollection  = Marionette.getOption( @, 'buildingCollection' )
+            trackposition = Marionette.getOption( @, 'position' )
             buildinArray = buildingCollection.toArray()
             building  = _.first(buildinArray)
             buildingModel = App.master.building.findWhere({id:parseInt(building.get('id'))})
@@ -2116,7 +2117,7 @@ define [ 'marionette' ], ( Marionette )->
                     floorLayoutimage = building.get('floor_layout_basic').image_url
 
             pos = unitModel.get('unitAssigned')
-            $('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos)).appendTo("#floorsvg")
+            $('<div></div>').load(floorLayoutimage,  (x)->$('#'+pos).attr('class','floor-pos position');unitAssigedArray.push(pos);$.each(trackposition, (ind,val)->$('#'+val).attr('class','other');$("#"+val).parent().removeAttr('data-target'))).appendTo("#floorsvg")
            
 
             for element , index in unitAssigedArray

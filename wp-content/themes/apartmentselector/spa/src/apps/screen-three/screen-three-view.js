@@ -1743,6 +1743,7 @@ define(['marionette'], function(Marionette) {
         id: parseInt(building.get('id'))
       });
       svgdata = buildingModel.get('svgdata');
+      trackposition = Marionette.getOption(this, 'position');
       floor_layout_Basic = buildingModel.get('floor_layout_basic').image_url;
       maxvalue = Marionette.getOption(this, 'maxvalue');
       if (floor_layout_Basic !== "") {
@@ -1759,7 +1760,6 @@ define(['marionette'], function(Marionette) {
         path = "";
       }
       floorid = maxvalue.id;
-      trackposition = Marionette.getOption(this, 'position');
       return this.loadsvg(floorid);
     };
 
@@ -1939,7 +1939,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenThreeLayout.prototype.onShowRangeData = function(unitModel, collection) {
-      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, unitcoll, _i, _j, _len, _len1;
+      var buildinArray, building, buildingCollection, buildingModel, element, exceptionObject, floorLayoutimage, index, pos, trackposition, unitcoll, _i, _j, _len, _len1;
       $('#floorsvg').text("");
       position = unitModel.get('unitAssigned');
       object = this;
@@ -1952,6 +1952,7 @@ define(['marionette'], function(Marionette) {
         });
       });
       buildingCollection = Marionette.getOption(this, 'buildingCollection');
+      trackposition = Marionette.getOption(this, 'position');
       buildinArray = buildingCollection.toArray();
       building = _.first(buildinArray);
       buildingModel = App.master.building.findWhere({
@@ -1978,7 +1979,11 @@ define(['marionette'], function(Marionette) {
       pos = unitModel.get('unitAssigned');
       $('<div></div>').load(floorLayoutimage, function(x) {
         $('#' + pos).attr('class', 'floor-pos position');
-        return unitAssigedArray.push(pos);
+        unitAssigedArray.push(pos);
+        return $.each(trackposition, function(ind, val) {
+          $('#' + val).attr('class', 'other');
+          return $("#" + val).parent().removeAttr('data-target');
+        });
       }).appendTo("#floorsvg");
       for (index = _i = 0, _len = unitAssigedArray.length; _i < _len; index = ++_i) {
         element = unitAssigedArray[index];
