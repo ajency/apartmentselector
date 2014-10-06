@@ -58,7 +58,10 @@ body {
 #screen-one-region,
 #screen-two-region,
 #screen-three-region,
-#screen-four-region {
+#screen-four-region,
+.remodal-overlay,
+.remodal,
+#invoice {
   display: none;
 }
 .print-header {
@@ -187,4 +190,27 @@ body {
 }
 .termsTxt {
   display: none;
+}
+.costsheetPrint {
+  padding: 0 20px;
+}
+.costsheetPrint .light.step1 {
+  margin: 5px 0 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+.costsheetPrint .col-sm-3,
+.costsheetPrint .col-sm-4 {
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 25%;
+}
+.costsheetPrint .col-sm-4 {
+  width: 33.3333%;
+}
+.costsheetPrint .costsRow {
+  padding: 7px;
 }
