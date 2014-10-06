@@ -829,33 +829,39 @@ define(['marionette'], function(Marionette) {
         });
         $('#unittypecount1').html(unittypetext);
         $('#unselectview').on('click', function(e) {
-          var firstentrance, firstteraace, firstview, rest, restent, restter, uniqfacings, uniqterrace, uniqviews;
+          var firstentrance, firstentrancearr, firstteraace, firstteraacearr, firstview, firstviewarr, rest, restent, restter, uniqfacings, uniqterrace, uniqviews;
           mainnewarr = [];
           mainunique = {};
           if ($('#' + e.target.id).prop('checked') !== true) {
             firstview = _.first(view);
             rest = _.rest(view);
+            firstviewarr = [];
+            firstviewarr.push(firstview);
             $('#screenview' + firstview).prop('checked', true);
             $.each(rest, function(index, value) {
               return $('#screenview' + value).prop('checked', false);
             });
-            view = firstview;
+            view = firstviewarr;
             App.defaults['view'] = view.toString();
             firstentrance = _.first(entrance);
+            firstentrancearr = [];
+            firstentrancearr.push(firstentrance);
             restent = _.rest(entrance);
             $('#screenfacing' + firstentrance).prop('checked', true);
             $.each(restent, function(index, value) {
               return $('#screenfacing' + value).prop('checked', false);
             });
-            entrance = firstentrance;
+            entrance = firstentrancearr;
             App.defaults['facing'] = entrance.toString();
             firstteraace = _.first(teraace);
+            firstteraacearr = [];
+            firstteraacearr.push(firstteraace);
             restter = _.rest(teraace);
             $('#screenterrace' + firstteraace).prop('checked', true);
             $.each(restter, function(index, value) {
               return $('#screenterrace' + value).prop('checked', false);
             });
-            teraace = firstteraace;
+            teraace = firstteraacearr;
             App.defaults['terrace'] = teraace.toString();
             $('#' + e.target.id).prop('checked', false);
           } else {

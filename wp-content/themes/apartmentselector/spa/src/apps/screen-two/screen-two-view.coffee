@@ -903,6 +903,8 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                     mainunique = {}
                     if $('#'+e.target.id).prop('checked') != true
                         firstview = _.first(view)
+                        firstviewarr = []
+                        firstviewarr.push firstview
                         rest = _.rest(view)
                         $('#view'+firstview).prop('checked',true)
                         $.each(rest, (index,value)->
@@ -910,10 +912,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     $('#view'+value).prop('checked',false)
 
                                 )
-                        view = firstview
+                        view = firstviewarr
                         App.defaults['view'] = view.toString()
 
                         firstentrance = _.first(entrance)
+                        firstentrancearr = []
+                        firstentrancearr.push firstentrance
                         restent = _.rest(entrance)
                         $('#facing'+firstentrance).prop('checked',true)
                         $.each(restent, (index,value)->
@@ -921,10 +925,12 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     $('#facing'+value).prop('checked',false)
 
                                 )
-                        entrance = firstentrance
+                        entrance = firstentrancearr
                         App.defaults['facing'] = entrance.toString()
 
                         firstteraace = _.first(teraace)
+                        firstteraacearr = []
+                        firstteraacearr.push firstteraace
                         restter = _.rest(teraace)
                         $('#terrace'+firstteraace).prop('checked',true)
                         $.each(restter, (index,value)->
@@ -932,7 +938,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                     $('#terrace'+value).prop('checked',false)
 
                                 )
-                        teraace = firstteraace
+                        teraace = firstteraacearr
                         App.defaults['terrace'] = teraace.toString()
                         $('#'+e.target.id).prop('checked' ,false)
                     else
