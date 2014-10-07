@@ -7974,6 +7974,9 @@ a.special {
   top: 0;
   box-shadow: 0 0 5px #999999;
 }
+#layoutmsg.alrtMsg {
+  width: 100%;
+}
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
 }
@@ -9245,8 +9248,8 @@ rect .sold:hover {
   fill: #999;
   opacity: 0.9;
 }
-polygon .other:hover,
-rect .other:hover {
+polygon.other:hover,
+rect.other:hover {
   fill: #EEEEEE !important;
   cursor: default;
   opacity: 0.8;

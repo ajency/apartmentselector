@@ -868,7 +868,13 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell agreement"><span  data-a-sign="Rs. " data-d-group="2">'+agreement+'</span></div>
                         </div>
 
-                        <h5 class="headers"><span class="cost-library"></span> Government Charges</h5>
+                        <h5 class="headers govChrg"><span class="cost-library"></span> Government Charges</h5>
+                        <!--<div class="govChrgDtls" style="display:none">
+                            <div class="panel-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS.
+                            </div>
+                        </div>-->
+
                         <div class="costsRow">
                             <div class="costCell costName">Stamp Duty</div>
                             <div class="costCell discCol showDisc stamp_duty1" data-a-sign="Rs. " data-d-group="2">'+stamp_duty1+'</div>
@@ -991,6 +997,10 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
+
+            $(".govChrg").click ->
+                $(".govChrgDtls").slideToggle()
+                return
 
         generatePaymentSchedule:(id)->
             flag = 0
@@ -1472,9 +1482,6 @@ define [ 'marionette' ], ( Marionette )->
             @$el.prop("id", 'unit'+@model.get("id"))
 
         onShow:->
-
-            
-
 
             $('#slider-plans').liquidSlider(
                 slideEaseFunction: "easeInOutQuad"
