@@ -147,7 +147,7 @@ define [ 'extm'], ( Extm)->
                 <div class="row">
                     <div class="col-sm-3">
                         <h5>Prepared for:</h5>
-                        <input type="text" id="" value="" class="form-control" placeholder="Customer Name"/>
+                        <span id="customerlabel" ></span>
                     </div>
                     <div class="col-sm-3">
                         <h5>Prepared by:</h5>
