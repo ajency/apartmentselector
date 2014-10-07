@@ -96,6 +96,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set('TwoDimage', unitVariantModel.get('url2dlayout_image'));
           unitModel.set('ThreeDimage', unitVariantModel.get('url3dlayout_image'));
           unitModel.set('floorLayoutimage', floorLayoutimage);
+          unitModel.set('BuildingPositionimage', buildingModel.get('positioninproject').image_url);
           if (unitModel.get('views_name') !== "") {
             viewsArray = unitModel.get('views_name');
             for (_j = 0, _len1 = viewsArray.length; _j < _len1; _j++) {
@@ -124,7 +125,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           unitModel.set('facings', facingModelArray.join(','));
           roomSizesObject = unitVariantModel.get('roomsizes');
           roomsizearray = [];
-          roomTypeArr = [68, 71, 72, 70, 66];
+          roomTypeArr = [68, 71, 72, 70];
           roomSizesArray = $.map(roomSizesObject, function(index, value1) {
             return [index];
           });

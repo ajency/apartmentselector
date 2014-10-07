@@ -77,7 +77,7 @@ define [ 'marionette' ], ( Mariontte )->
                                         <a class="2dlayout" data-fancybox-group="3dlayout" title="3D Layout - {{name}}" href="{{ThreeDimage}}"><img src="{{ThreeDimage}}" alt=""></a>
                                     </li>
                                     <li>
-                                        <a class="2dlayout" data-fancybox-group="floorlayout" title="Floor Layout - {{name}}" href="{{floorLayoutimage}}"><img src="{{floorLayoutimage}}" alt=""></a>
+                                        <a class="2dlayout" data-fancybox-group="buildingposiiton" title="Building Position - {{name}}" href="{{BuildingPositionimage}}"><img src="{{BuildingPositionimage}}" alt=""></a>
                                     </li>
         						</ul>'
 
@@ -143,9 +143,7 @@ define [ 'marionette' ], ( Mariontte )->
                                 <li>
                                     Terrace
                                 </li>
-                                <li>
-                                    Lobby
-                                </li>
+                                
                                 
                             </ul>
             				<div class="compareHeader"><span class="glyphicon glyphicon-picture"></span> Layouts</div>
@@ -157,7 +155,7 @@ define [ 'marionette' ], ( Mariontte )->
                                     3D Layout
                                 </li>
                                 <li>
-                                    Floor Layout
+                                    Building Position
                                 </li>
             				</ul>
             			</header>
