@@ -709,8 +709,8 @@ define [ 'marionette' ], ( Marionette )->
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
-                            <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div>
-                            <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div>
+                            <div class="costCell discCol showDisc">Base Rate</div>
+                            <div class="costCell">Discounted Rate</div>
                         </div>
                         
                         <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5>
