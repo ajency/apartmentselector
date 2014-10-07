@@ -451,3 +451,19 @@ function edit_frm_display_value($value, $field, $atts){
  return $value;
 }
 add_filter('frm_display_value','edit_frm_display_value',10,3);
+
+add_filter('frm_notification_attachment', 'add_my_attachment', 10, 3);
+function add_my_attachment($attachments, $form, $args){
+ 
+ 
+ 
+if($form->form_key == 'emailform' && $args['email_key']==1){ 
+	//$towerid = $args['entry']->metas['towerid'];
+	//$unitid  = $args['entry']->metas['unitid'];
+ 
+ //add the file path here $attachments[] = str_replace("/","\\",ABSPATH) . 'wp-content\uploads\2014\07\2bhk_3d12.jpg'; //set the ABSOLUTE path to the image here
+ 
+}
+ 
+return $attachments;
+}
