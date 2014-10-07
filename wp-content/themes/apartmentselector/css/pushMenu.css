@@ -111,7 +111,7 @@
 
 .cbp-spmenu-push {
 	overflow-x: hidden;
-	position: relative;
+	/*position: relative;*/
 	left: 0;
 }
 
