@@ -1175,7 +1175,7 @@ define [ 'marionette' ], ( Marionette )->
                         floorCollection.each ( item)->
                             if item.get('facing').length != 0
                                 $.merge(facingtemp,item.get('facing'))
-                            if item.get('terrace') != ""
+                            if item.get('terrace') != "" && item.get('terrace') != 0
                                 teracetemp.push item.get('terrace')
                         facingtemp = facingtemp.map((item)->
                             return parseInt(item)
@@ -1446,7 +1446,7 @@ define [ 'marionette' ], ( Marionette )->
                         floorCollection.each ( item)->
                             if item.get('apartment_views').length != 0
                                 $.merge(viewtemp,item.get('apartment_views'))
-                            if item.get('terrace') != ""
+                            if item.get('terrace') != "" && item.get('terrace') != 0
                                 teracetemp.push item.get('terrace')
                         viewtemp = viewtemp.map((item)->
                             return parseInt(item))
