@@ -44,6 +44,8 @@ require_once (get_template_directory().'/classes/autoload.php');
 
 //load ajax call
 require_once (get_template_directory().'/ajax-module.php');
+//pdf generator library
+require_once (get_template_directory().'/functions/tcpdf_include.php');
 $bust = '?'.BUST; 
 
 //formatted echo using pre tags can be used to echo out data for testing purpose
@@ -322,4 +324,38 @@ function get_module_name() {
 
 }
 
+generate_pdf_data(116,11);
+function generate_pdf_data($unit_id,$tower_id){
 
+    // create new PDF document
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+        // set document information
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Nicola Asuni');
+        $pdf->SetTitle('TCPDF Example 001');
+        $pdf->SetSubject('TCPDF Tutorial');
+        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+        
+
+        $pdf->AddPage();
+
+
+    
+    $units_data = get_post($unit_id);
+
+    $unit_variant =   get_post_meta($units_data->ID, 'unit_variant', true);
+    
+    $building =   get_post_meta($units_data->ID, 'building', true);
+
+    $buildingmodel = get_building_by_id($building);
+    $zoomed_in_image = $buildingmodel['zoomedinimage']['thumbnail_url'];
+    $html = "";
+    $html .= '<div><img src="'.$zoomed_in_image.'" /></div>';
+
+    $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+
+
+    $attachment = $pdf->Output('example_001.pdf', 'I');
+}
