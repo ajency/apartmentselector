@@ -489,7 +489,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             if (item.get('facing').length !== 0) {
               $.merge(facingtemp, item.get('facing'));
             }
-            if (item.get('terrace') !== "" || item.get('terrace') !== 0) {
+            if (item.get('terrace') !== "" && item.get('terrace') !== 0) {
               return terracetemp.push(item.get('terrace'));
             }
           }
@@ -503,7 +503,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
             if (item.get('facing').length !== 0) {
               $.merge(facingtemp1, item.get('facing'));
             }
-            if (item.get('terrace') !== "" || item.get('terrace') !== 0) {
+            if (item.get('terrace') !== "" && item.get('terrace') !== 0) {
               return terracetemp1.push(item.get('terrace'));
             }
           }

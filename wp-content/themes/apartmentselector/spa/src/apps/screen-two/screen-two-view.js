@@ -942,7 +942,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             if (item.get('facing').length !== 0) {
               $.merge(facingtemp, item.get('facing'));
             }
-            if (item.get('terrace') !== "" || item.get('terrace') !== 0) {
+            if (item.get('terrace') !== "" && item.get('terrace') !== 0) {
               return teracetemp.push(item.get('terrace'));
             }
           });
@@ -1259,7 +1259,7 @@ define(['extm', 'marionette'], function(Extm, Marionette) {
             if (item.get('apartment_views').length !== 0) {
               $.merge(viewtemp, item.get('apartment_views'));
             }
-            if (item.get('terrace') !== "" || item.get('terrace') !== 0) {
+            if (item.get('terrace') !== "" && item.get('terrace') !== 0) {
               return teracetemp.push(item.get('terrace'));
             }
           });
