@@ -19,6 +19,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
         _getUnitsCountCollection:(modelstring)->
             cookeArray = modelstring
             unitModelArray = []
+            classnamearr = []
             floorLayoutimage = ""
             if cookeArray.length != 0
                 for element in cookeArray
@@ -150,7 +151,15 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
                         )
-                        
+                    $.each(mainArr, (ind,val)->
+                        $.each(val.subarray, (ind1,val1)->
+                            if val1.room_size == '----'
+                                classnamearr.push(val)
+
+                            )
+
+
+                        )  
                     
                     unitModel.set 'mainArr',mainArr
                     

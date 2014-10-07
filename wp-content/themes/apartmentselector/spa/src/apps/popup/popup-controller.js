@@ -25,9 +25,10 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var buildingModel, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
+      var buildingModel, classnamearr, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _len, _len1, _len2;
       cookeArray = modelstring;
       unitModelArray = [];
+      classnamearr = [];
       floorLayoutimage = "";
       if (cookeArray.length !== 0) {
         for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
@@ -173,6 +174,13 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             }
             return mainArr.push({
               subarray: roomsizearr
+            });
+          });
+          $.each(mainArr, function(ind, val) {
+            return $.each(val.subarray, function(ind1, val1) {
+              if (val1.room_size === '----') {
+                return classnamearr.push(val);
+              }
             });
           });
           unitModel.set('mainArr', mainArr);
