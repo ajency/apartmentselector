@@ -139,7 +139,7 @@ define [ 'extm'], ( Extm)->
                 </div>
             </div>
 
-            <div class="costsheetPrint">
+            <div class="costsheetPrint special">
                 <div class="this-is">
                     <h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3>
                 </div><!-- invoice headline -->

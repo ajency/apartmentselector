@@ -317,6 +317,7 @@ define(['marionette'], function(Marionette) {
       } else {
         $('.costsheetbutton').hide();
         $('.addtowishlist').hide();
+        $('.special').hide();
       }
       $(document).on('open', '.remodal', function() {
         $('#customer_name').on('change', function() {
