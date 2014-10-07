@@ -193,6 +193,12 @@ define [ 'extm'], ( Extm)->
                                     </ul>
                                 </div>
 
+                <div class="tandc text-center">
+                    <h4 class="bold">Terms and Conditions</h4>
+                    <h5>This website and its contents are purely conceptual and merely to assist reader to navigate into images, architectural drawings, area, price & other information only. Enerrgia SKYi does not take responsibility that may rise from any information given in this website. None of the objects/representation mentioned herein constitute a legally binding offer or invitation to treat. Enerrgia SKYi reserves right to add, delete, alter or in any manner change the plans, specifications, images, architectural drawings, prices, data & other information in its endeavour to make improvements as and when required without prior notice or obligation.</h5>
+                    <p>To read full Terms &amp; Conditions, visit www.manaslake.com/terms-conditions</p>
+                </div>
+
             </div>
         </div>
         

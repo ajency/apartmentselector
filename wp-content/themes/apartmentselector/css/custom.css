@@ -7515,10 +7515,25 @@ h5 {
   cursor: default;
   line-height: 53px;
 }
+.box.other:hover,
+.boxLong.other:hover,
+.boxBlank.other:hover {
+  border-color: #dfe1e5;
+  color: #8b91a0;
+}
 .box.sold,
 .boxLong.sold,
 .boxBlank.sold {
-  color: #c3c6ce;
+  border-color: #eba5a3;
+  color: #c9302c;
+  cursor: default;
+  opacity: 0.8;
+}
+.box.sold:hover,
+.boxLong.sold:hover,
+.boxBlank.sold:hover {
+  border-color: #eba5a3;
+  color: #c9302c;
 }
 .box.threeBHK .unitCount:after,
 .boxLong.threeBHK .unitCount:after,
@@ -9200,7 +9215,8 @@ polygon.range {
   cursor: pointer;
   opacity: 0.5;
 }
-.sold:hover {
+polygon .sold:hover,
+rect .sold:hover {
   fill: #DD1F1F   !important;
   cursor: pointer;
   opacity: 0.8;
@@ -9229,7 +9245,8 @@ polygon.range {
   fill: #999;
   opacity: 0.9;
 }
-.other:hover {
+polygon .other:hover,
+rect .other:hover {
   fill: #EEEEEE !important;
   cursor: default;
   opacity: 0.8;
@@ -9245,9 +9262,12 @@ polygon.range {
 text {
   pointer-events: none;
 }
-.floor-pos.other:hover {
+.floorSvg .other:hover {
   fill: #808080!important;
   cursor: default;
+}
+.floorSvg .alrtMsg {
+  width: 100%;
 }
 body {
   background-color: #ffffff;

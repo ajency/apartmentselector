@@ -214,3 +214,7 @@ body {
 .costsheetPrint .costsRow {
   padding: 7px;
 }
+.costsheetPrint .costsRow.totals {
+  font-size: 16px;
+  font-weight: 600;
+}
