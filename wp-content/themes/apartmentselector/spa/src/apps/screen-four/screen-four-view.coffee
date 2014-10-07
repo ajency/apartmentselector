@@ -23,7 +23,7 @@ define [ 'marionette' ], ( Marionette )->
 
                             <div class="step4Actions">
                                 <div class="grid-container">
-                                    <div class="grid-block-4 ">
+                                    <div class="grid-block-4 addtowishlist ">
                                         <a class="grid-link remove" name="list" id="list">
                                             <h3 class="m-t-0 m-b-0"><span class="skyicon sky-heart"></span></h3>
                                             <h4 class="m-t-0 m-b-0 ">Add to Wishlist</h4>
@@ -495,6 +495,7 @@ define [ 'marionette' ], ( Marionette )->
                 true
             else
                 $('.costsheetbutton').hide()
+                $('.addtowishlist').hide()
                 #@trigger "get:perSqft:price"
                 
 
