@@ -18,6 +18,7 @@ requirejs.config
         jasmineajax : 'src/bower_components/jasmine-ajax/lib/mock-ajax'
         jasminejquery : 'src/bower_components/jasmine-jquery/lib/jasmine-jquery'
         jqueryvalidate : 'src/bower_components/jquery.validation/dist/jquery.validate'
+        bootstrap : 'src/bower_components/bootstrap/dist/js/bootstrap.min'
         async : 'src/bower_components/async/lib/async'
         bootstraptour : 'src/bower_components/bootstrap-tour/build/js/bootstrap-tour.js'
         underscorestring : 'src/bower_components/underscore.string/lib/underscore.string'
@@ -49,6 +50,7 @@ requirejs.config
         autoNumeric: 'src/bower_components/autoNumeric/autoNumeric'
         printPreview: 'src/bower_components/preload/jquery.print-preview'
         bpopup: 'src/bower_components/bpopup/jquery.bpopup.min'
+        collapse: 'src/bower_components/bootstrap/js/collapse'
 
 
 

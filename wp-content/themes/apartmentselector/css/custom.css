@@ -7150,6 +7150,10 @@ h5 {
     margin-right: 0;
   }
 }
+/*Safari Fix*/
+.safari .grid-container .grid-block-1 {
+  height: 82px;
+}
 .introTxt {
   margin: 0 auto;
   font-weight: 400;
@@ -7524,7 +7528,7 @@ h5 {
 .box.sold,
 .boxLong.sold,
 .boxBlank.sold {
-  border-color: #eba5a3;
+  border-color: #dfe1e5;
   color: #c9302c;
   cursor: default;
   opacity: 0.8;
@@ -7532,7 +7536,7 @@ h5 {
 .box.sold:hover,
 .boxLong.sold:hover,
 .boxBlank.sold:hover {
-  border-color: #eba5a3;
+  border-color: #dfe1e5;
   color: #c9302c;
 }
 .box.threeBHK .unitCount:after,
@@ -7973,6 +7977,9 @@ a.special {
   right: 2%;
   top: 0;
   box-shadow: 0 0 5px #999999;
+}
+#layoutmsg.alrtMsg {
+  width: 100%;
 }
 .flatContainer .vs-wrapper {
   background-color: #ffffff;
@@ -9245,8 +9252,8 @@ rect .sold:hover {
   fill: #999;
   opacity: 0.9;
 }
-polygon .other:hover,
-rect .other:hover {
+polygon.other:hover,
+rect.other:hover {
   fill: #EEEEEE !important;
   cursor: default;
   opacity: 0.8;
