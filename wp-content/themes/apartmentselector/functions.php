@@ -44,7 +44,7 @@ require_once (get_template_directory().'/classes/autoload.php');
 
 //load ajax call
 require_once (get_template_directory().'/ajax-module.php');
-
+$bust = '?'.BUST; 
 
 //formatted echo using pre tags can be used to echo out data for testing purpose
 
@@ -195,9 +195,9 @@ if ( is_development_environment() ) {
 
         $module = get_module_name();
 
-        wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css", array(), "", "screen" );
+        wp_enqueue_style( "$module-style", get_template_directory_uri() . "/css/{$module}.styles.css".$bust, array(), "", "screen" );
 
-        wp_enqueue_style( "$module-print-style", get_template_directory_uri() . "/css/{$module}.print.css", array(), "", "print" );
+        wp_enqueue_style( "$module-print-style", get_template_directory_uri() . "/css/{$module}.print.css".$bust, array(), "", "print" );
 
     } 
         add_action( 'wp_enqueue_scripts', 'apartmentselector_dev_enqueue_styles' );
@@ -214,9 +214,9 @@ if (! is_development_environment() ) {
 
             if ( is_single_page_app( $module ) )
 
-                $path = get_template_directory_uri() . "/production/{$module}.spa.min.js";
+                $path = get_template_directory_uri() . "/production/{$module}.spa.min.js".$bust;
             else
-                $path = get_template_directory_uri() . "/production/{$module}.scripts.min.js";
+                $path = get_template_directory_uri() . "/production/{$module}.scripts.min.js".$bust;
 
             wp_enqueue_script( "$module-script",
                 $path,
@@ -259,13 +259,13 @@ if (! is_development_environment() ) {
         $module = get_module_name();
 
         wp_enqueue_style( "$module-style",
-            get_template_directory_uri() . "/production/{$module}.styles.min.css",
+            get_template_directory_uri() . "/production/{$module}.styles.min.css".$bust,
             array(),
             get_current_version(),
             "screen" );
 
         wp_enqueue_style( "$module-print-style",
-            get_template_directory_uri() . "/css/{$module}.print.css",
+            get_template_directory_uri() . "/css/{$module}.print.css".$bust,
             array(),
             "",
             "print" );
