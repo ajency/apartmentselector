@@ -25,9 +25,6 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.events = function() {
       return {
-        'click .print-preview': function(e) {
-          return this.loadPrint();
-        },
         'click #emailBtn': function(e) {
           var building, unit;
           e.preventDefault();

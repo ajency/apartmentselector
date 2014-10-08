@@ -184,8 +184,8 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
 
-            'click .print-preview':(e)->
-                @loadPrint()
+            # 'click .print-preview':(e)->
+            #     @loadPrint()
             'click #emailBtn':(e)->
                 e.preventDefault()
                 
