@@ -345,7 +345,7 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
     
         $units_data = get_post($unit_id);
         
-        
+
         $unit_variant =   get_post_meta($units_data->ID, 'unit_variant', true);
         
         $building =   get_post_meta($units_data->ID, 'building', true);
@@ -401,15 +401,16 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
             $end = intval($value['end']);
             $i = $start;
             while($i<=$end){
-                array_push($range, $i);
+                array_push($range,$i);
                 $i++;
 
 
             }
             
             $rangname = "";
-
-            if(in_array(intval($floor), $range)){
+            
+            
+            if(in_array($floor, $range)){
                
                 if($value['name'] == 'medium')
                     $rangname = 'mid';
@@ -424,6 +425,7 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
 
 
         }
+       
         $result = ucfirst($rangname);
         $html = "";
         $image = '<div><img src="'.$attachment.'" /></div>';
@@ -446,9 +448,9 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
                         <div class="col-sm-6 head">
                             <h2>Flat Type: <strong><span id="unittypename">'.$unitytpes->name.'</span></strong>(<span id="area">'.$unitvariant[0]['sellablearea'].'</span> sq. ft.)</h2>
                         </div>
-                        <div class="col-sm-6 head">
-                            <h2>Floor Range: <strong><span id="floorrise">'.$result.'</span></strong></h2>
-                        </div>';
+                        <!--<div class="col-sm-6 head">
+                            <h2>Floor Range: <strong><span id="floorrise"></span></strong></h2>
+                        </div>-->';
     
     
 
@@ -526,7 +528,8 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
             
             $rangname = "";
 
-            if(in_array(intval($floor), $range)){
+            
+            if(in_array($floor, $range)){
                
                 if($value['name'] == 'medium')
                     $rangname = 'mid';
@@ -591,7 +594,7 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
         $wish .= '<h1>Flat No: <strong><span id="flatno">'.$units_data->post_name.'</span></strong></h1>
         <h1 id="towerno">'.$buildingmodel['name'].'</h1>
         <h2>Flat Type: <strong><span id="unittypename">'.$unitytpes->name.'</span></strong>(<span id="area">'.$unitvariant[0]['sellablearea'].'</span> sq. ft.)</h2>
-        <h2>Floor Range: <strong><span id="floorrise">'.$result.'</span></strong></h2>
+        <!--<h2>Floor Range: <strong><span id="floorrise"></span></strong></h2>-->
         <h2>Floor: <strong><span id="floorrise">'.$floor.'</span></strong></h2>
         <h2>Views: <strong><span id="floorrise">'.$views.'</span></strong></h2>
         <h2>Facings: <strong><span id="floorrise">'.$facings.'</span></strong></h2>
