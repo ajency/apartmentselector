@@ -77,7 +77,7 @@
 		margin: 0;
 		border-top: 2px solid lighten(@color-primary, 20%);
 		border-bottom: 2px solid lighten(@color-primary, 20%);
-		margin-bottom: 25px;
+		margin-bottom: 20px;
 		// color: @color-white;
 		&.title{
 			border: none;
@@ -158,8 +158,22 @@
 
 .headers{
 	margin-bottom: 5px;
-	padding-bottom: 5px;
+	padding: 5px;
 	border-bottom: 1px solid @gray-lighter;
+	cursor: pointer;
+	text-decoration: underline;
+	&:hover{
+		background: @gray-lighter;
+	}
+}
+
+.costDtls{
+	display: none;
+}
+
+.panel-body{
+	color: @color-grey;
+	background: @gray-lighter;
 }
 
 .this-is{

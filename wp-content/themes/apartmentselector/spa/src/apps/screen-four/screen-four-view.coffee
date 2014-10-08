@@ -184,8 +184,8 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
 
-            'click .print-preview':(e)->
-                @loadPrint()
+            # 'click .print-preview':(e)->
+            #     @loadPrint()
             'click #emailBtn':(e)->
                 e.preventDefault()
                 
@@ -359,7 +359,7 @@ define [ 'marionette' ], ( Marionette )->
         )
 
         loadPrint:->
-                $('.prntLoader').removeClass "hidden"
+                # $('.prntLoader').removeClass "hidden"
                 $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
@@ -589,6 +589,7 @@ define [ 'marionette' ], ( Marionette )->
             count = 0
 
             $('a.print-preview').printPreview();
+            @loadPrint()
 
         showWishList:->
             table = ""
@@ -723,7 +724,12 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell">Discounted Rate</div>
                         </div>
                         
-                        <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5>
+                        <h5 class="headers skyiCost"><span class="cost-office"></span> Skyi Costs</h5>
+                        <div class="skyiCostDtls costDtls">
+                            <div class="panel-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS.
+                            </div>
+                        </div>
 
                         <div class="costsRow">
                             <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
@@ -870,11 +876,11 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <h5 class="headers govChrg"><span class="cost-library"></span> Government Charges</h5>
-                        <!--<div class="govChrgDtls" style="display:none">
+                        <div class="govChrgDtls costDtls">
                             <div class="panel-body">
                                 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS.
                             </div>
-                        </div>-->
+                        </div>
 
                         <div class="costsRow">
                             <div class="costCell costName">Stamp Duty</div>
@@ -902,7 +908,13 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell totalcost" data-a-sign="Rs. " data-d-group="2">'+totalcost+'</div>
                         </div>
 
-                        <h5 class="headers"><span class="cost-paint-format"></span> Other Costs</h5>
+                        <h5 class="headers othrCost"><span class="cost-paint-format"></span> Other Costs</h5>
+                        <div class="othrCostDtls costDtls">
+                            <div class="panel-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS.
+                            </div>
+                        </div>
+
                         <div class="costsRow">
                             <div class="costCell costName">Maintenance Deposit</div>
                             <div class="costCell discCol showDisc maintenance" data-a-sign="Rs. " data-d-group="2">'+maintenance+'</div>
@@ -999,8 +1011,16 @@ define [ 'marionette' ], ( Marionette )->
 
             )
 
+            $(".skyiCost").click ->
+                $(".skyiCostDtls").slideToggle()
+                return
+
             $(".govChrg").click ->
                 $(".govChrgDtls").slideToggle()
+                return
+
+            $(".othrCost").click ->
+                $(".othrCostDtls").slideToggle()
                 return
 
         generatePaymentSchedule:(id)->

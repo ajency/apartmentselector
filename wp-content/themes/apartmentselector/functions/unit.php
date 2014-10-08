@@ -461,7 +461,7 @@ function get_room_type_for_sizes_name($data){
          foreach ($data as $key => $value) {
 
         $room_type_for_sizes = get_room_type_for_sizes($value["room_type"]);
-     
+        
         $value["room_type_id"] =  intval($value["room_type"]);
 
         $value["room_type"] =  $room_type_for_sizes[0]["name"];
