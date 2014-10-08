@@ -459,11 +459,11 @@ function add_my_attachment($attachments, $form, $args){
  
 if($form->form_key == 'emailform' && $args['email_key']==1){ 
 	//parameters for pdf funtion
-	//1) $towerid = $args['entry']->metas['towerid'];
-	//2) $unitid  = $args['entry']->metas['unitid'];
-	//3) $wishlist  = $args['entry']->metas['wishlist'];
+	$towerid = $args['entry']->metas['towerid'];
+	$unitid  = $args['entry']->metas['unitid'];
+	$wishlist  = $args['entry']->metas['wishlist'];
  
- // $attachments[] = call your pdf funtion here whch returns the path
+ $attachments[] = generate_pdf_data($unitid,$towerid,$wishlist);
  
 }
  

@@ -325,7 +325,7 @@ function get_module_name() {
 }
 
 
-function generate_pdf_data($unit_id,$tower_id){
+function generate_pdf_data($unit_id,$tower_id,$wishlist){
 
     // create new PDF document
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
