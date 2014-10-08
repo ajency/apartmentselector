@@ -341,12 +341,11 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
 
         $pdf->AddPage();
 
-
+       
     
         $units_data = get_post($unit_id);
-
-
-
+        
+        
         $unit_variant =   get_post_meta($units_data->ID, 'unit_variant', true);
         
         $building =   get_post_meta($units_data->ID, 'building', true);
@@ -362,7 +361,7 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
         $unitytpes = get_unit_type_by_id($unit_type);
         $views = "";
         $facings = "";
-        if(count($apartment_views)>0)
+        if(count($apartment_views)>0 && $apartment_views != "" )
             {
             foreach($apartment_views as $value){
 
@@ -372,7 +371,7 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
 
             }
         }
-        if(count($facings_data)>0)
+        if(count($facings_data)>0 && $facings_data != "")
             {
             foreach($facings_data as $value){
 
@@ -549,26 +548,26 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
 
         $views = "";
         $facings = "";
-        if(count($apartment_views)>0)
-        {
-        foreach($apartment_views as $value){
+        if(count($apartment_views)>0 && $apartment_views != "" )
+            {
+            foreach($apartment_views as $value){
 
-            $viewsdata = get_views($value);
-            
-            $views .= $viewsdata[0]['name'].'<br/>';
+                $viewsdata = get_views($value);
+                
+                $views .= $viewsdata[0]['name'].'<br/>';
 
+            }
         }
-    }
-        if(count($facings_data)>0)
-        {
-        foreach($facings_data as $value){
+        if(count($facings_data)>0 && $facings_data != "")
+            {
+            foreach($facings_data as $value){
 
-            $facingsdata = get_facings($value);
-           
-            $facings .= $facingsdata[0]['name'].'<br/>';
+                $facingsdata = get_facings($value);
+               
+                $facings .= $facingsdata[0]['name'].'<br/>';
 
+            }
         }
-    }
     $roomsizes = $unitvariant[0]['roomsizes'];
     $roomTypeArr = array(68,71,72);
     $roomsizearr = array();
@@ -623,6 +622,6 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
     
    
    $attachment = $pdf->Output($output_link, 'F');
-   
+
    return $output_link;
 }
