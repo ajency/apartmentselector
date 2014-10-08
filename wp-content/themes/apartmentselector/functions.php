@@ -622,5 +622,7 @@ function generate_pdf_data($unit_id,$tower_id){
     $output_link=$destination_dir.'/'.$filename.'.pdf';
     
    
-    $attachment = $pdf->Output($output_link, 'F');
+   $attachment = $pdf->Output($output_link, 'F');
+
+   return $output_link;
 }
