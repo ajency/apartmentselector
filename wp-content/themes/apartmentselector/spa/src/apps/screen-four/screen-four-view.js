@@ -39,6 +39,9 @@ define(['marionette'], function(Marionette) {
           $('.formIntro').html('I\'m interested in <br>Flat <span id="emailflatno">' + unit.get('name') + '</span> in <span id="emailtower">' + building.get('name') + '</span></div>');
           $('#field_emailunit').val(unit.get('name'));
           $('#field_emailtower').val(building.get('name'));
+          $('#field_unitid').val(unit.get('id'));
+          $('#field_towerid').val(building.get('id'));
+          $('#field_wishlist').val(localStorage.getItem("cookievalue"));
         },
         'click #list': function(e) {
           var cart, cookieOldValue, imgclone, imgtodrag, key, myModal;
