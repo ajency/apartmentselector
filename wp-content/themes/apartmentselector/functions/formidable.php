@@ -458,10 +458,12 @@ function add_my_attachment($attachments, $form, $args){
  
  
 if($form->form_key == 'emailform' && $args['email_key']==1){ 
-	//$towerid = $args['entry']->metas['towerid'];
-	//$unitid  = $args['entry']->metas['unitid'];
+	//parameters for pdf funtion
+	//1) $towerid = $args['entry']->metas['towerid'];
+	//2) $unitid  = $args['entry']->metas['unitid'];
+	//3) $wishlist  = $args['entry']->metas['wishlist'];
  
- //add the file path here $attachments[] = str_replace("/","\\",ABSPATH) . 'wp-content\uploads\2014\07\2bhk_3d12.jpg'; //set the ABSOLUTE path to the image here
+ // $attachments[] = call your pdf funtion here whch returns the path
  
 }
  
