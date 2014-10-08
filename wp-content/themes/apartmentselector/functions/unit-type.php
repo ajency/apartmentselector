@@ -91,3 +91,11 @@ function get_unit_types($ids=array())
     }
     return $unit_types;
 }
+
+function get_unit_type_by_id($id){
+
+
+    $unit_type = get_term_by( 'id', $id, 'unit_type');
+
+    return $unit_type;
+}

@@ -195,7 +195,6 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.loadPrint = function() {
       var building, image, indexvalue, indexvalue1, roomsizearray, roomtext, svgdata, temp, temp1, temp2, units;
-      $('.prntLoader').removeClass("hidden");
       $("#flatno").text("");
       $("#towerno").text("");
       $("#unittypename").text("");
@@ -387,7 +386,8 @@ define(['marionette'], function(Marionette) {
       costSheetArray = [];
       flag = 0;
       count = 0;
-      return $('a.print-preview').printPreview();
+      $('a.print-preview').printPreview();
+      return this.loadPrint();
     };
 
     ScreenFourLayout.prototype.showWishList = function() {

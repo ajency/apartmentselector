@@ -359,7 +359,7 @@ define [ 'marionette' ], ( Marionette )->
         )
 
         loadPrint:->
-                $('.prntLoader').removeClass "hidden"
+                # $('.prntLoader').removeClass "hidden"
                 $("#flatno").text ""
                 $("#towerno").text ""
                 $("#unittypename").text ""
@@ -589,6 +589,7 @@ define [ 'marionette' ], ( Marionette )->
             count = 0
 
             $('a.print-preview').printPreview();
+            @loadPrint()
 
         showWishList:->
             table = ""

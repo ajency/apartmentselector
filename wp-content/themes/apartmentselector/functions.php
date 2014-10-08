@@ -324,7 +324,7 @@ function get_module_name() {
 
 }
 
-generate_pdf_data(116,11);
+
 function generate_pdf_data($unit_id,$tower_id){
 
     // create new PDF document
@@ -336,26 +336,291 @@ function generate_pdf_data($unit_id,$tower_id){
         $pdf->SetTitle('TCPDF Example 001');
         $pdf->SetSubject('TCPDF Tutorial');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
-
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         
 
         $pdf->AddPage();
 
 
     
-    $units_data = get_post($unit_id);
+        $units_data = get_post($unit_id);
 
-    $unit_variant =   get_post_meta($units_data->ID, 'unit_variant', true);
+
+
+        $unit_variant =   get_post_meta($units_data->ID, 'unit_variant', true);
+        
+        $building =   get_post_meta($units_data->ID, 'building', true);
+
+        $apartment_views =   get_post_meta($units_data->ID, 'apartment_views', true);
+
+        $facings_data =   get_post_meta($units_data->ID, 'facing', true);
+
+        $floor = get_post_meta($units_data->ID, 'floor', true);
+
+        $unit_type = get_unit_type_by_unit_variant($unit_variant);
+
+        $unitytpes = get_unit_type_by_id($unit_type);
+        $views = "";
+        $facings = "";
+        if(count($apartment_views)>0)
+            {
+            foreach($apartment_views as $value){
+
+                $viewsdata = get_views($value);
+                
+                $views .= $viewsdata[0]['name'].'<br/>';
+
+            }
+        }
+        if(count($facings_data)>0)
+            {
+            foreach($facings_data as $value){
+
+                $facingsdata = get_facings($value);
+               
+                $facings .= $facingsdata[0]['name'].'<br/>';
+
+            }
+        }
+
+
     
-    $building =   get_post_meta($units_data->ID, 'building', true);
 
-    $buildingmodel = get_building_by_id($building);
-    $zoomed_in_image = $buildingmodel['zoomedinimage']['thumbnail_url'];
-    $html = "";
-    $html .= '<div><img src="'.$zoomed_in_image.'" /></div>';
+        $unitvariant = get_unit_variants($unit_variant);
 
-    $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $rangname = "";
+        $buildingmodel = get_building_by_id($building);
+        $image_attributes = wp_get_attachment_image_src( $buildingmodel['zoomedinimage']['id'] );
+        $zoomed_in_image = $image_attributes[0];
+        
+        $attachment = get_attached_file($buildingmodel['zoomedinimage']['id']);
+        $floorriserange = $buildingmodel['floorriserange'];
+        foreach($floorriserange as $value){
+            
+            $range = array();
+            $start = intval($value['start']);
+            $end = intval($value['end']);
+            $i = $start;
+            while($i<=$end){
+                array_push($range, $i);
+                $i++;
 
 
-    $attachment = $pdf->Output('example_001.pdf', 'I');
+            }
+            
+            $rangname = "";
+
+            if(in_array(intval($floor), $range)){
+               
+                if($value['name'] == 'medium')
+                    $rangname = 'mid';
+                else
+                    $rangname = $value['name'];
+
+
+                
+                $rangname = $rangname."rise";
+
+            }
+
+
+        }
+        $result = ucfirst($rangname);
+        $html = "";
+        $image = '<div><img src="'.$attachment.'" /></div>';
+    // $pdf->writeHTML($image, true, 0, true, 0);
+    // $pdf->Image($zoomed_in_imag , 0, 0, 210, 297, '', '', '', true, 150);
+
+    // $html .= "<span>Flat No. </span><span>".$units_data->post_name."</span><br/><span>".$buildingmodel['name']."
+    //         </span><br/><span>Floor Range: </span>".$result."<span>".$unitytpes->name;
+
+        $html .= '
+                    
+                        <div class="col-sm-6 head">
+                            <h1>Flat No: <strong><span id="flatno">'.$units_data->post_name.'</span></strong></h1>
+                        </div>
+                        <div class="col-sm-6 head">
+                            <h1 id="towerno">'.$buildingmodel['name'].'</h1>
+                        </div>
+                    
+                    
+                        <div class="col-sm-6 head">
+                            <h2>Flat Type: <strong><span id="unittypename">'.$unitytpes->name.'</span></strong>(<span id="area">'.$unitvariant[0]['sellablearea'].'</span> sq. ft.)</h2>
+                        </div>
+                        <div class="col-sm-6 head">
+                            <h2>Floor Range: <strong><span id="floorrise">'.$result.'</span></strong></h2>
+                        </div>';
+    
+    
+
+                
+                foreach($unitvariant[0]['roomsizes'] as $value){
+                    
+                    $html .= '<div class="rooms">
+                                    <span>'.$value['room_type'].'</span>: '.$value['room_size'].' sq ft
+                                </div>';
+
+
+                }
+
+    $html .= '<span>Views :</span>'.$views;
+    $html .= '<span>Facings: </span>'.$facings;
+    // print_r($unitvariant);
+    
+    
+    $upload_dir = wp_upload_dir();
+    $destination_dir = $upload_dir['basedir'].'/2014/pdfuplaods';
+
+    if (!file_exists($destination_dir)){
+
+    mkdir($destination_dir);
+
+    }
+
+    $filename = "unitdetails".date('dmyhis');
+
+    $pdf->WriteHTML( $html );
+    $image = '<div><img src="'.$unitvariant[0]['url2dlayout_image'].'" /></div>';
+    $pdf->writeHTML($image, true, 0, true, 0);
+    $image = '<div><img src="'.$unitvariant[0]['url3dlayout_image'].'" /></div>';
+    $pdf->writeHTML($image, true, 0, true, 0);
+
+    
+    $wishlistarray = array(111,112);
+    
+    foreach($wishlistarray as $value){
+
+        $wish = "";
+        
+        $units_data = get_post($value);
+
+        $unit_variant =   get_post_meta($units_data->ID, 'unit_variant', true);
+        
+        $building =   get_post_meta($units_data->ID, 'building', true);
+
+        $floor = get_post_meta($units_data->ID, 'floor', true);
+
+        $buildingmodel = get_building_by_id($building);
+
+        
+        $unit_type = get_unit_type_by_unit_variant($unit_variant);
+
+        $unitytpes = get_unit_type_by_id($unit_type);
+
+        
+
+        $unitvariant = get_unit_variants($unit_variant);
+
+        $floorriserange = $buildingmodel['floorriserange'];
+        foreach($floorriserange as $value){
+            
+            $range = array();
+            $start = intval($value['start']);
+            $end = intval($value['end']);
+            $i = $start;
+            while($i<=$end){
+                array_push($range, $i);
+                $i++;
+
+
+            }
+            
+            $rangname = "";
+
+            if(in_array(intval($floor), $range)){
+               
+                if($value['name'] == 'medium')
+                    $rangname = 'mid';
+                else
+                    $rangname = $value['name'];
+
+
+                
+                $rangname = $rangname."rise";
+
+            }
+
+
+        }
+        $result = ucfirst($rangname);
+        $apartment_views =   get_post_meta($units_data->ID, 'apartment_views', true);
+
+        $facings_data =   get_post_meta($units_data->ID, 'facing', true);
+
+        $views = "";
+        $facings = "";
+        if(count($apartment_views)>0)
+        {
+        foreach($apartment_views as $value){
+
+            $viewsdata = get_views($value);
+            
+            $views .= $viewsdata[0]['name'].'<br/>';
+
+        }
+    }
+        if(count($facings_data)>0)
+        {
+        foreach($facings_data as $value){
+
+            $facingsdata = get_facings($value);
+           
+            $facings .= $facingsdata[0]['name'].'<br/>';
+
+        }
+    }
+    $roomsizes = $unitvariant[0]['roomsizes'];
+    $roomTypeArr = array(68,71,72);
+    $roomsizearr = array();
+    $roomTest= "";
+    $mainArr =array();
+    foreach ($roomTypeArr as $key => $value) {
+
+        $roomTest .= $value['room_type'];
+        foreach ($roomsizes as $key => $value1) {
+            if($value1['room_type_id'] == $value){
+                $roomTest .= $value1['room_type'].'-'.$value1['room_size'].'<br/>';
+            }
+            # code...
+        }
+        $roomTest .= '<br/>';
+        # code...
+    }
+
+   
+        $image = "";
+        $wish .= '<h1>Flat No: <strong><span id="flatno">'.$units_data->post_name.'</span></strong></h1>
+        <h1 id="towerno">'.$buildingmodel['name'].'</h1>
+        <h2>Flat Type: <strong><span id="unittypename">'.$unitytpes->name.'</span></strong>(<span id="area">'.$unitvariant[0]['sellablearea'].'</span> sq. ft.)</h2>
+        <h2>Floor Range: <strong><span id="floorrise">'.$result.'</span></strong></h2>
+        <h2>Floor: <strong><span id="floorrise">'.$floor.'</span></strong></h2>
+        <h2>Views: <strong><span id="floorrise">'.$views.'</span></strong></h2>
+        <h2>Facings: <strong><span id="floorrise">'.$facings.'</span></strong></h2>
+        <h2>Total Area: <strong><span id="floorrise">'.$unitvariant[0]['sellablearea'].'</span></strong></h2>
+        <h2>Carpet Area: <strong><span id="floorrise">'.$unitvariant[0]['carpetarea'].'</span></strong></h2>
+        <h2>Terrace Area: <strong><span id="floorrise">'.$unitvariant[0]['terracearea'].'</span></strong></h2>
+        <h2>Room Sizes: <strong><span id="floorrise">'.$roomTest.'</span></strong></h2>';
+
+        $pdf->WriteHTML( $wish );
+        $image = '<img src="'.$unitvariant[0]['url2dlayout_image'].'"  />';
+        $pdf->writeHTML($image, true, 0, true, 0);
+        $image = '<img src="'.$unitvariant[0]['url3dlayout_image'].'" />';
+        $pdf->writeHTML($image, true, 0, true, 0);
+        $image = '<img src="'.$buildingmodel['positioninproject']['image_url'].'"  />';
+        $pdf->writeHTML($image, true, 0, true, 0);
+        
+    
+
+
+
+    }
+   
+
+
+
+    
+    $output_link=$destination_dir.'/'.$filename.'.pdf';
+    
+   
+    $attachment = $pdf->Output($output_link, 'F');
 }

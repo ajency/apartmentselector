@@ -710,7 +710,9 @@ function get_building_by_id($building_id){
    
    $building_exceptions = $building_exceptions_updated;
    
-    $floorrise_range =  (maybe_unserialize(get_option( "building_".$building_id."_floorrise_range")));
+    // $floorrise_range =  (maybe_unserialize(get_option( "building_".$building_id."_floorrise_range")));
+    $floorrise_range = format_floorrise_range(maybe_unserialize(get_option( "building_".$building_id."_floorrise_range")));
+    
     
    $result = array('id'=>intval($building->term_id) ,'name'=>$building->name,'phase'=>$building_phase,'nooffloors'=>$building_no_of_floors,'noofflats'=>$building_no_of_flats,'exceptions'=>$building_exceptions,'floorrise'=>$building_floor_rise,'positioninproject'=> $position_in_project,'zoomedinimage'=> $zoomed_in_image,'floor_layout_basic'=>$floor_layout_basic ,'floor_layout_detailed'=>$floor_layout_detailed ,'buildingviews'=>$building_views,'payment_plan'=>$building_payment_plan,'milestone'=>$building_milestone,'floorriserange'=>$floorrise_range,'milestonecompletion'=>$building_milestone_completion,'svgdata'=>$svg_data);
  

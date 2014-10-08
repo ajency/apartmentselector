@@ -44,6 +44,7 @@ function do_init_routines(){
  	manage_roles();
 
     test_data();
+    generate_pdf_data(116,11);
 
 }
 add_action('init','do_init_routines');
