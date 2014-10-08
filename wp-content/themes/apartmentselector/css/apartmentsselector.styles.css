@@ -1527,7 +1527,7 @@ body.remodal_active .remodal {
 
 .cbp-spmenu-push {
 	overflow-x: hidden;
-	position: relative;
+	/*position: relative;*/
 	left: 0;
 }
 
@@ -11572,7 +11572,7 @@ input.checkbox[disabled] + label {
   margin: 0;
   border-top: 2px solid #ffa366;
   border-bottom: 2px solid #ffa366;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 .costsRow.totals small,
 .costsRow.totals .small {
@@ -11699,8 +11699,20 @@ input.checkbox[disabled] + label {
 }
 .headers {
   margin-bottom: 5px;
-  padding-bottom: 5px;
+  padding: 5px;
   border-bottom: 1px solid #eeeeee;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.headers:hover {
+  background: #eeeeee;
+}
+.costDtls {
+  display: none;
+}
+.panel-body {
+  color: #8b91a0;
+  background: #eeeeee;
 }
 .this-is {
   padding: 0;
@@ -12347,6 +12359,7 @@ body {
 .cbp-spmenu-vertical {
   background-color: #803300;
   border-left: 1px solid #b34700;
+  top: 50px;
 }
 .cbp-spmenu-vertical > ul {
   list-style-type: none;
@@ -12592,6 +12605,3 @@ a.im-clear-button {
 }
 /**** end print modal styles ****/
 
-iframe#print-modal-content {
-  height: 6500px !important;
-}
