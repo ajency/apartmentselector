@@ -200,6 +200,9 @@ define [ 'marionette' ], ( Marionette )->
                 # inst.open()
                 $('#field_emailunit').val unit.get('name')
                 $('#field_emailtower').val building.get('name')
+                $('#field_unitid').val unit.get('id')
+                $('#field_towerid').val building.get('id')
+                $('#field_wishlist').val localStorage.getItem("cookievalue" )
                 
                 
                 return

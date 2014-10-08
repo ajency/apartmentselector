@@ -486,7 +486,7 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
     $pdf->writeHTML($image, true, 0, true, 0);
 
     
-    $wishlistarray = array(111,112);
+    $wishlistarray = explode(',', $wishlist);
     
     foreach($wishlistarray as $value){
 
@@ -623,6 +623,6 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
     
    
    $attachment = $pdf->Output($output_link, 'F');
-
+   
    return $output_link;
 }
