@@ -138,8 +138,7 @@ $heading = "Edit";
     <div class="col-md-6">
         <div class="form-group">
             <label class="form-label">
-                Position in project
-                <?php var_dump($position_in_project);?>
+                Position in project 
             </label>
             <div class="row">
                 <div class="col-md-6">
