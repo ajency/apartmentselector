@@ -11661,6 +11661,7 @@ input.checkbox[disabled] + label {
   position: relative;
   width: 48%;
   display: inline-block;
+  float: left;
 }
 .milestoneList .msName .completionDate {
   font-family: 'kievit';
@@ -11690,6 +11691,13 @@ input.checkbox[disabled] + label {
   width: 24%;
   display: inline-block;
   text-align: right;
+  float: right;
+}
+.milestoneList .msVal.discCol {
+  display: none;
+}
+.milestoneList .msVal.discCol.showDisc {
+  display: inline-block;
 }
 .milestoneList .barBg {
   position: absolute;
@@ -11706,6 +11714,14 @@ input.checkbox[disabled] + label {
 }
 .milestoneList.milestoneReached .barBg {
   background-color: #ffc299;
+}
+.milestoneList:before,
+.milestoneList:after {
+  display: table;
+  content: "";
+}
+.milestoneList:after {
+  clear: both;
 }
 .headers {
   margin-bottom: 5px;

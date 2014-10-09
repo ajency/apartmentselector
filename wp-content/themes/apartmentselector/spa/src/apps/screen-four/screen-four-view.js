@@ -775,7 +775,7 @@ define(['marionette'], function(Marionette) {
         $('.percentageValue1').autoNumeric('init');
         $('.percentageValue').autoNumeric('init');
         milestoneModel = milestoneColl.get(element.milestone);
-        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
+        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal discCol percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
       }
       $('.rec').autoNumeric('init');
       recount = $('.rec').autoNumeric('set', count);

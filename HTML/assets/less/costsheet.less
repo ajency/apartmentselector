@@ -130,6 +130,7 @@
 		position: relative;
 		width: 48%;
 		display: inline-block;
+		float: left;
 		.completionDate{
 			.h5;
 			.bold;
@@ -143,6 +144,13 @@
 		width: 24%;
 		display: inline-block;
 		text-align: right;
+		float: right;
+		&.discCol{
+			display: none;
+			&.showDisc{
+				display: inline-block;
+			}
+		}
 	}
 	.barBg{
 		position: absolute;
@@ -162,6 +170,13 @@
 		.barBg{
 			background-color: lighten(@color-primary, 30%);
 		}
+	}
+	&:before, &:after{
+		display: table;
+		content: "";
+	}
+	&:after{
+		clear: both;
 	}
 }
 
