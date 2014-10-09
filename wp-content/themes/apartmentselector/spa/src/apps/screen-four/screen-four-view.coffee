@@ -36,13 +36,13 @@ define [ 'marionette' ], ( Marionette )->
                                         </a>
                                     </div>
                                     <div class="grid-block-4">
-                                        <a class="grid-link" id="emailBtn"  data-remodal-target="emailpop">
+                                        <a class="grid-link" id="emailBtn"  >
                                             <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3>
                                             <h4 class="m-t-0 m-b-0">Email</h4>
                                         </a>
                                     </div>
                                     <div class="grid-block-4 costsheetbutton " >
-                                        <a class="grid-link" data-remodal-target="modal">
+                                        <a class="grid-link" >
                                             <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3>
                                             <h4 class="m-t-0 m-b-0 ">Cost Sheet</h4>
                                         </a>
@@ -54,7 +54,7 @@ define [ 'marionette' ], ( Marionette )->
                     </div>
 
 
-                    <div class="remodal" data-remodal-id="modal">
+                    <div class="costsheetclass" style="display:none" >
 
             			<div id="invoice" class="paid">
 
@@ -168,7 +168,7 @@ define [ 'marionette' ], ( Marionette )->
             			</div><!-- e: invoice -->
                 	</div>
 
-                    <div class="formPopup remodal" data-remodal-id="emailpop">
+                    <div class="formPopup" style="display:none">
                         <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div>
                         <div class="formFields"></div>                        
                     </div><div class="inframamout hidden" data-a-sign="Rs. " data-d-group="2"></div>'
@@ -183,6 +183,8 @@ define [ 'marionette' ], ( Marionette )->
             mainRegion : '#mainunit-region'
 
         events:->
+            'click .costsheetbutton':(e)->
+                $('.costsheetclass').bPopup()
 
             # 'click .print-preview':(e)->
             #     @loadPrint()
@@ -195,7 +197,7 @@ define [ 'marionette' ], ( Marionette )->
                 building = App.master.building.findWhere({id:parseInt(unit.get('building'))})
                 $(".formFields").html(EMAILFORM)
                 $('.formIntro').html  'I\'m interested in <br>Flat <span id="emailflatno">'+unit.get('name')+'</span> in <span id="emailtower">'+building.get('name')+'</span></div>'
-                # $(".formPopup").bPopup()
+                $(".formPopup").bPopup()
                 # inst = $.remodal.lookup[$("[data-remodal-id=emailpop]").data("remodal")]
                 # inst.open()
                 $('#field_emailunit').val unit.get('name')
@@ -503,84 +505,88 @@ define [ 'marionette' ], ( Marionette )->
                 #@trigger "get:perSqft:price"
                 
 
-            $(document).on('open', '.remodal',  () ->
-                $('#customer_name').on('change', ()->
+            
+            $('#customer_name').on('change', ()->
                     $('#customerlabel').text this.value
 
-                    )
-                $('.radioClass').on('click' , ()->
+            )
+            $('.radioClass').on('click' , ()->
                     if parseInt($('input[name=discountradio]:checked').val()) == 1
                         $('#discountvalue').removeClass "hidden"
                         $('#discountper').addClass "hidden"
                         $('#discountper').val ""
                         perFlag = 0
+                        $('.discCol').removeClass 'showDisc'
                         $('.revised').hide()
                     else
                         $('#discountvalue').addClass "hidden"
                         $('#discountvalue').val ""
                         $('#discountper').removeClass "hidden"
                         perFlag = 0
+                        $('.discCol').removeClass 'showDisc'
                         $('.revised').hide()
 
-                )
-                $('#discountvalue').on('change' , ()->
+            )
+            $('#discountvalue').on('change' , ()->
                     perFlag = 1
                     
                     if parseInt(this.value.length) == 0
-                         perFlag = 0
+                        perFlag = 0
+                        $('.discCol').removeClass 'showDisc'
                     object.generateCostSheet()
 
 
-                )
-                $('#discountper').on('change' , ()->
+            )
+            $('#discountper').on('change' , ()->
                     perFlag = 2
                     
                     if parseInt(this.value.length) == 0
-                         perFlag = 0
+                        perFlag = 0
+                        $('.discCol').removeClass 'showDisc'
                     object.generateCostSheet()
 
 
-                )
-                $('#payment').on('change' , ()->
+            )
+            $('#payment').on('change' , ()->
                     object.generateCostSheet()
 
 
-                )
-                $('#paymentplans').on('change' , ()->
+            )
+            $('#paymentplans').on('change' , ()->
                     id = $('#'+this.id ).val()
                     object.generatePaymentSchedule(id)
                     #object.getMilestones(id)
 
 
 
-                )
-                $('#infra').on('change' , ()->
+            )
+            $('#infra').on('change' , ()->
                     infraid = $('#infra' ).val()
                     object.updated()
 
 
 
-                )
-                $('#infra1').on('change' , ()->
+            )
+            $('#infra1').on('change' , ()->
                     infraid = $('#infra1' ).val()
                     object.updated1()
 
 
-                )
-                $('.numeric').on('keypress', (e)->
+            )
+            $('.numeric').on('keypress', (e)->
                     keyCode = e.keyCode
                     ret = ((keyCode >= 48 && keyCode <= 57) ||keyCode == 46 )
                     return ret
 
 
 
-                )
-
             )
 
-            scr = document.createElement('script')
-            scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
-            document.body.appendChild(scr)
+           
+
+            # scr = document.createElement('script')
+            # scr.src = '../wp-content/themes/apartmentselector/js/src/preload/jquery.remodal.js'
+            # document.body.appendChild(scr)
             
             $('html, body').delay(600).animate({
                 scrollTop: $('#screen-four-region').offset().top
@@ -673,18 +679,24 @@ define [ 'marionette' ], ( Marionette )->
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             floorRise = buildingModel.get 'floorrise'
             floorRiseValue = floorRise[unitModel.get 'floor']
-            
+            discountClass = ''
             ratePerSqFtPrice = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
             if perFlag== 1
                 revisedhidden = ""
                 discount = parseFloat($('#discountvalue').val())
+                discountClass = 'showDisc'
                 # discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
                 revisedhidden = ""
                 pervalue = parseFloat($('#discountper').val())/100
                 discount = (parseFloat(ratePerSqFtPrice) * parseFloat(pervalue))
+                discountClass = 'showDisc'
             # discount = Math.ceil(discount.toFixed(2));
-            
+
+            console.log parseInt($('#discountper').val().length)
+            console.log parseInt($('#discountvalue').val().length)
+            if parseInt($('#discountper').val().length) == 0 && parseInt($('#discountvalue').val().length) == 0
+                discountClass = ''
             
             revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
@@ -741,7 +753,7 @@ define [ 'marionette' ], ( Marionette )->
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
-                            <div class="costCell discCol">Discounted Rate</div>
+                            <div class="costCell discCol '+discountClass+'">Discounted Rate</div>
                             <div class="costCell">Base Rate</div>
                         </div>
                         
@@ -754,44 +766,44 @@ define [ 'marionette' ], ( Marionette )->
 
                         <div class="costsRow">
                             <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
-                            <div class="costCell discCol">'+costSheetArray[0]+'</div>
+                            <div class="costCell discCol '+discountClass+'">'+costSheetArray[0]+'</div>
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Floorrise</div>
-                            <div class="costCell discCol floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
+                            <div class="costCell discCol '+discountClass+' floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                             <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft.</div>
-                            <div class="costCell discCol ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
+                            <div class="costCell discCol '+discountClass+' ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
-                            <div class="costCell discCol ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                            <div class="costCell discCol '+discountClass+' ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
                         <div class="costsRow revised '+revisedhidden+' ">
                             <div class="costCell costName">Revised Rate</div>
-                            <div class="costCell discCol revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
+                            <div class="costCell discCol '+discountClass+' revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
                             <div class="costCell ">--</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Basic Cost</div>
-                            <div class="costCell discCol basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
+                            <div class="costCell discCol '+discountClass+' basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
                             <div class="costCell basicCost1" data-a-sign="Rs. " data-d-group="2">'+basicCost1+'</div>
                         </div>
                        <div class="costsRow">
                             <div class="costCell costName">Infrastructure and Developement Charges</div>
-                            <div class="costCell discCol"><select id="infra"></select></div>
+                            <div class="costCell discCol '+discountClass+'"><select id="infra"></select></div>
                             <div class="costCell"><select id="infra1"></select></div>
                         </div>'
 
             table1 += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
-                            <div class="costCell discCol">Discounted Rate <span class="cost-uniE600"></span></div>
+                            <div class="costCell discCol '+discountClass+' ">Discounted Rate <span class="cost-uniE600"></span></div>
                             <div class="costCell">Base Rate <span class="cost-uniE600"></span></div>
                         </div>
                         
@@ -799,37 +811,37 @@ define [ 'marionette' ], ( Marionette )->
 
                         <div class="costsRow">
                             <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
-                            <div class="costCell discCol">'+costSheetArray[0]+'</div>
+                            <div class="costCell discCol '+discountClass+' ">'+costSheetArray[0]+'</div>
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName" >Floorrise</div>
-                            <div class="costCell discCol floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
+                            <div class="costCell discCol '+discountClass+' floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                             <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft.</div>
-                            <div class="costCell discCol ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
+                            <div class="costCell discCol '+discountClass+' ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
-                            <div class="costCell discCol ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                            <div class="costCell discCol '+discountClass+' ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
                         <div class="costsRow revised '+revisedhidden+'">
                             <div class="costCell costName">Revised Rate</div>
-                            <div class="costCell discCol revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
+                            <div class="costCell discCol '+discountClass+' revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
                             <div class="costCell ">--</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Basic Cost</div>
-                            <div class="costCell discCol basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
+                            <div class="costCell discCol '+discountClass+' basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
                             <div class="costCell basicCost1" data-a-sign="Rs. " data-d-group="2">'+basicCost1+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Infrastructure and Developement Charges</div>
-                            <div class="costCell discCol infra" data-a-sign="Rs. " data-d-group="2">'+infraid+'</div>
+                            <div class="costCell discCol '+discountClass+' infra" data-a-sign="Rs. " data-d-group="2">'+infraid+'</div>
                             <div class="costCell infra1" data-a-sign="Rs. " data-d-group="2">'+infraid+'</div>
                         </div>'
                         
@@ -907,7 +919,7 @@ define [ 'marionette' ], ( Marionette )->
             # $('.rec').text reccount
             table += '  <div class="costsRow totals">
                             <div class="costCell costName">Agreement Amount</div>
-                            <div class="costCell discCol agreement"  data-a-sign="Rs. " data-d-group="2">'+agreement+'</div>
+                            <div class="costCell discCol '+discountClass+' agreement"  data-a-sign="Rs. " data-d-group="2">'+agreement+'</div>
                             <div class="costCell agreement1"  data-a-sign="Rs. " data-d-group="2">'+agreement1+'</div>
                         </div>
 
@@ -920,27 +932,27 @@ define [ 'marionette' ], ( Marionette )->
 
                         <div class="costsRow">
                             <div class="costCell costName">Stamp Duty</div>
-                            <div class="costCell discCol stamp_duty" data-a-sign="Rs. " data-d-group="2">'+stamp_duty+'</div>
+                            <div class="costCell discCol '+discountClass+' stamp_duty" data-a-sign="Rs. " data-d-group="2">'+stamp_duty+'</div>
                             <div class="costCell stamp_duty1" data-a-sign="Rs. " data-d-group="2">'+stamp_duty1+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Registration Amount</div>
-                            <div class="costCell discCol reg_amt" data-a-sign="Rs. " data-d-group="2">'+reg_amt+'</div>
+                            <div class="costCell discCol '+discountClass+' reg_amt" data-a-sign="Rs. " data-d-group="2">'+reg_amt+'</div>
                             <div class="costCell reg_amt1" data-a-sign="Rs. " data-d-group="2">'+reg_amt1+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">VAT</div>
                             <div class="costCell vat1" data-a-sign="Rs. " data-d-group="2">'+vat1+'</div>
-                            <div class="costCell discCol vat" data-a-sign="Rs. " data-d-group="2">'+vat+'</div>
+                            <div class="costCell discCol vat '+discountClass+'" data-a-sign="Rs. " data-d-group="2">'+vat+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Service Tax</div>
-                            <div class="costCell discCol sales_tax" data-a-sign="Rs. " data-d-group="2">'+sales_tax+'</div>
+                            <div class="costCell discCol '+discountClass+' sales_tax" data-a-sign="Rs. " data-d-group="2">'+sales_tax+'</div>
                             <div class="costCell sales_tax1" data-a-sign="Rs. " data-d-group="2">'+sales_tax1+'</div>
                         </div>
                         <div class="costsRow totals">
                             <div class="costCell costName">Total Cost</div>
-                            <div class="costCell discCol totalcost" data-a-sign="Rs. " data-d-group="2">'+totalcost+'</div>
+                            <div class="costCell discCol '+discountClass+' totalcost" data-a-sign="Rs. " data-d-group="2">'+totalcost+'</div>
                             <div class="costCell totalcost1" data-a-sign="Rs. " data-d-group="2">'+totalcost1+'</div>
                         </div>
 
@@ -953,17 +965,17 @@ define [ 'marionette' ], ( Marionette )->
 
                         <div class="costsRow">
                             <div class="costCell costName">Maintenance Deposit</div>
-                            <div class="costCell discCol maintenance" data-a-sign="Rs. " data-d-group="2">'+maintenance+'</div>
+                            <div class="costCell discCol '+discountClass+' maintenance" data-a-sign="Rs. " data-d-group="2">'+maintenance+'</div>
                             <div class="costCell maintenance" data-a-sign="Rs. " data-d-group="2">'+maintenance+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Club membership + Service Tax</div>
-                            <div class="costCell discCol membershipfees" data-a-sign="Rs. " data-d-group="2">'+membershipfees+'</div>
+                            <div class="costCell discCol '+discountClass+' membershipfees" data-a-sign="Rs. " data-d-group="2">'+membershipfees+'</div>
                             <div class="costCell membershipfees" data-a-sign="Rs. " data-d-group="2">'+membershipfees+'</div>
                         </div>
                         <div class="costsRow totals">
                             <div class="costCell costName">Final Cost</div>
-                            <div class="costCell discCol finalcost" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</div>
+                            <div class="costCell discCol '+discountClass+' finalcost" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</div>
                             <div class="costCell finalcost1" data-a-sign="Rs. " data-d-group="2">'+finalcost1+'</div>
                         </div>
 
@@ -1077,7 +1089,7 @@ define [ 'marionette' ], ( Marionette )->
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             milestonecompletion = buildingModel.get 'milestonecompletion'
             $('#paymentTable' ).text ""
-            $('#paymentTableprint' ).text ""
+            
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt(id))
             milestonesArray = milestones.get('milestones')
@@ -1156,7 +1168,7 @@ define [ 'marionette' ], ( Marionette )->
             
 
             $('#paymentTable' ).append table
-            $('#paymentTableprint' ).append table
+            
             for element,index in milestonesArray
                 percentageValue = (parseFloat(agreementValue) * ((parseFloat(element.payment_percentage))/100))
                 percentageValue1 = (parseFloat(agreementValue1) * ((parseFloat(element.payment_percentage))/100))

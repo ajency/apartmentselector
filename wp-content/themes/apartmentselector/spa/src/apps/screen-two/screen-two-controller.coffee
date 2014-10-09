@@ -291,7 +291,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             
             status = App.master.status.findWhere({'name':'Available'})
             unitslen = App.currentStore.unit.where({'status':status.get('id')})
-            unitslen1 = App.master.unit.where({'status':status.get('id')})
+            unitslen1 = App.master.unit.toArray()
 
 
             $.each(unitslen1, (index,value1)->
@@ -444,7 +444,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
             uniqUnitvariant = []
             
             floorCollection = new Backbone.Collection(floorCollunits)
-            $.each(unitslen1, (index,value)->
+            $.each(App.master.unit.toArray(), (index,value)->
                 if value.get('unitType') != 14 && value.get('unitType') != 16
                     tempunitvarinat.push(value)
 
@@ -475,9 +475,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 floorCollectionmaster = App.master.unit
                 floorCollectionmaster.each (item)->
                     if item.get('unitType') != 14 && item.get('unitType') != 16
-                        if item.get('apartment_views') != ""
+                        if item.get('apartment_views') != "" && item.get('apartment_views').length != 0
                             $.merge(viewtemp,item.get('apartment_views'))
-                        if item.get('facing').length != 0
+                        if item.get('facing').length != 0 && item.get('facing') != ""
                             $.merge(facingtemp,item.get('facing'))
                         if item.get('terrace') != "" && item.get('terrace') != 0
                             terracetemp.push item.get('terrace')
@@ -485,9 +485,9 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                 floorCollectionCur = new Backbone.Collection floorCollunits1
                 floorCollectionCur.each (item)->
                     if item.get('unitType') != 14 && item.get('unitType') != 16
-                        if item.get('apartment_views') != ""
+                        if item.get('apartment_views') != "" && item.get('apartment_views').length != 0
                             $.merge(viewtemp1,item.get('apartment_views'))
-                        if item.get('facing').length != 0
+                        if item.get('facing').length != 0 && item.get('facing') != ""
                             $.merge(facingtemp1,item.get('facing'))
                         if item.get('terrace') != "" && item.get('terrace') != 0
                             terracetemp1.push item.get('terrace')
@@ -525,16 +525,17 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     key  =  $.inArray(parseInt(value),viewtemp1)
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        apartment = val.get('apartment_views')
-                        apartment = apartment.map((item)->
-                            return parseInt(item)
+                        if parseInt(val.get('status')) == parseInt(status.get('id'))
+                            apartment = val.get('apartment_views')
+                            apartment = apartment.map((item)->
+                                return parseInt(item)
+                                )
+                            if $.inArray(parseInt(value),apartment) >= 0
+                                $.merge(count,val.get('apartment_views'))
+
+
+
                             )
-                        if $.inArray(parseInt(value),apartment) >= 0
-                            $.merge(count,val.get('apartment_views'))
-
-
-
-                        )
                     if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
@@ -560,16 +561,17 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     key  = $.inArray(parseInt(value),facingtemp1)
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        facing = val.get('facing')
-                        facing = facing.map((item)->
-                            return parseInt(item)
+                        if parseInt(val.get('status')) == parseInt(status.get('id'))
+                            facing = val.get('facing')
+                            facing = facing.map((item)->
+                                return parseInt(item)
+                                )
+                            if $.inArray(parseInt(value),facing) >= 0
+                                $.merge(count,val.get('facing'))
+
+
+
                             )
-                        if $.inArray(parseInt(value),facing) >= 0
-                            $.merge(count,val.get('facing'))
-
-
-
-                        )
                     if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
@@ -597,12 +599,13 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     key  = $.inArray(parseInt(value),terracetemp1) 
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        if parseInt(value) == parseInt(val.get('terrace')) 
-                            count.push(val)
+                        if parseInt(val.get('status')) == parseInt(status.get('id'))
+                            if parseInt(value) == parseInt(val.get('terrace')) 
+                                count.push(val)
 
 
 
-                        )
+                            )
                     if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
@@ -621,9 +624,10 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name'),disabled:disabled,checked:checked,classname:classname})
                     
                 )
+            console.log uniqUnitvariant
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
-                count = floorCollection.where({'unitVariant':value})
+                count = floorCollection.where({'unitVariant':value,'status':status.get('id')})
                 key  = $.inArray(value,flooruniqUnitvariant)
                 if App.defaults['unitType'] != "All"
                     unittypemodel = App.master.unit_type.findWhere({id:parseInt(App.defaults['unitType'])})
