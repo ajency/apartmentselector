@@ -11497,7 +11497,7 @@ input.checkbox[disabled] + label {
   cursor: not-allowed;
   opacity: 0.6;
 }
-.filterBox.other input.checkbox:disabled ~ label:before {
+.filterBox.sold input.checkbox:disabled ~ label:before {
   font-family: 'Glyphicons Halflings';
   content: '\e013';
   text-indent: 2px;
