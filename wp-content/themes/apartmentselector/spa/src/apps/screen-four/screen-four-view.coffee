@@ -874,8 +874,8 @@ define [ 'marionette' ], ( Marionette )->
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
-            totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
-            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance) + parseFloat(membershipfees)
+            totalcost1 =  parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
+            finalcost1 =  parseFloat(maintenance) + parseFloat(membershipfees)
 
 
             paymentColl = new Backbone.Collection PAYMENTPLANS
@@ -910,9 +910,11 @@ define [ 'marionette' ], ( Marionette )->
 
                 addon = parseFloat($('#payment').val()) - parseFloat(count)
 
-            totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
-            finalcost = parseFloat(totalcost) + parseFloat(maintenance) + parseFloat(membershipfees)
+            totalcost = parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
+            finalcost = parseFloat(maintenance) + parseFloat(membershipfees)
             $('.totalcost').text totalcost
+            finalvalue = parseFloat(totalcost) + parseFloat(finalcost) + parseFloat(agreement)
+            finalvalue1 = parseFloat(totalcost1) + parseFloat(finalcost1) + parseFloat(agreement1)
             # $('.rec').autoNumeric('init')
             # recount = $('.rec').autoNumeric('set', count)
             # reccount = recount.text()
@@ -951,7 +953,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell sales_tax1" data-a-sign="Rs. " data-d-group="2">'+sales_tax1+'</div>
                         </div>
                         <div class="costsRow totals">
-                            <div class="costCell costName">Total Cost</div>
+                            <div class="costCell costName">Total Goverment Charges</div>
                             <div class="costCell discCol '+discountClass+' totalcost" data-a-sign="Rs. " data-d-group="2">'+totalcost+'</div>
                             <div class="costCell totalcost1" data-a-sign="Rs. " data-d-group="2">'+totalcost1+'</div>
                         </div>
@@ -974,9 +976,14 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell membershipfees" data-a-sign="Rs. " data-d-group="2">'+membershipfees+'</div>
                         </div>
                         <div class="costsRow totals">
-                            <div class="costCell costName">Final Cost</div>
+                            <div class="costCell costName">Total Maintenance Cost</div>
                             <div class="costCell discCol '+discountClass+' finalcost" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</div>
                             <div class="costCell finalcost1" data-a-sign="Rs. " data-d-group="2">'+finalcost1+'</div>
+                        </div>
+                        <div class="costsRow totals">
+                            <div class="costCell costName">Final Cost</div>
+                            <div class="costCell discCol '+discountClass+' finalvalue" data-a-sign="Rs. " data-d-group="2">'+finalvalue+'</div>
+                            <div class="costCell finalvalue1" data-a-sign="Rs. " data-d-group="2">'+finalvalue1+'</div>
                         </div>
 
                         '
@@ -1021,6 +1028,10 @@ define [ 'marionette' ], ( Marionette )->
             $('.infra1').autoNumeric('set', $('#infra1' ).val());
             $('.infra').autoNumeric('init')
             $('.infra').autoNumeric('set', $('#infra' ).val());
+            $('.finalvalue1').autoNumeric('init')
+            $('.finalvalue1').autoNumeric('set', finalvalue1);
+            $('.finalvalue').autoNumeric('init')
+            $('.finalvalue').autoNumeric('set', finalvalue);
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
             #object.getMilestones(id1)
@@ -1274,8 +1285,8 @@ define [ 'marionette' ], ( Marionette )->
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
-            totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
-            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance)
+            totalcost1 = parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
+            finalcost1 = parseFloat(maintenance) + parseFloat(membershipfees)
             # $('#totalcost1').autoNumeric('init')
             # $('#finalcost1').autoNumeric('init')
             # $('#totalcost1' ).text $('#totalcost1').autoNumeric('set', totalcost1).text()
@@ -1302,12 +1313,16 @@ define [ 'marionette' ], ( Marionette )->
                     count = count + percentageValue
             addon = parseFloat($('#payment').val()) - parseFloat(count)
 
-            totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
-            finalcost = parseFloat(totalcost) + parseFloat(maintenance)
+            totalcost = parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
+            finalcost = parseFloat(maintenance) + parseFloat(membershipfees)
+            finalvalue = parseFloat(totalcost) + parseFloat(finalcost) + parseFloat(agreement)
+            
             $('.totalcost').autoNumeric('init')
             $('.finalcost').autoNumeric('init')
             $('.totalcost').autoNumeric('set', totalcost)
             $('.finalcost').autoNumeric('set', finalcost)
+            $('.finalvalue').autoNumeric('init')
+            $('.finalvalue').autoNumeric('set', finalvalue)
 
         updated1:->
             $('.infra1').autoNumeric('init')
@@ -1387,12 +1402,15 @@ define [ 'marionette' ], ( Marionette )->
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
-            totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
-            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance)
+            totalcost1 = parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
+            finalcost1 = parseFloat(maintenance) + parseFloat(membershipfees)
+            finalvalue1 = parseFloat(totalcost1) + parseFloat(finalcost1) + parseFloat(agreement1)
             $('.totalcost1').autoNumeric('init')
             $('.finalcost1').autoNumeric('init')
             $('.totalcost1').autoNumeric('set', totalcost1)
             $('.finalcost1').autoNumeric('set', finalcost1)
+            $('.finalvalue1').autoNumeric('init')
+            $('.finalvalue1').autoNumeric('set', finalvalue1)
 
 
             paymentColl = new Backbone.Collection PAYMENTPLANS
