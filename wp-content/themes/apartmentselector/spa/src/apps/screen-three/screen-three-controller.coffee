@@ -473,9 +473,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 unitscur = App.master.unit
                 unitscur.each (item)->
                     if  item.get('unitType') != 14 && item.get('unitType') != 16
-                        if item.get('apartment_views') != ""
+                        if item.get('apartment_views') != "" && item.get('apartment_views').length != 0
                             $.merge(viewtemp,item.get('apartment_views'))
-                        if item.get('facing').length != 0
+                        if item.get('facing').length != 0 && item.get('facing') != ""
                             $.merge(facingtemp,item.get('facing'))
                         if item.get('terrace') != "" && item.get('terrace') != 0
                             terracetemp.push item.get('terrace')
@@ -483,9 +483,9 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                 floorCollectionCur = unitsfilter
                 floorCollectionCur.each (item)->
                     if item.get('unitType') != 14 && item.get('unitType') != 16
-                        if item.get('apartment_views') != ""
+                        if item.get('apartment_views') != "" && item.get('apartment_views').length != 0
                             $.merge(viewtemp1,item.get('apartment_views'))
-                        if item.get('facing').length != 0
+                        if item.get('facing').length != 0 && item.get('facing') != ""
                             $.merge(facingtemp1,item.get('facing'))
                         if item.get('terrace') != "" && item.get('terrace') != 0
                             terracetemp1.push item.get('terrace')
@@ -523,16 +523,17 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     key  =  $.inArray(parseInt(value),viewtemp1)
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        apartment = val.get('apartment_views')
-                        apartment = apartment.map((item)->
-                            return parseInt(item)
+                        if parseInt(val.get('status')) == parseInt(status.get('id'))
+                            apartment = val.get('apartment_views')
+                            apartment = apartment.map((item)->
+                                return parseInt(item)
+                                )
+                            if $.inArray(parseInt(value),apartment) >= 0
+                                $.merge(count,val.get('apartment_views'))
+
+
+
                             )
-                        if $.inArray(parseInt(value),apartment) >= 0
-                            $.merge(count,val.get('apartment_views'))
-
-
-
-                        )
                     if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
@@ -560,16 +561,17 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     key  = $.inArray(parseInt(value),facingtemp1)
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        facing = val.get('facing')
-                        facing = facing.map((item)->
-                            return parseInt(item)
+                        if parseInt(val.get('status')) == parseInt(status.get('id'))
+                            facing = val.get('facing')
+                            facing = facing.map((item)->
+                                return parseInt(item)
+                                )
+                            if $.inArray(parseInt(value),facing) >= 0
+                                $.merge(count,val.get('facing'))
+
+
+
                             )
-                        if $.inArray(parseInt(value),facing) >= 0
-                            $.merge(count,val.get('facing'))
-
-
-
-                        )
                     if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
@@ -597,12 +599,13 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
                     key  = $.inArray(parseInt(value),terracetemp1) 
                     count = []
                     $.each(floorCollunits1, (ind,val)->
-                        if parseInt(value) == val.get('terrace') 
-                            count.push(val)
+                        if parseInt(val.get('status')) == parseInt(status.get('id'))
+                            if parseInt(value) == val.get('terrace') 
+                                count.push(val)
 
 
 
-                        )
+                            )
                     if count.length != 0 && key >= 0 
                         disabled = ""
                         checked = "checked"
@@ -624,7 +627,7 @@ define [ 'extm', 'src/apps/screen-three/screen-three-view' ], ( Extm, ScreenThre
 
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
-                count = units.where({'unitVariant':value})
+                count = units.where({'unitVariant':value,'status':status.get('id')})
                 key  = $.inArray(value,flooruniqUnitvariant)
                 selected = ""
                 if App.defaults['unitType'] != "All"

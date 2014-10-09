@@ -472,6 +472,7 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.generateCostSheet = function() {
       var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, ratepersqftfloorval, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, table1, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
       $('#costSheetTable').text("");
+      $('#costSheetTableprint').text("");
       costSheetArray = [];
       usermodel = new Backbone.Model(USER);
       $('.preparedby').text(usermodel.get('display_name'));

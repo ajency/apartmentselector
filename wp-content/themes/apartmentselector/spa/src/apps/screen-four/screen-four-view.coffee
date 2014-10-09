@@ -656,6 +656,7 @@ define [ 'marionette' ], ( Marionette )->
 
         generateCostSheet:->
             $('#costSheetTable' ).text ""
+            $('#costSheetTableprint' ).text ""
             costSheetArray = []
             usermodel = new Backbone.Model USER
             $('.preparedby').text usermodel.get 'display_name'
