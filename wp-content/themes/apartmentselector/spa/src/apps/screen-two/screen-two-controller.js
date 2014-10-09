@@ -467,7 +467,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       tempunitvarinat = [];
       uniqUnitvariant = [];
       floorCollection = new Backbone.Collection(floorCollunits);
-      $.each(unitslen1, function(index, value) {
+      $.each(App.master.unit.toArray(), function(index, value) {
         if (value.get('unitType') !== 14 && value.get('unitType') !== 16) {
           return tempunitvarinat.push(value);
         }
@@ -497,10 +497,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         floorCollectionmaster = App.master.unit;
         floorCollectionmaster.each(function(item) {
           if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
-            if (item.get('apartment_views') !== "") {
+            if (item.get('apartment_views') !== "" && item.get('apartment_views').length !== 0) {
               $.merge(viewtemp, item.get('apartment_views'));
             }
-            if (item.get('facing').length !== 0) {
+            if (item.get('facing').length !== 0 && item.get('facing') !== "") {
               $.merge(facingtemp, item.get('facing'));
             }
             if (item.get('terrace') !== "" && item.get('terrace') !== 0) {
@@ -511,10 +511,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
         floorCollectionCur = new Backbone.Collection(floorCollunits1);
         floorCollectionCur.each(function(item) {
           if (item.get('unitType') !== 14 && item.get('unitType') !== 16) {
-            if (item.get('apartment_views') !== "") {
+            if (item.get('apartment_views') !== "" && item.get('apartment_views').length !== 0) {
               $.merge(viewtemp1, item.get('apartment_views'));
             }
-            if (item.get('facing').length !== 0) {
+            if (item.get('facing').length !== 0 && item.get('facing') !== "") {
               $.merge(facingtemp1, item.get('facing'));
             }
             if (item.get('terrace') !== "" && item.get('terrace') !== 0) {
@@ -558,12 +558,14 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           count = [];
           $.each(floorCollunits1, function(ind, val) {
             var apartment;
-            apartment = val.get('apartment_views');
-            apartment = apartment.map(function(item) {
-              return parseInt(item);
-            });
-            if ($.inArray(parseInt(value), apartment) >= 0) {
-              return $.merge(count, val.get('apartment_views'));
+            if (parseInt(val.get('status')) === parseInt(status.get('id'))) {
+              apartment = val.get('apartment_views');
+              apartment = apartment.map(function(item) {
+                return parseInt(item);
+              });
+              if ($.inArray(parseInt(value), apartment) >= 0) {
+                return $.merge(count, val.get('apartment_views'));
+              }
             }
           });
           if (count.length !== 0 && key >= 0) {
@@ -596,12 +598,14 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           count = [];
           $.each(floorCollunits1, function(ind, val) {
             var facing;
-            facing = val.get('facing');
-            facing = facing.map(function(item) {
-              return parseInt(item);
-            });
-            if ($.inArray(parseInt(value), facing) >= 0) {
-              return $.merge(count, val.get('facing'));
+            if (parseInt(val.get('status')) === parseInt(status.get('id'))) {
+              facing = val.get('facing');
+              facing = facing.map(function(item) {
+                return parseInt(item);
+              });
+              if ($.inArray(parseInt(value), facing) >= 0) {
+                return $.merge(count, val.get('facing'));
+              }
             }
           });
           if (count.length !== 0 && key >= 0) {
@@ -633,8 +637,10 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           key = $.inArray(parseInt(value), terracetemp1);
           count = [];
           $.each(floorCollunits1, function(ind, val) {
-            if (parseInt(value) === parseInt(val.get('terrace'))) {
-              return count.push(val);
+            if (parseInt(val.get('status')) === parseInt(status.get('id'))) {
+              if (parseInt(value) === parseInt(val.get('terrace'))) {
+                return count.push(val);
+              }
             }
           });
           if (count.length !== 0 && key >= 0) {
@@ -656,13 +662,15 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           });
         });
       }
+      console.log(uniqUnitvariant);
       $.each(uniqUnitvariant, function(index, value) {
         var classname, count, filter, selected, unitVarinatModel, unittypemodel;
         unitVarinatModel = App.master.unit_variant.findWhere({
           id: value
         });
         count = floorCollection.where({
-          'unitVariant': value
+          'unitVariant': value,
+          'status': status.get('id')
         });
         key = $.inArray(value, flooruniqUnitvariant);
         if (App.defaults['unitType'] !== "All") {

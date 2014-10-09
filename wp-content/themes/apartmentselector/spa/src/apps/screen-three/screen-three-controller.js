@@ -648,6 +648,7 @@ define(['extm', 'src/apps/screen-three/screen-three-view'], function(Extm, Scree
           });
         });
       }
+      console.log(uniqUnitvariant);
       $.each(uniqUnitvariant, function(index, value) {
         var classname, count, filter, filtername, key, selected, unitVarinatModel, unittypemodel;
         unitVarinatModel = App.master.unit_variant.findWhere({
