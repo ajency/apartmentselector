@@ -16,7 +16,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"> <div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>--> <!--<div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>--> </div> <div class="step4Actions"> <div class="grid-container"> <div class="grid-block-4 addtowishlist "> <a class="grid-link remove" name="list" id="list"> <h3 class="m-t-0 m-b-0"><span class="skyicon sky-heart"></span></h3> <h4 class="m-t-0 m-b-0 ">Add to Wishlist</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link print-preview"> <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3> <h4 class="m-t-0 m-b-0">Print</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link" id="emailBtn"  data-remodal-target="emailpop"> <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3> <h4 class="m-t-0 m-b-0">Email</h4> </a> </div> <div class="grid-block-4 costsheetbutton " > <a class="grid-link" data-remodal-target="modal"> <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3> <h4 class="m-t-0 m-b-0 ">Cost Sheet</h4> </a> </div> </div> </div> </div> </div> <div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <div class="row"> <div class="col-sm-5"> <h5>Prepared for:</h5> <input type="text" id="customer_name" value="" class="form-control" placeholder="Customer Name"/> </div> <div class="col-sm-5"> <h5>Prepared by:</h5> <h4 class="preparedby"></h4> </div> <div class="col-sm-2"> <h5>Prepared on:</h5> <h4 class="preparedon"></h4> </div> </div> <!--<h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p>--> </div> <div class="paymentDetails"> <div class="row"> <div class="col-sm-6"> <h5 >Total Cost:</h5> <h4><span class="totalcost" data-a-sign="Rs. " data-d-group="2"></span></h4> </div> <div class="col-sm-6"> <h5 >Amount Receivable as on Date:</h5> <h4><span class="rec" data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> <div class="row"> <div class="col-sm-6"> <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4> </div> <div class="col-sm-6 form-inline"> <h5>Actual Payment:</h5> <input type="text" class="form-control"  id="payment" value="0"/> <span class="glyphicon glyphicon-plus discountToggle"></span> </div> </div> <div class="row"> <div class="col-sm-6 form-inline"> <h5>Payment Plan: </h5> <select id="paymentplans" class="form-control"> {{#paymentplans}} <option value="{{id}}">{{name}}</option> {{/paymentplans}} </select> </div> <div class="col-sm-6 form-inline"> <div class="discountBox"> <h5>Discount Type:</h5> <label class="checkbox-inline"> <input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Value </label> <label class="checkbox-inline"> <input type="radio" class="radioClass" name="discountradio" value="2"/> Percentage </label> <br> <h5>Discount Amount:</h5> <input type="text" id="discountvalue" value="" class="numeric form-control" /> <input type="text" id="discountper" value="" class="numeric hidden form-control" /> <br> <h5>Add On Payment: </h5><h4><span class="addonpay" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> </div> </div> </header><!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <div id="costSheetTable"> </div> <!--<table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table>--> </div> <div class="invoice-items"> <h4 class="text-primary">Payment Schedule</h4> <ul id="paymentTable"> </ul> </div><!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div> <div class="formPopup remodal" data-remodal-id="emailpop"> <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div> <div class="formFields"></div> </div>';
+    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"> <div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>--> <!--<div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>--> </div> <div class="step4Actions"> <div class="grid-container"> <div class="grid-block-4 addtowishlist "> <a class="grid-link remove" name="list" id="list"> <h3 class="m-t-0 m-b-0"><span class="skyicon sky-heart"></span></h3> <h4 class="m-t-0 m-b-0 ">Add to Wishlist</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link print-preview"> <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3> <h4 class="m-t-0 m-b-0">Print</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link" id="emailBtn"  data-remodal-target="emailpop"> <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3> <h4 class="m-t-0 m-b-0">Email</h4> </a> </div> <div class="grid-block-4 costsheetbutton " > <a class="grid-link" data-remodal-target="modal"> <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3> <h4 class="m-t-0 m-b-0 ">Cost Sheet</h4> </a> </div> </div> </div> </div> </div> <div class="remodal" data-remodal-id="modal"> <div id="invoice" class="paid"> <div class="this-is"> <h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <div class="row"> <div class="col-sm-5"> <h5>Prepared for:</h5> <input type="text" id="customer_name" value="" class="form-control" placeholder="Customer Name"/> </div> <div class="col-sm-5"> <h5>Prepared by:</h5> <h4 class="preparedby"></h4> </div> <div class="col-sm-2"> <h5>Prepared on:</h5> <h4 class="preparedon"></h4> </div> </div> <!--<h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p>--> </div> <div class="paymentDetails"> <div class="row"> <div class="col-sm-6"> <h5 >Total Cost:</h5> <h4><span class="totalcost" data-a-sign="Rs. " data-d-group="2"></span></h4> </div> <div class="col-sm-6"> <h5 >Amount Receivable as on Date:</h5> <h4><span class="rec" data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> <div class="row"> <div class="col-sm-6"> <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4> </div> <div class="col-sm-6 form-inline"> <h5>Actual Payment:</h5> <input type="text" class="form-control"  id="payment" value="0"/> <span class="glyphicon glyphicon-plus discountToggle"></span> </div> </div> <div class="row"> <div class="col-sm-6 form-inline"> <h5>Payment Plan: </h5> <select id="paymentplans" class="form-control"> {{#paymentplans}} <option value="{{id}}">{{name}}</option> {{/paymentplans}} </select> </div> <div class="col-sm-6 form-inline"> <div class="discountBox"> <h5>Discount Type:</h5> <label class="checkbox-inline"> <input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Value </label> <label class="checkbox-inline"> <input type="radio" class="radioClass" name="discountradio" value="2"/> Percentage </label> <br> <h5>Discount Amount:</h5> <input type="text" id="discountvalue" value="" class="numeric form-control" /> <input type="text" id="discountper" value="" class="numeric hidden form-control" /> <br> <h5>Add On Payment: </h5><h4><span class="addonpay" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> </div> </div> </header><!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <div id="costSheetTable"> </div> <!--<table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table>--> </div> <div class="invoice-items"> <h4 class="text-primary">Payment Schedule</h4> <ul id="paymentTable"> </ul> </div><!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div> <div class="formPopup remodal" data-remodal-id="emailpop"> <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div> <div class="formFields"></div> </div><div class="inframamout hidden" data-a-sign="Rs. " data-d-group="2"></div>';
 
     ScreenFourLayout.prototype.regions = {
       unitRegion: '#unitblock-region',
@@ -326,19 +326,29 @@ define(['marionette'], function(Marionette) {
           if (parseInt($('input[name=discountradio]:checked').val()) === 1) {
             $('#discountvalue').removeClass("hidden");
             $('#discountper').addClass("hidden");
-            return perFlag = 1;
+            $('#discountper').val("");
+            perFlag = 0;
+            return $('.revised').hide();
           } else {
             $('#discountvalue').addClass("hidden");
+            $('#discountvalue').val("");
             $('#discountper').removeClass("hidden");
-            return perFlag = 2;
+            perFlag = 0;
+            return $('.revised').hide();
           }
         });
         $('#discountvalue').on('change', function() {
           perFlag = 1;
+          if (parseInt(this.value.length) === 0) {
+            perFlag = 0;
+          }
           return object.generateCostSheet();
         });
         $('#discountper').on('change', function() {
           perFlag = 2;
+          if (parseInt(this.value.length) === 0) {
+            perFlag = 0;
+          }
           return object.generateCostSheet();
         });
         $('#payment').on('change', function() {
@@ -460,7 +470,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generateCostSheet = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, table1, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, ratepersqftfloorval, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, table1, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
       $('#costSheetTable').text("");
       costSheetArray = [];
       usermodel = new Backbone.Model(USER);
@@ -476,20 +486,22 @@ define(['marionette'], function(Marionette) {
       });
       costSheetArray.push(uniVariantModel.get('sellablearea'));
       costSheetArray.push(unitModel.get('persqftprice'));
+      revisedhidden = 'hidden';
       discount = 0;
-      if (perFlag === 1) {
-        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
-      } else if (perFlag === 2) {
-        pervalue = parseFloat($('#discountper').val()) / 100;
-        discount = parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue);
-      }
-      discount = Math.ceil(discount.toFixed(2));
       buildingModel = App.master.building.findWhere({
         id: unitModel.get('building')
       });
       floorRise = buildingModel.get('floorrise');
       floorRiseValue = floorRise[unitModel.get('floor')];
       ratePerSqFtPrice = parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue);
+      if (perFlag === 1) {
+        revisedhidden = "";
+        discount = parseFloat($('#discountvalue').val());
+      } else if (perFlag === 2) {
+        revisedhidden = "";
+        pervalue = parseFloat($('#discountper').val()) / 100;
+        discount = parseFloat(ratePerSqFtPrice) * parseFloat(pervalue);
+      }
       revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount));
       costSheetArray.push(revisedrate);
       basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
@@ -530,19 +542,22 @@ define(['marionette'], function(Marionette) {
       infratxt = '';
       for (index = _i = 0, _len = infraArray.length; _i < _len; index = ++_i) {
         element = infraArray[index];
+        $('.inframamout').autoNumeric('init');
+        $('.inframamout').autoNumeric('set', element);
         selected = "";
         if (parseInt(element) === infraid) {
           selected = "selected";
         } else {
           selected = "";
         }
-        infratxt += '<option value="' + element + '" ' + selected + '>' + element + '</option>';
+        infratxt += '<option  value="' + element + '" ' + selected + '>' + $('.inframamout').text() + '</option>';
       }
       basicCost1 = parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]);
       $('#rec').text("");
       $('.rec').text("");
-      table += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate</div> <div class="costCell">Discounted Rate</div> </div> <h5 class="headers skyiCost"><span class="cost-office"></span> Skyi Costs</h5> <div class="skyiCostDtls costDtls"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS. </div> </div> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc"><select id="infra1"></select></div> <div class="costCell"><select id="infra"></select></div> </div>';
-      table1 += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc">' + floorRiseValue + '</div> <div class="costCell">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc infra1">' + infraid + '</div> <div class="costCell infra">' + infraid + '</div> </div>';
+      ratepersqftfloorval = parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue);
+      table += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate</div> <div class="costCell">Discounted Rate</div> </div> <h5 class="headers skyiCost"><span class="cost-office"></span> Skyi Costs</h5> <div class="skyiCostDtls costDtls"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS. </div> </div> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Floorrise</div> <div class="costCell discCol showDisc floorrise" data-a-sign="Rs. " data-d-group="2">' + floorRiseValue + '</div> <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div> <div class="costCell discCol showDisc ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">' + ratepersqftfloorval + '</div> <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">' + ratepersqftfloorval + '</div> </div> <div class="costsRow revised ' + revisedhidden + ' "> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc"><select id="infra1"></select></div> <div class="costCell"><select id="infra"></select></div> </div>';
+      table1 += '<div class="costsRow totals title"> <div class="costCell costName">Cost Type</div> <div class="costCell discCol showDisc">Base Rate <span class="cost-uniE600"></span></div> <div class="costCell">Discounted Rate <span class="cost-uniE600"></span></div> </div> <h5 class="headers"><span class="cost-office"></span> Skyi Costs</h5> <div class="costsRow"> <div class="costCell costName">Chargeable Area (Sq.Ft.)</div> <div class="costCell discCol showDisc">' + costSheetArray[0] + '</div> <div class="costCell">' + costSheetArray[0] + '</div> </div> <div class="costsRow"> <div class="costCell costName" >Floorrise</div> <div class="costCell discCol showDisc floorrise" data-a-sign="Rs. " data-d-group="2">' + floorRiseValue + '</div> <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">' + floorRiseValue + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft.</div> <div class="costCell discCol showDisc ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[1] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div> <div class="costCell discCol showDisc ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">' + ratepersqftfloorval + '</div> <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">' + ratepersqftfloorval + '</div> </div> <div class="costsRow revised ' + revisedhidden + '"> <div class="costCell costName">Revised Rate</div> <div class="costCell discCol showDisc ">--</div> <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">' + costSheetArray[2] + '</div> </div> <div class="costsRow"> <div class="costCell costName">Basic Cost</div> <div class="costCell discCol showDisc basicCost1" data-a-sign="Rs. " data-d-group="2">' + basicCost1 + '</div> <div class="costCell basicCost" data-a-sign="Rs. " data-d-group="2">' + basicCost + '</div> </div> <div class="costsRow"> <div class="costCell costName">Infrastructure and Developement Charges</div> <div class="costCell discCol showDisc infra1" data-a-sign="Rs. " data-d-group="2">' + infraid + '</div> <div class="costCell infra" data-a-sign="Rs. " data-d-group="2">' + infraid + '</div> </div>';
       $('#costSheetTable').append(table);
       $('#costSheetTableprint').append(table1);
       $('#infra').append(infratxt);
@@ -556,8 +571,12 @@ define(['marionette'], function(Marionette) {
       $('.basicCost').autoNumeric('init');
       $('.basicCost').autoNumeric('set', basicCost);
       $('.addonpay').autoNumeric('init');
+      $('.floorrise').autoNumeric('init');
+      $('.floorrise').autoNumeric('set', floorRiseValue);
+      $('.ratepersqftfloor').autoNumeric('init');
+      $('.ratepersqftfloor').autoNumeric('set', ratepersqftfloorval);
       table = "";
-      agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
+      agreement1 = parseFloat(basicCost1) + parseFloat($('#infra1').val());
       agreementValue1 = agreement1;
       agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
       agreementValue = agreement;
@@ -566,7 +585,7 @@ define(['marionette'], function(Marionette) {
       vat1 = basicCost1 * (parseFloat(SettingModel.get('vat')) / 100);
       sales_tax1 = basicCost1 * (parseFloat(SettingModel.get('sales_tax')) / 100);
       totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat(reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1);
-      finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance);
+      finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance) + parseFloat(membershipfees);
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt($('#paymentplans').val()));
       milestonesArray = milestones.get('milestones');
@@ -604,9 +623,9 @@ define(['marionette'], function(Marionette) {
         addon = parseFloat($('#payment').val()) - parseFloat(count);
       }
       totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat(reg_amt) + parseFloat(vat) + parseFloat(sales_tax);
-      finalcost = parseFloat(totalcost) + parseFloat(maintenance);
+      finalcost = parseFloat(totalcost) + parseFloat(maintenance) + parseFloat(membershipfees);
       $('.totalcost').text(totalcost);
-      table += '  <div class="costsRow totals"> <div class="costCell costName">Agreement Amount</div> <div class="costCell discCol showDisc agreement1"><span  data-a-sign="Rs. " data-d-group="2">' + agreement1 + '</span></div> <div class="costCell agreement"><span  data-a-sign="Rs. " data-d-group="2">' + agreement + '</span></div> </div> <h5 class="headers govChrg"><span class="cost-library"></span> Government Charges</h5> <div class="govChrgDtls costDtls"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS. </div> </div> <div class="costsRow"> <div class="costCell costName">Stamp Duty</div> <div class="costCell discCol showDisc stamp_duty1" data-a-sign="Rs. " data-d-group="2">' + stamp_duty1 + '</div> <div class="costCell stamp_duty" data-a-sign="Rs. " data-d-group="2">' + stamp_duty + '</div> </div> <div class="costsRow"> <div class="costCell costName">Registration Amount</div> <div class="costCell discCol showDisc reg_amt1" data-a-sign="Rs. " data-d-group="2">' + reg_amt1 + '</div> <div class="costCell reg_amt" data-a-sign="Rs. " data-d-group="2">' + reg_amt + '</div> </div> <div class="costsRow"> <div class="costCell costName">VAT</div> <div class="costCell discCol showDisc vat1" data-a-sign="Rs. " data-d-group="2">' + vat1 + '</div> <div class="costCell vat" data-a-sign="Rs. " data-d-group="2">' + vat + '</div> </div> <div class="costsRow"> <div class="costCell costName">Service Tax</div> <div class="costCell discCol showDisc sales_tax1" data-a-sign="Rs. " data-d-group="2">' + sales_tax1 + '</div> <div class="costCell sales_tax" data-a-sign="Rs. " data-d-group="2">' + sales_tax + '</div> </div> <div class="costsRow totals"> <div class="costCell costName">Total Cost</div> <div class="costCell discCol showDisc totalcost1" data-a-sign="Rs. " data-d-group="2">' + totalcost1 + '</div> <div class="costCell totalcost" data-a-sign="Rs. " data-d-group="2">' + totalcost + '</div> </div> <h5 class="headers othrCost"><span class="cost-paint-format"></span> Other Costs</h5> <div class="othrCostDtls costDtls"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS. </div> </div> <div class="costsRow"> <div class="costCell costName">Maintenance Deposit</div> <div class="costCell discCol showDisc maintenance" data-a-sign="Rs. " data-d-group="2">' + maintenance + '</div> <div class="costCell maintenance" data-a-sign="Rs. " data-d-group="2">' + maintenance + '</div> </div> <div class="costsRow"> <div class="costCell costName">Club membership + Service Tax</div> <div class="costCell discCol showDisc membershipfees" data-a-sign="Rs. " data-d-group="2">' + membershipfees + '</div> <div class="costCell membershipfees" data-a-sign="Rs. " data-d-group="2">' + membershipfees + '</div> </div> <div class="costsRow totals"> <div class="costCell costName">Final Cost</div> <div class="costCell discCol showDisc"><span id="finalcost1" data-a-sign="Rs. " data-d-group="2">' + finalcost1 + '</span></div> <div class="costCell"><span id="finalcost" data-a-sign="Rs. " data-d-group="2">' + finalcost + '</span></div> </div>';
+      table += '  <div class="costsRow totals"> <div class="costCell costName">Agreement Amount</div> <div class="costCell discCol showDisc agreement1"  data-a-sign="Rs. " data-d-group="2">' + agreement1 + '</div> <div class="costCell agreement"  data-a-sign="Rs. " data-d-group="2">' + agreement + '</div> </div> <h5 class="headers govChrg"><span class="cost-library"></span> Government Charges</h5> <div class="govChrgDtls costDtls"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS. </div> </div> <div class="costsRow"> <div class="costCell costName">Stamp Duty</div> <div class="costCell discCol showDisc stamp_duty1" data-a-sign="Rs. " data-d-group="2">' + stamp_duty1 + '</div> <div class="costCell stamp_duty" data-a-sign="Rs. " data-d-group="2">' + stamp_duty + '</div> </div> <div class="costsRow"> <div class="costCell costName">Registration Amount</div> <div class="costCell discCol showDisc reg_amt1" data-a-sign="Rs. " data-d-group="2">' + reg_amt1 + '</div> <div class="costCell reg_amt" data-a-sign="Rs. " data-d-group="2">' + reg_amt + '</div> </div> <div class="costsRow"> <div class="costCell costName">VAT</div> <div class="costCell discCol showDisc vat1" data-a-sign="Rs. " data-d-group="2">' + vat1 + '</div> <div class="costCell vat" data-a-sign="Rs. " data-d-group="2">' + vat + '</div> </div> <div class="costsRow"> <div class="costCell costName">Service Tax</div> <div class="costCell discCol showDisc sales_tax1" data-a-sign="Rs. " data-d-group="2">' + sales_tax1 + '</div> <div class="costCell sales_tax" data-a-sign="Rs. " data-d-group="2">' + sales_tax + '</div> </div> <div class="costsRow totals"> <div class="costCell costName">Total Cost</div> <div class="costCell discCol showDisc totalcost1" data-a-sign="Rs. " data-d-group="2">' + totalcost1 + '</div> <div class="costCell totalcost" data-a-sign="Rs. " data-d-group="2">' + totalcost + '</div> </div> <h5 class="headers othrCost"><span class="cost-paint-format"></span> Other Costs</h5> <div class="othrCostDtls costDtls"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably ccusamus labore sustainable VHS. </div> </div> <div class="costsRow"> <div class="costCell costName">Maintenance Deposit</div> <div class="costCell discCol showDisc maintenance" data-a-sign="Rs. " data-d-group="2">' + maintenance + '</div> <div class="costCell maintenance" data-a-sign="Rs. " data-d-group="2">' + maintenance + '</div> </div> <div class="costsRow"> <div class="costCell costName">Club membership + Service Tax</div> <div class="costCell discCol showDisc membershipfees" data-a-sign="Rs. " data-d-group="2">' + membershipfees + '</div> <div class="costCell membershipfees" data-a-sign="Rs. " data-d-group="2">' + membershipfees + '</div> </div> <div class="costsRow totals"> <div class="costCell costName">Final Cost</div> <div class="costCell discCol showDisc finalcost1" data-a-sign="Rs. " data-d-group="2">' + finalcost1 + '</div> <div class="costCell finalcost" data-a-sign="Rs. " data-d-group="2">' + finalcost + '</div> </div>';
       $('#costSheetTable').append(table);
       $('#costSheetTableprint').append(table);
       $('.agreement1').autoNumeric('init');
@@ -639,12 +658,14 @@ define(['marionette'], function(Marionette) {
       $('.maintenance').autoNumeric('set', maintenance);
       $('.membershipfees').autoNumeric('init');
       $('.membershipfees').autoNumeric('set', membershipfees);
-      $('#finalcost').autoNumeric('init');
-      $('#finalcost').autoNumeric('set', finalcost);
-      $('#finalcost1').autoNumeric('init');
-      $('#finalcost1').autoNumeric('set', finalcost1);
-      $('.infra').text($('#infra').val());
-      $('.infra1').text($('#infra1').val());
+      $('.finalcost').autoNumeric('init');
+      $('.finalcost').autoNumeric('set', finalcost);
+      $('.finalcost1').autoNumeric('init');
+      $('.finalcost1').autoNumeric('set', finalcost1);
+      $('.infra1').autoNumeric('init');
+      $('.infra1').autoNumeric('set', $('#infra1').val());
+      $('.infra').autoNumeric('init');
+      $('.infra').autoNumeric('set', $('#infra').val());
       id = $('#paymentplans').val();
       object.generatePaymentSchedule(id);
       $('#infra').on('change', function() {
@@ -657,10 +678,16 @@ define(['marionette'], function(Marionette) {
       });
       $('#discountvalue').on('change', function() {
         perFlag = 1;
+        if (parseInt(this.value.length) === 0) {
+          perFlag = 0;
+        }
         return object.generateCostSheet();
       });
       $('#discountper').on('change', function() {
         perFlag = 2;
+        if (parseInt(this.value.length) === 0) {
+          perFlag = 0;
+        }
         return object.generateCostSheet();
       });
       $('#payment').on('change', function() {
@@ -682,7 +709,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generatePaymentSchedule = function(id) {
-      var addon, addonCount, addoncount, buildingModel, count, element, flag, index, milesotneVal, milestoneColl, milestoneCollection, milestoneModel, milestonecompletion, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milstoneModelName, paymentColl, percentageValue, percentageValue1, proposed_date, reccount, recount, table, trClass, unitModel, _i, _j, _len, _len1, _results;
+      var addon, buildingModel, count, element, flag, index, milesotneVal, milestoneColl, milestoneCollection, milestoneModel, milestonecompletion, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milstoneModelName, paymentColl, percentageValue, percentageValue1, proposed_date, reccount, recount, table, trClass, unitModel, _i, _j, _len, _len1, _results;
       flag = 0;
       $('#rec').text("");
       $('.rec').text("");
@@ -736,7 +763,7 @@ define(['marionette'], function(Marionette) {
         }
         if (element.sort_index <= milestonemodel.get('sort_index')) {
           trClass = "milestoneReached";
-          percentageValue = agreementValue * ((parseFloat(element.payment_percentage)) / 100);
+          percentageValue = parseFloat(agreementValue) * ((parseFloat(element.payment_percentage)) / 100);
           count = count + percentageValue;
         } else {
           trClass = "";
@@ -747,7 +774,7 @@ define(['marionette'], function(Marionette) {
         $('.percentageValue1').autoNumeric('init');
         $('.percentageValue').autoNumeric('init');
         milestoneModel = milestoneColl.get(element.milestone);
-        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2">' + percentageValue + '</div> <div class="msVal percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2">' + percentageValue1 + '</div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
+        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
       }
       $('.rec').autoNumeric('init');
       recount = $('.rec').autoNumeric('set', count);
@@ -760,16 +787,14 @@ define(['marionette'], function(Marionette) {
       $('.actpayment').autoNumeric('init');
       $('.actpayment').autoNumeric('set', $('#payment').val());
       $('.addonpay').autoNumeric('init');
-      addoncount = $('.addonpay').autoNumeric('set', addon);
-      addonCount = $('.addonpay').autoNumeric('set', addon).text();
-      $('.addonpay').text(addonCount);
+      $('.addonpay').autoNumeric('set', addon);
       $('#paymentTable').append(table);
       $('#paymentTableprint').append(table);
       _results = [];
       for (index = _j = 0, _len1 = milestonesArray.length; _j < _len1; index = ++_j) {
         element = milestonesArray[index];
-        percentageValue = agreementValue * ((parseFloat(element.payment_percentage)) / 100);
-        percentageValue1 = agreementValue1 * ((parseFloat(element.payment_percentage)) / 100);
+        percentageValue = parseFloat(agreementValue) * ((parseFloat(element.payment_percentage)) / 100);
+        percentageValue1 = parseFloat(agreementValue1) * ((parseFloat(element.payment_percentage)) / 100);
         $('.percentageValue' + index).autoNumeric('init');
         $('.percentageValue' + index).autoNumeric('set', percentageValue);
         $('.percentageValue1' + index).autoNumeric('init');
@@ -799,9 +824,11 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.updated = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
-      $('.infra').text($('#infra').val());
-      $('.infra1').text($('#infra1').val());
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
+      $('.infra1').autoNumeric('init');
+      $('.infra1').autoNumeric('set', $('#infra1').val());
+      $('.infra').autoNumeric('init');
+      $('.infra').autoNumeric('set', $('#infra').val());
       costSheetArray = [];
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
@@ -811,15 +838,22 @@ define(['marionette'], function(Marionette) {
       });
       costSheetArray.push(uniVariantModel.get('sellablearea'));
       costSheetArray.push(unitModel.get('persqftprice'));
+      buildingModel = App.master.building.findWhere({
+        id: unitModel.get('building')
+      });
+      floorRise = buildingModel.get('floorrise');
+      floorRiseValue = floorRise[unitModel.get('floor')];
       discount = 0;
+      ratePerSqFtPrice = parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue);
       if (perFlag === 1) {
-        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
+        revisedhidden = "";
+        discount = parseFloat($('#discountvalue').val());
       } else if (perFlag === 2) {
+        revisedhidden = "";
         pervalue = parseFloat($('#discountper').val()) / 100;
-        discount = parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue);
+        discount = parseFloat(ratePerSqFtPrice) * parseFloat(pervalue);
       }
-      discount = Math.ceil(discount.toFixed(2));
-      revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount));
+      revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount));
       costSheetArray.push(revisedrate);
       basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
       costSheetArray.push(basicCost);
@@ -857,9 +891,9 @@ define(['marionette'], function(Marionette) {
       }
       table = "";
       basicCost1 = costSheetArray[0] * costSheetArray[1];
-      console.log(agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val()));
+      agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val());
       agreementValue1 = agreement1;
-      console.log(agreement = parseFloat(basicCost) + parseFloat($('#infra').val()));
+      agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
       agreementValue = agreement;
       $('.agreement').autoNumeric('init');
       $('.agreement').autoNumeric('set', agreement);
@@ -897,15 +931,18 @@ define(['marionette'], function(Marionette) {
       addon = parseFloat($('#payment').val()) - parseFloat(count);
       totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat(reg_amt) + parseFloat(vat) + parseFloat(sales_tax);
       finalcost = parseFloat(totalcost) + parseFloat(maintenance);
-      $('#totalcost').autoNumeric('init');
-      $('#finalcost').autoNumeric('init');
-      $('#totalcost').text($('#totalcost').autoNumeric('set', totalcost).text());
-      return $('#finalcost').text($('#finalcost').autoNumeric('set', finalcost).text());
+      $('.totalcost').autoNumeric('init');
+      $('.finalcost').autoNumeric('init');
+      $('.totalcost').autoNumeric('set', totalcost);
+      return $('.finalcost').autoNumeric('set', finalcost);
     };
 
     ScreenFourLayout.prototype.updated1 = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, reg_amt, reg_amt1, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
-      $('.infra1').text($('#infra1').val());
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, floorRise, floorRiseValue, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, stamp_duty, stamp_duty1, table, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
+      $('.infra1').autoNumeric('init');
+      $('.infra1').autoNumeric('set', $('#infra1').val());
+      $('.infra').autoNumeric('init');
+      $('.infra').autoNumeric('set', $('#infra').val());
       costSheetArray = [];
       unitModel = App.master.unit.findWhere({
         id: parseInt(App.unit['name'])
@@ -915,15 +952,22 @@ define(['marionette'], function(Marionette) {
       });
       costSheetArray.push(uniVariantModel.get('sellablearea'));
       costSheetArray.push(unitModel.get('persqftprice'));
+      buildingModel = App.master.building.findWhere({
+        id: unitModel.get('building')
+      });
+      floorRise = buildingModel.get('floorrise');
+      floorRiseValue = floorRise[unitModel.get('floor')];
       discount = 0;
+      ratePerSqFtPrice = parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue);
       if (perFlag === 1) {
-        discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val())) / parseFloat(uniVariantModel.get('sellablearea'));
+        revisedhidden = "";
+        discount = parseFloat($('#discountvalue').val());
       } else if (perFlag === 2) {
+        revisedhidden = "";
         pervalue = parseFloat($('#discountper').val()) / 100;
-        discount = parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue);
+        discount = parseFloat(ratePerSqFtPrice) * parseFloat(pervalue);
       }
-      discount = Math.ceil(discount.toFixed(2));
-      revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount));
+      revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount));
       costSheetArray.push(revisedrate);
       basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate);
       costSheetArray.push(basicCost);
@@ -973,10 +1017,10 @@ define(['marionette'], function(Marionette) {
       sales_tax1 = basicCost1 * (parseFloat(SettingModel.get('sales_tax')) / 100);
       totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat(reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1);
       finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance);
-      $('#totalcost1').autoNumeric('init');
-      $('#finalcost1').autoNumeric('init');
-      $('#totalcost1').text($('#totalcost1').autoNumeric('set', totalcost1).text());
-      $('#finalcost1').text($('#finalcost1').autoNumeric('set', finalcost1).text());
+      $('.totalcost1').autoNumeric('init');
+      $('.finalcost1').autoNumeric('init');
+      $('.totalcost1').autoNumeric('set', totalcost1);
+      $('.finalcost1').autoNumeric('set', finalcost1);
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt($('#paymentplans').val()));
       milestonesArray = milestones.get('milestones');

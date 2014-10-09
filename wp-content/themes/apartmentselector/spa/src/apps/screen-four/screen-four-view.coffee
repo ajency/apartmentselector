@@ -171,7 +171,7 @@ define [ 'marionette' ], ( Marionette )->
                     <div class="formPopup remodal" data-remodal-id="emailpop">
                         <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div>
                         <div class="formFields"></div>                        
-                    </div>'
+                    </div><div class="inframamout hidden" data-a-sign="Rs. " data-d-group="2"></div>'
 
 
 
@@ -512,21 +512,31 @@ define [ 'marionette' ], ( Marionette )->
                     if parseInt($('input[name=discountradio]:checked').val()) == 1
                         $('#discountvalue').removeClass "hidden"
                         $('#discountper').addClass "hidden"
-                        perFlag = 1
+                        $('#discountper').val ""
+                        perFlag = 0
+                        $('.revised').hide()
                     else
                         $('#discountvalue').addClass "hidden"
+                        $('#discountvalue').val ""
                         $('#discountper').removeClass "hidden"
-                        perFlag = 2
+                        perFlag = 0
+                        $('.revised').hide()
 
                 )
                 $('#discountvalue').on('change' , ()->
                     perFlag = 1
+                    
+                    if parseInt(this.value.length) == 0
+                         perFlag = 0
                     object.generateCostSheet()
 
 
                 )
                 $('#discountper').on('change' , ()->
                     perFlag = 2
+                    
+                    if parseInt(this.value.length) == 0
+                         perFlag = 0
                     object.generateCostSheet()
 
 
@@ -657,18 +667,23 @@ define [ 'marionette' ], ( Marionette )->
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
             costSheetArray.push(unitModel.get('persqftprice'))
+            revisedhidden = 'hidden'
             discount = 0
-            if perFlag== 1
-                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
-            else if perFlag == 2
-                pervalue = parseFloat($('#discountper').val())/100
-                discount = (parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue))
-            discount = Math.ceil(discount.toFixed(2));
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             floorRise = buildingModel.get 'floorrise'
             floorRiseValue = floorRise[unitModel.get 'floor']
             
             ratePerSqFtPrice = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
+            if perFlag== 1
+                revisedhidden = ""
+                discount = parseFloat($('#discountvalue').val())
+                # discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+            else if perFlag == 2
+                revisedhidden = ""
+                pervalue = parseFloat($('#discountper').val())/100
+                discount = (parseFloat(ratePerSqFtPrice) * parseFloat(pervalue))
+            # discount = Math.ceil(discount.toFixed(2));
+            
             
             revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
@@ -704,14 +719,16 @@ define [ 'marionette' ], ( Marionette )->
             else
                 membershipfees = unitTypeMemeber.get('membership_fees')
             infratxt = ''
-
+            
             for element,index in infraArray
+                $('.inframamout').autoNumeric('init');
+                $('.inframamout').autoNumeric('set', element);
                 selected = ""
                 if parseInt(element) == infraid
                     selected = "selected"
                 else
                     selected = ""
-                infratxt += '<option value="'+element+'" '+selected+'>'+element+'</option>'
+                infratxt += '<option  value="'+element+'" '+selected+'>'+$('.inframamout').text()+'</option>'
             
 
             basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]))
@@ -719,7 +736,7 @@ define [ 'marionette' ], ( Marionette )->
             $('.rec' ).text ""
 
 
-
+            ratepersqftfloorval = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
@@ -741,8 +758,8 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Floorrise</div>
-                            <div class="costCell discCol showDisc">'+floorRiseValue+'</div>
-                            <div class="costCell">'+floorRiseValue+'</div>
+                            <div class="costCell discCol showDisc floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
+                            <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft.</div>
@@ -750,6 +767,11 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
+                            <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
+                            <div class="costCell discCol showDisc ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                            <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                        </div>
+                        <div class="costsRow revised '+revisedhidden+' ">
                             <div class="costCell costName">Revised Rate</div>
                             <div class="costCell discCol showDisc ">--</div>
                             <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
@@ -780,9 +802,9 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Floorrise</div>
-                            <div class="costCell discCol showDisc">'+floorRiseValue+'</div>
-                            <div class="costCell">'+floorRiseValue+'</div>
+                            <div class="costCell costName" >Floorrise</div>
+                            <div class="costCell discCol showDisc floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
+                            <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft.</div>
@@ -790,6 +812,11 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
+                            <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
+                            <div class="costCell discCol showDisc ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                            <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                        </div>
+                        <div class="costsRow revised '+revisedhidden+'">
                             <div class="costCell costName">Revised Rate</div>
                             <div class="costCell discCol showDisc ">--</div>
                             <div class="costCell revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
@@ -801,8 +828,8 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Infrastructure and Developement Charges</div>
-                            <div class="costCell discCol showDisc infra1">'+infraid+'</div>
-                            <div class="costCell infra">'+infraid+'</div>
+                            <div class="costCell discCol showDisc infra1" data-a-sign="Rs. " data-d-group="2">'+infraid+'</div>
+                            <div class="costCell infra" data-a-sign="Rs. " data-d-group="2">'+infraid+'</div>
                         </div>'
                         
             $('#costSheetTable' ).append table
@@ -818,10 +845,15 @@ define [ 'marionette' ], ( Marionette )->
             $('.basicCost').autoNumeric('init')
             $('.basicCost').autoNumeric('set', basicCost);
             $('.addonpay').autoNumeric('init')
+            
+            $('.floorrise').autoNumeric('init')
+            $('.floorrise').autoNumeric('set', floorRiseValue);
+            $('.ratepersqftfloor').autoNumeric('init')
+            $('.ratepersqftfloor').autoNumeric('set', ratepersqftfloorval);
 
 
             table = ""
-            agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
+            agreement1 = parseFloat(basicCost1) + parseFloat($('#infra1').val())
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
@@ -830,7 +862,7 @@ define [ 'marionette' ], ( Marionette )->
             vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
             totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
-            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance)
+            finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance) + parseFloat(membershipfees)
 
 
             paymentColl = new Backbone.Collection PAYMENTPLANS
@@ -866,7 +898,7 @@ define [ 'marionette' ], ( Marionette )->
                 addon = parseFloat($('#payment').val()) - parseFloat(count)
 
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
-            finalcost = parseFloat(totalcost) + parseFloat(maintenance)
+            finalcost = parseFloat(totalcost) + parseFloat(maintenance) + parseFloat(membershipfees)
             $('.totalcost').text totalcost
             # $('.rec').autoNumeric('init')
             # recount = $('.rec').autoNumeric('set', count)
@@ -874,8 +906,8 @@ define [ 'marionette' ], ( Marionette )->
             # $('.rec').text reccount
             table += '  <div class="costsRow totals">
                             <div class="costCell costName">Agreement Amount</div>
-                            <div class="costCell discCol showDisc agreement1"><span  data-a-sign="Rs. " data-d-group="2">'+agreement1+'</span></div>
-                            <div class="costCell agreement"><span  data-a-sign="Rs. " data-d-group="2">'+agreement+'</span></div>
+                            <div class="costCell discCol showDisc agreement1"  data-a-sign="Rs. " data-d-group="2">'+agreement1+'</div>
+                            <div class="costCell agreement"  data-a-sign="Rs. " data-d-group="2">'+agreement+'</div>
                         </div>
 
                         <h5 class="headers govChrg"><span class="cost-library"></span> Government Charges</h5>
@@ -930,8 +962,8 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow totals">
                             <div class="costCell costName">Final Cost</div>
-                            <div class="costCell discCol showDisc"><span id="finalcost1" data-a-sign="Rs. " data-d-group="2">'+finalcost1+'</span></div>
-                            <div class="costCell"><span id="finalcost" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</span></div>
+                            <div class="costCell discCol showDisc finalcost1" data-a-sign="Rs. " data-d-group="2">'+finalcost1+'</div>
+                            <div class="costCell finalcost" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</div>
                         </div>
 
                         '
@@ -968,12 +1000,14 @@ define [ 'marionette' ], ( Marionette )->
             $('.maintenance').autoNumeric('set', maintenance);
             $('.membershipfees').autoNumeric('init')
             $('.membershipfees').autoNumeric('set', membershipfees);
-            $('#finalcost').autoNumeric('init')
-            $('#finalcost').autoNumeric('set', finalcost);
-            $('#finalcost1').autoNumeric('init')
-            $('#finalcost1').autoNumeric('set', finalcost1);
-            $('.infra').text $('#infra' ).val()
-            $('.infra1').text $('#infra1' ).val()
+            $('.finalcost').autoNumeric('init')
+            $('.finalcost').autoNumeric('set', finalcost);
+            $('.finalcost1').autoNumeric('init')
+            $('.finalcost1').autoNumeric('set', finalcost1);
+            $('.infra1').autoNumeric('init')
+            $('.infra1').autoNumeric('set', $('#infra1' ).val());
+            $('.infra').autoNumeric('init')
+            $('.infra').autoNumeric('set', $('#infra' ).val());
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
             #object.getMilestones(id1)
@@ -990,14 +1024,20 @@ define [ 'marionette' ], ( Marionette )->
 
             )
             $('#discountvalue').on('change' , ()->
-                perFlag = 1
-                object.generateCostSheet()
+                    perFlag = 1
+                    
+                    if parseInt(this.value.length) == 0
+                         perFlag = 0
+                    object.generateCostSheet()
 
 
             )
             $('#discountper').on('change' , ()->
-                perFlag = 2
-                object.generateCostSheet()
+                    perFlag = 2
+                    
+                    if parseInt(this.value.length) == 0
+                         perFlag = 0
+                    object.generateCostSheet()
 
 
             )
@@ -1030,6 +1070,7 @@ define [ 'marionette' ], ( Marionette )->
             flag = 0
             $('#rec' ).text ""
             $('.rec' ).text ""
+            
             #get_apratment_selector_settings()
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
@@ -1075,7 +1116,7 @@ define [ 'marionette' ], ( Marionette )->
                     proposed_date = ''
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
-                    percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
+                    percentageValue = (parseFloat(agreementValue) * ((parseFloat(element.payment_percentage))/100))
                     count = count + percentageValue
                 else
                     trClass = ""
@@ -1084,17 +1125,19 @@ define [ 'marionette' ], ( Marionette )->
                 $('.percentageValue1').autoNumeric('init')
                 $('.percentageValue').autoNumeric('init')
                 milestoneModel = milestoneColl.get(element.milestone)
+                
                 table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
                             <li class="milestoneList '+trClass+'">
                                 <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
-                                <div class="msVal percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2">'+percentageValue+'</div>
-                                <div class="msVal percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2">'+percentageValue1+'</div>
+                                <div class="msVal percentageValue1'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
+                                <div class="msVal percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
                                 <span class="barBg" style="width:'+element.payment_percentage+'%"></span>
                             </li>
                             <div class="clearfix"></div>
                             '
 
             $('.rec').autoNumeric('init')
+            
             recount = $('.rec').autoNumeric('set', count)
             reccount = recount.text()
             # $('#rec' ).text reccount
@@ -1107,15 +1150,15 @@ define [ 'marionette' ], ( Marionette )->
             $('.actpayment').autoNumeric('init')
             $('.actpayment').autoNumeric('set', $('#payment' ).val())
             $('.addonpay').autoNumeric('init')
-            addoncount = $('.addonpay').autoNumeric('set', addon)
-            addonCount = $('.addonpay').autoNumeric('set', addon).text()
-            $('.addonpay' ).text addonCount
+            $('.addonpay').autoNumeric('set', addon)
+            
+            
 
             $('#paymentTable' ).append table
             $('#paymentTableprint' ).append table
             for element,index in milestonesArray
-                percentageValue = (agreementValue * ((parseFloat(element.payment_percentage))/100))
-                percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
+                percentageValue = (parseFloat(agreementValue) * ((parseFloat(element.payment_percentage))/100))
+                percentageValue1 = (parseFloat(agreementValue1) * ((parseFloat(element.payment_percentage))/100))
                 $('.percentageValue'+index).autoNumeric('init')
                 $('.percentageValue'+index).autoNumeric('set', percentageValue)
                 $('.percentageValue1'+index).autoNumeric('init')
@@ -1141,22 +1184,32 @@ define [ 'marionette' ], ( Marionette )->
             $('#milestones' ).append milesstones
 
         updated:->
-            $('.infra').text $('#infra' ).val()
-            $('.infra1').text $('#infra1' ).val()
+            $('.infra1').autoNumeric('init')
+            $('.infra1').autoNumeric('set', $('#infra1' ).val());
+            $('.infra').autoNumeric('init')
+            $('.infra').autoNumeric('set', $('#infra' ).val());
             costSheetArray = []
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
             costSheetArray.push(unitModel.get('persqftprice'))
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            floorRise = buildingModel.get 'floorrise'
+            floorRiseValue = floorRise[unitModel.get 'floor']
             discount = 0
+            ratePerSqFtPrice = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
             if perFlag== 1
-                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+                revisedhidden = ""
+                discount = parseFloat($('#discountvalue').val())
+                # discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
+                revisedhidden = ""
                 pervalue = parseFloat($('#discountper').val())/100
-                discount = (parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue))
-            discount = Math.ceil(discount.toFixed(2));
-
-            revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount))
+                discount = (parseFloat(ratePerSqFtPrice) * parseFloat(pervalue))
+            # discount = Math.ceil(discount.toFixed(2));
+            
+            
+            revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
             basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)
@@ -1196,9 +1249,9 @@ define [ 'marionette' ], ( Marionette )->
 
             table = ""
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
-            console.log agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
+            agreement1 = parseFloat(basicCost1) + parseFloat($('#infra').val())
             agreementValue1 = agreement1
-            console.log agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
+            agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
             $('.agreement').autoNumeric('init')
             # $('.agreement1').autoNumeric('init')
@@ -1238,27 +1291,38 @@ define [ 'marionette' ], ( Marionette )->
 
             totalcost = parseFloat(agreement) + parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
             finalcost = parseFloat(totalcost) + parseFloat(maintenance)
-            $('#totalcost').autoNumeric('init')
-            $('#finalcost').autoNumeric('init')
-            $('#totalcost' ).text $('#totalcost').autoNumeric('set', totalcost).text()
-            $('#finalcost' ).text $('#finalcost').autoNumeric('set', finalcost).text()
+            $('.totalcost').autoNumeric('init')
+            $('.finalcost').autoNumeric('init')
+            $('.totalcost').autoNumeric('set', totalcost)
+            $('.finalcost').autoNumeric('set', finalcost)
 
         updated1:->
-            $('.infra1').text $('#infra1' ).val()
+            $('.infra1').autoNumeric('init')
+            $('.infra1').autoNumeric('set', $('#infra1' ).val());
+            $('.infra').autoNumeric('init')
+            $('.infra').autoNumeric('set', $('#infra' ).val());
             costSheetArray = []
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
             costSheetArray.push(uniVariantModel.get('sellablearea'))
             costSheetArray.push(unitModel.get('persqftprice'))
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            floorRise = buildingModel.get 'floorrise'
+            floorRiseValue = floorRise[unitModel.get 'floor']
             discount = 0
+            ratePerSqFtPrice = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
             if perFlag== 1
-                discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
+                revisedhidden = ""
+                discount = parseFloat($('#discountvalue').val())
+                # discount = ((parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(unitModel.get('persqftprice'))) - parseFloat($('#discountvalue').val()))/parseFloat(uniVariantModel.get('sellablearea'))
             else if perFlag == 2
+                revisedhidden = ""
                 pervalue = parseFloat($('#discountper').val())/100
-                discount = (parseFloat(unitModel.get('persqftprice')) * parseFloat(pervalue))
-            discount = Math.ceil(discount.toFixed(2));
-
-            revisedrate = parseFloat(unitModel.get('persqftprice')) - (parseFloat(discount))
+                discount = (parseFloat(ratePerSqFtPrice) * parseFloat(pervalue))
+            # discount = Math.ceil(discount.toFixed(2));
+            
+            
+            revisedrate = parseFloat(ratePerSqFtPrice) - (parseFloat(discount))
             costSheetArray.push(revisedrate)
             basicCost = parseFloat(uniVariantModel.get('sellablearea')) * parseFloat(revisedrate)
             costSheetArray.push(basicCost)
@@ -1312,10 +1376,10 @@ define [ 'marionette' ], ( Marionette )->
             sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
             totalcost1 = parseFloat(agreement1) + parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
             finalcost1 = parseFloat(totalcost1) + parseFloat(maintenance)
-            $('#totalcost1').autoNumeric('init')
-            $('#finalcost1').autoNumeric('init')
-            $('#totalcost1' ).text $('#totalcost1').autoNumeric('set', totalcost1).text()
-            $('#finalcost1' ).text $('#finalcost1').autoNumeric('set', finalcost1).text()
+            $('.totalcost1').autoNumeric('init')
+            $('.finalcost1').autoNumeric('init')
+            $('.totalcost1').autoNumeric('set', totalcost1)
+            $('.finalcost1').autoNumeric('set', finalcost1)
 
 
             paymentColl = new Backbone.Collection PAYMENTPLANS
