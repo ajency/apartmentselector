@@ -296,9 +296,7 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
       unitslen = App.currentStore.unit.where({
         'status': status.get('id')
       });
-      unitslen1 = App.master.unit.where({
-        'status': status.get('id')
-      });
+      unitslen1 = App.master.unit.toArray();
       $.each(unitslen1, function(index, value1) {
         var floorArray, floorstring;
         if (App.defaults['floor'] !== 'All') {
