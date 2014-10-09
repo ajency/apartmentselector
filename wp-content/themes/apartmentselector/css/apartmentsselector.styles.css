@@ -11549,16 +11549,18 @@ input.checkbox[disabled] + label {
   display: inline-block;
   width: 24%;
   text-align: right;
+  float: right;
 }
 .costsRow .costCell.discCol {
-  visibility: hidden;
+  display: none;
 }
 .costsRow .costCell.discCol.showDisc {
-  visibility: visible;
+  display: block;
 }
 .costsRow .costName {
   width: 48%;
   text-align: left;
+  float: left;
 }
 .costsRow.totals {
   font-family: 'kievit';
@@ -11589,6 +11591,14 @@ input.checkbox[disabled] + label {
   background-color: #ff6600;
   color: #ffffff;
   margin-bottom: 15px;
+}
+.costsRow:before,
+.costsRow:after {
+  display: table;
+  content: "";
+}
+.costsRow:after {
+  clear: both;
 }
 #paymentTable {
   list-style-type: none;

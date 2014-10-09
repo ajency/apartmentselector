@@ -60,16 +60,18 @@
 		display: inline-block;
 		width: 24%;
 		text-align: right;
+		float: right;
 		&.discCol{
-			visibility: hidden;
+			display: none;
 			&.showDisc{
-				visibility: visible;
+				display: block;
 			}
 		}
 	}
 	.costName{
 		width: 48%;
 		text-align: left;
+		float: left;
 	}
 	&.totals{
 		.h4;
@@ -89,6 +91,13 @@
 	}
 	&:nth-child(2n){
 		// background-color: @gray-lighter;
+	}
+	&:before, &:after{
+		display: table;
+		content: "";
+	}
+	&:after{
+		clear: both;
 	}
 }
 
