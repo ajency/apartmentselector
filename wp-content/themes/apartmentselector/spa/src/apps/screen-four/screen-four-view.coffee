@@ -184,7 +184,15 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
             'click .costsheetbutton':(e)->
-                $('.costsheetclass').bPopup()
+                $('.costsheetclass').bPopup onClose: ->
+                    $('body').css
+                            overflowY: 'auto'
+                            height: 'auto'
+                    return
+
+                $('body').css
+                    overflowY: 'hidden'
+                    height: '100%'
 
             # 'click .print-preview':(e)->
             #     @loadPrint()

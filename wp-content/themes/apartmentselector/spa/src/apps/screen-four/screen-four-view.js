@@ -26,7 +26,18 @@ define(['marionette'], function(Marionette) {
     ScreenFourLayout.prototype.events = function() {
       return {
         'click .costsheetbutton': function(e) {
-          return $('.costsheetclass').bPopup();
+          $('.costsheetclass').bPopup({
+            onClose: function() {
+              $('body').css({
+                overflowY: 'auto',
+                height: 'auto'
+              });
+            }
+          });
+          return $('body').css({
+            overflowY: 'hidden',
+            height: '100%'
+          });
         },
         'click #emailBtn': function(e) {
           var building, unit;
