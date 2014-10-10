@@ -792,14 +792,14 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
-                            <div class="costCell discCol '+discountClass+' ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                            <div class="costCell discCol '+discountClass+' ratepersqftfloor1" data-a-sign="Rs. " data-d-group="2">'+revisedrate+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
-                        <div class="costsRow revised '+revisedhidden+' ">
+                        <!--<div class="costsRow revised '+revisedhidden+' ">
                             <div class="costCell costName">Revised Rate</div>
                             <div class="costCell discCol '+discountClass+' revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
                             <div class="costCell ">--</div>
-                        </div>
+                        </div>-->
                         <div class="costsRow">
                             <div class="costCell costName">Basic Cost</div>
                             <div class="costCell discCol '+discountClass+' basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
@@ -837,14 +837,14 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
                         <div class="costsRow">
                             <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
-                            <div class="costCell discCol '+discountClass+' ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
+                            <div class="costCell discCol '+discountClass+' ratepersqftfloor1" data-a-sign="Rs. " data-d-group="2">'+revisedrate+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
-                        <div class="costsRow revised '+revisedhidden+'">
+                        <!--<div class="costsRow revised '+revisedhidden+'">
                             <div class="costCell costName">Revised Rate</div>
                             <div class="costCell discCol '+discountClass+' revisedrate" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[2]+'</div>
                             <div class="costCell ">--</div>
-                        </div>
+                        </div>-->
                         <div class="costsRow">
                             <div class="costCell costName">Basic Cost</div>
                             <div class="costCell discCol '+discountClass+' basicCost" data-a-sign="Rs. " data-d-group="2">'+basicCost+'</div>
@@ -874,6 +874,8 @@ define [ 'marionette' ], ( Marionette )->
             $('.floorrise').autoNumeric('set', floorRiseValue);
             $('.ratepersqftfloor').autoNumeric('init')
             $('.ratepersqftfloor').autoNumeric('set', ratepersqftfloorval);
+            $('.ratepersqftfloor1').autoNumeric('init')
+            $('.ratepersqftfloor1').autoNumeric('set', revisedrate);
 
 
             table = ""
