@@ -186,8 +186,8 @@ define [ 'marionette' ], ( Marionette )->
         events:->
             'click .costsheetbutton':(e)->
                 $('.costsheetclass').bPopup onClose: ->
-                    $('.costsheetclass').empty()
-                    $('.costsheetclass').addClass 'hidden'   
+                    # $('.costsheetclass').empty()
+                    # $('.costsheetclass').addClass 'hidden'   
                     $('body').css
                             overflowY: 'auto'
                             height: 'auto'
@@ -795,7 +795,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
+                            <div class="costCell costName">Rate per Sq.Ft. with Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' ratepersqftfloor1" data-a-sign="Rs. " data-d-group="2">'+revisedrate+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
@@ -840,7 +840,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
+                            <div class="costCell costName">Rate per Sq.Ft. with Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' ratepersqftfloor1" data-a-sign="Rs. " data-d-group="2">'+revisedrate+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
