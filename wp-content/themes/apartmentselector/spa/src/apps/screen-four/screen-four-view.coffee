@@ -785,7 +785,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Floorrise</div>
+                            <div class="costCell costName">Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                             <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
@@ -830,7 +830,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName" >Floorrise</div>
+                            <div class="costCell costName" >Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                             <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
@@ -1182,7 +1182,12 @@ define [ 'marionette' ], ( Marionette )->
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
                     percentageValue = (parseFloat(agreementValue) * ((parseFloat(element.payment_percentage))/100))
-                    count = count + percentageValue
+                    percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
+                    if discountClass == "" 
+                        amtalue = percentageValue1
+                    else
+                        amtalue = percentageValue
+                    count = count + amtalue
                 else
                     trClass = ""
                 if flag == 1
@@ -1203,6 +1208,7 @@ define [ 'marionette' ], ( Marionette )->
 
             $('.rec').autoNumeric('init')
             
+
             recount = $('.rec').autoNumeric('set', count)
             reccount = recount.text()
             # $('#rec' ).text reccount
