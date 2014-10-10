@@ -44,7 +44,8 @@ jQuery(document).ready(function($) {
 
 
             data  = {   "vat":$("#vat").val(),
-                        "sales_tax":$("#sales_tax").val(),
+                        "service_tax":$("#service_tax").val(),
+                        "service_tax_agval_ab1":$("#service_tax_agval_ab1").val(),
                         "stamp_duty":$("#stamp_duty").val(),
                         "registration_amount":$("#registration_amount").val(),
                         "infrastructure_charges":infrastructure_charges,

@@ -29,7 +29,7 @@ define [ 'marionette'], ( Marionette )->
             .insideRegion  App.headerRegion
                 .withOptions()
 
-             
+            
             App.backFilter['screen2'] = []
             App.backFilter['screen3'] = []
             App.layout.screenThreeRegion.el.innerHTML = ""

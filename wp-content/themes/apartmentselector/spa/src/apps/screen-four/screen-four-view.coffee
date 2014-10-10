@@ -193,15 +193,18 @@ define [ 'marionette' ], ( Marionette )->
                                 height: 'auto'
                         return
 
+
                 $('body').css
                     overflowY: 'hidden'
                     height: '100%'
 
             # 'click .print-preview':(e)->
             #     @loadPrint()
+
+
             'click #emailBtn':(e)->
                 e.preventDefault()
-                
+
                 
                 $('.formIntro').html ""
                 unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
@@ -501,7 +504,9 @@ define [ 'marionette' ], ( Marionette )->
         onShow:->
             #@trigger "get:perSqft:price"
 
-             
+
+
+
             $(".discountToggle").click ->
                 $(".discountBox").slideToggle()
                 return
@@ -730,10 +735,7 @@ define [ 'marionette' ], ( Marionette )->
             $('.paymentplan').text milestones.get('name')
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
             SettingModel = new Backbone.Model SETTINGS
-            stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt = parseFloat(SettingModel.get('registration_amount'))
-            vat = (basicCost * (parseFloat(SettingModel.get('vat'))/100))
-            sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
+            
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             membership_feesColl = new Backbone.Collection membership_fees
@@ -758,12 +760,13 @@ define [ 'marionette' ], ( Marionette )->
                 infratxt += '<option  value="'+element+'" '+selected+'>'+$('.inframamout').text()+'</option>'
             
 
-            basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]))
+            
             $('#rec' ).text ""
             $('.rec' ).text ""
 
 
             ratepersqftfloorval = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
+            basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(ratepersqftfloorval))
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
@@ -779,12 +782,12 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="costsRow">
-                            <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
+                            <div class="costCell costName">Total Area (Sq.Ft.)</div>
                             <div class="costCell discCol '+discountClass+'">'+costSheetArray[0]+'</div>
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Floorrise</div>
+                            <div class="costCell costName">Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                             <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
@@ -794,7 +797,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
+                            <div class="costCell costName">Rate per Sq.Ft. with Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' ratepersqftfloor1" data-a-sign="Rs. " data-d-group="2">'+revisedrate+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
@@ -829,7 +832,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName" >Floorrise</div>
+                            <div class="costCell costName" >Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                             <div class="costCell floorrise" data-a-sign="Rs. " data-d-group="2">'+floorRiseValue+'</div>
                         </div>
@@ -839,7 +842,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell ratepersqft" data-a-sign="Rs. " data-d-group="2">'+costSheetArray[1]+'</div>
                         </div>
                         <div class="costsRow">
-                            <div class="costCell costName">Rate per Sq.Ft. with Floorrise</div>
+                            <div class="costCell costName">Rate per Sq.Ft. with Floor Rise</div>
                             <div class="costCell discCol '+discountClass+' ratepersqftfloor1" data-a-sign="Rs. " data-d-group="2">'+revisedrate+'</div>
                             <div class="costCell ratepersqftfloor" data-a-sign="Rs. " data-d-group="2">'+ratepersqftfloorval+'</div>
                         </div>
@@ -886,10 +889,25 @@ define [ 'marionette' ], ( Marionette )->
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
-            stamp_duty1 = (basicCost1 * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
+            if parseFloat(agreement) > 10000000.00
+                servicetax = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax = SettingModel.get('service_tax')
+
+            if parseFloat(agreement1) > 10000000.00
+                servicetax1 = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax1 = SettingModel.get('service_tax')
+            stamp_duty = (parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty = (Math.round(stamp_duty*100)/100 ) + 100 
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
+            vat = (parseFloat(agreement) * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax = (parseFloat(agreement) * (parseFloat(servicetax)/100))
+            stamp_duty1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty1 = (Math.round(stamp_duty1*100)/100 ) + 100 
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
-            vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
-            sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
+            vat1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax1 = (parseFloat(agreement1) * (parseFloat(servicetax1)/100))
             totalcost1 =  parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
             finalcost1 =  parseFloat(maintenance) + parseFloat(membershipfees)
 
@@ -1166,7 +1184,12 @@ define [ 'marionette' ], ( Marionette )->
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
                     percentageValue = (parseFloat(agreementValue) * ((parseFloat(element.payment_percentage))/100))
-                    count = count + percentageValue
+                    percentageValue1 = (agreementValue1 * ((parseFloat(element.payment_percentage))/100))
+                    if discountClass == "" 
+                        amtalue = percentageValue1
+                    else
+                        amtalue = percentageValue
+                    count = count + amtalue
                 else
                     trClass = ""
                 if flag == 1
@@ -1187,6 +1210,7 @@ define [ 'marionette' ], ( Marionette )->
 
             $('.rec').autoNumeric('init')
             
+
             recount = $('.rec').autoNumeric('set', count)
             reccount = recount.text()
             # $('#rec' ).text reccount
