@@ -197,16 +197,18 @@ define [ 'marionette' ], ( Marionette )->
 
             # 'click .print-preview':(e)->
             #     @loadPrint()
+
+
             'click #emailBtn':(e)->
                 e.preventDefault()
-                
+
                 
                 $('.formIntro').html ""
                 unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
                 building = App.master.building.findWhere({id:parseInt(unit.get('building'))})
                 $(".formFields").html(EMAILFORM)
                 $('.formIntro').html  'I\'m interested in <br>Flat <span id="emailflatno">'+unit.get('name')+'</span> in <span id="emailtower">'+building.get('name')+'</span></div>'
-                $(".formPopup").bPopup()
+                $('.formPopup').bPopup()
                 # inst = $.remodal.lookup[$("[data-remodal-id=emailpop]").data("remodal")]
                 # inst.open()
                 $('#field_emailunit').val unit.get('name')
@@ -498,7 +500,7 @@ define [ 'marionette' ], ( Marionette )->
         onShow:->
             #@trigger "get:perSqft:price"
 
-             
+
             $(".discountToggle").click ->
                 $(".discountBox").slideToggle()
                 return
@@ -727,10 +729,7 @@ define [ 'marionette' ], ( Marionette )->
             $('.paymentplan').text milestones.get('name')
             maintenance = parseFloat(uniVariantModel.get('sellablearea')) * 100
             SettingModel = new Backbone.Model SETTINGS
-            stamp_duty = (basicCost * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt = parseFloat(SettingModel.get('registration_amount'))
-            vat = (basicCost * (parseFloat(SettingModel.get('vat'))/100))
-            sales_tax = (basicCost * (parseFloat(SettingModel.get('sales_tax'))/100))
+            
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             membership_feesColl = new Backbone.Collection membership_fees
@@ -883,10 +882,16 @@ define [ 'marionette' ], ( Marionette )->
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
-            stamp_duty1 = (basicCost1 * (parseFloat(SettingModel.get('stamp_duty'))/100)) + 110
+            stamp_duty = (parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty = (Math.round(stamp_duty*100)/100 ) + 100 
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
+            vat = (parseFloat(agreement) * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax = (parseFloat(agreement) * (parseFloat(SettingModel.get('sales_tax'))/100))
+            stamp_duty1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty1 = (Math.round(stamp_duty1*100)/100 ) + 100 
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
-            vat1 = (basicCost1 * (parseFloat(SettingModel.get('vat'))/100))
-            sales_tax1 = (basicCost1 * (parseFloat(SettingModel.get('sales_tax'))/100))
+            vat1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('vat'))/100))
+            sales_tax1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('sales_tax'))/100))
             totalcost1 =  parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
             finalcost1 =  parseFloat(maintenance) + parseFloat(membershipfees)
 
