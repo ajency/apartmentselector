@@ -806,7 +806,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell basicCost1" data-a-sign="Rs. " data-d-group="2">'+basicCost1+'</div>
                         </div>
                        <div class="costsRow">
-                            <div class="costCell costName">Infrastructure and Developement Charges</div>
+                            <div class="costCell costName">Infrastructure and Development Charges</div>
                             <div class="costCell discCol '+discountClass+'"><select id="infra"></select></div>
                             <div class="costCell"><select id="infra1"></select></div>
                         </div>'
