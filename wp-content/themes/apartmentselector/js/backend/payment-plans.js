@@ -82,7 +82,9 @@ $(document).on("click", "#add-more-milstones", function(e) {
    
     cloneElement = $('#milestone-list li:first').html() ;
  
-    html = '<li class="sortable-items" id="sortable-items-'+nextItem+'">'+cloneElement.replace(/1/g,nextItem)+'</li>';
+    cloned = cloneElement.replace(/_1/g,"_"+nextItem)
+    cloned = cloned.replace(/-1/g,"-"+nextItem)
+    html = '<li class="sortable-items" id="sortable-items-'+nextItem+'">'+cloned+'</li>';
 
     $('#milestone-list').append(html);
 
