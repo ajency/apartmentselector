@@ -28,6 +28,7 @@ define(['marionette'], function(Marionette) {
       return {
         'click .costsheetbutton': function(e) {
           $('.costsheetclass').bPopup({
+            appendTo: '#screen-four-region',
             onClose: function() {
               $('body').css({
                 overflowY: 'auto',
@@ -52,7 +53,9 @@ define(['marionette'], function(Marionette) {
           });
           $(".formFields").html(EMAILFORM);
           $('.formIntro').html('I\'m interested in <br>Flat <span id="emailflatno">' + unit.get('name') + '</span> in <span id="emailtower">' + building.get('name') + '</span></div>');
-          $(".formPopup").bPopup();
+          $(".formPopup").bPopup({
+            appendTo: '#screen-four-region'
+          });
           $('#field_emailunit').val(unit.get('name'));
           $('#field_emailtower').val(building.get('name'));
           $('#field_unitid').val(unit.get('id'));
