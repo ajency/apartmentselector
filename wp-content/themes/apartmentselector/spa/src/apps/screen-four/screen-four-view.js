@@ -3,12 +3,13 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['marionette'], function(Marionette) {
-  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView, agreementValue, agreementValue1, infraid, object, perFlag;
+  var ScreenFourLayout, UnitMainView, UnitTypeChildView, UnitTypeView, UnitsView, agreementValue, agreementValue1, discountClass, infraid, object, perFlag;
   perFlag = 0;
   object = "";
   agreementValue = "";
   agreementValue1 = "";
   infraid = "";
+  discountClass = "";
   ScreenFourLayout = (function(_super) {
     __extends(ScreenFourLayout, _super);
 
@@ -412,6 +413,7 @@ define(['marionette'], function(Marionette) {
       costSheetArray = [];
       flag = 0;
       count = 0;
+      discountClass = "";
       $('a.print-preview').printPreview();
       return this.loadPrint();
     };
@@ -486,7 +488,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.generateCostSheet = function() {
-      var SettingModel, actualcost, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, discountClass, element, finalcost, finalcost1, finalvalue, finalvalue1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, ratepersqftfloorval, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, table1, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
+      var SettingModel, actualcost, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, date, discount, element, finalcost, finalcost1, finalvalue, finalvalue1, floorRise, floorRiseValue, id, id1, index, infraArray, infratxt, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestoneCollection, milestonemodel, milestonename, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, milstoneModelName, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, ratepersqftfloorval, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, selected, stamp_duty, stamp_duty1, table, table1, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, usermodel, vat, vat1, _i, _j, _len, _len1;
       $('#costSheetTable').text("");
       $('#costSheetTableprint').text("");
       costSheetArray = [];
@@ -811,7 +813,7 @@ define(['marionette'], function(Marionette) {
         $('.percentageValue1').autoNumeric('init');
         $('.percentageValue').autoNumeric('init');
         milestoneModel = milestoneColl.get(element.milestone);
-        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal discCol percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
+        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal discCol ' + discountClass + ' percentageValue' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
       }
       $('.rec').autoNumeric('init');
       recount = $('.rec').autoNumeric('set', count);

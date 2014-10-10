@@ -5,6 +5,7 @@ define [ 'marionette' ], ( Marionette )->
     agreementValue = ""
     agreementValue1 = ""
     infraid = ""
+    discountClass = ""
     class ScreenFourLayout extends Marionette.LayoutView
 
         template : '<div class="page-container row-fluid">
@@ -616,7 +617,7 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray = []
             flag = 0
             count = 0
-
+            discountClass = ""
             $('a.print-preview').printPreview();
             @loadPrint()
 
@@ -1172,7 +1173,7 @@ define [ 'marionette' ], ( Marionette )->
                 table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
                             <li class="milestoneList '+trClass+'">
                                 <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
-                                <div class="msVal discCol percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
+                                <div class="msVal discCol '+discountClass+' percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
                                 <div class="msVal percentageValue1'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
                                 <span class="barBg" style="width:'+element.payment_percentage+'%"></span>
                             </li>
