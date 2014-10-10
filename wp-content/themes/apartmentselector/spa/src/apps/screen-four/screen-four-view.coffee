@@ -85,8 +85,8 @@ define [ 'marionette' ], ( Marionette )->
                                 <div class="paymentDetails">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <h5 >Total Cost:</h5> <h4><span class="totalcost" data-a-sign="Rs. " data-d-group="2"></span></h4>
-                                        </div>
+                                            <h5 >Total Cost:</h5> <h4><span class="actualcost" data-a-sign="Rs. " data-d-group="2"></span></h4>
+                                        <input type="hidden" id="actualcostvalue" data-a-sign="Rs. " data-d-group="2" value="" /></div>
                                         <div class="col-sm-6">
                                             <h5 >Amount Receivable as on Date:</h5> <h4><span class="rec" data-a-sign="Rs. " data-d-group="2"></span></h4>
                                         </div>
@@ -518,6 +518,7 @@ define [ 'marionette' ], ( Marionette )->
                         perFlag = 0
                         $('.discCol').removeClass 'showDisc'
                         $('.revised').hide()
+                        $('.actualcost').text $('#actualcostvalue').val()
                     else
                         $('#discountvalue').addClass "hidden"
                         $('#discountvalue').val ""
@@ -525,6 +526,7 @@ define [ 'marionette' ], ( Marionette )->
                         perFlag = 0
                         $('.discCol').removeClass 'showDisc'
                         $('.revised').hide()
+                        $('.actualcost').text $('#actualcostvalue').val()
 
             )
             $('#discountvalue').on('change' , ()->
@@ -693,8 +695,8 @@ define [ 'marionette' ], ( Marionette )->
                 discountClass = 'showDisc'
             # discount = Math.ceil(discount.toFixed(2));
 
-            console.log parseInt($('#discountper').val().length)
-            console.log parseInt($('#discountvalue').val().length)
+            
+           
             if parseInt($('#discountper').val().length) == 0 && parseInt($('#discountvalue').val().length) == 0
                 discountClass = ''
             
@@ -919,6 +921,13 @@ define [ 'marionette' ], ( Marionette )->
             # recount = $('.rec').autoNumeric('set', count)
             # reccount = recount.text()
             # $('.rec').text reccount
+            if discountClass == ""
+                actualcost = finalvalue1
+                $('#actualcostvalue').autoNumeric('init')
+                $('#actualcostvalue').autoNumeric('set', finalvalue1);
+                
+            else
+                actualcost = finalvalue
             table += '  <div class="costsRow totals">
                             <div class="costCell costName">Agreement Amount</div>
                             <div class="costCell discCol '+discountClass+' agreement"  data-a-sign="Rs. " data-d-group="2">'+agreement+'</div>
@@ -1032,6 +1041,8 @@ define [ 'marionette' ], ( Marionette )->
             $('.finalvalue1').autoNumeric('set', finalvalue1);
             $('.finalvalue').autoNumeric('init')
             $('.finalvalue').autoNumeric('set', finalvalue);
+            $('.actualcost').autoNumeric('init')
+            $('.actualcost').autoNumeric('set', actualcost);
             id = $('#paymentplans' ).val()
             object.generatePaymentSchedule(id)
             #object.getMilestones(id1)

@@ -660,7 +660,6 @@ define(['extm', 'src/apps/screen-two/screen-two-view'], function(Extm, ScreenTwo
           });
         });
       }
-      console.log(uniqUnitvariant);
       $.each(uniqUnitvariant, function(index, value) {
         var classname, count, filter, selected, unitVarinatModel, unittypemodel;
         unitVarinatModel = App.master.unit_variant.findWhere({

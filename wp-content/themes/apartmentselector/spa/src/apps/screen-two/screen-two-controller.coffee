@@ -624,7 +624,7 @@ define [ 'extm', 'src/apps/screen-two/screen-two-view' ], ( Extm, ScreenTwoView 
                     terraceModels.push({id:parseInt(terraceModel.get('id')),name:terraceModel.get('name'),disabled:disabled,checked:checked,classname:classname})
                     
                 )
-            console.log uniqUnitvariant
+            
             $.each(uniqUnitvariant, (index,value)->
                 unitVarinatModel = App.master.unit_variant.findWhere({id:value})
                 count = floorCollection.where({'unitVariant':value,'status':status.get('id')})
