@@ -186,6 +186,8 @@ define [ 'marionette' ], ( Marionette )->
         events:->
             'click .costsheetbutton':(e)->
                 $('.costsheetclass').bPopup onClose: ->
+                    $('.costsheetclass').empty()
+                    $('.costsheetclass').addClass 'hidden'   
                     $('body').css
                             overflowY: 'auto'
                             height: 'auto'
@@ -201,7 +203,9 @@ define [ 'marionette' ], ( Marionette )->
 
             'click #emailBtn':(e)->
                 e.preventDefault()
-
+                $('.formPopup').bPopup onClose: ->
+                    $('.formPopup').empty()
+                    $('.formPopup').addClass 'hidden'
                 
                 $('.formIntro').html ""
                 unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
@@ -499,6 +503,8 @@ define [ 'marionette' ], ( Marionette )->
 
         onShow:->
             #@trigger "get:perSqft:price"
+
+            $('#formPopup')
 
 
             $(".discountToggle").click ->
