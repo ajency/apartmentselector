@@ -8690,9 +8690,10 @@ input.checkbox[disabled] + label {
   font-size: 18px;
   font-weight: 700;
   margin: 0;
-  border-top: 2px solid #ffa366;
-  border-bottom: 2px solid #ffa366;
+  border-top: 1px solid #ffa366;
+  border-bottom: none;
   margin-bottom: 20px;
+  color: #808080;
 }
 .costsRow.totals small,
 .costsRow.totals .small {
@@ -8709,6 +8710,12 @@ input.checkbox[disabled] + label {
   background-color: #ff6600;
   color: #ffffff;
   margin-bottom: 15px;
+}
+.costsRow.totals.final {
+  border-top: 2px solid #ffa366;
+  border-bottom: 2px solid #ffa366;
+  margin-bottom: 40px;
+  color: #333333;
 }
 .costsRow:before,
 .costsRow:after {
@@ -8842,9 +8849,9 @@ input.checkbox[disabled] + label {
   clear: both;
 }
 .headers {
-  margin-bottom: 5px;
+  margin-bottom: 0;
   padding: 5px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: none;
   cursor: pointer;
   text-decoration: underline;
 }
