@@ -10,7 +10,8 @@ echo "dddd";
 $settings = get_apratment_selector_settings();
 
 $vat = isset($settings["vat"])?$settings["vat"]:0; 
-$sales_tax = isset($settings["sales_tax"])?$settings["sales_tax"]:0;  
+$service_tax = isset($settings["service_tax"])?$settings["service_tax"]:0; 
+$service_tax_agval_ab1 =  isset($settings["service_tax_agval_ab1"])?$settings["service_tax_agval_ab1"]:0; 
 $infrastructure_charges = isset($settings["infrastructure_charges"])?$settings["infrastructure_charges"]:array();  
 $membership_fees = isset($settings["membership_fees"])?$settings["membership_fees"]:array();   
 $stamp_duty = isset($settings["stamp_duty"])?$settings["stamp_duty"]:0;   
@@ -48,10 +49,21 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                         <div class="input-with-icon  right">
 						<div class="row">
 						<div class="col-md-4">
-                            <label class="form-label form-label-inline">Sales tax</label>
+                            <label class="form-label form-label-inline">Service tax</label>
                                 <span class="help"></span>
-                            <label class="form-label form-label-prefix"> </label></div><div class="col-md-7"><input type="text" name="sales_tax" id="sales_tax" class="form-control" value="<?php echo @$sales_tax;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
+                            <label class="form-label form-label-prefix"> </label></div><div class="col-md-7"><input type="text" name="service_tax" id="service_tax" class="form-control" value="<?php echo @$service_tax;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
 							</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        
+                        <div class="input-with-icon  right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label form-label-inline">Service tax</label>
+                                <span class="help"><br/><sub>For Agreement Values > 1 Cr</sub></span>
+                            <label class="form-label form-label-prefix"> </label></div><div class="col-md-7"><input type="text" name="service_tax_agval_ab1" id="service_tax_agval_ab1" class="form-control" value="<?php echo @$service_tax_agval_ab1;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

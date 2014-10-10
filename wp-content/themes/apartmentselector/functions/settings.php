@@ -3,7 +3,7 @@
 function get_apratment_selector_settings(){
 
 	$settings = maybe_unserialize(get_option('apartment_selector_settings'));
-
+ 
     $membership_fees = array();
     
     foreach($settings["membership_fees"] as $membership_fee){
@@ -43,7 +43,9 @@ function ajax_save_settings(){
 
     $vat = $_REQUEST["vat"];
 
-    $sales_tax = $_REQUEST["sales_tax"]; 
+    $service_tax = $_REQUEST["service_tax"]; 
+
+    $service_tax_agval_ab1 = $_REQUEST["service_tax_agval_ab1"]; 
     
     $stamp_duty = $_REQUEST["stamp_duty"]; 
     
@@ -53,8 +55,8 @@ function ajax_save_settings(){
 
     $membership_fees = $_REQUEST["membership_fees"]; 
  	
- 	$settings = array('stamp_duty'=>$stamp_duty,'registration_amount'=>$registration_amount,'vat'=>$vat,'sales_tax'=>$sales_tax,'infrastructure_charges'=>$infrastructure_charges,'membership_fees'=>$membership_fees);
- 	
+ 	$settings = array('stamp_duty'=>$stamp_duty,'registration_amount'=>$registration_amount,'vat'=>$vat,'service_tax'=>$service_tax,'service_tax_agval_ab1'=>$service_tax_agval_ab1,'infrastructure_charges'=>$infrastructure_charges,'membership_fees'=>$membership_fees);
+ 
  	update_option('apartment_selector_settings',serialize($settings));
  	
  	$msg = "Settings Updated Successfully!";
