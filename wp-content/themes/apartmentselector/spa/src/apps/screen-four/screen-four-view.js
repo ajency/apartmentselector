@@ -29,6 +29,8 @@ define(['marionette'], function(Marionette) {
         'click .costsheetbutton': function(e) {
           $('.costsheetclass').bPopup({
             onClose: function() {
+              $('.costsheetclass').empty();
+              $('.costsheetclass').addClass('hidden');
               $('body').css({
                 overflowY: 'auto',
                 height: 'auto'
@@ -43,6 +45,12 @@ define(['marionette'], function(Marionette) {
         'click #emailBtn': function(e) {
           var building, unit;
           e.preventDefault();
+          $('.formPopup').bPopup({
+            onClose: function() {
+              $('.formPopup').empty();
+              return $('.formPopup').addClass('hidden');
+            }
+          });
           $('.formIntro').html("");
           unit = App.master.unit.findWhere({
             id: parseInt(App.unit['name'])
@@ -322,6 +330,7 @@ define(['marionette'], function(Marionette) {
 
     ScreenFourLayout.prototype.onShow = function() {
       var capability, cookieOldValue, costSheetArray, count, flag, usermodel;
+      $('#formPopup');
       $(".discountToggle").click(function() {
         $(".discountBox").slideToggle();
       });
