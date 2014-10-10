@@ -184,7 +184,15 @@ define [ 'marionette' ], ( Marionette )->
 
         events:->
             'click .costsheetbutton':(e)->
-                $('.costsheetclass').bPopup()
+                $('.costsheetclass').bPopup onClose: ->
+                    $('body').css
+                            overflowY: 'auto'
+                            height: 'auto'
+                    return
+
+                $('body').css
+                    overflowY: 'hidden'
+                    height: '100%'
 
             # 'click .print-preview':(e)->
             #     @loadPrint()
@@ -1164,8 +1172,8 @@ define [ 'marionette' ], ( Marionette )->
                 table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
                             <li class="milestoneList '+trClass+'">
                                 <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
+                                <div class="msVal discCol percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
                                 <div class="msVal percentageValue1'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
-                                <div class="msVal percentageValue'+index+'" data-a-sign="Rs. " data-d-group="2"></div>
                                 <span class="barBg" style="width:'+element.payment_percentage+'%"></span>
                             </li>
                             <div class="clearfix"></div>
