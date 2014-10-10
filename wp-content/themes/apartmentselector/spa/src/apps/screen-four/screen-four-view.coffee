@@ -998,7 +998,7 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell discCol '+discountClass+' finalcost" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</div>
                             <div class="costCell finalcost1" data-a-sign="Rs. " data-d-group="2">'+finalcost1+'</div>
                         </div>
-                        <div class="costsRow totals">
+                        <div class="costsRow totals final">
                             <div class="costCell costName">Final Cost</div>
                             <div class="costCell discCol '+discountClass+' finalvalue" data-a-sign="Rs. " data-d-group="2">'+finalvalue+'</div>
                             <div class="costCell finalvalue1" data-a-sign="Rs. " data-d-group="2">'+finalvalue1+'</div>
