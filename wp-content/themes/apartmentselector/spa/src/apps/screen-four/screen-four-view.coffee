@@ -203,9 +203,7 @@ define [ 'marionette' ], ( Marionette )->
 
             'click #emailBtn':(e)->
                 e.preventDefault()
-                $('.formPopup').bPopup onClose: ->
-                    $('.formPopup').empty()
-                    $('.formPopup').addClass 'hidden'
+
                 
                 $('.formIntro').html ""
                 unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
@@ -504,7 +502,7 @@ define [ 'marionette' ], ( Marionette )->
         onShow:->
             #@trigger "get:perSqft:price"
 
-            $('#formPopup')
+
 
 
             $(".discountToggle").click ->
@@ -760,12 +758,13 @@ define [ 'marionette' ], ( Marionette )->
                 infratxt += '<option  value="'+element+'" '+selected+'>'+$('.inframamout').text()+'</option>'
             
 
-            basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(costSheetArray[1]))
+            
             $('#rec' ).text ""
             $('.rec' ).text ""
 
 
             ratepersqftfloorval = (parseFloat(costSheetArray[1]) + parseFloat(floorRiseValue))
+            basicCost1 = (parseFloat(costSheetArray[0]) * parseFloat(ratepersqftfloorval))
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
@@ -781,7 +780,7 @@ define [ 'marionette' ], ( Marionette )->
                         </div>
 
                         <div class="costsRow">
-                            <div class="costCell costName">Chargeable Area (Sq.Ft.)</div>
+                            <div class="costCell costName">Total Area (Sq.Ft.)</div>
                             <div class="costCell discCol '+discountClass+'">'+costSheetArray[0]+'</div>
                             <div class="costCell">'+costSheetArray[0]+'</div>
                         </div>
@@ -888,16 +887,25 @@ define [ 'marionette' ], ( Marionette )->
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
+            if parseFloat(agreement) > 10000000.00
+                servicetax = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax = SettingModel.get('service_tax')
+
+            if parseFloat(agreement1) > 10000000.00
+                servicetax1 = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax1 = SettingModel.get('service_tax')
             stamp_duty = (parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
             stamp_duty = (Math.round(stamp_duty*100)/100 ) + 100 
             reg_amt = parseFloat(SettingModel.get('registration_amount'))
             vat = (parseFloat(agreement) * (parseFloat(SettingModel.get('vat'))/100))
-            sales_tax = (parseFloat(agreement) * (parseFloat(SettingModel.get('sales_tax'))/100))
+            sales_tax = (parseFloat(agreement) * (parseFloat(servicetax)/100))
             stamp_duty1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
             stamp_duty1 = (Math.round(stamp_duty1*100)/100 ) + 100 
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             vat1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('vat'))/100))
-            sales_tax1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('sales_tax'))/100))
+            sales_tax1 = (parseFloat(agreement1) * (parseFloat(servicetax1)/100))
             totalcost1 =  parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
             finalcost1 =  parseFloat(maintenance) + parseFloat(membershipfees)
 
