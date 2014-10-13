@@ -129,7 +129,7 @@ $heading = "Edit";
                     foreach ($phases as $phase){
 
                         ?>
-                        <option value="<?php echo $phase['id']; ?>"  ><?php if($building_phase==$phase['id']){ echo "selected"; }?><?php echo  $phase['name']?></option>
+                        <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?><?php echo  $phase['name']?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -211,12 +211,12 @@ $heading = "Edit";
                     <option value="">Select</option>
                     <?php
 
-                    $payment_plans = get_payment_plans_building($building_id);
+                    $payment_plans = get_payment_plans();
 
                     foreach ($payment_plans as $payment_plan){
 
                         ?>
-                        <option value="<?php echo $payment_plan['id']; ?>" > <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
+                        <option value="<?php echo $payment_plan['id']; ?>"  <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -244,7 +244,7 @@ $heading = "Edit";
                     foreach ($payment_plan_milestones as $payment_plan_milestone){
 
                         ?>
-                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>">  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?><?php echo  $payment_plan_milestone['name']?></option>
+                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>"  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?><?php echo  $payment_plan_milestone['name']?></option>
                     <?php }
 
                     }else{
@@ -708,7 +708,7 @@ $heading = "Edit";
                             for($i=1;$i<=$max_no_of_flats;$i++){
                             ?><option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?><?php echo $i;?></option>
                             <?php  
-                            }?>
+                            } ?>
                         </select>
                     </div>
                 </div>
