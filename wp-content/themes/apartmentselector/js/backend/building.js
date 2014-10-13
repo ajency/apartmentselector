@@ -55,6 +55,26 @@ if($("#slider").length!=0){
     displaySlider($("#no_of_floors").val())
 }
 
+
+ 
+
+      jQuery(".common-trash-image").on('click', function (e) { 
+ 
+    return_value = confirm('Are you sure you want to delete this image?')
+
+    if(return_value==true){
+        
+        jQuery('#image_display'+jQuery(e.target).attr('fileField')).attr('src','').hide()
+        jQuery('#'+jQuery(e.target).attr('fileField')).val('') 
+        jQuery("#"+jQuery(e.target).attr('fileField')+'trash-image-option').hide();
+
+    }else{
+        return
+    }
+
+
+  });
+
 $('.milestone-completion-date').datepicker({ dateFormat: 'dd/mm/yy' });
 
 function updateSlider(){

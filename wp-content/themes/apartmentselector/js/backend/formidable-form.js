@@ -22,6 +22,23 @@ $(file).remove()
     
     });
   }
+
+      jQuery(".trash-image").on('click', function (e) { 
+ 
+    return_value = confirm('Are you sure you want to delete this image?')
+
+    if(return_value==true){
+        jQuery('input[name=item_meta\\['+jQuery(e.target).attr('fileField')+'\\]]').val("") 
+        jQuery('input[name=item_meta\\['+jQuery(e.target).attr('fileField')+'\\]]').next().attr('href','')
+        jQuery('input[name=item_meta\\['+jQuery(e.target).attr('fileField')+'\\]]').next().find('.attachment-thumbnail').remove()
+        jQuery("#"+jQuery(e.target).attr('fileField')+'trash-image-option').hide();
+
+    }else{
+        return
+    }
+
+
+  });
     var AddDetailsLink, DisplayFormVIew, GetSubFormEntries;
     DisplayFormVIew = function(FormId, EntryIds, Element) {
       $.post(AJAXURL, {

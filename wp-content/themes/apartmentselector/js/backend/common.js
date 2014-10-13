@@ -201,6 +201,8 @@ function fileUploadById(field){
     },
     done: function (e, data) {   
         console.log(jQuery('#fileupload'+field).parent().find(".image_id"))
+
+         jQuery("#"+field+'trash-image-option').show();
         jQuery("#"+field).val(data.result.attachment_id )
         jQuery("#image_display"+field).show()
         jQuery("#image_display"+field).attr('src',data.result.attachment_url )
@@ -208,7 +210,8 @@ function fileUploadById(field){
         jQuery('#progress'+field+' .progress-bar').css(
             'width',
             '0%'
-        );
+        ); 
+       
     }
     }) 
 }
@@ -237,6 +240,8 @@ function fileUploadById(field){
     },
     done: function (e, data) {   
         console.log(jQuery('#fileupload'+field).parent().find(".image_id"))
+                console.log("#"+field+'trash-image-option')
+         jQuery("#"+field+'trash-image-option').show();
         jQuery("#"+field).val(data.result.attachment_id )
         jQuery("#image_display"+field).show()
         jQuery("#image_display"+field).attr('src',data.result.attachment_url )
@@ -255,7 +260,7 @@ function fileUploadByformidable(fileInput){
   
  var fileField = fileInput.attr("name").replace("file","")
 
- console.log("fileField")
+ 
     jQuery('#fileupload'+fileField).fileupload({
         url: AJAXURL+"?action=upload_file",
         
@@ -273,7 +278,9 @@ function fileUploadByformidable(fileInput){
     },
     done: function (e, data) {    
         fileUploadName = "item_meta\\["+fileField+"\\]"
-        console.log(fileUploadName)
+     
+
+        jQuery("#"+fileField+'trash-image-option').show();
         jQuery('input[name="'+fileUploadName+'"]').val(data.result.attachment_id)
         if(jQuery('input[name="'+fileUploadName+'"]').parent().find('.attachment-thumbnail').length==0){
             jQuery('input[name="'+fileUploadName+'"]').after('<a href="'+data.result.attachment_url+'"><img width="150" height="150" src="'+data.result.attachment_url+'" class="attachment-thumbnail"  ></a>')
@@ -281,6 +288,17 @@ function fileUploadByformidable(fileInput){
             console.log(jQuery('input[name="'+fileUploadName+'"]').parent().html())
             jQuery('input[name="'+fileUploadName+'"]').parent().find('.attachment-thumbnail').attr("src",data.result.attachment_url)
         }
+        jQuery('#progress'+fileField+' .progress-bar').hide()
+       jQuery('#progress'+fileField+' .progress-bar').css(
+            'width',
+              '0%'
+        );
+
+         setTimeout(function(){
+jQuery('#progress'+fileField+' .progress-bar').show()
+        
+                }, 1000);
+         
         
     }
     }) 
@@ -289,11 +307,19 @@ function fileUploadByformidable(fileInput){
 
 function customFileUploadUi(fileInput){
  fileField = fileInput.attr("name").replace("file","")
+ hiddendelete = '';
+
+ if(jQuery('input[name=item_meta\\['+fileField+'\\]]').val()==""){
+    hiddendelete = "style='display:none'";
+ }
  html =  '<span class="btn btn-success fileinput-button">'
             +'<i class="glyphicon glyphicon-plus"></i>'
             +'<span>Select files...</span>'
             +'<input type="hidden" class="image_id" name="image_id"><input id="fileupload'+fileField+'" class="fileupload" type="file" name="files">'
-            +'</span>'
+            +'</span>&nbsp<span class="btn btn-danger" id="'+fileField+'trash-image-option" '+hiddendelete+'>'
+            +'<a href="javascript:void(0)" class="trash-image" style="text-decoration:none;color:#fff"  fileField="'+fileField+'"><i class="glyphicon glyphicon-trash" fileField="'+fileField+'"></i>'
+            +'Delete</a>'
+             +'</span>'
             +'<br>'
             +'<br>'
             +'<div id="progress'+fileField+'" class="progress">'
@@ -305,6 +331,7 @@ function customFileUploadUi(fileInput){
             +'</div>';
 return html;
 }
+
 
 function toProperCase(s)
 {

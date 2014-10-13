@@ -142,12 +142,17 @@ $heading = "Edit";
                 Position in project 
             </label>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="input-with-icon  right">
                         <span class="btn btn-success fileinput-button">
                              
                             <span>Select file..</span>
                             <input id="fileuploadposition_in_project" class="fileuploadposition_in_project" type="file" name="files">
+                        </span>
+                        <span class="btn btn-danger fileinput-button"  id="position_in_projecttrash-image-option"  <?php if($position_in_project["id"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="position_in_project">  
+                           Delete 
+                            </a>
                         </span>
                         <input type="hidden" class="position_in_project" id="position_in_project" name="position_in_project" value="<?php echo @$position_in_project["id"];?>"> 
                         <div id="progressposition_in_project" class="progress" >
@@ -172,13 +177,18 @@ $heading = "Edit";
                 Zoomed in image
             </label>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="input-with-icon  right">
                         <span class="btn btn-success fileinput-button">
                              
                             <span>Select file..</span>
                             <input id="fileuploadzoomed_in_image" class="fileuploadzoomed_in_image" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="zoomed_in_imagetrash-image-option"  <?php if($zoomed_in_image["id"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="zoomed_in_image">  
+                           Delete 
+                            </a>
+                        </span>
                         <input type="hidden" class="zoomed_in_image" id="zoomed_in_image" name="zoomed_in_image" value="<?php echo @$zoomed_in_image["id"];?>">
                         <div id="progresszoomed_in_image" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
@@ -404,6 +414,11 @@ $heading = "Edit";
                             <span>Select file..</span>
                             <input type="hidden" class="svg_position_file_1" id="svg_position_file_1" name="svg_position_file_1" value="<?php echo @$building_svgdata[0]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_1" class="fileuploadsvg_position_file_1" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="svg_position_file_1trash-image-option"  <?php if(@$building_svgdata[0]["svgfile"]["thumbnail_url"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="svg_position_file_1">  
+                           Delete 
+                            </a>
+                        </span>
                         <div id="progresssvg_position_file_1" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -458,6 +473,11 @@ $heading = "Edit";
                             <span>Select file..</span>
                             <input type="hidden" class="svg_position_file_2" id="svg_position_file_2" name="svg_position_file_2" value="<?php echo @$building_svgdata[1]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_2" class="fileuploadsvg_position_file_2" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="svg_position_file_2trash-image-option"  <?php if(@$building_svgdata[1]["svgfile"]["thumbnail_url"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="svg_position_file_2">  
+                           Delete 
+                            </a>
+                        </span>
                         <div id="progresssvg_position_file_2" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -511,6 +531,11 @@ $heading = "Edit";
                             <span>Select file..</span>
                             <input type="hidden" class="svg_position_file_3" id="svg_position_file_3" name="svg_position_file_3" value="<?php echo @$building_svgdata[2]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_3" class="fileuploadsvg_position_file_3" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="svg_position_file_3trash-image-option"  <?php if(@$building_svgdata[2]["svgfile"]["thumbnail_url"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="svg_position_file_3">  
+                           Delete 
+                            </a>
+                        </span>
                         <div id="progresssvg_position_file_3" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -564,6 +589,11 @@ $heading = "Edit";
                             <span>Select file..</span>
                             <input type="hidden" class="svg_position_file_4" id="svg_position_file_4" name="svg_position_file_4" value="<?php echo @$building_svgdata[3]["svgfile"]["id"];?>"><input id="fileuploadsvg_position_file_4" class="fileuploadsvg_position_file_4" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="svg_position_file_4trash-image-option"  <?php if(@$building_svgdata[3]["svgfile"]["thumbnail_url"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="svg_position_file_4">  
+                           Delete 
+                            </a>
+                        </span>
                         <div id="progresssvg_position_file_4" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -618,6 +648,11 @@ $heading = "Edit";
                             <span>Select file..</span>
                             <input type="hidden" class="floor_layout_basic" id="floor_layout_basic" name="floor_layout_basic" value="<?php echo @$floor_layout_basic["id"];;?>"><input id="fileuploadfloor_layout_basic" class="fileuploadfloor_layout_basic" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="floor_layout_basictrash-image-option"  <?php if(@$floor_layout_basic["thumbnail_url"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="floor_layout_basic">  
+                           Delete 
+                            </a>
+                        </span>
                         <div id="progressfloor_layout_basic" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -640,6 +675,11 @@ $heading = "Edit";
                             <span>Select file..</span>
                             <input type="hidden" class="floor_layout_detailed" id="floor_layout_detailed" name="floor_layout_detailed" value="<?php echo @$floor_layout_detailed["id"];?>"><input id="fileuploadfloor_layout_detailed" class="fileuploadfloor_layout_detailed" type="file" name="files">
                         </span> 
+                         <span class="btn btn-danger fileinput-button"  id="floor_layout_detailedtrash-image-option"  <?php if(@$floor_layout_detailed["thumbnail_url"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="floor_layout_detailed">  
+                           Delete 
+                            </a>
+                        </span>
                         <div id="progressfloor_layout_detailed" class="progress" >
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
@@ -727,6 +767,11 @@ $heading = "Edit";
                                     <span>Select file..</span>
                                     <input id="fileuploadexceptionfloor_layout_basic1" class="fileuploadexceptionfloor_layout_basic1" type="file" name="files">
                                 </span> 
+                                 <span class="btn btn-danger fileinput-button"  id="fileuploadexceptionfloor_layout_basic1trash-image-option"  <?php if(@$building_exception["floor_layout_basic"]["id"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="fileuploadexceptionfloor_layout_basic1">  
+                           Delete 
+                            </a>
+                        </span>
                                 <input type="hidden" class="exceptionfloor_layout_basic1" id="exceptionfloor_layout_basic1" name="exceptionfloor_layout_basic1" value="<?php echo @$building_exception["floor_layout_basic"]["id"];?>">
                                 <div id="progressexceptionfloor_layout_basic1" class="progress" >
                                     <div class="progress-bar progress-bar-success"></div>
@@ -749,6 +794,11 @@ $heading = "Edit";
                                     <span>Select file..</span>
                                     <input id="fileuploadexceptionfloor_layout_detailed1" class="fileuploadexceptionfloor_layout_detailed1" type="file" name="files">
                                 </span> 
+                                 <span class="btn btn-danger fileinput-button"  id="fileuploadexceptionfloor_layout_detailed1trash-image-option"  <?php if(@$building_exception["floor_layout_detailed"]["id"]==""){?> style="display:none"<?php } ?>>
+                           <a href="javascript:void(0)" class="common-trash-image" style="text-decoration:none;color:#fff"  fileField="fileuploadexceptionfloor_layout_detailed1">  
+                           Delete 
+                            </a>
+                        </span>
                                 <input type="hidden" class="exceptionfloor_layout_detailed1" id="exceptionfloor_layout_detailed1" name="exceptionfloor_layout_detailed1" value="<?php echo @$building_exception["floor_layout_detailed"]["id"];?>">
                                 <div id="progressexceptionfloor_layout_detailed1" class="progress" >
                                     <div class="progress-bar progress-bar-success"></div>
