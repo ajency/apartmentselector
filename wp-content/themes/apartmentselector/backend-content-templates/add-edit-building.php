@@ -210,7 +210,9 @@ $heading = "Edit";
 
                     <option value="">Select</option>
                     <?php
-
+                    if($building_id!= "")
+                    $payment_plans = get_payment_plans_building($building_id);
+                else
                     $payment_plans = get_payment_plans();
 
                     foreach ($payment_plans as $payment_plan){
