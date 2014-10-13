@@ -129,7 +129,7 @@ $heading = "Edit";
                     foreach ($phases as $phase){
 
                         ?>
-                        <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?><?php echo  $phase['name']?></option>
+                        <option value="<?php echo $phase['id']; ?>" > <?php if($building_phase==$phase['id']){ echo "selected"; }?><?php echo  $phase['name']?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -156,7 +156,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo @$position_in_project["thumbnail_url"];?>" id="image_displayposition_in_project" <?php if(@$position_in_project["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo @$position_in_project["thumbnail_url"];?>" id="image_displayposition_in_project" <?php if(@$position_in_project["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo @$zoomed_in_image["thumbnail_url"];?>" id="image_displayzoomed_in_image" <?php if(@$zoomed_in_image["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo @$zoomed_in_image["thumbnail_url"];?>" id="image_displayzoomed_in_image" <?php if(@$zoomed_in_image["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -210,15 +210,16 @@ $heading = "Edit";
 
                     <option value="">Select</option>
                     <?php
+
                     if($building_id!= "")
                     $payment_plans = get_payment_plans_building($building_id);
                 else
-                    $payment_plans = get_payment_plans();
+                    $payment_plans =array();
 
                     foreach ($payment_plans as $payment_plan){
 
                         ?>
-                        <option value="<?php echo $payment_plan['id']; ?>"  <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
+                        <option value="<?php echo $payment_plan['id']; ?>" > <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -246,7 +247,7 @@ $heading = "Edit";
                     foreach ($payment_plan_milestones as $payment_plan_milestone){
 
                         ?>
-                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>"  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?><?php echo  $payment_plan_milestone['name']?></option>
+                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>">  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?><?php echo  $payment_plan_milestone['name']?></option>
                     <?php }
 
                     }else{
@@ -259,7 +260,7 @@ $heading = "Edit";
             </div>
         </div>
     </div>
-    <div id="milestone-completion" <?php if(!isset($building_payment_plan)){?>style="display:none"<?php }?>
+    <div id="milestone-completion" <?php if(!isset($building_payment_plan)){?>style="display:none"<?php }?>>
         <div class="col-md-12">
             <div class="form-group">
                 <label class="form-label">
@@ -274,6 +275,7 @@ $heading = "Edit";
                          <div class="form-group">
                              <ul class="milestone-completion form-control-list" id="milestone-completion-item-container">
                                 <?php
+                                 if(isset($building_payment_plan)){
                                     $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
 
                                     foreach ($payment_plan_milestones as $payment_plan_milestone){
@@ -297,7 +299,8 @@ $heading = "Edit";
                                         </li>
                                 <?php
 
-                                }?>
+                                }
+                            }?>
                                        
                              </ul>
                          </div>
@@ -346,7 +349,7 @@ $heading = "Edit";
 
                          for($i=1;$i<=$max_no_of_floors;$i++){
                             ?>
-                            <option value="<?php echo $i;?>" <?php if($i==$no_of_floors){ ?>selected <?php } ?>
+                            <option value="<?php echo $i;?>" <?php if($i==$no_of_floors){ ?>selected <?php } ?>>
                                 <?php echo $i;?>
                             </option>
                             <?php
@@ -377,7 +380,7 @@ $heading = "Edit";
 
                     for($i=1;$i<=$max_no_of_flats;$i++){
                         ?>
-                        <option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?>
+                        <option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?>>
                             <?php echo $i;?>
                         </option>
                     <?php
@@ -412,7 +415,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[0]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_1" <?php if(@$building_svgdata[0]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo  @$building_svgdata[0]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_1" <?php if(@$building_svgdata[0]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -466,7 +469,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[1]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_2" <?php if(@$building_svgdata[1]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo  @$building_svgdata[1]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_2" <?php if(@$building_svgdata[1]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -519,7 +522,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[2]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_3" <?php if(@$building_svgdata[2]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo  @$building_svgdata[2]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_3" <?php if(@$building_svgdata[2]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -572,7 +575,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[3]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_4" <?php if(@$building_svgdata[3]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo  @$building_svgdata[3]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_4" <?php if(@$building_svgdata[3]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -648,7 +651,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo $floor_layout_detailed["thumbnail_url"];?>" id="image_displayfloor_layout_detailed" <?php if(@$floor_layout_detailed["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo $floor_layout_detailed["thumbnail_url"];?>" id="image_displayfloor_layout_detailed" <?php if(@$floor_layout_detailed["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -662,7 +665,7 @@ $heading = "Edit";
                     $building_exceptions[] = array("floors"=>0);
                 } 
 ?> 
-<div id="exceptions" <?php if(count($no_of_floors)==0){?>style="display:none"<?php } ?>
+<div id="exceptions" <?php if(count($no_of_floors)==0){?>style="display:none"<?php } ?>>
     <b>Add Exceptions</b>  <button style="display:none" type="button" class="btn " id="add_exceptions"exception_count="0"> 
     <input type="hidden" name="exceptions_count" value="<?php echo count($building_exceptions);?>" id="exceptions_count">
     <i class="icon-ok"></i>
@@ -735,7 +738,7 @@ $heading = "Edit";
                                  
                                 <div class="row-fluid">
                                     <div class="col-md-12">
-                                        <img src="<?php echo $building_exception["floor_layout_basic"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_basic1" <?php if(@$building_exception["floor_layout_basic"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                        <img src="<?php echo $building_exception["floor_layout_basic"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_basic1" <?php if(@$building_exception["floor_layout_basic"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                                     </div>
                                 </div>
                             </div>
@@ -757,7 +760,7 @@ $heading = "Edit";
                                  
                                 <div class="row-fluid">
                                     <div class="col-md-12">
-                                        <img src="<?php echo $building_exception["floor_layout_detailed"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_detailed1" <?php if(@$building_exception["floor_layout_detailed"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                        <img src="<?php echo $building_exception["floor_layout_detailed"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_detailed1" <?php if(@$building_exception["floor_layout_detailed"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                                     </div>
                                 </div>
                             </div>
@@ -772,7 +775,7 @@ $heading = "Edit";
     </div>
 </div>   
  
-    <div id="floorrise-container-main" <?php if(@$no_of_floors==""){?>style="display:none"<?php } ?>
+    <div id="floorrise-container-main" <?php if(@$no_of_floors==""){?>style="display:none"<?php } ?>>
         <div style="clear:both"></div>
         <b>Floor Rise</b>
         <div class="well" id="flats_container">
