@@ -20,13 +20,7 @@ if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
                                 <div class="grid-body ">
                                     <table class="table table-hover table-condensed tablesorter" id="example">
                                         <thead>
-                                        <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr>
-                                           <tr> 
-                                           <tr>
-                                          <th style="visibility:hidden"> </th>
-                                        </tr> 
+                                         
                                         <tr>
                                           <th  >Payment Plan</th>
                                             

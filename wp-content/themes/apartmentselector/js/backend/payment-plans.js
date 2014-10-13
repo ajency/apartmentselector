@@ -328,7 +328,7 @@ function sumMilstonePercentage(milestones){
  
         var _e = e
         clearAlerts();
-        payment_plan_name = $(e.target).parent().parent().children(':first-child').html() 
+        payment_plan_name = $(e.target).parent().parent().parent().children(':first-child').html() 
         confirmUserAction = confirm("Are you sure you want to delete payment plan "+payment_plan_name+" ?")
         if(confirmUserAction){
 
@@ -340,7 +340,7 @@ function sumMilstonePercentage(milestones){
 
         }, function(response) {
 
-            $(_e.target).parent().parent().remove();
+            $(_e.target).parent().parent().parent().remove();
 
             $(".grid-body").prepend('<div class="text-success">'+response.msg+'</div>')
              
