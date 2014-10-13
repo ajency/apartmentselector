@@ -56,18 +56,19 @@ $heading = "Edit";
     $building_floorriserange = $building["floorriserange"]; 
  
     $building_svgdata = $building["svgdata"]; 
- 
+
     if(is_array($building_floorriserange)){
  
-       $building_lowrisefrom = $building_floorriserange["low"]["start"];
-       $building_lowriseto = $building_floorriserange["low"]["end"];
+       $building_lowrisefrom = $building_floorriserange[0]["start"];
+       $building_lowriseto = $building_floorriserange[0]["end"];
        $building_lowrise_range = "Floors ".$building_lowrisefrom." - ".$building_lowriseto;
-       $building_midrisefrom = $building_floorriserange["medium"]["start"];
-       $building_midriseto = $building_floorriserange["medium"]["end"];
+       $building_midrisefrom = $building_floorriserange[1]["start"];
+       $building_midriseto = $building_floorriserange[1]["end"];
        $building_midrise_range = "Floors ".$building_midrisefrom." - ".$building_midriseto;
-       $building_highrisefrom = $building_floorriserange["high"]["start"];
-       $building_highriseto = $building_floorriserange["high"]["end"];
+       $building_highrisefrom = $building_floorriserange[2]["start"];
+       $building_highriseto = $building_floorriserange[2]["end"];
        $building_highrise_range = "Floors ".$building_highrisefrom." - ".$building_highriseto;
+ 
     }
 }
 ?>
