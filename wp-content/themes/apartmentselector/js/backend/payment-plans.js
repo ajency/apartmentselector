@@ -131,16 +131,16 @@ $(document).on("click", "#save_payment_plan", function(e) {
 
             milestones = getSelectedMilstones();
 
-            if(milestones.length==0 && milestones!=false){
+            if(milestones.milestones.length==0 && milestones.return_status!=false){
                 showCustomError($("#add-more-milstones"),"Add atleast one milestone");
                 return;
-            }
-             if(milestones==false){
-                showCustomError($("#add-more-milstones"),"Add all selected milestone percentages");
-                return;
             } 
+             if(milestones.return_status==false){
+                showCustomError($("#add-more-milstones"),milestones.milestones);
+                return;
+            }  
 
-            if(sumMilstonePercentage(milestones)!=100){
+            if(sumMilstonePercentage(milestones.milestones)!=100){
                  showCustomError($("#add-more-milstones"),"Milestone percentages should add up to 100");
                 return;
             }
@@ -185,6 +185,7 @@ function getSelectedMilstones(){
 
     sort = 0
     milestones = []
+    return_status = true;
     $('#milestone-list li').each(function(e,val) {
          
         milestone =  $(val).find('[name="milestone"]').val()  
@@ -194,15 +195,23 @@ function getSelectedMilstones(){
              milestones.push({sort_index:sort_index,milestone:milestone,payment_percentage:payment_percentage});
 
         }
+
+        if(milestone=="" || milestone =="+" ){
+             
+            milestones =  "Please fill in all the data";
+            return_status = false;
+            return false;
+        }
         if(milestone!="" && milestone !="+" && (payment_percentage==''  )){
              
-            milestones = false;
+            milestones = "Add all selected milestone percentages";
+            return_status =  false;
             return false;
         }
        
     });
 
-    return milestones;
+    return ({'milestones':milestones,'return_status':return_status});
 
 }
 
