@@ -27,7 +27,7 @@ $heading = "Edit";
     $towers =  $payment_milestones["towers"];
    if(count($towers) > 0){
     foreach($towers as $key=>$val){
-      
+      if(intval($val)!=0)
       array_push($tower_arr, intval($val));
     }
 }
