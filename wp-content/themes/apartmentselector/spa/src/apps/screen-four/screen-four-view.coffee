@@ -111,6 +111,13 @@ define [ 'marionette' ], ( Marionette )->
                                             </select>
                                         </div>
                                         <div class="col-sm-6 form-inline">
+                                        <h5>Schemes: </h5>
+                                        <select id="scheme" class="form-control" >
+                                        <option value="1">Regular Scheme</option>
+                                        <option value="2">Lowest upfront payment scheme</option>
+                                        </select>
+                                        </div>
+                                        <div class="col-sm-6 form-inline">
                                             <div class="discountBox">
                                                 <h5>Discount Type:</h5>
                                                 <label class="checkbox-inline">
@@ -602,6 +609,13 @@ define [ 'marionette' ], ( Marionette )->
 
 
             )
+            $('#scheme').on('change' , ()->
+                    object.generateCostSheet()
+                    #object.getMilestones(id)
+
+
+
+            )
 
            
 
@@ -891,6 +905,30 @@ define [ 'marionette' ], ( Marionette )->
             agreementValue1 = agreement1
             agreement = parseFloat(basicCost) + parseFloat($('#infra').val())
             agreementValue = agreement
+            
+            stamp_duty = (parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty = (Math.round(stamp_duty*100)/100 ) + 100 
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
+            stamp_duty1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty1 = (Math.round(stamp_duty1*100)/100 ) + 100 
+            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
+            console.log $('#scheme').val()
+            if parseInt($('#scheme').val()) == 2
+                agreement = parseFloat(agreement) + parseFloat(stamp_duty)
+                agreement = parseFloat(agreement) + parseFloat(reg_amt)
+                agreementValue = agreement
+                stamp_duty = ""
+                reg_amt = ""
+
+                agreement1 = parseFloat(agreement1) + parseFloat(stamp_duty1)
+                agreement1 = parseFloat(agreement1) + parseFloat(reg_amt1)
+                agreementValue1 = agreement1
+                stamp_duty1 = ""
+                reg_amt1 = ""
+
+            vat = (parseFloat(agreement) * (parseFloat(SettingModel.get('vat'))/100))
+            
+            vat1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('vat'))/100))
             if parseFloat(agreement) > 10000000.00
                 servicetax = SettingModel.get('service_tax_agval_ab1')
             else
@@ -900,17 +938,14 @@ define [ 'marionette' ], ( Marionette )->
                 servicetax1 = SettingModel.get('service_tax_agval_ab1')
             else
                 servicetax1 = SettingModel.get('service_tax')
-            stamp_duty = (parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
-            stamp_duty = (Math.round(stamp_duty*100)/100 ) + 100 
-            reg_amt = parseFloat(SettingModel.get('registration_amount'))
-            vat = (parseFloat(agreement) * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax = (parseFloat(agreement) * (parseFloat(servicetax)/100))
-            stamp_duty1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
-            stamp_duty1 = (Math.round(stamp_duty1*100)/100 ) + 100 
-            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
-            vat1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('vat'))/100))
             sales_tax1 = (parseFloat(agreement1) * (parseFloat(servicetax1)/100))
-            totalcost1 =  parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
+            if parseInt($('#scheme').val()) == 2
+                totalcost = parseFloat(vat) + parseFloat(sales_tax)
+                totalcost1 =  parseFloat(vat1) + parseFloat(sales_tax1)
+            else
+                totalcost = parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
+                totalcost1 =  parseFloat(stamp_duty1) + parseFloat( reg_amt1) + parseFloat(vat1) + parseFloat(sales_tax1)
             finalcost1 =  parseFloat(maintenance) + parseFloat(membershipfees)
 
 
@@ -946,7 +981,7 @@ define [ 'marionette' ], ( Marionette )->
 
                 addon = parseFloat($('#payment').val()) - parseFloat(count)
 
-            totalcost = parseFloat(stamp_duty) + parseFloat( reg_amt) + parseFloat(vat) + parseFloat(sales_tax)
+            
             finalcost = parseFloat(maintenance) + parseFloat(membershipfees)
             $('.totalcost').text totalcost
             finalvalue = parseFloat(totalcost) + parseFloat(finalcost) + parseFloat(agreement)
@@ -1037,14 +1072,15 @@ define [ 'marionette' ], ( Marionette )->
             $('.agreement1').autoNumeric('set', agreement1);
             $('.agreement').autoNumeric('init')
             $('.agreement').autoNumeric('set', agreement);
-            $('.stamp_duty1').autoNumeric('init')
-            $('.stamp_duty1').autoNumeric('set', stamp_duty1);
-            $('.stamp_duty').autoNumeric('init')
-            $('.stamp_duty').autoNumeric('set', stamp_duty);
-            $('.reg_amt').autoNumeric('init')
-            $('.reg_amt').autoNumeric('set', reg_amt);
-            $('.reg_amt1').autoNumeric('init')
-            $('.reg_amt1').autoNumeric('set', reg_amt1);
+            if parseInt($('#scheme').val()) == 1
+                $('.stamp_duty1').autoNumeric('init')
+                $('.stamp_duty1').autoNumeric('set', stamp_duty1);
+                $('.stamp_duty').autoNumeric('init')
+                $('.stamp_duty').autoNumeric('set', stamp_duty);
+                $('.reg_amt').autoNumeric('init')
+                $('.reg_amt').autoNumeric('set', reg_amt);
+                $('.reg_amt1').autoNumeric('init')
+                $('.reg_amt1').autoNumeric('set', reg_amt1);
             $('.vat').autoNumeric('init')
             $('.vat').autoNumeric('set', vat);
             $('.vat1').autoNumeric('init')
