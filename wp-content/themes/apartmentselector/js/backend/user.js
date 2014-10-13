@@ -2,8 +2,10 @@
 jQuery(document).ready(function($) {
     var collections = [];
 
-
-     //building listing 
+    if($("#user_id").val()==""){
+        $("#user_email").val("")
+        $("#password").val("")
+    }
 
 
   if($('.tablesorter').length){
