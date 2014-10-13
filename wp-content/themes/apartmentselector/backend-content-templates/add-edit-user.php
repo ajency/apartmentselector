@@ -66,7 +66,7 @@ $heading = "Edit";
                         <label class="form-label">Email Address</label>
                         <div class="input-with-icon  right">                                       
               <i class=""></i>
-              <input type="email" remote="http://localhost/skyi/wp-admin/admin-ajax.php?action=check_email" name="user_email" required="" id="user_email" class="form-control" value="<?php echo $user_email;?>">                                 
+              <input type="email"  name="user_email" required="" id="user_email" class="form-control" value="<?php echo $user_email;?>">                                 
             </div>
                       </div>
              <div class="row">

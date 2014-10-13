@@ -137,6 +137,9 @@ jQuery(document).ready(function($) {
             $.post(AJAXURL, data, function(response) {
 
                 resetForm(e,$('#user_id').val(),response);
+
+                $('#user_email').val('')
+                $('#password').val('')
        
             });
         }
@@ -151,7 +154,8 @@ jQuery(document).ready(function($) {
                         required: true
                     },
                     user_email: { 
-                        required: true
+                        required: true,
+                        email:true
                     },
                     role: { 
                         required: true
