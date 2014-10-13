@@ -331,7 +331,7 @@ $heading = "Edit";
                     ?>
                     <div class="col-md-6">
                         <div class='checkbox check-default' >
-                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$building_views)){ echo "checked";}?> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
+                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$building_views)){ echo "checked";}?>> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
                         </div>
                     </div>
                     <?php
@@ -665,7 +665,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?php } ?>
+                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?php } ?>>
                             </div>
                         </div>
                     </div>
