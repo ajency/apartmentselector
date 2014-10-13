@@ -33,6 +33,33 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                     <input type="hidden" name="action" id="action" value="save_settings" />
                     <?php echo wp_nonce_field( plugin_basename( __FILE__ ), 'custom_save_apartment',true,false);?>
                      <br/>
+                      <div class="form-group">
+                        
+                        <div class="input-with-icon  right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label form-label-inline">Stamp Duty</label>
+                                <span class="help"></span>
+                            <label class="form-label form-label-prefix"> </label></div><div class="col-md-7"><input type="text" name="stamp_duty" id="stamp_duty" class="form-control" value="<?php echo @$stamp_duty;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                     
+                    <div class="form-group">
+                       <div class="input-with-icon  right">
+                       <div class="row">
+                       <div class="col-md-3">
+                             <label class="form-label form-label-inline">Registration Amount</label>
+                        <span class="help"></span></div>
+                        <div class="col-md-1">
+                        <label class="form-label form-label-inline">
+                            Rs.</label></div>
+                            <div class="col-md-7">
+                            <input type="text" name="registration_amount" id="registration_amount" class="form-control" value="<?php echo @$registration_amount;?>"></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         
                         <div class="input-with-icon  right">
@@ -66,33 +93,7 @@ $registration_amount = isset($settings["registration_amount"])?$settings["regist
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        
-                        <div class="input-with-icon  right">
-                        <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label form-label-inline">Stamp Duty</label>
-                                <span class="help"></span>
-                            <label class="form-label form-label-prefix"> </label></div><div class="col-md-7"><input type="text" name="stamp_duty" id="stamp_duty" class="form-control" value="<?php echo @$stamp_duty;?>"></div><div class="col-md-1"><label class="form-label form-label-inline"> %</label></div>
-                            </div>
-                        </div>
-                    </div>
- 
-                     
-                    <div class="form-group">
-                       <div class="input-with-icon  right">
-                       <div class="row">
-                       <div class="col-md-3">
-                             <label class="form-label form-label-inline">Registration Amount</label>
-                        <span class="help"></span></div>
-                        <div class="col-md-1">
-                        <label class="form-label form-label-inline">
-                            Rs.</label></div>
-                            <div class="col-md-7">
-                            <input type="text" name="registration_amount" id="registration_amount" class="form-control" value="<?php echo @$registration_amount;?>"></div>
-                            </div>
-                        </div>
-                    </div>
+                   
                      
 
                        <div class="form-group">
