@@ -97,8 +97,12 @@ define [ 'marionette' ], ( Marionette )->
                                             <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4>
                                         </div>
                                         <div class="col-sm-6 form-inline">
-                                            <h5>Actual Payment:</h5> 
-                                            <input type="text" class="form-control"  id="payment" value="0"/> <span class="glyphicon glyphicon-plus discountToggle"></span>
+                                            <h5>Schemes: </h5>
+                                            <select id="scheme" class="form-control" >
+                                                <option value="1">Regular Scheme</option>
+                                                <option value="2">Lowest upfront payment scheme</option>
+                                            </select>
+                                            
                                         </div>
                                     </div>
                                     <div class="row">
@@ -111,11 +115,13 @@ define [ 'marionette' ], ( Marionette )->
                                             </select>
                                         </div>
                                         <div class="col-sm-6 form-inline">
-                                        <h5>Schemes: </h5>
-                                        <select id="scheme" class="form-control" >
-                                        <option value="1">Regular Scheme</option>
-                                        <option value="2">Lowest upfront payment scheme</option>
-                                        </select>
+                                            <h5>Actual Payment:</h5> 
+                                            <input type="text" class="form-control"  id="payment" value="0"/> <span class="glyphicon glyphicon-plus discountToggle"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 form-inline">
+                                            
                                         </div>
                                         <div class="col-sm-6 form-inline">
                                             <div class="discountBox">
@@ -132,7 +138,7 @@ define [ 'marionette' ], ( Marionette )->
                                                 <input type="text" id="discountvalue" value="" class="numeric hidden form-control" />
                                                 <input type="text" id="discountper" value="" class="numeric  form-control" />
                                                 <br>
-                                                <h5>Add On Payment: </h5><h4><span class="addonpay" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4>
+                                                <h5>Add On Payment: </h5> <h4><span class="addonpay" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4>
                                             </div>
                                         </div>
                                     </div>

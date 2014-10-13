@@ -188,7 +188,8 @@ body {
 .floorlayout {
   width: 220px;
 }
-.termsTxt {
+.termsTxt,
+.invoice-items {
   display: none;
 }
 .costsheetPrint {
