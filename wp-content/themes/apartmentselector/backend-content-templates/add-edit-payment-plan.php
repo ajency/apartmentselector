@@ -1,6 +1,6 @@
-<?
+<?php
 //form heading
-
+require_once (get_template_directory().'/functions/building.php');
 if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
 
     wp_redirect(site_url('no-access'));
@@ -11,9 +11,9 @@ if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
 $heading = "Add"; 
 
 $payment_milestones = array();
-
+$archive_val = 0;
 if(isset($_REQUEST["id"])){
-
+$tower_arr = array();
 $heading = "Edit";
 
     $payment_plan_id = $_REQUEST["id"];
@@ -23,8 +23,24 @@ $heading = "Edit";
     $payment_plan_name = $payment_plan["option_name"];
  
     $payment_milestones =  unserialize($payment_plan["option_value"]) ;
+  
+    $towers =  $payment_milestones["towers"];
+   if(count($towers) > 0){
+    foreach($towers as $key=>$val){
+      if(intval($val)!=0)
+      array_push($tower_arr, intval($val));
+    }
+}
+     $archive =  $payment_milestones["archive"];
+    $checked = "";
+    if(intval($archive) == 1)
+      $checked = "checked";
+      $archive_val = 1;
     $payment_milestones =  $payment_milestones["milestones"];
 
+    
+    
+   
 
  
 }
@@ -93,7 +109,7 @@ $heading = "Edit";
 
                             ?>
                             <option value="<?php echo $milestone["id"];?>" <?php if($payment_milestone["milestone"]==$milestone["id"]){ echo "selected";}?>  ><?php echo $milestone["name"];?></option>
-                            <?
+                            <?php
                             }
                             ?>
                     </select>
@@ -104,7 +120,7 @@ $heading = "Edit";
             } 
         ?>
 
-        <?
+        <?php
        }else{
 
         ?>
@@ -122,7 +138,7 @@ $heading = "Edit";
 
                 ?>
                 <option value="<?php echo $milestone["id"];?>"  ><?php echo $milestone["name"];?></option>
-                <?
+                <?php
               }
               ?>
               </select>
@@ -188,7 +204,7 @@ $heading = "Edit";
 
                             ?>
                             <option value="<?php echo $milestone["id"];?>" <?php if($payment_milestone["milestone"]==$milestone["id"]){ echo "selected";}?>  ><?php echo $milestone["name"];?></option>
-                            <?
+                            <?php
                             }
                             ?>
                     </select>
@@ -204,7 +220,7 @@ $heading = "Edit";
             } 
         ?>
 
-        <?
+        <?php
        }else{
 
         ?>
@@ -223,7 +239,7 @@ $heading = "Edit";
 
                 ?>
                 <option value="<?php echo $milestone["id"];?>"  ><?php echo $milestone["name"];?></option>
-                <?
+                <?php
               }
               ?>
               </select></div>
@@ -239,7 +255,24 @@ $heading = "Edit";
           
         </ul>
 		<div class="m-t-20">
-            <a class="btn btn-default" href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a></div>
+            <a class="btn btn-default" href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a></div><br/><label class="form-label">Towers</label><br/><br/>
+            <?php 
+            $buildings = get_buildings();
+            foreach($buildings as $value){
+              $checked_tower =""; 
+              
+              if(in_array(intval($value['id']), $tower_arr))
+                
+                  $checked_tower = "checked";
+
+              ?>
+
+              <input type="checkbox" class="towervalue" <?php echo $checked_tower;?> id="towervalue<?php echo $value['id'];?>" name="towervalue<?php echo $value['id'];?>" value="<?php echo $value['id'];?>" /><?php echo $value['name'];?>&nbsp;&nbsp;
+
+           <?php }
+
+            ?>
+            <br/><br/><input type="hidden" id="towerstring" name="towerstring" value="<?php echo implode(',', $tower_arr);?>" /><input type="checkbox" id="archive" <?php echo $checked;?> name="archive" value="<?php echo $archive_val;?>" /><label for="archive" class="form-label">Archive</label>
             <div editing-element="" class="modal fade" id="milestone-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -285,3 +318,11 @@ $heading = "Edit";
 </div>
 </div>
 </div>
+<script type="text/javascript">
+function select_tower(){
+
+
+}
+
+
+</script>

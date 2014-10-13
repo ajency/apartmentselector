@@ -1,4 +1,4 @@
-
+towerid = [];
 jQuery(document).ready(function($) {
     var collections = [];  
 
@@ -152,7 +152,9 @@ $(document).on("click", "#save_payment_plan", function(e) {
                 action: "save_payment_plan",
                 payment_plan_name:  payment_plan_name, 
                 milestones:  milestones,  
-                payment_plan_id: payment_plan_id
+                payment_plan_id: payment_plan_id,
+                towers: $('#towerstring').val(),
+                archive: $('#archive').val()
               }, function(response)  {
             if(payment_plan_id ==""){
 
@@ -357,7 +359,38 @@ function sumMilstonePercentage(milestones){
         }
           
     });
+    $(document).on("change", ".towervalue", function(e) {
+
+        tower = $('#towerstring').val().split(',')
+        $.each(tower,function(inde,value){
+            towerid.push(parseInt($('#towerstring').val()));
+
+
+        })
+        
+        if($('#'+this.id).prop('checked') == true)
+            towerid.push(parseInt(this.value));
+        else{
+            index = towerid.indexOf(parseInt(this.value))
+            if(index != -1)
+                towerid.splice( index, 1 );
+
+    }
+      $('#towerstring').val(towerid.join(',')) 
+    });
+
+    $(document).on("change", "#archive", function(e) {
+
+        if($('#'+this.id).prop('checked') == true)
+            $('#'+this.id).val('1')
+        else
+            $('#'+this.id).val('0')
+
     
+       
+    });
 
 })
+
+    
 

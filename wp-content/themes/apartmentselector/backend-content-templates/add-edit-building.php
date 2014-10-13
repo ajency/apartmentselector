@@ -1,4 +1,4 @@
-<?
+<?php
 //form heading
 
 if(!current_user_can('manage_buildings') && !current_user_can('manage_options')){
@@ -130,7 +130,7 @@ $heading = "Edit";
                     foreach ($phases as $phase){
 
                         ?>
-                        <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['name']?></option>
+                        <option value="<?php echo $phase['id']; ?>" > <?php if($building_phase==$phase['id']){ echo "selected"; }?><?php echo  $phase['name']?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -162,7 +162,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo @$position_in_project["thumbnail_url"];?>" id="image_displayposition_in_project" <?php if(@$position_in_project["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo @$position_in_project["thumbnail_url"];?>" id="image_displayposition_in_project" <?php if(@$position_in_project["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo @$zoomed_in_image["thumbnail_url"];?>" id="image_displayzoomed_in_image" <?php if(@$zoomed_in_image["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo @$zoomed_in_image["thumbnail_url"];?>" id="image_displayzoomed_in_image" <?php if(@$zoomed_in_image["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -222,12 +222,15 @@ $heading = "Edit";
                     <option value="">Select</option>
                     <?php
 
-                    $payment_plans = get_payment_plans();
+                    if($building_id!= "")
+                    $payment_plans = get_payment_plans_building($building_id);
+                else
+                    $payment_plans =array();
 
                     foreach ($payment_plans as $payment_plan){
 
                         ?>
-                        <option value="<?php echo $payment_plan['id']; ?>"  <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?>><?php echo  $payment_plan['name']?></option>
+                        <option value="<?php echo $payment_plan['id']; ?>" > <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -255,7 +258,7 @@ $heading = "Edit";
                     foreach ($payment_plan_milestones as $payment_plan_milestone){
 
                         ?>
-                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>"  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?>><?php echo  $payment_plan_milestone['name']?></option>
+                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>">  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?><?php echo  $payment_plan_milestone['name']?></option>
                     <?php }
 
                     }else{
@@ -283,6 +286,7 @@ $heading = "Edit";
                          <div class="form-group">
                              <ul class="milestone-completion form-control-list" id="milestone-completion-item-container">
                                 <?php
+                                 if(isset($building_payment_plan)){
                                     $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
 
                                     foreach ($payment_plan_milestones as $payment_plan_milestone){
@@ -306,7 +310,8 @@ $heading = "Edit";
                                         </li>
                                 <?php
 
-                                }?>
+                                }
+                            }?>
                                        
                              </ul>
                          </div>
@@ -326,7 +331,7 @@ $heading = "Edit";
                     ?>
                     <div class="col-md-6">
                         <div class='checkbox check-default' >
-                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$building_views)){ echo "checked";}?>> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
+                            <input type="checkbox" name="views[]" id='views<?php echo $view["id"];?>' value="<?php echo $view["id"];?>" <?php if(in_array($view["id"],$building_views)){ echo "checked";}?> <label for="views<?php echo($view["id"]);?>"><?php echo $view["name"];?></label>
                         </div>
                     </div>
                     <?php
@@ -426,7 +431,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[0]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_1" <?php if(@$building_svgdata[0]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[0]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_1" <?php if(@$building_svgdata[0]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -449,7 +454,7 @@ $heading = "Edit";
                                         ?>
                                         <div class='col-md-4 flatposition<?php echo $flat;?>'>
                                                 <div class='checkbox check-default' >
-                                                        <input type='checkbox' name='flatpostion-1[]' id='flatpostion<?php echo $flat;?>-1' value='<?php echo $flat;?>' <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-1'><?php echo $flat;?></label>
+                                                        <input type='checkbox' name='flatpostion-1[]' id='flatpostion<?php echo $flat;?>-1' value='<?php echo $flat;?>' <?php echo $checked;?> <label for='flatpostion<?php echo $flat;?>-1'><?php echo $flat;?></label>
                                                 </div>
                                         </div>
                                         <?php
@@ -485,7 +490,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[1]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_2" <?php if(@$building_svgdata[1]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[1]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_2" <?php if(@$building_svgdata[1]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -507,7 +512,7 @@ $heading = "Edit";
                                         ?>
                                         <div class='col-md-4 flatposition<?php echo $flat;?>'>
                                                 <div class='checkbox check-default' >
-                                                        <input type='checkbox' name='flatpostion-2[]' id='flatpostion<?php echo $flat;?>-2' value='<?php echo $flat;?>'  <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-2'><?php echo $flat;?></label>
+                                                        <input type='checkbox' name='flatpostion-2[]' id='flatpostion<?php echo $flat;?>-2' value='<?php echo $flat;?>'  <?php echo $checked;?> <label for='flatpostion<?php echo $flat;?>-2'><?php echo $flat;?></label>
                                                 </div>
                                         </div>
                                         <?php
@@ -543,7 +548,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[2]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_3" <?php if(@$building_svgdata[2]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[2]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_3" <?php if(@$building_svgdata[2]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -565,7 +570,7 @@ $heading = "Edit";
                                         ?>
                                         <div class='col-md-4 flatposition<?php echo $flat;?>'>
                                                 <div class='checkbox check-default' >
-                                                        <input type='checkbox' name='flatpostion-3[]' id='flatpostion<?php echo $flat;?>-3' value='<?php echo $flat;?>'  <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-3'><?php echo $flat;?></label>
+                                                        <input type='checkbox' name='flatpostion-3[]' id='flatpostion<?php echo $flat;?>-3' value='<?php echo $flat;?>'  <?php echo $checked;?> <label for='flatpostion<?php echo $flat;?>-3'><?php echo $flat;?></label>
                                                 </div>
                                         </div>
                                         <?php
@@ -601,7 +606,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$building_svgdata[3]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_4" <?php if(@$building_svgdata[3]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$building_svgdata[3]["svgfile"]["thumbnail_url"];?>" id="image_displaysvg_position_file_4" <?php if(@$building_svgdata[3]["svgfile"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -623,7 +628,7 @@ $heading = "Edit";
                                         ?>
                                         <div class='col-md-4 flatposition<?php echo $flat;?>'>
                                                 <div class='checkbox check-default' >
-                                                        <input type='checkbox' name='flatpostion-4[]' id='flatpostion<?php echo $flat;?>-4' value='<?php echo $flat;?>'  <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-4'><?php echo $flat;?></label>
+                                                        <input type='checkbox' name='flatpostion-4[]' id='flatpostion<?php echo $flat;?>-4' value='<?php echo $flat;?>'  <?php echo $checked;?> <label for='flatpostion<?php echo $flat;?>-4'><?php echo $flat;?></label>
                                                 </div>
                                         </div>
                                         <?php
@@ -660,7 +665,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo  @$floor_layout_basic["thumbnail_url"];?>" id="image_displayfloor_layout_basic" <?php if(@$floor_layout_basic["thumbnail_url"]==""){?>style="display:none"<?php } ?>
                             </div>
                         </div>
                     </div>
@@ -687,7 +692,7 @@ $heading = "Edit";
                         <br>
                         <div class="row-fluid">
                             <div class="col-md-12">
-                                <img src="<?php echo $floor_layout_detailed["thumbnail_url"];?>" id="image_displayfloor_layout_detailed" <?php if(@$floor_layout_detailed["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                <img src="<?php echo $floor_layout_detailed["thumbnail_url"];?>" id="image_displayfloor_layout_detailed" <?php if(@$floor_layout_detailed["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                             </div>
                         </div>
                     </div>
@@ -725,7 +730,7 @@ $heading = "Edit";
                    $show_exception_options=false;
                     for($i=1;$i<=$no_of_floors;$i++){
                        ?><div class="col-md-4">
-                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked"; $show_exception_options=true;}?> class="exception_floors"> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
+                        <div class='exception_floor checkbox check-default' id='<?php echo($exception_count);?>exception_floor_item<?php echo($i);?>'> <input type="checkbox" name="exception_floors<?php echo($exception_count);?>[]" id='<?php echo($exception_count);?>exception_floors<?php echo($i);?>' value="<?php echo $i;?>" <?php if(in_array($i,$building_exception["floors"])){ echo "checked"; $show_exception_options=true; } ?> class="exception_floors"> <label for="<?php echo($exception_count);?>exception_floors<?php echo($i);?>"><?php echo $i;?></label></div></div>
                     <?php    
                     }
                      
@@ -747,9 +752,9 @@ $heading = "Edit";
                             <?php $max_no_of_flats = get_max_no_of_flats();
 
                             for($i=1;$i<=$max_no_of_flats;$i++){
-                            ?><option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?>><?php echo $i;?></option>
+                            ?><option value="<?php echo $i;?>" <?php if($i==$no_of_flats){ ?>selected <?php } ?><?php echo $i;?></option>
                             <?php  
-                            }?>
+                            } ?>
                         </select>
                     </div>
                 </div>
@@ -779,7 +784,7 @@ $heading = "Edit";
                                  
                                 <div class="row-fluid">
                                     <div class="col-md-12">
-                                        <img src="<?php echo $building_exception["floor_layout_basic"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_basic1" <?php if(@$building_exception["floor_layout_basic"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                        <img src="<?php echo $building_exception["floor_layout_basic"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_basic1" <?php if(@$building_exception["floor_layout_basic"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                                     </div>
                                 </div>
                             </div>
@@ -806,7 +811,7 @@ $heading = "Edit";
                                  
                                 <div class="row-fluid">
                                     <div class="col-md-12">
-                                        <img src="<?php echo $building_exception["floor_layout_detailed"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_detailed1" <?php if(@$building_exception["floor_layout_detailed"]["thumbnail_url"]==""){?>style="display:none"<?}?>>
+                                        <img src="<?php echo $building_exception["floor_layout_detailed"]["thumbnail_url"];?>" id="image_displayexceptionfloor_layout_detailed1" <?php if(@$building_exception["floor_layout_detailed"]["thumbnail_url"]==""){?>style="display:none"<?php } ?>/>
                                     </div>
                                 </div>
                             </div>
@@ -814,14 +819,14 @@ $heading = "Edit";
                     </div> 
                 </div> 
                 
-                <?}
+                <?php }
                 ?> 
             </div>
         </div>
     </div>
 </div>   
  
-    <div id="floorrise-container-main" <? if(@$no_of_floors==""){?>style="display:none"<?php } ?>>
+    <div id="floorrise-container-main" <?php if(@$no_of_floors==""){?>style="display:none"<?php } ?>>
         <div style="clear:both"></div>
         <b>Floor Rise</b>
         <div class="well" id="flats_container">
