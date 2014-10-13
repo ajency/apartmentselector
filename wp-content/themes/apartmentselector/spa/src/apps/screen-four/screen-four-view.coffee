@@ -114,16 +114,16 @@ define [ 'marionette' ], ( Marionette )->
                                             <div class="discountBox">
                                                 <h5>Discount Type:</h5>
                                                 <label class="checkbox-inline">
-                                                    <input type="radio" class="radioClass" id="radio1"  checked name="discountradio" value="1"/> Value
+                                                    <input type="radio" class="radioClass" id="radio1"   name="discountradio" value="1"/> Value
                                                 </label>
 
                                                 <label class="checkbox-inline">
-                                                    <input type="radio" class="radioClass" name="discountradio" value="2"/> Percentage
+                                                    <input type="radio" class="radioClass" name="discountradio" checked value="2"/> Percentage
                                                 </label>
                                                 <br>
                                                 <h5>Discount Amount:</h5>
-                                                <input type="text" id="discountvalue" value="" class="numeric form-control" />
-                                                <input type="text" id="discountper" value="" class="numeric hidden form-control" />
+                                                <input type="text" id="discountvalue" value="" class="numeric hidden form-control" />
+                                                <input type="text" id="discountper" value="" class="numeric  form-control" />
                                                 <br>
                                                 <h5>Add On Payment: </h5><h4><span class="addonpay" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4>
                                             </div>
@@ -536,6 +536,7 @@ define [ 'marionette' ], ( Marionette )->
                         $('.discCol').removeClass 'showDisc'
                         $('.revised').hide()
                         $('.actualcost').text $('#actualcostvalue').val()
+                        object.generateCostSheet()
                     else
                         $('#discountvalue').addClass "hidden"
                         $('#discountvalue').val ""
@@ -544,6 +545,7 @@ define [ 'marionette' ], ( Marionette )->
                         $('.discCol').removeClass 'showDisc'
                         $('.revised').hide()
                         $('.actualcost').text $('#actualcostvalue').val()
+                        object.generateCostSheet()
 
             )
             $('#discountvalue').on('change' , ()->

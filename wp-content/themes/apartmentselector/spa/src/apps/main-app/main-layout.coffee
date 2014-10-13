@@ -163,7 +163,7 @@ define [ 'extm'], ( Extm)->
 
                 <div class="row">
                     <div class="col-sm-4">
-                        <h5 >Total Cost:</h5> <h4><span class="totalcost" data-a-sign="Rs. " data-d-group="2"></span></h4>
+                        <h5 >Total Cost:</h5> <h4><span class="actualcost" data-a-sign="Rs. " data-d-group="2"></span></h4>
                     </div>
                     <div class="col-sm-4">
                         <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4>

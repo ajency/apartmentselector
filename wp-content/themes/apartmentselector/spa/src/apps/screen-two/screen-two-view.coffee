@@ -117,7 +117,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                         </div><input type="hidden" name="currency1" id="currency1" class="demo" data-a-sign="Rs. "  data-m-dec=""  data-d-group="2">
                     </div>
 
-                    <div class="specialFilter">
+                    <div class="specialFilter ">
                         <div class="bgClass">
                             <h3 class="text-center light">Choose from the options below to filter your selection</h3>
                             <div class="pull-left m-l-15">
