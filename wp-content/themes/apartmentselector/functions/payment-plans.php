@@ -1,18 +1,23 @@
 <?php
 
-function get_payment_plan_milestones($payment_plan){
+function get_payment_plan_milestones($payment_plan,$building){
 	global $wpdb;
 	
 	$query= "SELECT option_value FROM ".$wpdb->prefix ."options where   option_id  = '$payment_plan'";
  
    	$data = $wpdb->get_var($query);
+    
  $data = unserialize($data) ;
+$towers = $data["towers"];
+$archive = $data['archive'];
 
-   	return get_milestone_names( $data["milestones"]);
+  
+
+   	return get_milestone_names( $data["milestones"],$building,$towers,$archive);
 }
 
 
-function get_milestone_names($milestones){
+function get_milestone_names($milestones,$building,$towers,$archive){
 
 	$milestone_with_names = array();
 
@@ -24,13 +29,14 @@ function get_milestone_names($milestones){
  
 			if($all_milestone_item["id"]==$milestone["milestone"]){
 
+        
+
 				$milestone["name"] = $all_milestone_item["name"];
 			}
 		}
 
 		$milestone_with_names[] = $milestone;
 	}
-
 	return $milestone_with_names;
 }
 function get_payment_plans_building($id){
@@ -52,6 +58,7 @@ function get_payment_plans_building($id){
    	foreach($payment_plans as $payment_plan){ 
    			$option_value= maybe_unserialize($payment_plan["value"]);
    			$miles_stones =  $option_value["milestones"] ;
+       
 
    			$milestones = $option_value["milestones"] ;
    			
@@ -300,8 +307,9 @@ function delete_payment_plan($payment_plan_id){
 function ajax_get_payment_plan_milestones(){
 
     $payment_plan = $_REQUEST["payment_plan"];
+    $building = $_REQUEST["buildingid"];
 
-	$payment_plan_milestones = get_payment_plan_milestones($payment_plan);
+	$payment_plan_milestones = get_payment_plan_milestones($payment_plan,$building);
 	$response = json_encode( $payment_plan_milestones );
 
 	header( "Content-Type: application/json" );

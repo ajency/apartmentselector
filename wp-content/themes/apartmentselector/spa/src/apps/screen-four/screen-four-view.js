@@ -612,10 +612,10 @@ define(['marionette'], function(Marionette) {
       agreement = parseFloat(basicCost) + parseFloat($('#infra').val());
       agreementValue = agreement;
       stamp_duty = parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty')) / 100);
-      stamp_duty = (Math.round(stamp_duty * 100) / 100) + 100;
+      stamp_duty = stamp_duty.toFixed(2) + 100;
       reg_amt = parseFloat(SettingModel.get('registration_amount'));
       stamp_duty1 = parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty')) / 100);
-      stamp_duty1 = (Math.round(stamp_duty1 * 100) / 100) + 100;
+      stamp_duty1 = stamp_duty1.toFixed(2) + 100;
       reg_amt1 = parseFloat(SettingModel.get('registration_amount'));
       console.log($('#scheme').val());
       if (parseInt($('#scheme').val()) === 2) {

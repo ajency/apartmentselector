@@ -651,7 +651,8 @@ function addException(exception_no){
         $.post(AJAXURL, {
             action: "get_payment_plan_milestones",
 
-            payment_plan: $("option:selected", $(e.target)).val()
+            payment_plan: $("option:selected", $(e.target)).val(),
+            buildingid:$('#buildingid').val()
         }, function(response) {
 
         sortedresponse = _.sortBy(response, function (obj) { 

@@ -232,7 +232,7 @@ $heading = "Edit";
                         ?>
                         <option value="<?php echo $payment_plan['id']; ?>" > <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
                     <?php } ?>
-                </select>
+                </select><input type="hidden" id="buildingid" name="buildingid" value="<?php echo $building_id;?>" >
             </div>
         </div>
     </div>
@@ -253,7 +253,7 @@ $heading = "Edit";
                     <?php
                     if(isset($building_payment_plan)){
  
-                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
+                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan,$building_id);
 
                     foreach ($payment_plan_milestones as $payment_plan_milestone){
 
@@ -287,7 +287,7 @@ $heading = "Edit";
                              <ul class="milestone-completion form-control-list" id="milestone-completion-item-container">
                                 <?php
                                  if(isset($building_payment_plan)){
-                                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
+                                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan,$building_id);
 
                                     foreach ($payment_plan_milestones as $payment_plan_milestone){
                                 
