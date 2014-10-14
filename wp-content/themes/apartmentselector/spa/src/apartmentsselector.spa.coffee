@@ -267,6 +267,7 @@ require [ 'plugin-loader'
     if window.location.hash is ''
         App.filter()
         staticApps.push [ 'main:app', App.mainRegion ]
+        staticApps.push [ 'footer', App.footerRegion ]
 
 
 

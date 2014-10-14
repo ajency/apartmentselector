@@ -222,6 +222,7 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
   if (window.location.hash === '') {
     App.filter();
     staticApps.push(['main:app', App.mainRegion]);
+    staticApps.push(['footer', App.footerRegion]);
   }
   App.addStaticApps(staticApps);
   return App.start();
