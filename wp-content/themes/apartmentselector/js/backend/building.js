@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
     var collections = [];
     //load unit variants 
 
-    $('#building_payment_plan').trigger('change');
+ 
 
     $('.fileupload').each(function(e,val) { 
          
@@ -644,10 +644,13 @@ function addException(exception_no){
             }); 
 
    $(document).on("change", "#building_payment_plan", function(e) {
-
+ 
         $("#building_milestone").empty();
 
         $("#building_milestone").append(new Option("Select", ""));
+
+        selected_milestone = $("#building_payment_plan").attr('selected-milestone')
+
         if($(e.target).val()!=""){
  
         $.post(AJAXURL, {
@@ -663,10 +666,12 @@ function addException(exception_no){
         });
 
             $.each(sortedresponse, function(i, val) {
-                selected =  (i==0)?val.milestone:selected;
+              //  selected =  (i==0)?val.milestone:selected;
                 $("#building_milestone").append(new Option(val.name, val.milestone));
             });
-             $("#building_milestone").val(selected);
+             $("#building_milestone").val(selected_milestone);
+             console.log(selected_milestone)
+              $("#building_milestone").trigger('change')
               milestoneCompletionUi(sortedresponse);
         });
         }
@@ -745,6 +750,10 @@ function addException(exception_no){
             $(".flatposition"+i).remove()
         }
     }
+
+
+
+$("#building_payment_plan").val($('#building_payment_plan').val()).trigger('change');
  
 })
 
