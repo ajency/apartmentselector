@@ -913,10 +913,11 @@ define [ 'marionette' ], ( Marionette )->
             agreementValue = agreement
             
             stamp_duty = (parseFloat(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
-            stamp_duty = stamp_duty.toFixed(2) + 100 
+            shift = Math.pow(10, -2);
+            stamp_duty = ((Math.round(stamp_duty*shift))/shift)  + 100 
             reg_amt = parseFloat(SettingModel.get('registration_amount'))
             stamp_duty1 = (parseFloat(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100)) 
-            stamp_duty1 = stamp_duty1.toFixed(2) + 100 
+            stamp_duty1 = ((Math.round(stamp_duty1*shift))/shift ) + 100 
             reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             console.log $('#scheme').val()
             if parseInt($('#scheme').val()) == 2
