@@ -324,7 +324,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
-      var capability, cookieOldValue, costSheetArray, count, flag, usermodel;
+      var buildingModel, capability, cookieOldValue, costSheetArray, count, flag, milestoneselectedValue, planselectedValue, unitModel, usermodel;
       $(".discountToggle").click(function() {
         $(".discountBox").slideToggle();
       });
@@ -416,6 +416,15 @@ define(['marionette'], function(Marionette) {
       App.cookieArray = cookieOldValue;
       this.showWishList();
       object = this;
+      unitModel = App.master.unit.findWhere({
+        id: parseInt(App.unit['name'])
+      });
+      buildingModel = App.master.building.findWhere({
+        id: unitModel.get('building')
+      });
+      planselectedValue = buildingModel.get('payment_plan');
+      milestoneselectedValue = buildingModel.get('milestone');
+      $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       this.generateCostSheet();
       perFlag = "";
       costSheetArray = [];
@@ -545,7 +554,6 @@ define(['marionette'], function(Marionette) {
       $('.building').text(buildingModel.get('name'));
       planselectedValue = buildingModel.get('payment_plan');
       milestoneselectedValue = buildingModel.get('milestone');
-      $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       id1 = $('#paymentplans').val();
       paymentColl = new Backbone.Collection(PAYMENTPLANS);
       milestones = paymentColl.get(parseInt($('#paymentplans').val()));
@@ -619,7 +627,6 @@ define(['marionette'], function(Marionette) {
       stamp_dutyy = parseInt(agreement1) * (parseInt(SettingModel.get('stamp_duty')) / 100);
       stamp_dutyy = parseInt((Math.round(stamp_dutyy * shift)) / shift) + 110;
       temp_stamp_duty = parseInt((Math.round(stamp_dutyy * shift)) / shift) + 110;
-      console.log(temp_stamp_duty);
       reg_amt1 = parseInt(SettingModel.get('registration_amount'));
       if (parseInt($('#scheme').val()) === 2) {
         agreement = parseInt(agreement) + parseInt(tempstamp_duty);

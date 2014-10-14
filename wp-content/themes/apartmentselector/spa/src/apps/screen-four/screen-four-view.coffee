@@ -642,7 +642,13 @@ define [ 'marionette' ], ( Marionette )->
             App.cookieArray = cookieOldValue
             @showWishList()
             object = @
+            unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+            buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
+            planselectedValue = buildingModel.get('payment_plan')
+            milestoneselectedValue = buildingModel.get('milestone')
+            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             @generateCostSheet()
+
             perFlag = ""
             costSheetArray = []
             flag = 0
@@ -749,7 +755,7 @@ define [ 'marionette' ], ( Marionette )->
             $('.building').text buildingModel.get 'name'
             planselectedValue = buildingModel.get('payment_plan')
             milestoneselectedValue = buildingModel.get('milestone')
-            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
+            # $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             #$("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1 = $('#paymentplans').val()
             paymentColl = new Backbone.Collection PAYMENTPLANS
@@ -922,7 +928,7 @@ define [ 'marionette' ], ( Marionette )->
 
             stamp_dutyy = parseInt(((Math.round(stamp_dutyy*shift))/shift )) + 110 
             temp_stamp_duty = parseInt(((Math.round(stamp_dutyy*shift))/shift )) + 110 
-            console.log temp_stamp_duty
+            
             reg_amt1 = parseInt(SettingModel.get('registration_amount'))
             
             if parseInt($('#scheme').val()) == 2
