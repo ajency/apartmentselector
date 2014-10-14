@@ -28,6 +28,14 @@ $heading = "Edit";
 
     $building_payment_plan = $building["payment_plan"];
 
+    $query= "SELECT option_value FROM ".$wpdb->prefix ."options where   option_id  = '$building_payment_plan'";
+    
+    $data = $wpdb->get_var($query);
+    
+    $data = unserialize($data) ;
+    $towers = $data["towers"];
+    $archive = $data['archive'];
+
     $building_milestone = $building["milestone"];
 
     $building_milestone_completion = $building["milestonecompletion"];
@@ -217,7 +225,7 @@ $heading = "Edit";
 
                 <i class="">
                 </i>
-                <select class="form-control"  name="building_payment_plan" id="building_payment_plan"  >
+                <select class="form-control"  name="building_payment_plan" id="building_payment_plan"  selected-milestone="<?php echo $building_milestone;?>">
 
                     <option value="">Select</option>
                     <?php
@@ -230,7 +238,7 @@ $heading = "Edit";
                     foreach ($payment_plans as $payment_plan){
 
                         ?>
-                        <option value="<?php echo $payment_plan['id']; ?>" > <?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?><?php echo  $payment_plan['name']?></option>
+                        <option value="<?php echo $payment_plan['id']; ?>"<?php if($building_payment_plan==$payment_plan['id']){ echo "selected"; }?>><?php echo  $payment_plan['name']?></option>
                     <?php } ?>
                 </select><input type="hidden" id="buildingid" name="buildingid" value="<?php echo $building_id;?>" >
             </div>
@@ -250,22 +258,7 @@ $heading = "Edit";
                     <option value="">
                         Please Select
                     </option>
-                    <?php
-                    if(isset($building_payment_plan)){
- 
-                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan,$building_id);
-
-                    foreach ($payment_plan_milestones as $payment_plan_milestone){
-
-                        ?>
-                        <option value="<?php echo $payment_plan_milestone['milestone']; ?>">  <?php if($building_milestone==$payment_plan_milestone['milestone']){ echo "selected"; }?><?php echo  $payment_plan_milestone['name']?></option>
-                    <?php }
-
-                    }else{
-                        ?>
-
-                        <?php
-                        } ?>
+                  
 
                 </select>
             </div>

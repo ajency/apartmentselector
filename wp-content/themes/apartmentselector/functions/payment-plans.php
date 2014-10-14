@@ -1,6 +1,6 @@
 <?php
 
-function get_payment_plan_milestones($payment_plan,$building){
+function get_payment_plan_milestones($payment_plan,$building=0){
 	global $wpdb;
 	
 	$query= "SELECT option_value FROM ".$wpdb->prefix ."options where   option_id  = '$payment_plan'";
@@ -34,6 +34,7 @@ function get_milestone_names($milestones,$building,$towers,$archive){
 				$milestone["name"] = $all_milestone_item["name"];
 			}
 		}
+
 
 		$milestone_with_names[] = $milestone;
 	}

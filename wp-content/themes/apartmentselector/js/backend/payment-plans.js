@@ -151,7 +151,7 @@ $(document).on("click", "#save_payment_plan", function(e) {
             $.post(AJAXURL, {
                 action: "save_payment_plan",
                 payment_plan_name:  payment_plan_name, 
-                milestones:  milestones,  
+                milestones:  milestones.milestones,  
                 payment_plan_id: payment_plan_id,
                 towers: $('#towerstring').val(),
                 archive: $('#archive').val()

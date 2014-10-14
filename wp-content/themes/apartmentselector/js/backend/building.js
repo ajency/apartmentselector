@@ -3,6 +3,8 @@ jQuery(document).ready(function($) {
     var collections = [];
     //load unit variants 
 
+    $('#building_payment_plan').trigger('change');
+
     $('.fileupload').each(function(e,val) { 
          
         file_field =  val.id.replace(/fileupload/g,'');
