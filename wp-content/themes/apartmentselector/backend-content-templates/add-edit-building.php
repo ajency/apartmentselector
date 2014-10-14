@@ -138,7 +138,7 @@ $heading = "Edit";
                     foreach ($phases as $phase){
 
                         ?>
-                        <option value="<?php echo $phase['id']; ?>" > <?php if($building_phase==$phase['id']){ echo "selected"; }?><?php echo  $phase['name']?></option>
+                        <option value="<?php echo $phase['id']; ?>"  <?php if($building_phase==$phase['id']){ echo "selected"; }?>><?php echo  $phase['name']?></option>
                     <?php } ?>
                 </select>
             </div>
