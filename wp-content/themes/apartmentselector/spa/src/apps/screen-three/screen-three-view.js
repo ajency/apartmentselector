@@ -86,6 +86,16 @@ define(['marionette'], function(Marionette) {
       },
       'click .unit-hover': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, id, indexvalue, rangeArrayVal, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $('#screen-four-region').removeClass('section');
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-three");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         $("#flatno").text("");
         $("#towerno").text("");
         $("#unittypename").text("");
@@ -214,6 +224,16 @@ define(['marionette'], function(Marionette) {
       },
       'click .unselected-floor': function(e) {
         var buildinArray, building, buildingCollection, buildingModel, flatid, floorriserange, id, indexvalue, rangeArrayVal, svgdata, svgposition, temp, temp1, temp2, unitModel, unitvalues;
+        $('#screen-four-region').removeClass('section');
+        App.layout.screenFourRegion.el.innerHTML = "";
+        App.navigate("screen-three");
+        App.currentStore.unit.reset(UNITS);
+        App.currentStore.building.reset(BUILDINGS);
+        App.currentStore.unit_type.reset(UNITTYPES);
+        App.currentStore.unit_variant.reset(UNITVARIANTS);
+        App.currentStore.terrace.reset(TERRACEOPTIONS);
+        App.currentStore.view.reset(VIEWS);
+        App.currentStore.facings.reset(FACINGS);
         $("#flatno").text("");
         $("#towerno").text("");
         $("#unittypename").text("");

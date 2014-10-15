@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return FooterView.__super__.constructor.apply(this, arguments);
     }
 
-    FooterView.prototype.template = '<p style="text-align:center;" class="termsTxt"><a  href="http://manaslake.com/terms-conditions/" target="_new">Terms &amp; Conditions</a></p>';
+    FooterView.prototype.template = '<p style="text-align:center;" ><a  href="http://manaslake.com/terms-conditions/" target="_new">Terms &amp; Conditions</a></p>';
 
     return FooterView;
 

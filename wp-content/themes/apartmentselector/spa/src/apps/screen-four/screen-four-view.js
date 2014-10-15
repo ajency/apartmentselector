@@ -640,12 +640,12 @@ define(['marionette'], function(Marionette) {
       }
       vat = parseInt(agreement) * (parseInt(SettingModel.get('vat')) / 100);
       vat1 = parseInt(agreement1) * (parseInt(SettingModel.get('vat')) / 100);
-      if (parseInt(agreement) > 10000000.00) {
+      if (parseInt(agreement) > 10000000) {
         servicetax = SettingModel.get('service_tax_agval_ab1');
       } else {
         servicetax = SettingModel.get('service_tax');
       }
-      if (parseInt(agreement1) > 10000000.00) {
+      if (parseInt(agreement1) > 10000000) {
         servicetax1 = SettingModel.get('service_tax_agval_ab1');
       } else {
         servicetax1 = SettingModel.get('service_tax');
