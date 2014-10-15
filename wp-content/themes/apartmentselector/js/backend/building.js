@@ -753,7 +753,7 @@ function addException(exception_no){
 
 
 
-$("#building_payment_plan").val($('#building_payment_plan').val()).trigger('change');
+$("#building_payment_plan").trigger('change');
  
 })
 

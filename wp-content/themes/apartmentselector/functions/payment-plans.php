@@ -23,22 +23,22 @@ function get_milestone_names($milestones,$building,$towers,$archive){
 
 	$all_milestones = get_milestones();
  
-	foreach($milestones as $milestone){
+	//foreach($milestones as $milestone){
 
 		foreach($all_milestones as $all_milestone_item){
  
-			if($all_milestone_item["id"]==$milestone["milestone"]){
+			//if($all_milestone_item["id"]==$milestone["milestone"]){
 
         
 
 				$milestone["name"] = $all_milestone_item["name"];
-			}
+			//}
 		}
 
 
 		$milestone_with_names[] = $milestone;
-	}
-	return $milestone_with_names;
+	//}
+	return $all_milestones;
 }
 function get_payment_plans_building($id){
 

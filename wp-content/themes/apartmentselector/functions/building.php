@@ -329,9 +329,9 @@ function save_extra_building_fields( $term_id ) {
 
  //milestone completion
     $milestone_completion = array();
-    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
+    $payment_plan_milestones = get_milestones($building_payment_plan);
     foreach($payment_plan_milestones as $payment_plan_milestone){
-        $milestone_completion[$payment_plan_milestone["milestone"]] =  $_REQUEST["milestone_completion_".$payment_plan_milestone["milestone"]] ;
+        $milestone_completion[$payment_plan_milestone["id"]] =  $_REQUEST["milestone_completion_".$payment_plan_milestone["id"]] ;
 
     }
 

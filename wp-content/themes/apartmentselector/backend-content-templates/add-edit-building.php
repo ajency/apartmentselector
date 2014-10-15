@@ -39,7 +39,7 @@ $heading = "Edit";
     $building_milestone = $building["milestone"];
 
     $building_milestone_completion = $building["milestonecompletion"];
-
+    print_r($building_milestone_completion);
     $building_views = $building["buildingviews"];
 
     $position_in_project = $building["positioninproject"];
@@ -215,7 +215,7 @@ $heading = "Edit";
         </div>
     </div>
     <div style="clear:both"></div>
-    <div class="col-md-12">
+   <!-- <div class="col-md-12">
         <div class="form-group">
             <label class="form-label">
                 Payment Plan
@@ -243,7 +243,7 @@ $heading = "Edit";
                 </select><input type="hidden" id="buildingid" name="buildingid" value="<?php echo $building_id;?>" >
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="col-md-12">
         <div class="form-group">
             <label class="form-label">
@@ -258,13 +258,22 @@ $heading = "Edit";
                     <option value="">
                         Please Select
                     </option>
-                  
+                    <?php
+                    
+                    $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan);
 
+                    foreach ($payment_plan_milestones as $payment_plan_milestone){
+
+                        ?>
+                        <option value="<?php echo $payment_plan_milestone['id']; ?>"  <?php if($building_milestone==$payment_plan_milestone['id']){ echo "selected"; }?>><?php echo  $payment_plan_milestone['name']?></option>
+                    <?php }?>
+
+                    
                 </select>
             </div>
         </div>
     </div>
-    <div id="milestone-completion" <?php if(!isset($building_payment_plan)){?>style="display:none"<?php }?>>
+    <div id="milestone-completion">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="form-label">
@@ -279,13 +288,13 @@ $heading = "Edit";
                          <div class="form-group">
                              <ul class="milestone-completion form-control-list" id="milestone-completion-item-container">
                                 <?php
-                                 if(isset($building_payment_plan)){
+                                 
                                     $payment_plan_milestones = get_payment_plan_milestones($building_payment_plan,$building_id);
 
                                     foreach ($payment_plan_milestones as $payment_plan_milestone){
                                 
                                         if(is_array($building_milestone_completion)){
-                                            $completion_date = $building_milestone_completion[$payment_plan_milestone['milestone']];
+                                            $completion_date = $building_milestone_completion[$payment_plan_milestone['id']];
                                         }
                                 ?>
                                         <li >
@@ -295,7 +304,7 @@ $heading = "Edit";
                                                             <?php echo  $payment_plan_milestone['name']?></label> 
                                                     </div>
                                                     <div class="col-md-5">
-                                                        <input type="text"  name="milestone_completion_<?php echo  $payment_plan_milestone['milestone']?>"  class="milestone-completion-date form-control-medium"  value="<?php echo $completion_date;?>"  >
+                                                        <input type="text"  name="milestone_completion_<?php echo  $payment_plan_milestone['id']?>"  class="milestone-completion-date form-control-medium"  value="<?php echo $completion_date;?>"  >
                                                     </div>
                                                      
                                                 </div>
@@ -304,7 +313,7 @@ $heading = "Edit";
                                 <?php
 
                                 }
-                            }?>
+                            ?>
                                        
                              </ul>
                          </div>

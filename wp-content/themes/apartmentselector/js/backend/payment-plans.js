@@ -144,6 +144,10 @@ $(document).on("click", "#save_payment_plan", function(e) {
                  showCustomError($("#add-more-milstones"),"Milestone percentages should add up to 100");
                 return;
             }
+            if($('#apply').val() == 0 && $('#towerstring').val() == ""){
+                 showCustomError($("#add-more-milstones"),"Select Either ");
+                return;
+            }
   
  
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")

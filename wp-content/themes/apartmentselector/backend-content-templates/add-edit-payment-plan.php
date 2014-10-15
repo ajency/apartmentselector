@@ -272,6 +272,7 @@ $heading = "Edit";
            <?php }
 
             ?>
+            <br/><br/><input type="checkbox" id="apply" <?php echo $checked;?> name="apply" value="<?php echo $archive_val;?>" /><label for="apply" class="form-label">Apply to All Towers</label>
             <br/><br/><input type="hidden" id="towerstring" name="towerstring" value="<?php echo implode(',', $tower_arr);?>" /><input type="checkbox" id="archive" <?php echo $checked;?> name="archive" value="<?php echo $archive_val;?>" /><label for="archive" class="form-label">Archive</label>
             <div editing-element="" class="modal fade" id="milestone-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
