@@ -719,8 +719,8 @@ define [ 'marionette' ], ( Marionette )->
             $('.flatno').text unitModel.get 'name'
             
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
-            costSheetArray.push(uniVariantModel.get('sellablearea'))
-            costSheetArray.push(unitModel.get('persqftprice'))
+            costSheetArray.push(Math.round(uniVariantModel.get('sellablearea')))
+            costSheetArray.push(Math.round(unitModel.get('persqftprice')))
             revisedhidden = 'hidden'
             discount = 0
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
@@ -736,7 +736,7 @@ define [ 'marionette' ], ( Marionette )->
             else if perFlag == 2
                 revisedhidden = ""
                 pervalue = parseInt($('#discountper').val())/100
-                discount = (parseInt(ratePerSqFtPrice) * parseInt(pervalue))
+                discount = Math.round((parseInt(ratePerSqFtPrice) * parseFloat(pervalue)))
                 discountClass = 'showDisc'
             # discount = Math.ceil(discount.toFixed(2));
 
@@ -746,8 +746,8 @@ define [ 'marionette' ], ( Marionette )->
                 discountClass = ''
             
             revisedrate = parseInt(ratePerSqFtPrice) - (parseInt(discount))
-            costSheetArray.push(revisedrate)
-            basicCost = parseInt(uniVariantModel.get('sellablearea')) * parseInt(revisedrate)
+            costSheetArray.push(Math.round(revisedrate))
+            basicCost = Math.round(parseInt(uniVariantModel.get('sellablearea')) * parseInt(revisedrate))
             costSheetArray.push(basicCost)
             costSheetArray.push(discount)
             table = ""
@@ -761,7 +761,7 @@ define [ 'marionette' ], ( Marionette )->
             paymentColl = new Backbone.Collection PAYMENTPLANS
             milestones = paymentColl.get(parseInt($('#paymentplans').val()))
             $('.paymentplan').text milestones.get('name')
-            maintenance = parseInt(uniVariantModel.get('sellablearea')) * 100
+            maintenance = Math.round(parseInt(uniVariantModel.get('sellablearea')) * 100)
             SettingModel = new Backbone.Model SETTINGS
             
             infraArray = SettingModel.get('infrastructure_charges' )
@@ -794,7 +794,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
             ratepersqftfloorval = (parseInt(costSheetArray[1]) + parseInt(floorRiseValue))
-            basicCost1 = (parseInt(costSheetArray[0]) * parseInt(ratepersqftfloorval))
+            basicCost1 = Math.round((parseInt(costSheetArray[0]) * parseInt(ratepersqftfloorval)))
             table += '  
                         <div class="costsRow totals title">
                             <div class="costCell costName">Cost Type</div>
@@ -918,18 +918,18 @@ define [ 'marionette' ], ( Marionette )->
             agreement = parseInt(basicCost) + parseInt($('#infra').val())
             agreementValue = agreement
             
-            stamp_duty = (parseInt(agreement) * (parseInt(SettingModel.get('stamp_duty'))/100)) 
+            stamp_duty = Math.round((parseInt(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
             shift = Math.pow(10, -2);
 
            
             tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
-            reg_amt = parseInt(SettingModel.get('registration_amount'))
-            stamp_dutyy = (parseInt(agreement1) * (parseInt(SettingModel.get('stamp_duty'))/100)) 
+            reg_amt = parseInt(Math.round(SettingModel.get('registration_amount')))
+            stamp_dutyy = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
 
             
             temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
             
-            reg_amt1 = parseInt(SettingModel.get('registration_amount'))
+            reg_amt1 = parseInt(Math.round(SettingModel.get('registration_amount')))
             
             if parseInt($('#scheme').val()) == 2
                 agreement = parseInt(agreement) + parseInt(tempstamp_duty)
@@ -944,20 +944,20 @@ define [ 'marionette' ], ( Marionette )->
                 temp_stamp_duty = ""
                 reg_amt1 = ""
 
-            vat = (parseInt(agreement) * (parseInt(SettingModel.get('vat'))/100))
+            vat = (parseInt(agreement) * (parseFloat(Math.round(SettingModel.get('vat'))/100)))
             
-            vat1 = (parseInt(agreement1) * (parseInt(SettingModel.get('vat'))/100))
+            vat1 = (parseInt(agreement1) * (parseFloat(Math.round(SettingModel.get('vat'))/100)))
             if parseInt(agreement) > 10000000
-                servicetax = SettingModel.get('service_tax_agval_ab1')
+                servicetax = Math.round(SettingModel.get('service_tax_agval_ab1'))
             else
-                servicetax = SettingModel.get('service_tax')
+                servicetax = Math.round(SettingModel.get('service_tax'))
 
             if parseInt(agreement1) > 10000000
-                servicetax1 = SettingModel.get('service_tax_agval_ab1')
+                servicetax1 = Math.round(SettingModel.get('service_tax_agval_ab1'))
             else
-                servicetax1 = SettingModel.get('service_tax')
-            sales_tax = (parseInt(agreement) * (parseInt(servicetax)/100))
-            sales_tax1 = (parseInt(agreement1) * (parseInt(servicetax1)/100))
+                servicetax1 = Math.round(SettingModel.get('service_tax'))
+            sales_tax = Math.round((parseInt(agreement) * (parseFloat(servicetax)/100)))
+            sales_tax1 = Math.round((parseInt(agreement1) * (parseFloat(servicetax1)/100)))
             if parseInt($('#scheme').val()) == 2
                 totalcost = parseInt(vat) + parseInt(sales_tax)
                 totalcost1 =  parseInt(vat1) + parseInt(sales_tax1)
@@ -1228,8 +1228,8 @@ define [ 'marionette' ], ( Marionette )->
             milestoneColl = new Backbone.Collection MILESTONES
             #milestonecompletion = {48:'26/08/2014', 52:'30/08/2014'}
             for element,index in milestonesArray
-                percentageValue = (agreementValue * ((parseInt(element.payment_percentage))/100))
-                percentageValue1 = (agreementValue1 * ((parseInt(element.payment_percentage))/100))
+                percentageValue = Math.round((agreementValue * ((parseFloat(element.payment_percentage))/100)))
+                percentageValue1 = Math.round((agreementValue1 * ((parseFloat(element.payment_percentage))/100)))
                 proposed_date = $.map(milestonecompletion, (index,value)->
                     if parseInt(element.milestone) == parseInt(value)
                         return index
@@ -1239,8 +1239,8 @@ define [ 'marionette' ], ( Marionette )->
                     proposed_date = ''
                 if element.sort_index <= milestonemodel.get('sort_index')
                     trClass = "milestoneReached"
-                    percentageValue = (parseInt(agreementValue) * ((parseInt(element.payment_percentage))/100))
-                    percentageValue1 = (agreementValue1 * ((parseInt(element.payment_percentage))/100))
+                    percentageValue = Math.round((parseInt(agreementValue) * ((parseFloat(element.payment_percentage))/100)))
+                    percentageValue1 = Math.round((parseInt(agreementValue1) * ((parseFloat(element.payment_percentage))/100)))
                     if discountClass == "" 
                         amtalue = percentageValue1
                     else
@@ -1286,8 +1286,8 @@ define [ 'marionette' ], ( Marionette )->
             $('#paymentTable' ).append table
             
             for element,index in milestonesArray
-                percentageValue = (parseInt(agreementValue) * ((parseInt(element.payment_percentage))/100))
-                percentageValue1 = (parseInt(agreementValue1) * ((parseInt(element.payment_percentage))/100))
+                percentageValue = Math.round(parseInt(agreementValue) * ((parseFloat(element.payment_percentage))/100))
+                percentageValue1 = Math.round(parseInt(agreementValue1) * ((parseFloat(element.payment_percentage))/100))
                 $('.percentageValue'+index).autoNumeric('init')
                 $('.percentageValue'+index).autoNumeric('set', percentageValue)
                 $('.percentageValue1'+index).autoNumeric('init')
@@ -1320,8 +1320,8 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray = []
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
-            costSheetArray.push(uniVariantModel.get('sellablearea'))
-            costSheetArray.push(unitModel.get('persqftprice'))
+            costSheetArray.push(Math.round(uniVariantModel.get('sellablearea')))
+            costSheetArray.push(Math.round(unitModel.get('persqftprice')))
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             floorRise = buildingModel.get 'floorrise'
             floorRiseValue = floorRise[unitModel.get 'floor']
@@ -1334,7 +1334,7 @@ define [ 'marionette' ], ( Marionette )->
             else if perFlag == 2
                 revisedhidden = ""
                 pervalue = parseInt($('#discountper').val())/100
-                discount = (parseInt(ratePerSqFtPrice) * parseInt(pervalue))
+                discount = Math.round((parseInt(ratePerSqFtPrice) * parseFloat(pervalue)))
             # discount = Math.ceil(discount.toFixed(2));
             
             
@@ -1351,12 +1351,8 @@ define [ 'marionette' ], ( Marionette )->
             $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1= $('#paymentplans').val()
 
-            maintenance = parseInt(uniVariantModel.get('sellablearea')) * 100
+            
             SettingModel = new Backbone.Model SETTINGS
-            stamp_duty = (basicCost * (parseInt(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt = parseInt(SettingModel.get('registration_amount'))
-            vat = (basicCost * (parseInt(SettingModel.get('vat'))/100))
-            sales_tax = (basicCost * (parseInt(SettingModel.get('sales_tax'))/100))
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             membership_feesColl = new Backbone.Collection membership_fees
@@ -1378,24 +1374,65 @@ define [ 'marionette' ], ( Marionette )->
 
             table = ""
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
-            agreement1 = parseInt(basicCost1) + parseInt($('#infra').val())
+            agreement1 = Math.round(parseInt(basicCost1) + parseFloat($('#infra').val()))
             agreementValue1 = agreement1
-            agreement = parseInt(basicCost) + parseInt($('#infra').val())
+            agreement = Math.round(parseInt(basicCost) + parseFloat($('#infra').val()))
             agreementValue = agreement
             $('.agreement').autoNumeric('init')
             # $('.agreement1').autoNumeric('init')
             $('.agreement').autoNumeric('set', agreement)
             # $('.agreement1').autoNumeric('set', agreement1)
-            stamp_duty1 = (basicCost1 * (parseInt(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt1 = parseInt(SettingModel.get('registration_amount'))
-            vat1 = (basicCost1 * (parseInt(SettingModel.get('vat'))/100))
-            sales_tax1 = (basicCost1 * (parseInt(SettingModel.get('sales_tax'))/100))
-            totalcost1 = parseInt(stamp_duty1) + parseInt( reg_amt1) + parseInt(vat1) + parseInt(sales_tax1)
-            finalcost1 = parseInt(maintenance) + parseInt(membershipfees)
-            # $('#totalcost1').autoNumeric('init')
-            # $('#finalcost1').autoNumeric('init')
-            # $('#totalcost1' ).text $('#totalcost1').autoNumeric('set', totalcost1).text()
-            # $('#finalcost1' ).text $('#finalcost1').autoNumeric('set', finalcost1).text()
+
+            maintenance = Math.round(parseInt(uniVariantModel.get('sellablearea')) * 100)
+            
+            stamp_duty = Math.round((parseInt(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
+            shift = Math.pow(10, -2);
+
+           
+            tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
+            reg_amt = Math.round(parseFloat(SettingModel.get('registration_amount')))
+            stamp_dutyy = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
+
+            
+            temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
+            
+            reg_amt1 = Math.round(parseInt(SettingModel.get('registration_amount')))
+            
+            if parseInt($('#scheme').val()) == 2
+                agreement = parseInt(agreement) + parseInt(tempstamp_duty)
+                agreement = parseInt(agreement) + parseInt(reg_amt)
+                agreementValue = agreement
+                tempstamp_duty = ""
+                reg_amt = ""
+
+                agreement1 = parseInt(agreement1) + parseInt(temp_stamp_duty)
+                agreement1 = parseInt(agreement1) + parseInt(reg_amt1)
+                agreementValue1 = agreement1
+                temp_stamp_duty = ""
+                reg_amt1 = ""
+
+            vat = Math.round((parseInt(agreement) * (parseFloat(SettingModel.get('vat'))/100)))
+            
+            vat1 = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('vat'))/100)))
+            if parseInt(agreement) > 10000000
+                servicetax = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax = SettingModel.get('service_tax')
+
+            if parseInt(agreement1) > 10000000
+                servicetax1 = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax1 = SettingModel.get('service_tax')
+            sales_tax = Math.round(parseInt(agreement) * (parseFloat(servicetax)/100))
+            sales_tax1 = Math.round(parseInt(agreement1) * (parseFloat(servicetax1)/100))
+            if parseInt($('#scheme').val()) == 2
+                totalcost = parseInt(vat) + parseInt(sales_tax)
+                
+            else
+                totalcost = parseInt(tempstamp_duty) + parseInt( reg_amt) + parseInt(vat) + parseInt(sales_tax)
+                
+            
+           
 
 
             paymentColl = new Backbone.Collection PAYMENTPLANS
@@ -1414,14 +1451,34 @@ define [ 'marionette' ], ( Marionette )->
             count = 0
             for element in milestonesArray
                 if element.sort_index <= milestonemodel.get('sort_index')
-                    percentageValue = (agreement * ((parseInt(element.payment_percentage))/100))
+                    percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage))/100))
                     count = count + percentageValue
             addon = parseInt($('#payment').val()) - parseInt(count)
 
-            totalcost = parseInt(stamp_duty) + parseInt( reg_amt) + parseInt(vat) + parseInt(sales_tax)
             finalcost = parseInt(maintenance) + parseInt(membershipfees)
             finalvalue = parseInt(totalcost) + parseInt(finalcost) + parseInt(agreement)
-            
+            if parseInt($('#scheme').val()) == 1
+                $('.stamp_duty').autoNumeric('init')
+                $('.stamp_duty').autoNumeric('set', tempstamp_duty);
+                $('.reg_amt').autoNumeric('init')
+                $('.reg_amt').autoNumeric('set', reg_amt);
+            else
+                $('.stamp_duty').text(tempstamp_duty)
+                $('.reg_amt').text(reg_amt);
+
+                
+            $('.vat').autoNumeric('init')
+            $('.vat').autoNumeric('set', vat);
+            $('.vat').autoNumeric('init')
+            $('.vat').autoNumeric('set', vat);
+            $('.sales_tax').autoNumeric('init')
+            $('.sales_tax').autoNumeric('set', sales_tax);
+            $('.maintenance').autoNumeric('init')
+            $('.maintenance').autoNumeric('set', maintenance);
+            $('.membershipfees').autoNumeric('init')
+            $('.membershipfees').autoNumeric('set', membershipfees);
+            $('.actualcost').autoNumeric('init')
+            $('.actualcost').autoNumeric('set', finalvalue);
             $('.totalcost').autoNumeric('init')
             $('.finalcost').autoNumeric('init')
             $('.totalcost').autoNumeric('set', totalcost)
@@ -1437,8 +1494,8 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray = []
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             uniVariantModel = App.master.unit_variant.findWhere({id:unitModel.get('unitVariant')})
-            costSheetArray.push(uniVariantModel.get('sellablearea'))
-            costSheetArray.push(unitModel.get('persqftprice'))
+            costSheetArray.push(Math.round(uniVariantModel.get('sellablearea')))
+            costSheetArray.push(Math.round(unitModel.get('persqftprice')))
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
             floorRise = buildingModel.get 'floorrise'
             floorRiseValue = floorRise[unitModel.get 'floor']
@@ -1451,7 +1508,7 @@ define [ 'marionette' ], ( Marionette )->
             else if perFlag == 2
                 revisedhidden = ""
                 pervalue = parseInt($('#discountper').val())/100
-                discount = (parseInt(ratePerSqFtPrice) * parseInt(pervalue))
+                discount = Math.round((parseInt(ratePerSqFtPrice) * parseFloat(pervalue)))
             # discount = Math.ceil(discount.toFixed(2));
             
             
@@ -1470,10 +1527,7 @@ define [ 'marionette' ], ( Marionette )->
 
             maintenance = parseInt(uniVariantModel.get('sellablearea')) * 100
             SettingModel = new Backbone.Model SETTINGS
-            stamp_duty = (basicCost * (parseInt(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt = parseInt(SettingModel.get('registration_amount'))
-            vat = (basicCost * (parseInt(SettingModel.get('vat'))/100))
-            sales_tax = (basicCost * (parseInt(SettingModel.get('sales_tax'))/100))
+            
             infraArray = SettingModel.get('infrastructure_charges' )
             membership_fees = SettingModel.get('membership_fees' )
             membership_feesColl = new Backbone.Collection membership_fees
@@ -1495,21 +1549,86 @@ define [ 'marionette' ], ( Marionette )->
 
             table = ""
             basicCost1 = (costSheetArray[0] * costSheetArray[1])
-            agreement1 = parseInt(basicCost1) + parseInt($('#infra1').val())
+            agreement1 = Math.round(parseInt(basicCost1) + parseFloat($('#infra1').val()))
             agreementValue1 = agreement1
-            agreement = parseInt(basicCost) + parseInt($('#infra').val())
+            agreement = Math.round(parseInt(basicCost) + parseFloat($('#infra').val()))
             agreementValue = agreement
             # $('.agreement').autoNumeric('init')
             $('.agreement1').autoNumeric('init')
             # $('.agreement').autoNumeric('set', agreement)
             $('.agreement1').autoNumeric('set', agreement1)
-            stamp_duty1 = (basicCost1 * (parseInt(SettingModel.get('stamp_duty'))/100)) + 110
-            reg_amt1 = parseInt(SettingModel.get('registration_amount'))
-            vat1 = (basicCost1 * (parseInt(SettingModel.get('vat'))/100))
-            sales_tax1 = (basicCost1 * (parseInt(SettingModel.get('sales_tax'))/100))
-            totalcost1 = parseInt(stamp_duty1) + parseInt( reg_amt1) + parseInt(vat1) + parseInt(sales_tax1)
+            
+            stamp_duty = Math.round((parseInt(agreement) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
+            shift = Math.pow(10, -2);
+
+           
+            tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
+            reg_amt = parseInt(Math.round(SettingModel.get('registration_amount')))
+            stamp_dutyy = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
+
+            
+            temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
+            
+            reg_amt1 = parseInt(Math.round(SettingModel.get('registration_amount')))
+            
+            if parseInt($('#scheme').val()) == 2
+                agreement = parseInt(agreement) + parseInt(tempstamp_duty)
+                agreement = parseInt(agreement) + parseInt(reg_amt)
+                agreementValue = agreement
+                tempstamp_duty = ""
+                reg_amt = ""
+
+                agreement1 = parseInt(agreement1) + parseInt(temp_stamp_duty)
+                agreement1 = parseInt(agreement1) + parseInt(reg_amt1)
+                agreementValue1 = agreement1
+                temp_stamp_duty = ""
+                reg_amt1 = ""
+
+            vat = Math.round((parseInt(agreement) * (parseFloat(SettingModel.get('vat'))/100)))
+            
+            vat1 = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('vat'))/100)))
+            if parseInt(agreement) > 10000000
+                servicetax = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax = SettingModel.get('service_tax')
+
+            if parseInt(agreement1) > 10000000
+                servicetax1 = SettingModel.get('service_tax_agval_ab1')
+            else
+                servicetax1 = SettingModel.get('service_tax')
+            sales_tax = Math.round((parseInt(agreement) * (parseFloat(servicetax)/100)))
+            sales_tax1 = Math.round((parseInt(agreement1) * (parseFloat(servicetax1)/100)))
+            if parseInt($('#scheme').val()) == 2
+                totalcost1 = parseInt(vat1) + parseInt(sales_tax1)
+                
+            else
+                totalcost1 = parseInt(temp_stamp_duty) + parseInt( reg_amt1) + parseInt(vat) + parseInt(sales_tax1)
+                
+            
             finalcost1 = parseInt(maintenance) + parseInt(membershipfees)
             finalvalue1 = parseInt(totalcost1) + parseInt(finalcost1) + parseInt(agreement1)
+            if parseInt($('#scheme').val()) == 1
+                $('.stamp_duty').autoNumeric('init')
+                $('.stamp_duty').autoNumeric('set', temp_stamp_duty);
+                $('.reg_amt').autoNumeric('init')
+                $('.reg_amt').autoNumeric('set', reg_amt1);
+            else
+                $('.stamp_duty').text(temp_stamp_duty)
+                $('.reg_amt').text(reg_amt1);
+
+                
+            $('.vat1').autoNumeric('init')
+            $('.vat1').autoNumeric('set', vat1);
+            $('.vat1').autoNumeric('init')
+            $('.vat1').autoNumeric('set', vat1);
+            $('.sales_tax1').autoNumeric('init')
+            $('.sales_tax1').autoNumeric('set', sales_tax1);
+            $('.maintenance').autoNumeric('init')
+            $('.maintenance').autoNumeric('set', maintenance);
+            $('.membershipfees').autoNumeric('init')
+            $('.membershipfees').autoNumeric('set', membershipfees);
+            $('.actualcost').autoNumeric('init')
+            $('.actualcost').autoNumeric('set', finalvalue1);
             $('.totalcost1').autoNumeric('init')
             $('.finalcost1').autoNumeric('init')
             $('.totalcost1').autoNumeric('set', totalcost1)
@@ -1534,7 +1653,7 @@ define [ 'marionette' ], ( Marionette )->
             count = 0
             for element in milestonesArray
                 if element.sort_index <= milestonemodel.get('sort_index')
-                    percentageValue = (agreement * ((parseInt(element.payment_percentage))/100))
+                    percentageValue = Math.round((agreement * ((parseFloat(element.payment_percentage))/100)))
                     count = count + percentageValue
             addon = parseInt($('#payment').val()) - parseInt(count)
 
