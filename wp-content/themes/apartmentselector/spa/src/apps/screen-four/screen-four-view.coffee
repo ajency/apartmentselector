@@ -923,13 +923,13 @@ define [ 'marionette' ], ( Marionette )->
 
            
             tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
-            reg_amt = parseInt(Math.round(SettingModel.get('registration_amount')))
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
             stamp_dutyy = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
 
             
             temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
             
-            reg_amt1 = parseInt(Math.round(SettingModel.get('registration_amount')))
+            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             
             if parseInt($('#scheme').val()) == 2
                 agreement = parseInt(agreement) + parseInt(tempstamp_duty)
@@ -944,18 +944,18 @@ define [ 'marionette' ], ( Marionette )->
                 temp_stamp_duty = ""
                 reg_amt1 = ""
 
-            vat = (parseInt(agreement) * (parseFloat(Math.round(SettingModel.get('vat'))/100)))
+            vat = Math.round(parseInt(agreement) * (parseFloat(SettingModel.get('vat'))/100))
             
-            vat1 = (parseInt(agreement1) * (parseFloat(Math.round(SettingModel.get('vat'))/100)))
+            vat1 = Math.round(parseInt(agreement1) * (parseFloat(SettingModel.get('vat'))/100))
             if parseInt(agreement) > 10000000
-                servicetax = Math.round(SettingModel.get('service_tax_agval_ab1'))
+                servicetax = SettingModel.get('service_tax_agval_ab1')
             else
-                servicetax = Math.round(SettingModel.get('service_tax'))
+                servicetax = SettingModel.get('service_tax')
 
             if parseInt(agreement1) > 10000000
-                servicetax1 = Math.round(SettingModel.get('service_tax_agval_ab1'))
+                servicetax1 = SettingModel.get('service_tax_agval_ab1')
             else
-                servicetax1 = Math.round(SettingModel.get('service_tax'))
+                servicetax1 = SettingModel.get('service_tax')
             sales_tax = Math.round((parseInt(agreement) * (parseFloat(servicetax)/100)))
             sales_tax1 = Math.round((parseInt(agreement1) * (parseFloat(servicetax1)/100)))
             if parseInt($('#scheme').val()) == 2
@@ -1390,13 +1390,13 @@ define [ 'marionette' ], ( Marionette )->
 
            
             tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
-            reg_amt = Math.round(parseFloat(SettingModel.get('registration_amount')))
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
             stamp_dutyy = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
 
             
             temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
             
-            reg_amt1 = Math.round(parseInt(SettingModel.get('registration_amount')))
+            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             
             if parseInt($('#scheme').val()) == 2
                 agreement = parseInt(agreement) + parseInt(tempstamp_duty)
@@ -1563,13 +1563,13 @@ define [ 'marionette' ], ( Marionette )->
 
            
             tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
-            reg_amt = parseInt(Math.round(SettingModel.get('registration_amount')))
+            reg_amt = parseFloat(SettingModel.get('registration_amount'))
             stamp_dutyy = Math.round((parseInt(agreement1) * (parseFloat(SettingModel.get('stamp_duty'))/100))) 
 
             
             temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
             
-            reg_amt1 = parseInt(Math.round(SettingModel.get('registration_amount')))
+            reg_amt1 = parseFloat(SettingModel.get('registration_amount'))
             
             if parseInt($('#scheme').val()) == 2
                 agreement = parseInt(agreement) + parseInt(tempstamp_duty)
