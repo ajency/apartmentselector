@@ -922,12 +922,12 @@ define [ 'marionette' ], ( Marionette )->
             shift = Math.pow(10, -2);
 
            
-            tempstamp_duty = parseInt(Math.round(stamp_duty*shift)/shift ) + 110 
+            tempstamp_duty = parseInt(Math.ceil(stamp_duty*shift)/shift ) + 110 
             reg_amt = parseInt(SettingModel.get('registration_amount'))
             stamp_dutyy = (parseInt(agreement1) * (parseInt(SettingModel.get('stamp_duty'))/100)) 
 
             
-            temp_stamp_duty = parseInt(Math.round(stamp_dutyy*shift)/shift ) + 110 
+            temp_stamp_duty = parseInt(Math.ceil(stamp_dutyy*shift)/shift ) + 110 
             
             reg_amt1 = parseInt(SettingModel.get('registration_amount'))
             
