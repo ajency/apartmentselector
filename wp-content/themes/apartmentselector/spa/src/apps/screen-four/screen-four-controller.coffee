@@ -224,7 +224,19 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
             )
 
             unitCollection = new Backbone.Collection(ModelActualArr)
-            [unitCollection , PAYMENTPLANS]
+            console.log App.master.paymentplans.toArray()
+            payment = [];
+            payColl = App.master.paymentplans
+            i = 0
+            payColl.each (item)->
+           
+                classname = ""
+                if i == 0
+                    classname = "selected"
+                payment.push({id:item.get('id'),name:item.get('name'),classname:classname})
+                i++
+
+            [unitCollection ,payment]
 
 
         getPerSqFtPrice:->
@@ -233,15 +245,22 @@ define [ 'extm', 'src/apps/screen-four/screen-four-view' ], ( Extm, ScreenFourVi
             $.ajax(
                 method: "POST" ,
                 url : AJAXURL+'?action=get_unit_single_details',
-                data : 'id='+unitModel.get('id'),
+                data : 'id='+unitModel.get('id')+'&building='+unitModel.get('building'),
                 success :(result)-> 
                     unitModel.set 'persqftprice' , result.persqftprice
                     unitModel.set 'views' , result.views
                     unitModel.set 'facing' , result.facings
                     object.Collection = object._getSelelctedUnit()
+                    console.log result.payment_plans
+                    payment = []
+                    arr = $.map(result.payment_plans,  (el)->
+                         payment.push({id:el.id,name:el.name,milestones:el.milestones}) 
+                    )
+                    console.log payment
+                    App.master.paymentplans.reset payment
                     object.layout = new ScreenFourView.ScreenFourLayout(
                         templateHelpers:
-                            paymentplans :object.Collection[1]
+                            paymentplans :payment
                     )
 
 

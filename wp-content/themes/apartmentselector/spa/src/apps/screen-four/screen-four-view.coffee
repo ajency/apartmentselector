@@ -110,7 +110,7 @@ define [ 'marionette' ], ( Marionette )->
                                             <h5>Payment Plan: </h5>
                                             <select id="paymentplans" class="form-control">
                                             {{#paymentplans}}
-                                            <option value="{{id}}">{{name}}</option>
+                                            <option value="{{id}}" {{classname}}>{{name}}</option>
                                             {{/paymentplans}}
                                             </select>
                                         </div>
@@ -644,9 +644,9 @@ define [ 'marionette' ], ( Marionette )->
             object = @
             unitModel = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
-            planselectedValue = buildingModel.get('payment_plan')
+            # planselectedValue = buildingModel.get('payment_plan')
             milestoneselectedValue = buildingModel.get('milestone')
-            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
+            # $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             @generateCostSheet()
 
             perFlag = ""
@@ -758,9 +758,10 @@ define [ 'marionette' ], ( Marionette )->
             # $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             #$("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1 = $('#paymentplans').val()
-            paymentColl = new Backbone.Collection PAYMENTPLANS
-            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
-            $('.paymentplan').text milestones.get('name')
+            paymentColl = App.master.paymentplans
+            if paymentColl.length != 0
+                milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+                $('.paymentplan').text milestones.get('name')
             maintenance = Math.round(parseInt(uniVariantModel.get('sellablearea')) * 100)
             SettingModel = new Backbone.Model SETTINGS
             
@@ -967,37 +968,38 @@ define [ 'marionette' ], ( Marionette )->
             finalcost1 =  parseInt(maintenance) + parseInt(membershipfees)
 
 
-            paymentColl = new Backbone.Collection PAYMENTPLANS
-            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
-            milestonesArray = milestones.get('milestones')
-            milestonesArrayColl = new Backbone.Collection milestonesArray
-            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
-            milestonesArray = milestonesArray.sort( (a,b)->
-                parseInt( a.sort_index) - parseInt( b.sort_index)
-            )
-            milestoneCollection = new Backbone.Collection MILESTONES
-            if milestonemodel == undefined
-                milesotneVal = _.first(milestonesArray)
-                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
-                milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
-                $('.currentmile').text milestonename.get 'name'
+            console.log paymentColl = App.master.paymentplans
+            if paymentColl.length != 0
+                milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+                milestonesArray = milestones.get('milestones')
+                milestonesArrayColl = new Backbone.Collection milestonesArray
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+                milestonesArray = milestonesArray.sort( (a,b)->
+                    parseInt( a.sort_index) - parseInt( b.sort_index)
+                )
+                milestoneCollection = new Backbone.Collection MILESTONES
+                if milestonemodel == undefined
+                    milesotneVal = _.first(milestonesArray)
+                    milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                    milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
+                    $('.currentmile').text milestonename.get 'name'
+                    
+                else
+                    milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
+                    $('.currentmile').text milstoneModelName.get 'name'
                 
-            else
-                milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
-                $('.currentmile').text milstoneModelName.get 'name'
-            
 
-            milestoneColl = new Backbone.Collection MILESTONES
-            count = 0
-            for element in milestonesArray
-                if element.sort_index <= milestonemodel.get('sort_index')
-                    percentageValue = (agreement * ((parseInt(element.payment_percentage))/100))
-                    count = count + percentageValue
-            if  parseInt($('#payment').val()) == 0
-                addon = 0
-            else
+                milestoneColl = new Backbone.Collection MILESTONES
+                count = 0
+                for element in milestonesArray
+                    if element.sort_index <= milestonemodel.get('sort_index')
+                        percentageValue = (agreement * ((parseInt(element.payment_percentage))/100))
+                        count = count + percentageValue
+                if  parseInt($('#payment').val()) == 0
+                    addon = 0
+                else
 
-                addon = parseInt($('#payment').val()) - parseInt(count)
+                    addon = parseInt($('#payment').val()) - parseInt(count)
 
             
             finalcost = parseInt(maintenance) + parseInt(membershipfees)
@@ -1200,98 +1202,99 @@ define [ 'marionette' ], ( Marionette )->
             milestonecompletion = buildingModel.get 'milestonecompletion'
             $('#paymentTable' ).text ""
             
-            paymentColl = new Backbone.Collection PAYMENTPLANS
-            milestones = paymentColl.get(parseInt(id))
-            milestonesArray = milestones.get('milestones')
-            $('.paymentplan').text milestones.get('name')
-            milestonesArrayColl = new Backbone.Collection milestonesArray
-            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
-            milestonesArray = milestonesArray.sort( (a,b)->
-                parseInt( a.sort_index) - parseInt( b.sort_index)
-            )
-            milestoneCollection = new Backbone.Collection MILESTONES
-            
-
-            if milestonemodel == undefined
-                flag = 1
-                milesotneVal = _.first(milestonesArray)
-                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
-                milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
-                $('.currentmile').text milestonename.get 'name'
-            else
-                milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
-                $('.currentmile').text milstoneModelName.get 'name'
-
-
-            table = ""
-            count = 0
-            milestoneColl = new Backbone.Collection MILESTONES
-            #milestonecompletion = {48:'26/08/2014', 52:'30/08/2014'}
-            for element,index in milestonesArray
-                percentageValue = Math.round((agreementValue * ((parseFloat(element.payment_percentage))/100)))
-                percentageValue1 = Math.round((agreementValue1 * ((parseFloat(element.payment_percentage))/100)))
-                proposed_date = $.map(milestonecompletion, (index,value)->
-                    if parseInt(element.milestone) == parseInt(value)
-                        return index
-
-                    )
-                if proposed_date.length == 0
-                    proposed_date = ''
-                if element.sort_index <= milestonemodel.get('sort_index')
-                    trClass = "milestoneReached"
-                    percentageValue = Math.round((parseInt(agreementValue) * ((parseFloat(element.payment_percentage))/100)))
-                    percentageValue1 = Math.round((parseInt(agreementValue1) * ((parseFloat(element.payment_percentage))/100)))
-                    if discountClass == "" 
-                        amtalue = percentageValue1
-                    else
-                        amtalue = percentageValue
-                    count = count + amtalue
-                else
-                    trClass = ""
-                if flag == 1
-                    trClass = ""
-                $('.percentageValue1').autoNumeric('init')
-                $('.percentageValue').autoNumeric('init')
-                milestoneModel = milestoneColl.get(element.milestone)
+            paymentColl = App.master.paymentplans
+            if paymentColl.length != 0
+                milestones = paymentColl.get(parseInt(id))
+                milestonesArray = milestones.get('milestones')
+                $('.paymentplan').text milestones.get('name')
+                milestonesArrayColl = new Backbone.Collection milestonesArray
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+                milestonesArray = milestonesArray.sort( (a,b)->
+                    parseInt( a.sort_index) - parseInt( b.sort_index)
+                )
+                milestoneCollection = new Backbone.Collection MILESTONES
                 
-                table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
-                            <li class="milestoneList '+trClass+'">
-                                <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
-                                <div class="msVal discCol '+discountClass+' percentageValue'+index+'" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></div>
-                                <div class="msVal percentageValue1'+index+'" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div>
-                                <span class="barBg" style="width:'+element.payment_percentage+'%"></span>
-                            </li>
-                            <div class="clearfix"></div>
-                            '
 
-            $('.rec').autoNumeric('init')
-            
+                if milestonemodel == undefined
+                    flag = 1
+                    milesotneVal = _.first(milestonesArray)
+                    milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+                    milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')))
+                    $('.currentmile').text milestonename.get 'name'
+                else
+                    milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'))
+                    $('.currentmile').text milstoneModelName.get 'name'
 
-            recount = $('.rec').autoNumeric('set', count)
-            reccount = recount.text()
-            # $('#rec' ).text reccount
-            # $('.rec' ).text reccount
-            if parseInt($('#payment' ).val()) == 0
-                addon = 0
 
-            else
-                addon = $('#payment' ).val() - count
-            $('.actpayment').autoNumeric('init')
-            $('.actpayment').autoNumeric('set', $('#payment' ).val())
-            $('.addonpay').autoNumeric('init')
-            $('.addonpay').autoNumeric('set', addon)
-            
-            
+                table = ""
+                count = 0
+                milestoneColl = new Backbone.Collection MILESTONES
+                #milestonecompletion = {48:'26/08/2014', 52:'30/08/2014'}
+                for element,index in milestonesArray
+                    percentageValue = Math.round((agreementValue * ((parseFloat(element.payment_percentage))/100)))
+                    percentageValue1 = Math.round((agreementValue1 * ((parseFloat(element.payment_percentage))/100)))
+                    proposed_date = $.map(milestonecompletion, (index,value)->
+                        if parseInt(element.milestone) == parseInt(value)
+                            return index
 
-            $('#paymentTable' ).append table
-            
-            for element,index in milestonesArray
-                percentageValue = Math.round(parseInt(agreementValue) * ((parseFloat(element.payment_percentage))/100))
-                percentageValue1 = Math.round(parseInt(agreementValue1) * ((parseFloat(element.payment_percentage))/100))
-                $('.percentageValue'+index).autoNumeric('init')
-                $('.percentageValue'+index).autoNumeric('set', percentageValue)
-                $('.percentageValue1'+index).autoNumeric('init')
-                $('.percentageValue1'+index).autoNumeric('set', percentageValue1)
+                        )
+                    if proposed_date.length == 0
+                        proposed_date = ''
+                    if element.sort_index <= milestonemodel.get('sort_index')
+                        trClass = "milestoneReached"
+                        percentageValue = Math.round((parseInt(agreementValue) * ((parseFloat(element.payment_percentage))/100)))
+                        percentageValue1 = Math.round((parseInt(agreementValue1) * ((parseFloat(element.payment_percentage))/100)))
+                        if discountClass == "" 
+                            amtalue = percentageValue1
+                        else
+                            amtalue = percentageValue
+                        count = count + amtalue
+                    else
+                        trClass = ""
+                    if flag == 1
+                        trClass = ""
+                    $('.percentageValue1').autoNumeric('init')
+                    $('.percentageValue').autoNumeric('init')
+                    milestoneModel = milestoneColl.get(element.milestone)
+                    
+                    table += '  <span class="msPercent">'+element.payment_percentage+'%</span>
+                                <li class="milestoneList '+trClass+'">
+                                    <div class="msName">'+milestoneModel.get('name')+' <span class="completionDate">(Estimated date: '+proposed_date+')</span></div>
+                                    <div class="msVal discCol '+discountClass+' percentageValue'+index+'" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></div>
+                                    <div class="msVal percentageValue1'+index+'" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div>
+                                    <span class="barBg" style="width:'+element.payment_percentage+'%"></span>
+                                </li>
+                                <div class="clearfix"></div>
+                                '
+
+                $('.rec').autoNumeric('init')
+                
+
+                recount = $('.rec').autoNumeric('set', count)
+                reccount = recount.text()
+                # $('#rec' ).text reccount
+                # $('.rec' ).text reccount
+                if parseInt($('#payment' ).val()) == 0
+                    addon = 0
+
+                else
+                    addon = $('#payment' ).val() - count
+                $('.actpayment').autoNumeric('init')
+                $('.actpayment').autoNumeric('set', $('#payment' ).val())
+                $('.addonpay').autoNumeric('init')
+                $('.addonpay').autoNumeric('set', addon)
+                
+                
+
+                $('#paymentTable' ).append table
+                
+                for element,index in milestonesArray
+                    percentageValue = Math.round(parseInt(agreementValue) * ((parseFloat(element.payment_percentage))/100))
+                    percentageValue1 = Math.round(parseInt(agreementValue1) * ((parseFloat(element.payment_percentage))/100))
+                    $('.percentageValue'+index).autoNumeric('init')
+                    $('.percentageValue'+index).autoNumeric('set', percentageValue)
+                    $('.percentageValue1'+index).autoNumeric('init')
+                    $('.percentageValue1'+index).autoNumeric('set', percentageValue1)
            
             
 
@@ -1299,18 +1302,19 @@ define [ 'marionette' ], ( Marionette )->
         getMilestones:(id)->
             milesstones = ''
             $('#milestones option' ).remove()
-            paymentColl = new Backbone.Collection PAYMENTPLANS
-            milestones = paymentColl.get(parseInt(id))
-            $('.paymentplan').text milestones.get('name')
-            milestonesArray = milestones.get('milestones')
-            milestonesArray = milestonesArray.sort( (a,b)->
-                parseInt( a.sort_index) - parseInt( b.sort_index)
-            )
-            milestoneColl = new Backbone.Collection MILESTONES
-            for element in milestonesArray
-                milestoneModel = milestoneColl.get(element.milestone)
-                milesstones += '<option value="'+element.milestone+'">'+milestoneModel.get('name')+'</option>'
-            $('#milestones' ).append milesstones
+            paymentColl = app.master.paymentplans
+            if paymentColl.length != 0
+                milestones = paymentColl.get(parseInt(id))
+                $('.paymentplan').text milestones.get('name')
+                milestonesArray = milestones.get('milestones')
+                milestonesArray = milestonesArray.sort( (a,b)->
+                    parseInt( a.sort_index) - parseInt( b.sort_index)
+                )
+                milestoneColl = new Backbone.Collection MILESTONES
+                for element in milestonesArray
+                    milestoneModel = milestoneColl.get(element.milestone)
+                    milesstones += '<option value="'+element.milestone+'">'+milestoneModel.get('name')+'</option>'
+                $('#milestones' ).append milesstones
 
         updated:->
             $('.infra1').autoNumeric('init')
@@ -1345,9 +1349,9 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(discount)
             table = ""
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
-            planselectedValue = buildingModel.get('payment_plan')
+            # planselectedValue = buildingModel.get('payment_plan')
             milestoneselectedValue = buildingModel.get('milestone')
-            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
+            # $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1= $('#paymentplans').val()
 
@@ -1435,25 +1439,26 @@ define [ 'marionette' ], ( Marionette )->
            
 
 
-            paymentColl = new Backbone.Collection PAYMENTPLANS
-            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
-            milestonesArray = milestones.get('milestones')
-            milestonesArrayColl = new Backbone.Collection milestonesArray
-            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
-            milestonesArray = milestonesArray.sort( (a,b)->
-                parseInt( a.sort_index) - parseInt( b.sort_index)
-            )
-            if milestonemodel == undefined
-                milesotneVal = _.first(milestonesArray)
-                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+            paymentColl = App.master.paymentplans
+            if paymentColl.length != 0
+                milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+                milestonesArray = milestones.get('milestones')
+                milestonesArrayColl = new Backbone.Collection milestonesArray
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+                milestonesArray = milestonesArray.sort( (a,b)->
+                    parseInt( a.sort_index) - parseInt( b.sort_index)
+                )
+                if milestonemodel == undefined
+                    milesotneVal = _.first(milestonesArray)
+                    milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
 
-            milestoneColl = new Backbone.Collection MILESTONES
-            count = 0
-            for element in milestonesArray
-                if element.sort_index <= milestonemodel.get('sort_index')
-                    percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage))/100))
-                    count = count + percentageValue
-            addon = parseInt($('#payment').val()) - parseInt(count)
+                milestoneColl = new Backbone.Collection MILESTONES
+                count = 0
+                for element in milestonesArray
+                    if element.sort_index <= milestonemodel.get('sort_index')
+                        percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage))/100))
+                        count = count + percentageValue
+                addon = parseInt($('#payment').val()) - parseInt(count)
 
             finalcost = parseInt(maintenance) + parseInt(membershipfees)
             finalvalue = parseInt(totalcost) + parseInt(finalcost) + parseInt(agreement)
@@ -1519,9 +1524,9 @@ define [ 'marionette' ], ( Marionette )->
             costSheetArray.push(discount)
             table = ""
             buildingModel = App.master.building.findWhere({id:unitModel.get('building')})
-            planselectedValue = buildingModel.get('payment_plan')
+            # planselectedValue = buildingModel.get('payment_plan')
             milestoneselectedValue = buildingModel.get('milestone')
-            $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
+            # $("#paymentplans option[value="+planselectedValue+"]").prop('selected', true)
             $("#milestones option[value="+milestoneselectedValue+"]").prop('selected', true)
             id1= $('#paymentplans').val()
 
@@ -1637,25 +1642,26 @@ define [ 'marionette' ], ( Marionette )->
             $('.finalvalue1').autoNumeric('set', finalvalue1)
 
 
-            paymentColl = new Backbone.Collection PAYMENTPLANS
-            milestones = paymentColl.get(parseInt($('#paymentplans').val()))
-            milestonesArray = milestones.get('milestones')
-            milestonesArrayColl = new Backbone.Collection milestonesArray
-            milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
-            milestonesArray = milestonesArray.sort( (a,b)->
-                parseInt( a.sort_index) - parseInt( b.sort_index)
-            )
-            if milestonemodel == undefined
-                milesotneVal = _.first(milestonesArray)
-                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
+            paymentColl = App.master.paymentplans
+            if paymentColl.length != 0
+                milestones = paymentColl.get(parseInt($('#paymentplans').val()))
+                milestonesArray = milestones.get('milestones')
+                milestonesArrayColl = new Backbone.Collection milestonesArray
+                milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(buildingModel.get('milestone'))})
+                milestonesArray = milestonesArray.sort( (a,b)->
+                    parseInt( a.sort_index) - parseInt( b.sort_index)
+                )
+                if milestonemodel == undefined
+                    milesotneVal = _.first(milestonesArray)
+                    milestonemodel = milestonesArrayColl.findWhere({'milestone':parseInt(milesotneVal.milestone)})
 
-            milestoneColl = new Backbone.Collection MILESTONES
-            count = 0
-            for element in milestonesArray
-                if element.sort_index <= milestonemodel.get('sort_index')
-                    percentageValue = Math.round((agreement * ((parseFloat(element.payment_percentage))/100)))
-                    count = count + percentageValue
-            addon = parseInt($('#payment').val()) - parseInt(count)
+                milestoneColl = new Backbone.Collection MILESTONES
+                count = 0
+                for element in milestonesArray
+                    if element.sort_index <= milestonemodel.get('sort_index')
+                        percentageValue = Math.round((agreement * ((parseFloat(element.payment_percentage))/100)))
+                        count = count + percentageValue
+                addon = parseInt($('#payment').val()) - parseInt(count)
 
             totalcost = parseInt(agreement) + parseInt(stamp_duty) + parseInt( reg_amt) + parseInt(vat) + parseInt(sales_tax)
             finalcost = parseInt(totalcost) + parseInt(maintenance)

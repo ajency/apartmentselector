@@ -56,6 +56,7 @@ require [ 'plugin-loader'
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
         'terrace': new Backbone.Collection  TERRACEOPTIONS
+        'paymentplans' : new Backbone.Collection PAYMENTPLANS
 
 
     # master store
@@ -68,6 +69,7 @@ require [ 'plugin-loader'
         'status': new Backbone.Collection  STATUS
         'facings': new Backbone.Collection  FACINGS
         'terrace': new Backbone.Collection  TERRACEOPTIONS
+        'paymentplans' : new Backbone.Collection PAYMENTPLANS
 
     # global variable to keep track of the filter the user has selected on the previous screen
     App.backFilter = {'screen1':[],'screen2':[],'screen3':[],'back':""}

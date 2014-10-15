@@ -906,7 +906,7 @@ add_action('wp_ajax_get_server_block_date','ajax_get_server_block_date');
 
 
 
-function get_unit_single_details($id){
+function get_unit_single_details($id,$building){
 
     $result = get_post($id);
 
@@ -929,6 +929,10 @@ function get_unit_single_details($id){
 
     $persqftprice    =   get_unit_variants_persqftprice($unit_variant);
 
+    $payments_pans = get_payment_plans_building($building);
+
+    
+
     return array(
                 'id' => $id,
 
@@ -938,16 +942,22 @@ function get_unit_single_details($id){
 
                 'persqftprice'=>$persqftprice,
 
+                'payment_plans'=>$payments_pans
+
             );
+
+
 
 }
 
 
 function ajax_get_unit_single_details(){
 
-    $id = $_REQUEST["id"];  
+    $id = $_REQUEST["id"]; 
 
-    $response = json_encode(get_unit_single_details($id));
+    $building = $_REQUEST["building"];   
+
+    $response = json_encode(get_unit_single_details($id,$building));
 
     header( "Content-Type: application/json" );
 

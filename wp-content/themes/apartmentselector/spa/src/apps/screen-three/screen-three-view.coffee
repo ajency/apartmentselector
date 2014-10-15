@@ -260,6 +260,7 @@ define [ 'marionette' ], ( Marionette )->
                 id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
+                App.unit['name'] = unitModel.get("id")
                 position = unitModel.get('unitAssigned')
                 rangeArrayVal = []
                 $.each(floorriserange, (index,value)->
@@ -408,6 +409,7 @@ define [ 'marionette' ], ( Marionette )->
                 id = $('#'+e.target.id).attr('data-value')
                 flatid = $('#'+e.target.id).attr('data-id')
                 unitModel = App.master.unit.findWhere({id:parseInt(id)})
+                App.unit['name'] = unitModel.get("id")
                 position = unitModel.get('unitAssigned')
                 rangeArrayVal = []
                 $.each(floorriserange, (index,value)->

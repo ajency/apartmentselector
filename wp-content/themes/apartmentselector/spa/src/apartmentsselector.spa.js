@@ -22,7 +22,8 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
     'facings': new Backbone.Collection(FACINGS),
-    'terrace': new Backbone.Collection(TERRACEOPTIONS)
+    'terrace': new Backbone.Collection(TERRACEOPTIONS),
+    'paymentplans': new Backbone.Collection(PAYMENTPLANS)
   };
   App.master = {
     'unit': new Backbone.Collection(UNITS),
@@ -32,7 +33,8 @@ require(['plugin-loader', 'extm', 'src/classes/ap-store', 'src/apps/router', 'ap
     'unit_type': new Backbone.Collection(UNITTYPES),
     'status': new Backbone.Collection(STATUS),
     'facings': new Backbone.Collection(FACINGS),
-    'terrace': new Backbone.Collection(TERRACEOPTIONS)
+    'terrace': new Backbone.Collection(TERRACEOPTIONS),
+    'paymentplans': new Backbone.Collection(PAYMENTPLANS)
   };
   App.backFilter = {
     'screen1': [],

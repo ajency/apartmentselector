@@ -1,4 +1,6 @@
 towerid = [];
+towerarr = [];
+towerstring= "";
 jQuery(document).ready(function($) {
     var collections = [];  
 
@@ -144,21 +146,27 @@ $(document).on("click", "#save_payment_plan", function(e) {
                  showCustomError($("#add-more-milstones"),"Milestone percentages should add up to 100");
                 return;
             }
-            if($('#apply').val() == 0 && $('#towerstring').val() == ""){
-                 showCustomError($("#add-more-milstones"),"Select Either ");
+            console.log($('#apply').val()); 
+            console.log($('#towerstring').val()); 
+            if(parseInt($('#apply').val()) == 0 && $('#towerstring').val() == ""){
+                 showCustomError($("#add-more-milstones"),"Either select Towers or assign this milestone to all towers");
                 return;
             }
   
  
             $(e.target).hide().parent().append("<div class='loading-animator'></div>")
-
+            if(parseInt($('#apply').val()) == 1)
+                towers = $('#apply_arr').val()
+            else
+                towers = ""
             $.post(AJAXURL, {
                 action: "save_payment_plan",
                 payment_plan_name:  payment_plan_name, 
                 milestones:  milestones.milestones,  
                 payment_plan_id: payment_plan_id,
                 towers: $('#towerstring').val(),
-                archive: $('#archive').val()
+                archive: $('#archive').val(),
+                buildingarr: towers
               }, function(response)  {
             if(payment_plan_id ==""){
 
@@ -367,7 +375,7 @@ function sumMilstonePercentage(milestones){
 
         tower = $('#towerstring').val().split(',')
         $.each(tower,function(inde,value){
-            towerid.push(parseInt($('#towerstring').val()));
+            towerid.push(parseInt(value));
 
 
         })
@@ -376,11 +384,15 @@ function sumMilstonePercentage(milestones){
             towerid.push(parseInt(this.value));
         else{
             index = towerid.indexOf(parseInt(this.value))
-            if(index != -1)
+            console.log(index);
+            if(index >= -1)
                 towerid.splice( index, 1 );
 
     }
+    console.log(towerid);
       $('#towerstring').val(towerid.join(',')) 
+      $('#apply_arr').val("")
+
     });
 
     $(document).on("change", "#archive", function(e) {
@@ -389,6 +401,42 @@ function sumMilstonePercentage(milestones){
             $('#'+this.id).val('1')
         else
             $('#'+this.id).val('0')
+
+    
+       
+    });
+    $(document).on("click", "#apply", function(e) {
+
+        if($('#'+this.id).prop('checked') == true){
+            $('#'+this.id).val('1')
+            
+            $('#display_towers').hide()
+            $('#towerstring').val("")
+
+
+           
+            
+        }
+        else{
+           $('#display_towers').hide()
+        }
+
+
+    
+       
+    });
+
+    $(document).on("click", "#showtowers", function(e) {
+
+        if($('#'+this.id).prop('checked') == true){
+            $('#display_towers').show()
+            
+            $('#apply').val('0')
+        }
+        else{
+            $('#display_towers').hide()
+        }
+
 
     
        

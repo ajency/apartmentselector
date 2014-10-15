@@ -48,6 +48,10 @@ function get_payment_plans_building($id){
 
     $payment_plans = implode(", ",$payment_plans);
 
+    $building = (get_building_by_id($id));
+
+    $building_milestone = $building["milestone"];
+
     global $wpdb;
 
     $query= "SELECT option_name as  name, option_id as id , option_value as  value  FROM ".$wpdb->prefix ."options where option_id in($payment_plans)  ";
@@ -59,24 +63,44 @@ function get_payment_plans_building($id){
    	foreach($payment_plans as $payment_plan){ 
    			$option_value= maybe_unserialize($payment_plan["value"]);
    			$miles_stones =  $option_value["milestones"] ;
-       
+       $milestonearr = array();
 
    			$milestones = $option_value["milestones"] ;
-   			
+
+        if(($option_value["building"] != "") && ($option_value["archive"] != null && intval($option_value["archive"]) == 0  ))
+        {
+
+          foreach($milestones as $milestone){
+            array_push($milestonearr, intval($milestone['milestone']));
+            $milestones_data[] = array('sort_index'=>intval($milestone['sort_index']),'milestone'=>intval($milestone['milestone']),'payment_percentage'=>intval($milestone['payment_percentage']));
+        }
+        if(in_array(intval($building_milestone), $milestonearr)){ 
+        $payment_plans_data[] = array("id"=>$payment_plan["id"],
+                      "name"=>$payment_plan["name"],
+                      "milestones"=>$milestones_data ); 
+      }
+
+
+        } 
+   			else
+        {
    			if($option_value["archive"] != null && intval($option_value["archive"]) == 0  ) {
    			if($option_value["towers"] != null && in_array($id, $option_value["towers"])){
 			$milestones_data = array();
    			foreach($milestones as $milestone){
-
+            array_push($milestonearr, intval($milestone['milestone']));
    					$milestones_data[] = array('sort_index'=>intval($milestone['sort_index']),'milestone'=>intval($milestone['milestone']),'payment_percentage'=>intval($milestone['payment_percentage']));
    			}
    			 
-   			$payment_plans_data[] = array("id"=>$payment_plan["id"],
-   										"name"=>$payment_plan["name"],
-   										"milestones"=>$milestones_data ); 
+   			if(in_array(intval($building_milestone), $milestonearr)){ 
+        $payment_plans_data[] = array("id"=>$payment_plan["id"],
+                      "name"=>$payment_plan["name"],
+                      "milestones"=>$milestones_data ); 
+      }
    		}
    
    			}
+      }
    		}
    
 	return $payment_plans_data; 
@@ -175,6 +199,9 @@ function ajax_save_payment_plan(){
 
 	$archive = $_REQUEST["archive"];
 
+  $buildingarr = $_REQUEST["buildingarr"];
+
+
     if(payment_plan_exists($payment_plan_name,$payment_plan_id)){
 
     	$error = true;
@@ -186,7 +213,7 @@ function ajax_save_payment_plan(){
 
     	if(empty($payment_plan_id)){
     		
-    		add_option($payment_plan_name,array('milestones'=>$milestones,'towers'=>$towers,'archive'=>$archive));
+    		add_option($payment_plan_name,array('milestones'=>$milestones,'towers'=>$towers,'archive'=>$archive,'building'=>$buildingarr));
 
 	    	$payment_plan = get_option_id($payment_plan_name);
 
@@ -203,7 +230,7 @@ function ajax_save_payment_plan(){
     		update_payment_plan($payment_plan_id,$payment_plan_name);
 
     		//update the option value
-    		update_option($payment_plan_name,array('milestones'=>$milestones,'towers'=>$towers,'archive'=>$archive));
+    		update_option($payment_plan_name,array('milestones'=>$milestones,'towers'=>$towers,'archive'=>$archive,'building'=>$buildingarr));
 
 	    	 
 	    	$msg="Payment Plan Updated Successfully!";

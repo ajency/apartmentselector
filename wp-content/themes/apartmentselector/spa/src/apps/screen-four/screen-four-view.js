@@ -17,7 +17,7 @@ define(['marionette'], function(Marionette) {
       return ScreenFourLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"> <div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>--> <!--<div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>--> </div> <div class="step4Actions"> <div class="grid-container"> <div class="grid-block-4 addtowishlist "> <a class="grid-link remove" name="list" id="list"> <h3 class="m-t-0 m-b-0"><span class="skyicon sky-heart"></span></h3> <h4 class="m-t-0 m-b-0 ">Add to Wishlist</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link print-preview"> <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3> <h4 class="m-t-0 m-b-0">Print</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link" id="emailBtn"  > <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3> <h4 class="m-t-0 m-b-0">Email</h4> </a> </div> <div class="grid-block-4 costsheetbutton " > <a class="grid-link" > <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3> <h4 class="m-t-0 m-b-0 ">Cost Sheet</h4> </a> </div> </div> </div> </div> </div> <div class="costsheetclass" style="display:none" > <div id="invoice" class="paid"> <div class="this-is"> <h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <div class="row"> <div class="col-sm-5"> <h5>Prepared for:</h5> <input type="text" id="customer_name" value="" class="form-control" placeholder="Customer Name"/> </div> <div class="col-sm-5"> <h5>Prepared by:</h5> <h4 class="preparedby"></h4> </div> <div class="col-sm-2"> <h5>Prepared on:</h5> <h4 class="preparedon"></h4> </div> </div> <!--<h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p>--> </div> <div class="paymentDetails"> <div class="row"> <div class="col-sm-6"> <h5 >Total Cost:</h5> <h4><span class="actualcost" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></span></h4> <input type="hidden" id="actualcostvalue" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" /></div> <div class="col-sm-6"> <h5 >Amount Receivable as on Date:</h5> <h4><span class="rec" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> <div class="row"> <div class="col-sm-6"> <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4> </div> <div class="col-sm-6 form-inline"> <h5>Schemes: </h5> <select id="scheme" class="form-control" > <option value="1">Regular Scheme</option> <option value="2">Lowest upfront payment scheme</option> </select> </div> </div> <div class="row"> <div class="col-sm-6 form-inline"> <h5>Payment Plan: </h5> <select id="paymentplans" class="form-control"> {{#paymentplans}} <option value="{{id}}">{{name}}</option> {{/paymentplans}} </select> </div> <div class="col-sm-6 form-inline"> <h5>Actual Payment:</h5> <input type="text" class="form-control"  id="payment" value="0"/> <span class="glyphicon glyphicon-plus discountToggle"></span> </div> </div> <div class="row"> <div class="col-sm-6 form-inline"> </div> <div class="col-sm-6 form-inline"> <div class="discountBox"> <h5>Discount Type:</h5> <label class="checkbox-inline"> <input type="radio" class="radioClass" id="radio1"   name="discountradio" value="1"/> Value </label> <label class="checkbox-inline"> <input type="radio" class="radioClass" name="discountradio" checked value="2"/> Percentage </label> <br> <h5>Discount Amount:</h5> <input type="text" id="discountvalue" value="" class="numeric hidden form-control" /> <input type="text" id="discountper" value="" class="numeric  form-control" /> <br> <h5>Add On Payment: </h5> <h4><span class="addonpay" data-m-dec="" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> </div> </div> </header><!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <div id="costSheetTable"> </div> <!--<table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table>--> </div> <div class="invoice-items"> <h4 class="text-primary">Payment Schedule</h4> <ul id="paymentTable"> </ul> </div><!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div> <div class="formPopup" style="display:none"> <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div> <div class="formFields"></div> </div><div class="inframamout hidden" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div>';
+    ScreenFourLayout.prototype.template = '<div class="page-container row-fluid"> <div id="vs-container" class="vs-container flatContainer"> <header class="vs-header" id="unitblock-region"> </header> <div  id="mainunit-region"> </div> <div class="h-align-middle"> <!--<a class="btn btn-primary m-t-20 m-b-20 h-align-middle remove" ><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</a>--> <!--<div class="alert alert-success alert-dismissible hide" role="alert" id="errormsg"></div>--> </div> <div class="step4Actions"> <div class="grid-container"> <div class="grid-block-4 addtowishlist "> <a class="grid-link remove" name="list" id="list"> <h3 class="m-t-0 m-b-0"><span class="skyicon sky-heart"></span></h3> <h4 class="m-t-0 m-b-0 ">Add to Wishlist</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link print-preview"> <h3 class="m-t-0 m-b-0"><span class="sky-printer"></span></h3> <h4 class="m-t-0 m-b-0">Print</h4> </a> </div> <div class="grid-block-4"> <a class="grid-link" id="emailBtn"  > <h3 class="m-t-0 m-b-0"><span class="sky-mail"></span></h3> <h4 class="m-t-0 m-b-0">Email</h4> </a> </div> <div class="grid-block-4 costsheetbutton " > <a class="grid-link" > <h3 class="m-t-0 m-b-0"><span class="sky-coin"></span></h3> <h4 class="m-t-0 m-b-0 ">Cost Sheet</h4> </a> </div> </div> </div> </div> </div> <div class="costsheetclass" style="display:none" > <div id="invoice" class="paid"> <div class="this-is"> <h3 class="light">Estimated Cost for Flat No. <span class="text-primary flatno"></span> in <span class="text-primary building"></span></h3> </div><!-- invoice headline --> <header id="header"> <div class="invoice-intro"> <div class="row"> <div class="col-sm-5"> <h5>Prepared for:</h5> <input type="text" id="customer_name" value="" class="form-control" placeholder="Customer Name"/> </div> <div class="col-sm-5"> <h5>Prepared by:</h5> <h4 class="preparedby"></h4> </div> <div class="col-sm-2"> <h5>Prepared on:</h5> <h4 class="preparedon"></h4> </div> </div> <!--<h2 class="medium m-t-0 m-b-5 text-primary">Skyi</h2> <p class="italic">Tagline comes here</p>--> </div> <div class="paymentDetails"> <div class="row"> <div class="col-sm-6"> <h5 >Total Cost:</h5> <h4><span class="actualcost" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></span></h4> <input type="hidden" id="actualcostvalue" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" /></div> <div class="col-sm-6"> <h5 >Amount Receivable as on Date:</h5> <h4><span class="rec" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> <div class="row"> <div class="col-sm-6"> <h5>Current Milestone:</h5> <h4> <span class="currentmile"></span></h4> </div> <div class="col-sm-6 form-inline"> <h5>Schemes: </h5> <select id="scheme" class="form-control" > <option value="1">Regular Scheme</option> <option value="2">Lowest upfront payment scheme</option> </select> </div> </div> <div class="row"> <div class="col-sm-6 form-inline"> <h5>Payment Plan: </h5> <select id="paymentplans" class="form-control"> {{#paymentplans}} <option value="{{id}}" {{classname}}>{{name}}</option> {{/paymentplans}} </select> </div> <div class="col-sm-6 form-inline"> <h5>Actual Payment:</h5> <input type="text" class="form-control"  id="payment" value="0"/> <span class="glyphicon glyphicon-plus discountToggle"></span> </div> </div> <div class="row"> <div class="col-sm-6 form-inline"> </div> <div class="col-sm-6 form-inline"> <div class="discountBox"> <h5>Discount Type:</h5> <label class="checkbox-inline"> <input type="radio" class="radioClass" id="radio1"   name="discountradio" value="1"/> Value </label> <label class="checkbox-inline"> <input type="radio" class="radioClass" name="discountradio" checked value="2"/> Percentage </label> <br> <h5>Discount Amount:</h5> <input type="text" id="discountvalue" value="" class="numeric hidden form-control" /> <input type="text" id="discountper" value="" class="numeric  form-control" /> <br> <h5>Add On Payment: </h5> <h4><span class="addonpay" data-m-dec="" data-v-min="-9999999999999999.99"data-a-sign="Rs. " data-d-group="2"></span></h4> </div> </div> </div> </div> </header><!-- e: invoice header --> <section class="invoice-financials"> <div class="invoice-items"> <div id="costSheetTable"> </div> <!--<table id="costSheetTable"> <caption>Your Invoice</caption> <thead> <tr> <th>Item &amp; Description</th> <th>Quantity</th> <th>Price (GPL)</th> </tr> </thead> <tbody> </tbody> </table>--> </div> <div class="invoice-items"> <h4 class="text-primary">Payment Schedule</h4> <ul id="paymentTable"> </ul> </div><!-- e: invoice items --> </section><!-- e: invoice financials --> </div><!-- e: invoice --> </div> <div class="formPopup" style="display:none"> <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div> <div class="formFields"></div> </div><div class="inframamout hidden" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div>';
 
     ScreenFourLayout.prototype.regions = {
       unitRegion: '#unitblock-region',
@@ -324,7 +324,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.onShow = function() {
-      var buildingModel, capability, cookieOldValue, costSheetArray, count, flag, milestoneselectedValue, planselectedValue, unitModel, usermodel;
+      var buildingModel, capability, cookieOldValue, costSheetArray, count, flag, milestoneselectedValue, unitModel, usermodel;
       $(".discountToggle").click(function() {
         $(".discountBox").slideToggle();
       });
@@ -422,9 +422,7 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: unitModel.get('building')
       });
-      planselectedValue = buildingModel.get('payment_plan');
       milestoneselectedValue = buildingModel.get('milestone');
-      $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       this.generateCostSheet();
       perFlag = "";
       costSheetArray = [];
@@ -555,9 +553,11 @@ define(['marionette'], function(Marionette) {
       planselectedValue = buildingModel.get('payment_plan');
       milestoneselectedValue = buildingModel.get('milestone');
       id1 = $('#paymentplans').val();
-      paymentColl = new Backbone.Collection(PAYMENTPLANS);
-      milestones = paymentColl.get(parseInt($('#paymentplans').val()));
-      $('.paymentplan').text(milestones.get('name'));
+      paymentColl = App.master.paymentplans;
+      if (paymentColl.length !== 0) {
+        milestones = paymentColl.get(parseInt($('#paymentplans').val()));
+        $('.paymentplan').text(milestones.get('name'));
+      }
       maintenance = Math.round(parseInt(uniVariantModel.get('sellablearea')) * 100);
       SettingModel = new Backbone.Model(SETTINGS);
       infraArray = SettingModel.get('infrastructure_charges');
@@ -660,41 +660,43 @@ define(['marionette'], function(Marionette) {
         totalcost1 = parseInt(temp_stamp_duty) + parseInt(reg_amt1) + parseInt(vat1) + parseInt(sales_tax1);
       }
       finalcost1 = parseInt(maintenance) + parseInt(membershipfees);
-      paymentColl = new Backbone.Collection(PAYMENTPLANS);
-      milestones = paymentColl.get(parseInt($('#paymentplans').val()));
-      milestonesArray = milestones.get('milestones');
-      milestonesArrayColl = new Backbone.Collection(milestonesArray);
-      milestonemodel = milestonesArrayColl.findWhere({
-        'milestone': parseInt(buildingModel.get('milestone'))
-      });
-      milestonesArray = milestonesArray.sort(function(a, b) {
-        return parseInt(a.sort_index) - parseInt(b.sort_index);
-      });
-      milestoneCollection = new Backbone.Collection(MILESTONES);
-      if (milestonemodel === void 0) {
-        milesotneVal = _.first(milestonesArray);
+      console.log(paymentColl = App.master.paymentplans);
+      if (paymentColl.length !== 0) {
+        milestones = paymentColl.get(parseInt($('#paymentplans').val()));
+        milestonesArray = milestones.get('milestones');
+        milestonesArrayColl = new Backbone.Collection(milestonesArray);
         milestonemodel = milestonesArrayColl.findWhere({
-          'milestone': parseInt(milesotneVal.milestone)
+          'milestone': parseInt(buildingModel.get('milestone'))
         });
-        milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')));
-        $('.currentmile').text(milestonename.get('name'));
-      } else {
-        milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'));
-        $('.currentmile').text(milstoneModelName.get('name'));
-      }
-      milestoneColl = new Backbone.Collection(MILESTONES);
-      count = 0;
-      for (_j = 0, _len1 = milestonesArray.length; _j < _len1; _j++) {
-        element = milestonesArray[_j];
-        if (element.sort_index <= milestonemodel.get('sort_index')) {
-          percentageValue = agreement * ((parseInt(element.payment_percentage)) / 100);
-          count = count + percentageValue;
+        milestonesArray = milestonesArray.sort(function(a, b) {
+          return parseInt(a.sort_index) - parseInt(b.sort_index);
+        });
+        milestoneCollection = new Backbone.Collection(MILESTONES);
+        if (milestonemodel === void 0) {
+          milesotneVal = _.first(milestonesArray);
+          milestonemodel = milestonesArrayColl.findWhere({
+            'milestone': parseInt(milesotneVal.milestone)
+          });
+          milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')));
+          $('.currentmile').text(milestonename.get('name'));
+        } else {
+          milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'));
+          $('.currentmile').text(milstoneModelName.get('name'));
         }
-      }
-      if (parseInt($('#payment').val()) === 0) {
-        addon = 0;
-      } else {
-        addon = parseInt($('#payment').val()) - parseInt(count);
+        milestoneColl = new Backbone.Collection(MILESTONES);
+        count = 0;
+        for (_j = 0, _len1 = milestonesArray.length; _j < _len1; _j++) {
+          element = milestonesArray[_j];
+          if (element.sort_index <= milestonemodel.get('sort_index')) {
+            percentageValue = agreement * ((parseInt(element.payment_percentage)) / 100);
+            count = count + percentageValue;
+          }
+        }
+        if (parseInt($('#payment').val()) === 0) {
+          addon = 0;
+        } else {
+          addon = parseInt($('#payment').val()) - parseInt(count);
+        }
       }
       finalcost = parseInt(maintenance) + parseInt(membershipfees);
       $('.totalcost').text(totalcost);
@@ -811,114 +813,118 @@ define(['marionette'], function(Marionette) {
       });
       milestonecompletion = buildingModel.get('milestonecompletion');
       $('#paymentTable').text("");
-      paymentColl = new Backbone.Collection(PAYMENTPLANS);
-      milestones = paymentColl.get(parseInt(id));
-      milestonesArray = milestones.get('milestones');
-      $('.paymentplan').text(milestones.get('name'));
-      milestonesArrayColl = new Backbone.Collection(milestonesArray);
-      milestonemodel = milestonesArrayColl.findWhere({
-        'milestone': parseInt(buildingModel.get('milestone'))
-      });
-      milestonesArray = milestonesArray.sort(function(a, b) {
-        return parseInt(a.sort_index) - parseInt(b.sort_index);
-      });
-      milestoneCollection = new Backbone.Collection(MILESTONES);
-      if (milestonemodel === void 0) {
-        flag = 1;
-        milesotneVal = _.first(milestonesArray);
+      paymentColl = App.master.paymentplans;
+      if (paymentColl.length !== 0) {
+        milestones = paymentColl.get(parseInt(id));
+        milestonesArray = milestones.get('milestones');
+        $('.paymentplan').text(milestones.get('name'));
+        milestonesArrayColl = new Backbone.Collection(milestonesArray);
         milestonemodel = milestonesArrayColl.findWhere({
-          'milestone': parseInt(milesotneVal.milestone)
+          'milestone': parseInt(buildingModel.get('milestone'))
         });
-        milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')));
-        $('.currentmile').text(milestonename.get('name'));
-      } else {
-        milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'));
-        $('.currentmile').text(milstoneModelName.get('name'));
-      }
-      table = "";
-      count = 0;
-      milestoneColl = new Backbone.Collection(MILESTONES);
-      for (index = _i = 0, _len = milestonesArray.length; _i < _len; index = ++_i) {
-        element = milestonesArray[index];
-        percentageValue = Math.round(agreementValue * ((parseFloat(element.payment_percentage)) / 100));
-        percentageValue1 = Math.round(agreementValue1 * ((parseFloat(element.payment_percentage)) / 100));
-        proposed_date = $.map(milestonecompletion, function(index, value) {
-          if (parseInt(element.milestone) === parseInt(value)) {
-            return index;
-          }
+        milestonesArray = milestonesArray.sort(function(a, b) {
+          return parseInt(a.sort_index) - parseInt(b.sort_index);
         });
-        if (proposed_date.length === 0) {
-          proposed_date = '';
+        milestoneCollection = new Backbone.Collection(MILESTONES);
+        if (milestonemodel === void 0) {
+          flag = 1;
+          milesotneVal = _.first(milestonesArray);
+          milestonemodel = milestonesArrayColl.findWhere({
+            'milestone': parseInt(milesotneVal.milestone)
+          });
+          milestonename = milestoneCollection.get(parseInt(milestonemodel.get('milestone')));
+          $('.currentmile').text(milestonename.get('name'));
+        } else {
+          milstoneModelName = milestoneCollection.get(milestonemodel.get('milestone'));
+          $('.currentmile').text(milstoneModelName.get('name'));
         }
-        if (element.sort_index <= milestonemodel.get('sort_index')) {
-          trClass = "milestoneReached";
+        table = "";
+        count = 0;
+        milestoneColl = new Backbone.Collection(MILESTONES);
+        for (index = _i = 0, _len = milestonesArray.length; _i < _len; index = ++_i) {
+          element = milestonesArray[index];
+          percentageValue = Math.round(agreementValue * ((parseFloat(element.payment_percentage)) / 100));
+          percentageValue1 = Math.round(agreementValue1 * ((parseFloat(element.payment_percentage)) / 100));
+          proposed_date = $.map(milestonecompletion, function(index, value) {
+            if (parseInt(element.milestone) === parseInt(value)) {
+              return index;
+            }
+          });
+          if (proposed_date.length === 0) {
+            proposed_date = '';
+          }
+          if (element.sort_index <= milestonemodel.get('sort_index')) {
+            trClass = "milestoneReached";
+            percentageValue = Math.round(parseInt(agreementValue) * ((parseFloat(element.payment_percentage)) / 100));
+            percentageValue1 = Math.round(parseInt(agreementValue1) * ((parseFloat(element.payment_percentage)) / 100));
+            if (discountClass === "") {
+              amtalue = percentageValue1;
+            } else {
+              amtalue = percentageValue;
+            }
+            count = count + amtalue;
+          } else {
+            trClass = "";
+          }
+          if (flag === 1) {
+            trClass = "";
+          }
+          $('.percentageValue1').autoNumeric('init');
+          $('.percentageValue').autoNumeric('init');
+          milestoneModel = milestoneColl.get(element.milestone);
+          table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal discCol ' + discountClass + ' percentageValue' + index + '" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
+        }
+        $('.rec').autoNumeric('init');
+        recount = $('.rec').autoNumeric('set', count);
+        reccount = recount.text();
+        if (parseInt($('#payment').val()) === 0) {
+          addon = 0;
+        } else {
+          addon = $('#payment').val() - count;
+        }
+        $('.actpayment').autoNumeric('init');
+        $('.actpayment').autoNumeric('set', $('#payment').val());
+        $('.addonpay').autoNumeric('init');
+        $('.addonpay').autoNumeric('set', addon);
+        $('#paymentTable').append(table);
+        _results = [];
+        for (index = _j = 0, _len1 = milestonesArray.length; _j < _len1; index = ++_j) {
+          element = milestonesArray[index];
           percentageValue = Math.round(parseInt(agreementValue) * ((parseFloat(element.payment_percentage)) / 100));
           percentageValue1 = Math.round(parseInt(agreementValue1) * ((parseFloat(element.payment_percentage)) / 100));
-          if (discountClass === "") {
-            amtalue = percentageValue1;
-          } else {
-            amtalue = percentageValue;
-          }
-          count = count + amtalue;
-        } else {
-          trClass = "";
+          $('.percentageValue' + index).autoNumeric('init');
+          $('.percentageValue' + index).autoNumeric('set', percentageValue);
+          $('.percentageValue1' + index).autoNumeric('init');
+          _results.push($('.percentageValue1' + index).autoNumeric('set', percentageValue1));
         }
-        if (flag === 1) {
-          trClass = "";
-        }
-        $('.percentageValue1').autoNumeric('init');
-        $('.percentageValue').autoNumeric('init');
-        milestoneModel = milestoneColl.get(element.milestone);
-        table += '  <span class="msPercent">' + element.payment_percentage + '%</span> <li class="milestoneList ' + trClass + '"> <div class="msName">' + milestoneModel.get('name') + ' <span class="completionDate">(Estimated date: ' + proposed_date + ')</span></div> <div class="msVal discCol ' + discountClass + ' percentageValue' + index + '" data-m-dec="" data-a-sign="Rs. " data-d-group="2"></div> <div class="msVal percentageValue1' + index + '" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div> <span class="barBg" style="width:' + element.payment_percentage + '%"></span> </li> <div class="clearfix"></div>';
+        return _results;
       }
-      $('.rec').autoNumeric('init');
-      recount = $('.rec').autoNumeric('set', count);
-      reccount = recount.text();
-      if (parseInt($('#payment').val()) === 0) {
-        addon = 0;
-      } else {
-        addon = $('#payment').val() - count;
-      }
-      $('.actpayment').autoNumeric('init');
-      $('.actpayment').autoNumeric('set', $('#payment').val());
-      $('.addonpay').autoNumeric('init');
-      $('.addonpay').autoNumeric('set', addon);
-      $('#paymentTable').append(table);
-      _results = [];
-      for (index = _j = 0, _len1 = milestonesArray.length; _j < _len1; index = ++_j) {
-        element = milestonesArray[index];
-        percentageValue = Math.round(parseInt(agreementValue) * ((parseFloat(element.payment_percentage)) / 100));
-        percentageValue1 = Math.round(parseInt(agreementValue1) * ((parseFloat(element.payment_percentage)) / 100));
-        $('.percentageValue' + index).autoNumeric('init');
-        $('.percentageValue' + index).autoNumeric('set', percentageValue);
-        $('.percentageValue1' + index).autoNumeric('init');
-        _results.push($('.percentageValue1' + index).autoNumeric('set', percentageValue1));
-      }
-      return _results;
     };
 
     ScreenFourLayout.prototype.getMilestones = function(id) {
       var element, milesstones, milestoneColl, milestoneModel, milestones, milestonesArray, paymentColl, _i, _len;
       milesstones = '';
       $('#milestones option').remove();
-      paymentColl = new Backbone.Collection(PAYMENTPLANS);
-      milestones = paymentColl.get(parseInt(id));
-      $('.paymentplan').text(milestones.get('name'));
-      milestonesArray = milestones.get('milestones');
-      milestonesArray = milestonesArray.sort(function(a, b) {
-        return parseInt(a.sort_index) - parseInt(b.sort_index);
-      });
-      milestoneColl = new Backbone.Collection(MILESTONES);
-      for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
-        element = milestonesArray[_i];
-        milestoneModel = milestoneColl.get(element.milestone);
-        milesstones += '<option value="' + element.milestone + '">' + milestoneModel.get('name') + '</option>';
+      paymentColl = app.master.paymentplans;
+      if (paymentColl.length !== 0) {
+        milestones = paymentColl.get(parseInt(id));
+        $('.paymentplan').text(milestones.get('name'));
+        milestonesArray = milestones.get('milestones');
+        milestonesArray = milestonesArray.sort(function(a, b) {
+          return parseInt(a.sort_index) - parseInt(b.sort_index);
+        });
+        milestoneColl = new Backbone.Collection(MILESTONES);
+        for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
+          element = milestonesArray[_i];
+          milestoneModel = milestoneColl.get(element.milestone);
+          milesstones += '<option value="' + element.milestone + '">' + milestoneModel.get('name') + '</option>';
+        }
+        return $('#milestones').append(milesstones);
       }
-      return $('#milestones').append(milesstones);
     };
 
     ScreenFourLayout.prototype.updated = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalvalue, floorRise, floorRiseValue, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, servicetax, servicetax1, shift, stamp_duty, stamp_dutyy, table, temp_stamp_duty, tempstamp_duty, totalcost, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalvalue, floorRise, floorRiseValue, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, servicetax, servicetax1, shift, stamp_duty, stamp_dutyy, table, temp_stamp_duty, tempstamp_duty, totalcost, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
       $('.infra1').autoNumeric('init');
       $('.infra1').autoNumeric('set', $('#infra1').val());
       $('.infra').autoNumeric('init');
@@ -956,9 +962,7 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: unitModel.get('building')
       });
-      planselectedValue = buildingModel.get('payment_plan');
       milestoneselectedValue = buildingModel.get('milestone');
-      $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       $("#milestones option[value=" + milestoneselectedValue + "]").prop('selected', true);
       id1 = $('#paymentplans').val();
       SettingModel = new Backbone.Model(SETTINGS);
@@ -1025,32 +1029,34 @@ define(['marionette'], function(Marionette) {
       } else {
         totalcost = parseInt(tempstamp_duty) + parseInt(reg_amt) + parseInt(vat) + parseInt(sales_tax);
       }
-      paymentColl = new Backbone.Collection(PAYMENTPLANS);
-      milestones = paymentColl.get(parseInt($('#paymentplans').val()));
-      milestonesArray = milestones.get('milestones');
-      milestonesArrayColl = new Backbone.Collection(milestonesArray);
-      milestonemodel = milestonesArrayColl.findWhere({
-        'milestone': parseInt(buildingModel.get('milestone'))
-      });
-      milestonesArray = milestonesArray.sort(function(a, b) {
-        return parseInt(a.sort_index) - parseInt(b.sort_index);
-      });
-      if (milestonemodel === void 0) {
-        milesotneVal = _.first(milestonesArray);
+      paymentColl = App.master.paymentplans;
+      if (paymentColl.length !== 0) {
+        milestones = paymentColl.get(parseInt($('#paymentplans').val()));
+        milestonesArray = milestones.get('milestones');
+        milestonesArrayColl = new Backbone.Collection(milestonesArray);
         milestonemodel = milestonesArrayColl.findWhere({
-          'milestone': parseInt(milesotneVal.milestone)
+          'milestone': parseInt(buildingModel.get('milestone'))
         });
-      }
-      milestoneColl = new Backbone.Collection(MILESTONES);
-      count = 0;
-      for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
-        element = milestonesArray[_i];
-        if (element.sort_index <= milestonemodel.get('sort_index')) {
-          percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage)) / 100));
-          count = count + percentageValue;
+        milestonesArray = milestonesArray.sort(function(a, b) {
+          return parseInt(a.sort_index) - parseInt(b.sort_index);
+        });
+        if (milestonemodel === void 0) {
+          milesotneVal = _.first(milestonesArray);
+          milestonemodel = milestonesArrayColl.findWhere({
+            'milestone': parseInt(milesotneVal.milestone)
+          });
         }
+        milestoneColl = new Backbone.Collection(MILESTONES);
+        count = 0;
+        for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
+          element = milestonesArray[_i];
+          if (element.sort_index <= milestonemodel.get('sort_index')) {
+            percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage)) / 100));
+            count = count + percentageValue;
+          }
+        }
+        addon = parseInt($('#payment').val()) - parseInt(count);
       }
-      addon = parseInt($('#payment').val()) - parseInt(count);
       finalcost = parseInt(maintenance) + parseInt(membershipfees);
       finalvalue = parseInt(totalcost) + parseInt(finalcost) + parseInt(agreement);
       if (parseInt($('#scheme').val()) === 1) {
@@ -1083,7 +1089,7 @@ define(['marionette'], function(Marionette) {
     };
 
     ScreenFourLayout.prototype.updated1 = function() {
-      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, finalvalue1, floorRise, floorRiseValue, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, planselectedValue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, servicetax, servicetax1, shift, stamp_duty, stamp_dutyy, table, temp_stamp_duty, tempstamp_duty, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
+      var SettingModel, addon, agreement, agreement1, basicCost, basicCost1, buildingModel, costSheetArray, count, discount, element, finalcost, finalcost1, finalvalue1, floorRise, floorRiseValue, id1, infraArray, maintenance, membership_fees, membership_feesColl, membershipfees, milesotneVal, milestoneColl, milestonemodel, milestones, milestonesArray, milestonesArrayColl, milestoneselectedValue, paymentColl, percentageValue, pervalue, ratePerSqFtPrice, reg_amt, reg_amt1, revisedhidden, revisedrate, sales_tax, sales_tax1, servicetax, servicetax1, shift, stamp_duty, stamp_dutyy, table, temp_stamp_duty, tempstamp_duty, totalcost, totalcost1, uniVariantModel, unitModel, unitTypeMemeber, unitVariantMemeber, unitVariantMemeberColl, univariantmem, vat, vat1, _i, _len;
       $('.infra1').autoNumeric('init');
       $('.infra1').autoNumeric('set', $('#infra1').val());
       $('.infra').autoNumeric('init');
@@ -1121,9 +1127,7 @@ define(['marionette'], function(Marionette) {
       buildingModel = App.master.building.findWhere({
         id: unitModel.get('building')
       });
-      planselectedValue = buildingModel.get('payment_plan');
       milestoneselectedValue = buildingModel.get('milestone');
-      $("#paymentplans option[value=" + planselectedValue + "]").prop('selected', true);
       $("#milestones option[value=" + milestoneselectedValue + "]").prop('selected', true);
       id1 = $('#paymentplans').val();
       maintenance = parseInt(uniVariantModel.get('sellablearea')) * 100;
@@ -1219,32 +1223,34 @@ define(['marionette'], function(Marionette) {
       $('.finalcost1').autoNumeric('set', finalcost1);
       $('.finalvalue1').autoNumeric('init');
       $('.finalvalue1').autoNumeric('set', finalvalue1);
-      paymentColl = new Backbone.Collection(PAYMENTPLANS);
-      milestones = paymentColl.get(parseInt($('#paymentplans').val()));
-      milestonesArray = milestones.get('milestones');
-      milestonesArrayColl = new Backbone.Collection(milestonesArray);
-      milestonemodel = milestonesArrayColl.findWhere({
-        'milestone': parseInt(buildingModel.get('milestone'))
-      });
-      milestonesArray = milestonesArray.sort(function(a, b) {
-        return parseInt(a.sort_index) - parseInt(b.sort_index);
-      });
-      if (milestonemodel === void 0) {
-        milesotneVal = _.first(milestonesArray);
+      paymentColl = App.master.paymentplans;
+      if (paymentColl.length !== 0) {
+        milestones = paymentColl.get(parseInt($('#paymentplans').val()));
+        milestonesArray = milestones.get('milestones');
+        milestonesArrayColl = new Backbone.Collection(milestonesArray);
         milestonemodel = milestonesArrayColl.findWhere({
-          'milestone': parseInt(milesotneVal.milestone)
+          'milestone': parseInt(buildingModel.get('milestone'))
         });
-      }
-      milestoneColl = new Backbone.Collection(MILESTONES);
-      count = 0;
-      for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
-        element = milestonesArray[_i];
-        if (element.sort_index <= milestonemodel.get('sort_index')) {
-          percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage)) / 100));
-          count = count + percentageValue;
+        milestonesArray = milestonesArray.sort(function(a, b) {
+          return parseInt(a.sort_index) - parseInt(b.sort_index);
+        });
+        if (milestonemodel === void 0) {
+          milesotneVal = _.first(milestonesArray);
+          milestonemodel = milestonesArrayColl.findWhere({
+            'milestone': parseInt(milesotneVal.milestone)
+          });
         }
+        milestoneColl = new Backbone.Collection(MILESTONES);
+        count = 0;
+        for (_i = 0, _len = milestonesArray.length; _i < _len; _i++) {
+          element = milestonesArray[_i];
+          if (element.sort_index <= milestonemodel.get('sort_index')) {
+            percentageValue = Math.round(agreement * ((parseFloat(element.payment_percentage)) / 100));
+            count = count + percentageValue;
+          }
+        }
+        addon = parseInt($('#payment').val()) - parseInt(count);
       }
-      addon = parseInt($('#payment').val()) - parseInt(count);
       totalcost = parseInt(agreement) + parseInt(stamp_duty) + parseInt(reg_amt) + parseInt(vat) + parseInt(sales_tax);
       return finalcost = parseInt(totalcost) + parseInt(maintenance);
     };

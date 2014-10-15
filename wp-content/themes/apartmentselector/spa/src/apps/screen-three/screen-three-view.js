@@ -134,6 +134,7 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
+        App.unit['name'] = unitModel.get("id");
         position = unitModel.get('unitAssigned');
         rangeArrayVal = [];
         $.each(floorriserange, function(index, value) {
@@ -272,6 +273,7 @@ define(['marionette'], function(Marionette) {
         unitModel = App.master.unit.findWhere({
           id: parseInt(id)
         });
+        App.unit['name'] = unitModel.get("id");
         position = unitModel.get('unitAssigned');
         rangeArrayVal = [];
         $.each(floorriserange, function(index, value) {

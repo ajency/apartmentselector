@@ -49,7 +49,7 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
     };
 
     ScreenFourController.prototype._getSelelctedUnit = function() {
-      var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, unitCollection, units, unitsArray;
+      var ModelActualArr, highLength, i, index, j, modelArr, modelIdArr, payColl, payment, unitCollection, units, unitsArray;
       units = App.master.unit.where({
         id: parseInt(App.unit['name'])
       });
@@ -197,7 +197,24 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
         return ModelActualArr.push(unitCollection.get(value));
       });
       unitCollection = new Backbone.Collection(ModelActualArr);
-      return [unitCollection, PAYMENTPLANS];
+      console.log(App.master.paymentplans.toArray());
+      payment = [];
+      payColl = App.master.paymentplans;
+      i = 0;
+      payColl.each(function(item) {
+        var classname;
+        classname = "";
+        if (i === 0) {
+          classname = "selected";
+        }
+        payment.push({
+          id: item.get('id'),
+          name: item.get('name'),
+          classname: classname
+        });
+        return i++;
+      });
+      return [unitCollection, payment];
     };
 
     ScreenFourController.prototype.getPerSqFtPrice = function() {
@@ -209,15 +226,27 @@ define(['extm', 'src/apps/screen-four/screen-four-view'], function(Extm, ScreenF
       return $.ajax({
         method: "POST",
         url: AJAXURL + '?action=get_unit_single_details',
-        data: 'id=' + unitModel.get('id'),
+        data: 'id=' + unitModel.get('id') + '&building=' + unitModel.get('building'),
         success: function(result) {
+          var arr, payment;
           unitModel.set('persqftprice', result.persqftprice);
           unitModel.set('views', result.views);
           unitModel.set('facing', result.facings);
           object.Collection = object._getSelelctedUnit();
+          console.log(result.payment_plans);
+          payment = [];
+          arr = $.map(result.payment_plans, function(el) {
+            return payment.push({
+              id: el.id,
+              name: el.name,
+              milestones: el.milestones
+            });
+          });
+          console.log(payment);
+          App.master.paymentplans.reset(payment);
           object.layout = new ScreenFourView.ScreenFourLayout({
             templateHelpers: {
-              paymentplans: object.Collection[1]
+              paymentplans: payment
             }
           });
           object.listenTo(object.layout, "show", object.showViews);

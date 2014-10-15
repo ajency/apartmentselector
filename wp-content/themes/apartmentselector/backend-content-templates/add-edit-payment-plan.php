@@ -9,9 +9,13 @@ if(!current_user_can('manage_settings') && !current_user_can('manage_options')){
     
 } 
 $heading = "Add"; 
-
+$tower_arr = array();
 $payment_milestones = array();
 $archive_val = 0;
+ $checked_apply = "";
+$checked = "";
+$apply_val =0;
+$checkedtower = "";
 if(isset($_REQUEST["id"])){
 $tower_arr = array();
 $heading = "Edit";
@@ -26,17 +30,30 @@ $heading = "Edit";
   
     $towers =  $payment_milestones["towers"];
    if(count($towers) > 0){
+    $checkedtower = "checked";
     foreach($towers as $key=>$val){
-      if(intval($val)!=0)
+      if(intval($val)!=0 && $val != "")
       array_push($tower_arr, intval($val));
     }
 }
+$tower_arr = array_unique($tower_arr);
      $archive =  $payment_milestones["archive"];
-    $checked = "";
-    if(intval($archive) == 1)
+    
+    if(intval($archive) == 1){
       $checked = "checked";
       $archive_val = 1;
-    $payment_milestones =  $payment_milestones["milestones"];
+    }
+    
+    $buildingsid =  $payment_milestones["building"];
+    
+    
+    if($buildingsid != ""){
+      $apply_val = 1;
+      $checked_apply = 'checked';}
+
+
+      $payment_milestones =  $payment_milestones["milestones"];
+
 
     
     
@@ -255,12 +272,14 @@ $heading = "Edit";
           
         </ul>
 		<div class="m-t-20">
-            <a class="btn btn-default" href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a></div><br/><label class="form-label">Towers</label><br/><br/>
+            <a class="btn btn-default" href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a></div><br/><input type="radio" id="showtowers" <?php echo $checkedtower;?> name="showtowers" value="0"><label class="form-label">Towers</label><br/><div id="display_towers" style="display:none">
             <?php 
+            $building_arr = array();
             $buildings = get_buildings();
+            
             foreach($buildings as $value){
               $checked_tower =""; 
-              
+              array_push($building_arr, $value['id']);
               if(in_array(intval($value['id']), $tower_arr))
                 
                   $checked_tower = "checked";
@@ -272,7 +291,7 @@ $heading = "Edit";
            <?php }
 
             ?>
-            <br/><br/><input type="checkbox" id="apply" <?php echo $checked;?> name="apply" value="<?php echo $archive_val;?>" /><label for="apply" class="form-label">Apply to All Towers</label>
+            </div><br/><input type="hidden" id="apply_arr" name="apply_arr"  value="<?php echo implode(',', $building_arr);?>"><input type="radio" id="apply"  <?php echo $checked_apply;?> name="showtowers" value="<?php echo $apply_val;?>" /><label for="apply" class="form-label">Apply to All Towers</label>
             <br/><br/><input type="hidden" id="towerstring" name="towerstring" value="<?php echo implode(',', $tower_arr);?>" /><input type="checkbox" id="archive" <?php echo $checked;?> name="archive" value="<?php echo $archive_val;?>" /><label for="archive" class="form-label">Archive</label>
             <div editing-element="" class="modal fade" id="milestone-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
