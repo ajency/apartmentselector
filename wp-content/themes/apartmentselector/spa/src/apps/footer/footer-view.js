@@ -11,7 +11,14 @@ define(['marionette'], function(Mariontte) {
       return FooterView.__super__.constructor.apply(this, arguments);
     }
 
-    FooterView.prototype.template = '<p style="text-align:center;" ><a  href="http://manaslake.com/terms-conditions/" target="_new">Terms &amp; Conditions</a></p>';
+    FooterView.prototype.template = '<label class="link" >Terms &amp; Conditions</label>';
+
+    FooterView.prototype.events = {
+      'click .link': function(e) {
+        var win;
+        return win = window.open('http://manaslake.com/terms-conditions/', '_blank');
+      }
+    };
 
     return FooterView;
 

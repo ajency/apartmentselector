@@ -2,6 +2,11 @@ define [ 'marionette' ], ( Mariontte )->
 
     class FooterView extends Marionette.ItemView
 
-        template : '<p style="text-align:center;" ><a  href="http://manaslake.com/terms-conditions/" target="_new">Terms &amp; Conditions</a></p>'
+        template : '<label class="link" >Terms &amp; Conditions</label>'
 
+        events:
+        	'click .link':(e)->
+        		win = window.open('http://manaslake.com/terms-conditions/', '_blank')
+                
+        		
        	
