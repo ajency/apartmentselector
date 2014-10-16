@@ -12252,4 +12252,13 @@ a.im-clear-button {
   background: url(../images/icon-close.png) no-repeat 50% 50%;
 }
 /**** end print modal styles ****/
+.termsLink {
+  color: #ff6600;
+  cursor: pointer;
+  margin: 10px 0;
+}
+.termsLink:hover {
+  color: #e65c00;
+  text-decoration: underline;
+}
 

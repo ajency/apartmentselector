@@ -2,7 +2,7 @@ define [ 'marionette' ], ( Mariontte )->
 
     class FooterView extends Marionette.ItemView
 
-        template : '<label class="link" >Terms &amp; Conditions</label>'
+        template : '<div class="link text-center small termsLink" >Terms &amp; Conditions</div>'
 
         events:
         	'click .link':(e)->

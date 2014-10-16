@@ -11,7 +11,7 @@ define(['marionette'], function(Mariontte) {
       return FooterView.__super__.constructor.apply(this, arguments);
     }
 
-    FooterView.prototype.template = '<label class="link" >Terms &amp; Conditions</label>';
+    FooterView.prototype.template = '<div class="link text-center small termsLink" >Terms &amp; Conditions</div>';
 
     FooterView.prototype.events = {
       'click .link': function(e) {
