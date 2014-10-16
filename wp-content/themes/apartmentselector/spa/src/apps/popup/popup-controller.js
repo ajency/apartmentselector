@@ -28,10 +28,12 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var buildingModel, classnamearr, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomcoll, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _l, _len, _len1, _len2, _len3;
+      var actualroom, buildingModel, classnameColl, classnamearr, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomcoll, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _l, _len, _len1, _len2, _len3;
       cookeArray = modelstring;
       unitModelArray = [];
+      classnamearr = [];
       roomcoll = [];
+      actualroom = [];
       if (cookeArray.length !== 0) {
         for (_i = 0, _len = cookeArray.length; _i < _len; _i++) {
           element = cookeArray[_i];
@@ -51,7 +53,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
         for (_j = 0, _len1 = cookeArray.length; _j < _len1; _j++) {
           element = cookeArray[_j];
           unitModel = element;
-          classnamearr = [];
+          actualroom = [];
           buildingModel = App.master.building.findWhere({
             id: unitModel.get('building')
           });
@@ -159,15 +161,17 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           mainArr = [];
           roomsizesCollection = new Backbone.Collection(roomSizesArray);
           $.each(roomTypeArr, function(ind, val) {
-            var roomtype, roomtypename;
+            var roomtype, roomtypeid, roomtypename;
             roomsizearr = [];
             roomtypename = '';
+            roomtypeid = "";
             roomtype = roomsizesCollection.where({
               room_type_id: parseInt(val)
             });
             if (roomtype !== void 0) {
               $.each(roomtype, function(index1, value1) {
                 roomtypename = value1.get('room_type');
+                roomtypeid = value1.get('room_type_id');
                 return roomsizearr.push({
                   room_size: value1.get('room_size'),
                   room_type: value1.get('room_type')
@@ -177,6 +181,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
                 return b.room_size - a.room_size;
               });
               return mainArr.push({
+                id: roomtypeid,
                 name: roomtypename,
                 subarray: roomsizearr
               });
@@ -185,16 +190,39 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           $.each(mainArr, function(ind, val) {
             if (val.subarray.length !== 0) {
               return classnamearr.push({
+                id: val.id,
                 name: val.name,
                 subarray: val.subarray
               });
+            } else {
+              return classnamearr.push({
+                id: val.id,
+                name: val.name,
+                subarray: '-----'
+              });
             }
           });
-          unitModel.set('mainArr', classnamearr);
+          classnameColl = new Backbone.Collection(classnamearr);
+          $.each(roomcoll, function(inde, value) {
+            var coll;
+            coll = classnameColl.where({
+              id: parseInt(value)
+            });
+            return $.each(coll, function(inde, item) {
+              if (item.get('subarray') !== '----') {
+                return actualroom.push({
+                  id: value,
+                  name: item.get('name'),
+                  subarray: item.get('subarray')
+                });
+              }
+            });
+          });
+          unitModel.set('mainArr', actualroom);
           unitModelArray.push(unitModel);
         }
         unitCollection = new Backbone.Collection(unitModelArray);
-        this.view = view = this._getPopupView(unitCollection, classnamearr);
+        this.view = view = this._getPopupView(unitCollection, actualroom);
         return this.show(view);
       }
     };
