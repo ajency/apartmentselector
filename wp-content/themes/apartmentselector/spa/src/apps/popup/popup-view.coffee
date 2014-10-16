@@ -131,21 +131,14 @@ define [ 'marionette' ], ( Mariontte )->
                             </ul>
                             <div class="compareHeader"><span class="sky-expand"></span> Room Area <small>(Sq. Ft.)</small></div>
                             <ul>
-                                <li>
-                                    Living/Dining 
-                                </li>
-                                <li>
-                                    Bedroom
-                                </li>
-                                <li>
-                                    Bathroom
-                                </li>
-                                <li>
-                                    Terrace
-                                </li>
-                                
-                                
-                            </ul>
+                                {{#selection}}
+                                    <li>
+
+                                    {{name}}
+                                   
+                                    </li>
+                                {{/selection}}    
+                                </ul>
             				<div class="compareHeader"><span class="glyphicon glyphicon-picture"></span> Layouts</div>
             				<ul>
                                 <li>

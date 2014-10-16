@@ -10,20 +10,39 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
             
 
 
-        _getPopupView:(Collection)->
+        _getPopupView:(Collection,classnamearr)->
             new PopupView
                 collection : Collection
+                templateHelpers:
+                        selection :classnamearr
 
 
 
         _getUnitsCountCollection:(modelstring)->
             cookeArray = modelstring
             unitModelArray = []
-            classnamearr = []
+            
+            roomcoll = []
+            if cookeArray.length != 0
+                for element in cookeArray
+
+                    unitModel = element
+                    unitVariantModel = App.master.unit_variant.findWhere({id:unitModel.get 'unitVariant'})
+                    roomSizesObject = unitVariantModel.get 'roomsizes'
+                    
+                    roomSizesArray = $.map(roomSizesObject, (index,value1)->
+                           roomcoll.push(index.room_type_id)
+
+
+
+
+                    )
+            roomcoll = _.uniq(roomcoll)
             floorLayoutimage = ""
             if cookeArray.length != 0
                 for element in cookeArray
                     unitModel = element
+                    classnamearr = []
                     buildingModel = App.master.building.findWhere({id:unitModel.get 'building'})
                     exceptionObject = buildingModel.get 'floorexceptionpositions'
                     $.each(exceptionObject, (index,value1)->
@@ -105,7 +124,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     roomSizesObject = unitVariantModel.get 'roomsizes'
                     roomsizearray = []
                     # roomTypeArr = [68,71,72,70,66]
-                    roomTypeArr = [68,71,72,70]
+                    roomTypeArr = roomcoll
                     roomSizesArray = $.map(roomSizesObject, (index,value1)->
                         [index]
 
@@ -126,44 +145,36 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     roomsizesCollection = new Backbone.Collection roomSizesArray
                     $.each(roomTypeArr, (ind,val)->
                         roomsizearr = []
+                        roomtypename = ''
                         roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
-                        ii = 0
-                        if parseInt(val) == 70
-                            if ii > 0
-                                terraceoptions = ""
+                        if roomtype != undefined
                             $.each(roomtype, (index1,value1)->
-                                roomsizearr.push({room_size:value1.get('room_size'),terace:terraceoptions})
-                                ii++
-
-                            )
-                        else
-                            $.each(roomtype, (index1,value1)->
-                                roomsizearr.push({room_size:value1.get('room_size')})
+                                roomtypename = value1.get('room_type')
+                                roomsizearr.push({room_size:value1.get('room_size'),room_type:value1.get('room_type')})
 
 
                             )
-
-                        roomsizearr.sort( (a,b)->
-                            b.room_size - a.room_size
+                            roomsizearr.sort( (a,b)->
+                                b.room_size - a.room_size
 
                             )
-                        if roomsizearr.length == 0
-                            roomsizearr.push({room_size:"----------"})
-                        mainArr.push({subarray:roomsizearr})
+
+                            mainArr.push({name:roomtypename,subarray:roomsizearr})
+
+                        
+
+
+                    )
+                    
+                    $.each(mainArr, (ind,val)->
+                        if val.subarray.length != 0
+                            classnamearr.push({name:val.name,subarray:val.subarray})
 
 
                         )
-                    $.each(mainArr, (ind,val)->
-                        $.each(val.subarray, (ind1,val1)->
-                            if val1.room_size == '----'
-                                classnamearr.push(val)
-
-                            )
-
-
-                        )  
                     
-                    unitModel.set 'mainArr',mainArr
+                    
+                    unitModel.set 'mainArr',classnamearr
                     
 
                     
@@ -171,7 +182,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 
                 unitCollection = new Backbone.Collection unitModelArray
                 
-                @view = view = @_getPopupView unitCollection
+                @view = view = @_getPopupView unitCollection , classnamearr
                 @show view
 
 
@@ -187,7 +198,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     $.ajax(
                         method: "POST" ,
                         url : AJAXURL+'?action=get_unit_single_details',
-                        data : 'id='+unitModel.get('id'),
+                        data : 'id='+unitModel.get('id')+'&building='+unitModel.get('building'),
                         success :(result)-> 
                             i++
                             unitModel1 = App.master.unit.findWhere({id:parseInt(result.id)})
