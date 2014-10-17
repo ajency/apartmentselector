@@ -28,7 +28,7 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
     };
 
     PopupController.prototype._getUnitsCountCollection = function(modelstring) {
-      var act, actroom, actroomColl, actualroom, buildingModel, classnamearr, coll, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomcoll, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _l, _len, _len1, _len2, _len3;
+      var act, actroom, actroomColl, actualroom, buildingModel, classnamearr, coll, cookeArray, element, exceptionObject, facingModel, facingModelArray, facingssArray, floorLayoutimage, floorriserange, i, id, mainArr, rangeArrayVal, roomSizesArray, roomSizesObject, roomTypeArr, roomcoll, roomsizearr, roomsizearray, roomsizesCollection, terraceoptions, terraceoptionstext, unitCollection, unitModel, unitModelArray, unitTypeModel, unitTypeModelName, unitVariantModel, view, viewModel, viewModelArray, viewsArray, _i, _j, _k, _l, _len, _len1, _len2, _len3;
       cookeArray = modelstring;
       unitModelArray = [];
       classnamearr = [];
@@ -45,7 +45,10 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           });
           roomSizesObject = unitVariantModel.get('roomsizes');
           roomSizesArray = $.map(roomSizesObject, function(index, value1) {
-            return roomcoll.push(index.room_type_id);
+            return roomcoll.push({
+              id: index.room_type_id,
+              name: index.room_type
+            });
           });
         }
       }
@@ -166,14 +169,13 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
             var roomtype, roomtypeid, roomtypename;
             roomsizearr = [];
             roomtypename = '';
-            roomtypeid = "";
+            roomtypeid = val.id;
+            roomtypename = val.name;
             roomtype = roomsizesCollection.where({
-              room_type_id: parseInt(val)
+              room_type_id: parseInt(val.id)
             });
             if (roomtype !== void 0) {
               $.each(roomtype, function(index1, value1) {
-                roomtypename = value1.get('room_type');
-                roomtypeid = value1.get('room_type_id');
                 return roomsizearr.push({
                   room_size: value1.get('room_size'),
                   room_type: value1.get('room_type')
@@ -183,7 +185,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
                 return b.room_size - a.room_size;
               });
               if (roomsizearr.length === 0) {
-                roomsizearr = '------------';
+                roomsizearr.push({
+                  room_size: '----'
+                });
               }
               return mainArr.push({
                 id: roomtypeid,
@@ -205,46 +209,48 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
               subarray: val.subarray
             });
           });
-          console.log(actroom);
+          id = "";
           actroomColl = new Backbone.Collection(actroom);
           actualroom = [];
           coll = [];
           $.each(roomcoll, function(inde, value) {
-            var classname, id;
+            var classname;
             classname = '';
             coll = [];
             $.each(classnamearr, function(ind, val) {
-              if (parseInt(val.id) === parseInt(value)) {
-                return coll.push({
-                  id: value,
-                  name: val.name,
-                  subarray: val.subarray,
-                  classname: classname
-                });
+              if (parseInt(val.id) === parseInt(value.id)) {
+                if (val.subarray !== '----') {
+                  return coll.push({
+                    id: value.id,
+                    name: val.name,
+                    subarray: val.subarray,
+                    classname: classname
+                  });
+                }
               }
             });
             if (coll.length === 0) {
-              id = actroomColl.get(value);
-              return actroomColl.remove(id);
+              return id = actroomColl.get(value);
             }
           });
           act = [];
           actroomColl.each(function(item) {
-            if (item.get('subarray').length !== 0) {
-              return act.push({
-                id: item.get('id'),
-                name: item.get('name'),
-                subarray: item.get('subarray')
-              });
-            } else {
-              return act.push({
-                id: item.get('id'),
-                name: item.get('name'),
-                subarray: "-----------"
-              });
+            if (id !== item.get('id')) {
+              if (item.get('subarray') !== '----') {
+                return act.push({
+                  id: item.get('id'),
+                  name: item.get('name'),
+                  subarray: item.get('subarray')
+                });
+              } else {
+                return act.push({
+                  id: item.get('id'),
+                  name: item.get('name'),
+                  subarray: "-----------"
+                });
+              }
             }
           });
-          console.log(act);
           unitModel.set('mainArr', act);
           unitModelArray.push(unitModel);
         }

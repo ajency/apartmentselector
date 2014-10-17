@@ -34,7 +34,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     roomSizesObject = unitVariantModel.get 'roomsizes'
                     
                     roomSizesArray = $.map(roomSizesObject, (index,value1)->
-                           roomcoll.push(index.room_type_id)
+                           roomcoll.push({id:index.room_type_id,name:index.room_type})
 
 
 
@@ -149,12 +149,13 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     $.each(roomTypeArr, (ind,val)->
                         roomsizearr = []
                         roomtypename = ''
-                        roomtypeid = ""
-                        roomtype = roomsizesCollection.where({room_type_id:parseInt(val)})
+                        roomtypeid = val.id
+                        roomtypename = val.name
+                        roomtype = roomsizesCollection.where({room_type_id:parseInt(val.id)})
                         if roomtype != undefined
                             $.each(roomtype, (index1,value1)->
-                                roomtypename = value1.get('room_type')
-                                roomtypeid = value1.get('room_type_id')
+                                
+                                
                                 roomsizearr.push({room_size:value1.get('room_size'),room_type:value1.get('room_type')})
 
 
@@ -164,13 +165,14 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
                             )
                             if roomsizearr.length ==0
-                                roomsizearr = '------------'
+                                roomsizearr.push({room_size:'----'})
                             mainArr.push({id:roomtypeid,name:roomtypename,subarray:roomsizearr})
 
                         
 
 
                     )
+                    
                     actroom = []
                     $.each(mainArr, (ind,val)->
                         classnamearr.push({id:val.id, name:val.name,subarray:val.subarray})
@@ -179,35 +181,38 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
                     )
-                    console.log actroom
+                    id = ""
                     actroomColl =  new Backbone.Collection actroom
                     actualroom = []
                     coll = []
+                    
                     $.each(roomcoll, (inde,value)->
                         classname = ''
                         coll = []
                         $.each(classnamearr, (ind,val)->
-                            if parseInt(val.id) == parseInt(value)
-                                coll.push({id:value,name:val.name,subarray:val.subarray,classname:classname})
+                            if parseInt(val.id) == parseInt(value.id)
+                                if val.subarray != '----'
+                                    coll.push({id:value.id,name:val.name,subarray:val.subarray,classname:classname})
 
                         )
 
                         
                         if coll.length == 0
                             id = actroomColl.get value
-                            actroomColl.remove(id)
+                            
 
                        
 
                     )
                     act = []
                     actroomColl.each (item)->
-                        if item.get('subarray').length != 0
-                            act.push({id:item.get('id'),name:item.get('name'),subarray:item.get('subarray')})
-                        else
-                           act.push({id:item.get('id'),name:item.get('name'),subarray:"-----------"}) 
+                        if id != item.get('id')
+                            if item.get('subarray') != '----'
+                                act.push({id:item.get('id'),name:item.get('name'),subarray:item.get('subarray')})
+                            else
+                                act.push({id:item.get('id'),name:item.get('name'),subarray:"-----------"}) 
 
-                    console.log act
+                    
                     unitModel.set 'mainArr',act
                     
 
