@@ -204,7 +204,10 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     )
                     act = []
                     actroomColl.each (item)->
-                        act.push({id:item.get('id'),name:item.get('name'),subarray:item.get('subarray')})
+                        if item.get('subarray').length != 0
+                            act.push({id:item.get('id'),name:item.get('name'),subarray:item.get('subarray')})
+                        else
+                           act.push({id:item.get('id'),name:item.get('name'),subarray:"-----------"}) 
 
                     console.log act
                     unitModel.set 'mainArr',act
