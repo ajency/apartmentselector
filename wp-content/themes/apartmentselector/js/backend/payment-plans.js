@@ -372,9 +372,11 @@ function sumMilstonePercentage(milestones){
           
     });
     $(document).on("change", ".towervalue", function(e) {
-
+        console.log($('#towerstring').val());
         tower = $('#towerstring').val().split(',')
+        towerid = []
         $.each(tower,function(inde,value){
+            if(value !="")
             towerid.push(parseInt(value));
 
 
@@ -390,9 +392,8 @@ function sumMilstonePercentage(milestones){
 
     }
     console.log(towerid);
-      $('#towerstring').val(towerid.join(',')) 
-      $('#apply_arr').val("")
-
+    $('#towerstring').val(towerid.join(',')) 
+    
     });
 
     $(document).on("change", "#archive", function(e) {
@@ -407,10 +408,16 @@ function sumMilstonePercentage(milestones){
     });
     $(document).on("click", "#apply", function(e) {
 
+        $.each($('#apply_arr').val().split(','),function(index,value){
+            ($('#towervalue'+value).prop('checked',false));
+
+
+        })
+
         if($('#'+this.id).prop('checked') == true){
             $('#'+this.id).val('1')
             
-            $('#display_towers').hide()
+            $('#display_towers').addClass('hidden')
             $('#towerstring').val("")
 
 
@@ -418,7 +425,7 @@ function sumMilstonePercentage(milestones){
             
         }
         else{
-           $('#display_towers').hide()
+           $('#display_towers').addClass('hidden')
         }
 
 
@@ -428,13 +435,15 @@ function sumMilstonePercentage(milestones){
 
     $(document).on("click", "#showtowers", function(e) {
 
+        
+
         if($('#'+this.id).prop('checked') == true){
-            $('#display_towers').show()
+            $('#display_towers').removeClass('hidden')
             
             $('#apply').val('0')
         }
         else{
-            $('#display_towers').hide()
+            $('#display_towers').addClass('hidden')
         }
 
 

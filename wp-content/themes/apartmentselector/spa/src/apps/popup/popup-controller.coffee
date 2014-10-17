@@ -24,6 +24,8 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
             classnamearr = []
             roomcoll = []
             actualroom = []
+            actroomColl = ""
+            act = []
             if cookeArray.length != 0
                 for element in cookeArray
 
@@ -168,27 +170,44 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
 
 
                     )
-                    
+                    actroom = []
                     $.each(mainArr, (ind,val)->
                         if val.subarray.length != 0
                             classnamearr.push({id:val.id, name:val.name,subarray:val.subarray})
+                            actroom.push({id:val.id, name:val.name,subarray:val.subarray})
                         else
                             classnamearr.push({id:val.id,name:val.name,subarray:'-----'})
+                            actroom.push({id:val.id, name:val.name,subarray:val.subarray})
 
-
-                        )
-                    classnameColl = new Backbone.Collection classnamearr
-                    $.each(roomcoll, (inde,value)->
-                        coll = classnameColl.where({id:parseInt(value)})
-                        $.each(coll, (inde,item)->
-                            if item.get('subarray') != '----'
-                                actualroom.push({id:value,name:item.get('name'),subarray:item.get('subarray')})
-                            )
 
                     )
-                    
-                    
-                    unitModel.set 'mainArr',actualroom
+                    console.log actroom
+                    actroomColl =  new Backbone.Collection actroom
+                    actualroom = []
+                    coll = []
+                    $.each(roomcoll, (inde,value)->
+                        classname = ''
+                        coll = []
+                        $.each(classnamearr, (ind,val)->
+                            if parseInt(val.id) == parseInt(value)
+                                coll.push({id:value,name:val.name,subarray:val.subarray,classname:classname})
+
+                        )
+
+                        
+                        if coll.length == 0
+                            id = actroomColl.get value
+                            actroomColl.remove(id)
+
+                       
+
+                    )
+                    act = []
+                    actroomColl.each (item)->
+                        act.push({id:item.get('id'),name:item.get('name'),subarray:item.get('subarray')})
+
+                    console.log act
+                    unitModel.set 'mainArr',act
                     
 
                     
@@ -196,7 +215,7 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                 
                 unitCollection = new Backbone.Collection unitModelArray
                 
-                @view = view = @_getPopupView unitCollection , actualroom
+                @view = view = @_getPopupView unitCollection , act
                 @show view
 
 

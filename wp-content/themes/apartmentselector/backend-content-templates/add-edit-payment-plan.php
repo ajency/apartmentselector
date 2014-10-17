@@ -37,6 +37,7 @@ $heading = "Edit";
     }
 }
 $tower_arr = array_unique($tower_arr);
+
      $archive =  $payment_milestones["archive"];
     
     if(intval($archive) == 1){
@@ -272,7 +273,7 @@ $tower_arr = array_unique($tower_arr);
           
         </ul>
 		<div class="m-t-20">
-            <a class="btn btn-default" href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a></div><br/><input type="radio" id="showtowers" <?php echo $checkedtower;?> name="showtowers" value="0"><label class="form-label">Towers</label><br/><div id="display_towers" style="display:none">
+            <a class="btn btn-default" href="javascript:void(0)" id="add-more-milstones" count="<?php echo $items;?>">Add More</a></div><br/><input type="radio" id="showtowers" <?php echo $checkedtower;?> name="showtowers" value="0"><label class="form-label">Towers</label><br/><div id="display_towers" class="hidden">
             <?php 
             $building_arr = array();
             $buildings = get_buildings();
