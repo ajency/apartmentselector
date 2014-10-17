@@ -407,7 +407,7 @@ function sumMilstonePercentage(milestones){
        
     });
     $(document).on("click", "#apply", function(e) {
-
+         $('.error').text("");
         $.each($('#apply_arr').val().split(','),function(index,value){
             ($('#towervalue'+value).prop('checked',false));
 
@@ -435,7 +435,7 @@ function sumMilstonePercentage(milestones){
 
     $(document).on("click", "#showtowers", function(e) {
 
-        
+        $('.error').text("");
 
         if($('#'+this.id).prop('checked') == true){
             $('#display_towers').removeClass('hidden')

@@ -182,6 +182,9 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
               roomsizearr.sort(function(a, b) {
                 return b.room_size - a.room_size;
               });
+              if (roomsizearr.length === 0) {
+                roomsizearr = '------------';
+              }
               return mainArr.push({
                 id: roomtypeid,
                 name: roomtypename,
@@ -191,29 +194,16 @@ define(['extm', 'src/apps/popup/popup-view'], function(Extm, PopupView) {
           });
           actroom = [];
           $.each(mainArr, function(ind, val) {
-            if (val.subarray.length !== 0) {
-              classnamearr.push({
-                id: val.id,
-                name: val.name,
-                subarray: val.subarray
-              });
-              return actroom.push({
-                id: val.id,
-                name: val.name,
-                subarray: val.subarray
-              });
-            } else {
-              classnamearr.push({
-                id: val.id,
-                name: val.name,
-                subarray: '-----'
-              });
-              return actroom.push({
-                id: val.id,
-                name: val.name,
-                subarray: val.subarray
-              });
-            }
+            classnamearr.push({
+              id: val.id,
+              name: val.name,
+              subarray: val.subarray
+            });
+            return actroom.push({
+              id: val.id,
+              name: val.name,
+              subarray: val.subarray
+            });
           });
           console.log(actroom);
           actroomColl = new Backbone.Collection(actroom);

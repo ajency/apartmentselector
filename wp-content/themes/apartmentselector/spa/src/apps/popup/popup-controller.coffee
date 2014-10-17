@@ -163,7 +163,8 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                                 b.room_size - a.room_size
 
                             )
-
+                            if roomsizearr.length ==0
+                                roomsizearr = '------------'
                             mainArr.push({id:roomtypeid,name:roomtypename,subarray:roomsizearr})
 
                         
@@ -172,12 +173,9 @@ define [ 'extm', 'src/apps/popup/popup-view' ], ( Extm, PopupView )->
                     )
                     actroom = []
                     $.each(mainArr, (ind,val)->
-                        if val.subarray.length != 0
-                            classnamearr.push({id:val.id, name:val.name,subarray:val.subarray})
-                            actroom.push({id:val.id, name:val.name,subarray:val.subarray})
-                        else
-                            classnamearr.push({id:val.id,name:val.name,subarray:'-----'})
-                            actroom.push({id:val.id, name:val.name,subarray:val.subarray})
+                        classnamearr.push({id:val.id, name:val.name,subarray:val.subarray})
+                        actroom.push({id:val.id, name:val.name,subarray:val.subarray})
+                       
 
 
                     )
