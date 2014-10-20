@@ -1998,6 +1998,26 @@ define [ 'marionette' ], ( Marionette )->
                                                 $('#'+temp1[ii]+value1).attr('class', 'unit-hover range')
 
                                 )
+                                $.map(indexvalue, (index,value)->
+                                            if App.unit['name'] != ""
+                                                if parseInt($('#'+temp[ii]+value).attr('data-value'))  == App.unit['name']
+                                                   idvalue = $('#'+temp[ii]+value).attr('data-idvalue')
+                                                else if parseInt($('#'+temp[ii]+value).attr('data-value'))  == App.unit['name']
+                                                   idvalue = $('#'+temp[ii]+value).attr('data-idvalue')
+                                                if parseInt(index) == parseInt(App.unit['name'])
+                                                    $("#"+idvalue+value).attr('class','selected-flat')
+                                                    if idvalue == 'f'
+                                                        textid = 't'
+                                                    else
+                                                        textid = 'tt'
+                                                    $("#"+textid+value).attr('class','selected-flat')
+                                                    unit = App.master.unit.findWhere({id:parseInt(App.unit['name'])})
+                                                    unittpe = App.master.unit_type.findWhere({id:unit.get('unitType')})
+                                                    text = unit.get('name')+' | '+unittpe.get('name')
+                                                    $('#'+textid+value).html text
+                                                    $("#"+textid+value).attr('x','-30')
+                                            
+                                )
                                 rangClass = ['LOWRISE','MIDRISE','HIGHRISE']
                                 i= 0
                                 $.each(floorange, (index,value)->
@@ -2649,6 +2669,7 @@ define [ 'marionette' ], ( Marionette )->
                         $("#screen-three-button").addClass 'btn-primary'
                         #@trigger 'unit:item:selected'
                     else
+                        App.unit['name'] = ""
                         rangeunitArray=[]
                         $("#select"+@model.get('id')).val "0"
                         $('#check'+@model.get('id')).removeClass 'selected'
