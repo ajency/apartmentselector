@@ -1987,11 +1987,16 @@ define [ 'marionette' ], ( Marionette )->
                                                             $('#'+temp[ii]+value1).attr('class', 'unit-hover range')
                                                             $('#'+temp1[ii]+value1).attr('class', 'unit-hover range')
                                                             if App.unit['name'] != ""
-                                                                if parseInt($('#f'+index).attr('data-value'))  == obj.model.get('id')
-                                                                   idvalue = $('#f'+index).attr('data-idvalue')
-                                                                else if parseInt($('#ff'+index).attr('data-value'))  == obj.model.get('id')
-                                                                   idvalue = $('#ff'+index).attr('data-idvalue')
+                                                                if parseInt($('#'+temp[ii]+value1).attr('data-value'))  == obj.model.get('id')
+                                                                   idvalue = $('#'+temp[ii]+value1).attr('data-idvalue')
+                                                                else if parseInt($('#'+temp[ii]+value1).attr('data-value'))  == obj.model.get('id')
+                                                                   idvalue = $('#'+temp[ii]+value1).attr('data-idvalue')
                                                                 $('#'+idvalue+value1).attr('class','selected-flat')
+                                                                unit = App.amster.unit.findWhere({id:parseInt(App.unit['name'])}) 
+                                                                unittpe = App.master.unit_type.findWhere({id:unit.get('unitType')})
+                                                                text = unit.get('name')+' | '+unittpe.get('name')
+                                                                $('#'+temp1[ii]+value).html text
+                                                                $("#"+temp1[ii]+value).attr('x','-30')
 
                                                             
 
