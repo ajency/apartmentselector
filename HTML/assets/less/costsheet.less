@@ -8,9 +8,10 @@
 	margin: 20px 0;
 }
 
-.costClose{
+.costClose, .formClose{
 	position: absolute;
 	right: 5px;
+	top: 5px;
 	color: @gray-dark;
 	z-index: 999;
 	padding: 6px 0 0 6px;
@@ -19,13 +20,17 @@
 	width: 32px;
 	cursor: pointer;
 	background: @color-white;
-	top: 5px;
 	.ease;
 	&:hover{
 		color: @color-white;
 		background: @gray-dark;
 		.ease;
 	}
+}
+.formClose{
+	top: -20px;
+	right: -20px;
+	padding: 6px 0 0 0;
 }
 
 .b-modal{

@@ -184,6 +184,7 @@ define [ 'marionette' ], ( Marionette )->
                 	</div>
 
                     <div class="formPopup" style="display:none">
+                        <div class="b-close formClose"><span class="glyphicon glyphicon-remove"></span></div>
                         <div class="formIntro">I\'m interested in <br>Flat <span id="emailflatno"></span> in <span id="emailtower"></span></div>
                         <div class="formFields"></div>                        
                     </div><div class="inframamout hidden" data-a-sign="Rs. " data-m-dec="" data-d-group="2"></div>'

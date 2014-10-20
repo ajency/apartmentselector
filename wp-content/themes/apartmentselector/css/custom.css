@@ -8626,9 +8626,11 @@ input.checkbox[disabled] + label {
   height: 95%;
   margin: 20px 0;
 }
-.costClose {
+.costClose,
+.formClose {
   position: absolute;
   right: 5px;
+  top: 5px;
   color: #333333;
   z-index: 999;
   padding: 6px 0 0 6px;
@@ -8637,7 +8639,6 @@ input.checkbox[disabled] + label {
   width: 32px;
   cursor: pointer;
   background: #ffffff;
-  top: 5px;
   -webkit-transition: all 0.3s ease-out;
   /* Chrome 1-25, Safari 3.2+ */
   -moz-transition: all 0.3s ease-out;
@@ -8647,7 +8648,8 @@ input.checkbox[disabled] + label {
   transition: all 0.3s ease-out;
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }
-.costClose:hover {
+.costClose:hover,
+.formClose:hover {
   color: #ffffff;
   background: #333333;
   -webkit-transition: all 0.3s ease-out;
@@ -8658,6 +8660,11 @@ input.checkbox[disabled] + label {
   /* Opera 10.50–12.00 */
   transition: all 0.3s ease-out;
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
+.formClose {
+  top: -20px;
+  right: -20px;
+  padding: 6px 0 0 0;
 }
 .b-modal {
   z-index: 9999 !important;
