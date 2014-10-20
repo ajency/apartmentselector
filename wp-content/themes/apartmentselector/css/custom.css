@@ -9338,6 +9338,9 @@ body {
 .safari #screen-four-region.section {
   min-height: 100%;
 }
+a:focus {
+  outline: 0;
+}
 @media (max-width: 767px) {
   #screen-one-region h3,
   #screen-two-region h3,
