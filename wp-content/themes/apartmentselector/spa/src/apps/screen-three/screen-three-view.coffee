@@ -1986,6 +1986,13 @@ define [ 'marionette' ], ( Marionette )->
                                                         if parseInt(value1) == parseInt(val)
                                                             $('#'+temp[ii]+value1).attr('class', 'unit-hover range')
                                                             $('#'+temp1[ii]+value1).attr('class', 'unit-hover range')
+                                                            if App.unit['name'] != ""
+                                                                if parseInt($('#f'+index).attr('data-value'))  == obj.model.get('id')
+                                                                   idvalue = $('#f'+index).attr('data-idvalue')
+                                                                else if parseInt($('#ff'+index).attr('data-value'))  == obj.model.get('id')
+                                                                   idvalue = $('#ff'+index).attr('data-idvalue')
+                                                                $('#'+idvalue+value1).attr('class','selected-flat')
+
                                                             
 
 
@@ -2649,6 +2656,7 @@ define [ 'marionette' ], ( Marionette )->
                         $("#screen-three-button").addClass 'btn-primary'
                         #@trigger 'unit:item:selected'
                     else
+                        App.unit['name'] = ""
                         rangeunitArray=[]
                         $("#select"+@model.get('id')).val "0"
                         $('#check'+@model.get('id')).removeClass 'selected'

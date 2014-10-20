@@ -1838,9 +1838,18 @@ define(['marionette'], function(Marionette) {
                     floorArr = App.defaults['floor'].split(',');
                     if (floorid === val1) {
                       return $.each(floorArr, function(ind, val) {
+                        var idvalue;
                         if (parseInt(value1) === parseInt(val)) {
                           $('#' + temp[ii] + value1).attr('class', 'unit-hover range');
-                          return $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
+                          $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
+                          if (App.unit['name'] !== "") {
+                            if (parseInt($('#f' + index).attr('data-value')) === obj.model.get('id')) {
+                              idvalue = $('#f' + index).attr('data-idvalue');
+                            } else if (parseInt($('#ff' + index).attr('data-value')) === obj.model.get('id')) {
+                              idvalue = $('#ff' + index).attr('data-idvalue');
+                            }
+                            return $('#' + idvalue + value1).attr('class', 'selected-flat');
+                          }
                         }
                       });
                     }
@@ -2524,6 +2533,7 @@ define(['marionette'], function(Marionette) {
             $("#screen-three-button").removeClass('disabled btn-default');
             $("#screen-three-button").addClass('btn-primary');
           } else {
+            App.unit['name'] = "";
             rangeunitArray = [];
             $("#select" + this.model.get('id')).val("0");
             $('#check' + this.model.get('id')).removeClass('selected');
