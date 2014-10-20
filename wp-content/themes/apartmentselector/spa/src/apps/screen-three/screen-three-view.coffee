@@ -1986,18 +1986,6 @@ define [ 'marionette' ], ( Marionette )->
                                                         if parseInt(value1) == parseInt(val)
                                                             $('#'+temp[ii]+value1).attr('class', 'unit-hover range')
                                                             $('#'+temp1[ii]+value1).attr('class', 'unit-hover range')
-                                                            if App.unit['name'] != ""
-                                                                if parseInt($('#'+temp[ii]+value1).attr('data-value'))  == obj.model.get('id')
-                                                                   idvalue = $('#'+temp[ii]+value1).attr('data-idvalue')
-                                                                else if parseInt($('#'+temp[ii]+value1).attr('data-value'))  == obj.model.get('id')
-                                                                   idvalue = $('#'+temp[ii]+value1).attr('data-idvalue')
-                                                                $('#'+idvalue+value1).attr('class','selected-flat')
-                                                                unit = App.amster.unit.findWhere({id:parseInt(App.unit['name'])}) 
-                                                                unittpe = App.master.unit_type.findWhere({id:unit.get('unitType')})
-                                                                text = unit.get('name')+' | '+unittpe.get('name')
-                                                                $('#'+temp1[ii]+value).html text
-                                                                $("#"+temp1[ii]+value).attr('x','-30')
-
                                                             
 
 
@@ -2661,7 +2649,6 @@ define [ 'marionette' ], ( Marionette )->
                         $("#screen-three-button").addClass 'btn-primary'
                         #@trigger 'unit:item:selected'
                     else
-                        App.unit['name'] = ""
                         rangeunitArray=[]
                         $("#select"+@model.get('id')).val "0"
                         $('#check'+@model.get('id')).removeClass 'selected'

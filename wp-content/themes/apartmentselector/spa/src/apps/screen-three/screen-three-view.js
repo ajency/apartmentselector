@@ -1838,27 +1838,9 @@ define(['marionette'], function(Marionette) {
                     floorArr = App.defaults['floor'].split(',');
                     if (floorid === val1) {
                       return $.each(floorArr, function(ind, val) {
-                        var idvalue, text, unit, unittpe;
                         if (parseInt(value1) === parseInt(val)) {
                           $('#' + temp[ii] + value1).attr('class', 'unit-hover range');
-                          $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
-                          if (App.unit['name'] !== "") {
-                            if (parseInt($('#' + temp[ii] + value1).attr('data-value')) === obj.model.get('id')) {
-                              idvalue = $('#' + temp[ii] + value1).attr('data-idvalue');
-                            } else if (parseInt($('#' + temp[ii] + value1).attr('data-value')) === obj.model.get('id')) {
-                              idvalue = $('#' + temp[ii] + value1).attr('data-idvalue');
-                            }
-                            $('#' + idvalue + value1).attr('class', 'selected-flat');
-                            unit = App.amster.unit.findWhere({
-                              id: parseInt(App.unit['name'])
-                            });
-                            unittpe = App.master.unit_type.findWhere({
-                              id: unit.get('unitType')
-                            });
-                            text = unit.get('name') + ' | ' + unittpe.get('name');
-                            $('#' + temp1[ii] + value).html(text);
-                            return $("#" + temp1[ii] + value).attr('x', '-30');
-                          }
+                          return $('#' + temp1[ii] + value1).attr('class', 'unit-hover range');
                         }
                       });
                     }
@@ -2542,7 +2524,6 @@ define(['marionette'], function(Marionette) {
             $("#screen-three-button").removeClass('disabled btn-default');
             $("#screen-three-button").addClass('btn-primary');
           } else {
-            App.unit['name'] = "";
             rangeunitArray = [];
             $("#select" + this.model.get('id')).val("0");
             $('#check' + this.model.get('id')).removeClass('selected');
