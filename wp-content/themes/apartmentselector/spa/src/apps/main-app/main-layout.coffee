@@ -471,6 +471,21 @@ define [ 'extm'], ( Extm)->
                 #verticalCentered: false
                 #easing: 'easeInOutQuad'
 
+            if "createTouch" of document
+              try
+                ignore = /:hover/
+                i = 0
+
+                while i < document.styleSheets.length
+                  sheet = document.styleSheets[i]
+                  j = sheet.cssRules.length - 1
+
+                  while j >= 0
+                    rule = sheet.cssRules[j]
+                    sheet.deleteRule j  if rule.type is CSSRule.STYLE_RULE and ignore.test(rule.selectorText)
+                    j--
+                  i++
+
             
             height = $(window).scrollTop()
 
