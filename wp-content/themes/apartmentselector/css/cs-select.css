@@ -71,7 +71,7 @@ div.cs-select:focus {
 	position: absolute;
 	overflow: hidden;
 	width: 100%;
-	background: #fff;
+	background: #f6f6f7;
 	visibility: hidden;
 }
 
