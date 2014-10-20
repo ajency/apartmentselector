@@ -56,6 +56,7 @@ define [ 'marionette' ], ( Marionette )->
 
 
                     <div class="costsheetclass" style="display:none" >
+                        <div class="b-close costClose"><span class="glyphicon glyphicon-remove"></span></div>
 
             			<div id="invoice" class="paid">
 
@@ -654,8 +655,9 @@ define [ 'marionette' ], ( Marionette )->
             flag = 0
             count = 0
             discountClass = ""
-            $('a.print-preview').printPreview();
             @loadPrint()
+            $('a.print-preview').printPreview();
+            return
 
         showWishList:->
             table = ""
