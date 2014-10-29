@@ -2,6 +2,15 @@ define [ 'marionette'], ( Marionette )->
 
     class ApartmentSelector extends Marionette.AppRouter
 
+        initialize: ->
+            console.log 'test'
+            @bind 'route', @_trackPageview
+         
+        _trackPageview: ->
+            url = Backbone.history.getFragment()
+            ga('send', 'pageview', "/#{url}")
+        
+
         appRoutes:
             'wishList' :  'showpopup'
             'screen-four' : 'showSelectedUnit'
