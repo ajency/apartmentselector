@@ -77,10 +77,14 @@ add_filter( 'login_headertitle', 'my_login_logo_url_title' );
 function my_login_redirect($redirect_to, $request, $user ) { 
 
 $current_user = wp_get_current_user(); 
-	if( $user->allcaps['manage_apartments']==1)
+	if( $user->allcaps['manage_apartments']==1 && $user->allcaps['manage_buildings']==1)
 		{
 			$redirect_to = site_url() . '/apartments';
 		}
+	else
+	{
+			$redirect_to = site_url() . '/apartmentsselector';
+	}
     
 
     return $redirect_to;

@@ -628,3 +628,4 @@ function generate_pdf_data($unit_id,$tower_id,$wishlist){
 
    return $output_link;
 }
+
