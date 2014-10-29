@@ -12,7 +12,6 @@ define(['marionette'], function(Marionette) {
     }
 
     ApartmentSelector.prototype.initialize = function() {
-      console.log('test');
       return this.bind('route', this._trackPageview);
     };
 

@@ -3,7 +3,6 @@ define [ 'marionette'], ( Marionette )->
     class ApartmentSelector extends Marionette.AppRouter
 
         initialize: ->
-            console.log 'test'
             @bind 'route', @_trackPageview
          
         _trackPageview: ->
