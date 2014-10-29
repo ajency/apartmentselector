@@ -401,12 +401,18 @@ a.im-clear-button{
 /**** end print modal styles ****/
 
 
-.termsLink{
+.termsLink, .salesLink{
 	color: @color-primary;
 	cursor: pointer;
-	margin: 10px 0;
+	margin: 10px auto;
+	width: 140px;
+	text-align: center;
+	display: inline-block;
 	&:hover{
 		color: darken(@color-primary, 5%);
 		text-decoration: underline;
 	}
+}
+.salesLink{
+	width: 100px;
 }
