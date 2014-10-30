@@ -9140,6 +9140,12 @@ tr.milestoneReached td {
   color: #999999;
   font-size: 16px;
 }
+.fancybox-prev {
+  left: -40px;
+}
+.fancybox-next {
+  right: -40px;
+}
 .aviable:hover,
 rect.selected-flat,
 polygon.selected-flat {
