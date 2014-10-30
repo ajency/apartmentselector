@@ -8315,6 +8315,9 @@ fieldset[disabled] .formPopup .with_frm_style .frm_submit input[type=submit] {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+.formPopup .with_frm_style .frm_submit input[type=submit]:focus {
+  outline: 0;
+}
 .formPopup .with_frm_style .frm_submit input[type=submit]:hover,
 .formPopup .with_frm_style .frm_submit input[type=submit]:focus,
 .formPopup .with_frm_style .frm_submit input[type=submit]:active,
@@ -9350,8 +9353,15 @@ body {
 .safari #screen-four-region.section {
   min-height: 100%;
 }
-a:focus {
+a:focus,
+.btn:focus,
+.btn-active:focus,
+.btn:active:focus {
   outline: 0;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #8b91a0;
 }
 @media (max-width: 767px) {
   #screen-one-region h3,

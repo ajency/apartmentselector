@@ -138,8 +138,14 @@ body{
 	}
 }
 
-a:focus{
-	outline: 0;
+a, .btn, .btn-active, .btn:active{
+	&:focus{
+		outline: 0;
+	}
+}
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 @color-grey;
 }
 
 @media (max-width:767px){
