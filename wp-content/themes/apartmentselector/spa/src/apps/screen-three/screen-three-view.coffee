@@ -46,6 +46,7 @@ define [ 'marionette' ], ( Marionette )->
                                 <label for="unselectall">Select/Unselect All</label>
                             </div>
                             <div class="text-right"><span class="variantClose glyphicon glyphicon-remove text-grey"></span></div>
+                            <div class="clearfix"></div>
                         
                             {{#unitVariants}}
                             <div class="grid-block-3 {{filtername}}" >

@@ -8916,8 +8916,9 @@ h5 {
   font-size: 18px;
   color: #ffffff;
   text-align: left;
+  font-size: 16px;
   margin: 0;
-  margin-left: 50px;
+  margin-left: 42px;
   text-shadow: 2px 1px 6px #803300;
 }
 .header.navbar h3 small,
@@ -8986,7 +8987,7 @@ h5 {
 }
 .backBtn a,
 .rightBtns a {
-  width: 50px;
+  width: 40px;
   text-align: center;
   display: block;
   padding: 13.5px 0;
@@ -9009,7 +9010,7 @@ h5 {
 }
 #textstring span {
   display: inline-block;
-  padding: 13px 25px 13px 5px;
+  padding: 16px 18px 13px 1px;
   position: relative;
 }
 #textstring span:after {
@@ -9026,6 +9027,9 @@ h5 {
   content: '';
 }
 @media (min-width: 768px) {
+  #textstring span {
+    padding: 13px 25px 13px 5px;
+  }
   #textstring span:after {
     font-size: 40px;
   }
@@ -11645,6 +11649,7 @@ tr.milestoneReached td {
 .compareWishlist .cd-table-column .layouts > li img,
 .compareWishlist .cd-table-column .areas > li img {
   width: 75px;
+  height: 48px;
   border-radius: 4px;
   box-shadow: 0 0 6px #999999;
 }
@@ -11773,6 +11778,7 @@ tr.milestoneReached td {
   margin-top: -25px;
   font-weight: 700;
   color: #ff6600;
+  white-space: nowrap;
 }
 .compareHeader small,
 .compareHeader .small {
@@ -11789,10 +11795,10 @@ tr.milestoneReached td {
   font-size: 16px;
 }
 .fancybox-prev {
-  left: -50px;
+  left: -40px;
 }
 .fancybox-next {
-  right: -50px;
+  right: -40px;
 }
 .aviable:hover,
 rect.selected-flat,
