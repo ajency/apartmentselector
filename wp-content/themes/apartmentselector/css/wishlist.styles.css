@@ -9519,6 +9519,7 @@ tr.milestoneReached td {
   margin-top: -25px;
   font-weight: 700;
   color: #ff6600;
+  white-space: nowrap;
 }
 .compareHeader small,
 .compareHeader .small {
