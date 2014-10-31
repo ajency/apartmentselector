@@ -12,7 +12,7 @@ define [ 'marionette' ], ( Mariontte )->
         		win = window.open('http://manaslake.com/terms-conditions/', '_blank')
 
         	'click .salesLink':(e)->
-        		win = window.open('http://localhost/apartmentselector/wp-admin/', '_self')
+        		win = window.open('http://homes.skyi.com/wp-admin/', '_self')
                 
         		
        	

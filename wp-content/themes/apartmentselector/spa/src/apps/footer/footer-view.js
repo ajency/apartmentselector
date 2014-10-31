@@ -20,7 +20,7 @@ define(['marionette'], function(Mariontte) {
       },
       'click .salesLink': function(e) {
         var win;
-        return win = window.open('http://localhost/apartmentselector/wp-admin/', '_self');
+        return win = window.open('http://homes.skyi.com/wp-admin/', '_self');
       }
     };
 
