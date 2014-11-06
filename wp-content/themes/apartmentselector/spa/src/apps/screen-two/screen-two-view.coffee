@@ -46,7 +46,7 @@ define [ 'extm', 'marionette' ], ( Extm, Marionette )->
                                 {{#unitVariants}}
                                 <div class="grid-block-3 {{classname}}" >
                                     <a class="grid-link {{selected}}" href="#" id="grid{{id}}" data-id="{{id}}" data-count = "{{count}}">
-                                        {{sellablearea}} Sq.ft.<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
+                                        {{name}}<input type="hidden" name="check{{id}}"   id="check{{id}}"   value="1" />
                                         <h5><span> {{filter}} : </span> {{count}}</h5>
                                     </a>
                                 </div>

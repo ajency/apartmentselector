@@ -51,7 +51,7 @@ define [ 'marionette' ], ( Marionette )->
                             {{#unitVariants}}
                             <div class="grid-block-3 {{filtername}}" >
                                 <a class="grid-link2 {{selected}}" href="#" id="gridlink{{id}}" data-id="{{id}}" data-count = "{{count}}">
-                                    {{sellablearea}} Sq.ft.<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
+                                    {{name}}<input type="hidden" name="checklink{{id}}"   id="checklink{{id}}"   value="1" />
                                     <h5><span> {{filter}} : </span> {{count}}</h5>
                                 </a>
                             </div>
