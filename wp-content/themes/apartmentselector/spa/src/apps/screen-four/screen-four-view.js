@@ -566,7 +566,7 @@ define(['marionette'], function(Marionette) {
       unitTypeMemeber = membership_feesColl.findWhere({
         unit_type: parseInt(unitModel.get('unitType'))
       });
-      if (unitTypeMemeber.get('membership_fees') === 0) {
+      if (unitTypeMemeber.get('membership_fees') === 0 && unitTypeMemeber.get('unit_variant') !== 0) {
         unitVariantMemeber = unitTypeMemeber.get('unit_variant');
         unitVariantMemeberColl = new Backbone.Collection(unitVariantMemeber);
         univariantmem = unitVariantMemeberColl.findWhere({
@@ -972,7 +972,7 @@ define(['marionette'], function(Marionette) {
       unitTypeMemeber = membership_feesColl.findWhere({
         unit_type: parseInt(unitModel.get('unitType'))
       });
-      if (unitTypeMemeber.get('membership_fees') === 0) {
+      if (unitTypeMemeber.get('membership_fees') === 0 && unitTypeMemeber.get('unit_variant') !== 0) {
         unitVariantMemeber = unitTypeMemeber.get('unit_variant');
         unitVariantMemeberColl = new Backbone.Collection(unitVariantMemeber);
         univariantmem = unitVariantMemeberColl.findWhere({
