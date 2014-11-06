@@ -1543,7 +1543,7 @@ define [ 'marionette' ], ( Marionette )->
             membership_fees = SettingModel.get('membership_fees' )
             membership_feesColl = new Backbone.Collection membership_fees
             unitTypeMemeber = membership_feesColl.findWhere({unit_type:parseInt(unitModel.get('unitType'))})
-            if unitTypeMemeber.get('membership_fees') == 0
+            if unitTypeMemeber.get('membership_fees') == 0 && unitTypeMemeber.get('unit_variant') != 0
                 unitVariantMemeber = unitTypeMemeber.get('unit_variant')
                 unitVariantMemeberColl = new Backbone.Collection unitVariantMemeber
                 univariantmem = unitVariantMemeberColl.findWhere({unit_variant:parseInt(unitModel.get('unitVariant'))})

@@ -26,6 +26,11 @@ function get_apratment_selector_settings(){
             }
           $membership_fee["unit_variant"] =  $unit_varint_membership_fee; 
         }
+        else
+        {
+
+            $membership_fee["unit_variant"] = 0 ;
+        }
                 
         $membership_fees[] = $membership_fee;
     }
