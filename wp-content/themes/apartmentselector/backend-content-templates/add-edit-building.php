@@ -456,7 +456,7 @@ $heading = "Edit";
                                         ?>
                                         <div class='col-md-4 flatposition<?php echo $flat;?>'>
                                                 <div class='checkbox check-default' >
-                                                        <input type='checkbox' name='flatpostion-1[]' id='flatpostion<?php echo $flat;?>-1' value='<?php echo $flat;?>' <?php echo $checked;?> <label for='flatpostion<?php echo $flat;?>-1'><?php echo $flat;?></label>
+                                                        <input type='checkbox' name='flatpostion-1[]' id='flatpostion<?php echo $flat;?>-1' value='<?php echo $flat;?>' <?php echo $checked;?>> <label for='flatpostion<?php echo $flat;?>-1'><?php echo $flat;?></label>
                                                 </div>
                                         </div>
                                         <?php
