@@ -968,7 +968,8 @@ define [ 'marionette' ], ( Marionette )->
             else
                 totalcost = parseInt(tempstamp_duty) + parseInt( reg_amt) + parseInt(vat) + parseInt(sales_tax)
                 totalcost1 =  parseInt(temp_stamp_duty) + parseInt( reg_amt1) + parseInt(vat1) + parseInt(sales_tax1)
-            finalcost1 =  parseInt(maintenance) + parseInt(membershipfees)
+            #finalcost1 =  parseInt(maintenance) + parseInt(membershipfees)
+            finalcost1 =  parseInt(maintenance) 
 
 
             console.log paymentColl = App.master.paymentplans
@@ -1005,7 +1006,8 @@ define [ 'marionette' ], ( Marionette )->
                     addon = parseInt($('#payment').val()) - parseInt(count)
 
             
-            finalcost = parseInt(maintenance) + parseInt(membershipfees)
+            #finalcost = parseInt(maintenance) + parseInt(membershipfees)
+            finalcost = parseInt(maintenance) 
             $('.totalcost').text totalcost
             finalvalue = parseInt(totalcost) + parseInt(finalcost) + parseInt(agreement)
             finalvalue1 = parseInt(totalcost1) + parseInt(finalcost1) + parseInt(agreement1)
@@ -1071,11 +1073,11 @@ define [ 'marionette' ], ( Marionette )->
                             <div class="costCell discCol '+discountClass+' maintenance" data-m-dec="" data-a-sign="Rs. " data-d-group="2">'+maintenance+'</div>
                             <div class="costCell maintenance" data-a-sign="Rs. " data-m-dec="" data-d-group="2">'+maintenance+'</div>
                         </div>
-                        <div class="costsRow">
+                        <!--<div class="costsRow">
                             <div class="costCell costName">Club membership + Service Tax</div>
                             <div class="costCell discCol '+discountClass+' membershipfees" data-m-dec="" data-a-sign="Rs. " data-d-group="2">'+membershipfees+'</div>
                             <div class="costCell membershipfees" data-a-sign="Rs. " data-m-dec="" data-d-group="2">'+membershipfees+'</div>
-                        </div>
+                        </div>-->
                         <div class="costsRow totals">
                             <div class="costCell costName">Total Maintenance Cost</div>
                             <div class="costCell discCol '+discountClass+' finalcost" data-m-dec="" data-a-sign="Rs. " data-d-group="2">'+finalcost+'</div>
@@ -1463,7 +1465,8 @@ define [ 'marionette' ], ( Marionette )->
                         count = count + percentageValue
                 addon = parseInt($('#payment').val()) - parseInt(count)
 
-            finalcost = parseInt(maintenance) + parseInt(membershipfees)
+            #finalcost = parseInt(maintenance) + parseInt(membershipfees)
+            finalcost = parseInt(maintenance) 
             finalvalue = parseInt(totalcost) + parseInt(finalcost) + parseInt(agreement)
             if parseInt($('#scheme').val()) == 1
                 $('.stamp_duty').autoNumeric('init')
@@ -1613,7 +1616,8 @@ define [ 'marionette' ], ( Marionette )->
                 totalcost1 = parseInt(temp_stamp_duty) + parseInt( reg_amt1) + parseInt(vat) + parseInt(sales_tax1)
                 
             
-            finalcost1 = parseInt(maintenance) + parseInt(membershipfees)
+            #finalcost1 = parseInt(maintenance) + parseInt(membershipfees)
+            finalcost1 = parseInt(maintenance) 
             finalvalue1 = parseInt(totalcost1) + parseInt(finalcost1) + parseInt(agreement1)
             if parseInt($('#scheme').val()) == 1
                 $('.stamp_duty').autoNumeric('init')
