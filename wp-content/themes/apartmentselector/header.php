@@ -40,7 +40,7 @@
 
     <header class="site-header">
 
-        <?php echo "aaaaaaaaaaaaa".get_custom_header()->url ;if ( '' != get_custom_header()->url ) : ?>
+        <?php if ( '' != get_custom_header()->url ) : ?>
             <img src="<?php header_image(); ?>" class="custom-header"
                  height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>"
                  alt=""/>
