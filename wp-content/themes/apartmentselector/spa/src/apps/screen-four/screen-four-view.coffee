@@ -1616,7 +1616,7 @@ define [ 'marionette' ], ( Marionette )->
                 totalcost1 = parseInt(vat1) + parseInt(sales_tax1)
                 
             else
-                totalcost1 = parseInt(temp_stamp_duty) + parseInt( reg_amt1) + parseInt(vat) + parseInt(sales_tax1)
+                totalcost1 = parseInt(temp_stamp_duty) + parseInt( reg_amt1) + parseInt(vat1) + parseInt(sales_tax1)
                 
             
             #finalcost1 = parseInt(maintenance) + parseInt(membershipfees)
