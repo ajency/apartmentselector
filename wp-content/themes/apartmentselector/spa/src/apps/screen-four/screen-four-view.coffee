@@ -1382,7 +1382,9 @@ define [ 'marionette' ], ( Marionette )->
 
 
             table = ""
-            basicCost1 = (costSheetArray[0] * costSheetArray[1])
+            ratepersqftfloorval = (parseInt(costSheetArray[1]) + parseInt(floorRiseValue))
+            basicCost = Math.round((parseInt(costSheetArray[0]) * parseInt(ratepersqftfloorval)))
+            
             agreement1 = Math.round(parseInt(basicCost1) + parseFloat($('#infra').val()))
             agreementValue1 = agreement1
             agreement = Math.round(parseInt(basicCost) + parseFloat($('#infra').val()))
@@ -1559,7 +1561,8 @@ define [ 'marionette' ], ( Marionette )->
 
 
             table = ""
-            basicCost1 = (costSheetArray[0] * costSheetArray[1])
+            ratepersqftfloorval = (parseInt(costSheetArray[1]) + parseInt(floorRiseValue))
+            basicCost1 = Math.round((parseInt(costSheetArray[0]) * parseInt(ratepersqftfloorval)))
             agreement1 = Math.round(parseInt(basicCost1) + parseFloat($('#infra1').val()))
             agreementValue1 = agreement1
             agreement = Math.round(parseInt(basicCost) + parseFloat($('#infra').val()))
