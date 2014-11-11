@@ -1623,13 +1623,13 @@ define [ 'marionette' ], ( Marionette )->
             finalcost1 = parseInt(maintenance) 
             finalvalue1 = parseInt(totalcost1) + parseInt(finalcost1) + parseInt(agreement1)
             if parseInt($('#scheme').val()) == 1
-                $('.stamp_duty').autoNumeric('init')
-                $('.stamp_duty').autoNumeric('set', temp_stamp_duty);
-                $('.reg_amt').autoNumeric('init')
-                $('.reg_amt').autoNumeric('set', reg_amt1);
+                $('.stamp_duty1').autoNumeric('init')
+                $('.stamp_duty1').autoNumeric('set', temp_stamp_duty);
+                $('.reg_amt1').autoNumeric('init')
+                $('.reg_amt1').autoNumeric('set', reg_amt1);
             else
-                $('.stamp_duty').text(temp_stamp_duty)
-                $('.reg_amt').text(reg_amt1);
+                $('.stamp_duty1').text(temp_stamp_duty)
+                $('.reg_amt1').text(reg_amt1);
 
                 
             $('.vat1').autoNumeric('init')
