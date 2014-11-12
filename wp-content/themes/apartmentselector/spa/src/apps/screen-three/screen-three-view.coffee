@@ -334,10 +334,10 @@ define [ 'marionette' ], ( Marionette )->
                                                         $("#select"+unit).val '1'
                                                     else
                                                         $("#select"+element).val '0'
-                                                        $('#check'+element).removeClass 'selected'
+                                                        $('#unitcheck'+element).removeClass 'selected'
                                                         rangeunitArray = []
                                 rangeunitArray.push parseInt(unit)
-                                $('#check'+unit).addClass "selected"
+                                $('#unitcheck'+unit).addClass "selected"
 
                                 $("#select"+unit).val "1"
                                 $("#screen-three-button").removeClass 'disabled btn-default'
@@ -2177,10 +2177,10 @@ define [ 'marionette' ], ( Marionette )->
                     $("#select"+unitModel.get('id')).val '1'
                 else
                     $("#select"+element).val '0'
-                    $('#check'+element).removeClass 'selected'
+                    $('#unitcheck'+element).removeClass 'selected'
                     rangeunitArray = []
             rangeunitArray.push parseInt(unitModel.get('id'))
-            $('#check'+unitModel.get('id')).addClass "selected"
+            $('#unitcheck'+unitModel.get('id')).addClass "selected"
 
             $("#select"+unitModel.get('id')).val "1"
             $("#screen-three-button").removeClass 'disabled btn-default'
@@ -2257,13 +2257,13 @@ define [ 'marionette' ], ( Marionette )->
                 track = 1
             
             if track==1 && model.get('status') == 9 && model.get('unitType') != 14 && model.get('unitType') != 16
-                $('#check'+model.get("id")).addClass 'boxLong filtered'
+                $('#unitcheck'+model.get("id")).addClass 'boxLong filtered'
                 $('#flag'+model.get("id")).val '1'
             else if track==1 &&  model.get('status') == 8 && model.get('unitType') != 14 && model.get('unitType') != 16
-                $('#check'+model.get("id")).addClass 'boxLong sold'
+                $('#unitcheck'+model.get("id")).addClass 'boxLong sold'
             else
-                $('#check'+model.get("id")).addClass 'boxLong other'
-                $('#check'+model.get("id")).text model.get 'unitTypeName'
+                $('#unitcheck'+model.get("id")).addClass 'boxLong other'
+                $('#unitcheck'+model.get("id")).text model.get 'unitTypeName'
 
 
 
@@ -2520,7 +2520,7 @@ define [ 'marionette' ], ( Marionette )->
         className : 'check'
 
         initialize :->
-            @$el.prop("id", 'check'+@model.get("id"))
+            @$el.prop("id", 'unitcheck'+@model.get("id"))
 
         events:
 
@@ -2606,7 +2606,7 @@ define [ 'marionette' ], ( Marionette )->
                             $("#select"+@model.get('id')).val '1'
                         else
                             $("#select"+element).val '0'
-                            $('#check'+element).removeClass 'selected'
+                            $('#unitcheck'+element).removeClass 'selected'
                             if unitModel.get('status') == 9
                                 $("#"+element).attr('class','unit-hover aviable ')
                             else if unitModel.get('status') == 8
@@ -2614,7 +2614,7 @@ define [ 'marionette' ], ( Marionette )->
                             rangeunitArray = []
                     if  parseInt($("#select"+@model.get('id')).val()) == 0
                         rangeunitArray.push @model.get('id')
-                        $('#check'+@model.get("id")).addClass "selected"
+                        $('#unitcheck'+@model.get("id")).addClass "selected"
 
                         $("#select"+@model.get('id')).val "1"
                         # object = @
@@ -2673,7 +2673,7 @@ define [ 'marionette' ], ( Marionette )->
                         App.unit['name'] = ""
                         rangeunitArray=[]
                         $("#select"+@model.get('id')).val "0"
-                        $('#check'+@model.get('id')).removeClass 'selected'
+                        $('#unitcheck'+@model.get('id')).removeClass 'selected'
                         if unitModel.get('status') == 9
                             $("#"+@model.get("id")).attr('class','unit-hover aviable ')
                         else if unitModel.get('status') == 8
@@ -2725,6 +2725,7 @@ define [ 'marionette' ], ( Marionette )->
             flag = 0
             obj = @
             track = 0
+
             $.each(myArray, (index,value)->
                 paramKey = {}
                 if value.key == 'budget'
@@ -2785,13 +2786,13 @@ define [ 'marionette' ], ( Marionette )->
                 track = 1
             
             if track==1 && @model.get('status') == 9 && @model.get('unitType') != 14 && @model.get('unitType') != 16
-                $('#check'+@model.get("id")).addClass 'boxLong filtered'
+                $('#unitcheck'+@model.get("id")).addClass 'boxLong filtered'
                 $('#flag'+@model.get("id")).val '1'
             else if track==1 &&  @model.get('status') == 8 && @model.get('unitType') != 14 && @model.get('unitType') != 16
-                $('#check'+@model.get("id")).addClass 'boxLong sold'
+                $('#unitcheck'+@model.get("id")).addClass 'boxLong sold'
             else
-                $('#check'+@model.get("id")).addClass 'boxLong other'
-                $('#check'+@model.get("id")).text @model.get 'unitTypeName'
+                $('#unitcheck'+@model.get("id")).addClass 'boxLong other'
+                $('#unitcheck'+@model.get("id")).text @model.get 'unitTypeName'
 
 
 

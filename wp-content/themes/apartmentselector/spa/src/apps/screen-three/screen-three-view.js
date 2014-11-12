@@ -206,12 +206,12 @@ define(['marionette'], function(Marionette) {
                     $("#select" + unit).val('1');
                   } else {
                     $("#select" + element).val('0');
-                    $('#check' + element).removeClass('selected');
+                    $('#unitcheck' + element).removeClass('selected');
                     rangeunitArray = [];
                   }
                 }
                 rangeunitArray.push(parseInt(unit));
-                $('#check' + unit).addClass("selected");
+                $('#unitcheck' + unit).addClass("selected");
                 $("#select" + unit).val("1");
                 $("#screen-three-button").removeClass('disabled btn-default');
                 $("#screen-three-button").addClass('btn-primary');
@@ -2052,12 +2052,12 @@ define(['marionette'], function(Marionette) {
           $("#select" + unitModel.get('id')).val('1');
         } else {
           $("#select" + element).val('0');
-          $('#check' + element).removeClass('selected');
+          $('#unitcheck' + element).removeClass('selected');
           rangeunitArray = [];
         }
       }
       rangeunitArray.push(parseInt(unitModel.get('id')));
-      $('#check' + unitModel.get('id')).addClass("selected");
+      $('#unitcheck' + unitModel.get('id')).addClass("selected");
       $("#select" + unitModel.get('id')).val("1");
       $("#screen-three-button").removeClass('disabled btn-default');
       return $("#screen-three-button").addClass('btn-primary');
@@ -2150,13 +2150,13 @@ define(['marionette'], function(Marionette) {
         track = 1;
       }
       if (track === 1 && model.get('status') === 9 && model.get('unitType') !== 14 && model.get('unitType') !== 16) {
-        $('#check' + model.get("id")).addClass('boxLong filtered');
+        $('#unitcheck' + model.get("id")).addClass('boxLong filtered');
         return $('#flag' + model.get("id")).val('1');
       } else if (track === 1 && model.get('status') === 8 && model.get('unitType') !== 14 && model.get('unitType') !== 16) {
-        return $('#check' + model.get("id")).addClass('boxLong sold');
+        return $('#unitcheck' + model.get("id")).addClass('boxLong sold');
       } else {
-        $('#check' + model.get("id")).addClass('boxLong other');
-        return $('#check' + model.get("id")).text(model.get('unitTypeName'));
+        $('#unitcheck' + model.get("id")).addClass('boxLong other');
+        return $('#unitcheck' + model.get("id")).text(model.get('unitTypeName'));
       }
     };
 
@@ -2408,7 +2408,7 @@ define(['marionette'], function(Marionette) {
     unitChildView.prototype.className = 'check';
 
     unitChildView.prototype.initialize = function() {
-      return this.$el.prop("id", 'check' + this.model.get("id"));
+      return this.$el.prop("id", 'unitcheck' + this.model.get("id"));
     };
 
     unitChildView.prototype.events = {
@@ -2488,7 +2488,7 @@ define(['marionette'], function(Marionette) {
               $("#select" + this.model.get('id')).val('1');
             } else {
               $("#select" + element).val('0');
-              $('#check' + element).removeClass('selected');
+              $('#unitcheck' + element).removeClass('selected');
               if (unitModel.get('status') === 9) {
                 $("#" + element).attr('class', 'unit-hover aviable ');
               } else if (unitModel.get('status') === 8) {
@@ -2499,7 +2499,7 @@ define(['marionette'], function(Marionette) {
           }
           if (parseInt($("#select" + this.model.get('id')).val()) === 0) {
             rangeunitArray.push(this.model.get('id'));
-            $('#check' + this.model.get("id")).addClass("selected");
+            $('#unitcheck' + this.model.get("id")).addClass("selected");
             $("#select" + this.model.get('id')).val("1");
             $.map(indexvalue, function(index, value) {
               var floorArr;
@@ -2555,7 +2555,7 @@ define(['marionette'], function(Marionette) {
             App.unit['name'] = "";
             rangeunitArray = [];
             $("#select" + this.model.get('id')).val("0");
-            $('#check' + this.model.get('id')).removeClass('selected');
+            $('#unitcheck' + this.model.get('id')).removeClass('selected');
             if (unitModel.get('status') === 9) {
               $("#" + this.model.get("id")).attr('class', 'unit-hover aviable ');
             } else if (unitModel.get('status') === 8) {
@@ -2684,13 +2684,13 @@ define(['marionette'], function(Marionette) {
         track = 1;
       }
       if (track === 1 && this.model.get('status') === 9 && this.model.get('unitType') !== 14 && this.model.get('unitType') !== 16) {
-        $('#check' + this.model.get("id")).addClass('boxLong filtered');
+        $('#unitcheck' + this.model.get("id")).addClass('boxLong filtered');
         return $('#flag' + this.model.get("id")).val('1');
       } else if (track === 1 && this.model.get('status') === 8 && this.model.get('unitType') !== 14 && this.model.get('unitType') !== 16) {
-        return $('#check' + this.model.get("id")).addClass('boxLong sold');
+        return $('#unitcheck' + this.model.get("id")).addClass('boxLong sold');
       } else {
-        $('#check' + this.model.get("id")).addClass('boxLong other');
-        return $('#check' + this.model.get("id")).text(this.model.get('unitTypeName'));
+        $('#unitcheck' + this.model.get("id")).addClass('boxLong other');
+        return $('#unitcheck' + this.model.get("id")).text(this.model.get('unitTypeName'));
       }
     };
 
